@@ -11,10 +11,10 @@ Validar usuario
 personal:
 administrar personal (registrar datos,modificar,eliminar)
 asignar personal (asignar tarear,inactivar tareas,modificar tareas,Tratar personal)
-buscarpersonal
+buscar personal
 administraciond e turnos de personal(toma asistencia)
 generar reporte de personal
-administrar horario de perosnal (asignar)
+administrar horario de personal (asignar)
 
 Control
 
