@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" measuredW="1612" measuredH="436" mockupW="1247" mockupH="389">
+<mockup version="1.0" skin="sketch" measuredW="982" measuredH="436" mockupW="617" mockupH="389">
   <controls>
     <control controlID="9" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="365" y="47" w="617" h="389" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -12,12 +12,6 @@
         <icon>GtCircledIcon%7Csmall</icon>
         <size>10</size>
         <text>Logout</text>
-      </controlProperties>
-    </control>
-    <control controlID="14" controlTypeID="com.balsamiq.mockups::MenuBar" x="1025" y="361" w="-1" h="-1" measuredW="404" measuredH="29" zOrder="7" locked="false" isInGroup="-1">
-      <controlProperties>
-        <selectedIndex>0</selectedIndex>
-        <text>Principal%2C%20Administracion%2C%20Servicios%2C%20Compras%2C%20Ventas</text>
       </controlProperties>
     </control>
     <control controlID="16" controlTypeID="com.balsamiq.mockups::Image" x="386" y="136" w="108" h="55" measuredW="819" measuredH="415" zOrder="2" locked="false" isInGroup="-1">
@@ -44,19 +38,13 @@
         <text>Register</text>
       </controlProperties>
     </control>
-    <control controlID="20" controlTypeID="com.balsamiq.mockups::VerticalTabBar" x="1025" y="106" w="587" h="199" measuredW="200" measuredH="199" zOrder="5" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Principal%0AAdministracion%0AServicios%0ACompras%0AVentas</text>
-        <verticalScrollbar>true</verticalScrollbar>
-      </controlProperties>
-    </control>
-    <control controlID="23" controlTypeID="com.balsamiq.mockups::LinkBar" x="583" y="195" w="-1" h="-1" measuredW="368" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::LinkBar" x="583" y="195" w="-1" h="-1" measuredW="368" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
       <controlProperties>
         <selectedIndex>0</selectedIndex>
         <text>Principal%2C%20Administracion%2C%20Servicios%2C%20Compras%2C%20Ventas</text>
       </controlProperties>
     </control>
-    <control controlID="25" controlTypeID="com.balsamiq.mockups::Title" x="539" y="126" w="-1" h="-1" measuredW="256" measuredH="50" zOrder="8" locked="false" isInGroup="-1">
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::Title" x="539" y="126" w="-1" h="-1" measuredW="256" measuredH="50" zOrder="6" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Stardust%20Hotel</text>
       </controlProperties>
