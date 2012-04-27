@@ -1,0 +1,7 @@
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\bin\Prueba.dll
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\bin\Prueba.pdb
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\bin\EntityFramework.dll
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\bin\EntityFramework.xml
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\obj\Debug\Prueba.dll
+c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\obj\Debug\Prueba.pdb
