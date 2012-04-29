@@ -5,3 +5,10 @@ c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\
 c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
 c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\obj\Debug\Prueba.dll
 c:\documents and settings\wpq\mis documentos\visual studio 2010\Projects\Prueba\Prueba\obj\Debug\Prueba.pdb
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\bin\Prueba.dll
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\bin\Prueba.pdb
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\bin\EntityFramework.dll
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\bin\EntityFramework.xml
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\obj\Debug\Prueba.dll
+C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\obj\Debug\Prueba.pdb
