@@ -12,3 +12,10 @@ C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\bin\EntityFramewor
 C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\obj\Debug\Prueba.dll
 C:\Documents and Settings\WPQ\Escritorio\SW_REP\Prueba\Prueba\obj\Debug\Prueba.pdb
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\bin\Prueba.dll
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\bin\Prueba.pdb
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\bin\EntityFramework.dll
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\bin\EntityFramework.xml
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\obj\Debug\Prueba.dll
+C:\Users\WalteR\Desktop\SW\Prueba\Prueba\obj\Debug\Prueba.pdb
