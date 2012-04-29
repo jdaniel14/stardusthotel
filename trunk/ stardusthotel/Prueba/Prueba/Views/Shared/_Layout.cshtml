@@ -67,7 +67,7 @@
 <body>
 
     <div id="leftSide">
-        <div class="logo"><a href="index.html"><img src="@Url.Content("~/Content/images/logo.png")" alt="" /></a></div>
+        <div class="logo"><a href="#"><img src="@Url.Content("~/Content/images/logo.png")" alt="" /></a></div>
     
         <div class="sidebarSep mt0"></div>
     
@@ -79,40 +79,34 @@
     
         <div class="sidebarSep"></div>
 
-        <!-- General balance widget -->
-        <div class="genBalance">
-            <a href="#" title="" class="amount">
-                <span>General balance:</span>
-                <span class="balanceAmount">$10,900.36</span>
-            </a>
-            <a href="#" title="" class="amChanges">
-                <strong class="sPositive">+0.6%</strong>
-            </a>
-        </div>
-    
-        <!-- Next update progress widget -->
-        <div class="nextUpdate">
-            <ul>
-                <li>Next update in:</li>
-                <li>23 hrs 14 min</li>
-            </ul>
-            <div class="pWrapper"><div class="progressG" title="78%"></div></div>
-        </div>
-    
-        <div class="sidebarSep"></div>
-    
         <!-- Left navigation -->
         <ul id="menu" class="nav">
-            <li class="dash"><a href="index.html" title="" class="active"><span>Dashboard</span></a></li>
-            <li class="charts"><a href="charts.html" title=""><span>Statistics and charts</span></a></li>
-            <li class="forms"><a href="#" title="" class="exp"><span>Forms stuff</span><strong>4</strong></a>
+            <li class="dash"><a href="#" title="" class="exp"><span>Hotel</span><strong>2</strong></a>
                 <ul class="sub">
-                    <li><a href="forms.html" title="">Form elements</a></li>
-                    <li><a href="form_validation.html" title="">Validation</a></li>
-                    <li><a href="form_editor.html" title="">WYSIWYG and file uploader</a></li>
-                    <li class="last"><a href="form_wizards.html" title="">Wizards</a></li>
+                    <li><a href="#" title="">Registrar hotel</a></li>
+                    <li><a href="#" title="">Registrar habitación</a></li>
                 </ul>
             </li>
+
+            <li class="ui"><a href="#" title="" class="exp"><span>Personal</span><strong>3</strong></a>
+                <ul class="sub">
+                    <li><a href="#" title="">Registrar personal</a></li>
+                    <li><a href="#" title="">Asignar horario</a></li>
+                    <li><a href="#" title="">Pasar asistencia</a></li>
+                </ul>
+            </li>
+
+            @*<div class="sidebarSep"></div>*@
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Reserva</span><strong>3</strong></a>
+                <ul class="sub">
+                    <li><a href="#" title="">Realizar reserva</a></li>
+                    <li><a href="#" title="">Cancelar reserva</a></li>
+                    <li><a href="#" title="">..</a></li>
+                </ul>
+            </li>
+
+            @*
             <li class="ui"><a href="ui_elements.html" title=""><span>Interface elements</span></a></li>
             <li class="tables"><a href="tables.html" title="" class="exp"><span>Tables</span><strong>3</strong></a>
                 <ul class="sub">
@@ -145,6 +139,7 @@
                     <li class="last"><a href="gallery.html" title="">Gallery</a></li>
                 </ul>
             </li>
+            *@
         </ul>
     </div>
 
@@ -158,17 +153,7 @@
                 <div class="userNav">
                     <ul>
                         <li><a href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/profile.png" )" alt="" /><span>Profile</span></a></li>
-                        <li><a href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/tasks.png" )" alt="" /><span>Tasks</span></a></li>
-                        <li class="dd"><a title=""><img src="@Url.Content("~/Content/images/icons/topnav/messages.png" )" alt="" /><span>Messages</span><span class="numberTop">8</span></a>
-                            <ul class="userDropdown">
-                                <li><a href="#" title="" class="sAdd">new message</a></li>
-                                <li><a href="#" title="" class="sInbox">inbox</a></li>
-                                <li><a href="#" title="" class="sOutbox">outbox</a></li>
-                                <li><a href="#" title="" class="sTrash">trash</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/settings.png" )" alt="" /><span>Settings</span></a></li>
-                        <li><a href="login.html" title=""><img src="@Url.Content("~/Content/images/icons/topnav/logout.png" )" alt="" /><span>Logout</span></a></li>
+                        <li><a href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/logout.png" )" alt="" /><span>Logout</span></a></li>
                     </ul>
                 </div>
                 <div class="clear"></div>
