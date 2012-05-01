@@ -2,4 +2,70 @@
     ViewBag.Title = "Producto";
 }
 
-<h2>Producto</h2>
+<form id="validate" class="form" action="" method="post">
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Registrar Producto</h6>
+            </div>
+            <div class="formRow">
+                <label>Categoria:</label>
+                <div class="formRight">
+                    <select name="select2">
+                        <option value="opt1">Categoria 1</option>
+                        <option value="opt2">Categoria 2</option>
+                        <option value="opt3">Categoria 3</option>
+                        <option value="opt4">Categoria 4</option>
+                    </select>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">
+                <label>
+                    Producto:
+                    <span class="req">*</span>
+                </label>
+                <div class="formRight">
+                    <input id="lettersValid" class="validate[required,custom[onlyLetterSp]]" type="text" name="lettersValid" value="this is an invalid char '.'">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">
+                <label>
+                    Descripción:
+                    <span class="req" >*</span>
+                </label>
+                <div class="formRight" >
+                    <textarea id="textareaValid" class="validate[required]" name="textarea" cols="" rows="8"></textarea>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">
+                <label>
+                    Stock Mínimo:
+                    <span class="req">*</span>
+                </label>
+                <div class="formRight">
+                    <input id="numsValid1" class="validate[required,custom[onlyNumberSp]]" type="text" name="numsValid" value="10">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">
+                <label>
+                    Stock Máximo:
+                    <span class="req">*</span>
+                </label>
+                <div class="formRight">
+                    <input id="numsValid2" class="validate[required,custom[onlyNumberSp]]" type="text" name="numsValid2" value="10">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formSubmit">
+                <input class="redB" type="reset" value="Cancelar">
+            </div>
+            <div class="formSubmit">
+                <input class="redB" type="submit" value="Registrar">
+            </div>
+        </div>
+    </fieldset>
+</form>
