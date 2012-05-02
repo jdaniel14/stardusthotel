@@ -11,7 +11,7 @@ namespace Prueba.Controllers
     {
         //
         // GET: /Usuario/
-        PruebaDB _db = new PruebaDB();
+        CadenaHotelDB _db = new CadenaHotelDB();
 
         public ActionResult Index()
         {

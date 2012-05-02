@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Prueba.Models
 {
-    public class PruebaDB : DbContext
+    public class CadenaHotelDB : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
     }
