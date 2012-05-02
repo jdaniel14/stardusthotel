@@ -26,3 +26,10 @@ C:\Users\Daiana\Desktop\SW\Prueba\Prueba\bin\EntityFramework.xml
 C:\Users\Daiana\Desktop\SW\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Daiana\Desktop\SW\Prueba\Prueba\obj\Debug\Prueba.dll
 C:\Users\Daiana\Desktop\SW\Prueba\Prueba\obj\Debug\Prueba.pdb
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\bin\Prueba.dll
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\bin\Prueba.pdb
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\bin\EntityFramework.dll
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\bin\EntityFramework.xml
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\obj\Debug\Prueba.dll
+C:\Users\DJ\Desktop\SW\ stardusthotel\Prueba\Prueba\obj\Debug\Prueba.pdb
