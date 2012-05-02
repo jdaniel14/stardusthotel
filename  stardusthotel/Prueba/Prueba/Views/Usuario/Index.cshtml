@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Prueba.Models.Usuario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Enunciado</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div class = "widget" >
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Usuarios activos</h6></div>
+    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<label>GG!!</label>
