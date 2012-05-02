@@ -10,6 +10,7 @@ namespace Prueba.Models
     public class CadenaHotelDB : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Producto> Productos { get; set; }
+       // public DbSet<Producto> Productos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
     }
 }
