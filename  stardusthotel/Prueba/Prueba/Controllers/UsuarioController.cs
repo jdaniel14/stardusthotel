@@ -60,5 +60,28 @@ namespace Prueba.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Edit( int ID ) {
+            var model = db.Usuarios.Single(r => r.ID == ID);
+            return View( model );
+        }
+
+        [HttpPost]
+        public ActionResult Edit( int ID , Usuario cambio ) {
+            try
+            {
+                var model = db.Usuarios.Single(r => r.ID == ID);
+                string q = "Update Usuarios Set Nombre = '" + cambio.Nombre + "' , Apellido = '" + cambio.Apellido + "' where ID = " + ID;
+                db.Database.ExecuteSqlCommand(q);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ViewBag.Errores = "OCURRIO UN ERROR";
+                return View();
+            }
+        }
+
     }
 }

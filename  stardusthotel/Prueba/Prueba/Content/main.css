@@ -1016,6 +1016,7 @@ table thead td.headerSortDown span { background: url(images/icons/sortDown.png) 
 .formRow .labelImg { float: left; margin: 2px 10px 0 0; }
 .formRow > label { padding: 4px 0; display: block; float: left; }
 .formRight label { float: left; margin-right: 24px; padding: 2px 0; cursor: pointer; }
+.editor-field label { float: left; margin-right: 24px; padding: 2px 0; cursor: pointer; }
 .formNote { display: block; text-align: left; font-size: 11px; padding-top: 5px; color: #939393; }
 
 .req { float: right; margin-left: 5px; display: block; color: #DB6464; }
@@ -1027,6 +1028,7 @@ table thead td.headerSortDown span { background: url(images/icons/sortDown.png) 
 
 .formRow .checker, .formRow .radio { margin-right: 12px; margin-top: 4px; }
 .formRow .formRight { display: block; float: right; width: 80%; margin-right: 18px; }
+.formRow .editor-field { display: block; float: right; width: 80%; margin-right: 18px; }
 
 .form input[type=text], .form input[type=password], .form textarea { font-size: 11px; padding: 7px 6px; background: white; border: 1px solid #DDD; width: 100%; font-family: Arial, Helvetica, sans-serif; box-shadow: 0 0 0 2px #f4f4f4; -webkit-box-shadow: 0 0 0 2px #f4f4f4; -moz-box-shadow: 0 0 0 2px #f4f4f4; color: #656565; } 
 .form input[type=text]:hover, .form input[type=password]:hover, .form textarea:hover { border-color: #d5d9dc; background: #fdfdfd; }
@@ -1526,6 +1528,7 @@ color: #656565;
 	.twoOne { width: 65.5%; }
 	.oneFour { width: 22%; margin-left: 4%; }
 	.formRow .formRight { width: 72%; }
+	.formRow .editor-field { width: 72%; }
 	/*.chzn-container { width: 80%!important; }*/
 	.SRC_NumBox { width: 10%; }
 	.SRC_CodeBox { width: 90%; }
@@ -1560,6 +1563,7 @@ color: #656565;
 	table thead td span { background-position: 100%; }
 	.formRow { padding: 14px 14px 18px 14px; }
 	.formRow .formRight { width: 100%; float: none; margin-right: 14px; }
+	.formRow .editor-field { width: 100%; float: none; margin-right: 14px; }
 	.form input[type="text"], .form input[type="password"], .form textarea { width: 97%; }
 	.formRow .inputImg { top: auto; bottom: 26px; }
 	.formRow > label { float: none; padding: 0 0 12px 0; }
@@ -1727,6 +1731,7 @@ color: #656565;
 	.pageTitle > h5 { font-size: 18px; margin-bottom: 4px; }
 	.pageTitle { float: none; padding: 0 0 22px 0; }
 	.formRow .formRight { width: 100%; float: none; margin-right: 14px; }
+	.formRow .editor-field { width: 100%; float: none; margin-right: 14px; }
 	.formRow .inputImg { top: auto; bottom: 26px; }
 	.formRow > label { float: none; padding: 0 0 12px 0; }
 	.req { float: none; margin-left: 0; display: inline; }
