@@ -11,11 +11,14 @@ namespace Prueba.Controllers
     {
         //
         // GET: /Usuario/
-        CadenaHotelDB db = new CadenaHotelDB();
+        PruebaDB _db = new PruebaDB();
 
         public ActionResult Index()
         {
-            return View();
+            var model = _db.Usuarios;
+            ViewBag.Enunciado = "Index";
+            
+            return View( model );
         }
 
     }
