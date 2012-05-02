@@ -15,8 +15,9 @@ namespace Prueba.Controllers
 
         public ActionResult Producto()
         {
-            var model = db.Productos;
-            return View( model );
+            
+            var model = db.Categorias;
+            return View( model);
         }
 
         public ActionResult Control()
