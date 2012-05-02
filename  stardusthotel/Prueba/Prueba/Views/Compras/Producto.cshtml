@@ -1,6 +1,9 @@
-﻿@{
+﻿@model IEnumerable<Prueba.Models.Categoria>
+
+@{
     ViewBag.Title = "Producto";
 }
+
 
 <form id="validate" class="form" action="" method="post">
     <fieldset>
@@ -12,10 +15,14 @@
                 <label>Categoria:</label>
                 <div class="formRight searchDrop">
                     <select name="select2" class="chzn-select" style="width:350px;" tabindex="2" >
-                        <option value="opt1">Categoria 1</option>
-                        <option value="opt2">Categoria 2</option>
-                        <option value="opt3">Categoria 3</option>
-                        <option value="opt4">Categoria 4</option>
+                   @foreach (var item in Model)
+                    {
+                       
+                        <option value="opt1">
+                            @item.nombre
+                        </option>
+                        
+                    }
                     </select>
                 </div>
                 <div class="clear"></div>
