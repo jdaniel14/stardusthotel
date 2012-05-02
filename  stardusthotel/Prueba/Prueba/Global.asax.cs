@@ -27,7 +27,7 @@ namespace Prueba
                 new { controller = "Compras" , action = "Producto", id = UrlParameter.Optional }
                 );
 
-            routes.MapRoute(
+            /*routes.MapRoute(
                 "Compras",
                 "Compras/{action}",
                 new { controller = "Compras", action = "Control", id = UrlParameter.Optional }
@@ -38,7 +38,7 @@ namespace Prueba
                 "Compras/{action}",
                 new { controller = "Compras", action = "OrdenCompra", id = UrlParameter.Optional }
                 );
-
+            */
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
