@@ -11,22 +11,78 @@ namespace Stardust.Controllers
 {
     public class ProveedorController : Controller
     {
-        private CadenaHotelDB db = new CadenaHotelDB();       
+        private CadenaHotelDB db = new CadenaHotelDB();
+
+        public ViewResult Index()
+        {
+            return View(db.Proveedores.ToList());
+        }
+
+        public ViewResult Details(int id)
+        {
+            Usuario usuario = db.Proveedores.Find(id);
+            return View(proveedor);
+        }
+
+        public ActionResult Create()
+        {
+            return View();
+        }
         
-        
-        public ActionResult Registrar(Proveedor proveedor)
+        [HttpPost]
+        public ActionResult Create(Proveedor proveedor)
         {
             if (ModelState.IsValid)
             {
-                int X;
+                int X = db.Proveedores.Max(r => r.ID);
+                string q = "Insert into Proveedores values ( " + (X + 1) + " , '" + proveedor.Razon_Social + "' , '" + proveedor.RUC + "' , '" + proveedor.Categoria + "' ,  '" + proveedor.Direccion + "' , '" + proveedor.Telefono + "' , '" + proveedor.Pagina_Web + "' , '" + proveedor.Contacto + "' , '" + proveedor.Cargo + "' , '" + proveedor.Correo + "' , '" + proveedor.Observaciones + "')";
+                db.Database.ExecuteSqlCommand(q);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
             }
-            return View();
+            return View(proveedor);
         }
 
-        public ActionResult Control()
+        public ActionResult Edit(int id)
         {
-            return View();
+            Proveedor proveedor = db.Proveedores.Find(id);
+            return View(proveedor);
         }
+
+        [HttpPost]
+        public ActionResult Edit(Proveedor proveedor)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(proveedor).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(proveedor);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            Proveedor proveedor = db.Proveedores.Find(id);
+            return View(proveedor);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Proveedor proveedor = db.Proveedores.Find(id);
+            db.Proveedores.Remove(proveedor);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+
 
     }
 }
