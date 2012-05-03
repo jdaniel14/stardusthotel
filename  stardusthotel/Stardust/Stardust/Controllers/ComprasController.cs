@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Prueba.Controllers
+namespace Stardust.Controllers
 {
     public class ComprasController : Controller
     {
