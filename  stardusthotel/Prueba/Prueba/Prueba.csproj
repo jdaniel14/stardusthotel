@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
+    <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -1440,6 +1441,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Content\images\backgrounds\Thumbs.db" />
     <None Include="Content\images\colorPicker\Thumbs.db" />
     <None Include="Content\images\fileManager\Thumbs.db" />
