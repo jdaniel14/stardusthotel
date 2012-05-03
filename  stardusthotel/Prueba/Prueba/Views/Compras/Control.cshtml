@@ -1,27 +1,44 @@
-﻿@model IEnumerable< Prueba.Models.Producto>
+﻿@model IEnumerable< Prueba.Models.Categoria>
 
+@{
+    ViewBag.Title = "Control";
+}
 
-
-<h2>Control2</h2>
+<h2>Control</h2>
 <form id="validate" class="form" action="" method="post">
     <fieldset>
         <div class="widget">
             <div class="title">
-                <h6>Buscar Producto</h6>
+                <h6>Buscar Productos</h6>
             </div>
             <div class="formRow">
-                <label>Categoria:</label>
+                <label>Nombre:</label>
                 <div class="formRight">
-                    <select name="select2">
-                        <option value="opt1">Nombre</option>
-                        <option value="opt2">Categoria de Producto</option>
-                    </select>
+                    
+                    <input id="nombreproducto" class="validate[required,custom[onlyLetterSp]]" type="text" name="lettersValid" value="">
                 </div>
                 <div class="clear"></div>
             </div>
+            @*<div class="formRow">
+                 <label>Categoria:</label>
+                <div class="formRight searchDrop">
+                    <select id="categoria" name="select2" class="chzn-select" style="width:350px;" tabindex="2" >
+                   @foreach (var item2 in Model)
+                    {
+                        <option value="opt1">
+                            @item2.nombre
+                        </option>
+                        
+                    }
+                    </select>
+                </div>
+                
+            </div>*@
         </div>
-        <div class="formSubmit">
+
+        
+    </fieldset>
+    <div class="formSubmit">
                 <input class="redB" type="submit" value="Buscar">
             </div>
-    </fieldset>
 </form>

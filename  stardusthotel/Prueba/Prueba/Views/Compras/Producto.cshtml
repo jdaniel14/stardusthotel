@@ -14,11 +14,11 @@
             <div class="formRow">
                 <label>Categoria:</label>
                 <div class="formRight searchDrop">
-                    <select name="select2" class="chzn-select" style="width:350px;" tabindex="2" >
+                    <select id="categoria" name="select2" class="chzn-select" style="width:350px;" tabindex="2" >
                    @foreach (var item in Model)
                     {
                        
-                        <option value="opt1">
+                        <option value="opt1" >
                             @item.nombre
                         </option>
                         
