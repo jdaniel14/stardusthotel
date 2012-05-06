@@ -1,0 +1,33 @@
+﻿@model Stardust.Models.Usuario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Usuario</legend>
+
+    <div class="display-label">nombres</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nombres)
+    </div>
+
+    <div class="display-label">apPat</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apPat)
+    </div>
+
+    <div class="display-label">apMat</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.apMat)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
