@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -18,7 +18,8 @@ namespace Stardust.Controllers
 
         public ViewResult Index()
         {
-            return View(db.Usuarios.ToList());
+            var model = db.Usuarios;
+            return View( model );
         }
 
         //
@@ -44,19 +45,34 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(Usuario usuario)
         {
-            if (ModelState.IsValid)
+            try
             {
                 //db.Usuarios.Add(usuario);
-                //db.SaveChanges();
-                int X = db.Usuarios.Max(r => r.ID);
-                string q = "Insert into Usuarios values ( " + (X + 1) + " , '" + usuario.Nombre + "' , '" + usuario.Apellido + "' , " + usuario.Tipo + ")";
-                db.Database.ExecuteSqlCommand(q);
+                string sql = "Insert into Usuarios ( nombres , user_1 , pass , apPat , apMat , dni , pasaporte , direccion , email , ruc , telefono , celular , razonSocial , estado , ID ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} , {9} , {10} , {11} , {12} , {13} , {14} )";
+                db.Database.ExecuteSqlCommand(sql, usuario.nombres,
+                                                     usuario.user_1,
+                                                     usuario.pass,
+                                                     usuario.apPat,
+                                                     usuario.apMat,
+                                                     usuario.dni,
+                                                     usuario.pasaporte,
+                                                     usuario.direccion,
+                                                     usuario.email,
+                                                     usuario.ruc,
+                                                     usuario.telefono,
+                                                     usuario.celular,
+                                                     usuario.razonSocial,
+                                                     usuario.estado ,
+                                                     db.Usuarios.Max( r => r.ID ) + 1
+                                             );
                 db.SaveChanges();
-
                 return RedirectToAction("Index");
             }
-
-            return View(usuario);
+            catch( Exception e )
+            {
+                ViewBag.lol = e.Message ;
+                return View(usuario);
+            }
         }
         
         //
