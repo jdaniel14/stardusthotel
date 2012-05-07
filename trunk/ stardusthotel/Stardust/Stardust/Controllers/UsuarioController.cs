@@ -49,6 +49,13 @@ namespace Stardust.Controllers
             {
                 //db.Usuarios.Add(usuario);
                 string sql = "Insert into Usuarios ( nombres , user_1 , pass , apPat , apMat , dni , pasaporte , direccion , email , ruc , telefono , celular , razonSocial , estado , ID ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} , {9} , {10} , {11} , {12} , {13} , {14} )";
+                int N = db.Usuarios.Count(r => r.nombres != "");
+
+                int nId;
+
+                if (N == 0) nId = 0;
+                else nId = db.Usuarios.Max(r => r.ID) + 1 ;
+
                 db.Database.ExecuteSqlCommand(sql, usuario.nombres,
                                                      usuario.user_1,
                                                      usuario.pass,
@@ -63,7 +70,7 @@ namespace Stardust.Controllers
                                                      usuario.celular,
                                                      usuario.razonSocial,
                                                      usuario.estado ,
-                                                     db.Usuarios.Max( r => r.ID ) + 1
+                                                     nId
                                              );
                 db.SaveChanges();
                 return RedirectToAction("Index");
