@@ -13,107 +13,92 @@
 
 
 @using (Html.BeginForm( "Edit" , "Usuario" , FormMethod.Post , new { @class = "form" } ) ){
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
             <div class = "title"><h6>Modificar Usuario</h6></div>
-            @*<legend>Usuario</legend>*@
 
             <div class="formRow">
                 @Html.LabelFor(model => model.user_1)
                 <div class = "formRight" >@Html.EditorFor(model => model.user_1)</div>
-                @Html.ValidationMessageFor(model => model.user_1)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.pass)
                 <div class = "formRight" >@Html.EditorFor(model => model.pass )</div>
-                @Html.ValidationMessageFor(model => model.pass)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.nombres)
                 <div class = "formRight" >@Html.EditorFor(model => model.nombres)</div>
-                @Html.ValidationMessageFor(model => model.nombres)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.apPat)
                 <div class = "formRight" >@Html.EditorFor(model => model.apPat)</div>
-                @Html.ValidationMessageFor(model => model.apPat)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.apMat)
                 <div class = "formRight" >@Html.EditorFor(model => model.apMat)</div>
-                @Html.ValidationMessageFor(model => model.apMat)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.dni)
                 <div class = "formRight" >@Html.EditorFor(model => model.dni)</div>
-                @Html.ValidationMessageFor(model => model.dni)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.pasaporte)
                 <div class = "formRight" >@Html.EditorFor(model => model.pasaporte)</div>
-                @Html.ValidationMessageFor(model => model.pasaporte)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.direccion)
                 <div class = "formRight" >@Html.EditorFor(model => model.direccion)</div>
-                @Html.ValidationMessageFor(model => model.direccion)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.email)
                 <div class = "formRight" >@Html.EditorFor(model => model.email)</div>
-                @Html.ValidationMessageFor(model => model.email)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.ruc)
                 <div class = "formRight" >@Html.EditorFor(model => model.ruc)</div>
-                @Html.ValidationMessageFor(model => model.ruc)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.telefono)
                 <div class = "formRight" >@Html.EditorFor(model => model.telefono)</div>
-                @Html.ValidationMessageFor(model => model.telefono)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.celular)
                 <div class = "formRight" >@Html.EditorFor(model => model.celular)</div>
-                @Html.ValidationMessageFor(model => model.celular)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.razonSocial)
                 <div class = "formRight" >@Html.EditorFor(model => model.razonSocial)</div>
-                @Html.ValidationMessageFor(model => model.razonSocial)
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.estado)
                 <div class = "formRight" >@Html.EditorFor(model => model.estado)</div>
-                @Html.ValidationMessageFor(model => model.estado)
                 <div class = "clear" ></div>
             </div>
             
