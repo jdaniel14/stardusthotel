@@ -20,5 +20,16 @@ namespace Stardust.Controllers
         {
             return View();
         }
+
+        public ActionResult Buscar() {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Buscar(string nombre) {
+
+            ViewData["nombre"]=nombre;
+            return View();
+        }
     }
 }
