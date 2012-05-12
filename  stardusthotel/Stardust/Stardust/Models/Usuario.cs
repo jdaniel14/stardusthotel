@@ -11,9 +11,11 @@ namespace Stardust.Models
         public int ID { get; set; }
 
         [Display( Name = "User" )]
+        [Required]
         public string user_1 { get; set; }
 
         [Display(Name = "Password")]
+        [Required]
         public string pass { get; set; }
 
         [Display(Name = "Nombre")]
