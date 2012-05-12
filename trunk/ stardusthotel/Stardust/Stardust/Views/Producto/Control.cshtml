@@ -1,25 +1,33 @@
-﻿@{
-    ViewBag.Title = "Control";
+﻿@model Stardust.Models.Producto
+@{
+    ViewBag.Title = "Buscar Producto";
 }
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
+@ViewBag.lol
 
-<form id="validate" class="form" action="" method="post">
+@*<form id="validate" class="form" action="" method="post">*@
+
+@using (@Html.BeginForm("Buscar", "Producto", FormMethod.Post))
+
+{
+    
+    
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Buscar Producto</h6>
             </div>
-            <div class="formRow">
-                <label> Nombre: </label>
-                <div class="formRight">
-                    <input id="nombre" class="" type="text" name="nombre" value="">
-                </div>
+            <div class="formRow"> @Html.LabelFor(model=> model.Nombre)
+                <div class="formRight"> @Html.EditorFor(model => model.Nombre) </div>
                 <div class="clear"></div>
             </div>
+
         </div>
         <div class="formSubmit">
-                <input class="redB" type="submit" value="Buscar">
-            </div>
+                <input class="redB" type="submit" value="Buscar"/>
+        </div>
     </fieldset>
-</form>
-
+}
+@*</form>*@
