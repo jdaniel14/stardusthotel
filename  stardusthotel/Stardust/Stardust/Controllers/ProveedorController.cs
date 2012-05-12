@@ -13,36 +13,41 @@ namespace Stardust.Controllers
     {
         private CadenaHotelDB db = new CadenaHotelDB();
 
-        public ViewResult Index()
+        public ActionResult Index()
         {
-            return View(db.Proveedores.ToList());
+            return View();
+            //return View(db.Proveedores.ToList());
         }
 
-        public ViewResult Details(int id)
+        public ActionResult Control()
         {
-            Usuario usuario = db.Proveedores.Find(id);
-            return View(proveedor);
+            return View();
         }
+        //public ViewResult Details(int id)
+        //{
+        //    Usuario usuario = db.Proveedores.Find(id);
+        //    return View(proveedor);
+        //}
 
         public ActionResult Create()
         {
             return View();
         }
         
-        [HttpPost]
-        public ActionResult Create(Proveedor proveedor)
-        {
-            if (ModelState.IsValid)
-            {
-                int X = db.Proveedores.Max(r => r.ID);
-                string q = "Insert into Proveedores values ( " + (X + 1) + " , '" + proveedor.Razon_Social + "' , '" + proveedor.RUC + "' , '" + proveedor.Categoria + "' ,  '" + proveedor.Direccion + "' , '" + proveedor.Telefono + "' , '" + proveedor.Pagina_Web + "' , '" + proveedor.Contacto + "' , '" + proveedor.Cargo + "' , '" + proveedor.Correo + "' , '" + proveedor.Observaciones + "')";
-                db.Database.ExecuteSqlCommand(q);
-                db.SaveChanges();
+        //[HttpPost]
+        //public ActionResult Create(Proveedor proveedor)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        int X = db.Proveedores.Max(r => r.ID);
+        //        string q = "Insert into Proveedores values ( " + (X + 1) + " , '" + proveedor.Razon_Social + "' , '" + proveedor.RUC + "' , '" + proveedor.Categoria + "' ,  '" + proveedor.Direccion + "' , '" + proveedor.Telefono + "' , '" + proveedor.Pagina_Web + "' , '" + proveedor.Contacto + "' , '" + proveedor.Cargo + "' , '" + proveedor.Correo + "' , '" + proveedor.Observaciones + "')";
+        //        db.Database.ExecuteSqlCommand(q);
+        //        db.SaveChanges();
 
-                return RedirectToAction("Index");
-            }
-            return View(proveedor);
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(proveedor);
+        //}
 
         public ActionResult Edit(int id)
         {
@@ -50,17 +55,17 @@ namespace Stardust.Controllers
             return View(proveedor);
         }
 
-        [HttpPost]
-        public ActionResult Edit(Proveedor proveedor)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(proveedor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(proveedor);
-        }
+        //[HttpPost]
+        //public ActionResult Edit(Proveedor proveedor)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(proveedor).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(proveedor);
+        //}
 
         public ActionResult Delete(int id)
         {
@@ -68,14 +73,14 @@ namespace Stardust.Controllers
             return View(proveedor);
         }
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Proveedor proveedor = db.Proveedores.Find(id);
-            db.Proveedores.Remove(proveedor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Proveedor proveedor = db.Proveedores.Find(id);
+        //    db.Proveedores.Remove(proveedor);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
