@@ -13,41 +13,58 @@ namespace Stardust.Controllers
     {
         private CadenaHotelDB db = new CadenaHotelDB();
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
-            //return View(db.Proveedores.ToList());
+            var model = db.Proveedores;
+            return View(model);
         }
-
-        public ActionResult Control()
+                
+        public ViewResult Details(int id)
         {
-            return View();
+            Proveedor proveedor = db.Proveedores.Find(id);
+            return View(proveedor);
         }
-        //public ViewResult Details(int id)
-        //{
-        //    Usuario usuario = db.Proveedores.Find(id);
-        //    return View(proveedor);
-        //}
 
         public ActionResult Create()
         {
             return View();
         }
-        
-        //[HttpPost]
-        //public ActionResult Create(Proveedor proveedor)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        int X = db.Proveedores.Max(r => r.ID);
-        //        string q = "Insert into Proveedores values ( " + (X + 1) + " , '" + proveedor.Razon_Social + "' , '" + proveedor.RUC + "' , '" + proveedor.Categoria + "' ,  '" + proveedor.Direccion + "' , '" + proveedor.Telefono + "' , '" + proveedor.Pagina_Web + "' , '" + proveedor.Contacto + "' , '" + proveedor.Cargo + "' , '" + proveedor.Correo + "' , '" + proveedor.Observaciones + "')";
-        //        db.Database.ExecuteSqlCommand(q);
-        //        db.SaveChanges();
 
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(proveedor);
-        //}
+        [HttpPost]
+        public ActionResult Create(Proveedor proveedor)
+        {
+            try
+            {
+                //db.Proveedores.Add(proveedor);
+                string sql = "Insert into proveedores (Razon_Social, RUC, Categoria, Direccion, Telefono, Pagina_Web , Contacto, Cargo, Correo, Observaciones, ID ) values ( {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})";
+                int N = db.Proveedores.Count(r => r.Razon_Social != "");
+
+                int nId;
+
+                if (N == 0) nId = 0;
+                else nId = db.Proveedores.Max(r => r.ID) + 1;
+
+                db.Database.ExecuteSqlCommand(sql, proveedor.Razon_Social,
+                                                   proveedor.RUC,
+                                                   proveedor.Categoria,
+                                                   proveedor.Direccion,
+                                                   proveedor.Telefono,
+                                                   proveedor.Pagina_Web,
+                                                   proveedor.Contacto,
+                                                   proveedor.Cargo,
+                                                   proveedor.Correo,
+                                                   proveedor.Observaciones,
+                                                   nId
+                                             );
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ViewBag.lol = e.Message;
+                return View(proveedor);
+            }
+        }
 
         public ActionResult Edit(int id)
         {
@@ -55,17 +72,17 @@ namespace Stardust.Controllers
             return View(proveedor);
         }
 
-        //[HttpPost]
-        //public ActionResult Edit(Proveedor proveedor)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(proveedor).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(proveedor);
-        //}
+        [HttpPost]
+        public ActionResult Edit(Proveedor proveedor)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(proveedor).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(proveedor);
+        }
 
         public ActionResult Delete(int id)
         {
@@ -73,21 +90,19 @@ namespace Stardust.Controllers
             return View(proveedor);
         }
 
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Proveedor proveedor = db.Proveedores.Find(id);
-        //    db.Proveedores.Remove(proveedor);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Proveedor proveedor = db.Proveedores.Find(id);
+            db.Proveedores.Remove(proveedor);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
-
-
     }
 }
