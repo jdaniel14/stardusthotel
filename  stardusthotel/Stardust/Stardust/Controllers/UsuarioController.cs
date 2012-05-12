@@ -77,8 +77,9 @@ namespace Stardust.Controllers
             }
             catch( Exception e )
             {
-                ViewBag.lol = e.Message ;
-                return View(usuario);
+                //ViewBag.lol = e.Message ;
+                //return View(usuario);
+                return View();
             }
         }
         
