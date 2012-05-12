@@ -36,7 +36,7 @@ namespace Stardust.Controllers
             try
             {
                 //db.Proveedores.Add(proveedor);
-                string sql = "Insert into proveedores (Razon_Social, RUC, Categoria, Direccion, Telefono, Pagina_Web , Contacto, Cargo, Correo, Observaciones, ID ) values ( {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})";
+                string sql = "Insert into proveedores (Razon_Social, RUC, Direccion, Telefono, Pagina_Web , Contacto, Cargo, Correo, Observaciones, ID ) values ( {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})";
                 int N = db.Proveedores.Count(r => r.Razon_Social != "");
 
                 int nId;
@@ -46,7 +46,6 @@ namespace Stardust.Controllers
 
                 db.Database.ExecuteSqlCommand(sql, proveedor.Razon_Social,
                                                    proveedor.RUC,
-                                                   proveedor.Categoria,
                                                    proveedor.Direccion,
                                                    proveedor.Telefono,
                                                    proveedor.Pagina_Web,
