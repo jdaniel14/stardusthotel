@@ -24,6 +24,24 @@ namespace Stardust.Controllers
             Proveedor proveedor = db.Proveedores.Find(id);
             return View(proveedor);
         }
+        public ViewResult Control()
+        {
+            
+            return View();
+        }
+
+        public ActionResult Buscar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Buscar(string razon_social, string contacto)
+        {
+            ViewData["razon"] = razon_social;
+            ViewData["contacto"] = contacto;
+            return View();
+        }
 
         public ActionResult Create()
         {
