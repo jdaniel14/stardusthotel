@@ -107,7 +107,8 @@
         </div>
     </fieldset>
     <p>
-        @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+        @*@Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |*@
+        Editar <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" /></a> | 
         @Html.ActionLink("Regresar", "Index")
     </p>
 }
