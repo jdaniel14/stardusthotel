@@ -9,5 +9,6 @@ namespace Stardust.Models
     public class CadenaHotelDB : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Proveedor> Proveedores { get; set; }
     }
 }
