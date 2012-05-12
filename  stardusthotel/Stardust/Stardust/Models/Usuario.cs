@@ -10,32 +10,46 @@ namespace Stardust.Models
     {
         public int ID { get; set; }
 
-        public string nombres { get; set; }
-
+        [Display( Name = "User" )]
         public string user_1 { get; set; }
 
+        [Display(Name = "Password")]
         public string pass { get; set; }
 
+        [Display(Name = "Nombre")]
+        public string nombres { get; set; }
+
+        [Display(Name = "Ap. Paterno")]
         public string apPat { get; set; }
 
+        [Display(Name = "Ap. Materno")]
         public string apMat { get; set; }
 
+        [Display(Name = "DNI")]
         public string dni { get; set; }
 
+        [Display(Name = "Pasaporte")]
         public string pasaporte { get; set; }
 
+        [Display(Name = "Dirección")]
         public string direccion { get; set; }
 
+        [Display(Name = "E-mail")]
         public string email { get; set; }
 
+        [Display(Name = "RUC")]
         public string ruc { get; set; }
 
+        [Display(Name = "Teléfono")]
         public string telefono { get; set; }
 
+        [Display(Name = "Celular")]
         public string celular { get; set; }
 
+        [Display(Name = "Razón Social")]
         public string razonSocial { get; set; }
 
+        [Display(Name = "Estado")]
         public string estado { get; set; }
     }
 }
