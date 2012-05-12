@@ -65,10 +65,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\ComprasController.cs" />
-    <Compile Include="Controllers\EjemploController.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
+    <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4157,6 +4158,8 @@
     <Content Include="Views\Proveedor\Create.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\Proveedor\Registrar.cshtml" />
+    <Content Include="Views\Producto\Control.cshtml" />
+    <Content Include="Views\Producto\Create.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
