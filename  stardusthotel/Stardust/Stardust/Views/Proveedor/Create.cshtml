@@ -10,7 +10,7 @@
 @ViewBag.lol
 
 @using (Html.BeginForm( "Create" , "Proveedor" , FormMethod.Post , new { @class = "form" } ) ){
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
     
 
     <fieldset>
@@ -55,12 +55,16 @@
                 <div class="formRight"> @Html.EditorFor(model => model.Observaciones) </div>
                 <div class="clear"></div>
             </div>            
-            <div class="formSubmit">
-                <input class="redB" type="reset" value="Cancelar"/>
-            </div>
-            <div class="formSubmit">
-                <input class="redB" type="submit" value="Registrar"/>
-            </div>
+            
         </div>
     </fieldset>
-    }
+@*    <div class="formSubmit">
+                <input class="redB" type="reset" value="Cancelar"/>
+     </div>
+    <div class="formSubmit">
+                <input class="redB" type="submit" value="Registrar"/>
+    </div>*@
+        <p>
+        <input type="submit" value="Crear" class = "redB" />
+    </p>
+}
