@@ -9,17 +9,17 @@
 
 @ViewBag.lol
 
-@*@using (Html.BeginForm( "Create" , "Proveedor" , FormMethod.Post , new { @class = "form" } ) ){
-    @Html.ValidationSummary(true)*@
+@using (Html.BeginForm( "Create" , "Proveedor" , FormMethod.Post , new { @class = "form" } ) ){
+    @Html.ValidationSummary(true)
+    
 
-<form id="validate" class="form" action="" method="post">
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Registrar Proveedor</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model=> model.Razon_Social)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.Razon_Social) </div>
+                <div class=" formRight"> @Html.EditorFor(model => model.Razon_Social) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model=> model.RUC)<span class="req">*</span>
@@ -56,11 +56,11 @@
                 <div class="clear"></div>
             </div>            
             <div class="formSubmit">
-                <input class="redB" type="reset" value="Cancelar">
+                <input class="redB" type="reset" value="Cancelar"/>
             </div>
             <div class="formSubmit">
-                <input class="redB" type="submit" value="Registrar">
+                <input class="redB" type="submit" value="Registrar"/>
             </div>
         </div>
     </fieldset>
-</form>
+    }

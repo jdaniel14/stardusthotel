@@ -1,12 +1,39 @@
-﻿@model Stardust.Models.Proveedor
+﻿@model IEnumerable<Stardust.Models.Proveedor>
 
 @{
     ViewBag.Title = "Buscar Proveedor";
 }
 
-<h2>Buscar</h2>
+<h2>Buscar Proveedor</h2>
 
 <div>
     <p>razon Social: @ViewData["razon"] </p>
     <p>contacto: @ViewData["contacto"]</p>  
 </div>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    <thead>
+        <tr>
+            <td>Razon Social</td>
+            <td>Telefono</td>
+            <td>Contacto</td>
+            <td></td>
+        </tr>
+    </thead>
+
+   @* <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Razon_Social )</td>
+            <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+            <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
+            <td>
+                Editar <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" /></a> | 
+                Detalles <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" /></a> | 
+                Borrar <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" /></a>
+            </td>
+        </tr>
+        
+    }
+    </tbody>*@
+</table>

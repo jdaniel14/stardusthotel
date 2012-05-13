@@ -11,27 +11,29 @@
 
 <h2>Buscar Proveedor</h2>
 
-@using (@Html.BeginForm("Buscar", "Proveedor", FormMethod.Post))
+@using (@Html.BeginForm("Buscar", "Proveedor", FormMethod.Post, new { @class = "form" }))
 {
-@*<form id="validate" class="form" action="" method="post">*@
+
+
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Buscar Proveedor</h6>
             </div>
-			<div class="formRow"> @Html.LabelFor(model=> model.Razon_Social)
+			<div class="formRow"> @Html.LabelFor(model => model.Razon_Social)
                 <div class="formRight"> @Html.EditorFor(model => model.Razon_Social) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow"> @Html.LabelFor(model=> model.Contacto)
+            <div class="formRow"> @Html.LabelFor(model => model.Contacto)
                 <div class="formRight"> @Html.EditorFor(model => model.Contacto) </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formSubmit">
-                <input class="redB" type="submit" value="Buscar">
-            </div>
+        </div>
+        <div class="formSubmit">
+                <input class="redB" type="submit" value="Buscar"/>
         </div>
     </fieldset>
-}
-@*</form>*@
+    
+}  
+    
