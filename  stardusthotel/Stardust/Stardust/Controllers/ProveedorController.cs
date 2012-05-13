@@ -13,15 +13,15 @@ namespace Stardust.Controllers
     {
         private CadenaHotelDB db = new CadenaHotelDB();
 
-        //public ViewResult Index()
-        //{
-        //    var model = db.Proveedores;
-        //    return View(model);
-        //}
+        public ViewResult Index()
+        {
+            
+            return View();
+        }
                 
         public ViewResult Details(int id)
         {
-            Proveedor proveedor = db.Proveedores.Find(id);
+            Proveedor proveedor = db.Proveedor.Find(id);
             return View(proveedor);
         }
         public ViewResult Control()
@@ -45,7 +45,7 @@ namespace Stardust.Controllers
             ViewData["razon"] = razon_social;
             ViewData["contacto"] = contacto;
 
-            var model = db.Proveedores;
+            var model = db.Proveedor;
             return View(model);
         }
 
@@ -60,13 +60,13 @@ namespace Stardust.Controllers
             try
             {
                 //db.Proveedores.Add(proveedor);
-                string sql = "Insert into proveedores (Razon_Social, RUC, Direccion, Telefono, Pagina_Web , Contacto, Cargo, Correo, Observaciones, ID ) values ( {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11})";
-                int N = db.Proveedores.Count(r => r.Razon_Social != "");
+                string sql = "Insert into Proveedor (razon_social, ruc, direccion, telefono, pagina_web , contacto, cargo, correo, observacion, ID ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} , {9} )";
+                //int N = db.Proveedor.Count(r => r.Razon_Social != ""); esta mal!!!
 
-                int nId;
+                int nId=5;
 
-                if (N == 0) nId = 0;
-                else nId = db.Proveedores.Max(r => r.ID) + 1;
+                //if (N == 0) nId = 0;
+                //else nId = db.Proveedor.Max(r => r.ID) + 1;
 
                 db.Database.ExecuteSqlCommand(sql, proveedor.Razon_Social,
                                                    proveedor.RUC,
@@ -80,18 +80,19 @@ namespace Stardust.Controllers
                                                    nId
                                              );
                 db.SaveChanges();
-                return RedirectToAction("Index");
+               return RedirectToAction("Index");
             }
             catch (Exception e)
             {
                 ViewBag.lol = e.Message;
-                return View(proveedor);
+               // return View(proveedor);
+                return View();
             }
         }
 
         public ActionResult Edit(int id)
         {
-            Proveedor proveedor = db.Proveedores.Find(id);
+            Proveedor proveedor = db.Proveedor.Find(id);
             return View(proveedor);
         }
 
@@ -109,15 +110,15 @@ namespace Stardust.Controllers
 
         public ActionResult Delete(int id)
         {
-            Proveedor proveedor = db.Proveedores.Find(id);
+            Proveedor proveedor = db.Proveedor.Find(id);
             return View(proveedor);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Proveedor proveedor = db.Proveedores.Find(id);
-            db.Proveedores.Remove(proveedor);
+            Proveedor proveedor = db.Proveedor.Find(id);
+            db.Proveedor.Remove(proveedor);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
