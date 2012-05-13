@@ -28,7 +28,12 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Buscar(string nombre) {
 
+            if (nombre != "") 
+            {
+
+            }
             ViewData["nombre"]=nombre;
+           
             return View();
         }
     }
