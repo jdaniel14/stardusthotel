@@ -7,13 +7,9 @@
 
 @ViewBag.lol
 
-@*<form id="validate" class="form" action="" method="post">*@
-
-@using (@Html.BeginForm("Buscar", "Producto", FormMethod.Post))
+@using (@Html.BeginForm("Buscar", "Producto", FormMethod.Post, new { @class = "form" }))
 
 {
-    
-    
     <fieldset>
         <div class="widget">
             <div class="title">
@@ -30,4 +26,3 @@
         </div>
     </fieldset>
 }
-@*</form>*@
