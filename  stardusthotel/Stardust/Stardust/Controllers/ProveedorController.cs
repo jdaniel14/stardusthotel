@@ -13,11 +13,11 @@ namespace Stardust.Controllers
     {
         private CadenaHotelDB db = new CadenaHotelDB();
 
-        public ViewResult Index()
-        {
-            var model = db.Proveedores;
-            return View(model);
-        }
+        //public ViewResult Index()
+        //{
+        //    var model = db.Proveedores;
+        //    return View(model);
+        //}
                 
         public ViewResult Details(int id)
         {
@@ -38,9 +38,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Buscar(string razon_social, string contacto)
         {
+            
+            if ((String.Compare(razon_social,"")==0)) razon_social = "vacio1"; //forma 1
+            if (contacto  == "") contacto = "vacio2"; //forma 2
+           
             ViewData["razon"] = razon_social;
             ViewData["contacto"] = contacto;
-            return View();
+
+            var model = db.Proveedores;
+            return View(model);
         }
 
         public ActionResult Create()
