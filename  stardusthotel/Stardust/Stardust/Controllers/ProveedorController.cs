@@ -38,21 +38,48 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Buscar(string razon_social, string contacto)
         {
-
-            if ((String.Compare(razon_social, "") == 0) && (contacto == "")) //ambos vacios 
+            //var prov = db.Proveedor;
+            try
             {
-                //mandar mensaje
-            
-            }
-            
-            razon_social = "vacio1"; //forma 1
-            if (contacto  == "") contacto = "vacio2"; //forma 2
-           
-            ViewData["razon"] = razon_social;
-            ViewData["contacto"] = contacto;
+                var model = new Proveedor();
 
-            var model = db.Proveedor;
-            return View(model);
+                if ((String.Compare(razon_social, "") != 0))
+                {
+                    //busco por razon social
+                    Proveedor prov = db.Proveedor.Single(r => r.Razon_Social == razon_social);//.Find(razon_social);
+                    model = prov;
+                    //return View(prov);
+                }
+                else //es vacio 
+                {
+                    if (contacto != "")
+                    {
+                        //busco por contacto
+                        Proveedor prove = db.Proveedor.Single(r => r.Contacto == contacto);//.Find(contacto);
+                        model = prove;
+                        //return View(prove);
+
+                    }
+                    else
+                    {
+                        //mensaje de error 
+                    }
+                }
+
+                //razon_social = "vacio1"; //forma 1
+                //if (contacto  == "") contacto = "vacio2"; //forma 2
+
+                ViewData["razon"] = razon_social;
+                ViewData["contacto"] = contacto;
+
+                return View(model);
+            }
+            catch(Exception e)
+            {
+                ViewBag.lol = e.Message;
+                // return View(proveedor);
+                return View();
+            }
         }
 
         public ActionResult Create()
