@@ -4159,14 +4159,11 @@
     <Content Include="Views\Proveedor\Create.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\Proveedor\Registrar.cshtml" />
-<<<<<<< .mine
     <Content Include="Views\Producto\Control.cshtml" />
     <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\Producto\ProductoxAlmacen.cshtml" />
-=======
     <Content Include="Views\Producto\Control.cshtml" />
     <Content Include="Views\Producto\Create.cshtml" />
->>>>>>> .r141
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
