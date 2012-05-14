@@ -11,5 +11,6 @@ namespace Stardust.Models
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Proveedor> Proveedor { get; set; }
         public DbSet<Producto> Producto { get; set; }
+        public DbSet<Producto> Producto { get; set; }
     }
 }
