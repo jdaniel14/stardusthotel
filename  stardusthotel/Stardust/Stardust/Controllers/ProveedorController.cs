@@ -48,8 +48,8 @@ namespace Stardust.Controllers
                     //busco por razon social
                     
                     Proveedor prov = db.Proveedor.Single(r => r.Razon_Social == razon_social);//.Find(razon_social);
-                    model = prov;
-                    //return View(prov);
+                    
+                    return View(prov);
                 }
                 else //es vacio 
                 {
@@ -57,7 +57,7 @@ namespace Stardust.Controllers
                     {
                         //busco por contacto
                         Proveedor prove = db.Proveedor.Single(r => r.Contacto == contacto);//.Find(contacto);
-                        model = prove;
+                       
                         //return View(prove);
 
                     }
@@ -73,7 +73,7 @@ namespace Stardust.Controllers
                 ViewData["razon"] = razon_social;
                 ViewData["contacto"] = contacto;
 
-                return View(model);
+                return View();
             }
             catch(Exception e)
             {
