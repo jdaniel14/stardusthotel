@@ -46,6 +46,7 @@ namespace Stardust.Controllers
                 if ((String.Compare(razon_social, "") != 0))
                 {
                     //busco por razon social
+                    
                     Proveedor prov = db.Proveedor.Single(r => r.Razon_Social == razon_social);//.Find(razon_social);
                     model = prov;
                     //return View(prov);
