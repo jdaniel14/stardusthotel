@@ -38,8 +38,14 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Buscar(string razon_social, string contacto)
         {
+
+            if ((String.Compare(razon_social, "") == 0) && (contacto == "")) //ambos vacios 
+            {
+                //mandar mensaje
             
-            if ((String.Compare(razon_social,"")==0)) razon_social = "vacio1"; //forma 1
+            }
+            
+            razon_social = "vacio1"; //forma 1
             if (contacto  == "") contacto = "vacio2"; //forma 2
            
             ViewData["razon"] = razon_social;
