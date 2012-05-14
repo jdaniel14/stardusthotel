@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Stardust.Models.Proveedor>
 
+
 @{
     ViewBag.Title = "Buscar Proveedor";
 }
@@ -21,7 +22,7 @@
         </tr>
     </thead>
 
-   @* <tbody>
+    <tbody>
     @foreach (var item in Model) {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Razon_Social )</td>
@@ -34,6 +35,6 @@
             </td>
         </tr>
         
-    }
-    </tbody>*@
+    @}
+    </tbody>
 </table>
