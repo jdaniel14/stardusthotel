@@ -13,7 +13,7 @@
 
 
 @using (Html.BeginForm( "Create" , "Producto" , FormMethod.Post , new { @class = "form" } ) ){
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
             <div class = "title"><h6>Crear Producto</h6></div>
