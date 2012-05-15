@@ -15,6 +15,12 @@ namespace Stardust.Controllers
         // GET: /Producto/
         private CadenaHotelDB db = new CadenaHotelDB();
 
+        public ViewResult Index()
+        {
+
+            return View();
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -40,9 +46,10 @@ namespace Stardust.Controllers
             }
         }
 
-        public ActionResult Control()
+        public ViewResult Control()
         {
-            return View();
+            var model = db.Producto;
+            return View(model);
         }
 
         public ActionResult Buscar() {
