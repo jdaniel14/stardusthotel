@@ -477,7 +477,8 @@
     <Content Include="Content\images\icons\control\32\limited-edition.png" />
     <Content Include="Content\images\icons\control\32\link.png" />
     <Content Include="Content\images\icons\control\32\lock.png" />
-    <Content Include="Content\images\icons\control\32\login.png" />    <Content Include="Views\Proveedor\Buscar.cshtml" />
+    <Content Include="Content\images\icons\control\32\login.png" />
+    <Content Include="Views\Proveedor\Buscar.cshtml" />
     <Content Include="Content\images\icons\control\32\logout.png" />
     <Content Include="Content\images\icons\control\32\milestone.png" />
     <Content Include="Content\images\icons\control\32\my-account.png" />
@@ -4159,13 +4160,12 @@
     <Content Include="Views\Proveedor\Create.cshtml" />
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\Proveedor\Registrar.cshtml" />
-    <Content Include="Views\Producto\Control.cshtml" />
-    <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\Producto\ProductoxAlmacen.cshtml" />
-    <Content Include="Views\Producto\Control.cshtml" />
+    <Content Include="Views\Producto\Buscar.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Create.cshtml" />
-    <Content Include="Views\Producto\Buscar.cshtml" />   <Content Include="Views\Proveedor\Buscar.cshtml" />
-	</ItemGroup>
+    <Content Include="Views\Producto\Control.cshtml" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -4183,7 +4183,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60092</DevelopmentServerPort>
+          <DevelopmentServerPort>49213</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
