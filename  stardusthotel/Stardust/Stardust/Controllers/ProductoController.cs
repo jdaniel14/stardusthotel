@@ -25,15 +25,13 @@ namespace Stardust.Controllers
         {
             try
             {
-                string sql = "Insert into Producto ( nombre , descripcion, ID ) values ( {0} , {1} , {2} )";
-                int N = db.Producto.Count(r => r.nombre != "");
-                int nId;
-                if (N == 0) nId = 0;
-                else nId = db.Producto.Max(r =>r.ID) + 1;
-
-                db.Database.ExecuteSqlCommand(sql, producto.nombre, producto.descripcion,nId);
+                string sql = "Insert into Producto ( nombre , descripcion ) values ( {0} , {1}  )";
+                 db.Database.ExecuteSqlCommand(sql, 
+                                                producto.nombre, 
+                                                producto.descripcion
+                                                );
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("../Home/Index");
             }
             catch (Exception e)
             {
