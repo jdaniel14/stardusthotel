@@ -49,7 +49,7 @@ namespace Stardust.Controllers
         public ViewResult Control()
         {
             var model = db.Producto;
-            return View(model);
+            return View();
         }
 
         public ActionResult Buscar() {
