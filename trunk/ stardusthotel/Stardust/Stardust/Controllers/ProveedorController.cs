@@ -115,7 +115,7 @@ namespace Stardust.Controllers
                                                    nId
                                              );
                 db.SaveChanges();
-               return RedirectToAction("Index");
+                return RedirectToAction("../Home/Index");
             }
             catch (Exception e)
             {
