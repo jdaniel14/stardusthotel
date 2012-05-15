@@ -12,7 +12,6 @@ namespace Stardust.Models
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
         [Display(Name = "Descripción")]
-        public string Nombre { get; set; }
         public string descripcion { get; set; }
         [Display(Name = "Stock Mínimo")]
         public int stock_minimo { get; set; }
