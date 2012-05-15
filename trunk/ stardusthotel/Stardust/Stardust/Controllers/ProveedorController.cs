@@ -96,6 +96,7 @@ namespace Stardust.Controllers
                 //db.Proveedores.Add(proveedor);
                 string sql = "Insert into Proveedors (razon_social, ruc, direccion, telefono, pagina_web , contacto, cargo, correo, observacion, ID ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} , {9} )";
                 int N = db.Proveedor.Count(r => r.Razon_Social != "");
+               
                 int nId;
                 if (N == 0)
                     nId = 0;
