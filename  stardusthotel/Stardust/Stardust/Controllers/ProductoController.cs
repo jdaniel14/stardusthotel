@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +17,7 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
-            return View(new Producto());
+            return View();
         }
 
         [HttpPost]
@@ -24,10 +26,10 @@ namespace Stardust.Controllers
             try
             {
                 string sql = "Insert into Producto ( nombre , descripcion, ID ) values ( {0} , {1} , {2} )";
-                //int N = db.Producto.Count(r => r.nombre != "");
-                //int nId;
-                //if (N == 0) nId = 0;
-                int nId = db.Producto.Max(r =>r.ID) + 1;
+                int N = db.Producto.Count(r => r.nombre != "");
+                int nId;
+                if (N == 0) nId = 0;
+                else nId = db.Producto.Max(r =>r.ID) + 1;
 
                 db.Database.ExecuteSqlCommand(sql, producto.nombre, producto.descripcion,nId);
                 db.SaveChanges();
