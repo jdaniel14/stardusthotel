@@ -5,21 +5,20 @@ using System.Web;
 
 namespace Stardust.Models
 {
-    public class ProveedorDAO
+    public class ProductoDAO
     {
-        public int insertarProveedor(Proveedor prov)
+        public int insertarProducto(Producto prod)
         {
             return 1;
         }
-        public List<Proveedor> buscarProveedor(string razon_social, string contacto)
+        public List<Producto> buscarProducto(string nombre)
         {
             string res = "";
             return 0;
         }
-        public int eliminarProveedor(Proveedor prov)
+        public int eliminarProveedor(Producto prod)
         {
             return 1;
         }
-
     }
 }
