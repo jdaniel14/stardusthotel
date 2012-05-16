@@ -20,5 +20,31 @@ namespace Stardust.Models
             return cadenares;
         }
 
+        public string asignarproductosxproveedor(Proveedor prov, List<Producto> prod)
+        {
+            string respuesta = "";
+
+            return respuesta;
+        }
+
+
+        public Proveedor buscarproveedor(string razon_social, string contacto)
+        {
+            Proveedor prov= new Proveedor();
+            
+            return prov;
+
+        }
+        public string eliminarProveedor(Proveedor prov)
+        {
+            string respuesta = "";
+
+            return respuesta;
+        }
+
+
+        
+
+
     }
 }
