@@ -1,0 +1,47 @@
+﻿@model Stardust.Models.Hotel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<h3>Are you sure you want to delete this?</h3>
+
+<h3>Seguro de querer eliminar este usuario?</h3>
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del Usuario</h6></div>
+    @*<legend>Usuario</legend>*@
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.hotelID)
+            <div class = "formRight" >@Html.DisplayFor(model => model.hotelID)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.descripcion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.descripcion)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.direccion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.direccion)</div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+</fieldset>
+
+
+
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" class = "redB"/> |
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+}
+
+

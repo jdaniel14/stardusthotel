@@ -1,11 +1,10 @@
 ﻿@model Stardust.Models.Hotel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Registrar Nuevo Local</h2>
-<h2>---------------------</h2>
+<h2>Editar</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -15,26 +14,26 @@
     @Html.ValidationSummary(true)
 
     
+    
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>Crear Hotel</h6></div>
+            <div class = "title"><h6>Modificar Usuario</h6></div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.hotelID)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.hotelID)</div>
+                @Html.LabelFor(model => model.idhotel)
+                <div class = "formRight" >@Html.EditorFor(model => model.idhotel)</div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion)</div>
-                
+                <div class = "formRight" >@Html.EditorFor(model => model.descripcion)</div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.razon_social)
-                <div class = "formRight" >@Html.EditorFor(model => model.razon_social)</div>
+                @Html.LabelFor(model => model.razonsocial)
+                <div class = "formRight" >@Html.EditorFor(model => model.razonsocial)</div>
                 <div class = "clear" ></div>
             </div>
 
@@ -43,19 +42,20 @@
                 <div class = "formRight" >@Html.EditorFor(model => model.regid)</div>
                 <div class = "clear" ></div>
             </div>
-            <div class="formRow">
-                @Html.LabelFor(model => model.nroregid)
-                <div class = "formRight" >@Html.EditorFor(model => model.nroregid)</div>
-                <div class = "clear" ></div>
-            </div>
+
+
+
+
+
+
             <div class="formRow">
                 @Html.LabelFor(model => model.direccion)
                 <div class = "formRight" >@Html.EditorFor(model => model.direccion)</div>
                 <div class = "clear" ></div>
             </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.telf1)
+            
+                <div class="formRow">
+                @Html.LabelFor(model =>model.telf1)
                 <div class = "formRight" >@Html.EditorFor(model => model.telf1)</div>
                 <div class = "clear" ></div>
             </div>
@@ -72,18 +72,20 @@
                 <div class = "clear" ></div>
             </div>
 
+           
+
             
             
         </div>
     </fieldset>
     <p>
-        <input type="submit" value="Crear" class = "redB" />
-    </p>
+        <input type="submit" value="Guardar" class = "redB" />
+    </p>    
     
-     
     
-   
 }
 
-
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
 
