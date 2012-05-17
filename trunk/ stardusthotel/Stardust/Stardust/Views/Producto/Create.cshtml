@@ -28,15 +28,13 @@
 
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)
-                <div class = "formRight" >@Html.EditorFor(model => model.descripcion )</div>
+                <div class = "formRight" >@Html.TextAreaFor(model => model.descripcion )</div>
             </div>
 
-        <p>
-            <input type="submit" value="Registrar" />
-        </p>
     </fieldset>
 }
 
 <div>
+    <input type="submit" value="Registrar" />
     @Html.ActionLink("Regresar", "../Home/Index")
 </div>
