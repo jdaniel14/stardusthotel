@@ -150,7 +150,7 @@ namespace Stardust.Controllers
             ViewBag.resp = "";
             if (!String.IsNullOrEmpty(nombre))
             {
-                commandString = "Select * FROM Productos WHERE estado = 1 AND UPPER(nombre) = '" + nombre.ToUpper() + "'";
+                commandString = "Select * FROM Productos WHERE estado = 1 AND UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'";
                 ViewBag.resp += "1";
             }
             else
