@@ -104,6 +104,18 @@ namespace Stardust.Controllers
             return RedirectToAction("Index");
         }
 
+        public ViewResult Buscar( string nombre , string apPat ) {
+            var model = from r in db.Usuarios select r;
+
+            if ( !String.IsNullOrEmpty( nombre ) )
+                model = model.Where( r => r.nombres == nombre ) ;
+
+            if ( !string.IsNullOrEmpty( apPat ) )
+                model = model.Where( r => r.apPat == apPat ) ;
+
+            return View( model.ToList() );
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

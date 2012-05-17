@@ -53,5 +53,6 @@ namespace Stardust.Models
 
         [Display(Name = "Estado")]
         public string estado { get; set; }
+
     }
 }
