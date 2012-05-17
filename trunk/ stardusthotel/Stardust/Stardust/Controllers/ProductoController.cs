@@ -6,6 +6,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Stardust.Controllers
 {
@@ -31,10 +34,12 @@ namespace Stardust.Controllers
         {
             try
             {
-                string sql = "Insert into Producto ( nombre , descripcion ) values ( {0} , {1}  )";
+                producto.estado = 1;
+                string sql = "Insert into Productos ( nombre , descripcion, estado ) values ( {0} , {1} , {2} )";
                  db.Database.ExecuteSqlCommand(sql, 
                                                 producto.nombre, 
-                                                producto.descripcion
+                                                producto.descripcion, 
+                                                producto.estado
                                                 );
                 db.SaveChanges();
                 return RedirectToAction("../Home/Index");
@@ -46,19 +51,44 @@ namespace Stardust.Controllers
             }
         }
 
-        public ViewResult Control()
+        public ActionResult Control()
         {
-            var model = db.Producto;
-            return View();
+            //var ViewData.Model = db.Producto.ToList;
+            //var model = from m in db.Productos select m;
+            List<Producto> listaProducto = new List<Producto>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Productos ";
+            //bool result = Nombre.Equals("");
+            //if (!result) commandString = commandString + "WHERE UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%'";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                Producto producto = new Producto();
+                producto.ID = (int)dataReader["idProducto"];
+                producto.nombre = (string)dataReader["nombre"];
+                producto.descripcion = (string)dataReader["descripcion"];
+                producto.estado = Convert.ToInt32(dataReader["estado"]);
+
+                listaProducto.Add(producto);
+            }
+            return View(listaProducto);
         }
 
-        public ActionResult Buscar() {
+        public ActionResult Buscar() 
+        {            
             return View();
         }
 
         [HttpPost]
         public ActionResult Buscar(string nombre) {
-
+            db.Productos.Find(nombre);
             if (nombre != "") 
             {
 
