@@ -24,14 +24,14 @@ namespace Stardust.Models
             return proveedorService.ActualizarProveedor(proveedor);
         }
 
-        public ProveedorBean GetProveedor(int id)
+        public ProveedorBean GetProveedor(int idProveedor)
         {
-            return proveedorService.GetProveedor(id);
+            return proveedorService.GetProveedor(idProveedor);
         }
 
-        public String EliminarServicio(int id)
+        public String EliminarProveedor(int idProveedor)
         {
-            return proveedorService.EliminarProveedor(id);
+            return proveedorService.EliminarProveedor(idProveedor);
         }
 
         /*----------producto----------------*/
