@@ -27,5 +27,6 @@ namespace Stardust.Models
         public string Correo { get; set; }
         [Display(Name = "Observacion")]
         public string Observaciones { get; set; }
+        public int estado { get; set; }
     }
 }

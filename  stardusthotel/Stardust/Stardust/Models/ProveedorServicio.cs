@@ -43,7 +43,13 @@ namespace Stardust.Models
         }
 
 
-        
+        public List<Proveedor> Listar()
+        {
+            ProveedorDAO proveedorDao = new ProveedorDAO(); 
+            List<Proveedor> lista;
+            lista = proveedorDao.listar();
+            return lista;
+        }
 
 
     }
