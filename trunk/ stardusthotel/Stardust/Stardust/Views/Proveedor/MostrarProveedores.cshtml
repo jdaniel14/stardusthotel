@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Stardust.Models.ProveedorBean>
+
+
+@{
+    ViewBag.Title = "Resultados de busqueda";
+}
+
+<h2>Mostrar Proveedores</h2>
+
+<p>
+    Lista general de los proveedores del hotel
+</p>
+
+<p>
+    @Html.ActionLink("Registrar un nuevo Proveedor", "RegistrarProveedor","Proveedores")
+</p>
+
+<p>
+    @Html.ActionLink("Buscar proveedor", "BuscarProveedor","Proveedores")
+</p>
+
+
+<div class = "widget" >
+
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Servicios del hotel</h6></div>
+
+    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Razon Social</td>
+            <td>RUC</td>
+            <td>Direccion</td>
+            <td>Telefono</td>
+            <td>Web</td>
+            <td>Contacto</td>
+            <td>Cargo del Contacto</td>
+            <td>E-mail del Contacto</td>
+            <td>Observaciones</td>
+            <td></td>             
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.idProveedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.razonSocial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ruc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.web)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.contacto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cargoContacto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.emailContacto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.observaciones)
+                </td>
+                <td>
+                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.idProveedor }) |
+                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.idProveedor })                     
+                </td>                
+                </td>
+            </tr>
+    }
+    
+    </tbody>
+
+    </table>
+</div>
