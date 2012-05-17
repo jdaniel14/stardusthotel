@@ -13,11 +13,20 @@ namespace Stardust.Models
         public DbSet<ProveedorBean> Proveedor { get; set; }
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Hotel> Hotel { get; set; }
-        public DbSet<TipoHabitacion> TipoHabitacion { get; set; }
+
+
+        public DbSet<Promociones> Promociones { get; set; }
+        //public DbSet<TipoHabitacion> TipoHabitacion { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
     }
 }
