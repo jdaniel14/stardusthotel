@@ -118,6 +118,7 @@ namespace Stardust.Controllers
                 //db.Proveedor.Add(proveedor);
                 string sql = "Insert into Proveedors (razonSocial, ruc, direccion, telefono, web , contacto, cargoContacto, emailContacto, observaciones, estado ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} ,{9})";
                 proveedor.estado = 1;
+                //proveedor.idProveedor = 1;
                 db.Database.ExecuteSqlCommand(sql, proveedor.razonSocial,
                                                   proveedor.ruc,
                                                   proveedor.direccion,
