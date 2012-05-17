@@ -13,28 +13,13 @@ namespace Stardust.Controllers
 
         public ActionResult Index()
         {
-
-           // String cadena = "";
-
             return View();
         }
 
-
-        public ActionResult Buscar()
+        public ActionResult RegistrarServicio()
         {
             return View();
         }
 
-
-        public ActionResult Registrar()
-        {
-            return View();
-        }
-
-        public ActionResult Eliminar()
-        {
-            
-            return View();
-        }
     }
 }
