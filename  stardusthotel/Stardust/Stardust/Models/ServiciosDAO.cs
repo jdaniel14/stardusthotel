@@ -18,7 +18,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Servicio";
+            string commandString = "SELECT * FROM Servicio WHERE nombre LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
