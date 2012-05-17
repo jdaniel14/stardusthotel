@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Stardust.Models
 {
-    public class ServiciosService
+    public class ProveedorService
     {
         ProveedorDAO proveedorDAO = new ProveedorDAO();
         
@@ -25,14 +25,14 @@ namespace Stardust.Models
             return proveedorDAO.ActualizarProveedor(proveedor);
         }
 
-        public ProveedorBean GetProveedor(int id)
+        public ProveedorBean GetProveedor(int idProveedor)
         {
-            return proveedorDAO.SeleccionarProveedor(id);
+            return proveedorDAO.SeleccionarProveedor(idProveedor);
         }
 
-        public String EliminarProveedor(int id)
+        public String EliminarProveedor(int idProveedor)
         {
-            return proveedorDAO.DeleteProveedor(id);
+            return proveedorDAO.DeleteProveedor(idProveedor);
         }
     }
 }
