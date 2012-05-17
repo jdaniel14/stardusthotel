@@ -18,9 +18,9 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Servicio ";
+            string commandString = "SELECT * FROM Servicio WHERE estado = 'ACTIVO' ";
             bool result = Nombre.Equals("");
-            if (!result)  commandString = commandString + "WHERE UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
+            if (!result)  commandString = commandString + " AND UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
@@ -107,8 +107,8 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString =  "DELETE " +
-                                    "FROM Servicio " +
+            string commandString =  "UPDATE Servicio " +
+                                    "SET estado = 'INACTIVO' " + 
                                     "WHERE idServicio = " + id.ToString();
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
