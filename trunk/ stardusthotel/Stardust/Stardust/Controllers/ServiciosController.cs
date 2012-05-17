@@ -19,6 +19,12 @@ namespace Stardust.Controllers
             return View(listaServicios);
         }
 
+        [HttpPost]
+        public ViewResult Index(List<ServiciosBean> listaServicios)
+        {
+            return View(listaServicios);
+        }
+
         public ActionResult RegistrarServicio()
         {
             return View();
@@ -27,9 +33,45 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult RegistrarServicio(ServiciosBean model)
         {
-            
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            servicioFacade.RegistrarServicio(model);
             return RedirectToAction("Index");
         }
+
+        public ActionResult ModificarServicio(int id)            
+        {
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            ServiciosBean item = servicioFacade.GetServicio(id);
+            return View(item);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarServicio(ServiciosBean item)
+        {
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            servicioFacade.ActualizarServicio(item);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EliminarServicio(int id)
+        {
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            servicioFacade.EliminarServicio(id);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult BuscarServicio()
+        {            
+            return View();
+        }
+                
+        public ActionResult MostrarServicios(ServiciosBean item)
+        {
+            ServiciosFacade servicioFacade = new ServiciosFacade();            
+            List<ServiciosBean> listaServicios = servicioFacade.ListarServicios(item.nombre);
+            return View(listaServicios);
+        }
+                
 
     }
 }
