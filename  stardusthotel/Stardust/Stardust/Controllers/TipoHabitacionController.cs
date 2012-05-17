@@ -1,31 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
-using System.Data;
-using System.Data.Entity;
-using System.Data.EntityClient;
-using System.Data.EntityModel;
+
 namespace Stardust.Controllers
-{
+{ 
     public class TipoHabitacionController : Controller
     {
+        private CadenaHotelDB db = new CadenaHotelDB();
+
         //
         // GET: /TipoHabitacion/
-        private CadenaHotelDB db = new CadenaHotelDB();
-        public ActionResult Index()
-        {
-            var m = db.TipoHab;
 
-            return View(m);
+        public ViewResult Index()
+        {
+            return View(db.TipoHabitacion.ToList());
         }
 
         //
         // GET: /TipoHabitacion/Details/5
 
-        
+        public ViewResult Details(int id)
+        {
+            TipoHabitacion tipohabitacion = db.TipoHabitacion.Find(id);
+            return View(tipohabitacion);
+        }
+
+        //
+        // GET: /TipoHabitacion/Create
 
         public ActionResult Create()
         {
@@ -36,28 +42,16 @@ namespace Stardust.Controllers
         // POST: /TipoHabitacion/Create
 
         [HttpPost]
-        public ActionResult Create(TipoHabitacion tp)
+        public ActionResult Create(TipoHabitacion tipohabitacion)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                if (ModelState.IsValid)
-                {
-                    db.TipoHab.Add(tp);
-
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(tp);
-                }
+                db.TipoHabitacion.Add(tipohabitacion);
+                db.SaveChanges();
+                return RedirectToAction("Index");  
             }
-            catch
-            {
-                return View(tp);
-            }
+
+            return View(tipohabitacion);
         }
         
         //
@@ -65,29 +59,23 @@ namespace Stardust.Controllers
  
         public ActionResult Edit(int id)
         {
-            TipoHabitacion tp= db.TipoHab.Find(id);
-
-            return View(tp);
+            TipoHabitacion tipohabitacion = db.TipoHabitacion.Find(id);
+            return View(tipohabitacion);
         }
 
         //
         // POST: /TipoHabitacion/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(TipoHabitacion tp)
+        public ActionResult Edit(TipoHabitacion tipohabitacion)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-                db.Entry(tp).State = EntityState.Modified;
+                db.Entry(tipohabitacion).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
-            catch
-            {
-                return View(tp);
-            }
+            return View(tipohabitacion);
         }
 
         //
@@ -95,37 +83,26 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-            try
-            {
-            
-            TipoHabitacion tp= db.TipoHab.Find(id);
-            return View(tp);
-            }
-                catch
-            {
-                return Index();
-            }
+            TipoHabitacion tipohabitacion = db.TipoHabitacion.Find(id);
+            return View(tipohabitacion);
         }
 
         //
         // POST: /TipoHabitacion/Delete/5
-        /*
+
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-                TipoHabitacion tp = db.TipoHab.Find(id);
-                db.TipoHab.Remove(tp);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        {            
+            TipoHabitacion tipohabitacion = db.TipoHabitacion.Find(id);
+            db.TipoHabitacion.Remove(tipohabitacion);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
-          */
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }
