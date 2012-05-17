@@ -20,7 +20,7 @@ namespace Stardust.Models
 
             string commandString = "SELECT * FROM Servicio ";
             bool result = Nombre.Equals("", StringComparison.Ordinal);
-            if (!result)  commandString = commandString + "LIKE %"+Nombre+"%";
+            if (!result)  commandString = commandString + "WHERE nombre LIKE '%"+Nombre+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
@@ -64,7 +64,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString =  "UPDATE Servicio " +
-                                    "SET nombre = '" + servicio.nombre + "', '" + servicio.descripcion + "' "+
+                                    "SET nombre = '" + servicio.nombre + "', descripcion = '" + servicio.descripcion + "' "+
                                     "WHERE idServicio = " + servicio.id;                               
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -107,8 +107,8 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString =  "DELETE" +
-                                    "FROM Servicio" +
+            string commandString =  "DELETE " +
+                                    "FROM Servicio " +
                                     "WHERE idServicio = " + id.ToString();
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
