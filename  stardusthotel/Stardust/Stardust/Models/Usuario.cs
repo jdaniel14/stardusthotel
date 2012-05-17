@@ -12,7 +12,7 @@ namespace Stardust.Models
 
         [Display( Name = "User" )]
         [Required]
-        public string user_1 { get; set; }
+        public string user_account{ get; set; }
 
         [Display(Name = "Password")]
         [Required]

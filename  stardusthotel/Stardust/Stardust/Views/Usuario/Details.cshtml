@@ -20,8 +20,8 @@
             @*<legend>Usuario</legend>*@
 
             <div class="formRow">
-                @Html.LabelFor(model => model.user_1)
-                <div class = "formRight" >@Html.DisplayFor(model => model.user_1)</div>
+                @Html.LabelFor(model => model.user_account)
+                <div class = "formRight" >@Html.DisplayFor(model => model.user_account)</div>
                 <div class = "clear" ></div>
             </div>
 
@@ -108,7 +108,7 @@
     </fieldset>
     <p>
         @*@Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |*@
-        Editar <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" /></a> | 
+        <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
         @Html.ActionLink("Regresar", "Index")
     </p>
 }
