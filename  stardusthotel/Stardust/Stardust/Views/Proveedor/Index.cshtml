@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<Stardust.Models.Proveedor>
 
 @{
-    ViewBag.Title = "Buscar Proveedor";
+    ViewBag.Title = "Listar Proveedor";
 }
 
-
+<p>
+    <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Añadir</a>
+</p>
 <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
     <thead>
         <tr>
-            <td>Nombre</td>
-            <td>Ap. Paterno</td>
-            <td>Ap. Materno</td>
+            <td>Razon Social</td>
+            <td>Direccion</td>
+            <td>Contacto</td>
             <td></td>
         </tr>
     </thead>
@@ -19,12 +21,9 @@
     @foreach (var item in Model) {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Razon_Social )</td>
-            <td>@Html.DisplayFor(modelItem => item.Razon_Social)</td>
+            <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
             <td>@Html.DisplayFor(modelItem => item.Contacto)</td>
             <td>
-                @*@Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
-                @Html.ActionLink("Detalles", "Details", new { id=item.ID }) |
-                @Html.ActionLink("Borrar", "Delete", new { id=item.ID })*@
                 Editar <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" /></a> | 
                 Detalles <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" /></a> | 
                 Borrar <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" /></a>
