@@ -30,8 +30,10 @@ namespace Stardust.Controllers
 
         public ActionResult Eliminar()
         {
+            string Pancho;
             return View();
         }
+
 
 
     }
