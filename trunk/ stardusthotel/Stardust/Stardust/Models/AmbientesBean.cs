@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
+
+namespace Stardust.Models
+{
+    public class AmbientesBean
+    {
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+        public int cap_maxima { get; set; }
+        public float largo { get; set; }
+        public float ancho { get; set; }
+        public float precioXhora { get; set; }
+        public float largo_escenario { get; set; }
+        public float ancho_escenario { get; set; }
+        public bool proyector { get; set; }
+        public int piso { get; set; }
+        public string estado { get; set; }
+
+    }
+
+    
+}
