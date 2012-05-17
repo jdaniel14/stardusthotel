@@ -22,7 +22,7 @@ namespace Stardust.Models
         }
         public List<Proveedor> listar()
         {
-            List<Proveedor> lista;
+            List<Proveedor> lista = null ;
             Proveedor prov = new Proveedor();
             lista.Add(prov);
            

@@ -13,6 +13,7 @@ namespace Stardust.Models
     {
         [Display(Name = "")]
         [Required(ErrorMessage = "Titulo es requerido")]
+        [Key]
         public string idhotel { get; set; }
 
         [Display(Name = "Descripcion-Caracteristicas")]
