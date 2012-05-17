@@ -9,7 +9,7 @@ namespace Stardust.Models
     {
         ProveedorService proveedorService = new ProveedorService();
         
-        public List<ProveedorBean> ListarProveedores(String razonSocial)
+        public List<ProveedorBean> ListarProveedor(String razonSocial)
         {
             return proveedorService.ListarProveedor(razonSocial);
         }
