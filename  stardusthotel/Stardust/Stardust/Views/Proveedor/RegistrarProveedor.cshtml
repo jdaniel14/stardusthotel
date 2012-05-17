@@ -1,4 +1,4 @@
-﻿@model Stardust.Models.ProveedorBean
+﻿@*@model Stardust.Models.ProveedorBean
 
 
 @{
@@ -91,9 +91,9 @@
 
         </fieldset>
     </form>
-}
+}*@
 
-@*@model Stardust.Models.Proveedor
+@model Stardust.Models.ProveedorBean
 
 @{
     ViewBag.Title = "Registrar Proveedor";
@@ -104,8 +104,9 @@
 
 @ViewBag.lol
 
-@using (Html.BeginForm( "Create" , "Proveedor" , FormMethod.Post , new { @class = "form" } ) ){
-    @Html.ValidationSummary(false)
+@using (Html.BeginForm("RegistrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
+{
+   
     
 
     <fieldset>
@@ -146,20 +147,15 @@
                 <div class="formRight"> @Html.EditorFor(model => model.emailContacto) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.Observaciones)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.Observaciones) </div>
+            <div class="formRow">@Html.LabelFor(model=> model.observaciones)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.observaciones) </div>
                 <div class="clear"></div>
             </div>            
             
         </div>
     </fieldset>
-@*    <div class="formSubmit">
-                <input class="redB" type="reset" value="Cancelar"/>
-     </div>
-    <div class="formSubmit">
-                <input class="redB" type="submit" value="Registrar"/>
-    </div>*@
-@*        <p>
+
+        <p>
         <input type="submit" value="Crear" class = "redB" />
     </p>
-}*@
+}
