@@ -19,7 +19,8 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "SELECT * FROM Servicio ";
-            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+            bool result = Nombre.Equals("", StringComparison.Ordinal);
+            if (!result)  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
@@ -96,6 +97,26 @@ namespace Stardust.Models
             sqlCon.Close();
 
             return servicio;
+        }
+
+        public String DeleteServicio(int id){
+            String me = "";
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString =  "DELETE" +
+                                    "FROM Servicio" +
+                                    "WHERE idServicio = " + id.ToString();
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+
+            return me;
         }
     }
 }
