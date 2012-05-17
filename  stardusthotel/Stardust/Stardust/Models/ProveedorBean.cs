@@ -12,10 +12,9 @@ namespace Stardust.Models
     public class ProveedorBean
     {
         [Display(Name = "")]
-        [Required(ErrorMessage = "Titulo es requerido")]
-        [Key]
 
-        public int idProveedor { get; set; }
+
+        public int ID { get; set; }
         
         [Display(Name = "Razon Social")]
         public string razonSocial { get; set; }
