@@ -11,10 +11,10 @@ namespace Stardust.Models
         {
             return 1;
         }
-        public List<Producto> buscarProducto(string nombre)
+        public /*List<Producto>*/ void buscarProducto(string nombre)
         {
-            string res = "";
-            return 0;
+            //string res = "";
+            //return 0;
         }
         public int eliminarProveedor(Producto prod)
         {

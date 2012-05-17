@@ -11,15 +11,24 @@ namespace Stardust.Models
         {
             return 1;
         }
-        public List<Proveedor> buscarProveedor(string razon_social, string contacto)
+        public /*List<Proveedor>*/ void buscarProveedor(string razon_social, string contacto)
         {
-            string res = "";
-            return 0;
+           // string res = "";
+            //return 0;
         }
         public int eliminarProveedor(Proveedor prov)
         {
             return 1;
         }
+        public List<Proveedor> listar()
+        {
+            List<Proveedor> lista;
+            Proveedor prov = new Proveedor();
+            lista.Add(prov);
+           
+            return lista;
+        }
+
 
     }
 }

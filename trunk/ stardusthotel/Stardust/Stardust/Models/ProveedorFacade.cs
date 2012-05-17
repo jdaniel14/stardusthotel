@@ -69,6 +69,13 @@ namespace Stardust.Models
             string res = gestorproducto.asignarproductosxalmacen(prod, almacen);
             return res;
         }
+        public List<Proveedor> listar() 
+        {
+            gestorproveedor = new ProveedorServicio();
+            return gestorproveedor.Listar();
+            
+        }
+
 
     }
 }
