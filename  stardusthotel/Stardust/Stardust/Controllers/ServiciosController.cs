@@ -85,9 +85,55 @@ namespace Stardust.Controllers
 
         public ViewResult IndexAmbientes()
         {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            List<AmbienteBean> listaAmbiente = ambienteFacade.ListarAmbiente("","",-1,-1);
+            return View(listaAmbiente);
+        }
+
+        public ActionResult RegistrarAmbiente()
+        {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult RegistrarAmbiente(AmbienteBean item)
+        {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            ambienteFacade.RegistrarAmbiente(item);
+            return RedirectToAction("IndexAmbientes");
+        }
+
+        public ActionResult ModificarAmbiente(int id)
+        {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            AmbienteBean item = ambienteFacade.GetAmbiente(id);
+            return View(item);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarAmbiente(AmbienteBean item)
+        {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            ambienteFacade.ActualizarAmbiente(item);
+            return RedirectToAction("IndexAmbientes");
+        }
+
+        public ActionResult EliminarAmbiente(int id)
+        {
+            //le paso el id del item a eliminar
+            return RedirectToAction("IndexAmbientes");
+        }
+
+        public ActionResult BuscarAmbiente()
+        {
+            return View();
+        }
+
+        public ActionResult MostrarAmbiente(AmbienteBean item)
+        {
+            //pido la lista que cumpla con el nombre y la paso al view
+            return View();
+        }
 
     }
 }
