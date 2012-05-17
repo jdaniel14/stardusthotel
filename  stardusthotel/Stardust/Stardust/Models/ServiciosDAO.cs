@@ -72,5 +72,30 @@ namespace Stardust.Models
             sqlCon.Close();
             return me;        
         }
+
+        public ServiciosBean SeleccionarServicio(int id){
+            ServiciosBean servicio = new ServiciosBean();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Servicio WHERE idServicio = " + id.ToString();
+            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {                
+                servicio.id = (int)dataReader["idServicio"];
+                servicio.nombre = (string)dataReader["nombre"];
+                servicio.descripcion = (string)dataReader["descripcion"];             
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return servicio;
+        }
     }
 }
