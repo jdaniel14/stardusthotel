@@ -22,5 +22,10 @@ namespace Stardust.Models
         {
             return serviciosDAO.ActualizarServicio(servicio);
         }
+
+        public ServiciosBean GetServicio(int id) 
+        {
+            return serviciosDAO.SeleccionarServicio(id);
+        }
     }
 }
