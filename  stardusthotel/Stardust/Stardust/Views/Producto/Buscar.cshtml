@@ -50,7 +50,7 @@
     @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>Crear Producto</h6></div>
+            <div class = "title"><h6>Buscar Producto</h6></div>
 
             <div class="formRow">
                 <label>Nombre</label>
@@ -82,7 +82,6 @@
         <tr>
             <td>Nombre</td>
             <td>Descripcion</td>
-            <td>Estado</td>
             <td></td>
         </tr>
     </thead>
@@ -93,7 +92,6 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.nombre)</td>
             <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
-            <td>@Html.EditorFor(modelItem => item.estado)</td>
             <td>
                 <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
