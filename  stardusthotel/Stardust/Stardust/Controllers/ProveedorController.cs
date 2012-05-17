@@ -1,5 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Stardust.Models;
+
+namespace Stardust.Controllers
+{
+    public class ServiciosController : Controller
+    {
+        //
+        // GET: /Proveedores/
+
+        public ViewResult Index()
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor("");
+            return View(listaProveedor);
+        }
+
+        [HttpPost]
+        public ViewResult Index(List<ProveedorBean> listaProveedor)
+        {
+            return View(listaProveedor);
+        }
+
+        public ActionResult RegistrarProveedor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarProveedor(ProveedorBean model)
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            proveedorFacade.RegistrarProveedor(model);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult ModificarProveedor(int idProveedor)
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            ProveedorBean item = proveedorFacade.GetProveedor(idProveedor);
+            return View(item);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarProveedor(ProveedorBean item)
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            proveedorFacade.ActualizarProveedor(item);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult EliminarProveedor(int idProveedor)
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            proveedorFacade.EliminarProveedor(idProveedor);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult BuscarProveedor()
+        {
+            return View();
+        }
+
+        public ActionResult MostrarProveedor(ProveedorBean item)
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(item.razonSocial);
+            return View(listaProveedor);
+        }
+
+
+    }
+}
+
+
+/*
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -182,3 +262,4 @@ namespace Stardust.Controllers
         }
     }
 }
+*/
