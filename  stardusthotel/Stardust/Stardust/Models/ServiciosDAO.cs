@@ -52,8 +52,25 @@ namespace Stardust.Models
             sqlCmd.ExecuteNonQuery();
          
             sqlCon.Close();
-
             return me;
+        }
+        public String ActualizarServicio(ServiciosBean servicio){
+            String me = "";
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString =  "UPDATE Servicio " +
+                                    "SET nombre = '" + servicio.nombre + "', '" + servicio.descripcion + "' "+
+                                    "WHERE idServicio = " + servicio.id;                               
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+            return me;        
         }
     }
 }
