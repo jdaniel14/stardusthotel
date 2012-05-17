@@ -106,7 +106,7 @@
 
 @using (Html.BeginForm("RegistrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
 {
-   
+   @Html.ValidationSummary(false)
     
 
     <fieldset>
@@ -114,40 +114,40 @@
             <div class="title">
                 <h6>Registrar Proveedor</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model=> model.razonSocial)<span class="req">*</span>
+            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
                 <div class=" formRight"> @Html.EditorFor(model => model.razonSocial) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.ruc)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.ruc) </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow">@Html.LabelFor(model=> model.direccion)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.direccion)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.direccion) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.telefono)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.telefono)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.telefono) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.web)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.web) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.contacto)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.contacto)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.contacto) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.cargoContacto)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.cargoContacto)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.cargoContacto) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.emailContacto)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.emailContacto) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model=> model.observaciones)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.observaciones)<span class="req">*</span>
                 <div class="formRight"> @Html.EditorFor(model => model.observaciones) </div>
                 <div class="clear"></div>
             </div>            
