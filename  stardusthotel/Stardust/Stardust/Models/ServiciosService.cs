@@ -17,5 +17,10 @@ namespace Stardust.Models
         {
             return serviciosDAO.insertarServicio(servicio);
         }
+
+        public String ActualizarServicio(ServiciosBean servicio)
+        {
+            return serviciosDAO.ActualizarServicio(servicio);
+        }
     }
 }
