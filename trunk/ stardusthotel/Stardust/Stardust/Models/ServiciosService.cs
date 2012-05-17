@@ -12,5 +12,10 @@ namespace Stardust.Models
             List<ServiciosBean> listaServicios = serviciosDAO.ListarServicios(Nombre);
             return listaServicios;
         }
+
+        public String RegistrarServicio(ServiciosBean servicio)
+        {
+            return serviciosDAO.insertarServicio(servicio);
+        }
     }
 }
