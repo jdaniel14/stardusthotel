@@ -37,5 +37,23 @@ namespace Stardust.Models
 
             return listaServicios;
         }
+
+        public String insertarServicio(ServiciosBean servicio) {
+            String me = "";
+            
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "INSERT INTO Servicio VALUES ('" + servicio.nombre + "', '" + servicio.descripcion + "')";
+            
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+         
+            sqlCon.Close();
+
+            return me;
+        }
     }
 }
