@@ -25,7 +25,7 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult RegistrarServicio(ServiciosBean model)
         {
-
+            
             return RedirectToAction("Index");
         }
 
