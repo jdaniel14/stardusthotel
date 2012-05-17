@@ -9,6 +9,11 @@ namespace Stardust.Controllers
 {
     public class ServiciosController : Controller
     {
+
+
+
+        //*************SERVICIOS!!!!*************************
+
         //
         // GET: /Servicios/
 
@@ -72,6 +77,17 @@ namespace Stardust.Controllers
             return View(listaServicios);
         }
                 
+
+        //**************FIN SERVICIOS*******************
+
+
+        //***************AMBIENTES********************
+
+        public ViewResult IndexAmbientes()
+        {
+            return View();
+        }
+
 
     }
 }
