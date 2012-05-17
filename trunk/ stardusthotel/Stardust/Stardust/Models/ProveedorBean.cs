@@ -15,7 +15,6 @@ namespace Stardust.Models
         [Required(ErrorMessage = "Titulo es requerido")]
         [Key]
 
-        [Display(Name = "Id")]
         public int idProveedor { get; set; }
         
         [Display(Name = "Razon Social")]
