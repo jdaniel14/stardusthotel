@@ -4167,8 +4167,12 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\Producto\Control.cshtml" />
+<<<<<<< .mine
+    <Content Include="Views\Usuario\Buscar.cshtml" />
+=======
     <Content Include="Views\Hotel\Create.cshtml" />
     <Content Include="Views\Hotel\Index.cshtml" />
+>>>>>>> .r186
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
