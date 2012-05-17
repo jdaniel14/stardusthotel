@@ -28,7 +28,7 @@ namespace Stardust.Models
             {
                 ProveedorBean proveedor = new ProveedorBean();
                 
-                proveedor.idProveedor = (int)dataReader["idProveedor"];
+                proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];
@@ -76,7 +76,7 @@ namespace Stardust.Models
 
             string commandString =  "UPDATE Proveedors " +
                                     "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', ruc = '" + proveedor.ruc + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + "', estado = '" + proveedor.estado + "' " +
-                                    "WHERE idProveedor = " + proveedor.idProveedor;
+                                    "WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -100,7 +100,7 @@ namespace Stardust.Models
 
             if (dataReader.Read())
             {
-                proveedor.idProveedor = (int)dataReader["idProveedor"];
+                proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];
