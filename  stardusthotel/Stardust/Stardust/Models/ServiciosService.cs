@@ -27,5 +27,10 @@ namespace Stardust.Models
         {
             return serviciosDAO.SeleccionarServicio(id);
         }
+
+        public String EliminarServicio(int id)
+        {
+            return serviciosDAO.DeleteServicio(id);
+        }
     }
 }
