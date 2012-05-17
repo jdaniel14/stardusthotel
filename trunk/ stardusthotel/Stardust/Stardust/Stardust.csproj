@@ -80,11 +80,17 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Almacen.cs" />
+    <Compile Include="Models\AmbienteBean.cs" />
+    <Compile Include="Models\AmbienteDAO.cs" />
+    <Compile Include="Models\AmbienteFacade.cs" />
+    <Compile Include="Models\AmbientesBean.cs" />
+    <Compile Include="Models\AmbienteService.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Models\ProductoDAO.cs" />
     <Compile Include="Models\ProductoServicio.cs" />
+    <Compile Include="Models\Promociones.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\ProveedorBean.cs" />
     <Compile Include="Models\ProveedorDAO.cs" />
