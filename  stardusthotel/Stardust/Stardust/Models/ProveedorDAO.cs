@@ -18,9 +18,9 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedor ";
-            bool result = Nombre.Equals("");
-            if (!result)  commandString = commandString + "WHERE UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
+            string commandString = "SELECT * FROM Proveedors"; //WHERE UPPER(razonSocial) LIKE '%" + Nombre.ToUpper() + "%'";
+            //bool result = Nombre.Equals("");
+            //if (!result)  commandString = commandString + "WHERE UPPER(razonSocial) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
@@ -38,7 +38,7 @@ namespace Stardust.Models
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
-                proveedor.estado = (int)dataReader["estado"];
+                proveedor.estado = Convert.ToInt32(dataReader["estado"]);
 
                 listaProveedor.Add(proveedor);
             }
@@ -93,7 +93,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedors WHERE idProveedor = " + idProveedor.ToString();
+            string commandString = "SELECT * FROM Proveedors WHERE estado=1 AND idProveedor = " + idProveedor.ToString();
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -110,7 +110,7 @@ namespace Stardust.Models
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
-                proveedor.estado = (int)dataReader["estado"];          
+                proveedor.estado = Convert.ToInt32(dataReader["estado"]);         
             }
             dataReader.Close();
             sqlCon.Close();
@@ -126,8 +126,9 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString =  "DELETE " +
-                                    "FROM Proveedors " +
+            string commandString =  "UPDATE " +
+                                    "Proveedors " +
+                                    "Set estado=0" +
                                     "WHERE idProveedor = " + idProveedor.ToString();
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -141,39 +142,3 @@ namespace Stardust.Models
 }
 
 
-/*
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Stardust.Models
-{
-    public class ProveedorDAO
-    {
-        public int insertarProveedor(ProveedorBean prov)
-        {
-            return 1;
-        }
-        public List<Proveedor> void buscarProveedor(string razon_social, string contacto)
-        {
-           // string res = "";
-            //return 0;
-        }
-        public int eliminarProveedor(ProveedorBean prov)
-        {
-            return 1;
-        }
-        public List<ProveedorBean> listar()
-        {
-            List<ProveedorBean> lista = null ;
-            ProveedorBean prov = new ProveedorBean();
-            lista.Add(prov);
-           
-            return lista;
-        }
-
-
-    }
-}
-*/

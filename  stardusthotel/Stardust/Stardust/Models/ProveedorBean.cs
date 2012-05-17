@@ -11,7 +11,7 @@ namespace Stardust.Models
 {
     public class ProveedorBean
     {
-        [Display(Name = "")]
+        //[Display(Name = "")]
 
 
         public int ID { get; set; }
