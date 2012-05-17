@@ -4,59 +4,55 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Registro de Hoteles</h2>
+
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Crear</a>
 </p>
-<table>
-    <tr>
-        <th></th>
-        <th>
-            Codigo de Hotel
-        </th>
-        <th>
-            Descripcion
-        </th>
-      
-        <th>
-            regid
-        </th>
-        <th>
-            direccion
-        </th>
-        <th>
-            telf1
-        </th>
-    
-    </tr>
 
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    
+     <thead>
+        <tr>
+            <td>Nombre del hotel-</td>
+            <td>Reg</td>
+            <td>Direccion</td>
+            <td>Telefono</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
 @foreach (var item in Model) {
     <tr>
+        
+        
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-        <td>
-            @item.idhotel
-        </td>
-        <td>
-            @item.descripcion
+            @Html.DisplayFor(modelItem => item.descripcion )
         </td>
        
         <td>
-            @item.regid
+            @Html.DisplayFor(modelItem => item.regid )
         </td>
         <td>
-            @item.direccion
+           @Html.DisplayFor(modelItem => item.direccion )
         </td>
         <td>
-            @item.telf1
+            @Html.DisplayFor(modelItem => item.telf1 )
         </td>
-        
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            2@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+
+             <a href="@Url.Action("Edit", new {  id=item.hotelID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Details", new {  id=item.hotelID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("Delete", new {  id=item.hotelID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+        </td>
     </tr>
 }
-
+     </tbody>
 </table>
 
