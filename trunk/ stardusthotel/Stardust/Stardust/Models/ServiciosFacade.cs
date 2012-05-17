@@ -11,5 +11,10 @@ namespace Stardust.Models
         public List<ServiciosBean> ListarServicios(String Nombre) {
             return serviciosService.ListarServicios( Nombre );
         }
+
+        public String RegistrarServicio(ServiciosBean servicio)
+        {
+            return serviciosService.RegistrarServicio(servicio);
+        }
     }
 }
