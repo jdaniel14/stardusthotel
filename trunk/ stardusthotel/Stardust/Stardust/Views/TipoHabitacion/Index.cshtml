@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Stardust.Models.TipoHabitacion>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Tipo de Habitacion", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            tipo_habitacionID
+        </th>
+        <th>
+            descripcion
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+        <td>
+            @item.tipo_habitacionID
+        </td>
+        <td>
+            @item.descripcion
+        </td>
+    </tr>
+}
+
+</table>
+
