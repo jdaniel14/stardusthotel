@@ -13,6 +13,7 @@ namespace Stardust.Controllers
 
         public ActionResult Index()
         {
+            String cadena = "";
             return View();
         }
 
