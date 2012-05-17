@@ -19,8 +19,8 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "SELECT * FROM Servicio ";
-            bool result = Nombre.Equals("", StringComparison.Ordinal);
-            if (!result)  commandString = commandString + "WHERE nombre LIKE '%"+Nombre+"%'";
+            bool result = Nombre.Equals("");
+            if (!result)  commandString = commandString + "WHERE UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
