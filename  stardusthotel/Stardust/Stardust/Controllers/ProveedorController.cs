@@ -7,7 +7,7 @@ using Stardust.Models;
 
 namespace Stardust.Controllers
 {
-    public class ServiciosController : Controller
+    public class ProveedorController : Controller
     {
         //
         // GET: /Proveedores/
@@ -71,8 +71,6 @@ namespace Stardust.Controllers
             List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(item.razonSocial);
             return View(listaProveedor);
         }
-
-
     }
 }
 
