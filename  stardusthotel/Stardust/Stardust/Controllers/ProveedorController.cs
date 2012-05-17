@@ -15,8 +15,12 @@ namespace Stardust.Controllers
 
         public ViewResult Index()
         {
-            
-            return View();
+            //List<Proveedor> list;
+            ProveedorFacade profacade = new ProveedorFacade();
+
+           // var model = db.Proveedor;
+            var model = profacade.listar();
+            return View(model);
         }
                 
         public ViewResult Details(int id)
@@ -93,8 +97,8 @@ namespace Stardust.Controllers
         {
             try
             {
-                 string sql = "Insert into Proveedor (razonSocial, ruc, direccion, telefono, web , contacto, cargoContacto, emailContacto, observaciones ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} )";
-
+                 string sql = "Insert into Proveedor (razonSocial, ruc, direccion, telefono, web , contacto, cargoContacto, emailContacto, observaciones, estado ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} ,{9})";
+                 proveedor.estado = 1;
                  db.Database.ExecuteSqlCommand(sql, proveedor.Razon_Social,
                                                    proveedor.RUC,
                                                    proveedor.Direccion,
@@ -103,10 +107,12 @@ namespace Stardust.Controllers
                                                    proveedor.Contacto,
                                                    proveedor.Cargo,
                                                    proveedor.Correo,
-                                                   proveedor.Observaciones
+                                                   proveedor.Observaciones,
+                                                   proveedor.estado
                                                    );
                 db.SaveChanges();
-                return RedirectToAction("../Home/Index");
+                //return RedirectToAction("../Home/Index");
+                return RedirectToAction("Index");
             }
             catch (Exception e)
             {
