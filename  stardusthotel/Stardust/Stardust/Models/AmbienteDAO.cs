@@ -9,7 +9,7 @@ namespace Stardust.Models
 {
     public class AmbienteDAO
     {
-        public List<AmbienteBean> ListarAmbientes(String Nombre, String estado, float precio_menor, float precio_mayor)
+        public List<AmbienteBean> ListarAmbiente(String Nombre, String estado, float precio_menor, float precio_mayor)
         {
 
             List<AmbienteBean> listaAmbientes = new List<AmbienteBean>();
