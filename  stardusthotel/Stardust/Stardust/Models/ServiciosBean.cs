@@ -11,8 +11,13 @@ namespace Stardust.Models
 {
     public class ServiciosBean
     {
+        [Display(Name = "Id")]
         public int id{get; set;}
+
+        [Display(Name = "Nombre")]
         public String nombre { get; set; }
+
+        [Display(Name = "Descripcion")]
         public String descripcion { get; set; }
     }
 }
