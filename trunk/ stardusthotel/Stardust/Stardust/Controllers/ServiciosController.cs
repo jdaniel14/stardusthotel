@@ -13,7 +13,7 @@ namespace Stardust.Controllers
 
         public ActionResult Index()
         {
-            String cadena = "";
+            
             return View();
         }
 
@@ -31,7 +31,7 @@ namespace Stardust.Controllers
 
         public ActionResult Eliminar()
         {
-            string Pancho;
+            
             return View();
         }
 
