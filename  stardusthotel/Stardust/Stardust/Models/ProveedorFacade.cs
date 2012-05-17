@@ -36,6 +36,7 @@ namespace Stardust.Models
 
         /*----------producto----------------*/
         
+        /*
         public string registrarproducto(ProductoBean prod)
         {
             gestorproducto = new ProductoServicio();
@@ -70,7 +71,7 @@ namespace Stardust.Models
             return gestorproveedor.Listar();
             
         }
-
+        */
 
     }
 }
