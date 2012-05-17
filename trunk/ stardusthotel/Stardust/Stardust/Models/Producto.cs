@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 namespace Stardust.Models
 {
@@ -13,6 +14,6 @@ namespace Stardust.Models
         public string nombre { get; set; }
         [Display(Name = "Descripción")]
         public string descripcion { get; set; }
-        
+        public int estado { get; set; }        
     }
 }
