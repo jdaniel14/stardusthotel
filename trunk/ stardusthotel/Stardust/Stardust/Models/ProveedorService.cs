@@ -17,7 +17,7 @@ namespace Stardust.Models
 
         public String RegistrarProveedor(ProveedorBean proveedor)
         {
-            return proveedorDAO.InsertarProveedor(proveedor);
+            return proveedorDAO.insertarProveedor(proveedor);
         }
 
         public String ActualizarProveedor(ProveedorBean proveedor)

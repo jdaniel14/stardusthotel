@@ -48,7 +48,7 @@ namespace Stardust.Models
             return listaProveedor;
         }
 
-        public String InsertarProveedor(ProveedorBean proveedor) {
+        public String insertarProveedor(ProveedorBean proveedor) {
             String me = "";
             
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;

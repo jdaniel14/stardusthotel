@@ -7,17 +7,17 @@ namespace Stardust.Models
 {
     public class ProveedorServicio
     {
-        public string registrarProveedor(Proveedor prov)
+        public string registrarProveedor(ProveedorBean prov)
         {
             ProveedorDAO proveedorDao = new ProveedorDAO();
-            int res = proveedorDao.insertarProveedor(prov);
-            string cadenares;
-            if (res == 0) cadenares = "OK";
-            else if (res == 1) cadenares = "Ya se encuentra registrado";
-            else if (res == 2) cadenares = "Error en Conexion a BD";
-            else cadenares = "Pantallazo Azul !!!!!!! :(";
+            //int res = proveedorDao.insertarProveedor(prov);
+            string cadenares = "GG" ;
+            //if (res == 0) cadenares = "OK";
+            //else if (res == 1) cadenares = "Ya se encuentra registrado";
+            //else if (res == 2) cadenares = "Error en Conexion a BD";
+            //else cadenares = "Pantallazo Azul !!!!!!! :(";
             
-            return cadenares;
+            return cadenares ;
         }
 
         public string asignarproductosxproveedor(Proveedor prov, List<Producto> prod)
@@ -45,9 +45,9 @@ namespace Stardust.Models
 
         public List<Proveedor> Listar()
         {
-            ProveedorDAO proveedorDao = new ProveedorDAO(); 
-            List<Proveedor> lista;
-            lista = proveedorDao.listar();
+            ProveedorDAO proveedorDao = new ProveedorDAO();
+            List<Proveedor> lista = null ;
+            //lista = proveedorDao.listar();
             return lista;
         }
 
