@@ -12,9 +12,11 @@ namespace Stardust.Controllers
         //
         // GET: /Servicios/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View();
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            List<ServiciosBean> listaServicios = servicioFacade.ListarServicios("");
+            return View(listaServicios);
         }
 
         public ActionResult RegistrarServicio()
