@@ -1,0 +1,41 @@
+﻿@model Stardust.Models.TipoHabitacion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@ViewBag.lol
+
+
+@using (Html.BeginForm("Details", "TipoHabitacion", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Detalles del tipo de habitación</h6></div>
+            @*<legend>Usuario</legend>*@
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nombre)
+                <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.descripcion)
+                <div class = "formRight" >@Html.DisplayFor(model => model.descripcion)</div>
+                <div class = "clear" ></div>
+            </div>
+
+        </div>
+    </fieldset>
+    <p>
+        <a href="@Url.Action("Edit", new { id = Model.TipoHabitacionID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+}

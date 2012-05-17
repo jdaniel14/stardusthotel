@@ -1,26 +1,36 @@
 ﻿@model Stardust.Models.TipoHabitacion
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Borrar tipo de habitación";
 }
 
-<h2>Delete</h2>
+@*<h2>Delete</h2>*@
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Seguro de querer eliminar este tipo de habitación?</h3>
+
 <fieldset>
-    <legend>TipoHabitacion</legend>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del Usuario</h6></div>
+    @*<legend>Usuario</legend>*@
 
-    <div class="display-label">tipo_habitacionID</div>
-    <div class="display-field">@Model.tipo_habitacionID</div>
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombre )
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombre )</div>
+            <div class = "clear" ></div>
+        </div>
 
-    <div class="display-label">descripcion</div>
-    <div class="display-field">@Model.descripcion</div>
+        <div class="formRow">
+            @Html.LabelFor(model => model.descripcion )
+            <div class = "formRight" >@Html.DisplayFor(model => model.descripcion )</div>
+            <div class = "clear" ></div>
+        </div>
+
+    </div>
 </fieldset>
+
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input type="submit" value="Borrar" class = "redB"/> |
+        @Html.ActionLink("Regresar", "Index")
     </p>
 }
-
-
