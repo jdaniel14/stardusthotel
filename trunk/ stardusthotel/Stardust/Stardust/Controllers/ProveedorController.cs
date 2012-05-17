@@ -16,10 +16,10 @@ namespace Stardust.Controllers
         public ViewResult Index()
         {
             //List<Proveedor> list;
-            ProveedorFacade profacade = new ProveedorFacade();
+            //ProveedorFacade profacade = new ProveedorFacade();
 
-           // var model = db.Proveedor;
-            var model = profacade.listar();
+           var model = db.Proveedor;
+            //var model = profacade.listar();
             return View(model);
         }
                 
@@ -28,64 +28,82 @@ namespace Stardust.Controllers
             Proveedor proveedor = db.Proveedor.Find(id);
             return View(proveedor);
         }
-        public ViewResult Control()
-        {
+        //public ViewResult Control()
+        //{
             
-            return View();
-        }
+        //    return View();
+        //}
 
-        public ActionResult Buscar()
+        public ViewResult Control(string razon_social, string contacto)
         {
-            return View();
-        }
+            var model = from r in db.Proveedor select r;
 
-        [HttpPost]
-        public ActionResult Buscar(string razon_social, string contacto)
-        {
-            //var prov = db.Proveedor;
-            try
+            ViewBag.resp = "";
+            if (!String.IsNullOrEmpty(razon_social))
             {
-                var model = new Proveedor();
+                model = model.Where(r => r.razonSocial.ToUpper().Contains(razon_social.ToUpper()));
+                ViewBag.resp += "1";
+            }
 
-                if ((String.Compare(razon_social, "") != 0))
-                {
-                    //busco por razon social
+            if (!string.IsNullOrEmpty(contacto))
+            {
+                model = model.Where(r => r.contacto.ToUpper().Contains(contacto.ToUpper()));
+                ViewBag.resp += "1";
+            }
+
+            ViewBag.coincidencias = model.LongCount();
+
+            return View( model.ToList() );
+            
+        }
+
+        //[HttpPost]
+        //public ActionResult Buscar(string razon_social, string contacto)
+        //{
+        //    //var prov = db.Proveedor;
+        //    try
+        //    {
+        //        var model = new Proveedor();
+
+        //        if ((String.Compare(razon_social, "") != 0))
+        //        {
+        //            //busco por razon social
                     
-                    Proveedor prov = db.Proveedor.Single(r => r.Razon_Social == razon_social);//.Find(razon_social);
+        //            Proveedor prov = db.Proveedor.Single(r => r.Razon_Social == razon_social);//.Find(razon_social);
                     
-                    return View(prov);
-                }
-                else //es vacio 
-                {
-                    if (contacto != "")
-                    {
-                        //busco por contacto
-                        Proveedor prove = db.Proveedor.Single(r => r.Contacto == contacto);//.Find(contacto);
+        //            return View(prov);
+        //        }
+        //        else //es vacio 
+        //        {
+        //            if (contacto != "")
+        //            {
+        //                //busco por contacto
+        //                Proveedor prove = db.Proveedor.Single(r => r.Contacto == contacto);//.Find(contacto);
                        
-                        //return View(prove);
+        //                //return View(prove);
 
-                    }
-                    else
-                    {
-                        //mensaje de error 
-                    }
-                }
+        //            }
+        //            else
+        //            {
+        //                //mensaje de error 
+        //            }
+        //        }
 
-                //razon_social = "vacio1"; //forma 1
-                //if (contacto  == "") contacto = "vacio2"; //forma 2
+        //        //razon_social = "vacio1"; //forma 1
+        //        //if (contacto  == "") contacto = "vacio2"; //forma 2
 
-                ViewData["razon"] = razon_social;
-                ViewData["contacto"] = contacto;
+        //        ViewData["razon"] = razon_social;
+        //        ViewData["contacto"] = contacto;
 
-                return View();
-            }
-            catch(Exception e)
-            {
-                ViewBag.lol = e.Message;
-                // return View(proveedor);
-                return View();
-            }
-        }
+        //        return View();
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        ViewBag.lol = e.Message;
+        //        // return View(proveedor);
+        //        return View();
+        //    }
+        //}
 
         public ActionResult Create()
         {
@@ -97,22 +115,23 @@ namespace Stardust.Controllers
         {
             try
             {
-                 string sql = "Insert into Proveedor (razonSocial, ruc, direccion, telefono, web , contacto, cargoContacto, emailContacto, observaciones, estado ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} ,{9})";
-                 proveedor.estado = 1;
-                 db.Database.ExecuteSqlCommand(sql, proveedor.Razon_Social,
-                                                   proveedor.RUC,
-                                                   proveedor.Direccion,
-                                                   proveedor.Telefono,
-                                                   proveedor.Pagina_Web,
-                                                   proveedor.Contacto,
-                                                   proveedor.Cargo,
-                                                   proveedor.Correo,
-                                                   proveedor.Observaciones,
-                                                   proveedor.estado
-                                                   );
+                //db.Proveedor.Add(proveedor);
+                string sql = "Insert into Proveedors (razonSocial, ruc, direccion, telefono, web , contacto, cargoContacto, emailContacto, observaciones, estado ) values ( {0} , {1} , {2} , {3} , {4} , {5} , {6} , {7} , {8} ,{9})";
+                proveedor.estado = 1;
+                db.Database.ExecuteSqlCommand(sql, proveedor.razonSocial,
+                                                  proveedor.ruc,
+                                                  proveedor.direccion,
+                                                  proveedor.telefono,
+                                                  proveedor.web,
+                                                  proveedor.contacto,
+                                                  proveedor.cargoContacto,
+                                                  proveedor.emailContacto,
+                                                  proveedor.Observaciones,
+                                                  proveedor.estado
+                                                  );
                 db.SaveChanges();
-                //return RedirectToAction("../Home/Index");
-                return RedirectToAction("Index");
+                return RedirectToAction("../Home/Index");
+                //return RedirectToAction("Control");
             }
             catch (Exception e)
             {
