@@ -11,6 +11,7 @@ namespace Stardust.Models
         public int ID { get; set; }
 
         [Display( Name = "User" )]
+        [Range( 5 , 20 , ErrorMessage = "El usuario debe tener una longitud entre 5 y 20 caracteres" ) ]
         [Required]
         public string user_account{ get; set; }
 
@@ -19,9 +20,13 @@ namespace Stardust.Models
         public string pass { get; set; }
 
         [Display(Name = "Nombre")]
+        [Required]
+        [MaxLength(20 )]
         public string nombres { get; set; }
 
         [Display(Name = "Ap. Paterno")]
+        [Required]
+        [MaxLength(20)]
         public string apPat { get; set; }
 
         [Display(Name = "Ap. Materno")]
@@ -49,9 +54,11 @@ namespace Stardust.Models
         public string celular { get; set; }
 
         [Display(Name = "Razón Social")]
+        [MaxLength( 10 , ErrorMessage = "Máxima longitud es 10 caracteres." ) ]
         public string razonSocial { get; set; }
 
         [Display(Name = "Estado")]
+        [Required]
         public string estado { get; set; }
 
     }

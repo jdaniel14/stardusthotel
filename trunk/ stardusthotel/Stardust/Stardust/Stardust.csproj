@@ -88,6 +88,12 @@
     <Compile Include="Models\ProveedorDAO.cs" />
     <Compile Include="Models\ProveedorFacade.cs" />
     <Compile Include="Models\ProveedorServicio.cs" />
+    <Compile Include="Models\Servicios.cs" />
+    <Compile Include="Models\ServiciosB.cs" />
+    <Compile Include="Models\ServiciosBean.cs" />
+    <Compile Include="Models\ServiciosDAO.cs" />
+    <Compile Include="Models\ServiciosFacade.cs" />
+    <Compile Include="Models\ServiciosService.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
