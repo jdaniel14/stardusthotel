@@ -18,7 +18,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedors"; //WHERE UPPER(razonSocial) LIKE '%" + Nombre.ToUpper() + "%'";
+            string commandString = "SELECT * FROM Proveedor"; //WHERE UPPER(razonSocial) LIKE '%" + Nombre.ToUpper() + "%'";
             //bool result = Nombre.Equals("");
             //if (!result)  commandString = commandString + "WHERE UPPER(razonSocial) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -57,7 +57,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             proveedor.estado = 1;
-            string commandString = "INSERT INTO Proveedors VALUES ('" + proveedor.razonSocial + "', '" + proveedor.contacto + "', '" + proveedor.emailContacto + "', '" + proveedor.cargoContacto + "', '" + proveedor.ruc + "', '" + proveedor.web + "', '" + proveedor.telefono + "', '" + proveedor.direccion + "', '" + proveedor.observaciones + "', '" + proveedor.estado + "')";
+            string commandString = "INSERT INTO Proveedor VALUES ('" + proveedor.razonSocial + "', '" + proveedor.contacto + "', '" + proveedor.emailContacto + "', '" + proveedor.cargoContacto + "', '" + proveedor.ruc + "', '" + proveedor.web + "', '" + proveedor.telefono + "', '" + proveedor.direccion + "', '" + proveedor.observaciones + "', '" + proveedor.estado + "')";
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -74,7 +74,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString =  "UPDATE Proveedors " +
+            string commandString =  "UPDATE Proveedor " +
                                     "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', ruc = '" + proveedor.ruc + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + "', estado = '" + proveedor.estado + "' " +
                                     "WHERE idProveedor = " + proveedor.ID;
 
@@ -93,7 +93,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedors WHERE estado=1 AND idProveedor = " + idProveedor.ToString();
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1 AND idProveedor = " + idProveedor;
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -127,9 +127,9 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString =  "UPDATE " +
-                                    "Proveedors " +
-                                    "Set estado=0" +
-                                    "WHERE idProveedor = " + idProveedor.ToString();
+                                    "Proveedor " +
+                                    "SET estado=0" +
+                                    "WHERE idProveedor = " + idProveedor;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -141,4 +141,39 @@ namespace Stardust.Models
     }
 }
 
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Web;
 
+//namespace Stardust.Models
+//{
+//    public class ProveedorDAO
+//    {
+//        public int insertarProveedor(ProveedorBean prov)
+//        {
+//            return 1;
+//        }
+//        public List<Proveedor> void buscarProveedor(string razon_social, string contacto)
+//        {
+//            string res = "";
+//            //return null;
+//           // string res = "";
+//            //return 0;
+//        }
+//        public int eliminarProveedor(ProveedorBean prov)
+//        {
+//            return 1;
+//        }
+//        public List<ProveedorBean> listar()
+//        {
+//            List<ProveedorBean> lista = null ;
+//            ProveedorBean prov = new ProveedorBean();
+//            lista.Add(prov);
+           
+//            return lista;
+//        }
+
+
+//    }
+//}
