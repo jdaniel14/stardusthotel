@@ -11,7 +11,6 @@ namespace Stardust.Models
         public int ID { get; set; }
 
         [Display( Name = "User" )]
-        [Range( 5 , 20 , ErrorMessage = "El usuario debe tener una longitud entre 5 y 20 caracteres" ) ]
         [Required]
         public string user_account{ get; set; }
 
