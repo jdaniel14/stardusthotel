@@ -25,5 +25,9 @@ namespace Stardust.Models
         public ServiciosBean GetServicio(int id) { 
             return serviciosService.GetServicio(id);
         }
+
+        public String EliminarServicio(int id) { 
+            return EliminarServicio(id);
+        }
     }
 }
