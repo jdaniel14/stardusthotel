@@ -13,11 +13,8 @@ namespace Stardust.Controllers
 
         public ActionResult Index()
         {
-<<<<<<< .mine
            // String cadena = "";
-=======
             
->>>>>>> .r190
             return View();
         }
 
