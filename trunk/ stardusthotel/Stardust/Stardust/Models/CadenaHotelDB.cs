@@ -15,9 +15,9 @@ namespace Stardust.Models
         public DbSet<Hotel> Hotel { get; set; }
         public DbSet<TipoHabitacion> TipoHabitacion { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        //}
     }
 }
