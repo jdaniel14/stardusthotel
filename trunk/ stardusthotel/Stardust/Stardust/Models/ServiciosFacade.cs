@@ -21,5 +21,9 @@ namespace Stardust.Models
         {
             return serviciosService.ActualizarServicio(servicio);
         }
+
+        public ServiciosBean GetServicio(int id) { 
+            return serviciosService.GetServicio(id);
+        }
     }
 }
