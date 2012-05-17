@@ -34,7 +34,7 @@ namespace Stardust.Controllers
             try
             {
                 producto.estado = 1;
-                string sql = "Insert into Productos ( nombre , descripcion, estado ) values ( {0} , {1} , {2} )";
+                string sql = "Insert into Producto ( nombre , descripcion, estado ) values ( {0} , {1} , {2} )";
                  db.Database.ExecuteSqlCommand(sql, 
                                                 producto.nombre, 
                                                 producto.descripcion, 
@@ -57,7 +57,7 @@ namespace Stardust.Controllers
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Productos WHERE idProducto = " + id;
+            string commandString = "SELECT * FROM Producto WHERE idProducto = " + id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -82,7 +82,7 @@ namespace Stardust.Controllers
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "UPDATE Productos " +
+            string commandString = "UPDATE Producto " +
                                     "SET nombre = '" + producto.nombre + "', descripcion = '" + producto.descripcion + "' " +
                                     "WHERE idProducto = " + producto.ID;  
 
@@ -101,7 +101,7 @@ namespace Stardust.Controllers
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Productos WHERE idProducto = " + id;
+            string commandString = "SELECT * FROM Producto WHERE idProducto = " + id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -126,7 +126,7 @@ namespace Stardust.Controllers
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "UPDATE Productos " +
+            string commandString = "UPDATE Producto " +
                                     "SET estado = 0 WHERE idProducto = " + id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -150,12 +150,12 @@ namespace Stardust.Controllers
             ViewBag.resp = "";
             if (!String.IsNullOrEmpty(nombre))
             {
-                commandString = "Select * FROM Productos WHERE estado = 1 AND UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'";
+                commandString = "Select * FROM Producto WHERE estado = 1 AND UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'";
                 ViewBag.resp += "1";
             }
             else
             {
-                commandString = "SELECT * FROM Productos WHERE estado = 1 ";
+                commandString = "SELECT * FROM Producto WHERE estado = 1 ";
             }
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
