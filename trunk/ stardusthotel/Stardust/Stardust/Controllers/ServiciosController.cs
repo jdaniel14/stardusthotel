@@ -27,7 +27,11 @@ namespace Stardust.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult Eliminar()
+        {
+            return View();
+        }
 
 
     }
