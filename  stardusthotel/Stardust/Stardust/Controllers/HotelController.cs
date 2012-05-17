@@ -17,7 +17,7 @@ namespace Stardust.Controllers
 
         public ActionResult Index()
         {
-            var hotels = from m in db.Hotell
+            var hotels = from m in db.Hotel
                          select m;
             return View(hotels.ToList());
         }
@@ -45,7 +45,7 @@ namespace Stardust.Controllers
         public ActionResult Create(Hotel newhotel)
         {
            if (ModelState.IsValid) {
-               db.Hotell.Add(newhotel);
+               db.Hotel.Add(newhotel);
                
                db.SaveChanges(); 
                return RedirectToAction("Index"); 

@@ -107,11 +107,20 @@ namespace Stardust.Controllers
         public ViewResult Buscar( string nombre , string apPat ) {
             var model = from r in db.Usuarios select r;
 
-            if ( !String.IsNullOrEmpty( nombre ) )
-                model = model.Where( r => r.nombres == nombre ) ;
+            ViewBag.resp = "";
+            if (!String.IsNullOrEmpty(nombre))
+            {
+                model = model.Where(r => r.nombres.ToUpper().Contains(nombre.ToUpper()));
+                ViewBag.resp += "1";
+            }
 
-            if ( !string.IsNullOrEmpty( apPat ) )
-                model = model.Where( r => r.apPat == apPat ) ;
+            if (!string.IsNullOrEmpty(apPat))
+            {
+                model = model.Where(r => r.apPat.ToUpper().Contains(apPat.ToUpper()));
+                ViewBag.resp += "1";
+            }
+
+            ViewBag.coincidencias = model.LongCount();
 
             return View( model.ToList() );
         }

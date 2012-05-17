@@ -31,7 +31,14 @@
     </p>
 }
 
-<p></p><p></p><p></p>
+<p></p><p></p>
+
+@if ( String.IsNullOrEmpty( ViewBag.resp ) ) { 
+    <div class="nNote nWarning hideit">        <p><strong>WARNING: </strong>Ingrese valores de búsqueda.</p>    </div>}else if(ViewBag.coincidencias > 0)
+{    <div class="nNote nInformation hideit">        <p><strong>INFORMACIÓN</strong>Se encontraron @ViewBag.coincidencias coincidencias.</p>    </div>
+}
+
+<p></p><p></p>
 
 <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
     <thead>

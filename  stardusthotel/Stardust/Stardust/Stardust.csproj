@@ -72,15 +72,22 @@
     <Compile Include="Controllers\HotelController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
+    <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Almacen.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\ProductoDAO.cs" />
+    <Compile Include="Models\ProductoServicio.cs" />
     <Compile Include="Models\Proveedor.cs" />
+    <Compile Include="Models\ProveedorDAO.cs" />
+    <Compile Include="Models\ProveedorFacade.cs" />
+    <Compile Include="Models\ProveedorServicio.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -4167,12 +4174,9 @@
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\Producto\Control.cshtml" />
-<<<<<<< .mine
     <Content Include="Views\Usuario\Buscar.cshtml" />
-=======
     <Content Include="Views\Hotel\Create.cshtml" />
     <Content Include="Views\Hotel\Index.cshtml" />
->>>>>>> .r186
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
