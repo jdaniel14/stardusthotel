@@ -9,7 +9,7 @@ namespace Stardust.Models
 {
     public class ProveedorDAO
     {
-        public List<ProveedorBean> ListarProveedor( String Nombre) {
+        public List<ProveedorBean> ListarProveedor (String Nombre) {
 
             List<ProveedorBean> listaProveedor = new List<ProveedorBean>();
 
@@ -48,7 +48,7 @@ namespace Stardust.Models
             return listaProveedor;
         }
 
-        public String insertarProveedor(ProveedorBean proveedor) {
+        public String InsertarProveedor(ProveedorBean proveedor) {
             String me = "";
             
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
