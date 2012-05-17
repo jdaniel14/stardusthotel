@@ -2,29 +2,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration;
 
 namespace Stardust.Models
 {
     public class Proveedor
     {
-        public int ID { get; set; }
+        [Display(Name = "")]
+        [Required(ErrorMessage = "Titulo es requerido")]
+        [Key]
+        public int idProveedor { get; set; }
+        
         [Display(Name = "Razon Social")]
-        public string Razon_Social { get; set; }
+        public string razonSocial { get; set; }
+        
         [Display(Name = "RUC")]
-        public string RUC { get; set; }
+        public string ruc { get; set; }
+        
         [Display(Name = "Dirección")]
-        public string Direccion { get; set; }
+        public string direccion { get; set; }
+        
         [Display(Name = "Teléfono")]
-        public string Telefono { get; set; }
+        public string telefono { get; set; }
+        
         [Display(Name = "Pagina Web")]
-        public string Pagina_Web { get; set; }
+        public string web { get; set; }
+        
         [Display(Name = "Contacto")]
-        public string Contacto { get; set; }
+        public string contacto { get; set; }
+        
         [Display(Name = "Cargo del Persona")]
-        public string Cargo { get; set; }
+        public string cargoContacto { get; set; }
+        
         [Display(Name = "Correo electrónico")]
-        public string Correo { get; set; }
+        public string emailContacto { get; set; }
+        
         [Display(Name = "Observacion")]
         public string Observaciones { get; set; }
         public int estado { get; set; }
