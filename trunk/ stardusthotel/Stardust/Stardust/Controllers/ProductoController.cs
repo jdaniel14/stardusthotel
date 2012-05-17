@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using System.Configuration;
 
@@ -42,7 +41,7 @@ namespace Stardust.Controllers
                                                 producto.estado
                                                 );
                 db.SaveChanges();
-                return RedirectToAction("../Home/Index");
+                return RedirectToAction("Buscar");//("../Home/Index");
             }
             catch (Exception e)
             {
@@ -51,20 +50,114 @@ namespace Stardust.Controllers
             }
         }
 
-        public ActionResult Control()
+        public ActionResult Edit(int id)
         {
-            //var ViewData.Model = db.Producto.ToList;
-            //var model = from m in db.Productos select m;
-            List<Producto> listaProducto = new List<Producto>();
-
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Productos ";
-            //bool result = Nombre.Equals("");
-            //if (!result) commandString = commandString + "WHERE UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%'";
+            string commandString = "SELECT * FROM Productos WHERE idProducto = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            dataReader.Read();
+
+            Producto producto = new Producto();
+            producto.ID = (int)dataReader["idProducto"];
+            producto.nombre = (string)dataReader["nombre"];
+            producto.descripcion = (string)dataReader["descripcion"];
+            producto.estado = Convert.ToInt32(dataReader["estado"]);
+            sqlCon.Close();
+
+            return View(producto);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Producto producto)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "UPDATE Productos " +
+                                    "SET nombre = '" + producto.nombre + "', descripcion = '" + producto.descripcion + "' " +
+                                    "WHERE idProducto = " + producto.ID;  
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+
+            return RedirectToAction("Buscar");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Productos WHERE idProducto = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            dataReader.Read();
+
+            Producto producto = new Producto();
+            producto.ID = (int)dataReader["idProducto"];
+            producto.nombre = (string)dataReader["nombre"];
+            producto.descripcion = (string)dataReader["descripcion"];
+            producto.estado = Convert.ToInt32(dataReader["estado"]);
+            sqlCon.Close();
+
+            return View(producto);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "UPDATE Productos " +
+                                    "SET estado = 0 WHERE idProducto = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+            return RedirectToAction("Buscar");
+        }
+
+        public ActionResult Buscar(string nombre)
+        {
+            List<Producto> listaProducto = new List<Producto>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();                       
+
+            string commandString = "";
+
+            ViewBag.resp = "";
+            if (!String.IsNullOrEmpty(nombre))
+            {
+                commandString = "Select * FROM Productos WHERE estado = 1 AND UPPER(nombre) = '" + nombre.ToUpper() + "'";
+                ViewBag.resp += "1";
+            }
+            else
+            {
+                commandString = "SELECT * FROM Productos WHERE estado = 1 ";
+            }
+
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
@@ -78,24 +171,8 @@ namespace Stardust.Controllers
 
                 listaProducto.Add(producto);
             }
+
             return View(listaProducto);
-        }
-
-        public ActionResult Buscar() 
-        {            
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Buscar(string nombre) {
-            db.Productos.Find(nombre);
-            if (nombre != "") 
-            {
-
-            }
-            ViewData["nombre"]=nombre;
-           
-            return View();
         }
     }
 }
