@@ -1,0 +1,90 @@
+﻿@model Stardust.Models.Hotel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Hotel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.idhotel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.idhotel)
+            @Html.ValidationMessageFor(model => model.idhotel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.descripcion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.descripcion)
+            @Html.ValidationMessageFor(model => model.descripcion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.razonsocial)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.razonsocial)
+            @Html.ValidationMessageFor(model => model.razonsocial)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.regid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.regid)
+            @Html.ValidationMessageFor(model => model.regid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.direccion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.direccion)
+            @Html.ValidationMessageFor(model => model.direccion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telf1)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telf1)
+            @Html.ValidationMessageFor(model => model.telf1)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.telf2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.telf2)
+            @Html.ValidationMessageFor(model => model.telf2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.fax)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.fax)
+            @Html.ValidationMessageFor(model => model.fax)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
