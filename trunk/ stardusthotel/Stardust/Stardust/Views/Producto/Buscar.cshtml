@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Stardust.Models.Producto>
+﻿@*@model IEnumerable<Stardust.Models.Producto>
 
 @{
     ViewBag.Title = "Buscar Producto";
@@ -20,11 +20,11 @@
     </thead>
 
     <tbody>
-    @*@foreach (var item in Model) {
+    @foreach (var item in Model) {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.nombres )</td>
-            <td>@Html.DisplayFor(modelItem => item.apPat)</td>
-            <td>@Html.DisplayFor(modelItem => item.apMat)</td>
+            <td>@Html.DisplayFor(modelItem => item.nombre )</td>
+            <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
+      
             <td>
                 
                 Editar <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" /></a> | 
@@ -33,6 +33,67 @@
             </td>
         </tr>
         
-    }*@
+    }
+    </tbody>
+</table>*@
+
+@model IEnumerable<Stardust.Models.Producto>
+
+@{
+    ViewBag.Title = "Buscar producto";
+}
+
+<h2>Buscar</h2>
+
+@using (Html.BeginForm("Buscar", "Producto", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Crear Producto</h6></div>
+
+            <div class="formRow">
+                <label>Nombre</label>
+                <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" /></div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+<p></p><p></p>
+
+@if ( String.IsNullOrEmpty( ViewBag.resp ) ) { 
+    <div class="nNote nWarning hideit">        <p><strong>WARNING: </strong>Ingrese valores de búsqueda.</p>    </div>}else if(ViewBag.coincidencias > 0)
+{    <div class="nNote nInformation hideit">        <p><strong>INFORMACIÓN</strong>Se encontraron @ViewBag.coincidencias coincidencias.</p>    </div>
+}
+
+<p></p><p></p>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+            </td>
+        </tr>
+        
+    }
     </tbody>
 </table>
