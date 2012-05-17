@@ -1,0 +1,35 @@
+﻿@model Stardust.Models.Producto
+
+@{
+    ViewBag.Title = "Borrar producto";
+}
+
+@*<h2>Delete</h2>*@
+
+<h3>Seguro de querer eliminar este producto?</h3>
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del Producto</h6></div>
+    @*<legend>Usuario</legend>*@
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombre)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.descripcion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.descripcion)</div>
+            <div class = "clear" ></div>
+        </div>
+
+    </div>
+</fieldset>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Borrar" class = "redB"/> |
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+}
