@@ -4,102 +4,69 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Lista de Proveedores</h2>
+<h2>Proveedor</h2>
 
-<p>
-    Lista general de los proveedores del hotel
-</p>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
-   
-<form action = "" class = "form" >
-
-   <fieldset>
-
-        <legend>Proveedor</legend>
-        
+@*@using (Html.BeginForm())
+{
+*@
     
-        <div class="formRow">
-            <label>Razon Social</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.razonSocial)
-            </div>
-            <div class = "clear"></div>
-        </div>
-                
-        <div class="formRow">
-            <label>RUC</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.ruc)
-            </div>
-            <div class = "clear"></div>
-        </div>
+@using (Html.BeginForm("ModificarProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
+{
+   @Html.ValidationSummary(false)
+    
 
-        <div class="formRow">
-            <label>Direccion</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.direccion)
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Modificar Proveedor</h6>
             </div>
-            <div class = "clear"></div>
-        </div>
-        
-        <div class="formRow">
-            <label>Telefono</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.telefono)
+            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
+                <div class=" formRight"> @Html.EditorFor(model => model.razonSocial) </div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
-
-        <div class="formRow">
-            <label>Web</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.web)
+            <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.ruc) </div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
 
-        <div class="formRow">
-            <label>Contacto</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.contacto)
+            <div class="formRow">@Html.LabelFor(model => model.direccion)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.direccion) </div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
-
-        <div class="formRow">
-            <label>Cargo del Contacto</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.cargoContacto)
+            <div class="formRow">@Html.LabelFor(model => model.telefono)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.telefono) </div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
-
-        <div class="formRow">
-            <label>E-mail del Contacto</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.emailContacto)
+            <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.web) </div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
-
-        <div class="formRow">
-            <label>Observaciones</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.observaciones)
+            <div class="formRow">@Html.LabelFor(model => model.contacto)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.contacto) </div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
+            <div class="formRow">@Html.LabelFor(model => model.cargoContacto)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.cargoContacto) </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.emailContacto) </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">@Html.LabelFor(model => model.observaciones)<span class="req">*</span>
+                <div class="formRight"> @Html.EditorFor(model => model.observaciones) </div>
+                <div class="clear"></div>
+            </div>            
+            
         </div>
-
-        <p>
-            <input type="submit" value="Guardar" />
-        </p>
-
     </fieldset>
 
-</form>
+        <p>
+        <input type="submit" value="Modificar" class = "redB" />
+    </p>
 }
-
+       
