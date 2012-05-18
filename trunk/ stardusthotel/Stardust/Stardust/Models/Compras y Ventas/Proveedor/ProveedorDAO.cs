@@ -18,7 +18,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Servicio ";
+            string commandString = "SELECT * FROM Proveedor ";
             bool result = Nombre.Equals("");
             if (!result)  commandString = commandString + " AND UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
