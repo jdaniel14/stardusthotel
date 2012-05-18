@@ -53,7 +53,7 @@ namespace Stardust.Controllers
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
             proveedorFacade.ActualizarProveedor(item);
-            return RedirectToAction("MostrarProveedores");
+            return RedirectToAction("BuscarProveedor");
         }
 
         public ActionResult EliminarProveedor(int idProveedor)
