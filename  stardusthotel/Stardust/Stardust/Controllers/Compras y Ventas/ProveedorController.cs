@@ -42,10 +42,10 @@ namespace Stardust.Controllers
 
         }
 
-        public ActionResult ModificarProveedor(int idProveedor)
+        public ActionResult ModificarProveedor(int id)
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
-            ProveedorBean item = proveedorFacade.GetProveedor(idProveedor);
+            ProveedorBean item = proveedorFacade.GetProveedor(id);
             return View(item);
         }
 
