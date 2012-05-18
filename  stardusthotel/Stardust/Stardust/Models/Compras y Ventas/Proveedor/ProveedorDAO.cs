@@ -75,7 +75,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString =  "UPDATE Proveedor " +
-                                    "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', ruc = '" + proveedor.ruc + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + 
+                                    "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + 
                                     "' WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -126,10 +126,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString =  "UPDATE " +
-                                    "Proveedor " +
-                                    "SET estado=0" +
-                                    "WHERE idProveedor = " + idProveedor;
+            string commandString =  "UPDATE Proveedor SET estado=0 WHERE idProveedor = " + idProveedor;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -141,39 +138,3 @@ namespace Stardust.Models
     }
 }
 
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
-
-//namespace Stardust.Models
-//{
-//    public class ProveedorDAO
-//    {
-//        public int insertarProveedor(ProveedorBean prov)
-//        {
-//            return 1;
-//        }
-//        public List<Proveedor> void buscarProveedor(string razon_social, string contacto)
-//        {
-//            string res = "";
-//            //return null;
-//           // string res = "";
-//            //return 0;
-//        }
-//        public int eliminarProveedor(ProveedorBean prov)
-//        {
-//            return 1;
-//        }
-//        public List<ProveedorBean> listar()
-//        {
-//            List<ProveedorBean> lista = null ;
-//            ProveedorBean prov = new ProveedorBean();
-//            lista.Add(prov);
-           
-//            return lista;
-//        }
-
-
-//    }
-//}
