@@ -30,7 +30,7 @@ namespace Stardust.Models
                 servicio.id = (int)dataReader["idServicio"];
                 servicio.nombre = (string)dataReader["nombre"];
                 servicio.descripcion = (string)dataReader["descripcion"];
-
+            
                 listaServicios.Add(servicio);
             }
             dataReader.Close();
