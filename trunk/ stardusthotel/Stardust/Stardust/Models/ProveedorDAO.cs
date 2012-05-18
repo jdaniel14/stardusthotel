@@ -75,8 +75,8 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString =  "UPDATE Proveedor " +
-                                    "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', ruc = '" + proveedor.ruc + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + "', estado = '" + proveedor.estado + "' " +
-                                    "WHERE idProveedor = " + proveedor.ID;
+                                    "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', ruc = '" + proveedor.ruc + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + 
+                                    "' WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
