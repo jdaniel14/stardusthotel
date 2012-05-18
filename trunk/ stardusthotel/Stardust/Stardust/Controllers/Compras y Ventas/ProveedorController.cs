@@ -65,7 +65,7 @@ namespace Stardust.Controllers
 
         public ActionResult BuscarProveedor(string razon,string contacto)
         {
-            List<Proveedor> listaProveedor = new List<Proveedor>();
+            List<ProveedorBean> listaProveedor = new List<ProveedorBean>();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -104,8 +104,8 @@ namespace Stardust.Controllers
 
             while (dataReader.Read())
             {
-                Proveedor proveedor = new Proveedor();
-                proveedor.idProveedor = (int)dataReader["idProveedor"];
+                ProveedorBean proveedor = new ProveedorBean();
+                proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.estado = Convert.ToInt32(dataReader["estado"]);
@@ -115,7 +115,7 @@ namespace Stardust.Controllers
                 proveedor.web = (string)dataReader["web"];
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
-                proveedor.Observaciones = (string)dataReader["observaciones"];
+                proveedor.observaciones = (string)dataReader["observaciones"];
 
                 listaProveedor.Add(proveedor);
             }

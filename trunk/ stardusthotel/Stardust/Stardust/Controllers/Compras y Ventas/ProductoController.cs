@@ -16,7 +16,7 @@ namespace Stardust.Controllers
         //
         // GET: /Producto/
         private CadenaHotelDB db = new CadenaHotelDB();
-        ProductoFacade productoFacade = new ProductoFacade();
+        ProveedorFacade produc = new ProveedorFacade();
 
         public ViewResult Index()
         {
@@ -31,37 +31,37 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(ProductoBean producto)
         {
-            productoFacade.Registrarproducto(producto);
+            produc.Registrarproducto(producto);
             return RedirectToAction("Buscar");//("../Home/Index");
         }
 
         public ActionResult Edit(int ID)
         {
-            return View(productoFacade.Getproducto(ID));
+            return View(produc.Getproducto(ID));
         }
 
         [HttpPost]
         public ActionResult Edit(ProductoBean producto)
         {
-            productoFacade.ActualizarProducto(producto);
+            produc.ActualizarProducto(producto);
             return RedirectToAction("Buscar");
         }
 
         public ActionResult Delete(int ID)
         {
-            return View(productoFacade.Getproducto(ID));
+            return View(produc.Getproducto(ID));
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int ID)
         {
-            productoFacade.Eliminarproducto(ID);
+            produc.Eliminarproducto(ID);
             return RedirectToAction("Buscar");
         }
 
         public ActionResult Buscar(string nombre)
         {
-            return View(productoFacade.ListarProducto(nombre));
+            return View(produc.ListarProducto(nombre));
         }
     }
 }
