@@ -11,10 +11,13 @@ namespace Stardust.Models
     public class ProductoBean
     {
         public int ID { get; set; }
+        
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
+        
         [Display(Name = "Descripción")]
         public string descripcion { get; set; }
+        
         public int estado { get; set; }  
     }
 }
