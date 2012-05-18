@@ -14,6 +14,7 @@ namespace Stardust.Controllers
         //
         // GET: /Proveedores/
         private CadenaHotelDB db = new CadenaHotelDB();
+        
         public ViewResult Index()
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
@@ -37,7 +38,7 @@ namespace Stardust.Controllers
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
             proveedorFacade.RegistrarProveedor(proveedor);
-            return RedirectToAction("../Home/Index");
+            return RedirectToAction("Index");
 
         }
 
@@ -53,14 +54,19 @@ namespace Stardust.Controllers
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
             proveedorFacade.ActualizarProveedor(item);
-            return RedirectToAction("BuscarProveedor");
+            return RedirectToAction("Index");
         }
 
         public ActionResult EliminarProveedor(int idProveedor)
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
             proveedorFacade.EliminarProveedor(idProveedor);
-            return RedirectToAction("BuscarProveedor");
+            return RedirectToAction("Index");
+        }
+        
+        public ActionResult BuscarProveedor()
+        {
+            return View();
         }
 
         public ActionResult BuscarProveedor(string razon,string contacto)
