@@ -35,43 +35,33 @@ namespace Stardust.Models
         }
 
         /*----------producto----------------*/
-        
-        /*
-        public string registrarproducto(ProductoBean prod)
+
+        ProductoService productoService = new ProductoService();
+
+        public List<ProductoBean> ListarProducto(String nombre)
         {
-            gestorproducto = new ProductoServicio();
-            string resp = gestorproducto.registrarProducto(prod);
-            return resp;
+            return productoService.Listarproducto(nombre);
         }
 
-        public string BuscarProducto(string nombre)
+        public void Registrarproducto(ProductoBean producto)
         {
-            gestorproducto = new ProductoServicio();
-            ProductoBean prod = gestorproducto.buscarproducto(nombre);
-            string cadena = "";
-            return cadena;
+            productoService.Registrarproducto(producto);
         }
 
-        public string EliminarProducto(ProductoBean prod)
+        public void ActualizarProducto(ProductoBean producto)
         {
-            gestorproducto = new ProductoServicio();
-            string res = gestorproducto.eliminarProducto(prod);
-            return res;
+            productoService.Actualizarproducto(producto);
         }
 
-        public string Asignarproductoxalmacen ( List<ProductoBean> prod, Almacen almacen)
+        public ProductoBean Getproducto(int idProducto)
         {
-            gestorproducto = new ProductoServicio();
-            string res = gestorproducto.asignarproductosxalmacen(prod, almacen);
-            return res;
+            return productoService.Getproducto(idProducto);
         }
-        public List<ProveedorBean> listar() 
+
+        public void Eliminarproducto(int idproducto)
         {
-            gestorproveedor = new ProveedorService();
-            return gestorproveedor.Listar();
-            
+            productoService.Eliminarproducto(idproducto);
         }
-        */
 
     }
 }
