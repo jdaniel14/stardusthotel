@@ -8,13 +8,12 @@
 <h2>Lista de Proveedores</h2>
 
 <p>
-    @Html.ActionLink("Registrar Proveedor", "RegistrarProveedor","Proveedores")
+    <a href="@Url.Action("RegistrarProveedor")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir</a>
 </p>
-
-<p>
+@*<p>
     @Html.ActionLink("Buscar proveedor", "BuscarProveedor","Proveedores")
 </p>
-
+*@
 
 <div class = "widget" >
 
@@ -49,8 +48,10 @@
                     @Html.DisplayFor(modelItem => item.contacto)
                 </td>
                 <td>
-                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.id }) |
-                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.id })                     
+                <a href="@Url.Action("ModificarProveedor", new { id = item.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Details", new { id = item.id })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("EliminarProveedor", new { id = item.id })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+                                  
                 </td>
             </tr>
     }
