@@ -8,7 +8,7 @@
 <h2>Lista de Proveedores</h2>
 
 <p>
-    @Html.ActionLink("Registrar un nuevo Proveedor", "RegistrarProveedor","Proveedores")
+    @Html.ActionLink("Registrar Proveedor", "RegistrarProveedor","Proveedores")
 </p>
 
 <p>
@@ -18,7 +18,7 @@
 
 <div class = "widget" >
 
-    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Proveedores del hotel</h6></div>
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Proveedores</h6></div>
 
     <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
 
@@ -26,13 +26,8 @@
         <tr>
             <td>Razon Social</td>
             <td>RUC</td>
-            <td>Direccion</td>
-            <td>Telefono</td>
-            <td>Web</td>
+            <td>Direccion</td>       
             <td>Contacto</td>
-            <td>Cargo del Contacto</td>
-            <td>E-mail del Contacto</td>
-            <td>Observaciones</td>
             <td></td>            
         </tr>
     </thead>
@@ -51,26 +46,11 @@
                     @Html.DisplayFor(modelItem => item.direccion)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.telefono)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.web)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.contacto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.cargoContacto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.emailContacto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.observaciones)
-                </td>
-                <td>
-                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.ID }) |
-                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.ID })                     
+                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.id }) |
+                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.id })                     
                 </td>
             </tr>
     }
