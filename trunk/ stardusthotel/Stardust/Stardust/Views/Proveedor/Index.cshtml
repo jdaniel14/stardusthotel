@@ -35,18 +35,10 @@
 
     @foreach (var item in Model) {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.razonSocial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ruc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.direccion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.contacto)
-                </td>
+                <td> @Html.DisplayFor(modelItem => item.razonSocial) </td>
+                <td> @Html.DisplayFor(modelItem => item.ruc)         </td>
+                <td> @Html.DisplayFor(modelItem => item.direccion)   </td>
+                <td> @Html.DisplayFor(modelItem => item.contacto)    </td>
                 <td>
                 <a href="@Url.Action("ModificarProveedor", new { id = item.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("Details", new { id = item.id })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
