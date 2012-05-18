@@ -56,6 +56,12 @@ namespace Stardust.Controllers
             proveedorFacade.ActualizarProveedor(item);
             return RedirectToAction("Index");
         }
+        public ActionResult DetallesProveedor(int id)
+        {
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            ProveedorBean item = proveedorFacade.GetProveedor(id);
+            return View(item);
+        }
 
         public ActionResult EliminarProveedor(int id)
         {
@@ -63,7 +69,7 @@ namespace Stardust.Controllers
             proveedorFacade.EliminarProveedor(id);
             return RedirectToAction("Index");
         }
-        
+
         public ActionResult BuscarProveedor()
         {
             return View();
@@ -134,6 +140,7 @@ namespace Stardust.Controllers
             List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(item.razonSocial);
             return View(listaProveedor);
         }
+
     }
 }
 
