@@ -18,7 +18,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Servicio WHERE estado = '1' ";
+            string commandString = "SELECT * FROM Servicio ";
             bool result = Nombre.Equals("");
             if (!result)  commandString = commandString + " AND UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -27,8 +27,8 @@ namespace Stardust.Models
             while (dataReader.Read())
             {
                 ProveedorBean proveedor = new ProveedorBean();
-				
-                proveedor.ID = (int)dataReader["idProveedor"];
+
+                proveedor.id = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];
@@ -38,8 +38,8 @@ namespace Stardust.Models
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
-                proveedor.estado = Convert.ToInt32(dataReader["estado"]);
-
+                //proveedor.estado = Convert.ToInt32(dataReader["estado"]);
+                proveedor.estado = 1;
                 listaProveedor.Add(proveedor);
             }
             dataReader.Close();
@@ -93,7 +93,7 @@ namespace Stardust.Models
 									"', telefono = '" + proveedor.telefono + 
 									"', direccion = '" + proveedor.direccion + 
 									"', observaciones = '" + proveedor.observaciones + 
-                                    "' WHERE idProveedor = " + proveedor.ID;
+                                    "' WHERE idProveedor = " + proveedor.id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -117,7 +117,7 @@ namespace Stardust.Models
 
             if (dataReader.Read())
             {
-                proveedor.ID = (int)dataReader["idProveedor"];
+                proveedor.id = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];
