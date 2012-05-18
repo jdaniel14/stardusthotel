@@ -6,7 +6,7 @@
 
 <h2>Buscar</h2>
 
-@using (Html.BeginForm("Buscar", "Proveedor", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("BuscarProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
 {
     @Html.ValidationSummary(false)
     <fieldset>
@@ -72,8 +72,8 @@
                     @Html.DisplayFor(modelItem => item.contacto)
                 </td>
                 <td>
-                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.idProveedor }) |
-                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.idProveedor })                     
+                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.id }) |
+                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.id })                     
                 </td>    
             </tr>
     }
