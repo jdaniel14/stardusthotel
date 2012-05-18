@@ -18,7 +18,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedor ";
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1";
             bool result = Nombre.Equals("");
             if (!result)  commandString = commandString + " AND UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -111,7 +111,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedor WHERE estado=1 AND idProveedor = " + idProveedor;
+            string commandString = "SELECT * FROM Proveedor WHERE  idProveedor = " + idProveedor;
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
