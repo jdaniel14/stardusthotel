@@ -61,9 +61,12 @@
             
         </div>
     </fieldset>
-
         <p>
-        <input type="submit" value="Regresar" class = "redB" />
+        <a href="@Url.Action("ModificarProveedor", new { id = Model.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "Index")
     </p>
+@*        <p>
+        <input type="submit" value="Regresar" class = "redB" />
+    </p>*@
 }
        
