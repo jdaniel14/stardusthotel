@@ -111,7 +111,7 @@ namespace Stardust.Controllers
             while (dataReader.Read())
             {
                 ProveedorBean proveedor = new ProveedorBean();
-                proveedor.ID = (int)dataReader["idProveedor"];
+                proveedor.id = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.estado = Convert.ToInt32(dataReader["estado"]);
