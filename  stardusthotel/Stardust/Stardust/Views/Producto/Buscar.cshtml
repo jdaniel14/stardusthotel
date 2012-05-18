@@ -1,49 +1,6 @@
-﻿@*@model IEnumerable<Stardust.Models.Producto>
-
-@{
-    ViewBag.Title = "Buscar Producto";
-}
+﻿@model IEnumerable<Stardust.Models.ProductoBean>
 
 <h2>Buscar Producto</h2>
-
-<div>
-    nombre: @ViewData["nombre"] 
-</div>
-
-<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
-    <thead>
-        <tr>
-            <td>Nombre</td>
-            <td>Descripcion</td>
-            <td></td>
-        </tr>
-    </thead>
-
-    <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.nombre )</td>
-            <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
-      
-            <td>
-                
-                Editar <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" /></a> | 
-                Detalles <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" /></a> | 
-                Borrar <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" /></a>
-            </td>
-        </tr>
-        
-    }
-    </tbody>
-</table>*@
-
-@model IEnumerable<Stardust.Models.Producto>
-
-@{
-    ViewBag.Title = "Buscar producto";
-}
-
-<h2>Buscar</h2>
 
 @using (Html.BeginForm("Buscar", "Producto", FormMethod.Post, new { @class = "form" }))
 {
@@ -67,13 +24,6 @@
 <div>
     @Html.ActionLink("Regresar", "../Home/Index")
 </div>
-
-<p></p><p></p>
-
-@if ( String.IsNullOrEmpty( ViewBag.resp ) ) { 
-    <div class="nNote nWarning hideit">        <p><strong>WARNING: </strong>Ingrese valores de búsqueda.</p>    </div>}else if(ViewBag.coincidencias > 0)
-{    <div class="nNote nInformation hideit">        <p><strong>INFORMACIÓN</strong>Se encontraron @ViewBag.coincidencias coincidencias.</p>    </div>
-}
 
 <p></p><p></p>
 
