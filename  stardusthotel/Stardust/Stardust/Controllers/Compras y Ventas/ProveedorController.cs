@@ -57,10 +57,10 @@ namespace Stardust.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult EliminarProveedor(int idProveedor)
+        public ActionResult EliminarProveedor(int id)
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
-            proveedorFacade.EliminarProveedor(idProveedor);
+            proveedorFacade.EliminarProveedor(id);
             return RedirectToAction("Index");
         }
         
