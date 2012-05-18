@@ -18,16 +18,16 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedor"; //WHERE UPPER(razonSocial) LIKE '%" + Nombre.ToUpper() + "%'";
-            //bool result = Nombre.Equals("");
-            //if (!result)  commandString = commandString + "WHERE UPPER(razonSocial) LIKE '%"+Nombre.ToUpper()+"%'";
+            string commandString = "SELECT * FROM Servicio WHERE estado = '1' ";
+            bool result = Nombre.Equals("");
+            if (!result)  commandString = commandString + " AND UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
             while (dataReader.Read())
             {
                 ProveedorBean proveedor = new ProveedorBean();
-                
+				
                 proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
@@ -57,7 +57,17 @@ namespace Stardust.Models
             sqlCon.Open();
 
             proveedor.estado = 1;
-            string commandString = "INSERT INTO Proveedor VALUES ('" + proveedor.razonSocial + "', '" + proveedor.contacto + "', '" + proveedor.emailContacto + "', '" + proveedor.cargoContacto + "', '" + proveedor.ruc + "', '" + proveedor.web + "', '" + proveedor.telefono + "', '" + proveedor.direccion + "', '" + proveedor.observaciones + "', '" + proveedor.estado + "')";
+            string commandString = "INSERT INTO Proveedor VALUES ('" + 
+			       proveedor.razonSocial + "', '" + 
+				   proveedor.contacto + "', '" + 
+				   proveedor.emailContacto + "', '" + 
+				   proveedor.cargoContacto + "', '" + 
+				   proveedor.ruc + "', '" + 
+				   proveedor.web + "', '" + 
+				   proveedor.telefono + "', '" + 
+				   proveedor.direccion + "', '" + 
+				   proveedor.observaciones + "', '" + 
+				   proveedor.estado + "')";
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -75,7 +85,14 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString =  "UPDATE Proveedor " +
-                                    "SET razonSocial = '" + proveedor.razonSocial + "', contacto = '" + proveedor.contacto + "', emailContacto = '" + proveedor.emailContacto + "', cargoContacto = '" + proveedor.cargoContacto + "', web = '" + proveedor.web + "', telefono = '" + proveedor.telefono + "', direccion = '" + proveedor.direccion + "', observaciones = '" + proveedor.observaciones + 
+                                    "SET razonSocial = '" + proveedor.razonSocial + 
+									"', contacto = '" +	proveedor.contacto + 
+									"', emailContacto = '" + proveedor.emailContacto +
+									"', cargoContacto = '" + proveedor.cargoContacto + 
+									"', web = '" + proveedor.web +
+									"', telefono = '" + proveedor.telefono + 
+									"', direccion = '" + proveedor.direccion + 
+									"', observaciones = '" + proveedor.observaciones + 
                                     "' WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
