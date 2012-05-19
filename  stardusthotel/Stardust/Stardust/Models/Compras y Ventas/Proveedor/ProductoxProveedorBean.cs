@@ -20,7 +20,7 @@ namespace Stardust.Models
         public List<int> CantidadMax { get; set; }
 
         [Display(Name = "Productos")]
-        public List<ProductoBean> Producto { get; set; }
+        public List<String> Producto { get; set; }
 
         public List<bool> estado { get; set; } // estado para guardar a la base de datos
     }
