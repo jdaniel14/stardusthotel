@@ -4201,7 +4201,7 @@
     <Content Include="Views\Hotel\Delete.cshtml" />
     <Content Include="Views\Hotel\Details.cshtml" />
     <Content Include="Views\Hotel\Edit.cshtml" />
-    <Content Include="Views\Proveedor\BuscarProveedor.cshtml" />
+    <Content Include="Views\Proveedor\Buscar.cshtml" />
     <Content Include="Views\Proveedor\ModificarProveedor.cshtml" />
     <Content Include="Views\Proveedor\MostrarProveedor.cshtml" />
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
