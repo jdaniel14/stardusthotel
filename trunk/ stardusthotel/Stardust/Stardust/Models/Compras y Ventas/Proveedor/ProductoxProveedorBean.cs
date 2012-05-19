@@ -22,6 +22,6 @@ namespace Stardust.Models
         [Display(Name = "Productos")]
         public List<ProductoBean> Producto { get; set; }
 
-        public List<int> estado { get; set; } // estado para guardar a la base de datos
+        public List<bool> estado { get; set; } // estado para guardar a la base de datos
     }
 }

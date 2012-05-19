@@ -39,6 +39,7 @@
 
     <thead>
         <tr>
+           <td>Seleccionar</td>
            <td>Producto</td>
            <td>Precio</td>
            <td>Cantidad Maxima</td>  
@@ -51,11 +52,13 @@
     {*@
     @for (int i = 0; i < Model.Producto.Count; i++)
 {
-     <tr>
+     <tr>       
+                
+                <td> @Html.CheckBoxFor(model=>model.estado[i],true) </td>
                 <td> @Html.DisplayFor(model => model.Producto[i].nombre) </td>
                 <td> @Html.EditorFor(model => model.Precio[i])         </td>
                 <td> @Html.EditorFor(model => model.CantidadMax[i])   </td>
-            </tr>
+     </tr>
 }
            
    @* }*@
