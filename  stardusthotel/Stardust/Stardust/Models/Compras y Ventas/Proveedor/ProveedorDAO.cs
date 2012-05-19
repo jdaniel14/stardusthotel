@@ -25,7 +25,7 @@ namespace Stardust.Models
             if (!result1)
                 commandString = commandString + " AND UPPER(razonSocial) LIKE '%" + razonSocial.ToUpper() + "%'";
 
-            if (!result1)
+            if (!result2)
                 commandString = commandString + " AND UPPER(contacto) LIKE '%" + contacto.ToUpper() + "%'";
             //if (!result1 && !result2)
             //{
