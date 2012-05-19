@@ -17,7 +17,7 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-
+            //string commandString = "";
             string commandString = "SELECT * FROM Proveedor WHERE estado=1";
             bool result1 = String.IsNullOrEmpty(Nombre);//Nombre.Equals("") ;
             bool result2 = String.IsNullOrEmpty(Contacto);// Contacto.Equals("");
@@ -27,8 +27,6 @@ namespace Stardust.Models
                 if (result2) commandString = commandString + " AND UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%'";
             }
 
-
-
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
@@ -37,7 +35,7 @@ namespace Stardust.Models
                 ProveedorBean proveedor = new ProveedorBean();
 
                 
-                proveedor.id = (int)dataReader["idProveedor"];
+                proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];
@@ -102,7 +100,7 @@ namespace Stardust.Models
 									"', telefono = '" + proveedor.telefono + 
 									"', direccion = '" + proveedor.direccion + 
 									"', observaciones = '" + proveedor.observaciones + 
-                                    "' WHERE idProveedor = " + proveedor.id;
+                                    "' WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -126,7 +124,7 @@ namespace Stardust.Models
 
             if (dataReader.Read())
             {
-                proveedor.id = (int)dataReader["idProveedor"];
+                proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];

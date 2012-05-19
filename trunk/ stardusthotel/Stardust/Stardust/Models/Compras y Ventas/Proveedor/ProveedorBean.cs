@@ -12,7 +12,7 @@ namespace Stardust.Models
     public class ProveedorBean
     {
 
-        public int id { get; set; }
+        public int ID { get; set; }
 
         [Display(Name = "Razon Social")]
         public string razonSocial { get; set; }
