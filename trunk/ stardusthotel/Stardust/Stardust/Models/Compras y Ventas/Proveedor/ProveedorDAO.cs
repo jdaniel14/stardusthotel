@@ -17,7 +17,7 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-            //string commandString = "";
+            
             string commandString = "SELECT * FROM Proveedor WHERE estado=1";
             bool result1 = String.IsNullOrEmpty(Nombre);//Nombre.Equals("") ;
             bool result2 = String.IsNullOrEmpty(Contacto);// Contacto.Equals("");
@@ -45,7 +45,6 @@ namespace Stardust.Models
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
-                //proveedor.estado = Convert.ToInt32(dataReader["estado"]);
                 proveedor.estado = 1;
                 listaProveedor.Add(proveedor);
             }
