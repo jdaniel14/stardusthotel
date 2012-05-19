@@ -21,7 +21,7 @@
                 <h6>Proveedor</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
-                <div class=" formRight"> @Html.DisplayFor(model => model.Proveedor)  </div>
+                <div class=" formRight"> @Html.TextBoxFor(model => model.Proveedor,new{@readonly ="readonly"})  </div>
                 <div class="clear"></div>
             </div>
             
@@ -55,7 +55,7 @@
      <tr>       
                 
                 <td> @Html.CheckBoxFor(model=>model.listProdProv[i].estados,true) </td>
-                <td> @Html.DisplayTextFor(model => model.listProdProv[i].nombre) </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new{@readonly ="readonly"}) </td>
                 <td> @Html.EditorFor(model => model.listProdProv[i].precio)         </td>
                 <td> @Html.EditorFor(model => model.listProdProv[i].cantMaxima)   </td>
      </tr>
