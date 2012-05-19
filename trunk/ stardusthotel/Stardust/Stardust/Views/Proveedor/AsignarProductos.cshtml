@@ -15,19 +15,18 @@
     
 
     
-    <fieldset >
-        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" title="Proveedor" >
-            <thead>
-            <tr>
-               <td>Razon Social</td>
-               <td>RUC</td>           
-            </tr>
-            </thead>
-            <tr>
-                 <td> @Html.DisplayFor(model => model.Proveedor) </td>
-                 @*<td> @Html.DisplayFor(model => model.)         </td>*@
-            </tr>
-        </table>
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Proveedor</h6>
+            </div>
+            <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
+                <div class=" formRight"> @Html.DisplayFor(model => model.Proveedor)  </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
     </fieldset>
     
 
@@ -50,13 +49,17 @@
 
   @*  @foreach (var item in Model)
     {*@
-            <tr>
-                <td> @Html.DisplayFor(model => model.Producto) </td>
-                <td> @Html.EditorFor(model => model.Precio)         </td>
-                <td> @Html.EditorFor(model => model.CantidadMax)   </td>
+    @for (int i = 0; i < Model.Producto.Count; i++)
+{
+     <tr>
+                <td> @Html.DisplayFor(model => model.Producto[i].nombre) </td>
+                <td> @Html.EditorFor(model => model.Precio[i])         </td>
+                <td> @Html.EditorFor(model => model.CantidadMax[i])   </td>
             </tr>
-  @*  }
-    *@
+}
+           
+   @* }*@
+    
     </tbody>
 
     </table>
