@@ -9,6 +9,6 @@ namespace Stardust.Models{
     {
         public float precio { get; set; }
         public int cantMaxima { get; set; }
-        public bool estado { get; set; }
+        public bool estados { get; set; }
     }
 }
