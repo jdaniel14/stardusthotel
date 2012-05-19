@@ -9,7 +9,7 @@ namespace Stardust.Models
 {
     public class ProveedorDAO
     {
-        public List<ProveedorBean> ListarProveedor (String Nombre) {
+        public List<ProveedorBean> ListarProveedor (String Nombre, String contacto) {
 
             List<ProveedorBean> listaProveedor = new List<ProveedorBean>();
 
@@ -19,8 +19,15 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "SELECT * FROM Proveedor WHERE estado=1";
-            bool result = Nombre.Equals("");
-            if (!result)  commandString = commandString + " AND UPPER(nombre) LIKE '%"+Nombre.ToUpper()+"%'";
+            bool result = Nombre.Equals("") | contacto.Equals("");
+            if (!result)
+            {
+                if (Nombre.Equals("")) commandString = commandString + " AND UPPER(contacto) LIKE '%" + contacto.ToUpper() + "%'";
+                if (contacto.Equals("")) commandString = commandString + " AND UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%'";
+            }
+
+
+
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
@@ -155,4 +162,7 @@ namespace Stardust.Models
         }
     }
 }
+
+
+
 

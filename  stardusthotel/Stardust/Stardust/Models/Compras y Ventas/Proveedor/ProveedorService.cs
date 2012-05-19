@@ -9,9 +9,9 @@ namespace Stardust.Models
     {
         ProveedorDAO proveedorDAO = new ProveedorDAO();
         
-        public List<ProveedorBean> ListarProveedor(String Nombre)
+        public List<ProveedorBean> ListarProveedor(String Nombre, String contacto)
         {
-            List<ProveedorBean> listaProveedor = proveedorDAO.ListarProveedor(Nombre);
+            List<ProveedorBean> listaProveedor = proveedorDAO.ListarProveedor(Nombre, contacto);
             return listaProveedor;
         }
 
