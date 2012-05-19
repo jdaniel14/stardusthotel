@@ -33,7 +33,7 @@
     <p></p><p></p><p></p><p></p>
 
 
-    @using (Html.BeginForm("MostrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
+    @using (Html.BeginForm("ListarProductosSeleccionados", "Proveedor", FormMethod.Post, new { @class = "form" }))
     {
         <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
 
@@ -55,7 +55,7 @@
      <tr>       
                 
                 <td> @Html.CheckBoxFor(model=>model.estado[i],true) </td>
-                <td> @Html.DisplayFor(model => model.Producto[i].nombre) </td>
+                <td> @Html.DisplayTextFor(model => model.Producto[i]) </td>
                 <td> @Html.EditorFor(model => model.Precio[i])         </td>
                 <td> @Html.EditorFor(model => model.CantidadMax[i])   </td>
      </tr>
