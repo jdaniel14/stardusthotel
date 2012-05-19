@@ -75,7 +75,7 @@ namespace Stardust.Controllers
             return View();
         }
 
-        public ActionResult MostrarProveedor(ProveedorBean prov)//string razon,string contacto)
+        public ActionResult MostrarProveedor(ProveedorBean prov)
         {
 
             ProveedorFacade proveedorFacade = new ProveedorFacade();
@@ -83,12 +83,6 @@ namespace Stardust.Controllers
             return View(listaprov);
         }
 
-        public ActionResult MostrarProveedores(ProveedorBean item)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
-            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(item.razonSocial,"");
-            return View(listaProveedor);
-        }
 
     }
 }
