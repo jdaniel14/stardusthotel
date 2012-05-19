@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Stardust.Models.Compras_y_Ventas.Proveedor
+namespace Stardust.Models
 {
     public class ProductoxProveedorBean
     {
