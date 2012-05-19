@@ -96,12 +96,13 @@ namespace Stardust.Controllers
             prod.Proveedor = prov.razonSocial;
             prod.Producto = productos;
             prod.estado=new List<bool>();
-            //prod.estado.Count.Equals(prod.Producto.Count);
-            for (int i = 0; i < prod.Producto.Count; i++)
-            {
-                prod.estado.Add(false);
-            }
+            for (int i = 0; i < prod.Producto.Count; i++) prod.estado.Add(false);
             
+            return View(prod);
+        }
+        public ActionResult ListarProductosSeleccionados(ProductoxProveedorBean prod)
+        {
+
             return View(prod);
         }
     }
