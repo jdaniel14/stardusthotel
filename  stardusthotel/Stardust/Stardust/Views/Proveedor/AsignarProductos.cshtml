@@ -50,14 +50,14 @@
 
   @*  @foreach (var item in Model)
     {*@
-    @for (int i = 0; i < Model.Producto.Count; i++)
+    @for (int i = 0; i < Model.listProdProv.Count; i++)
 {
      <tr>       
                 
-                <td> @Html.CheckBoxFor(model=>model.estado[i],true) </td>
-                <td> @Html.DisplayTextFor(model => model.Producto[i]) </td>
-                <td> @Html.EditorFor(model => model.Precio[i])         </td>
-                <td> @Html.EditorFor(model => model.CantidadMax[i])   </td>
+                <td> @Html.CheckBoxFor(model=>model.listProdProv[i].estados,true) </td>
+                <td> @Html.DisplayTextFor(model => model.listProdProv[i].nombre) </td>
+                <td> @Html.EditorFor(model => model.listProdProv[i].precio)         </td>
+                <td> @Html.EditorFor(model => model.listProdProv[i].cantMaxima)   </td>
      </tr>
 }
            
