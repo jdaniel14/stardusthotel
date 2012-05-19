@@ -70,18 +70,19 @@ namespace Stardust.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult BuscarProveedor()
+        public ActionResult BuscarProveedor(string razonsocial, string contacto)
         {
-            return View();
-        }
-
-        public ActionResult MostrarProveedor(ProveedorBean prov)
-        {
-
             ProveedorFacade proveedorFacade = new ProveedorFacade();
-            List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
-            return View(listaprov);
+            return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
         }
+
+        //public ActionResult MostrarProveedor(ProveedorBean prov)
+        //{
+
+        //    ProveedorFacade proveedorFacade = new ProveedorFacade();
+        //    List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
+        //    return View(listaprov);
+        //}
 
 
     }
