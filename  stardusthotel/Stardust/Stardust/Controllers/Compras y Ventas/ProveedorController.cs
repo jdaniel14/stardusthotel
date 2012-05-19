@@ -85,7 +85,10 @@ namespace Stardust.Controllers
             return View(listaprov);
         }
 
-
+        public ActionResult AsignarProductos(int id)
+        {
+            return View();
+        }
     }
 }
 
