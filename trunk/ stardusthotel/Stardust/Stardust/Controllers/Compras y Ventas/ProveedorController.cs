@@ -99,10 +99,17 @@ namespace Stardust.Controllers
             prod.listProdProv = new List<ProductoProveedor>();
             for (int i = 0; i < productos.Count; i++)
             {
+                ProductoProveedor prodProveedor = new ProductoProveedor();
 
-                prod.listProdProv[i].nombre = productos[i].nombre;
-                prod.listProdProv[i].ID = productos[i].ID;
-                prod.listProdProv[i].estado=false;
+                prodProveedor.nombre = productos[i].nombre;
+                prodProveedor.ID = productos[i].ID;
+                prodProveedor.estados = false;
+
+                prod.listProdProv.Add(prodProveedor);
+               
+                //prod.listProdProv[i].nombre = productos[i].nombre;
+                //prod.listProdProv[i].ID = productos[i].ID;
+                //prod.listProdProv[i].estado=false;
             }
             
             return View(prod);
