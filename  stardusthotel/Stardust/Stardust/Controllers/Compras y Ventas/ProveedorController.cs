@@ -15,11 +15,11 @@ namespace Stardust.Controllers
         //
         // GET: /Proveedores/
         private CadenaHotelDB db = new CadenaHotelDB();
+        ProveedorFacade proveedorFacade = new ProveedorFacade();
         
         
         public ViewResult Index()
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor("","");
             return View(listaProveedor);
         }
@@ -37,58 +37,50 @@ namespace Stardust.Controllers
 
         [HttpPost]
         public ActionResult RegistrarProveedor(ProveedorBean proveedor)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             proveedorFacade.RegistrarProveedor(proveedor);
             return RedirectToAction("Index");
 
         }
 
         public ActionResult ModificarProveedor(int id)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             ProveedorBean item = proveedorFacade.GetProveedor(id);
             return View(item);
         }
 
         [HttpPost]
         public ActionResult ModificarProveedor(ProveedorBean item)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             proveedorFacade.ActualizarProveedor(item);
             return RedirectToAction("Index");
         }
         public ActionResult DetallesProveedor(int id)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             ProveedorBean item = proveedorFacade.GetProveedor(id);
             return View(item);
         }
 
         public ActionResult EliminarProveedor(int id)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             proveedorFacade.EliminarProveedor(id);
             return RedirectToAction("Index");
         }
 
-        public ActionResult BuscarProveedor()//string razonsocial, string contacto)
-        {
-            
-            //return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
-            return View();
+        public ActionResult Buscar(string razonsocial, string contacto)
+        {            
+            return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
+            //return View();
         }
 
         public ActionResult MostrarProveedor(ProveedorBean prov)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
             return View(listaprov);
         }
 
         public ActionResult AsignarProductos(int id)
-        {
-            ProveedorFacade proveedorFacade = new ProveedorFacade();
+        {            
             ProductoxProveedorBean prod = new ProductoxProveedorBean();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
             
@@ -103,7 +95,7 @@ namespace Stardust.Controllers
 
                 prodProveedor.nombre = productos[i].nombre;
                 prodProveedor.ID = productos[i].ID;
-                prodProveedor.estados = false;
+                //prodProveedor.estados = false;
 
                 prod.listProdProv.Add(prodProveedor);
                
@@ -118,7 +110,6 @@ namespace Stardust.Controllers
         
         public ViewResult ListarProductosSeleccionados(ProductoxProveedorBean prod)
         {
-
             
             return View(prod);
         }
