@@ -18,7 +18,7 @@ namespace Stardust.Controllers
         public ViewResult Index()
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
-            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor("");
+            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor("","");
             return View(listaProveedor);
         }
 
@@ -75,69 +75,18 @@ namespace Stardust.Controllers
             return View();
         }
 
-        public ActionResult BuscarProveedor(string razon,string contacto)
+        public ActionResult MostrarProveedor(ProveedorBean prov)//string razon,string contacto)
         {
-            List<ProveedorBean> listaProveedor = new List<ProveedorBean>();
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
-
-            string commandString = "";
-
-            ViewBag.resp = "";
-            if ((String.IsNullOrEmpty(razon)) && (String.IsNullOrEmpty(contacto)))
-            {
-                commandString = "SELECT * FROM Proveedor WHERE estado = 1 ";
-            }
-            else
-                if ((!String.IsNullOrEmpty(razon)) && (String.IsNullOrEmpty(contacto)))
-                {                
-                    commandString = "SELECT * FROM Proveedor WHERE estado = 1 AND UPPER(razonSocial) LIKE '%" + razon.ToUpper() + "%'";
-                    ViewBag.resp += "1";
-                }
-                else
-                {
-                    if ((String.IsNullOrEmpty(razon)) && (!String.IsNullOrEmpty(contacto)))
-                    {
-                        commandString = "SELECT * FROM Proveedor WHERE estado = 1 AND UPPER(contacto) LIKE '%" + contacto.ToUpper() + "%'";
-                        ViewBag.resp += "1";
-                    }
-                    else
-                    {
-                        commandString = "SELECT * FROM Proveedor WHERE estado = 1 AND UPPER(razonSocial) LIKE '%" + razon.ToUpper() + "%' AND UPPER(contacto) LIKE '%"+ contacto.ToUpper()+"%'";
-                        ViewBag.resp += "1";
-                    }
-                }
-
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-            while (dataReader.Read())
-            {
-                ProveedorBean proveedor = new ProveedorBean();
-                proveedor.id = (int)dataReader["idProveedor"];
-                proveedor.razonSocial = (string)dataReader["razonSocial"];
-                proveedor.contacto = (string)dataReader["contacto"];
-                proveedor.estado = Convert.ToInt32(dataReader["estado"]);
-                proveedor.emailContacto = (string)dataReader["emailContacto"];
-                proveedor.cargoContacto = (string)dataReader["cargoContacto"];
-                proveedor.ruc = (string)dataReader["ruc"];
-                proveedor.web = (string)dataReader["web"];
-                proveedor.telefono = (string)dataReader["telefono"];
-                proveedor.direccion = (string)dataReader["direccion"];
-                proveedor.observaciones = (string)dataReader["observaciones"];
-
-                listaProveedor.Add(proveedor);
-            }
-            return View(listaProveedor);
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
+            return View(listaprov);
         }
 
         public ActionResult MostrarProveedores(ProveedorBean item)
         {
             ProveedorFacade proveedorFacade = new ProveedorFacade();
-            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(item.razonSocial);
+            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(item.razonSocial,"");
             return View(listaProveedor);
         }
 
