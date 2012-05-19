@@ -95,10 +95,12 @@ namespace Stardust.Controllers
             
             prod.Proveedor = prov.razonSocial;
             prod.Producto = productos;
-            //for (int i = 0; i < prod.Producto.Count; i++)
-            //{
-            //    prod.estado[i] = false;
-            //}
+            prod.estado=new List<bool>();
+            //prod.estado.Count.Equals(prod.Producto.Count);
+            for (int i = 0; i < prod.Producto.Count; i++)
+            {
+                prod.estado.Add(false);
+            }
             
             return View(prod);
         }
