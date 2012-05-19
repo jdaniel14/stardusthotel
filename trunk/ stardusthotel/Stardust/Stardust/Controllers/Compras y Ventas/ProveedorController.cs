@@ -91,7 +91,10 @@ namespace Stardust.Controllers
             ProveedorFacade proveedorFacade = new ProveedorFacade();
             ProductoxProveedorBean prod = new ProductoxProveedorBean();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
+            List<ProductoBean> productos = proveedorFacade.ListarProducto("");
+            
             prod.Proveedor = prov.razonSocial;
+            prod.Producto = productos;
             return View(prod);
         }
     }
