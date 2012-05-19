@@ -11,5 +11,6 @@ namespace Stardust.Models
         public List<int> Precio { get; set; }
         public List<int> CantidadMax { get; set; }
         public List<ProductoBean> Producto { get; set; }
+        public List<int> estado { get; set; } // estado para guardar a la base de datos
     }
 }
