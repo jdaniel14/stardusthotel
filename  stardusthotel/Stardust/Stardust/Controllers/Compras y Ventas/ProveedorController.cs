@@ -95,7 +95,7 @@ namespace Stardust.Controllers
 
                 prodProveedor.nombre = productos[i].nombre;
                 prodProveedor.ID = productos[i].ID;
-                //prodProveedor.estados = false;
+                prodProveedor.estados = false;
 
                 prod.listProdProv.Add(prodProveedor);
                
