@@ -5,20 +5,11 @@
     ViewBag.Title = "Resultados de busqueda";
 }
 
-<h2>Mostrar Proveedores</h2>
+<h2>Resultado de Proveedores</h2>
 
 <p>
-    Lista general de los proveedores del hotel
+    <a href="@Url.Action("RegistrarProveedor")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir</a>
 </p>
-
-<p>
-    @Html.ActionLink("Registrar un nuevo Proveedor", "RegistrarProveedor","Proveedor")
-</p>
-
-<p>
-    @Html.ActionLink("Buscar proveedor", "BuscarProveedor","Proveedor")
-</p>
-
 
 <div class = "widget" >
 
@@ -28,14 +19,10 @@
 
     <thead>
         <tr>
-
-            <td>Razon Social</td>
-
-            <td>Direccion</td>
-            <td>Telefono</td>
-
-            <td>Contacto</td>
-
+           <td>Razon Social</td>
+           <td>Direccion</td>
+           <td>Telefono</td>
+           <td>Contacto</td>
             <td></td>             
         </tr>
     </thead>
@@ -44,27 +31,15 @@
 
     @foreach (var item in Model) {
             <tr>
-
+                <td> @Html.DisplayFor(modelItem => item.razonSocial) </td>
+                <td> @Html.DisplayFor(modelItem => item.ruc)         </td>
+                <td> @Html.DisplayFor(modelItem => item.direccion)   </td>
+                <td> @Html.DisplayFor(modelItem => item.contacto)    </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.razonSocial)
+                    <a href="@Url.Action("ModificarProveedor", new { id = item.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                    <a href="@Url.Action("DetallesProveedor", new { id = item.id })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                    <a href="@Url.Action("EliminarProveedor", new { id = item.id })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>                        
                 </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.direccion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.telefono)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.contacto)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Modificar", "ModificarProveedor", new { idProveedor = item.ID }) |
-                    @Html.ActionLink("Eliminar", "EliminarProveedor", new { idProveedor = item.ID })                     
-                </td>                
-                
             </tr>
     }
     
