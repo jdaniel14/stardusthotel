@@ -95,6 +95,11 @@ namespace Stardust.Controllers
             
             prod.Proveedor = prov.razonSocial;
             prod.Producto = productos;
+            //for (int i = 0; i < prod.Producto.Count; i++)
+            //{
+            //    prod.estado[i] = false;
+            //}
+            
             return View(prod);
         }
     }
