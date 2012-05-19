@@ -72,7 +72,7 @@
     <Compile Include="Controllers\Compras y Ventas\ProductoController.cs" />
     <Compile Include="Controllers\Compras y Ventas\PromocionesController.cs" />
     <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs" />
-    <Compile Include="Controllers\ServiciosController.cs" />
+    <Compile Include="Controllers\Servicios\ServiciosController.cs" />
     <Compile Include="Controllers\TipoHabitacionController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -80,12 +80,8 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Almacen.cs" />
-    <Compile Include="Models\AmbienteBean.cs" />
-    <Compile Include="Models\AmbienteDAO.cs" />
-    <Compile Include="Models\AmbienteFacade.cs" />
-    <Compile Include="Models\AmbientesBean.cs" />
-    <Compile Include="Models\AmbienteService.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
+    <Compile Include="Models\Compras y Ventas\Proveedor\ProductoProveedor.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProductoxProveedorBean.cs" />
     <Compile Include="Models\Hotel.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoBean.cs" />
@@ -96,12 +92,14 @@
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorDAO.cs" />
     <Compile Include="Models\Compras y Ventas\ProveedorFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorService.cs" />
-    <Compile Include="Models\Servicios.cs" />
-    <Compile Include="Models\ServiciosB.cs" />
-    <Compile Include="Models\ServiciosBean.cs" />
-    <Compile Include="Models\ServiciosDAO.cs" />
-    <Compile Include="Models\ServiciosFacade.cs" />
-    <Compile Include="Models\ServiciosService.cs" />
+    <Compile Include="Models\Servicios\AmbienteFacade.cs" />
+    <Compile Include="Models\Servicios\Ambiente\AmbienteBean.cs" />
+    <Compile Include="Models\Servicios\Ambiente\AmbienteDAO.cs" />
+    <Compile Include="Models\Servicios\Ambiente\AmbienteService.cs" />
+    <Compile Include="Models\Servicios\ServiciosFacade.cs" />
+    <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
+    <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
+    <Compile Include="Models\Servicios\Servicio\ServiciosService.cs" />
     <Compile Include="Models\TipoHabitacion.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4207,6 +4205,7 @@
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
     <Content Include="Views\Proveedor\DetallesProveedor.cshtml" />
     <Content Include="Views\Proveedor\AsignarProductos.cshtml" />
+    <Content Include="Views\Proveedor\ListarProductosSeleccionados.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
