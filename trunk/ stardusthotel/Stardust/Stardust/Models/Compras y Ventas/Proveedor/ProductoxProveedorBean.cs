@@ -13,15 +13,16 @@ namespace Stardust.Models
         [Display(Name = "Proveedor")]
         public String Proveedor { get; set; }
 
-        [Display(Name = "Precio")]
+        public List<ProductoProveedor> listProdProv { get; set; }
+     /*   [Display(Name = "Precio")]
         public List<int> Precio { get; set; }
 
         [Display(Name = "Cantidad Maxima")]
         public List<int> CantidadMax { get; set; }
 
         [Display(Name = "Productos")]
-        public List<String> Producto { get; set; }
+        public List<String> Producto { get; set; }*/
 
-        public List<bool> estado { get; set; } // estado para guardar a la base de datos
+         // estado para guardar a la base de datos
     }
 }
