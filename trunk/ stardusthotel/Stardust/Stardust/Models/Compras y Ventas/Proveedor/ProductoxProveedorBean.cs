@@ -9,7 +9,7 @@ namespace Stardust.Models.Compras_y_Ventas.Proveedor
     {
         public String Proveedor { get; set; }
         public List<int> Precio { get; set; }
-        public List<int> Proveedor { get; set; }
+        public List<int> CantidadMax { get; set; }
         public List<ProductoBean> Producto { get; set; }
     }
 }
