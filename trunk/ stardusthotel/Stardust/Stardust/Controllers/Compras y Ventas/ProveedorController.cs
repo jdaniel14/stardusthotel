@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+//using Stardust.Models.Compras_y_Ventas.Proveedor;
 
 namespace Stardust.Controllers
 {
@@ -87,7 +88,11 @@ namespace Stardust.Controllers
 
         public ActionResult AsignarProductos(int id)
         {
-            return View();
+            ProveedorFacade proveedorFacade = new ProveedorFacade();
+            ProductoxProveedorBean prod = new ProductoxProveedorBean();
+            ProveedorBean prov = proveedorFacade.GetProveedor(id);
+            prod.Proveedor = prov.razonSocial;
+            return View(prod);
         }
     }
 }
