@@ -94,15 +94,23 @@ namespace Stardust.Controllers
             List<ProductoBean> productos = proveedorFacade.ListarProducto("");
             
             prod.Proveedor = prov.razonSocial;
-            prod.Producto = productos;
+            
             prod.estado=new List<bool>();
-            for (int i = 0; i < prod.Producto.Count; i++) prod.estado.Add(false);
+            prod.Producto = new List<String>();
+            for (int i = 0; i < productos.Count; i++)
+            {
+                prod.estado.Add(false);
+                prod.Producto.Add(productos[i].nombre);
+            }
             
             return View(prod);
         }
-        public ActionResult ListarProductosSeleccionados(ProductoxProveedorBean prod)
+
+        
+        public ViewResult ListarProductosSeleccionados(ProductoxProveedorBean prod)
         {
 
+            
             return View(prod);
         }
     }
