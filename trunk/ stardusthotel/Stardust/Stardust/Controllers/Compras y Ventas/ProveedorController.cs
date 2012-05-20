@@ -80,15 +80,16 @@ namespace Stardust.Controllers
         }
         public ActionResult ListarProductos(int id)
         {
-            ProductoxProveedorBean prod = new ProductoxProveedorBean();
+            ProductoxProveedorBean prod;
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
 
             List<ProductoBean> productos = proveedorFacade.ListarProducto("");
 
+            prod = proveedorFacade.obtenerlista(id);
             prod.Proveedor = prov.razonSocial;
 
             //lista de productos en la tabla de productoxproveedor
-
+            
 
             return View(prod);
         }
