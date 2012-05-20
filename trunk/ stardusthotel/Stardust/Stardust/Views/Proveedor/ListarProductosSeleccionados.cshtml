@@ -14,14 +14,15 @@
 
     
 
-    
+    @using (Html.BeginForm("ListarProductosSeleccionados", "Proveedor", FormMethod.Post, new { @class = "form" }))
+    {
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Proveedor</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
-                <div class=" formRight"> @Html.DisplayFor(model => model.Proveedor)  </div>
+                <div class=" formRight">  @Html.TextBoxFor(model => model.Proveedor,new{@readonly ="readonly"})  </div>
                 <div class="clear"></div>
             </div>
             
@@ -33,8 +34,7 @@
     <p></p><p></p><p></p><p></p>
 
 
-    @using (Html.BeginForm("ListarProductosSeleccionados", "Proveedor", FormMethod.Post, new { @class = "form" }))
-    {
+    
         <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
 
     <thead>
@@ -49,19 +49,19 @@
 
   @*  @foreach (var item in Model)
     {*@
-@*    @for (int i = 0; (i < Model.Producto.Count); i++)
+    @for (int i = 0; (i < Model.listProdProv.Count); i++)
 {
-        if (Model.estado[i])
+        if (Model.listProdProv[i].estados)
         {
              <tr>       
                
-                <td> @Html.DisplayFor(model => model.Producto[i].nombre) </td>
-                <td> @Html.EditorFor(model => model.Precio[i])         </td>
-                <td> @Html.EditorFor(model => model.CantidadMax[i])   </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new{@readonly ="readonly"}) </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new { @readonly = "readonly" })         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].cantMaxima, new { @readonly = "readonly" })   </td>
      </tr>
         }
     
-}*@
+}
            
    @* }*@
     
