@@ -41,7 +41,10 @@ namespace Stardust.Models
         {
             return proveedorService.obtenerlista(id);
         }
-
+        public void ModificarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
+        {
+            proveedorService.ModificarproductosxProveedor(idprove, prod);
+        }
         /*----------producto----------------*/
 
         ProductoService productoService = new ProductoService();
