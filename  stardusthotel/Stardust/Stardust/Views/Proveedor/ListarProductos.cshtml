@@ -12,16 +12,21 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
-    
 
-    @using (Html.BeginForm("guardarproductosxProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
-    {
+
+ @using (Html.BeginForm("ModificarProductos", "Proveedor", FormMethod.Post, new { @class = "form" }))
+{   
+<p>
+    <a href="@Url.Action("AsignarProductos", new { nombre =Model.Proveedor })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir mas Productos</a>
+</p>
+
+
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Proveedor</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
+            <div class="formRow"> @Html.LabelFor(model => model.Proveedor)
                 <div class=" formRight">  @Html.TextBoxFor(model => model.Proveedor,new{@readonly ="readonly"})  </div>
                 <div class="clear"></div>
             </div>
@@ -47,8 +52,7 @@
 
     <tbody>
 
-  @*  @foreach (var item in Model)
-    {*@
+@*  
     @for (int i = 0; (i < Model.listProdProv.Count); i++)
 {
         if (Model.listProdProv[i].estados)
@@ -61,15 +65,15 @@
      </tr>
         }
     
-}
+}*@
            
-   @* }*@
+
     
     </tbody>
 
     </table>
-
+    <p></p><p></p><p></p><p></p>
     <p>
-        <input type="submit" value="Aceptar" class = "redB" />
+        <input type="submit" value="Modificar" class = "redB" />
     </p>
     }
