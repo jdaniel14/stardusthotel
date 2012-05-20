@@ -166,6 +166,21 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
+            for (int i = 0; i < prod.listProdProv.Count; i++)
+            {
+                if (prod.listProdProv[i].estados)
+                {
+                   string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
+                   idproveedor + "', '" +
+                   prod.listProdProv[i].ID + "', '" +
+                   prod.listProdProv[i].precio + "', '" +
+                   prod.listProdProv[i].cantMaxima + "')";
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                }
+            }
+
+            sqlCon.Close();
         }
     }
 }
