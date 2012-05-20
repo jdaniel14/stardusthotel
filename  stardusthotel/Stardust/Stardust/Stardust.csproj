@@ -4206,7 +4206,7 @@
     <Content Include="Views\Proveedor\RegistrarProveedor.cshtml" />
     <Content Include="Views\Proveedor\DetallesProveedor.cshtml" />
     <Content Include="Views\Proveedor\AsignarProductos.cshtml" />
-    <Content Include="Views\Proveedor\ListarProductosSeleccionados.cshtml" />
+    <Content Include="Views\Proveedor\ListarProductos.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
