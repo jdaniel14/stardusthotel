@@ -10,5 +10,6 @@ namespace Stardust.Models{
         public decimal precio { get; set; }
         public int cantMaxima { get; set; }
         public bool estados { get; set; }
+        public bool estado2 { get; set; }
     }    
 }
