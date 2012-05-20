@@ -27,11 +27,6 @@ namespace Stardust.Models
 
             if (!result2)
                 commandString = commandString + " AND UPPER(contacto) LIKE '%" + contacto.ToUpper() + "%'";
-            //if (!result1 && !result2)
-            //{
-            //    if (result1) commandString = commandString + " AND UPPER(contacto) LIKE '%" + Contacto.ToUpper() + "%'";
-            //    if (result2) commandString = commandString + " AND UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%'";
-            //}
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -163,6 +158,14 @@ namespace Stardust.Models
             sqlCon.Close();
 
             return me;
+        }
+        public void InsertarProveedorxProducto(int idproveedor, ProductoxProveedorBean prod)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
         }
     }
 }

@@ -33,6 +33,10 @@ namespace Stardust.Models
         {
             return proveedorService.EliminarProveedor(idProveedor);
         }
+        public void RegistrarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
+        {
+            proveedorService.AsignarProductosxProveedor(idprove, prod);
+        }
 
         /*----------producto----------------*/
 
