@@ -1,0 +1,33 @@
+﻿@model Stardust.Models.PerfilUsuarioBean
+
+@{
+    ViewBag.Title = "Detalles del perfil";
+}
+
+<h2>Detalles del perfil</h2>
+
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del perfil</h6></div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombre)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.descripcion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.descripcion)</div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+</fieldset>
+
+@using (Html.BeginForm("Edit", "PerfilUsuario", FormMethod.Post, new { @class = "form" }))
+{
+    <p>
+        @Html.ActionLink("Editar", "Edit", new { id = Model.ID } ) |
+        @Html.ActionLink("Regresar", "List")
+    </p>
+}
