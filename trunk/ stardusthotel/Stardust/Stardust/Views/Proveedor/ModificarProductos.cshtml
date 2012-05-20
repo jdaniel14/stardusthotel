@@ -52,8 +52,8 @@
   
     @for (int i = 0; (i < Model.listProdProv.Count); i++)
 {
-            @Html.HiddenFor(model => model.listProdProv[i].ID, new { @readonly = "readonly" }) 
-             <tr>       
+            @Html.HiddenFor(model => model.listProdProv[i].ID) 
+             <tr>  
                 <td> @Html.CheckBoxFor(model => model.listProdProv[i].estados, true) </td>
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].precio)         </td>
