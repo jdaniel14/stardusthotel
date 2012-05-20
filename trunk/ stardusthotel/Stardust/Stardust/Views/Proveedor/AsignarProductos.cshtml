@@ -13,12 +13,12 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
     
-  @using (Html.BeginForm("ListarProductosSeleccionados", "Proveedor", FormMethod.Post, new { @class = "form" }))
+  @using (Html.BeginForm("guardarproductosxProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
     {
     
     <fieldset>
         <div class="widget">
-            <div class="title">
+            <div class="title">s
                 <h6>Proveedor</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
