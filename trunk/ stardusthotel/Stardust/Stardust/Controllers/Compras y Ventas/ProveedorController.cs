@@ -98,7 +98,7 @@ namespace Stardust.Controllers
 
                 return View(prod);
         }
-        public ActionResult AsignarProductos(string nombre)
+        public ViewResult AsignarProductos(string nombre)
         {            
             ProductoxProveedorBean prod = new ProductoxProveedorBean();
             List< ProveedorBean> proveedor = proveedorFacade.ListarProveedor(nombre, "");
@@ -118,13 +118,16 @@ namespace Stardust.Controllers
                 prodProveedor.ID = productos[i].ID;
                 prodProveedor.estados = false;
                 prodProveedor.estado2 = false;
+                
                 prod.listProdProv.Add(prodProveedor);
+
             }
             
-            for (int i = 0; i < prod.listProdProv.Count; i++)
-            {
-                for(int j=0;j< prod2.listProdProv.Count;j++)  if (prod.listProdProv[i].ID==prod2.listProdProv[j].ID) prod.listProdProv[i].estado2=true;
-            }
+            //for (int i = 0; i < prod.listProdProv.Count; i++)
+            //{
+            //    for(int j=0;j< prod2.listProdProv.Count;j++)  
+            //        if (prod.listProdProv[i].ID==prod2.listProdProv[j].ID) prod.listProdProv[i].estado2=true;
+            //}
 
             
             return View(prod);
