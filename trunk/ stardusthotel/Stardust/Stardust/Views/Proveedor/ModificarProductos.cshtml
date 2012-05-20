@@ -1,5 +1,75 @@
-﻿@{
-    ViewBag.Title = "ModificarProductos";
+﻿@model Stardust.Models.ProductoxProveedorBean
+
+@{
+    ViewBag.Title = "Listado";
 }
 
-<h2>ModificarProductos</h2>
+<h2>Modificar Productos</h2>
+<p></p><p></p><p></p>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+
+
+
+ @using (Html.BeginForm("Guardarproductos2", "Proveedor", FormMethod.Post, new { @class = "form" }))
+{   
+
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Proveedor</h6>
+            </div>
+            <div class="formRow"> @Html.LabelFor(model => model.Proveedor)
+                <div class=" formRight">  @Html.TextBoxFor(model => model.Proveedor,new{@readonly ="readonly"})  </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+    </fieldset>
+    
+
+    <p></p><p></p><p></p><p></p>
+
+
+    
+        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+    <thead>
+        <tr>
+           <td>Seleccionar</td>
+           <td>Producto</td>
+           <td>Precio</td>
+           <td>Cantidad Maxima</td>  
+        </tr>
+    </thead>
+
+    <tbody>
+
+  
+    @for (int i = 0; (i < Model.listProdProv.Count); i++)
+{
+
+             <tr>       
+                <td> @Html.CheckBoxFor(model => model.listProdProv[i].estados, true) </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new{@readonly ="readonly"}) </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio)         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].cantMaxima)   </td>
+     </tr>
+
+    
+}
+           
+
+    
+    </tbody>
+
+    </table>
+    <p></p><p></p><p></p><p></p>
+    <p>
+        <input type="submit" value="Aceptar" class = "redB" />
+    </p>
+    }
