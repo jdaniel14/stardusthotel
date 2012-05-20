@@ -78,15 +78,28 @@ namespace Stardust.Controllers
             List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
             return View(listaprov);
         }
-
-        public ActionResult AsignarProductos(int id)
-        {            
+        public ActionResult ListarProductos(int id)
+        {
             ProductoxProveedorBean prod = new ProductoxProveedorBean();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
+
+            List<ProductoBean> productos = proveedorFacade.ListarProducto("");
+
+            prod.Proveedor = prov.razonSocial;
+
+            //lista de productos en la tabla de productoxproveedor
+
+
+            return View(prod);
+        }
+        public ActionResult AsignarProductos(string nombre)
+        {            
+            ProductoxProveedorBean prod = new ProductoxProveedorBean();
+            
             
             List<ProductoBean> productos = proveedorFacade.ListarProducto("");
-            
-            prod.Proveedor = prov.razonSocial;
+
+            prod.Proveedor = nombre; //prov[0].razonSocial;
             
             prod.listProdProv = new List<ProductoProveedor>();
             for (int i = 0; i < productos.Count; i++)
