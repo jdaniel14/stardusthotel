@@ -85,13 +85,17 @@ namespace Stardust.Controllers
 
             List<ProductoBean> productos = proveedorFacade.ListarProducto("");
 
-            prod = proveedorFacade.obtenerlista(id);
+            prod = proveedorFacade.obtenerlista(id);//lista de los productos en la tabla productoxproveedor
             prod.Proveedor = prov.razonSocial;
 
             //lista de productos en la tabla de productoxproveedor
-            
+            for (int i = 0; i < prod.listProdProv.Count; i++)
+            {
+                ProductoBean producto=proveedorFacade.Getproducto(prod.listProdProv[i].ID);
+                prod.listProdProv[i].nombre = producto.nombre;
+            }
 
-            return View(prod);
+                return View(prod);
         }
         public ActionResult AsignarProductos(string nombre)
         {            
@@ -125,13 +129,13 @@ namespace Stardust.Controllers
             return RedirectToAction("Index"); 
         }
 
-        //public ActionResult guardarproductosxProveedor(ProductoxProveedorBean prod)
-        //{
-        //    List <ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
-        //    int idproveedor = proveedor[0].ID;
-        //    proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
-        //    return RedirectToAction("Index"); 
-        //}
+        public ActionResult ModificarProductos(ProductoxProveedorBean prod) //falta implementar
+        {
+            List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
+            int idproveedor = proveedor[0].ID;
+            proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
+            return RedirectToAction("Index");
+        }
     }
 }
 
