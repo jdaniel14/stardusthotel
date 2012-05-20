@@ -197,13 +197,13 @@ namespace Stardust.Models
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
-            ProductoProveedor prodProveedor = new ProductoProveedor();
+            prod.listProdProv = new List<ProductoProveedor>();
             while (dataReader.Read())
             {
-                
+                ProductoProveedor prodProveedor = new ProductoProveedor();
                 idprove= (int)dataReader["idProveedor"];
                 prodProveedor.ID = (int)dataReader["idProducto"];
-                prodProveedor.precio = (float)dataReader["precio"];
+                prodProveedor.precio = (decimal)dataReader["precio"];
                 prodProveedor.cantMaxima = (int)dataReader["cantPedidoMax"];
                 i++;
                 prod.listProdProv.Add(prodProveedor);
@@ -213,7 +213,6 @@ namespace Stardust.Models
             ProveedorBean prov = SeleccionarProveedor(idproveedor);
 
             prod.Proveedor = prov.razonSocial;
-
             
             return prod;
         }
