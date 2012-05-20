@@ -38,5 +38,9 @@ namespace Stardust.Models
 
             proveedorDAO.InsertarProveedorxProducto(idprove, prod);
         }
+        public ProductoxProveedorBean obtenerlista(int idproveedor)
+        {
+            return proveedorDAO.obtenerlistaproductos(idproveedor);
+        }
     }
 }

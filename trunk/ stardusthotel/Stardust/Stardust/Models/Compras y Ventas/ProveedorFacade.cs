@@ -37,6 +37,10 @@ namespace Stardust.Models
         {
             proveedorService.AsignarProductosxProveedor(idprove, prod);
         }
+        public ProductoxProveedorBean obtenerlista(int id)
+        {
+            return proveedorService.obtenerlista(id);
+        }
 
         /*----------producto----------------*/
 

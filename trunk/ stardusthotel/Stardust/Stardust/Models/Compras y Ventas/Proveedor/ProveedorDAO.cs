@@ -159,6 +159,7 @@ namespace Stardust.Models
 
             return me;
         }
+
         public void InsertarProveedorxProducto(int idproveedor, ProductoxProveedorBean prod)
         {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -181,6 +182,40 @@ namespace Stardust.Models
             }
 
             sqlCon.Close();
+        }
+
+        public ProductoxProveedorBean obtenerlistaproductos(int idproveedor)
+        {
+            ProductoxProveedorBean prod = new ProductoxProveedorBean();
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            int i = 0;
+            int idprove;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM ProductoXProveedor  WHERE idProveedor="+idproveedor;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            ProductoProveedor prodProveedor = new ProductoProveedor();
+            while (dataReader.Read())
+            {
+                
+                idprove= (int)dataReader["idProveedor"];
+                prodProveedor.ID = (int)dataReader["idProducto"];
+                prodProveedor.precio = (float)dataReader["precio"];
+                prodProveedor.cantMaxima = (int)dataReader["cantPedidoMax"];
+                i++;
+                prod.listProdProv.Add(prodProveedor);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+            ProveedorBean prov = SeleccionarProveedor(idproveedor);
+
+            prod.Proveedor = prov.razonSocial;
+
+            
+            return prod;
         }
     }
 }
