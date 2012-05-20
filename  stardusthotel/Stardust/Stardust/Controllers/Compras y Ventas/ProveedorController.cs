@@ -98,21 +98,26 @@ namespace Stardust.Controllers
                 prodProveedor.estados = false;
 
                 prod.listProdProv.Add(prodProveedor);
-               
-                //prod.listProdProv[i].nombre = productos[i].nombre;
-                //prod.listProdProv[i].ID = productos[i].ID;
-                //prod.listProdProv[i].estado=false;
             }
             
             return View(prod);
         }
 
-        
-        public ViewResult ListarProductosSeleccionados(ProductoxProveedorBean prod)
+        public ActionResult guardarproductosxProveedor(ProductoxProveedorBean prod)
         {
-            
-            return View(prod);
+            List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
+            int idproveedor = proveedor[0].ID;
+            proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
+            return RedirectToAction("Index"); 
         }
+
+        //public ActionResult guardarproductosxProveedor(ProductoxProveedorBean prod)
+        //{
+        //    List <ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
+        //    int idproveedor = proveedor[0].ID;
+        //    proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
+        //    return RedirectToAction("Index"); 
+        //}
     }
 }
 
