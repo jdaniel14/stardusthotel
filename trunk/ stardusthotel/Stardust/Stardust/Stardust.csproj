@@ -81,6 +81,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Almacen.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
+    <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProductoProveedor.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProductoxProveedorBean.cs" />
     <Compile Include="Models\Hotel.cs" />
