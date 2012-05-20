@@ -42,5 +42,10 @@ namespace Stardust.Models
         {
             return proveedorDAO.obtenerlistaproductos(idproveedor);
         }
+        public void ModificarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
+        {
+            proveedorDAO.ActualizarproductosxProveedor(idprove, prod);
+
+        }
     }
 }
