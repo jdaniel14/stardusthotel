@@ -65,20 +65,45 @@
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Administracion\PerfilUsuarioController.cs" />
+    <Compile Include="Controllers\Administracion\TipoHabitacionController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\ProductoController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Compras y Ventas\PromocionesController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\HotelController.cs" />
-    <Compile Include="Controllers\Compras y Ventas\ProductoController.cs" />
-    <Compile Include="Controllers\Compras y Ventas\PromocionesController.cs" />
-    <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs" />
-    <Compile Include="Controllers\Servicios\ServiciosController.cs" />
-    <Compile Include="Controllers\TipoHabitacionController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\HotelController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Servicios\ServiciosController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\Administracion\UsuarioController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Administracion\PerfilUsuario\PerfilUsuarioBean.cs" />
+    <Compile Include="Models\Administracion\PerfilUsuario\PerfilUsuarioDAO.cs" />
+    <Compile Include="Models\Administracion\PerfilUsuario\PerfilUsuarioFacade.cs" />
+    <Compile Include="Models\Administracion\PerfilUsuario\PerfilUsuarioService.cs" />
+    <Compile Include="Models\Administracion\TipoHabitacion\TipoHabitacionBean.cs" />
+    <Compile Include="Models\Administracion\TipoHabitacion\TipoHabitacionDAO.cs" />
+    <Compile Include="Models\Administracion\TipoHabitacion\TipoHabitacionFacade.cs" />
+    <Compile Include="Models\Administracion\TipoHabitacion\TipoHabitacionService.cs" />
+    <Compile Include="Models\Administracion\Usuario\UsuarioDAO.cs" />
+    <Compile Include="Models\Administracion\Usuario\UsuarioService.cs" />
+    <Compile Include="Models\Administracion\Usuario\UsuarioBean.cs" />
+    <Compile Include="Models\Administracion\Usuario\UsuarioFacade.cs" />
     <Compile Include="Models\Almacen.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
@@ -101,7 +126,6 @@
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosService.cs" />
-    <Compile Include="Models\TipoHabitacion.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -4207,6 +4231,13 @@
     <Content Include="Views\Proveedor\DetallesProveedor.cshtml" />
     <Content Include="Views\Proveedor\AsignarProductos.cshtml" />
     <Content Include="Views\Proveedor\ListarProductos.cshtml" />
+    <Content Include="Views\PerfilUsuario\Create.cshtml" />
+    <Content Include="Views\PerfilUsuario\Index.cshtml" />
+    <Content Include="Views\PerfilUsuario\Details.cshtml" />
+    <Content Include="Views\PerfilUsuario\Edit.cshtml" />
+    <Content Include="Views\PerfilUsuario\Delete.cshtml" />
+    <Content Include="Views\PerfilUsuario\List.cshtml" />
+    <Content Include="Views\TipoHabitacion\List.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

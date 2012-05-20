@@ -1,16 +1,13 @@
-﻿@model Stardust.Models.TipoHabitacion
+﻿@model Stardust.Models.TipoHabitacionBean
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles del tipo de habitación";
 }
 
-<h2>Details</h2>
+<h2>Detalle</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@ViewBag.lol
-
 
 @using (Html.BeginForm("Details", "TipoHabitacion", FormMethod.Post, new { @class = "form" }))
 {
@@ -18,7 +15,6 @@
     <fieldset>
         <div class = "widget" >
             <div class = "title"><h6>Detalles del tipo de habitación</h6></div>
-            @*<legend>Usuario</legend>*@
 
             <div class="formRow">
                 @Html.LabelFor(model => model.nombre)
@@ -35,7 +31,7 @@
         </div>
     </fieldset>
     <p>
-        <a href="@Url.Action("Edit", new { id = Model.TipoHabitacionID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
-        @Html.ActionLink("Regresar", "Index")
+        <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "List")
     </p>
 }

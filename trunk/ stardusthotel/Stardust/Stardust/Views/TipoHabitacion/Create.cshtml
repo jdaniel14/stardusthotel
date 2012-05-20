@@ -1,22 +1,17 @@
-﻿@model Stardust.Models.TipoHabitacion
+﻿@model Stardust.Models.TipoHabitacionBean
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear tipo de habitación";
 }
-
-@*<h2>Create</h2>*@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-
-@ViewBag.lol
-
 
 @using (Html.BeginForm( "Create" , "TipoHabitacion" , FormMethod.Post , new { @class = "form" } ) ){
     @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>Crear Usuario</h6></div>
+            <div class = "title"><h6>Crear tipo de habitación</h6></div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.nombre )
@@ -40,5 +35,5 @@
 
 
 <div>
-    @Html.ActionLink("Regresar", "Index")
+    @Html.ActionLink("Regresar", "List")
 </div>

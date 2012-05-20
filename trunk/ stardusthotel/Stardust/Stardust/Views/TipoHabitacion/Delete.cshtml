@@ -1,10 +1,8 @@
-﻿@model Stardust.Models.TipoHabitacion
+﻿@model Stardust.Models.TipoHabitacionBean
 
 @{
     ViewBag.Title = "Borrar tipo de habitación";
 }
-
-@*<h2>Delete</h2>*@
 
 <h3>Seguro de querer eliminar este tipo de habitación?</h3>
 
@@ -28,9 +26,10 @@
     </div>
 </fieldset>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Delete", "TipoHabitacion", FormMethod.Post, new { @class = "form" } ))
+{
     <p>
         <input type="submit" value="Borrar" class = "redB"/> |
-        @Html.ActionLink("Regresar", "Index")
+        @Html.ActionLink("Regresar", "List")
     </p>
 }
