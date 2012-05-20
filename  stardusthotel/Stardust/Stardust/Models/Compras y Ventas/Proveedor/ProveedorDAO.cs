@@ -166,8 +166,8 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-
-            for (int i = 0; i < prod.listProdProv.Count; i++)
+            int i;
+            for (i = 0; i < prod.listProdProv.Count; i++)
             {
                 if (prod.listProdProv[i].estados)
                 {
