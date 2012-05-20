@@ -129,12 +129,19 @@ namespace Stardust.Controllers
             return RedirectToAction("Index"); 
         }
 
-        public ActionResult ModificarProductos(ProductoxProveedorBean prod) //falta implementar
+        public ActionResult ModificarProductos(ProductoxProveedorBean prod) 
         {
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
-            //proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
+            
             return View(prod);
+        }
+        public ActionResult Guardarproductos2(ProductoxProveedorBean prod)
+        {
+            List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
+            int idproveedor = proveedor[0].ID;
+            proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
+            return RedirectToAction("Index");
         }
     }
 }
