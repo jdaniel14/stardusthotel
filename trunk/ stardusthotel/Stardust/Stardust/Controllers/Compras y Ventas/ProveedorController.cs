@@ -133,8 +133,8 @@ namespace Stardust.Controllers
         {
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
-            proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
-            return RedirectToAction("Index");
+            //proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
+            return View(prod);
         }
     }
 }
