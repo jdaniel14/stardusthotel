@@ -1,0 +1,34 @@
+﻿@model Stardust.Models.PromocionBean
+
+<h2>Buscar Promocion</h2>
+
+@using (Html.BeginForm("Buscar", "Promociones", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Promocion</h6></div>
+
+            <div class="formRow">
+                <label>Tipo Promocion</label>
+                <div class = "formRight" >@Html.DropDownListFor(model => model.tipo,Model.tipoList)</div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                <label>Hotel</label>
+                <div class = "formRight" >@Html.DropDownListFor(model => model.ID,Model.hotelList)</div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "../Home/Index")
+</div>
+
+

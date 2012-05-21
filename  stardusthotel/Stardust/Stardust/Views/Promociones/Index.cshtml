@@ -1,69 +1,45 @@
-﻿@model IEnumerable<Stardust.Models.Promociones>
+﻿@model Stardust.Models.PromocionBean           
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Registrar Promocion";
 }
 
-<h2>Index</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            nombre
-        </th>
-        <th>
-            descripcion
-        </th>
-        <th>
-            variableAnalizar
-        </th>
-        <th>
-            CondicionAnalizar
-        </th>
-        <th>
-            porcDescontar
-        </th>
-        <th>
-            idhotel
-        </th>
-        <th>
-            estado
-        </th>
-        <th></th>
-    </tr>
+@ViewBag.lol
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.variableAnalizar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CondicionAnalizar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.porcDescontar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.idhotel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+@using (Html.BeginForm("Create", "Promociones", FormMethod.Post, new { @class = "form" }))
+{
+   @Html.ValidationSummary(false)
+    
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Seleccione tipo de Promocion</h6>
+            </div>
+            <div class="formRow">
+                <label for = "categoria" >Tipo de Promocion:</label>
+                <select id="categoria" name="categoria">
+                    <option value="1">Dias de reserva</option>
+                    <option value="2">Pago Adelantado</option>
+                </select>
+                @*<div class="formRight searchDrop">
+                    <select name="categoria" id="categoria" class="chzn-select" style="width:350px;" tabindex="2" >
+                        <option value="1">Dias de reserva</option>
+                        <option value="2">Pago Adelantado</option>
+                    </select>
+                </div>*@
+                <div class="clear"></div>
+            </div>
+
+            <div>
+                <input type="submit" value="Aceptar" />
+            </div>
+        </div>
+    </fieldset>
 }
 
-</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

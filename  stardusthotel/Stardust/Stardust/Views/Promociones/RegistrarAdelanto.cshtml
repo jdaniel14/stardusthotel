@@ -1,7 +1,7 @@
 ﻿@model Stardust.Models.PromocionBean
 
 @{
-    ViewBag.Title = "RegistrarAdelanto";
+    ViewBag.Title = "Registrar Promocion";
 }
 
 <h2>RegistrarAdelanto</h2>
@@ -12,53 +12,43 @@
 @using (Html.BeginForm("RegistrarAdelanto", "Promociones", FormMethod.Post, new { @class = "form" }))
 {
     @Html.ValidationSummary(true)
+
     <fieldset>
-        <legend>PromocionBean</legend>
+            <div class="widget">
+            <div class="title">
+                <h6>Registrar Promocion</h6>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.descripcion)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.descripcion)
-            @Html.ValidationMessageFor(model => model.descripcion)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.tipoDescuento)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.tipoDescuento)
-            @Html.ValidationMessageFor(model => model.tipoDescuento)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.porcDescontar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.porcDescontar)
-            @Html.ValidationMessageFor(model => model.porcDescontar)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.idhotel)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.idhotel)
-            @Html.ValidationMessageFor(model => model.idhotel)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.estado)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.estado)
-            @Html.ValidationMessageFor(model => model.estado)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+            <div class="formRow">
+                @Html.LabelFor(model => model.descripcion)
+                <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion)</div>
+                 <div class = "clear" ></div>
+            </div>
+            
+            <div class="formRow">
+                @Html.LabelFor(model => model.descuento)
+                <div class = "formRight" >@Html.TextBoxFor(model => model.adelanto)</div>
+                <div class = "clear" ></div>
+            </div>  
+            
+            <div class="formRow">
+                @Html.LabelFor(model => model.porcDescontar)
+                <div class = "formRight" >@Html.TextBoxFor(model => model.porcDescontar)</div>
+                <div class = "clear" ></div>
+            </div>
+            
+            <div class="formRow">
+                @Html.LabelFor(model => model.idhotel)
+                <div class = "formRight" >@Html.DropDownListFor(model => model.ID, Model.hotelList)</div>
+                <div class = "clear" ></div>
+            </div>         
+            
+            </div>
     </fieldset>
+            <p></p> <p></p> <p></p>
+    <div>
+           <input type="submit" value="Registrar" class = "redB" />
+    </div>
 }
 
 <div>
