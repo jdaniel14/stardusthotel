@@ -35,6 +35,8 @@ namespace Stardust.Models
             {
                 ProveedorBean proveedor = new ProveedorBean();
 
+                
+                proveedor.ID = (int)dataReader["idProveedor"];
                 proveedor.razonSocial = (string)dataReader["razonSocial"];
                 proveedor.contacto = (string)dataReader["contacto"];
                 proveedor.emailContacto = (string)dataReader["emailContacto"];
