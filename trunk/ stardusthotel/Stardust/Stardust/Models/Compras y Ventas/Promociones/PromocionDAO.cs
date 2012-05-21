@@ -125,8 +125,18 @@ namespace Stardust.Models
             promocion.idhotel = Convert.ToInt32(promocion.ID);
 
             string commandString = "UPDATE Promocion " +
-                                    "SET descripcion = '" + promocion.descripcion + "', razon = " + promocion.razon + " , porcDescontar = " + promocion.porcDescontar + " , tipo = " + promocion.tipoDescuento + " , idHotel = " + promocion.idhotel +
-                                    "WHERE idPromocion = " + promocion.idPromocion;
+                                    "SET descripcion = '" + promocion.descripcion + "', razon = " + promocion.razon + " , porcDescontar = " + promocion.porcDescontar;
+
+            if (promocion.tipoDescuento > 1)
+            {
+                promocion.tipoDescuento--;
+                commandString += " , tipo = " + promocion.tipoDescuento;
+            }
+
+            if(promocion.idhotel > 1)
+                commandString += " , idHotel = " + promocion.idhotel;
+
+            commandString += " WHERE idPromocion = " + promocion.idPromocion;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
