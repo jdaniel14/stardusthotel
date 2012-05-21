@@ -21,8 +21,8 @@
             <div class="title">
                 <h6>Registrar Proveedor</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
-                <div class=" formRight"> @Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
+                <div class="formRight">@Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
