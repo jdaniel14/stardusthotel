@@ -83,6 +83,7 @@
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Servicios\ClienteController.cs" />
     <Compile Include="Controllers\Servicios\ServiciosController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -4269,6 +4270,10 @@
     <Content Include="Views\Habitacion\Delete.cshtml" />
     <Content Include="Views\Hotel\AsignarTipoHabitacion.cshtml" />
     <Content Include="Views\Hotel\VerTiposHabitacion.cshtml" />
+    <Content Include="Views\Promociones\Registrar.cshtml" />
+    <Content Include="Views\Promociones\RegistrarAdelanto.cshtml" />
+    <Content Include="Views\Promociones\RegistrarDia.cshtml" />
+    <Content Include="Views\Proveedor\ModificarProductos.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
