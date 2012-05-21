@@ -274,5 +274,54 @@ namespace Stardust.Models
 
             return idDepartamento ;
         }
+
+        public void registrarTipoHabitacion(TipoHabitacionxHotel tipoHabitacion) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+                HabitacionDAO habitacionDAO = new HabitacionDAO() ;
+                int idHotel = habitacionDAO.getIdHotel( tipoHabitacion.hotel ) ;
+                int idTipoHabitacion = habitacionDAO.getIdTipoHabitacion(tipoHabitacion.tipoHabitacion);
+
+                String command = "Insert into TipoHabitacionXHotel ( idHotel , idTipoHabitacion , precioBaseXDia ) values (" +
+                                    idHotel + ", " +
+                                    idTipoHabitacion + ", " +
+                                    tipoHabitacion.precioBase + ")";
+                SqlCommand query = new SqlCommand(command, sql);
+
+                query.ExecuteNonQuery();
+
+            sql.Close();
+        }
+
+        public List<TipoHabitacionxHotel> listarTipos(int id) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+                String command = "Select * from TipoHabitacionXHotel where idHotel = " + id;
+
+                SqlCommand query = new SqlCommand(command, sql);
+
+                SqlDataReader data = query.ExecuteReader();
+
+                List<TipoHabitacionxHotel> lista = new List<TipoHabitacionxHotel>();
+
+                HabitacionDAO habitacionDAO = new HabitacionDAO();
+                while (data.Read()) {
+                    TipoHabitacionxHotel tipo = new TipoHabitacionxHotel();
+
+                    tipo.hotel = habitacionDAO.getNombreHotel((int)data.GetValue(0));
+                    tipo.tipoHabitacion = habitacionDAO.getTipoHabitacion((int)data.GetValue(1));
+                    tipo.precioBase = (decimal)data.GetValue(2);
+
+                    lista.Add(tipo);
+                }
+
+            sql.Close();
+
+            return lista;
+        }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model Stardust.Models.HabitacionBean
+
+@{
+    ViewBag.Title = "Eliminar habitación";
+}
+
+<h2>Eliminar habitación</h2>
+
+<h3>Seguro de querer eliminar esta habitación?</h3>
+
+<fieldset>
+    <div class = "widget" >
+        <div class = "title" ><h6> Eliminar habitación </h6></div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.hotel )
+            <div class = "formRight" > @Html.DisplayFor(model => model.hotel) </div>
+            <div class = "clear" ></div>
+        </div>
+            
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.piso )
+            <div class = "formRight" > @Html.DisplayFor(model => model.piso) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.estado)
+            <div class = "formRight" > @Html.DisplayFor(model => model.estado) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.nroBanos )
+            <div class = "formRight" > @Html.DisplayFor(model => model.nroBanos) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.nroCamas )
+            <div class = "formRight" > @Html.DisplayFor(model => model.nroCamas) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.tipoHabitacion )
+            <div class = "formRight" > @Html.DisplayFor(model => model.tipoHabitacion) </div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+</fieldset>
+
+@using( @Html.BeginForm( "Delete" , "Habitacion" , FormMethod.Post , new { @class = "form" } ) ){
+   <p>
+        <input class = "redB" type="submit" value = "Borrar" /> |
+        @Html.ActionLink("Regresar", "List")
+    </p>
+}

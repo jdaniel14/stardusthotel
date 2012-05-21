@@ -1,0 +1,63 @@
+﻿@model Stardust.Models.HabitacionBean
+
+@{
+    ViewBag.Title = "Modificar Habitación";
+}
+
+<h2>Modificar Habitación</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm("Edit", "Habitacion", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title" ><h6> Modificar Habitación </h6></div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.hotel )
+                <div class = "formRight" > @Html.TextBoxFor(model => model.hotel) </div>
+                <div class = "clear" ></div>
+            </div>
+            
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.piso )
+                <div class = "formRight" > @Html.TextBoxFor(model => model.piso) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.estado)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.estado) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nroBanos )
+                <div class = "formRight" > @Html.TextBoxFor(model => model.nroBanos) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nroCamas )
+                <div class = "formRight" > @Html.TextBoxFor(model => model.nroCamas) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.tipoHabitacion )
+                <div class = "formRight" > @Html.TextBoxFor(model => model.tipoHabitacion) </div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+        <p>
+            <input class = "redB" type="submit" value="Guardar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "List")
+</div>

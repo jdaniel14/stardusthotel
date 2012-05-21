@@ -11,8 +11,10 @@ namespace Stardust.Models
 {
     public class ClienteBean
     {
-       /* public int ID { get; set; }
+       [Key]
+        public int ID { get; set; }
 
+        /*
         [Display(Name = "Usuario")]
         public string user_account { get; set; }
 

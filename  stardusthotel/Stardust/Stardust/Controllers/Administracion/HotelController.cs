@@ -95,5 +95,22 @@ namespace Stardust.Controllers
         public ActionResult List() {
             return View(hotelFac.listarHoteles());
         }
+
+        public ActionResult AsignarTipoHabitacion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AsignarTipoHabitacion( TipoHabitacionxHotel tipo ) {
+            hotelFac.registrarTipoHabitacion(tipo);
+            return RedirectToAction("List") ;
+        }
+
+        public ViewResult VerTiposHabitacion( int id ) {
+            var model = hotelFac.listarTipos(id);
+            ViewBag.hotel = hotelFac.getHotel(id).nombre;
+            return View( model );
+        }
     }
 }

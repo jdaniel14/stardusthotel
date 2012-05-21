@@ -1,28 +1,24 @@
 ﻿@model Stardust.Models.HotelBean
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Hotel";
 }
 
+<h3>Seguro de querer eliminar este hotel?</h3>
 
-
-<h3>Are you sure you want to delete this?</h3>
-
-<h3>Seguro de querer eliminar este usuario?</h3>
 <fieldset>
     <div class = "widget" >
-        <div class = "title"><h6>Detalles del Usuario</h6></div>
-    @*<legend>Usuario</legend>*@
+        <div class = "title"><h6>Detalles del hotel</h6></div>
 
         <div class="formRow">
-            @Html.LabelFor(model => model.hotelID)
-            <div class = "formRight" >@Html.DisplayFor(model => model.hotelID)</div>
+            @Html.LabelFor(model => model.nombre)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
             <div class = "clear" ></div>
         </div>
 
         <div class="formRow">
-            @Html.LabelFor(model => model.descripcion)
-            <div class = "formRight" >@Html.DisplayFor(model => model.descripcion)</div>
+            @Html.LabelFor(model => model.razonSocial)
+            <div class = "formRight" >@Html.DisplayFor(model => model.razonSocial)</div>
             <div class = "clear" ></div>
         </div>
 
@@ -31,16 +27,19 @@
             <div class = "formRight" >@Html.DisplayFor(model => model.direccion)</div>
             <div class = "clear" ></div>
         </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.distrito)
+            <div class = "formRight" >@Html.DisplayFor(model => model.distrito)</div>
+            <div class = "clear" ></div>
+        </div>
     </div>
 </fieldset>
-
-
-
 
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Eliminar" class = "redB"/> |
-        @Html.ActionLink("Regresar", "Index")
+        @Html.ActionLink("Regresar", "List")
     </p>
 }
 
