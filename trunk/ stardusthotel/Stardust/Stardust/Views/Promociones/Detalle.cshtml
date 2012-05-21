@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Stardust.Models.PromocionBean>
+
+<h2>Buscar Promocion</h2>
+
+<p></p><p></p>
+
+<div class="wrapper">
+    <div class="widget">
+      <div class="title">
+      <h6>Lista de Promociones</h6>
+      </div>
+      <div class="dataTables_wrapper">
+        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
+    
+        <thead>
+        <tr>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+                <div class="DataTables_sort_wrapper">
+                Descripcion
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;" >
+                <div class="DataTables_sort_wrapper">
+                Razon
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+               <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+                <div class="DataTables_sort_wrapper">
+                Porcentaje a Descontar
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1">
+
+             </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
+            <td>@Html.DisplayFor(modelItem => item.razon)</td>
+            <td>@Html.DisplayFor(modelItem => item.porcDescontar)</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Detalles", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("Delete", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>                      
+            </td>
+        </tr>
+        
+    }
+    </tbody>
+</table>
+      </div>
+        
+    </div>
+    </div>
