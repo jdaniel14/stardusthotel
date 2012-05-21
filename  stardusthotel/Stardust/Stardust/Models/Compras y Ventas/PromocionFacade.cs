@@ -13,5 +13,25 @@ namespace Stardust.Models
         {
             promocionService.RegistrarPromocion(promocion);
         }
+
+        public List<PromocionBean> ListarPromocion(int id,int hotel)
+        {
+            return promocionService.ListarPromocion(id,hotel);
+        }
+
+        public PromocionBean GetPromocion(int id)
+        {
+            return promocionService.GetPromocion(id);
+        }
+
+        public void ActualizarPromocion(PromocionBean promocion)
+        {
+            promocionService.ActualizarPromocion(promocion);
+        }
+
+        public void EliminarPromocion(int id)
+        {
+            promocionService.EliminarPromocion(id);
+        }
     }
 }
