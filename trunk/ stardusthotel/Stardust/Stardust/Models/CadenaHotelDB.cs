@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Stardust.Models;
 
 namespace Stardust.Models
 {
@@ -13,8 +14,6 @@ namespace Stardust.Models
         public DbSet<ProductoBean> Producto { get; set; }
         public DbSet<ProveedorBean> Proveedor { get; set; }
         public DbSet<ClienteBean> Cliente { get;  set; }
-
-        public DbSet<Hotel> Hotel { get; set; }
 
         public DbSet<TipoHabitacionBean> TipoHabitacion { get; set; }
 
@@ -27,5 +26,7 @@ namespace Stardust.Models
         }
 
         public DbSet<PerfilUsuarioBean> PerfilUsuarioBean { get; set; }
+
+        public DbSet<HotelBean> HotelBean { get; set; }
     }
 }

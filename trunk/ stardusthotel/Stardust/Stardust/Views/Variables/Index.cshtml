@@ -1,0 +1,43 @@
+﻿@model Stardust.Models.VariablesBean
+
+@{
+    ViewBag.Title = "Variables del sistema";
+}
+
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Variables del sistema</h6></div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.horasEsperaConfirmarReserva)
+            <div class = "formRight" >@Html.DisplayFor(model => model.horasEsperaConfirmarReserva)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.porcAdelanto)
+            <div class = "formRight" >@Html.DisplayFor(model => model.porcAdelanto)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.diasEsperarSinRetener)
+            <div class = "formRight" >@Html.DisplayFor(model => model.diasEsperarSinRetener)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.porcRetencion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.porcRetencion)</div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+</fieldset>
+
+@using (Html.BeginForm("Edit", "PerfilUsuario", FormMethod.Post, new { @class = "form" }))
+{
+    <p>
+        <a href="@Url.Action("Edit")"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+}
