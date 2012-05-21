@@ -28,5 +28,13 @@ namespace Stardust.Models
         public List<HotelBean> listarHoteles() {
             return hotelServ.listarHoteles();
         }
+
+        public void registrarTipoHabitacion(TipoHabitacionxHotel tipo) {
+            hotelServ.registrarTipoHabitacion(tipo);
+        }
+
+        public List<TipoHabitacionxHotel> listarTipos(int id) {
+            return hotelServ.listarTipos(id);
+        }
     }
 }

@@ -1,95 +1,84 @@
 ﻿@model Stardust.Models.HotelBean
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Detalles del hotel";
 }
 
-<h2>Detalle Hotel</h2>
+<h2>Detalle del hotel</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm("Details" , "Hotel" , FormMethod.Post , new { @class = "form" } ))
-{
-    @Html.ValidationSummary(true)
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del hotel</h6></div>
 
-    
-    
-    <fieldset>
-        <div class = "widget" >
-            <div class = "title"><h6>Modificar Usuario</h6></div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.hotelID)
-                <div class = "formRight" >@Html.EditorFor(model => model.hotelID)</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.descripcion)
-                <div class = "formRight" >@Html.EditorFor(model => model.descripcion)</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.razon_social)
-                <div class = "formRight" >@Html.EditorFor(model => model.razon_social)</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.regid)
-                <div class = "formRight" >@Html.EditorFor(model => model.regid)</div>
-                <div class = "clear" ></div>
-            </div>
-
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.nroregid)
-                <div class = "formRight" >@Html.EditorFor(model => model.nroregid)</div>
-                <div class = "clear" ></div>
-            </div>
-
-
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.direccion)
-                <div class = "formRight" >@Html.EditorFor(model => model.direccion)</div>
-                <div class = "clear" ></div>
-            </div>
-            
-                <div class="formRow">
-                @Html.LabelFor(model =>model.telf1)
-                <div class = "formRight" >@Html.EditorFor(model => model.telf1)</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.telf2)
-                <div class = "formRight" >@Html.EditorFor(model => model.telf2)</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.fax)
-                <div class = "formRight" >@Html.EditorFor(model => model.fax)</div>
-                <div class = "clear" ></div>
-            </div>
-
-           
-
-            
-            
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombre)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
+            <div class = "clear" ></div>
         </div>
-    </fieldset>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.razonSocial)
+            <div class = "formRight" >@Html.DisplayFor(model => model.razonSocial)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.direccion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.direccion)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.tlf1)
+            <div class = "formRight" >@Html.DisplayFor(model => model.tlf1)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.tlf2)
+            <div class = "formRight" >@Html.DisplayFor(model => model.tlf2)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.email)
+            <div class = "formRight" >@Html.DisplayFor(model => model.email)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nroPisos)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nroPisos)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.departamento)
+            <div class = "formRight" >@Html.DisplayFor(model => model.departamento)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.provincia)
+            <div class = "formRight" >@Html.DisplayFor(model => model.provincia)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.distrito)
+            <div class = "formRight" >@Html.DisplayFor(model => model.distrito)</div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+</fieldset>
+
+@using (Html.BeginForm("Edit", "Hotel", FormMethod.Post, new { @class = "form" }))
+{
     <p>
-        <input type="submit" value="Guardar" class = "redB" />
-    </p>    
-    
-    
+        <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "List")
+    </p>
 }
-
-<div>
-    @Html.ActionLink("Regresar", "Index")
-</div>
-

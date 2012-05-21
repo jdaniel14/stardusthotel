@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Stardust.Models.HabitacionBean>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Habitaciones</h2>
+
+<p>
+    <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir habitación</a>
+</p>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    <thead>
+        <tr>
+            <td>Hotel</td>
+            <td>Tipo de Habitación</td>
+            <td>Piso</td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.hotel )</td>
+            <td>@Html.DisplayFor(modelItem => item.tipoHabitacion )</td>
+            <td>@Html.DisplayFor(modelItem => item.piso )</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+            </td>
+        </tr>
+        
+    }
+    </tbody>
+</table>

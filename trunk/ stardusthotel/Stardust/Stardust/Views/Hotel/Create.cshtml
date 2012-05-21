@@ -61,7 +61,7 @@
             <div class="formRow">
                 @Html.LabelFor(model => model.departamento)
                 <div class = "formRight" >@Html.TextBoxFor(model => model.departamento)</div>
-                <div class = "clear" >
+                <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
@@ -80,8 +80,8 @@
     <p>
         <input type="submit" value="Crear" class = "redB" />
     </p>
-    
-     
-    
-   
 }
+
+<div>
+    @Html.ActionLink("Regresar", "List")
+</div>
