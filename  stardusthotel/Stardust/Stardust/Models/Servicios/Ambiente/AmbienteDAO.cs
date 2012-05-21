@@ -21,10 +21,13 @@ namespace Stardust.Models
 
             string commandString = "SELECT * FROM Ambiente ";
             bool result;
+
+            //result = estado.Equals("");
+            //if (!result) 
+            commandString = commandString + "WHERE estado = 'ACTIVO'";
+
             result = Nombre.Equals("");
-            if (!result) commandString = commandString + "WHERE UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%' ";
-            result = estado.Equals("");
-            if (!result) commandString = commandString + " AND WHERE estado = " + estado;
+            if (!result) commandString = commandString + "AND  UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%' ";
 
             if (precio_menor > 0) commandString = commandString + " AND precioXhora  >= " + precio_menor;
             if (precio_mayor > 0) commandString = commandString + " AND precioXhora  <= " + precio_mayor;
@@ -39,12 +42,12 @@ namespace Stardust.Models
                 ambiente.nombre = (string)dataReader["nombre"];
                 ambiente.descripcion = (string)dataReader["descripcion"];
                 ambiente.cap_maxima = (int)dataReader["capacMaxima"];
-                ambiente.largo  = (float)dataReader["largo"];
-                ambiente.ancho = (float)dataReader["ancho"];
-                ambiente.precioXhora = (float)dataReader["precioXHora"];
-                ambiente.largo_escenario = (float)dataReader["largoEscenario"];
-                ambiente.ancho_escenario = (float)dataReader["anchoEscenario"];
-                ambiente.proyector = (bool)dataReader["proyector"];
+                ambiente.largo  = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
+                ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
+                ambiente.largo_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("largoEscenario"));
+                ambiente.ancho_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("anchoEscenario"));
+                ambiente.proyector = (int)dataReader["proyector"];
                 ambiente.piso = (int)dataReader["piso"];
                 ambiente.estado = (string)dataReader["estado"];
                 listaAmbientes.Add(ambiente);
@@ -62,9 +65,9 @@ namespace Stardust.Models
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();             
+            sqlCon.Open();
 
-            string commandString = "INSERT INTO Ambiente VALUES ('" + ambiente.nombre + "', '" + ambiente.descripcion + "', '" + ambiente.descripcion  + "', '" + ambiente.cap_maxima  + "', '" + ambiente.largo  + "', '" +  ambiente.ancho  + "', '" + ambiente.precioXhora  + "', '" +  ambiente.largo_escenario  + "', '" + ambiente.ancho_escenario  + "', '" + ambiente.proyector  + "', '" + ambiente.piso  + "', '" + ambiente.estado  + "')";
+            string commandString = "INSERT INTO Ambiente VALUES ('" + ambiente.nombre + "', '" + ambiente.descripcion + "', " + ambiente.cap_maxima + ", " + ambiente.largo + ", " + ambiente.ancho + ", " + ambiente.precioXhora + ", " + ambiente.largo_escenario + ", " + ambiente.ancho_escenario + ", " + ambiente.proyector + ", " + ambiente.piso + ", 'ACTIVO', 2)";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -82,8 +85,9 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "UPDATE Ambiente " +
-                                    "SET nombre = '" + ambiente.nombre + "', descripcion = '" + ambiente.descripcion + "' " + "', capacMaxima = '" + ambiente.cap_maxima + "' " + "', largo = '" + ambiente.largo + "' " + "', ancho = '" + ambiente.ancho + "' " + "', precioXHora= '" + ambiente.precioXhora + "' " + "', largoEscenario = '" + ambiente.largo_escenario + "' " + "', anchoEscenario = '" + ambiente.ancho_escenario + "' " + "', proyector = '" + ambiente.proyector + "' " + "', piso = '" + ambiente.piso + "' " + "', estado = '" + ambiente.estado + "' " + "', idHotel = 1 " + 
-                                    "WHERE idAmbiente = " + ambiente.id;
+                                    "SET  nombre = '" + ambiente.nombre + "', descripcion = '" + ambiente.descripcion + "', capacMaxima = " + ambiente.cap_maxima + ", largo = " + ambiente.largo + ", ancho = " + ambiente.ancho + ", precioXHora= " + ambiente.precioXhora + ", largoEscenario = " + ambiente.largo_escenario + ", anchoEscenario = " + ambiente.ancho_escenario + ", proyector = " + ambiente.proyector + ", piso = " + ambiente.piso +  " " +
+                                    //"SETEA estado = 'INACTIVO' " +
+                                    "WHERE idAmbiente = " + ambiente.id.ToString();
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -111,12 +115,12 @@ namespace Stardust.Models
                 ambiente.nombre = (string)dataReader["nombre"];
                 ambiente.descripcion = (string)dataReader["descripcion"];
                 ambiente.cap_maxima = (int)dataReader["capacMaxima"];
-                ambiente.largo = (float)dataReader["largo"];
-                ambiente.ancho = (float)dataReader["ancho"];
-                ambiente.precioXhora = (float)dataReader["precioXHora"];
-                ambiente.largo_escenario = (float)dataReader["largoEscenario"];
-                ambiente.ancho_escenario = (float)dataReader["anchoEscenario"];
-                ambiente.proyector = (bool)dataReader["proyector"];
+                ambiente.largo = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
+                ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
+                ambiente.largo_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("largoEscenario"));
+                ambiente.ancho_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("anchoEscenario"));
+                ambiente.proyector = (int)dataReader["proyector"];
                 ambiente.piso = (int)dataReader["piso"];
                 ambiente.estado = (string)dataReader["estado"];
             }

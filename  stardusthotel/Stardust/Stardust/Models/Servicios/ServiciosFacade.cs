@@ -9,7 +9,10 @@ namespace Stardust.Models
     {
         ServiciosService serviciosService = new ServiciosService();
         public List<ServiciosBean> ListarServicios(String Nombre) {
-            return serviciosService.ListarServicios( Nombre );
+
+            //return serviciosService.ListarServicios( Nombre );
+            if (Nombre == null) Nombre = "";
+            return serviciosService.ListarServicios(Nombre);
         }
 
         public String RegistrarServicio(ServiciosBean servicio)
