@@ -8,10 +8,12 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm("RegistrarDia", "Promociones", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("RegistrarDia", "Promociones", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
-    @Html.ValidationSummary(true)
+    @Html.ValidationSummary(false)
 
     <fieldset>
             <div class="widget">
@@ -20,25 +22,25 @@
             </div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.descripcion)
+                @Html.LabelFor(model => model.descripcion)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion)</div>
                  <div class = "clear" ></div>
             </div>
             
             <div class="formRow">
-                @Html.LabelFor(model => model.dias)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.dias)</div>
+                @Html.LabelFor(model => model.dias)<span class="req">*</span>
+                <div class = "formRight"> @Html.TextBoxFor(model => model.dias, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" }) </div>
                 <div class = "clear" ></div>
             </div>  
             
             <div class="formRow">
-                @Html.LabelFor(model => model.porcDescontar)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.porcDescontar)</div>
+                @Html.LabelFor(model => model.porcDescontar)<span class="req">*</span>
+                <div class = "formRight"> @Html.TextBoxFor(model => model.porcDescontar, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" }) </div>
                 <div class = "clear" ></div>
             </div>
             
             <div class="formRow">
-                @Html.LabelFor(model => model.idhotel)
+                @Html.LabelFor(model => model.idhotel)<span class="req">*</span>
                 <div class = "formRight" >@Html.DropDownListFor(model => model.ID, Model.hotelList)</div>
                 <div class = "clear" ></div>
             </div>         
