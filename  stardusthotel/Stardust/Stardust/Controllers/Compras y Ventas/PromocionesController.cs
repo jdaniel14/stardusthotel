@@ -16,9 +16,9 @@ namespace Stardust.Controllers
         //
         // GET: /Default1/
 
-        public ViewResult Index()
+        public ActionResult Index()
         {
-            return View(db.Promociones.ToList());
+            return View();
         }
 
         //
@@ -26,48 +26,79 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            Promociones promociones = db.Promociones.Find(id);
+            PromocionBean promociones = db.Promociones.Find(id);
             return View(promociones);
         }
 
         //
         // GET: /Default1/Create
 
-        public ActionResult Create()
+        public ActionResult Registrar()
         {
             return View();
-        } 
+        }
+
+        [HttpPost]
+        public ActionResult Registrar(FormCollection form)
+        {
+            String id = form["categoria"];
+            if (id.Equals("1"))
+                return RedirectToAction("RegistrarDia");
+            else
+                return RedirectToAction("RegistrarAdelanto");
+        }
+
+        public ActionResult RegistrarDia()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarDia(PromocionBean promocion)
+        {
+            return RedirectToAction("Registrar");
+        }
+
+        public ActionResult RegistrarAdelanto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarAdelanto(PromocionBean promocion)
+        {
+            return RedirectToAction("Registrar");
+        }
 
         //
         // POST: /Default1/Create
 
-        [HttpPost]
-        public ActionResult Create(Promociones promociones)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Promociones.Add(promociones);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
+        //[HttpPost]
+        //public ActionResult Create(PromocionBean promociones)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Promociones.Add(promociones);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");  
+        //    }
 
-            return View(promociones);
-        }
+        //    return View(promociones);
+        //}
         
         //
         // GET: /Default1/Edit/5
  
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            Promociones promociones = db.Promociones.Find(id);
-            return View(promociones);
+            return View();
         }
 
         //
         // POST: /Default1/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Promociones promociones)
+        public ActionResult Edit(PromocionBean promociones)
         {
             if (ModelState.IsValid)
             {
@@ -83,8 +114,7 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-            Promociones promociones = db.Promociones.Find(id);
-            return View(promociones);
+            return View();
         }
 
         //
@@ -93,7 +123,7 @@ namespace Stardust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            Promociones promociones = db.Promociones.Find(id);
+            PromocionBean promociones = db.Promociones.Find(id);
             db.Promociones.Remove(promociones);
             db.SaveChanges();
             return RedirectToAction("Index");
