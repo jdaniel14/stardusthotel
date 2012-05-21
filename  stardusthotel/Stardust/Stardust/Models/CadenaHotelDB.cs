@@ -18,7 +18,7 @@ namespace Stardust.Models
         public DbSet<TipoHabitacionBean> TipoHabitacion { get; set; }
 
 
-        public DbSet<Promociones> Promociones { get; set; }
+        public DbSet<PromocionBean> Promociones { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
