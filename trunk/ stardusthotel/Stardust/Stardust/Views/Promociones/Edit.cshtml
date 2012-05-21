@@ -11,10 +11,7 @@
         <div class = "widget" >
             <div class = "title"><h6>Modificar Promocion</h6></div>
 
-            <div class="formRow"> @Html.LabelFor(model => model.idPromocion)<span class="req">*</span>
-                <div class=" formRight"> @Html.TextBoxFor(model => model.idPromocion)  </div>
-                <div class="clear"></div>
-            </div>
+                <div class=" formRight"> @Html.HiddenFor(model => model.idPromocion)  </div>
 
             <div class="formRow"> @Html.LabelFor(model => model.descripcion)<span class="req">*</span>
                 <div class=" formRight"> @Html.EditorFor(model => model.descripcion)  </div>
