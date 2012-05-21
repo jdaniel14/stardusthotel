@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Stardust.Models.AmbienteBean>
+
+@{
+    ViewBag.Title = "Ambientes del hotel";
+}
+
+<h2>Listado de los ambientes del hotel</h2>
+
+<p>
+    Lista general de los servicios del hotel
+</p>
+
+<p>
+   @Html.ActionLink("Registrar un nuevo ambiente", "RegistrarAmbiente","Servicios")<img src="../../Content/images/icons/color/plus.png" />
+</p>
+
+
+<div class = "widget" >
+
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Servicios del hotel</h6></div>
+
+    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+            <td>Capacidad Maxima</td>
+            <td>Largo</td>
+            <td>Ancho</td>
+            <td>Precio por Hora</td>
+            <td></td>            
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.cap_maxima)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.largo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ancho)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.precioXhora)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Modificar", "ModificarAmbiente", new { id = item.id }) <img src="../../Content/images/icons/color/pencil.png" />|
+                    @Html.ActionLink("Eliminar", "EliminarAmbiente", new { id = item.id }) <img src="../../Content/images/icons/color/cross.png" />                    
+                </td>
+            </tr>
+    }
+    
+    </tbody>
+
+    </table>
+</div>

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Stardust.Models.AmbienteBean>
+
+@{
+    ViewBag.Title = "MostrarAmbiente";
+}
+
+<h2>MostrarAmbiente</h2>
+
+<p>
+    Lista general de los ambientes del hotel
+</p>
+
+<p>
+    @Html.ActionLink("Registrar un nuevo Servicio", "RegistrarServicio","Servicios")
+</p>
+
+
+
+<div class = "widget" >
+
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Servicios del hotel</h6></div>
+
+    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+            <td></td>            
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcion)
+                </td>                
+                <td>
+                    @Html.ActionLink("Modificar", "ModificarServicio", new { id = item.id }) |
+                    @Html.ActionLink("Eliminar", "EliminarServicio", new { id = item.id })                     
+                </td>
+            </tr>
+    }
+    
+    </tbody>
+
+    </table>
+</div>

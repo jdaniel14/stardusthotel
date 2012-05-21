@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Stardust.Models.AmbienteBean>
+@{
+    ViewBag.Title = "Prueba";
+}
+
+<h2>Prueba</h2>
+@foreach(var ambiente in @Model){
+    <li>@ambiente.descripcion</li>
+}
