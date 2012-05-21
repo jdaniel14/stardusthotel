@@ -19,29 +19,35 @@
 
 {
 
-    <form action = "" class = "form" >
-        <fieldset>
-
-            <div class="editor-label">
-                <label>Nombre</label>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.nombre)                              
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Registrar Servicio</h6>
             </div>
 
-            <div class="editor-label">
-                <label>Descripcion</label>
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.descripcion)                              
+
+            <div class="formRow"><span>Nombre</span>
+                <div class="formRight">
+                @Html.TextBoxFor(m => m.nombre) 
+                </div>
+                <div class="clear"></div>
             </div>
 
-            <p>
-                <input type="submit" value="Registrar Servicio" />
+            
+           <div class="formRow"><span>Descripcion</span>
+                <div class="formRight">
+                @Html.TextBoxFor(m => m.descripcion) 
+                </div>
+                <div class="clear"></div>
+            </div>
+
+    </div>
+    </fieldset>
+
+    <p>
+                <input type="submit" value="Crear" class = "redB" />
             </p>
 
-        </fieldset>
-    </form>
 
 
 }
