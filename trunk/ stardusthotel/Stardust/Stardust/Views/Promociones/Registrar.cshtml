@@ -19,11 +19,12 @@
                 <h6>Seleccione tipo de Promocion</h6>
             </div>
             <div class="formRow">
-                <label for = "categoria" >Tipo de Promocion:</label>
+                @Html.DropDownListFor(model => model.ID, Model.hotelList)
+                @*<label for = "categoria" >Tipo de Promocion:</label>
                 <select id="categoria" name="categoria">
                     <option value="1">Dias de reserva</option>
                     <option value="2">Pago Adelantado</option>
-                </select>
+                </select>*@
                 @*<div class="formRight searchDrop">
                     <select name="categoria" id="categoria" class="chzn-select" style="width:350px;" tabindex="2" >
                         <option value="1">Dias de reserva</option>
@@ -32,12 +33,12 @@
                 </div>*@
                 <div class="clear"></div>
             </div>
-
-            <div>
-                <input type="submit" value="Aceptar" />
-            </div>
         </div>
     </fieldset>
+                <p></p> <p></p> <p></p>
+    <div>
+           <input type="submit" value="Registrar" class = "redB" />
+    </div>
 }
 
 <div>
