@@ -1,0 +1,65 @@
+﻿@model Stardust.Models.PromocionBean
+
+@{
+    ViewBag.Title = "RegistrarDia";
+}
+
+<h2>RegistrarDia</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm("RegistrarDia", "Proveedor", FormMethod.Post, new { @class = "form" })) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>PromocionBean</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.descripcion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.descripcion)
+            @Html.ValidationMessageFor(model => model.descripcion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.tipoDescuento)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.tipoDescuento)
+            @Html.ValidationMessageFor(model => model.tipoDescuento)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.porcDescontar)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.porcDescontar)
+            @Html.ValidationMessageFor(model => model.porcDescontar)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.idhotel)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.idhotel)
+            @Html.ValidationMessageFor(model => model.idhotel)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.estado)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.estado)
+            @Html.ValidationMessageFor(model => model.estado)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
