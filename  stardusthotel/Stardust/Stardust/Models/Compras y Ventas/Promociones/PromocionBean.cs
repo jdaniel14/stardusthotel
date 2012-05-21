@@ -16,10 +16,23 @@ namespace Stardust.Models
         public string ID {get; set;}
         public string Nombre {get; set;}
     }
+    public class Tipo
+    {
+        public string ID { get; set; }
+        public string Nombre { get; set; }
+        public Tipo(string ID, string Nombre)
+        {
+            this.ID = ID;
+            this.Nombre = Nombre;
+        }
+    }
+
     public class PromocionBean
     {
 
         public string ID { get; set; }
+
+        public int idPromocion { get; set; }
 
         public string nombre { get; set; }
 
@@ -29,6 +42,15 @@ namespace Stardust.Models
         [Display(Name = "Tipo de Descuento")]
         public int tipoDescuento { get; set; }
 
+        public string tipo { get; set; }
+
+        [Display(Name = "Tipo de Descuento")]
+        public string descuento { get; set; }
+
+        [Display(Name = "Hotel")]
+        public string hotel { get; set; }
+
+        [Display(Name = "Numero dias/Porcentaje Pago adelanto")]
         public int razon { get; set; }
 
         [Display(Name = "Numero de Dias")]
@@ -45,6 +67,21 @@ namespace Stardust.Models
 
         public int estado { get; set; }
 
+        public IEnumerable<Tipo> getTipo()
+        {
+            List<Tipo> listaTipo = new List<Tipo>();
+
+            Tipo tipo = new Tipo("1","Todo");
+            Tipo tipo1 = new Tipo("2", "Dias de Reserva");
+            Tipo tipo2 = new Tipo("3", "Pago Adelantado");
+
+            listaTipo.Add(tipo);
+            listaTipo.Add(tipo1);
+            listaTipo.Add(tipo2);
+
+            return listaTipo;
+        }
+
         public IEnumerable<Hoteles> getHoteles()
         {
             List<Hoteles> listaHotel = new List<Hoteles>();
@@ -59,6 +96,12 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
+            Hoteles hoteles = new Hoteles();
+            hoteles.ID = "1";
+            hoteles.Nombre = "Todo";
+
+            listaHotel.Add(hoteles);
+
             while (dataReader.Read())
             {
                 Hoteles hotel = new Hoteles();
@@ -70,10 +113,12 @@ namespace Stardust.Models
             return listaHotel;
         }
         public SelectList hotelList { get; set; }
+        public SelectList tipoList { get; set; }
 
         public PromocionBean()
         {
             hotelList = new SelectList(getHoteles(), "ID", "Nombre");
+            tipoList = new SelectList(getTipo(), "ID", "Nombre");
         }
     }
 }
