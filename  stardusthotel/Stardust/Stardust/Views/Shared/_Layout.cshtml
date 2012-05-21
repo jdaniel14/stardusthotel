@@ -115,10 +115,17 @@
 
             @*<div class="sidebarSep"></div>*@
 
-             <li class="forms"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
+                 <li class="forms"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
                 <ul class="sub">
-                    <li><a href="../Servicio/Index" title="">Registrar Servicio</a></li>
-                    <li><a href="../Servicio/BuscarServicio" title="">Buscar Servicio</a></li>                    
+                    <li>@Html.ActionLink("Listar Servicios", "Index", "Servicios")</li>
+                    <li>@Html.ActionLink("Buscar Servicio", "BuscarServicio", "Servicios")</li>                  
+                </ul>
+            </li>
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Ambientes</span><strong>3</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Listar Ambientes", "IndexAmbientes", "Servicios")</li>
+                    <li>@Html.ActionLink("Buscar Ambiente", "BuscarAmbiente", "Servicios")</li>                                    
                 </ul>
             </li>
 
