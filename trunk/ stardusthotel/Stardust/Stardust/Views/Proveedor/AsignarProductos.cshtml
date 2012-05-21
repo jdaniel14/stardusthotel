@@ -14,7 +14,7 @@
 
     
   @using (Html.BeginForm("guardarproductosxProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
-    {
+  {
     
     <fieldset>
         <div class="widget">
@@ -22,7 +22,7 @@
                 <h6>Proveedor</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
-                <div class=" formRight"> @Html.TextBoxFor(model => model.Proveedor,new{@readonly ="readonly"})  </div>
+                <div class=" formRight"> @Html.TextBoxFor(model => model.Proveedor, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
             
@@ -51,6 +51,9 @@
  
     @for (int i = 0; i < Model.listProdProv.Count; i++)
     {
+
+
+
         if (!Model.listProdProv[i].estado2)
         {
          @Html.HiddenFor(model => model.listProdProv[i].ID, new { @readonly = "readonly" }) 
@@ -62,6 +65,12 @@
                 <td> @Html.EditorFor(model => model.listProdProv[i].cantMaxima)   </td>
      </tr>
         }
+        else
+        {
+            @Html.HiddenFor(model => model.listProdProv[i].nombre) 
+            @Html.HiddenFor(model => model.listProdProv[i].precio)         
+            @Html.HiddenFor(model => model.listProdProv[i].cantMaxima)  
+        }
     }
 
     
@@ -72,7 +81,7 @@
     <p>
         <input type="submit" value="Aceptar" class = "redB" />
     </p>
-    }
+  }
 
     
 
