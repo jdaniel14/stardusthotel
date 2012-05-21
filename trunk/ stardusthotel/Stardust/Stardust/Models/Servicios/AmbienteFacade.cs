@@ -10,6 +10,7 @@ namespace Stardust.Models
         AmbienteService AmbienteService = new AmbienteService();
         public List<AmbienteBean> ListarAmbiente(String Nombre, String estado, float precio_menor, float precio_mayor)
         {
+            if (Nombre == null) Nombre = "";
             return AmbienteService.ListarAmbiente(Nombre, estado, precio_menor, precio_mayor);
         }
 
