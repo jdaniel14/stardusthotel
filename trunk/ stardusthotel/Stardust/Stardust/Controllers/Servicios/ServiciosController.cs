@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Stardust.Controllers
 {
@@ -65,9 +67,10 @@ namespace Stardust.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult BuscarServicio()
+        public ActionResult BuscarServicio(String nombre)
         {            
-            return View();
+            ServiciosFacade serviciosFacade = new ServiciosFacade();
+            return View( serviciosFacade.ListarServicios(nombre));
         }
                 
         public ActionResult MostrarServicios(ServiciosBean item)
@@ -120,19 +123,23 @@ namespace Stardust.Controllers
 
         public ActionResult EliminarAmbiente(int id)
         {
-            //le paso el id del item a eliminar
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            ambienteFacade.EliminarAmbiente(id);
             return RedirectToAction("IndexAmbientes");
         }
 
-        public ActionResult BuscarAmbiente()
+        public ActionResult BuscarAmbiente(AmbienteBean item)
         {
-            return View();
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            return View(ambienteFacade.ListarAmbiente(item.nombre,"ACTIVO",-1,-1));
         }
 
         public ActionResult MostrarAmbiente(AmbienteBean item)
         {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            List<AmbienteBean> listaAmbientes = ambienteFacade.ListarAmbiente(item.nombre, "ACTIVO", -1, -1);
             //pido la lista que cumpla con el nombre y la paso al view
-            return View();
+            return View(listaAmbientes);
         }
 
     }
