@@ -117,7 +117,9 @@ namespace Stardust.Controllers
                 prodProveedor.nombre = productos[i].nombre;
                 prodProveedor.ID = productos[i].ID;
                 prodProveedor.estados = false;
-                prodProveedor.estado2 = false;
+                for (int j = 0; j < prod2.listProdProv.Count; j++)
+                    if (prodProveedor.ID == prod2.listProdProv[j].ID) prodProveedor.estado2 = true;
+                //prodProveedor.estado2 = false;
                 
                 prod.listProdProv.Add(prodProveedor);
 
