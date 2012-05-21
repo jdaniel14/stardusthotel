@@ -12,6 +12,7 @@ namespace Stardust.Controllers
     public class PromocionesController : Controller
     {
         private CadenaHotelDB db = new CadenaHotelDB();
+        public PromocionFacade promocionFacade = new PromocionFacade();
 
         //
         // GET: /Default1/
@@ -35,14 +36,15 @@ namespace Stardust.Controllers
 
         public ActionResult Registrar()
         {
-            return View();
+            PromocionBean promocion = new PromocionBean();
+            return View(promocion);
         }
 
         [HttpPost]
-        public ActionResult Registrar(FormCollection form)
+        public ActionResult Registrar(PromocionBean promocion)
         {
-            String id = form["categoria"];
-            if (id.Equals("1"))
+            String id = promocion.ID;
+            if (id.Equals("2"))
                 return RedirectToAction("RegistrarDia");
             else
                 return RedirectToAction("RegistrarAdelanto");
@@ -50,13 +52,17 @@ namespace Stardust.Controllers
 
         public ActionResult RegistrarDia()
         {
-            return View();
+            PromocionBean promocion = new PromocionBean();
+            return View(promocion);
         }
 
         [HttpPost]
         public ActionResult RegistrarDia(PromocionBean promocion)
         {
-            return RedirectToAction("Registrar");
+            promocion.tipoDescuento = 1;
+            promocion.razon = promocion.dias;
+            promocionFacade.RegistrarPromocion(promocion);
+            return RedirectToAction("Buscar");
         }
 
         public ActionResult RegistrarAdelanto()
