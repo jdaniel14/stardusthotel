@@ -31,7 +31,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Select * from PerfilUsuario where ID = " + id;
+                String command = "Select * from PerfilUsuario where idPerfilUsuario = " + id;
 
                 SqlCommand query = new SqlCommand(command, sql);
                 SqlDataReader data = query.ExecuteReader();
@@ -81,7 +81,7 @@ namespace Stardust.Models
             sql.Open();
 
                 String command = "Update PerfilUsuario SET nombre = '" + perfil.nombre + "', " +
-                                 "descripcion = '" + perfil.descripcion + "' where ID = " + perfil.ID;
+                                 "descripcion = '" + perfil.descripcion + "' where idPerfilUsuario = " + perfil.ID;
                 SqlCommand query = new SqlCommand(command, sql);
 
                 query.ExecuteNonQuery();
@@ -94,7 +94,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Delete from PerfilUsuario where ID = " + id;
+                String command = "Delete from PerfilUsuario where idPerfilUsuario = " + id;
                 SqlCommand query = new SqlCommand(command, sql);
 
                 query.ExecuteNonQuery();
