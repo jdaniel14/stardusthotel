@@ -4274,6 +4274,17 @@
     <Content Include="Views\Promociones\RegistrarAdelanto.cshtml" />
     <Content Include="Views\Promociones\RegistrarDia.cshtml" />
     <Content Include="Views\Proveedor\ModificarProductos.cshtml" />
+    <Content Include="Views\Servicios\BuscarAmbiente.cshtml" />
+    <Content Include="Views\Servicios\BuscarServicio.cshtml" />
+    <Content Include="Views\Servicios\Index.cshtml" />
+    <Content Include="Views\Servicios\IndexAmbientes.cshtml" />
+    <Content Include="Views\Servicios\ModificarAmbiente.cshtml" />
+    <Content Include="Views\Servicios\ModificarServicio.cshtml" />
+    <Content Include="Views\Servicios\MostrarAmbiente.cshtml" />
+    <Content Include="Views\Servicios\MostrarServicios.cshtml" />
+    <Content Include="Views\Servicios\Prueba.cshtml" />
+    <Content Include="Views\Servicios\RegistrarAmbiente.cshtml" />
+    <Content Include="Views\Servicios\RegistrarServicio.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
