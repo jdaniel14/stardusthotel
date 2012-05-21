@@ -19,5 +19,8 @@ namespace Stardust.Models
 
         [Display(Name = "Descripcion")]
         public String descripcion { get; set; }
+
+        [Display(Name = "Estado")]
+        public String estado { get; set; }
     }
 }
