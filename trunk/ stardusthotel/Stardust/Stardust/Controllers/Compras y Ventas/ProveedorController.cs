@@ -43,9 +43,9 @@ namespace Stardust.Controllers
 
         }
 
-        public ActionResult ModificarProveedor(int id)
+        public ActionResult ModificarProveedor(int ID)
         {            
-            ProveedorBean item = proveedorFacade.GetProveedor(id);
+            ProveedorBean item = proveedorFacade.GetProveedor(ID);
             return View(item);
         }
 
@@ -55,15 +55,15 @@ namespace Stardust.Controllers
             proveedorFacade.ActualizarProveedor(item);
             return RedirectToAction("Index");
         }
-        public ActionResult DetallesProveedor(int id)
+        public ActionResult DetallesProveedor(int ID)
         {            
-            ProveedorBean item = proveedorFacade.GetProveedor(id);
+            ProveedorBean item = proveedorFacade.GetProveedor(ID);
             return View(item);
         }
 
-        public ActionResult EliminarProveedor(int id)
+        public ActionResult EliminarProveedor(int ID)
         {            
-            proveedorFacade.EliminarProveedor(id);
+            proveedorFacade.EliminarProveedor(ID);
             return RedirectToAction("Index");
         }
 
@@ -78,14 +78,14 @@ namespace Stardust.Controllers
             List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
             return View(listaprov);
         }
-        public ActionResult ListarProductos(int id)
+        public ActionResult ListarProductos(int ID)
         {
             ProductoxProveedorBean prod;
-            ProveedorBean prov = proveedorFacade.GetProveedor(id);
+            ProveedorBean prov = proveedorFacade.GetProveedor(ID);
 
             List<ProductoBean> productos = proveedorFacade.ListarProducto("");
 
-            prod = proveedorFacade.obtenerlista(id);//lista de los productos en la tabla productoxproveedor
+            prod = proveedorFacade.obtenerlista(ID);//lista de los productos en la tabla productoxproveedor
             prod.Proveedor = prov.razonSocial;
 
             //lista de productos en la tabla de productoxproveedor
