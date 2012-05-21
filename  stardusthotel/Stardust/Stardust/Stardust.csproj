@@ -130,7 +130,6 @@
     <Compile Include="Models\Compras y Ventas\Producto\ProductoBean.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoDAO.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoService.cs" />
-    <Compile Include="Models\Compras y Ventas\Promociones\Promociones.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorBean.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorDAO.cs" />
     <Compile Include="Models\Compras y Ventas\ProveedorFacade.cs" />
@@ -4229,9 +4228,8 @@
     <Content Include="Views\TipoHabitacion\Create.cshtml" />
     <Content Include="Views\TipoHabitacion\Edit.cshtml" />
     <Content Include="Views\TipoHabitacion\Delete.cshtml" />
-    <Content Include="Views\Promociones\Create.cshtml" />
+    <Content Include="Views\Promociones\Registrar.cshtml" />
     <Content Include="Views\Promociones\Delete.cshtml" />
-    <Content Include="Views\Promociones\Details.cshtml" />
     <Content Include="Views\Promociones\Edit.cshtml" />
     <Content Include="Views\Promociones\Index.cshtml" />
     <Content Include="Views\Servicio\BuscarServicio.cshtml" />
@@ -4251,6 +4249,8 @@
     <Content Include="Views\Proveedor\DetallesProveedor.cshtml" />
     <Content Include="Views\Proveedor\AsignarProductos.cshtml" />
     <Content Include="Views\Proveedor\ListarProductos.cshtml" />
+    <Content Include="Views\Promociones\RegistrarDia.cshtml" />
+    <Content Include="Views\Promociones\RegistrarAdelanto.cshtml" />
     <Content Include="Views\PerfilUsuario\Create.cshtml" />
     <Content Include="Views\PerfilUsuario\Index.cshtml" />
     <Content Include="Views\PerfilUsuario\Details.cshtml" />
@@ -4258,6 +4258,9 @@
     <Content Include="Views\PerfilUsuario\Delete.cshtml" />
     <Content Include="Views\PerfilUsuario\List.cshtml" />
     <Content Include="Views\TipoHabitacion\List.cshtml" />
+    <Content Include="Views\Promociones\Buscar.cshtml" />
+    <Content Include="Views\Promociones\Detalle.cshtml" />
+    <Content Include="Views\Promociones\Detalles.cshtml" />
     <Content Include="Views\Hotel\List.cshtml" />
     <Content Include="Views\Cliente\RegistrarCliente.cshtml" />
     <Content Include="Views\Variables\Index.cshtml" />
