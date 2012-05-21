@@ -25,15 +25,11 @@ namespace Stardust.Controllers
 
         public ActionResult Buscar()
         {
-<<<<<<< .mine
             PromocionBean promociones = new PromocionBean();
             //ViewData["Tipo"] = promociones.getTipo();
             //ViewData["Hotel"] = promociones.getHoteles();
             return View(promociones);
-=======
             //PromocionBean promociones = db.Promociones.Find(id);
-            return View();
->>>>>>> .r505
         }
 
         [HttpPost]
