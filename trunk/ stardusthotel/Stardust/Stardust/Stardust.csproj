@@ -4286,6 +4286,7 @@
     <Content Include="Views\Servicios\RegistrarAmbiente.cshtml" />
     <Content Include="Views\Servicios\RegistrarServicio.cshtml" />
     <Content Include="Views\Promociones\Detalle.cshtml" />
+    <Content Include="Views\Promociones\Detalles.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
