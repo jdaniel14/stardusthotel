@@ -20,20 +20,20 @@ namespace Stardust.Models.Servicios
             return clienteService.RegistrarCliente(cliente);
         }
 
-        public String ActualizarCliente(ClienteBean cliente)
-        {
-            return clienteService.ActualizarCliente(cliente);
-        }
+        //public String ActualizarCliente(ClienteBean cliente)
+        //{
+        //    return clienteService.ActualizarCliente(cliente);
+        //}
 
-        public ClienteBean GetCliente(int id)
-        {
-            return clienteService.GetCliente(id);
-        }
+        //public ClienteBean GetCliente(int id)
+        //{
+        //    return clienteService.GetCliente(id);
+        //}
 
-        public String EliminarCliente(int id)
-        {
-            return clienteService.EliminarCliente(id);
-        }
+        //public String EliminarCliente(int id)
+        //{
+        //    return clienteService.EliminarCliente(id);
+        //}
     }
     
 }
