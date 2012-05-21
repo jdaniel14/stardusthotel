@@ -11,13 +11,14 @@
 {
     @Html.ValidationSummary(false)
     <fieldset>
-        <legend>Registrar Producto</legend>
+            <div class="widget">
+            <div class="title">
+                <h6>Registrar Proveedor</h6>
+            </div>
+
 
             <div class="formRow">
-                <label>
-                    Nombre:
-                </label>
-                @*@Html.LabelFor(model => model.nombre)*@
+                @Html.LabelFor(model => model.nombre)
                 <div class = "formRight" >@Html.TextBoxFor(model => model.nombre,new {@class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui"})</div>
                 <div class = "clear" ></div>
             </div>
@@ -25,17 +26,18 @@
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)
                 <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion )</div>
+                 <div class = "clear" ></div>
             </div>
 
-            <p></p>
-            <p></p>
-            <p></p>
 
-            <div>
-                <input type="submit" value="Registrar" />
+
+            
             </div>
-
     </fieldset>
+            <p></p> <p></p> <p></p>
+    <div>
+           <input type="submit" value="Registrar" class = "redB" />
+    </div>
 }
 
 <div>
