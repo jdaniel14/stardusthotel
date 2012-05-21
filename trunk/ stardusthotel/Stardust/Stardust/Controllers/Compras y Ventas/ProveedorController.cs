@@ -64,7 +64,7 @@ namespace Stardust.Controllers
         public ActionResult EliminarProveedor(int ID)
         {            
             proveedorFacade.EliminarProveedor(ID);
-            return RedirectToAction("Index");
+            return RedirectToAction("Buscar");
         }
 
         public ActionResult Buscar(string razonsocial, string contacto)
