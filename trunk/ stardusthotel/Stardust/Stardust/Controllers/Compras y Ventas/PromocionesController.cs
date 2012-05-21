@@ -27,8 +27,8 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            PromocionBean promociones = db.Promociones.Find(id);
-            return View(promociones);
+            //PromocionBean promociones = db.Promociones.Find(id);
+            return View();
         }
 
         //
@@ -129,9 +129,9 @@ namespace Stardust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {            
-            PromocionBean promociones = db.Promociones.Find(id);
-            db.Promociones.Remove(promociones);
-            db.SaveChanges();
+            //PromocionBean promociones = db.Promociones.Find(id);
+            //db.Promociones.Remove(promociones);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 
