@@ -123,7 +123,6 @@
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionDAO.cs" />
-    <Compile Include="Models\Compras y Ventas\Promociones\Promociones.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionService.cs" />
     <Compile Include="Models\Compras y Ventas\PromocionFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProductoProveedor.cs" />
