@@ -108,7 +108,7 @@ namespace Stardust.Models
             SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
             sqlCmd3.ExecuteNonQuery();
 
-
+            /*
             string commandString2 = "SELECT IDENT_CURRENT('Usuario')";
             SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
             SqlDataReader dr = sqlCmd2.ExecuteReader();
@@ -126,7 +126,7 @@ namespace Stardust.Models
             sqlCmd1.ExecuteNonQuery();
 
 
-
+            */
             sqlCon.Close();
             return me;
         }
