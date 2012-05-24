@@ -18,20 +18,18 @@
 
 
             <div class="formRow">
-                @Html.LabelFor(model => model.nombre)
+                @Html.LabelFor(model => model.nombre)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.nombre,new {@class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui"})</div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)
-                <div class = "formRight" >@Html.TextAreaFor(model => model.descripcion )</div>
+                <div class = "formRight" >@Html.TextAreaFor(model => model.descripcion, new {@class="validate[required]" ,name="textarea" ,cols="" ,rows="8"} )</div>
                  <div class = "clear" ></div>
             </div>
-
-
-
             
+            @*"validate[required,custom[onlyLetterNumber]]" ,type="text" ,name="regexValid" ,value="too many spaces obviously"*@
             </div>
     </fieldset>
             <p></p> <p></p> <p></p>
