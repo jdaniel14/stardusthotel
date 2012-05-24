@@ -11,8 +11,16 @@ namespace Stardust.Models
 {
     public class ClienteBean
     {
-       [Key]
+       //[Key]
         public int ID { get; set; }
+        public string nombres { get; set; }
+        public string apPat { get; set; }
+        public string apMat { get; set; }
+        public string razonSocial { get; set; }
+        public string tipoDocumento { get; set; }//DNI, Carne de Extranjeria, RUC
+        public string nroDocumento { get; set; }
+        public string tipoTarjeta { get; set; }
+        public string nroTarjeta { get; set; }
 
         /*
         [Display(Name = "Usuario")]
