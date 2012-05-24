@@ -9,12 +9,14 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
 @*@using (Html.BeginForm())
 {
 *@
     
-@using (Html.BeginForm("ModificarProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("ModificarProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
    @Html.ValidationSummary(false)
     
@@ -24,41 +26,41 @@
             <div class="title">
                 <h6>Modificar Proveedor</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
-                <div class=" formRight"> @Html.EditorFor(model => model.razonSocial) </div>
+            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)
+                <div class=" formRight"> @Html.EditorFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
-                <div class="formRight"> @Html.DisplayFor(model => model.ruc) </div>
+            <div class="formRow">@Html.LabelFor(model => model.ruc)
+                <div class="formRight"> @Html.DisplayFor(model => model.ruc, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid" }) </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow">@Html.LabelFor(model => model.direccion)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.direccion) </div>
+            <div class="formRow">@Html.LabelFor(model => model.direccion)
+                <div class="formRight"> @Html.TextBoxFor(model => model.direccion, new { @class = "validate[required]", name = "", maxlength = "40", placeholder = "" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.telefono)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.telefono) </div>
+            <div class="formRow">@Html.LabelFor(model => model.telefono)
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.web) </div>
+            <div class="formRow">@Html.LabelFor(model => model.web)
+                <div class="formRight"> @Html.TextBoxFor(model => model.web, new { @class = "validate[required]", name = "urlField", maxlength = "30", placeholder = "" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.contacto)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.contacto) </div>
+            <div class="formRow">@Html.LabelFor(model => model.contacto)
+                <div class="formRight"> @Html.TextBoxFor(model => model.contacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.cargoContacto)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.cargoContacto) </div>
+            <div class="formRow">@Html.LabelFor(model => model.cargoContacto)
+                <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.emailContacto) </div>
+            <div class="formRow">@Html.LabelFor(model => model.emailContacto)
+                <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto, new { @class = "validate[required,custom[email]]", name = "emailValid" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.observaciones)<span class="req">*</span>
-                <div class="formRight"> @Html.EditorFor(model => model.observaciones) </div>
+            <div class="formRow">@Html.LabelFor(model => model.observaciones)
+                <div class="formRight"> @Html.TextAreaFor(model => model.observaciones) </div>
                 <div class="clear"></div>
             </div>            
             
