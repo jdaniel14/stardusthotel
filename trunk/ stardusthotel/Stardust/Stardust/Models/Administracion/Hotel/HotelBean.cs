@@ -11,24 +11,38 @@ namespace Stardust.Models
         public int ID { get; set; }
 
         [Display( Name = "Nombre" ) ]
+        [Required]
         public string nombre { get; set; }
 
         [Display( Name = "Razón Social" ) ]
+        [Required]
         public string razonSocial { get; set; }
 
         [Display( Name = "Dirección" ) ]
+        [Required]
         public string direccion { get; set; }
 
         [Display( Name = "Teléfono 1" ) ]
+        [Required]
+        [MinLength( 9 )]
+        [MaxLength( 9 )]
+        [RegularExpression("^\\d{9}$")]
         public string tlf1 { get; set; }
 
         [Display( Name = "Teléfono 2" ) ]
+        [Required]
+        [MinLength(9)]
+        [MaxLength(9)]
+        [RegularExpression("^\\d{9}$")]
         public string tlf2 { get; set; }
 
         [Display( Name = "E-mail" ) ]
+        [Required]
         public string email { get; set; }
 
         [Display( Name = "Número de pisos" ) ]
+        [Required]
+        [Range( 0 , 20 )]
         public int nroPisos { get; set; }
 
         [Display( Name = "Departamento" ) ]
