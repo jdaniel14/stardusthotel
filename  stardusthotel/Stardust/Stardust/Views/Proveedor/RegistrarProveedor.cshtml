@@ -55,7 +55,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.observaciones)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.observaciones, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "40", placeholder = "Maximo 40 caracteres aqui" }) </div>
+                <div class="formRight"> @Html.TextAreaFor(model => model.observaciones, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "40", placeholder = "Maximo 40 caracteres aqui" }) </div>
                 <div class="clear"></div>
             </div>            
             
