@@ -61,10 +61,16 @@ namespace Stardust.Controllers
             return View(item);
         }
 
-        public ActionResult EliminarProveedor(int ID)
-        {            
+        public ActionResult Eliminar(int ID)
+        {
+            return View(proveedorFacade.GetProveedor(ID));
+        }
+
+        [HttpPost, ActionName("Eliminar")]
+        public ActionResult DeleteConfirmed(int ID)
+        {
             proveedorFacade.EliminarProveedor(ID);
-            return RedirectToAction("Buscar");
+            return RedirectToAction("../Home/Index");
         }
 
         public ActionResult Buscar(string razonsocial, string contacto)
