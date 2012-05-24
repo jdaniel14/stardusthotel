@@ -4282,6 +4282,14 @@
     <Content Include="Views\Promociones\Detalle.cshtml" />
     <Content Include="Views\Promociones\Detalles.cshtml" />
     <Content Include="Views\Proveedor\Eliminar.cshtml" />
+    <Content Include="Views\Cliente\BuscarClienteJuridico.cshtml" />
+    <Content Include="Views\Cliente\BuscarClienteNatural.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Cliente\IndexJuridicas.cshtml" />
+    <Content Include="Views\Cliente\ModificarClienteJuridico.cshtml" />
+    <Content Include="Views\Cliente\ModificarClienteNatural.cshtml" />
+    <Content Include="Views\Cliente\RegistrarPersonaJuridica.cshtml" />
+    <Content Include="Views\Cliente\RegistrarPersonaNatural.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
