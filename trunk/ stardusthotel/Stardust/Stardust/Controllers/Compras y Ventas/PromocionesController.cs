@@ -104,34 +104,25 @@ namespace Stardust.Controllers
         {
             promocion.tipoDescuento = Convert.ToInt32(promocion.tipo);
             promocionFacade.ActualizarPromocion(promocion);
-            return RedirectToAction("Buscar");
+            return RedirectToAction("../Home/Index");
         }
- 
-        public ActionResult Delete(int id)
-        {
-            promocionFacade.EliminarPromocion(id);
-            return RedirectToAction("Buscar");
-        }
-
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{            
-        //    return RedirectToAction("Buscar");
-        //}
 
         public ActionResult Detalles(int id)
         {
             return View(promocionFacade.GetPromocion(id));
         }
 
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{            
-        //    PromocionBean promociones = db.Promociones.Find(id);
-        //    db.Promociones.Remove(promociones);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        public ActionResult Delete(int id)
+        {
+            return View(promocionFacade.GetPromocion(id));
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            promocionFacade.EliminarPromocion(id);
+            return RedirectToAction("../Home/Index");
+        }
 
         //protected override void Dispose(bool disposing)
         //{
