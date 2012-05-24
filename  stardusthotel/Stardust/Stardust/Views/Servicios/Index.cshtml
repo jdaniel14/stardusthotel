@@ -35,15 +35,9 @@
 
     @foreach (var item in Model) {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.descripcion)
-                </td>                
+                <td>  @Html.DisplayFor(modelItem => item.id)   </td>
+                <td>   @Html.DisplayFor(modelItem => item.nombre)       </td>
+                <td>  @Html.DisplayFor(modelItem => item.descripcion)       </td>                
                 <td>
                     @Html.ActionLink("Modificar", "ModificarServicio", new { id = item.id }) <img src="../../Content/images/icons/color/pencil.png" />|
                     @Html.ActionLink("Eliminar", "EliminarServicio", new { id = item.id }) <img src="../../Content/images/icons/color/cross.png" />                    
