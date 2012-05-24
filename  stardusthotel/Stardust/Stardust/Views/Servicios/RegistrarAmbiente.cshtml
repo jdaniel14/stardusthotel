@@ -93,7 +93,7 @@
                 <div class="clear"></div>
             </div>*@
                         
-            <div class="formRow">
+            @*<div class="formRow">
                 <label for = "proyector" >Proyector</label>
                 <div class="formRight">
                 <select id="proyector" name="proyector">
@@ -102,9 +102,25 @@
                 </select>              
                 </div> 
                 <div class="clear"></div>
+            </div>*@
+
+            <div class="formRow"><span>Proyector</span>
+                <div class="formRight">
+                
+                Si
+                @Html.RadioButtonFor(model => model.proyector,1)
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                No
+                @Html.RadioButtonFor(model => model.proyector,0)
+
+                </div>
+                <div class="clear"></div>
             </div>
-
-
             
                       
         </div>
