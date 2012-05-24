@@ -28,7 +28,7 @@
             </div>
             
             <div class="formRow">
-                @Html.LabelFor(model => model.descuento)<span class="req">*</span>
+                @Html.LabelFor(model => model.adelanto)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.descuento, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" })</div>
                 <div class = "clear" ></div>
             </div>  
