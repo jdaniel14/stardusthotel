@@ -86,14 +86,27 @@
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow"><span>Proyector</span>
+           @* <div class="formRow"><span>Proyector</span>
                 <div class="formRight">
                 @Html.TextBoxFor(m => m.proyector) 
                 </div>
                 <div class="clear"></div>
+            </div>*@
+                        
+            <div class="formRow">
+                <label for = "proyector" >Proyector</label>
+                <div class="formRight">
+                <select id="proyector" name="proyector">
+                    <option value="1">Si</option>
+                    <option value="0">No</option>
+                </select>              
+                </div> 
+                <div class="clear"></div>
             </div>
-                       
-           
+
+
+            
+                      
         </div>
     </fieldset>
 
