@@ -35,7 +35,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefono)
-                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "40", placeholder = "" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength="8", placeholder = "celular" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
@@ -54,8 +54,8 @@
                 <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto, new { @class = "validate[required,custom[email]]", name = "emailValid", maxlength = "40", placeholder = "" }) </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.observaciones)<span class="req">*</span>
-                <div class="formRight"> @Html.TextAreaFor(model => model.observaciones, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "100", placeholder = "Maximo 100 caracteres aqui" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.observaciones)
+                <div class="formRight"> @Html.TextAreaFor(model => model.observaciones, new { @class = "validate[custom]", maxlength = "100", placeholder = "Maximo 100 caracteres aqui" }) </div>
                 <div class="clear"></div>
             </div>            
             
