@@ -42,7 +42,7 @@
            <td>Seleccionar</td>
            <td>Producto</td>
            <td>Precio</td>
-           <td>Cantidad Maxima</td>  
+ 
         </tr>
     </thead>
 
@@ -62,7 +62,7 @@
                 <td> @Html.CheckBoxFor(model => model.listProdProv[i].estados, true) </td>
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
                 <td> @Html.EditorFor(model => model.listProdProv[i].precio)         </td>
-                <td> @Html.EditorFor(model => model.listProdProv[i].cantMaxima)   </td>
+               
      </tr>
         }
         else
@@ -81,7 +81,7 @@
     <p>
         <input type="submit" value="Aceptar" class = "redB" />
     </p>
-       @Html.ActionLink("Regresar", "DetallesProveedor", "Proveedor")
+       @Html.ActionLink("Regresar", "../Home/Index")
   }
 
     
