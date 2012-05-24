@@ -20,7 +20,7 @@ namespace Stardust.Models
 
             promocion.estado = 1;
             promocion.idhotel = Convert.ToInt32(promocion.ID);
-            string commandString = "INSERT INTO Promocion VALUES ('" + promocion.descripcion + "', " + promocion.razon + " , " + promocion.porcDescontar + " ,'" + promocion.estado + "', " + promocion.tipoDescuento + " , " + promocion.idhotel + ")";
+            string commandString = "INSERT INTO Promocion VALUES (" + promocion.razon + " , " + promocion.porcDescontar + " ,'" + promocion.estado + "', " + promocion.tipoDescuento + " , " + promocion.idhotel + " ,'" + promocion.descripcion + "')";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -54,7 +54,7 @@ namespace Stardust.Models
 
             while (dataReader.Read())
             {
-                PromocionBean promociones = new PromocionBean();
+                PromocionBean promociones = new PromocionBean(2);
 
                 promociones.idPromocion = (int)dataReader["idPromocion"];
                 promociones.descripcion = (string)dataReader["descripcion"];
@@ -74,7 +74,7 @@ namespace Stardust.Models
 
         public PromocionBean GetPromocion(int id)
         {
-            PromocionBean promocion = new PromocionBean();
+            PromocionBean promocion = new PromocionBean(2);
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -100,7 +100,7 @@ namespace Stardust.Models
             else
                 promocion.descuento = "Porcentaje Pago de Adelanto";
 
-            IEnumerable<Hoteles> pro = promocion.getHoteles();
+            IEnumerable<Hoteles> pro = promocion.getHoteles(2);
 
             for (int i = 0; i < pro.Count(); i++)
             {
