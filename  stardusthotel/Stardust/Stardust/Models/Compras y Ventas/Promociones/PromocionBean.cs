@@ -67,22 +67,26 @@ namespace Stardust.Models
 
         public int estado { get; set; }
 
-        public IEnumerable<Tipo> getTipo()
+        public IEnumerable<Tipo> getTipo(int i)
         {
             List<Tipo> listaTipo = new List<Tipo>();
 
-            Tipo tipo = new Tipo("1","Todo");
+            if (i == 1)
+            {
+                Tipo tipo = new Tipo("1", "Todo");
+                listaTipo.Add(tipo);
+            }
+
             Tipo tipo1 = new Tipo("2", "Dias de Reserva");
             Tipo tipo2 = new Tipo("3", "Pago Adelantado");
-
-            listaTipo.Add(tipo);
+            
             listaTipo.Add(tipo1);
             listaTipo.Add(tipo2);
 
             return listaTipo;
         }
 
-        public IEnumerable<Hoteles> getHoteles()
+        public IEnumerable<Hoteles> getHoteles(int i)
         {
             List<Hoteles> listaHotel = new List<Hoteles>();
 
@@ -96,11 +100,13 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            Hoteles hoteles = new Hoteles();
-            hoteles.ID = "1";
-            hoteles.Nombre = "Todo";
-
-            listaHotel.Add(hoteles);
+            if (i == 1)
+            {
+                Hoteles hoteles = new Hoteles();
+                hoteles.ID = "1";
+                hoteles.Nombre = "Todo";
+                listaHotel.Add(hoteles);
+            }                    
 
             while (dataReader.Read())
             {
@@ -115,10 +121,21 @@ namespace Stardust.Models
         public SelectList hotelList { get; set; }
         public SelectList tipoList { get; set; }
 
+        public PromocionBean(int i)
+        {
+            if (i == 1)
+            {
+                hotelList = new SelectList(getHoteles(1), "ID", "Nombre");
+                tipoList = new SelectList(getTipo(1), "ID", "Nombre");
+            }
+            else
+            {
+                hotelList = new SelectList(getHoteles(2), "ID", "Nombre");
+                tipoList = new SelectList(getTipo(2), "ID", "Nombre");
+            }
+        }
         public PromocionBean()
         {
-            hotelList = new SelectList(getHoteles(), "ID", "Nombre");
-            tipoList = new SelectList(getTipo(), "ID", "Nombre");
         }
     }
 }
