@@ -23,34 +23,32 @@
 
     <fieldset>
         <div class="widget">
+
             <div class="title">
                 <h6>Registrar Servicio</h6>
             </div>
 
-
             <div class="formRow"><span>Nombre</span>
                 
-               <div class = "formRight" > @Html.TextBoxFor(m => m.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" }) </div>
+               <div class = "formRight" > 
+               @Html.TextBoxFor(m => m.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" })
+               </div>
                 
-                <div class="clear"></div>
+               <div class="clear"></div>
             </div>
-
             
-           <div class="formRow"><span>Descripcion</span>
+            <div class="formRow"><span>Descripcion</span>
                 <div class="formRight">
                 @Html.TextAreaFor(m => m.descripcion) 
                 </div>
                 <div class="clear"></div>
             </div>
 
-    </div>
+        </div>
     </fieldset>
 
     <p>
-                <input type="submit" value="Crear" class = "redB" />
-            </p>
-
-
-
+        <input type="submit" value="Crear" class = "redB" />
+    </p>
 }
 
