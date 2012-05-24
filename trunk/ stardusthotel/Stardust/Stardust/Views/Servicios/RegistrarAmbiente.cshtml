@@ -20,6 +20,8 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm("RegistrarAmbiente", "Servicios", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
@@ -30,7 +32,7 @@
                 <h6>Registrar Ambiente</h6>
             </div>
 
-            <div class="formRow"><span>Nombre</span>
+            <div class="formRow"><span>Nombre</span><span class="req">*</span>
                 <div class="formRight">
                 @Html.TextBoxFor(m => m.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" }) 
                 </div>
@@ -44,44 +46,44 @@
                 <div class="clear"></div>
             </div>
 
-           <div class="formRow"><span>Capacidad Maxima</span>
+           <div class="formRow"><span>Capacidad Maxima</span><span class="req">*</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.cap_maxima) 
+                @Html.TextBoxFor(m => m.cap_maxima, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "10", minlength = "1" }) 
                 </div>
                 <div class="clear"></div>
             </div>
            
            <div class="formRow"><span>Largo</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.largo) 
+                @Html.TextBoxFor(m => m.largo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1"}) 
                 </div>
                 <div class="clear"></div>
             </div>
 
             <div class="formRow"><span>Ancho</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.ancho) 
+                @Html.TextBoxFor(m => m.ancho, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
                 </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow"><span>Precio por hora</span>
+            <div class="formRow"><span>Precio por hora</span><span class="req">*</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.precioXhora) 
+                @Html.TextBoxFor(m => m.precioXhora, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "9" }) 
                 </div>
                 <div class="clear"></div>
             </div>
 
            <div class="formRow"><span>Largo del escenario</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.largo_escenario) 
+                @Html.TextBoxFor(m => m.largo_escenario, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1"}) 
                 </div>
                 <div class="clear"></div>
             </div>
 
             <div class="formRow"><span>Ancho del escenario</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.ancho_escenario) 
+                @Html.TextBoxFor(m => m.ancho_escenario, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1"}) 
                 </div>
                 <div class="clear"></div>
             </div>
