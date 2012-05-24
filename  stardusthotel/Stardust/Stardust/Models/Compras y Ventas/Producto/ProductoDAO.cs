@@ -77,10 +77,10 @@ namespace Stardust.Models
             dataReader.Read();
 
             ProductoBean producto = new ProductoBean();
-            producto.ID = (int)dataReader["@idProducto"];
-            producto.nombre = (string)dataReader["@nombre"];
-            producto.descripcion = (string)dataReader["@descripcion"];
-            producto.estado = Convert.ToInt32(dataReader["@estado"]);
+            producto.ID = (int)dataReader["idProducto"];
+            producto.nombre = (string)dataReader["nombre"];
+            producto.descripcion = (string)dataReader["descripcion"];
+            producto.estado = Convert.ToInt32(dataReader["estado"]);
             sqlCon.Close();
 
             return producto;
