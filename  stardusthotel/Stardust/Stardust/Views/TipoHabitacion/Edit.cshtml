@@ -12,15 +12,15 @@
 @ViewBag.lol
 
 
-@using (Html.BeginForm( "Edit" , "TipoHabitacion" , FormMethod.Post , new { @class = "form" } ) ){
+@using (Html.BeginForm( "Edit" , "TipoHabitacion" , FormMethod.Post , new { @class = "form", id = "validate" } ) ){
     @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
             <div class = "title"><h6>Modificar tipo de habitación</h6></div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.nombre)
-                <div class = "formRight" >@Html.EditorFor(model => model.nombre )</div>
+                @Html.LabelFor(model => model.nombre)<span class="req">*</span>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30" })</div>
                 <div class = "clear" ></div>
             </div>
 
