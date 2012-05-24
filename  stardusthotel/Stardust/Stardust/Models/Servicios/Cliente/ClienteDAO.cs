@@ -9,7 +9,7 @@ namespace Stardust.Models
 {
     public class ClienteDAO
     {
-        public List<ClienteBean> ListarClientes(String Nombre)
+        public List<ClienteBean> ListarClientesNatural(String Nombre)
         {
 
             List<ClienteBean> listaClientes = new List<ClienteBean>();
@@ -19,26 +19,61 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Servicio WHERE estado = 'ACTIVO' ";
+            string commandString = "SELECT * FROM Usuario WHERE estado = 'ACTIVO' AND tipoDocumento != 'RUC'";
             bool result = Nombre.Equals("");
-            if (!result) commandString = commandString + " AND UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%'";
+            if (!result) commandString = commandString + " AND UPPER(nombres) LIKE '%" + Nombre.ToUpper() + "%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
             while (dataReader.Read())
             {
-                ServiciosBean servicio = new ServiciosBean();
-                servicio.id = (int)dataReader["idServicio"];
-                servicio.nombre = (string)dataReader["nombre"];
-                servicio.descripcion = (string)dataReader["descripcion"];
+                ClienteBean cliente = new ClienteBean();
+                cliente.nombres = (string)dataReader["nombres"];
+                cliente.apPat = (string)dataReader["apPat"];
+                cliente.apMat = (string)dataReader["apMat"];
+                cliente.tipoDocumento = (string)dataReader["tipoDocumento"];
+                cliente.nroDocumento = (string)dataReader["nroDocumento"];              
 
-                //listaClientes.Add(servicio);
+                listaClientes.Add(cliente);
             }
             dataReader.Close();
             sqlCon.Close();
 
             return listaClientes;
         }
+
+        public List<ClienteBean> ListarClientesJuridica(String Nombre)
+        {
+
+            List<ClienteBean> listaClientes = new List<ClienteBean>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT usu.idUsuario, usu.razonSocial, usu.tipoDocumento, usu.nroDocumento,  FROM Usuario usu, Cliente cli WHERE usu.estado = 'ACTIVO' AND usu.tipoDocumento = 'RUC' AND cli.idCliente = usu.idCliente";
+            bool result = Nombre.Equals("");
+            if (!result) commandString = commandString + " AND UPPER(nombres) LIKE '%" + Nombre.ToUpper() + "%'";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                ClienteBean cliente = new ClienteBean();
+                cliente.ID = (int)dataReader["idUsuario"];
+                cliente.razonSocial = (string)dataReader["razonSocial"];
+                cliente.tipoDocumento = (string)dataReader["tipoDocumento"];
+                cliente.nroDocumento = (string)dataReader["nroDocumento"];
+
+                listaClientes.Add(cliente);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return listaClientes;
+        }
+        
         
         public String insertarCliente(ClienteBean cliente)
         {
@@ -49,35 +84,45 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            /* cliente.estado2 = 1;
+             //cliente.estado2 = 1;
 
-            /*  string commandString = "INSERT INTO Usuario VALUES ('" +
-                     cliente.user_account + "', '" +
-                     cliente.pass + "', '" +
-                     cliente.nombres + "', '" +
-                     cliente.apPat + "', '" +
-                     cliente.apMat + "', '" +
-                     cliente.email + "', '" +
-                     cliente.celular+ "', '" +
-                     cliente.tipoDocumento + "', '" +
-                     cliente.nroDocumento + "', '" +
-                     cliente.razonSocial + "','" +
-                     cliente.estado + "','" +
-                     cliente.direccion+ "')";
+            string commandString1 = "INSERT INTO Cliente VALUES (0, GETDATE(), 'ACTIVO', '" +
+                     cliente.tipoTarjeta + "', '" +
+                     cliente.nroTarjeta + "')";
 
-              SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-              sqlCmd.ExecuteNonQuery();
+            SqlCommand sqlCmd1 = new SqlCommand(commandString1, sqlCon);
+            sqlCmd1.ExecuteNonQuery();
 
-              string commandString2 = "INSERT INTO Cliente VALUES ('" +
-                     cliente.fechaRegistro + "', '" +
-                     cliente.estado + "', '" +
-                     cliente.tipoTajeta + "', '" +
-                     cliente.nroTarjeta+ "', '" + "')";
+            string commandString2 = "SELECT IDENT_CURRENT('Cliente')";
+            SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
+            SqlDataReader dr = sqlCmd2.ExecuteReader();
+            dr.Read();
+            int lastID = (int)dr[0];
+            dr.Close();
 
-              SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
-              sqlCmd2.ExecuteNonQuery();
+            string commandString3 = "INSERT INTO Usuario VALUES (5," +
+                     "''" + ", " +
+                     "''" + ", " +
+                     "'" + cliente.nombres + "'" + ", " +
+                     "'" + cliente.apPat + "'" + ", " +
+                     "'" + cliente.apMat + "'" + ", " +
+                     "''" + ", " +//email
+                     "''" + ", " +//celular
+                     "'" + cliente.tipoDocumento + "'" + ", " +
+                     "'" + cliente.nroDocumento + "'" + ", " +
+                     "'" + cliente.razonSocial + "'" + ", " +
+                     "'ACTIVO'" + ", " +//estado
+                     "0" + ", " +//Distrito
+                     "''" + ", " +//Direccion
+                     "0" + ", " +//Provincia
+                     "0" + ", " +//Departamento
+                     lastID.ToString() + ")"
+                     ;
 
-              sqlCon.Close();*/
+              SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
+              sqlCmd3.ExecuteNonQuery();              
+
+              sqlCon.Close();
             return me;
         }
 
