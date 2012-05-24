@@ -59,7 +59,7 @@
                 
                 <td> @Html.CheckBoxFor(model => model.listProdProv[i].estados, true) </td>
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid" })         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
                
      </tr>
         }
