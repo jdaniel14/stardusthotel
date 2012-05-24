@@ -165,7 +165,7 @@ namespace Stardust.Models
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+            sqlCon.Open(); 
             int i;
             for (i = 0; i < prod.listProdProv.Count; i++)
             {
