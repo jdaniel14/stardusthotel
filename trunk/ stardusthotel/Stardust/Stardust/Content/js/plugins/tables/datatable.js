@@ -975,7 +975,7 @@
 				"sInfoFiltered": "(_MAX_ in total)",
 				"sInfoPostFix": "",
 				"sInfoThousands": ",",
-				"sSearch": "<span class='itemsPerPage'>Search:</span>",
+				"sSearch": "<span class='itemsPerPage'>Buscar:</span>",
 				"sUrl": "",
 				"oPaginate": {
 					"sFirst":    "First",
@@ -4276,7 +4276,7 @@
 			var sSearchStr = oSettings.oLanguage.sSearch;
 			sSearchStr = (sSearchStr.indexOf('_INPUT_') !== -1) ?
 			  sSearchStr.replace('_INPUT_', '<input type="text" />') :
-			  sSearchStr==="" ? '<input type="text" />' : sSearchStr+' <input type="text" placeholder="type here..." /><div class="srch"></div>';
+			  sSearchStr==="" ? '<input type="text" />' : sSearchStr+' <input type="text" placeholder="Escribir aqui..." /><div class="srch"></div>';
 			
 			var nFilter = document.createElement( 'div' );
 			nFilter.className = oSettings.oClasses.sFilter;
