@@ -20,7 +20,7 @@ namespace Stardust.Controllers.Servicios
             List<ClienteBean> listaClientes = clienteFacade.ListarClientesNatural("");
             return View(listaClientes);
         }
-        
+
         public ViewResult IndexJuridicas()
         {
             ClienteFacade clienteFacade = new ClienteFacade();
@@ -36,7 +36,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public ActionResult RegistrarPersonaNatural(ClienteBean item)
         {
-            ClienteFacade clienteFacade = new ClienteFacade();            
+            ClienteFacade clienteFacade = new ClienteFacade();
             item.tipoDocumento = "DNI";
             clienteFacade.RegistrarCliente(item);
 
@@ -51,7 +51,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public ActionResult RegistrarPersonaJuridica(ClienteBean item)
         {
-            ClienteFacade clienteFacade = new ClienteFacade(); 
+            ClienteFacade clienteFacade = new ClienteFacade();
             item.tipoDocumento = "RUC";
             clienteFacade.RegistrarCliente(item);
             return RedirectToAction("IndexJuridicas");
@@ -70,7 +70,7 @@ namespace Stardust.Controllers.Servicios
             return RedirectToAction("Index");
         }
 
-        public ActionResult ModificarClienteJuridico(int id) 
+        public ActionResult ModificarClienteJuridico(int id)
         {
             return View(/*item*/);
         }
