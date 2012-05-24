@@ -34,8 +34,10 @@
             </div>  
             
             <div class="formRow">
+                <div class = "clear" >
                 @Html.LabelFor(model => model.porcDescontar)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.porcDescontar, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" })</div>
+                </div>
                 <div class = "clear" ></div>
             </div>
             
