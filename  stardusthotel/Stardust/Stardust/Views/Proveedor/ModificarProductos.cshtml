@@ -14,7 +14,7 @@
 
 
 
- @using (Html.BeginForm("Guardarproductos2", "Proveedor", FormMethod.Post, new { @class = "form" }))
+ @using (Html.BeginForm("Guardarproductos2", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
 {   
 
     <fieldset>
@@ -56,7 +56,7 @@
              <tr>  
                 <td> @Html.CheckBoxFor(model => model.listProdProv[i].estados, true) </td>
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio)         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio,new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "6", placeholder = "" })         </td>
               
      </tr>
 
