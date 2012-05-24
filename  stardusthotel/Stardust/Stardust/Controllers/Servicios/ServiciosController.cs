@@ -99,18 +99,9 @@ namespace Stardust.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrarAmbiente(AmbienteBean item, FormCollection form)
+        public ActionResult RegistrarAmbiente(AmbienteBean item)
         {
-            AmbienteFacade ambienteFacade = new AmbienteFacade();
-            String id = form["proyector"];
-            if (id.Equals("1"))
-            {
-                item.proyector = 1;
-            }
-            else
-            {
-                item.proyector = 0;
-            }            
+            AmbienteFacade ambienteFacade = new AmbienteFacade();                       
             ambienteFacade.RegistrarAmbiente(item);
             return RedirectToAction("IndexAmbientes");
         }
