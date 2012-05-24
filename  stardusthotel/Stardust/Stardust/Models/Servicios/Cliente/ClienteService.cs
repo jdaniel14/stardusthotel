@@ -9,11 +9,18 @@ namespace Stardust.Models
     {
         ClienteDAO clienteDAO = new ClienteDAO();
 
-        public List<ClienteBean> ListarClientes(String Nombre)
+        public List<ClienteBean> ListarClientesNatural(String Nombre)
         {
             //return serviciosService.ListarServicios( Nombre );
             if (Nombre == null) Nombre = "";
-            return clienteDAO.ListarClientes(Nombre);
+            return clienteDAO.ListarClientesNatural(Nombre);
+        }
+
+        public List<ClienteBean> ListarClientesJuridica(String Nombre)
+        {
+            //return serviciosService.ListarServicios( Nombre );
+            if (Nombre == null) Nombre = "";
+            return clienteDAO.ListarClientesJuridica(Nombre);
         }
 
         public String RegistrarCliente(ClienteBean cliente)
