@@ -25,7 +25,7 @@ namespace Stardust.Controllers
 
         public ActionResult Buscar()
         {
-            PromocionBean promociones = new PromocionBean();
+            PromocionBean promociones = new PromocionBean(1);
             //ViewData["Tipo"] = promociones.getTipo();
             //ViewData["Hotel"] = promociones.getHoteles();
             return View(promociones);
@@ -50,7 +50,7 @@ namespace Stardust.Controllers
 
         public ActionResult Registrar()
         {
-            PromocionBean promocion = new PromocionBean();
+            PromocionBean promocion = new PromocionBean(2);
             return View(promocion);
         }
 
@@ -66,7 +66,7 @@ namespace Stardust.Controllers
 
         public ActionResult RegistrarDia()
         {
-            PromocionBean promocion = new PromocionBean();
+            PromocionBean promocion = new PromocionBean(2);
             return View(promocion);
         }
 
@@ -81,7 +81,7 @@ namespace Stardust.Controllers
 
         public ActionResult RegistrarAdelanto()
         {
-            PromocionBean promocion = new PromocionBean();
+            PromocionBean promocion = new PromocionBean(2);
             return View(promocion);
         }
 
