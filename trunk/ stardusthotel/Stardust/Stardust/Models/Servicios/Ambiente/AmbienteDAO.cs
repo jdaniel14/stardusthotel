@@ -45,6 +45,7 @@ namespace Stardust.Models
                 ambiente.largo  = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
                 ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
                 //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
+                ambiente.precioXhora = decimal.Parse(dataReader["Price"].ToString()); 
                 ambiente.largo_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("largoEscenario"));
                 ambiente.ancho_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("anchoEscenario"));
                 ambiente.proyector = (int)dataReader["proyector"];
@@ -118,6 +119,7 @@ namespace Stardust.Models
                 ambiente.largo = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
                 ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
                 //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
+                ambiente.precioXhora = decimal.Parse(dataReader["Price"].ToString()); 
                 ambiente.largo_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("largoEscenario"));
                 ambiente.ancho_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("anchoEscenario"));
                 ambiente.proyector = (int)dataReader["proyector"];
