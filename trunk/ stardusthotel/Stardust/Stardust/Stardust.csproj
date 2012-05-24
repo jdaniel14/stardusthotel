@@ -4233,11 +4233,6 @@
     <Content Include="Views\Promociones\Delete.cshtml" />
     <Content Include="Views\Promociones\Edit.cshtml" />
     <Content Include="Views\Promociones\Index.cshtml" />
-    <Content Include="Views\Servicio\BuscarServicio.cshtml" />
-    <Content Include="Views\Servicio\Index.cshtml" />
-    <Content Include="Views\Servicio\ModificarServicio.cshtml" />
-    <Content Include="Views\Servicio\MostrarServicios.cshtml" />
-    <Content Include="Views\Servicio\RegistrarServicio.cshtml" />
     <Content Include="Views\Producto\Delete.cshtml" />
     <Content Include="Views\Producto\Edit.cshtml" />
     <Content Include="Views\Hotel\Delete.cshtml" />
