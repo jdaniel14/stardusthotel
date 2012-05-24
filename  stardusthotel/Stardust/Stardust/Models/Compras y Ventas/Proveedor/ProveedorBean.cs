@@ -32,13 +32,13 @@ namespace Stardust.Models
         [Display(Name = "Contacto")]
         public string contacto { get; set; }
 
-        [Display(Name = "Cargo del Persona")]
+        [Display(Name = "Cargo del Contacto")]
         public string cargoContacto { get; set; }
 
         [Display(Name = "Correo electrónico")]
         public string emailContacto { get; set; }
 
-        [Display(Name = "Observacion")]
+        [Display(Name = "Observaciones")]
         public string observaciones { get; set; }
 
         public int estado { get; set; }
