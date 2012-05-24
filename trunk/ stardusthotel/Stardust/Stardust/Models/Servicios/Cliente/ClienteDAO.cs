@@ -52,7 +52,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT usu.idUsuario, usu.razonSocial, usu.tipoDocumento, usu.nroDocumento  FROM Usuario usu, Cliente cli WHERE usu.estado = 'ACTIVO' AND usu.tipoDocumento = 'RUC' AND cli.idCliente = usu.idCliente";
+            string commandString = "SELECT usu.idUsuario, usu.razonSocial, usu.tipoDocumento, usu.nroDocumento  FROM Usuario usu WHERE usu.estado = 'ACTIVO' AND usu.tipoDocumento = 'RUC' ";
             bool result = Nombre.Equals("");
             if (!result) commandString = commandString + " AND UPPER(nombres) LIKE '%" + Nombre.ToUpper() + "%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
