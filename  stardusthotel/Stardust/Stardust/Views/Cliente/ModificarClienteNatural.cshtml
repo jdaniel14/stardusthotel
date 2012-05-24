@@ -1,0 +1,58 @@
+﻿@model Stardust.Models.ClienteBean
+
+@{
+    ViewBag.Title = "Modificar Cliente Natural";
+}
+
+<h2>Modificar Cliente Natural</h2>
+
+@using (Html.BeginForm())
+{
+   
+<form action = "" class = "form" >
+
+   <fieldset>
+
+        <legend>Cliente Natural</legend>
+        @Html.HiddenFor(model => model.ID)
+    
+        <div class="formRow">
+            <label>Nombres</label>
+            <div class="formRight">
+                @Html.TextBoxFor(model => model.nombres)
+            </div>
+            <div class = "clear"></div>
+        </div>
+                
+        <div class="formRow">
+            <label>Apellido Paterno</label>
+            <div class="formRight">
+                @Html.TextAreaFor(model => model.apPat)
+            </div>
+            <div class = "clear"></div>
+        </div>
+
+        <div class="formRow">
+            <label>Apellido Materno</label>
+            <div class="formRight">
+                @Html.TextAreaFor(model => model.apMat)
+            </div>
+            <div class = "clear"></div>
+        </div>
+
+        <div class="formRow">
+            <label>Nro. de Documento</label>
+            <div class="formRight">
+                @Html.TextAreaFor(model => model.nroDocumento)
+            </div>
+            <div class = "clear"></div>
+        </div>
+    
+        <p>
+            <input type="submit" value="Guardar" class = "redB" />
+        </p>
+
+    </fieldset>
+
+</form>
+}
