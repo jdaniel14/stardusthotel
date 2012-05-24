@@ -23,7 +23,7 @@
 
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion)</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion, new { @class = "validate[required]" })</div>
                  <div class = "clear" ></div>
             </div>
             
