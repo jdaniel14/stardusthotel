@@ -17,6 +17,7 @@ namespace Stardust.Models
         //public int idHotel { get; set; }
 
         [Display( Name = "Precio base" ) ]
+        [Range( 0 , 10000 )]
         public decimal precioBase { get; set; }
     }
 }
