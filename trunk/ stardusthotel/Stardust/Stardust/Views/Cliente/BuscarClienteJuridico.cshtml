@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Stardust.Models.ClienteBean>
+
+@{
+    ViewBag.Title = "Buscar Cliente Juridico";
+}
+
+<h2>Buscar Cliente Juridico</h2>
+
+<p>
+    Ingrese los datos para buscar el cliente
+</p>
+
+@using (Html.BeginForm("BuscarClienteJuridico", "Cliente", FormMethod.Post, new { @class = "form" }))
+{
+
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Cliente Juridico</h6></div>           
+
+            <div class="formRow">
+                <label>Razon Social</label>
+                <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" /></div>
+                <div class = "clear" ></div>
+            </div>
+                        
+
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+
+<p></p><p></p>
+<div class="wrapper">
+    <div class="widget">
+      <div class="title">
+      <h6>Lista de Clientes</h6>
+      </div>
+      <div class="dataTables_wrapper">            
+            <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
+
+    <thead>
+        <tr>
+            
+             <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
+                <div class="DataTables_sort_wrapper">
+                Razon Social
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+
+             <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
+                <div class="DataTables_sort_wrapper">
+                RUC
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+                                      
+                <th class="ui-state-default" rowspan="1" colspan="1">
+
+             </th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.razonSocial)
+                </td>
+                                         
+                <td>
+                    @Html.DisplayFor(modelItem => item.nroDocumento)
+                </td>                   
+
+                <td>
+                    <a href="@Url.Action("ModificarClienteJuridico", new { id = item.ID})"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Modificar</a>  |                      
+                    <a href="@Url.Action("EliminarClienteJuridico", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Eliminar</a>                        
+                </td>
+            </tr>
+    }
+    
+    </tbody>
+
+        </table>
+      </div>
+        
+    </div>
+</div>

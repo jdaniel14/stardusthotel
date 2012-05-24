@@ -1,0 +1,58 @@
+﻿@model Stardust.Models.ClienteBean
+
+@{
+    ViewBag.Title = "Registrar Persona Juridica";
+}
+
+<h2>Registrar Persona Juridica</h2>
+
+<p>
+    Llene el siguiente formulario para la creación de un nuevo Cliente Juridica
+</p>
+
+@using (Html.BeginForm())
+
+{
+
+    <fieldset>
+        <div class="widget">
+
+            <div class="title">
+                <h6>Registrar Persona Juridica</h6>
+            </div>
+
+            <div class="formRow"><span>Razon Social</span>                
+               <div class = "formRight" > 
+               @Html.TextBoxFor(m => m.razonSocial)
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Apellido Paterno</span>                
+               <div class = "formRight" > 
+               @Html.TextBoxFor(m => m.apPat)
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Apellido Materno</span>                
+               <div class = "formRight" > 
+               @Html.TextBoxFor(m => m.apMat)
+               </div>                
+               <div class="clear"></div>
+            </div>
+            
+            <div class="formRow"><span>RUC</span>
+                <div class="formRight">
+                @Html.TextBoxFor(m => m.nroDocumento) 
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+    </fieldset>
+
+    <p>
+        <input type="submit" value="Crear" class = "redB" />
+    </p>
+}

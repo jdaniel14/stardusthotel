@@ -115,6 +115,15 @@
 
             @*<div class="sidebarSep"></div>*@
 
+            <li class="forms"><a href="#" title="" class="exp"><span>Clientes</span><strong>3</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Listar Clientes Naturales", "Index", "Cliente")</li>
+                    <li>@Html.ActionLink("Listar Clientes Juridicos", "IndexJuridicas", "Cliente")</li>
+                    <li>@Html.ActionLink("Buscar Ciente Natural", "BuscarClienteNatural", "Cliente")</li>
+                    <li>@Html.ActionLink("Buscar Ciente Juridico", "BuscarClienteJuridico", "Cliente")</li>
+                </ul>
+            </li>
+
                  <li class="forms"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Servicios", "Index", "Servicios")</li>
