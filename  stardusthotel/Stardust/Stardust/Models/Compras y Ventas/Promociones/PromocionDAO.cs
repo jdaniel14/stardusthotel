@@ -19,9 +19,8 @@ namespace Stardust.Models
             sqlCon.Open();
 
             promocion.estado = 1;
-            promocion.nombre = "asd";
             promocion.idhotel = Convert.ToInt32(promocion.ID);
-            string commandString = "INSERT INTO Promocion VALUES ('" + promocion.nombre + "', '" + promocion.descripcion + "', " + promocion.razon + " , " + promocion.porcDescontar + " ,'" + promocion.estado + "', " + promocion.tipoDescuento + " , " + promocion.idhotel + ")";
+            string commandString = "INSERT INTO Promocion VALUES ('" + promocion.descripcion + "', " + promocion.razon + " , " + promocion.porcDescontar + " ,'" + promocion.estado + "', " + promocion.tipoDescuento + " , " + promocion.idhotel + ")";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -58,7 +57,6 @@ namespace Stardust.Models
                 PromocionBean promociones = new PromocionBean();
 
                 promociones.idPromocion = (int)dataReader["idPromocion"];
-                promociones.nombre = (string)dataReader["nombre"];
                 promociones.descripcion = (string)dataReader["descripcion"];
                 promociones.razon = (int)dataReader["razon"];
                 promociones.porcDescontar = (int)dataReader["porcDescontar"];
