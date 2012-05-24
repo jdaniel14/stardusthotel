@@ -13,7 +13,7 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
     
-  @using (Html.BeginForm("guardarproductosxProveedor", "Proveedor", FormMethod.Post, new { @class = "form" }))
+  @using (Html.BeginForm("guardarproductosxProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
   {
     
     <fieldset>
@@ -21,7 +21,7 @@
             <div class="title">
                 <h6>Proveedor</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.Proveedor)<span class="req">*</span>
+            <div class="formRow"> @Html.LabelFor(model => model.Proveedor)
                 <div class=" formRight"> @Html.TextBoxFor(model => model.Proveedor, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
@@ -61,7 +61,7 @@
                 
                 <td> @Html.CheckBoxFor(model => model.listProdProv[i].estados, true) </td>
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.EditorFor(model => model.listProdProv[i].precio)         </td>
+                <td> @Html.EditorFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "6", placeholder = "" })         </td>
                
      </tr>
         }
