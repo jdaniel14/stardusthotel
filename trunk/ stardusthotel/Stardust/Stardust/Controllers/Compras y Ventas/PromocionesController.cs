@@ -15,8 +15,7 @@ namespace Stardust.Controllers
         public PromocionFacade promocionFacade = new PromocionFacade();
         List<string> param = new List<string>();
 
-        //
-        // GET: /Default1/
+        /*-----Promociones---------*/
 
         public ActionResult Index()
         {
@@ -124,10 +123,6 @@ namespace Stardust.Controllers
             return RedirectToAction("../Home/Index");
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    db.Dispose();
-        //    base.Dispose(disposing);
-        //}
+
     }
 }
