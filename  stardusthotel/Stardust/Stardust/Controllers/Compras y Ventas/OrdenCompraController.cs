@@ -21,13 +21,15 @@ namespace Stardust.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult RegistrarOrdenCompra()
+
         {
+
             return View();
         } 
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult RegistrarOrdenCompra(FormCollection collection)
         {
             try
             {
