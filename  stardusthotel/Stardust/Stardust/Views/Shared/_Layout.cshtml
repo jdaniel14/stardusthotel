@@ -66,7 +66,7 @@
 
 <body>
 
-    <div id="leftSide">
+    <div id="leftSide" >
         <div class="logo"><a href="/Home/Index"><img src="@Url.Content("~/Content/images/logo.png")" alt="" /></a></div>
     
         <div class="sidebarSep mt0"></div>
@@ -162,10 +162,18 @@
                             <li><a href="../Proveedor/Buscar" title="">Buscar</a></li>*@
                         </ul>
                     </li>
+                    <li class="dash"><a href="#" title="" class="exp"><span>Administrar Orden de Compra</span><strong>2</strong></a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Registrar", "RegistrarProveedor", "Proveedor")</li>
+                            <li>@Html.ActionLink("Buscar", "Buscar", "Proveedor")</li>
+                            @*<li><a href="../Proveedor/RegistrarProveedor" title="">Registrar</a></li>
+                            <li><a href="../Proveedor/Buscar" title="">Buscar</a></li>*@
+                        </ul>
+                    </li>
                 </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Venta</span><strong>3</strong></a>
+            <li class="forms"><a href="#" title="" class="exp"><span>Venta</span><strong>1</strong></a>
                 <ul class="sub">
                     <li class="dash"><a href="#" title="" class="exp"><span>Administrar Promociones</span><strong>2</strong></a>
                         <ul class="sub">
