@@ -51,7 +51,6 @@ namespace Stardust.Models
 
             sql.Open();
 
-<<<<<<< .mine
                 //int idDepartamento = this.getIdDepartamento(hotel.departamento);
                 //int idProvincia = this.getIdProvincia(hotel.provincia , idDepartamento );
                 //int idDistrito = this.getIdDistrito(hotel.distrito , idProvincia , idDepartamento );
@@ -60,8 +59,7 @@ namespace Stardust.Models
                 int idDepartamento = 15; 
                 int idProvincia = 1;
                 int idDistrito = 22;
-<<<<<<< .mine
-=======
+
                 //int idDepartamento = this.getIdDepartamento(hotel.departamento);
                 //int idProvincia = this.getIdProvincia(hotel.provincia , idDepartamento );
                 //int idDistrito = this.getIdDistrito(hotel.distrito , idProvincia , idDepartamento );
@@ -73,12 +71,10 @@ namespace Stardust.Models
                 //int idDepartamento = this.getIdDepartamento(hotel.departamento);
                 //int idProvincia = this.getIdProvincia(hotel.provincia , idDepartamento );
                 //int idDistrito = this.getIdDistrito(hotel.distrito , idProvincia , idDepartamento );
->>>>>>> .r630
-=======
+
                 //int idDepartamento = this.getIdDepartamento(hotel.departamento);
                 //int idProvincia = this.getIdProvincia(hotel.provincia , idDepartamento );
                 //int idDistrito = this.getIdDistrito(hotel.distrito , idProvincia , idDepartamento );
->>>>>>> .r630
     
                 String command = "Insert into Hotel ( nombre , razonSocial , direccion , tlf1 , tlf2 , email , nroPisos , idDistrito , idProvincia , idDepartamento ) values " +
                                     "(' " + hotel.nombre + "', '" +
