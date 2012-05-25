@@ -59,46 +59,60 @@ namespace Stardust.Controllers.Servicios
 
         public ActionResult ModificarClienteNatural(int id)
         {
-            //cojo el item con ese id
-            return View(/*item*/);
+            ClienteFacade clienteFacade = new ClienteFacade();
+            ClienteBean item = clienteFacade.GetCliente(id);
+            return View(item);
         }
 
         [HttpPost]
         public ActionResult ModificarClienteNatural(ClienteBean item)
         {
-            //actualizo el item natural
+            ClienteFacade clienteFacade = new ClienteFacade();
+            clienteFacade.ActualizarCliente(item);
             return RedirectToAction("Index");
         }
 
         public ActionResult ModificarClienteJuridico(int id)
         {
-            return View(/*item*/);
+            ClienteFacade clienteFacade = new ClienteFacade();
+            ClienteBean item = clienteFacade.GetCliente(id);
+            return View(item);
         }
 
         [HttpPost]
         public ActionResult ModificarClienteJuridico(ClienteBean item)
         {
+            ClienteFacade clienteFacade = new ClienteFacade();
+            clienteFacade.ActualizarCliente(item);
             return RedirectToAction("IndexJuridicas");
         }
 
         public ActionResult EliminarClienteNatural(int id)
         {
+            ClienteFacade clienteFacade = new ClienteFacade();
+            clienteFacade.EliminarCliente(id);
             return RedirectToAction("Index");
         }
 
-        public ActionResult EliminarClienteJurico(int id)
+        public ActionResult EliminarClienteJuridico(int id)
         {
+            ClienteFacade clienteFacade = new ClienteFacade();
+            clienteFacade.EliminarCliente(id);
             return RedirectToAction("IndexJuridicas");
         }
 
         public ActionResult BuscarClienteNatural(ClienteBean item)
         {
-            return View(/*Lista de clientes*/);
+            ClienteFacade clienteFacade = new ClienteFacade();
+            List<ClienteBean> listaClientes = clienteFacade.ListarClientesNatural(item.nombres);
+            return View(listaClientes);
         }
 
         public ActionResult BuscarClienteJuridico(ClienteBean item)
         {
-            return View(/*Lista de clientes*/);
+            ClienteFacade clienteFacade = new ClienteFacade();
+            List<ClienteBean> listaClientes = clienteFacade.ListarClientesJuridica(item.razonSocial);
+            return View(listaClientes);
         }
     }
 }
