@@ -13,8 +13,9 @@ namespace Stardust.Controllers
 {
     public class ProductoController : Controller
     {
-        //
-        // GET: /Producto/
+       
+        /*--------Producto--------*/
+
         private CadenaHotelDB db = new CadenaHotelDB();
         ProveedorFacade produc = new ProveedorFacade();
 
@@ -63,5 +64,10 @@ namespace Stardust.Controllers
         {
             return View(produc.ListarProducto(nombre));
         }
+
+        /*--------Asignar Productos a Almacen--------*/
+
+
+
     }
 }
