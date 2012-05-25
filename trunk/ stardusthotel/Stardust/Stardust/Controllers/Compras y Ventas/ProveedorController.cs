@@ -76,7 +76,7 @@ namespace Stardust.Controllers
         public ActionResult Buscar(string razonsocial, string contacto)
         {            
             return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
-            //return View();
+          
         }
 
         public ActionResult MostrarProveedor(ProveedorBean prov)
@@ -84,6 +84,9 @@ namespace Stardust.Controllers
             List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
             return View(listaprov);
         }
+
+        /* Asignar Productos a Proveedor */
+
         public ActionResult ListarProductos(int ID)
         {
             ProductoxProveedorBean prod;
@@ -125,19 +128,12 @@ namespace Stardust.Controllers
                 prodProveedor.estados = false;
                 for (int j = 0; j < prod2.listProdProv.Count; j++)
                     if (prodProveedor.ID == prod2.listProdProv[j].ID) prodProveedor.estado2 = true;
-                //prodProveedor.estado2 = false;
-                
+         
                 prod.listProdProv.Add(prodProveedor);
 
             }
-            
-            //for (int i = 0; i < prod.listProdProv.Count; i++)
-            //{
-            //    for(int j=0;j< prod2.listProdProv.Count;j++)  
-            //        if (prod.listProdProv[i].ID==prod2.listProdProv[j].ID) prod.listProdProv[i].estado2=true;
-            //}
 
-            
+           
             return View(prod);
         }
 
@@ -163,6 +159,9 @@ namespace Stardust.Controllers
             proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
             return RedirectToAction("Index");
         }
+
+
+        /**----- Pago de Proveedor-----*/
     }
 }
 
