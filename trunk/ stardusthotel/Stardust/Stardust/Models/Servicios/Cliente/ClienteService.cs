@@ -28,19 +28,20 @@ namespace Stardust.Models
             return clienteDAO.insertarCliente(cliente);
         }
 
-        /*public String ActualizarCliente(ClienteBean cliente)
+        public String ActualizarCliente(ClienteBean cliente)
         {
             return clienteDAO.ActualizarCliente(cliente);
-        }*/
+        }
 
-       /* public ClienteBean GetCliente(int id)
+        public ClienteBean GetCliente(int id)
         {
             return clienteDAO.GetCliente(id);
         }
 
+        
         public String EliminarCliente(int id)
         {
-            return clienteDAO.EliminarCliente(id);
-        }*/
+            return clienteDAO.DeleteCliente(id);
+        }
     }
 }
