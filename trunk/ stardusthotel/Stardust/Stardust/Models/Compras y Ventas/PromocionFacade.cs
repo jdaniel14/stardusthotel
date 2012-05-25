@@ -4,16 +4,20 @@ using System.Linq;
 using System.Web;
 
 /*
- REgistrar Pago de Evento
- registrar pado de ambiente
- registro de promociones(registrar, buscar, eliminar)
- Reporte de eventos
+ 
+ Registro de promociones(registrar, buscar, eliminar)   1 iteraccion
+ Registrar Pago de Evento                               2 iteraccion
+ Registrar pago de ambiente                             2 iteraccion
+ Reporte de eventos                                     3 iteraccion
 
  */
 namespace Stardust.Models
 {
     public class PromocionFacade
     {
+
+        /*-----Registrar Promociones-1-------*/
+
         PromocionService promocionService = new PromocionService();
 
         public void RegistrarPromocion(PromocionBean promocion)
@@ -40,5 +44,14 @@ namespace Stardust.Models
         {
             promocionService.EliminarPromocion(id);
         }
+
+        /*-----Registrar Pago de Evento-2-------*/
+
+
+        /*-----Registrar Pago de Ambiente-2-------*/
+
+
+        /*-----Reporte de Eventos-3-------*/
+
     }
 }

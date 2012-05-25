@@ -4,16 +4,20 @@ using System.Linq;
 using System.Web;
 
 /*
- * Registrar pago a proveedor
- * Registrar datos de la factura
- * administrar Productos(buscar, registrar y eliminar)
- * Administrar Proveedor(buscar, registrar y eliminar)
- * Asignar productos a Proveedor
+ 
+ * administrar Productos(buscar, registrar y eliminar)  1 iteraccion
+ * Administrar Proveedor(buscar, registrar y eliminar)  1 iteraccion
+ * Asignar productos a Proveedor                        1 iteraccion
+ * Registrar pago a proveedor                           2 iteraccion
+ * Registrar datos de la factura                        3 iteraccion
+
  */
 namespace Stardust.Models
 {
     public class ProveedorFacade
     {
+        
+        /*---------Administrar Proveedor-1--------*/
         ProveedorService proveedorService = new ProveedorService();
         
         public List<ProveedorBean> ListarProveedor(String razonSocial, String contacto)
@@ -40,19 +44,9 @@ namespace Stardust.Models
         {
             return proveedorService.EliminarProveedor(idProveedor);
         }
-        public void RegistrarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
-        {
-            proveedorService.AsignarProductosxProveedor(idprove, prod);
-        }
-        public ProductoxProveedorBean obtenerlista(int id)
-        {
-            return proveedorService.obtenerlista(id);
-        }
-        public void ModificarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
-        {
-            proveedorService.ModificarproductosxProveedor(idprove, prod);
-        }
-        /*----------producto----------------*/
+        
+
+        /*--------Administrar Producto-1------------*/
 
         ProductoService productoService = new ProductoService();
 
@@ -80,6 +74,30 @@ namespace Stardust.Models
         {
             productoService.Eliminarproducto(idproducto);
         }
+
+
+        /*-----Asignar Productos a Proveedor-1------*/
+
+        public void RegistrarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
+        {
+            proveedorService.AsignarProductosxProveedor(idprove, prod);
+        }
+        public ProductoxProveedorBean obtenerlista(int id)
+        {
+            return proveedorService.obtenerlista(id);
+        }
+        public void ModificarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
+        {
+            proveedorService.ModificarproductosxProveedor(idprove, prod);
+        }
+
+        
+
+        /*-----Registrar Pago del Proveedor-2------*/
+
+
+
+        /*-----Registrar Datos de Factura-3------*/
 
     }
 }
