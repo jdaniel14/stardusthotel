@@ -71,6 +71,8 @@
     <Compile Include="Controllers\Administracion\TipoHabitacionController.cs" />
     <Compile Include="Controllers\Administracion\TipoHabitacionxHotelController.cs" />
     <Compile Include="Controllers\Administracion\VariablesController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\OrdenCompraController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\PagoController.cs" />
     <Compile Include="Controllers\Compras y Ventas\ProductoController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,6 +123,8 @@
     <Compile Include="Models\Administracion\Variables\VariablesService.cs" />
     <Compile Include="Models\Almacen.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
+    <Compile Include="Models\Compras y Ventas\ComprasFacade.cs" />
+    <Compile Include="Models\Compras y Ventas\CuentaFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionDAO.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionService.cs" />
