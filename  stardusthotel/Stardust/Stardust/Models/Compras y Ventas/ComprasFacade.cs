@@ -4,15 +4,27 @@ using System.Linq;
 using System.Web;
 
 
-/* Orden de compra(registrar, buscar)
- * Asignar productos a almacen 
- * Reporte de compras
- * Recepcion de porducto(notas de entrada)
- 
+/* 
+ * Orden de compra(registrar, buscar)        2 iteraccion
+ * Asignar productos a almacen               2 iteraccion
+ * Recepcion de producto(notas de entrada)   2 iteraccion
+ * Reporte de compras                        3 iteraccion     
+
  */
 namespace Stardust.Models
 {
     public class ComprasFacade
     {
+
+        /**----- Orden de compra(registrar, buscar)  2----------*/
+
+        /**------ Asignar productos a almacen  2 -----*/
+
+
+        /** ---------Recepcion de producto(notas de entrada) 2 --------*/
+
+
+        /**----------- Reporte de compras 3------------*/
+
     }
 }
