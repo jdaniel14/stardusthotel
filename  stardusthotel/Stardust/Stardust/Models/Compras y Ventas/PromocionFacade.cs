@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+/*
+ REgistrar Pago de Evento
+ registrar pado de ambiente
+ registro de promociones(registrar, buscar, eliminar)
+ Reporte de eventos
+
+ */
 namespace Stardust.Models
 {
     public class PromocionFacade
