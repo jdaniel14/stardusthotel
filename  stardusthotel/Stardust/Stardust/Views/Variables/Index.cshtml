@@ -34,10 +34,10 @@
     </div>
 </fieldset>
 
-@using (Html.BeginForm("Edit", "PerfilUsuario", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("Edit", "Variables", FormMethod.Post, new { @class = "form" }))
 {
     <p>
         <a href="@Url.Action("Edit")"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
-        @Html.ActionLink("Regresar", "Index")
+        @Html.ActionLink("Regresar", "../Home")
     </p>
 }
