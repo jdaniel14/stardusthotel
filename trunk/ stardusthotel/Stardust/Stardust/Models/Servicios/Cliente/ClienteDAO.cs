@@ -28,6 +28,7 @@ namespace Stardust.Models
             while (dataReader.Read())
             {
                 ClienteBean cliente = new ClienteBean();
+                cliente.ID = (int)dataReader["idUsuario"];
                 cliente.nombres = (string)dataReader["nombres"];
                 cliente.apPat = (string)dataReader["apPat"];
                 cliente.apMat = (string)dataReader["apMat"];
@@ -54,7 +55,7 @@ namespace Stardust.Models
 
             string commandString = "SELECT usu.idUsuario, usu.razonSocial, usu.tipoDocumento, usu.nroDocumento  FROM Usuario usu WHERE usu.estado = 'ACTIVO' AND usu.tipoDocumento = 'RUC' ";
             bool result = Nombre.Equals("");
-            if (!result) commandString = commandString + " AND UPPER(nombres) LIKE '%" + Nombre.ToUpper() + "%'";
+            if (!result) commandString = commandString + " AND UPPER(razonSocial) LIKE '%" + Nombre.ToUpper() + "%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
@@ -106,33 +107,14 @@ namespace Stardust.Models
                      ;
 
             SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
-            sqlCmd3.ExecuteNonQuery();
-
-            /*
-            string commandString2 = "SELECT IDENT_CURRENT('Usuario')";
-            SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
-            SqlDataReader dr = sqlCmd2.ExecuteReader();
-            dr.Read();
-            int lastID = (int)(dr[0]);
-            dr.Close();
-
-
-
-            string commandString1 = "INSERT INTO Cliente VALUES (" + lastID.ToString() + ", GETDATE(), 'ACTIVO', '" +
-                     cliente.tipoTarjeta + "', '" +
-                     cliente.nroTarjeta + "')";
-
-            SqlCommand sqlCmd1 = new SqlCommand(commandString1, sqlCon);
-            sqlCmd1.ExecuteNonQuery();
-
-
-            */
+            sqlCmd3.ExecuteNonQuery();            
             sqlCon.Close();
             return me;
         }
 
-        /*public String ActualizarCliente(ClienteBean cliente)
-        {   
+        
+        public String DeleteCliente(int id)
+        {
             String me = "";
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -140,17 +122,82 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "UPDATE Cliente " +
-                                    "SET razonSocial = '" + proveedor.razonSocial +
-                                    "', contacto = '" + proveedor.contacto +
-                                    "', emailContacto = '" + proveedor.emailContacto +
-                                    "', cargoContacto = '" + proveedor.cargoContacto +
-                                    "', web = '" + proveedor.web +
-                                    "', telefono = '" + proveedor.telefono +
-                                    "', direccion = '" + proveedor.direccion +
-                                    "', observaciones = '" + proveedor.observaciones +
-                                    "' WHERE idProveedor = " + proveedor.ID;
-        }*/
+            string commandString = "UPDATE Usuario " +
+                                    "SET estado = 'INACTIVO' " +
+                                    "WHERE idUsuario = " + id.ToString();
 
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+
+            return me;
+        }
+        
+        public ClienteBean GetCliente(int id)
+        {
+            ClienteBean cliente = new ClienteBean();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Usuario WHERE idUsuario = " + id.ToString();
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {
+                cliente.ID = (int)dataReader["idUsuario"];
+                cliente.razonSocial = (string)dataReader["razonSocial"];
+                cliente.nombres = (string)dataReader["nombres"];
+                cliente.apPat = (string)dataReader["apPat"];
+                cliente.apMat = (string)dataReader["apMat"];
+                cliente.tipoDocumento = (string)dataReader["tipoDocumento"];
+                cliente.nroDocumento = (string)dataReader["nroDocumento"];
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return cliente;
+        }
+        public String ActualizarCliente(ClienteBean cliente)
+        {
+            String me = "";
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            /*public int ID { get; set; }
+            public string nombres { get; set; }
+            public string apPat { get; set; }
+            public string apMat { get; set; }
+            public string razonSocial { get; set; }
+            public string tipoDocumento { get; set; }//DNI, Carne de Extranjeria, RUC
+            public string nroDocumento { get; set; }
+            public string tipoTarjeta { get; set; }
+            public string nroTarjeta { get; set; }*/
+
+            string commandString = "UPDATE Usuario " +
+                                    "SET  nombres = '" + cliente.nombres
+                                        + "', apPat = '" + cliente.apPat
+                                        + "', apMat = " + cliente.apMat
+                                        + "', razonSocial = '" + cliente.razonSocial
+                                        + "', tipoDocumento = '" + cliente.tipoDocumento
+                                        + "', nroDocumento= '" + cliente.nroDocumento
+                                        + "', tipoTarjeta = '" + cliente.tipoTarjeta
+                                        + "', nroTarjeta = '" + cliente.nroTarjeta + "' " +
+                                    "WHERE idUsuario = " + cliente.ID.ToString();
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+            return me;
+        }
     }
+
 }
