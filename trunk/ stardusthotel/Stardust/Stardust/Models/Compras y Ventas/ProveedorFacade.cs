@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+/*
+ * Registrar pago a proveedor
+ * Registrar datos de la factura
+ * administrar Productos(buscar, registrar y eliminar)
+ * Administrar Proveedor(buscar, registrar y eliminar)
+ * Asignar productos a Proveedor
+ */
 namespace Stardust.Models
 {
     public class ProveedorFacade
