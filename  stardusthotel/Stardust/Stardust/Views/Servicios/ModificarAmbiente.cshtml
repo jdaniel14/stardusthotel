@@ -4,6 +4,14 @@
     ViewBag.Title = "Modificar Ambiente";
 }
 
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src = "http://code.jquery.com/jquery-1.7.2.min.js"> </script>
+<script type="text/javascript" src = "../../Scripts/ComboBoxProyector.js"> </script>
+
+</head>
+
 <h2>ModificarAmbiente</h2>
 
 <p>
@@ -83,21 +91,23 @@
                 <div class="clear"></div>
             </div>
 
-        <div class="formRow">
-            <label>Proyector</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.proyector)
-            </div>
-            <div class = "clear"></div>
-        </div>
+        <div class="formRow"><span>Proyector</span>
+                <div class="formRight">
+                
+                Si
+                @Html.RadioButtonFor(model => model.proyector,1)      
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;          
+                No
+                @Html.RadioButtonFor(model => model.proyector,0)
 
-        <div class="formRow">
-            <label>Piso</label>
-            <div class="formRight">
-                @Html.EditorFor(model => model.piso)
-            </div>
-            <div class = "clear"></div>
-        </div>
+                </div>
+                <div class="clear"></div>
+            </div>      
     
         <p>
             <input type="submit" value="Guardar" class = "redB" />
