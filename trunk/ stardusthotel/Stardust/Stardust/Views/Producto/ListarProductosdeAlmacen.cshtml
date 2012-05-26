@@ -17,14 +17,14 @@
  @using (Html.BeginForm("ModificarProductosAlmacen", "Producto", FormMethod.Post, new { @class = "form" }))
 {   
 <p>
-    <a href="@Url.Action("AsignarProductosaAlmacen", new { nombre = Model.Hotel })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir mas Productos</a>
+    <a href="@Url.Action("AsignarProductosaAlmacen", new { id = Model.idhotel })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir mas Productos</a>
 </p>
 
 
     <fieldset>
         <div class="widget">
             <div class="title">
-                <h6>Proveedor</h6>
+                <h6>Hotel</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Hotel)
                 <div class=" formRight">  @Html.TextBoxFor(model => model.Hotel,new{@readonly ="readonly"})  </div>
