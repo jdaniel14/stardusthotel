@@ -34,5 +34,25 @@ namespace Stardust.Models
         {
             productoDAO.EliminarProducto(idproducto);
         }
+
+
+
+         /* -----asignar productos a proveedor------*/
+
+        public void AsignarProductosxalmacen( ProductoXAlmacenBean prod)
+        {
+
+            productoDAO.InsertaralmacenxProducto(prod);
+        }
+        public ProductoXAlmacenBean obtenerlistaalmacen(int idhotel)
+        {
+            return productoDAO.obtenerlistaproductos(idhotel);
+        }
+        public void Modificarproductosxalmacen( ProductoXAlmacenBean prod)
+        {
+            productoDAO.Actualizarproductosxalmacen( prod);
+
+        }
+
     }
 }

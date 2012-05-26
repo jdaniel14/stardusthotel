@@ -123,5 +123,88 @@ namespace Stardust.Models
 
             sqlCon.Close();
         }
+
+        /*----Asignar Productos a Almacen----*/
+
+
+        public void InsertaralmacenxProducto(ProductoXAlmacenBean prod)
+        {
+            //String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            //SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            //sqlCon.Open();
+            //int i;
+            //for (i = 0; i < prod.listProdProv.Count; i++)
+            //{
+            //    if (prod.listProdProv[i].precio > 0)
+            //    {
+            //        string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
+            //        idproveedor + "', '" +
+            //        prod.listProdProv[i].ID + "', '" +
+            //        prod.listProdProv[i].precio + "', '" +
+            //        prod.listProdProv[i].cantMaxima + "')";
+            //        SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            //        sqlCmd.ExecuteNonQuery();
+            //    }
+            //}
+
+            //sqlCon.Close();
+        }
+
+        public ProductoXAlmacenBean obtenerlistaproductos(int idhotel)
+        {
+            ProductoxProveedorBean prod = new ProductoxProveedorBean();
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            int i = 0;
+            int idprove;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM ProductoXAlmacen  WHERE idalmacen="  ;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            prod.listProdProv = new List<ProductoProveedor>();
+            while (dataReader.Read())
+            {
+                ProductoProveedor prodProveedor = new ProductoProveedor();
+                idprove = (int)dataReader["idProveedor"];
+                prodProveedor.ID = (int)dataReader["idProducto"];
+                prodProveedor.precio = (decimal)dataReader["precio"];
+                prodProveedor.cantMaxima = (int)dataReader["cantPedidoMax"];
+                i++;
+                prod.listProdProv.Add(prodProveedor);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+            ProveedorBean prov = SeleccionarProveedor(idproveedor);
+
+            prod.Proveedor = prov.razonSocial;
+
+            return prod;
+        }
+
+        public void Actualizarproductosxalmacen( ProductoXAlmacenBean prod)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            for (int i = 0; i < prod.listProdProv.Count; i++)
+            {
+
+                string commandString = "UPDATE ProductoXProveedor SET precio = " + prod.listProdProv[i].precio + " , cantPedidoMax = " + prod.listProdProv[i].cantMaxima +
+                                " WHERE idProveedor = " + idproveedor + "AND idProducto = " + prod.listProdProv[i].ID;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+            }
+
+            sqlCon.Close();
+        }
+
+
     }
 }
