@@ -162,7 +162,7 @@ namespace Stardust.Models
 
         /*--------Asignar Productos por Proveedor----*/
 
-        public void InsertarProveedorxProducto(int idproveedor, ProductoxProveedorBean prod)
+        public void InsertarProveedorxProducto( int idproveedor,ProductoxProveedorBean prod)
         {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -173,7 +173,7 @@ namespace Stardust.Models
             {
                 if (prod.listProdProv[i].precio>0)
                 {
-                   string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
+                   string commandString = "INSERT INTO ProductoXAlmacen VALUES ('" +
                    idproveedor + "', '" +
                    prod.listProdProv[i].ID + "', '" +
                    prod.listProdProv[i].precio + "', '" +

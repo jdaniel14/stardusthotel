@@ -16,10 +16,23 @@ namespace Stardust.Models
     public class ComprasFacade
     {
 
+        ProductoService produservice = new ProductoService();
+
         /**----- Orden de compra(registrar, buscar)  2----------*/
 
         /**------ Asignar productos a almacen  2 -----*/
-
+        public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
+        {
+            produservice.AsignarProductosxalmacen( prod);
+        }
+        public ProductoXAlmacenBean obtenerlistadAlmacen(int id)
+        {
+            return produservice.obtenerlistaalmacen(id);
+        }
+        public void modificarproductosxalmacen( ProductoXAlmacenBean prod)
+        {
+            produservice.Modificarproductosxalmacen(prod);
+        }
 
         /** ---------Recepcion de producto(notas de entrada) 2 --------*/
 
