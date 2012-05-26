@@ -33,6 +33,8 @@ namespace Stardust.Models
         {
             return proveedorDAO.DeleteProveedor(idProveedor);
         }
+    
+        /*productos a proveedor*/
         public void AsignarProductosxProveedor(int idprove, ProductoxProveedorBean prod)
         {
 
