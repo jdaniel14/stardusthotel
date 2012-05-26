@@ -12,7 +12,7 @@ namespace Stardust.Models
 
         [Display(Name = "Hotel")]
         public String Hotel { get; set; }
-
+        public int idhotel { get; set; }
         public List<ProductoAlmacen> listProdalmacen { get; set; }
     }
 }
