@@ -121,11 +121,13 @@
     <Compile Include="Models\Administracion\Variables\VariablesDAO.cs" />
     <Compile Include="Models\Administracion\Variables\VariablesFacade.cs" />
     <Compile Include="Models\Administracion\Variables\VariablesService.cs" />
-    <Compile Include="Models\Almacen.cs" />
+    <Compile Include="Models\Compras y Ventas\Producto\Almacen.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Compras y Ventas\ComprasFacade.cs" />
     <Compile Include="Models\Compras y Ventas\CuentaFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraBean.cs" />
+    <Compile Include="Models\Compras y Ventas\Producto\ProductoAlmacen.cs" />
+    <Compile Include="Models\Compras y Ventas\Producto\ProductoXAlmacenBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionDAO.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionService.cs" />
@@ -4296,6 +4298,10 @@
     <Content Include="Views\Cliente\RegistrarPersonaJuridica.cshtml" />
     <Content Include="Views\Cliente\RegistrarPersonaNatural.cshtml" />
     <Content Include="Views\OrdenCompra\RegistrarOrdenCompra.cshtml" />
+    <Content Include="Views\Producto\ListadeHoteles.cshtml" />
+    <Content Include="Views\Producto\ListarProductosdeAlmacen.cshtml" />
+    <Content Include="Views\Producto\AsignarProductosaAlmacen.cshtml" />
+    <Content Include="Views\Producto\ModificarProductosAlmacen.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
