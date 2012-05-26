@@ -228,18 +228,20 @@ namespace Stardust.Models
 
             for (int i = 0; i < prod.listProdProv.Count; i++)
             {
-                if (prod.listProdProv[i].estados)
-                {
+                
                     string commandString = "UPDATE ProductoXProveedor SET precio = " + prod.listProdProv[i].precio + " , cantPedidoMax = " + prod.listProdProv[i].cantMaxima +
                                     " WHERE idProveedor = " + idproveedor + "AND idProducto = " + prod.listProdProv[i].ID;
 
                     SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                     sqlCmd.ExecuteNonQuery();
-                }
+                
             }
 
             sqlCon.Close();
         }
+
+
+
     }
 }
 
