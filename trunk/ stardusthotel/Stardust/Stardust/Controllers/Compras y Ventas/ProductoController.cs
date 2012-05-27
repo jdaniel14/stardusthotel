@@ -138,7 +138,7 @@ namespace Stardust.Controllers
 
             productosfacade.RegistrarproductosxAlmacen(prod);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListadeHoteles");
         }
 
         public ActionResult ModificarProductosAlmacen(ProductoXAlmacenBean prod)
@@ -150,7 +150,7 @@ namespace Stardust.Controllers
         {
             List<HotelBean> hoteles = hotelFac.listarHoteles();
             productosfacade.modificarproductosxalmacen(prod);
-            return RedirectToAction("Index");
+            return RedirectToAction("ListadeHoteles");
         }
 
        
