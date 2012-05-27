@@ -15,7 +15,8 @@
     
   @using (Html.BeginForm("guardarproductosxAlmacen", "Producto", FormMethod.Post, new { @class = "form", id = "validate" }))
   {
-    
+    @Html.HiddenFor(model => model.idalmacen) 
+      @Html.HiddenFor(model => model.idhotel) 
     <fieldset>
         <div class="widget">
             <div class="title">
@@ -48,10 +49,11 @@
     <tbody>
     @for (int i = 0; i < Model.listProdalmacen.Count; i++)
     {
-    
+
         if (!Model.listProdalmacen[i].estado2)
         {
-         @Html.HiddenFor(model => model.listProdalmacen[i].ID, new { @readonly = "readonly" }) 
+         @Html.HiddenFor(model => model.listProdalmacen[i].ID) 
+         
      <tr>       
                 
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
