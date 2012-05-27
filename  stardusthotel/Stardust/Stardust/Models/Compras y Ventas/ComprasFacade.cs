@@ -20,6 +20,8 @@ namespace Stardust.Models
 
         /**----- Orden de compra(registrar, buscar)  2----------*/
 
+
+
         /**------ Asignar productos a almacen  2 -----*/
         public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
         {
