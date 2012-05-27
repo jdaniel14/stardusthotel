@@ -17,17 +17,18 @@
  @using (Html.BeginForm("ModificarProductosAlmacen", "Producto", FormMethod.Post, new { @class = "form" }))
 {   
 <p>
-    <a href="@Url.Action("AsignarProductosaAlmacen", new { id = Model.idhotel })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir mas Productos</a>
+    <a href="@Url.Action("AsignarProductosaAlmacen", new { idhotel = Model.idhotel })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir mas Productos</a>
 </p>
 
-
+     @Html.HiddenFor(model => model.idalmacen) 
+      @Html.HiddenFor(model => model.idhotel) 
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Hotel</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Hotel)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.Hotel,new{@readonly ="readonly"})  </div>
+                <div class=" formRight">  @Html.TextBoxFor(model => model.Hotel, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
             
