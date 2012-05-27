@@ -25,7 +25,7 @@
             
             <div class="formRow">                
                 @Html.LabelFor(model => model.dias)<span class="req">*</span>                
-                <div class = "formRight"> @Html.TextBoxFor(model => model.dias, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" }) </div>
+                <div class = "formRight"> @Html.TextBoxFor(model => model.dias, new {@class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" }) </div>
                 <div class = "clear" ></div>
             </div>  
             
