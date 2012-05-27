@@ -4,77 +4,121 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace Stardust.Models
 {
     public class VariablesDAO
     {
         String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        //String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
         public VariablesBean getVariables() {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                VariablesBean variables = null;
 
-            sql.Open();
+                objDB.Open();
+                String strQuery = "SELECT * FROM Politica";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
 
-                String command = "Select * from Politica";
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
 
-                SqlCommand query = new SqlCommand(command, sql);
+                if (objDataReader.HasRows) // si existe información
+                {
+                    objDataReader.Read(); // entonces lee
+                    variables = new VariablesBean(); //recien creo el objeto que almacenará la info
+                    variables.horasEsperaConfirmarReserva = Convert.ToInt32(objDataReader[0]);
+                    variables.porcAdelanto = Convert.ToInt32(objDataReader["porcAdelanto"].ToString().Trim());
+                    variables.diasEsperarSinRetener = Convert.ToInt32(objDataReader["diasEsperarSinRetener"].ToString().Trim());
+                    variables.porcRetencion = Convert.ToInt32(objDataReader["porcRetencion"].ToString().Trim());
+                }
 
-                SqlDataReader data = query.ExecuteReader();
+                return variables;
+                
+            }
+            //catch (Exception ex)
+            //{
+            //    log.Error("Errror getVariables, ex");
+            //    de ser necesario throw ex;
+            //}
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
 
-                data.Read();
-
-                VariablesBean variables = new VariablesBean();
-
-                variables.horasEsperaConfirmarReserva = (int)data.GetValue(0);
-                variables.porcAdelanto = (int)data.GetValue(1);
-                variables.diasEsperarSinRetener = (int)data.GetValue(2);
-                variables.porcRetencion = (int)data.GetValue(3);
-
-            sql.Close();
-
-            return variables;
+        public void agregarParametro(SqlCommand objQuery, String nombreParametro, object valorParametro)
+        {
+            SqlParameter objParametro = new SqlParameter();
+            objParametro.ParameterName = nombreParametro;
+            objParametro.Value = valorParametro;
+            objQuery.Parameters.Add(objParametro);
         }
 
         public void actualizarVariables( VariablesBean variables ) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                objDB.Open();
+                String strQuery =   "UPDATE Politica "+
+                                    "SET horasEsperaConfirmarReserva = @horasEsperaConfirmarReserva" + "," +
+                                        "porcAdelanto = @porcAdelanto" + "," +
+                                        "diasEsperarSinRetener = @diasEsperarSinRetener" + "," +
+                                        "porcRetencion = @porcRetencion";
+                
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                
+                agregarParametro(objQuery, "horasEsperaConfirmarReserva", variables.horasEsperaConfirmarReserva);
+                agregarParametro(objQuery, "porcAdelanto", variables.porcAdelanto);
+                agregarParametro(objQuery, "diasEsperarSinRetener", variables.diasEsperarSinRetener);
+                agregarParametro(objQuery, "porcRetencion", variables.porcRetencion);
 
-                String command = "Update Politica SET horasEsperaConfirmarReserva = " + variables.horasEsperaConfirmarReserva + 
-                                ", porcAdelanto = " + variables.porcAdelanto +
-                                ", diasEsperarSinRetener = " + variables.diasEsperarSinRetener +
-                                ", porcRetencion = " + variables.porcRetencion ;
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                query.ExecuteNonQuery();
-
-            sql.Close();
-        }
-
-        public void valorDefault() {
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            sql.Open();
-
-                String command = "Select * from Politica";
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                SqlDataReader data = query.ExecuteReader();
-
-                int filas = data.RecordsAffected;
-
-                if (filas != 0) {
-                    sql.Close();
-                    sql.Open();
-                    String command2 = "Insert into Politica values ( 0 , 0 , 0 , 0 ) ";
-                    SqlCommand query2 = new SqlCommand(command2, sql);
-                    query2.ExecuteNonQuery();
+                objQuery.ExecuteNonQuery();                
+            }
+            //catch (Exception ex)
+            //{
+            //    log.Error("Errror getVariables, ex");
+            //    de ser necesario throw ex;
+            //}
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
                 }
-
-            sql.Close();
+            }
+            
         }
+
+        //public void valorDefault() {
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
+
+        //    sql.Open();
+
+        //    String command = "Select * from Politica";
+
+        //    SqlCommand query = new SqlCommand(command, sql);
+
+        //    SqlDataReader data = query.ExecuteReader();
+                            
+        //    if (!data.HasRows)
+        //    {
+        //        sql.Close();
+        //        sql.Open();
+        //        String command2 = "Insert into Politica values ( 10 , 12 , 15 , 0 ) ";
+        //        SqlCommand query2 = new SqlCommand(command2, sql);
+        //        query2.ExecuteNonQuery();
+        //    }
+
+        //    sql.Close();
+        //}
     }
 }

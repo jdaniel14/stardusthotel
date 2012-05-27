@@ -17,8 +17,8 @@ namespace Stardust.Models
             variablesServ.actualizarVariables( variables );
         }
 
-        public void valorDefault() {
-            variablesServ.valorDefault();
-        }
+        //public void valorDefault() {
+        //    variablesServ.valorDefault();
+        //}
     }
 }
