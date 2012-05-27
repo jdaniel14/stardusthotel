@@ -34,16 +34,25 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Buscar(PromocionBean promocion)
         {
-            int id = Convert.ToInt32(promocion.ID);
-            int hotel = Convert.ToInt32(promocion.tipo);
-            int ID = (hotel*10)+id;
+            //int id = Convert.ToInt32(promocion.ID);
+            //int hotel = Convert.ToInt32(promocion.tipo);
+            int ID = Convert.ToInt32(promocion.tipo + promocion.ID);//(hotel*10)+id;
             return RedirectToAction("Detalle",new{id = ID});
         }
 
         public ActionResult Detalle(int id) 
         {
-            int Id = id / 10;
-            int hotel = id % 10;
+            int Id, hotel;
+            if ((id % 100) == 0)
+            {
+                Id = id / 100;
+                hotel = id % 100;
+            }
+            else
+            {
+                Id = id / 10;
+                hotel = id % 10;
+            }
             return View(promocionFacade.ListarPromocion(Id,hotel));
         }
 
