@@ -17,7 +17,7 @@
                 <div class=" formRight"> @Html.HiddenFor(model => model.idPromocion)  </div>
 
             <div class="formRow"> @Html.LabelFor(model => model.descripcion)<span class="req">*</span>
-                <div class=" formRight"> @Html.TextBoxFor(model => model.descripcion,  new { @class = "validate[required]"})  </div>
+                <div class=" formRight"> @Html.TextBoxFor(model => model.descripcion, new { @class = "validate[required]", maxlength = "100", placeholder = "Maximo 100 caracteres" })  </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.descuento)<span class="req">*</span>
@@ -26,11 +26,11 @@
             </div>
 
             <div class="formRow">@Html.LabelFor(model => model.razon)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.razon, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.razon, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.porcDescontar)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.porcDescontar, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.porcDescontar, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.hotel)<span class="req">*</span>

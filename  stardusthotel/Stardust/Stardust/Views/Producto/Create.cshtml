@@ -19,13 +19,13 @@
 
             <div class="formRow">
                 @Html.LabelFor(model => model.nombre)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.nombre,new {@class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui"})</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.nombre,new {@class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "50", placeholder = "Maximo 50 caracteres aqui"})</div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)
-                <div class = "formRight" >@Html.TextAreaFor(model => model.descripcion, new {@class="validate[required]" ,name="textarea" ,cols="" ,rows="8"} )</div>
+                <div class = "formRight" >@Html.TextAreaFor(model => model.descripcion, new { @name = "textarea", cols = "", rows = "8", maxlength = "100", placeholder = "Maximo 100 caracteres aqui" })</div>
                  <div class = "clear" ></div>
             </div>
             
@@ -35,9 +35,6 @@
             <p></p> <p></p> <p></p>
     <div>
            <input type="submit" value="Crear" class = "redB" />
+           @Html.ActionLink("Regresar", "Buscar")
     </div>
 }
-
-<div>
-    @Html.ActionLink("Regresar", "../Home/Index")
-</div>
