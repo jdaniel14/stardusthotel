@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Stardust.Models.Producto>
+
+@{
+    <select id="Version" name="Version">
+        @foreach (var item in Model)
+        {
+            <option value="@item.id">@item.Nombre</option>
+        }
+    </select>
+}
