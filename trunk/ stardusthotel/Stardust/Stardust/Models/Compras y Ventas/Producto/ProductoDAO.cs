@@ -159,7 +159,7 @@ namespace Stardust.Models
             {
                 if (!(prod.listProdalmacen[i].stockminimo == 0 && prod.listProdalmacen[i].stockactual == 0 && prod.listProdalmacen[i].stockmaximo == 0))
                 {
-                    string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
+                    string commandString = "INSERT INTO ProductoXAlmacen VALUES ('" +
                     prod.idalmacen + "', '" +
                     prod.listProdalmacen[i].ID + "', '" +
                     prod.listProdalmacen[i].stockminimo + "', '" +
@@ -217,10 +217,10 @@ namespace Stardust.Models
             for (int i = 0; i < prod.listProdalmacen.Count; i++)
             {
 
-                string commandString = "UPDATE ProductoXProveedor SET stockMinimo = " + prod.listProdalmacen[i].stockminimo + 
+                string commandString = "UPDATE ProductoXAlmacen SET stockMinimo = " + prod.listProdalmacen[i].stockminimo + 
                                         " , stockActual = " + prod.listProdalmacen[i].stockactual +
                                         " , stockMaximo= " + prod.listProdalmacen[i].stockmaximo +
-                                      " WHERE idalmacen = " + prod.idalmacen + "AND idProducto = " + prod.listProdalmacen[i].ID;
+                                      " WHERE idAlmacen = " + prod.idalmacen + "AND idProducto = " + prod.listProdalmacen[i].ID;
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
