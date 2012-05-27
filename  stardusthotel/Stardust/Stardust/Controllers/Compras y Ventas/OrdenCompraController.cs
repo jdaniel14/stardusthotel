@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Stardust.Models;
 
 namespace Stardust.Controllers
 {
     public class OrdenCompraController : Controller
     {
-
+        public ComprasFacade comprasFacade = new ComprasFacade();
+        
         /*--------Orden de Compra----------*/
 
         public ActionResult Index()
@@ -21,11 +23,17 @@ namespace Stardust.Controllers
             return View();
         }
 
-        public ActionResult RegistrarOrdenCompra()
+        public ActionResult Registrar()
         {
+            OrdenCompraBean ordenCompra = new OrdenCompraBean();
+            return View(ordenCompra);
+        }
 
-            return View();
-        } 
+        public ActionResult GetProducto(int id)
+        {
+            //SelectList productoList = new SelectList(comprasFacade.GetProducto(id), "id", "Nombre");
+            return View(comprasFacade.GetProducto(id));
+        }
 
 
         /*--------Notas de Entrada----------*/
