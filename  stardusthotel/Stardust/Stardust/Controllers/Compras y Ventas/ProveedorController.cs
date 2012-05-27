@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
-//using Stardust.Models.Compras_y_Ventas.Proveedor;
+using Stardust.Models.Compras_y_Ventas.Proveedor;
 
 namespace Stardust.Controllers
 {
@@ -165,7 +165,11 @@ namespace Stardust.Controllers
         /**----- Pago de Proveedor-----*/
 
 
-
+        public ViewResult pagoproveedor() 
+        {
+            
+            PagoProveedorBean promociones;
+        }
     }
 }
 
