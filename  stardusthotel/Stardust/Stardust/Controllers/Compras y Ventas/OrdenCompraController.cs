@@ -18,7 +18,7 @@ namespace Stardust.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
+        public ActionResult buscar()
         {
             return View();
         }
