@@ -966,7 +966,7 @@
 			 */
 			this.oLanguage = {
 				"sProcessing": "Processing...",
-				"sLengthMenu": "<span class='itemsPerPage'>Items per page:</span> _MENU_",
+				"sLengthMenu": "<span class='itemsPerPage'>Resultados por pagina:</span> _MENU_",
 				"sZeroRecords": "No matching records found",
 				"sEmptyTable": "No data available in table",
 				"sLoadingRecords": "Loading...",
@@ -978,10 +978,10 @@
 				"sSearch": "<span class='itemsPerPage'>Buscar:</span>",
 				"sUrl": "",
 				"oPaginate": {
-					"sFirst":    "First",
-					"sPrevious": "Prev",
-					"sNext":     "Next",
-					"sLast":     "Last"
+					"sFirst":    "Primero",
+					"sPrevious": "Anterior",
+					"sNext":     "Siguiente",
+					"sLast":     "Ultimo"
 				},
 				"fnInfoCallback": null
 			};
