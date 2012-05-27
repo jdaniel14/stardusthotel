@@ -126,41 +126,63 @@ namespace Stardust.Models
 
         /*----Asignar Productos a Almacen----*/
 
+        public int obteneralmacen(int idhotel){
+            
+            int idalmacen=0;
 
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM Almacen  WHERE idHotel=" + idhotel;
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            
+            while (dataReader.Read())
+            {
+               idalmacen = (int)dataReader["idalmacen"];
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+
+            return idalmacen;
+        }
         public void InsertaralmacenxProducto(ProductoXAlmacenBean prod)
         {
-            //String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            //SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            //sqlCon.Open();
-            //int i;
-            //for (i = 0; i < prod.listProdProv.Count; i++)
-            //{
-            //    if (prod.listProdProv[i].precio > 0)
-            //    {
-            //        string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
-            //        idproveedor + "', '" +
-            //        prod.listProdProv[i].ID + "', '" +
-            //        prod.listProdProv[i].precio + "', '" +
-            //        prod.listProdProv[i].cantMaxima + "')";
-            //        SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            //        sqlCmd.ExecuteNonQuery();
-            //    }
-            //}
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            int i;
+            for (i = 0; i < prod.listProdalmacen.Count; i++)
+            {
+                if (!(prod.listProdalmacen[i].stockminimo == 0 && prod.listProdalmacen[i].stockactual == 0 && prod.listProdalmacen[i].stockmaximo == 0))
+                {
+                    string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
+                    prod.idalmacen + "', '" +
+                    prod.listProdalmacen[i].ID + "', '" +
+                    prod.listProdalmacen[i].stockminimo + "', '" +
+                    prod.listProdalmacen[i].stockmaximo + "', '" +
+                    prod.listProdalmacen[i].stockactual + "')";
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                }
+            }
 
-            //sqlCon.Close();
+            sqlCon.Close();
         }
 
-        public ProductoXAlmacenBean obtenerlistaproductos(int idhotel)
+        public ProductoXAlmacenBean obtenerlistaproductos(int idalmacen)
         {
             ProductoXAlmacenBean prod = new ProductoXAlmacenBean();
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             int i = 0;
-            int idprove;
+            int idal;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-            string commandString = "SELECT * FROM ProductoXAlmacen  WHERE idalmacen=" + idhotel  ;
+            string commandString = "SELECT * FROM ProductoXAlmacen  WHERE idalmacen=" + idalmacen;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -171,20 +193,16 @@ namespace Stardust.Models
             {
                 ProductoAlmacen prodalmacen = new ProductoAlmacen();
                 
-                idhotel = (int)dataReader["idhotel"];
+                idal = (int)dataReader["idalmacen"];
                 prodalmacen.ID = (int)dataReader["idProducto"];
-                prodalmacen.stockminimo = (int)dataReader["precio"];
-                prodalmacen.stockactual = (int)dataReader["cantPedidoMax"];
-                prodalmacen.stockmaximo = (int)dataReader["cantPedidoMax"];
+                prodalmacen.stockminimo = (int)dataReader["stockMinimo"];
+                prodalmacen.stockactual = (int)dataReader["stockActual"];
+                prodalmacen.stockmaximo = (int)dataReader["stockMaximo"];
                 i++;
                 prod.listProdalmacen.Add(prodalmacen);
             }
             dataReader.Close();
             sqlCon.Close();
-
-            //ProveedorBean prov = SeleccionarProveedor(idproveedor);
-
-            //prod.Proveedor = prov.razonSocial;
 
             return prod;
         }
@@ -199,8 +217,10 @@ namespace Stardust.Models
             for (int i = 0; i < prod.listProdalmacen.Count; i++)
             {
 
-                string commandString = "UPDATE ProductoXProveedor SET precio = " + prod.listProdalmacen[i].stockminimo + " , cantPedidoMax = " + prod.listProdalmacen[i].stockactual +
-                                " WHERE idProveedor = " + prod.idhotel + "AND idProducto = " + prod.listProdalmacen[i].ID;
+                string commandString = "UPDATE ProductoXProveedor SET stockMinimo = " + prod.listProdalmacen[i].stockminimo + 
+                                        " , stockActual = " + prod.listProdalmacen[i].stockactual +
+                                        " , stockMaximo= " + prod.listProdalmacen[i].stockmaximo +
+                                      " WHERE idalmacen = " + prod.idalmacen + "AND idProducto = " + prod.listProdalmacen[i].ID;
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
