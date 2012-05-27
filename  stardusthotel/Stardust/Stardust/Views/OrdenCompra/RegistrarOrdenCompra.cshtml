@@ -7,7 +7,7 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm("Create", "Producto", FormMethod.Post, new { @class = "form", id="validate" }))
+@using (Html.BeginForm("RegistrarOrdenCompra", "OrdenCompra", FormMethod.Post, new { @class = "form", id="validate" }))
 {
     @Html.ValidationSummary(false)
     <fieldset>
@@ -16,14 +16,14 @@
                 <h6>Registrar Orden de Compra</h6>
             </div>
 
-
             <div class="formRow">
-               @* @Html.LabelFor(model => model.nombre)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.nombre,new {@class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui"})</div>*@
+               @Html.LabelFor(model => model.nombreproveedor)
+                @*<div class = "formRight" >@Html.TextBoxFor(model => model.nombre,new {@class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui"})</div>*@
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
+                
                @* @Html.LabelFor(model => model.descripcion)
                 <div class = "formRight" >@Html.TextAreaFor(model => model.descripcion, new {@class="validate[required]" ,name="textarea" ,cols="" ,rows="8"} )</div>*@
                  <div class = "clear" ></div>
