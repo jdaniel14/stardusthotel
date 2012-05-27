@@ -9,6 +9,7 @@ namespace Stardust.Models
     {
         public int idOrdenCompra { get; set; }
         public int idproveedor { get; set; }
+        public string nombreproveedor { get; set; }
         public string estado { get; set; }
         public string fecha { get; set; }
         public List<DetalleOrdenCompra> detalle { get; set; }
