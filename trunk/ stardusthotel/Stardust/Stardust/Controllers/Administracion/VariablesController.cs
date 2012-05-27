@@ -16,7 +16,6 @@ namespace Stardust.Controllers
 
         public ActionResult Index()
         {
-            variablesFac.valorDefault() ;
             return View( variablesFac.getVariables() );
         }
 
