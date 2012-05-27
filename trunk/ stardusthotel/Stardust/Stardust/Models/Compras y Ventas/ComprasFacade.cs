@@ -17,10 +17,13 @@ namespace Stardust.Models
     {
 
         ProductoService produservice = new ProductoService();
+        OrdenCompraService ordenCompraService = new OrdenCompraService();
 
         /**----- Orden de compra(registrar, buscar)  2----------*/
-
-
+        public IEnumerable<Producto> GetProducto(int id)
+        {
+            return ordenCompraService.GetProducto(id);
+        }
 
         /**------ Asignar productos a almacen  2 -----*/
         public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
