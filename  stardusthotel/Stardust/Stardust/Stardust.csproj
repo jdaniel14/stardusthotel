@@ -4289,6 +4289,7 @@
     <Content Include="Views\Promociones\Detalle.cshtml" />
     <Content Include="Views\Promociones\Detalles.cshtml" />
     <Content Include="Views\Proveedor\Eliminar.cshtml" />
+    <Content Include="Views\Proveedor\Eliminar.cshtml" />
     <Content Include="Views\Cliente\BuscarClienteJuridico.cshtml" />
     <Content Include="Views\Cliente\BuscarClienteNatural.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
