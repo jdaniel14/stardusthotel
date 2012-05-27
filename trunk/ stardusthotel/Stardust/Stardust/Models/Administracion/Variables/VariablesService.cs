@@ -17,8 +17,8 @@ namespace Stardust.Models
             variablesDAO.actualizarVariables( variables );
         }
 
-        public void valorDefault() {
-            variablesDAO.valorDefault();
-        }
+        //public void valorDefault() {
+        //    variablesDAO.valorDefault();
+        //}
     }
 }
