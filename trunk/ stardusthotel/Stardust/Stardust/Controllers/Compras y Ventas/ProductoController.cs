@@ -76,18 +76,19 @@ namespace Stardust.Controllers
             return View(hotelFac.listarHoteles());
         }
 
-        public ActionResult ListarProductosdeAlmacen(int id)
+        public ActionResult ListarProductosdeAlmacen(int id)//idhotel
         {
             ProductoXAlmacenBean prod;
             HotelBean hotel = hotelFac.getHotel(id);
-            //ProveedorBean prov = proveedorFacade.GetProveedor(ID);
-           
+
+            int idalmacen = productosfacade.obteneralmacen(id);
             List<ProductoBean> productos = produc.ListarProducto("");
 
-            prod = productosfacade.obtenerlistadAlmacen(id);//lista de los productos en la tabla productoxalmacen
+            prod = productosfacade.obtenerlistadAlmacen(idalmacen);//lista de los productos en la tabla productoxalmacen
 
             prod.Hotel = hotel.nombre;
             prod.idhotel = id;
+            prod.idalmacen = idalmacen;
             ////lista de productos en la tabla de productoxalmacen
             for (int i = 0; i < prod.listProdalmacen.Count; i++)
             {
@@ -103,17 +104,6 @@ namespace Stardust.Controllers
         {
             ProductoXAlmacenBean productosalmacen = new ProductoXAlmacenBean();
            
-            //List<HotelBean> hoteles = hotelFac.listarHoteles();
-            //int id;
-            //for (int i = 0; i < hoteles.Count; i++)
-            //{
-            //    if (hoteles[i].nombre == nombre)
-            //    {
-            //        id = hoteles[i].ID;
-                    
-            //        break;
-            //    }
-            //}
             HotelBean hotel = hotelFac.getHotel(id);
             ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(id); // de la tabla proveedorxproducto
             List<ProductoBean> productos = produc.ListarProducto("");
@@ -142,14 +132,6 @@ namespace Stardust.Controllers
         public ActionResult guardarproductosxAlmacen(ProductoXAlmacenBean prod)
         {
             List<HotelBean> hoteles = hotelFac.listarHoteles();
-            //int idhotel;
-            //for (int i = 0; i < hoteles.Count; i++)
-            //{
-            //    if (hoteles[i].nombre == prod.Hotel) idhotel = hoteles[i].ID;
-            //}
-            
-            //List<ProveedorBean> proveedor = produc.ListarProveedor(prod.Proveedor, "");
-            //int idhotel = proveedor[0].ID;
 
             productosfacade.RegistrarproductosxAlmacen(prod);
 
@@ -158,25 +140,12 @@ namespace Stardust.Controllers
 
         public ActionResult ModificarProductosAlmacen(ProductoXAlmacenBean prod)
         {
-            //List<ProveedorBean> proveedor = prod.ListarProveedor(prod.Proveedor, "");
-            //int idproveedor = proveedor[0].ID;
 
             return View(prod);
         }
         public ActionResult Guardarproductos2(ProductoXAlmacenBean prod)
         {
             List<HotelBean> hoteles = hotelFac.listarHoteles();
-            //int idhotel;
-            //for (int i = 0; i < hoteles.Count; i++)
-            //{
-            //    if (hoteles[i].nombre == prod.Hotel)
-            //    {
-            //        int idhotel = hoteles[i].ID;
-            //    }
-            //}
-            //List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
-            //int idproveedor = proveedor[0].ID;
-            //proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
             productosfacade.modificarproductosxalmacen(prod);
             return RedirectToAction("Index");
         }
