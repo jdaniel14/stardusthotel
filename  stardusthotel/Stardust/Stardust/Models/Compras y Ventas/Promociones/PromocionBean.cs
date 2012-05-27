@@ -134,8 +134,5 @@ namespace Stardust.Models
                 tipoList = new SelectList(getTipo(2), "ID", "Nombre");
             }
         }
-        public PromocionBean()
-        {
-        }
     }
 }
