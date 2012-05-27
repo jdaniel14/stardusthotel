@@ -100,16 +100,19 @@ namespace Stardust.Controllers
             return View(prod);
         }
 
-        public ViewResult AsignarProductosaAlmacen(int id)
+        public ViewResult AsignarProductosaAlmacen(int idhotel)
         {
             ProductoXAlmacenBean productosalmacen = new ProductoXAlmacenBean();
            
-            HotelBean hotel = hotelFac.getHotel(id);
-            ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(id); // de la tabla proveedorxproducto
+            HotelBean hotel = hotelFac.getHotel(idhotel);
+            int idalmacen = productosfacade.obteneralmacen(idhotel);
+
+            ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
             List<ProductoBean> productos = produc.ListarProducto("");
 
-            productosalmacen.Hotel = hotel.nombre; //prov[0].razonSocial;
-
+            productosalmacen.Hotel = hotel.nombre;
+            productosalmacen.idalmacen = idalmacen;
+            productosalmacen.idhotel = idhotel;
             productosalmacen.listProdalmacen= new List<ProductoAlmacen>();
             for (int i = 0; i < productos.Count; i++)
             {
