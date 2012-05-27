@@ -168,7 +168,10 @@ namespace Stardust.Controllers
         public ViewResult pagoproveedor() 
         {
             
-            PagoProveedorBean promociones;
+            
+            PagoProveedorBean provee;
+
+            return (provee);
         }
     }
 }
