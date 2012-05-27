@@ -106,10 +106,36 @@ namespace Stardust.Models
                      ")"
                      ;
 
+
             SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
-            sqlCmd3.ExecuteNonQuery();            
-            sqlCon.Close();
-            return me;
+            sqlCmd3.ExecuteNonQuery();
+
+            string commandString2 = "SELECT IDENT_CURRENT('" + "Usuario" + "') as lastId";
+            SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
+            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
+
+            int last_id = 0;
+            if (dataReader.Read())
+            {
+                //last_id = (int)dataReader["lastId"];
+                last_id = Int16.Parse(dataReader["lastId"].ToString()); 
+                //listaClientes.Add(cliente);
+            }
+            dataReader.Close();
+
+            string commandString1 = "INSERT INTO Cliente VALUES (" + last_id.ToString() + 
+                     ", GETDATE()" + ", " +
+                     "'ACTIVO'" + ", " +
+                     "'" + cliente.tipoTarjeta + "'" + ", " +
+                     "'" + cliente.nroTarjeta + "'" + ")"
+                     ;
+
+            SqlCommand sqlCmd1 = new SqlCommand(commandString1, sqlCon);
+            sqlCmd1.ExecuteNonQuery();
+
+            sqlCon.Close();            
+
+            return me ;
         }
 
         
@@ -184,12 +210,13 @@ namespace Stardust.Models
             string commandString = "UPDATE Usuario " +
                                     "SET  nombres = '" + cliente.nombres
                                         + "', apPat = '" + cliente.apPat
-                                        + "', apMat = " + cliente.apMat
+                                        + "', apMat = '" + cliente.apMat
                                         + "', razonSocial = '" + cliente.razonSocial
                                         + "', tipoDocumento = '" + cliente.tipoDocumento
                                         + "', nroDocumento= '" + cliente.nroDocumento
-                                        + "', tipoTarjeta = '" + cliente.tipoTarjeta
-                                        + "', nroTarjeta = '" + cliente.nroTarjeta + "' " +
+                                        //+ "', tipoTarjeta = '" + cliente.tipoTarjeta
+                                        //+ "', nroTarjeta = '" + cliente.nroTarjeta 
+                                        + "' " +
                                     "WHERE idUsuario = " + cliente.ID.ToString();
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
