@@ -94,6 +94,9 @@ namespace Stardust.Models
             promocion.porcDescontar = (int)dataReader["porcDescontar"];
             promocion.tipoDescuento = (int)dataReader["tipo"];
             promocion.idhotel = (int)dataReader["idHotel"];
+            //promocion.ID = Convert.ToString(promocion.idhotel);
+            //promocion.tipoDescuento++;
+            //promocion.tipo = Convert.ToString(promocion.tipoDescuento);
 
             if (promocion.tipoDescuento == 1)
                 promocion.descuento = "Numero de Dias de Reserva";            

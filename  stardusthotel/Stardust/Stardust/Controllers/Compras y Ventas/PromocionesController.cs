@@ -112,7 +112,7 @@ namespace Stardust.Controllers
         {
             promocion.tipoDescuento = Convert.ToInt32(promocion.tipo);
             promocionFacade.ActualizarPromocion(promocion);
-            return RedirectToAction("../Home/Index");
+            return RedirectToAction("Buscar");
         }
 
         public ActionResult Detalles(int id)
@@ -129,7 +129,7 @@ namespace Stardust.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             promocionFacade.EliminarPromocion(id);
-            return RedirectToAction("../Home/Index");
+            return RedirectToAction("Buscar");
         }
 
 
