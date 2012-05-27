@@ -34,6 +34,11 @@ namespace Stardust.Models
             produservice.Modificarproductosxalmacen(prod);
         }
 
+        public int obteneralmacen(int id)
+        {
+            return produservice.obteneralmacen(id);
+        }
+
         /** ---------Recepcion de producto(notas de entrada) 2 --------*/
 
 

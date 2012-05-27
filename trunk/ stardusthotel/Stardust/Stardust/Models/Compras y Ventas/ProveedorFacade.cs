@@ -90,7 +90,7 @@ namespace Stardust.Models
         {
             proveedorService.ModificarproductosxProveedor(idprove, prod);
         }
-
+        
         
 
         /*-----Registrar Pago del Proveedor-2------*/
