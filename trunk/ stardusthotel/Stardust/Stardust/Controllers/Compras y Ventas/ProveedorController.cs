@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
-using Stardust.Models.Compras_y_Ventas.Proveedor;
 
 namespace Stardust.Controllers
 {
