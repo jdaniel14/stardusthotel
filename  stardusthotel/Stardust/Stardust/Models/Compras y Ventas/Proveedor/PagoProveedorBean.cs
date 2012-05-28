@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Mvc;
 
-namespace Stardust.Model
+namespace Stardust.Models
 {
     public class Proveedores
     {
