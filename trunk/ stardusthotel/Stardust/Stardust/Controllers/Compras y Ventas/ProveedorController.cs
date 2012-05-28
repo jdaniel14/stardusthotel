@@ -160,18 +160,13 @@ namespace Stardust.Controllers
             proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
             return RedirectToAction("Index");
         }
-
-
+        
         /**----- Pago de Proveedor-----*/
-
-
-        public ViewResult pagoproveedor() 
-        {
-            
-            
-            PagoProveedorBean provee;
-
-            return (provee);
+        
+        public ViewResult PagoProveedor() 
+        {           
+            PagoProveedorBean pagoProveedor = new PagoProveedorBean();
+            return View(pagoProveedor);
         }
     }
 }
