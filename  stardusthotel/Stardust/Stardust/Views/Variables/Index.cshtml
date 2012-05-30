@@ -6,7 +6,7 @@
 
 <fieldset>
     <div class = "widget" >
-        <div class = "title"><h6>Variables del sistema</h6></div>
+        <div class = "title"><h6>@ViewBag.Title</h6></div>
 
         <div class="formRow">
             @Html.LabelFor(model => model.horasEsperaConfirmarReserva)
@@ -16,7 +16,7 @@
 
         <div class="formRow">
             @Html.LabelFor(model => model.porcAdelanto)
-            <div class = "formRight" >@Html.DisplayFor(model => model.porcAdelanto)</div>
+            <div class = "formRight" >@Html.DisplayFor(model => model.porcAdelanto)%</div>
             <div class = "clear" ></div>
         </div>
 
@@ -28,16 +28,13 @@
 
         <div class="formRow">
             @Html.LabelFor(model => model.porcRetencion)
-            <div class = "formRight" >@Html.DisplayFor(model => model.porcRetencion)</div>
+            <div class = "formRight" >@Html.DisplayFor(model => model.porcRetencion)%</div>
             <div class = "clear" ></div>
         </div>
     </div>
 </fieldset>
 
-@using (Html.BeginForm("Edit", "Variables", FormMethod.Post, new { @class = "form" }))
-{
-    <p>
-        <a href="@Url.Action("Edit")"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
-        @Html.ActionLink("Regresar", "../Home")
-    </p>
-}
+<p>
+    <a href="@Url.Action("Edit")"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+    <a href="@Url.Action("Index","Home")">Regresar</a>
+</p>
