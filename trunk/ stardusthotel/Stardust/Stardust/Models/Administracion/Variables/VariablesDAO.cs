@@ -10,8 +10,8 @@ namespace Stardust.Models
 {
     public class VariablesDAO
     {
-        String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-        //String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        //String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
         public VariablesBean getVariables() {
             SqlConnection objDB = null;
@@ -53,13 +53,7 @@ namespace Stardust.Models
             }
         }
 
-        public void agregarParametro(SqlCommand objQuery, String nombreParametro, object valorParametro)
-        {
-            SqlParameter objParametro = new SqlParameter();
-            objParametro.ParameterName = nombreParametro;
-            objParametro.Value = valorParametro;
-            objQuery.Parameters.Add(objParametro);
-        }
+        
 
         public void actualizarVariables( VariablesBean variables ) {
             SqlConnection objDB = null;
@@ -73,13 +67,12 @@ namespace Stardust.Models
                                         "porcAdelanto = @porcAdelanto" + "," +
                                         "diasEsperarSinRetener = @diasEsperarSinRetener" + "," +
                                         "porcRetencion = @porcRetencion";
-                
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 
-                agregarParametro(objQuery, "horasEsperaConfirmarReserva", variables.horasEsperaConfirmarReserva);
-                agregarParametro(objQuery, "porcAdelanto", variables.porcAdelanto);
-                agregarParametro(objQuery, "diasEsperarSinRetener", variables.diasEsperarSinRetener);
-                agregarParametro(objQuery, "porcRetencion", variables.porcRetencion);
+                DAO.agregarParametro(objQuery, "horasEsperaConfirmarReserva", variables.horasEsperaConfirmarReserva);
+                DAO.agregarParametro(objQuery, "porcAdelanto", variables.porcAdelanto);
+                DAO.agregarParametro(objQuery, "diasEsperarSinRetener", variables.diasEsperarSinRetener);
+                DAO.agregarParametro(objQuery, "porcRetencion", variables.porcRetencion);
 
                 objQuery.ExecuteNonQuery();                
             }
