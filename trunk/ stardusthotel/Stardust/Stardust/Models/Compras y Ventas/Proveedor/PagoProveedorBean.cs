@@ -22,7 +22,7 @@ namespace Stardust.Models
         public string ID { get; set; }
         public int idPago { get; set; }
 
-        public IEnumerable<Proveedores> getProveedores(int i)
+        public IEnumerable<Proveedores> getProveedores()
         {
             List<Proveedores> listaProveedor = new List<Proveedores>();
 
@@ -36,13 +36,13 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            if (i == 1)
+            /*if (i == 1)
             {
                 Proveedores proveedores = new Proveedores();
                 proveedores.ID = "1";
                 proveedores.Nombre = "Todo";
                 listaProveedor.Add(proveedores);
-            }                    
+            }*/                   
 
             while (dataReader.Read())
             {
@@ -54,7 +54,10 @@ namespace Stardust.Models
             return listaProveedor;
         }
         public SelectList proveedorList { get; set; }
+
+        public PagoProveedorBean()
+        {
+            proveedorList = new SelectList(getProveedores(), "ID", "Nombre");
+        }
     }
-
-
 }
