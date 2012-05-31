@@ -17,7 +17,6 @@ namespace Stardust.Models
         public int piso { get; set; }
 
         [Display( Name = "Estado" )]
-        [Required]
         public string estado { get; set; }
 
         [Display( Name = "Número de baños" ) ]
