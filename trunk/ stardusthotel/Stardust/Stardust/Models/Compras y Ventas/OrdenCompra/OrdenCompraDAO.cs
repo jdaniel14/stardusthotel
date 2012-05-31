@@ -95,6 +95,30 @@ namespace Stardust.Models
         public List<OrdenCompraBean> getlista(string nombre, string fecha1, string fecha2)
         {
             List<OrdenCompraBean> orden;
+            
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM OrdenCompra WHERE = ";
+
+            bool result1 = String.IsNullOrEmpty(nombre);
+            bool result2 = String.IsNullOrEmpty(fecha1);
+            bool result3 = String.IsNullOrEmpty(fecha2);
+
+            if (!result1)
+                commandString = commandString + " AND UPPER(razonSocial) LIKE '%" + nombre.ToUpper() + "%'";
+
+            if (!result2)
+                commandString = commandString + " AND UPPER(fecha) LIKE '%" + contacto.ToUpper() + "%'";
+
+           
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+
 
             orden = new List<OrdenCompraBean>();
             return orden;
