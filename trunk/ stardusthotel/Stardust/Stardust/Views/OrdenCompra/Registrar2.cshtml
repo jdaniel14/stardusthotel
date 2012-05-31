@@ -8,14 +8,13 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
-
-
- @using (Html.BeginForm("RegistrarOrdenCompra", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
+ @using (Html.BeginForm("RegistrarOC", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
 {   
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Proveedor</h6>
+                @Html.HiddenFor(model => model.id)
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.proveedor)
                 <div class=" formRight">  @Html.TextBoxFor(model => model.proveedor,new{@readonly ="readonly"})  </div>
@@ -55,13 +54,14 @@
              <tr>       
                
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].Nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].stockActual, new { @readonly = "readonly" }) </td>
+                <td> @Html.TextBoxFor(model => model.listaProducto[i].precio, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].stockActual, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].stockMinimo, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].stockMaximo, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].cantidad)   </td>
      </tr>
 
+        
     
     }
            
@@ -70,9 +70,11 @@
     </tbody>
 
     </table>
+
+     
     <p></p><p></p><p></p><p></p>
     <p>
-        <input type="submit" value="Modificar" class = "redB" />
-        @Html.ActionLink("Regresar", "Buscar", "Proveedor")
+        <input type="submit" value="Aceptar" class = "redB" />       
     </p>
+    
     }
