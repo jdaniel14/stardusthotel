@@ -13,6 +13,11 @@ namespace Stardust.Models
             return tipoDAO.getTipo(id);
         }
 
+        public IEnumerable<TipoHabitacionBean> getTipoHabitacionXHotel(int idHotel)
+        {
+            return tipoDAO.getTipoHabitacionXHotel(idHotel);
+        }
+
         public void registrarTipoHabitacion(TipoHabitacionBean tipo) {
             tipoDAO.registrarTipoHabitacion(tipo);
         }
