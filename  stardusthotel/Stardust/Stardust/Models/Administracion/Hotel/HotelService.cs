@@ -9,20 +9,19 @@ namespace Stardust.Models
     {
         HotelDAO hotelDAO = new HotelDAO();
 
-        public HotelBean getHotel(int id) {
+        public HotelBean getHotel(int id){
             return hotelDAO.getHotel(id);
         }
 
-        public List<HotelBean> getHoteles()
-        {
+        public List<HotelBean> getHoteles(){
             return hotelDAO.getHoteles();
         }
 
-        public void registrarHotel(HotelBean hotel) {
+        public void registrarHotel(HotelBean hotel){
             hotelDAO.registrarHotel(hotel);
         }
 
-        public void actualizarHotel(HotelBean hotel) {
+        public void actualizarHotel(HotelBean hotel){
             hotelDAO.actualizarHotel(hotel);
         }
 

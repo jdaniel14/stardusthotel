@@ -47,11 +47,20 @@ namespace Stardust.Models
 
         [Display( Name = "Departamento" ) ]
         public int idDepartamento { get; set; }
+
+        [Display(Name = "Departamento")]
+        public string nombreDepartamento { get; set; }
         
         [Display( Name = "Provincia" ) ]
         public int idProvincia { get; set; }
 
+        [Display(Name = "Provincia")]
+        public string nombreProvincia { get; set; }
+
         [Display( Name = "Distrito") ]
         public int idDistrito { get; set; }
+
+        [Display(Name = "Distrito")]
+        public string nombreDistrito { get; set; }
     }
 }
