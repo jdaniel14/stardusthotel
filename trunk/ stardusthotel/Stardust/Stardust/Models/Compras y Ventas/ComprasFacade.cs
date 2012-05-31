@@ -20,11 +20,14 @@ namespace Stardust.Models
         OrdenCompraService ordenCompraService = new OrdenCompraService();
 
         /**----- Orden de compra(registrar, buscar)  2----------*/
-        public IEnumerable<Producto> GetProducto(int id)
+        public Producto GetProducto(int id)
         {
-            //return ordenCompraService.GetProducto(id);
-            var model = new List<Producto>();
-            return model;
+            return ordenCompraService.GetProducto(id);
+        }
+
+        public void GuardarOrdenCompra(OrdenProducto producto)
+        {
+            ordenCompraService.GuardarOrdenCompra(producto);
         }
 
         /**------ Asignar productos a almacen  2 -----*/
