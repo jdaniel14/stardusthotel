@@ -12,26 +12,81 @@ namespace Stardust.Models
         String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         
         public TipoHabitacionBean getTipo(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
 
-            sql.Open();
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                TipoHabitacionBean tipoHabitacion = null;
+                
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "idTipoHabitacion", id);
 
-                String command = "Select * from TipoHabitacion where idTipoHabitacion = " + id;
-                SqlCommand query = new SqlCommand(command, sql);
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
 
-                SqlDataReader data =  query.ExecuteReader();
+                if (objDataReader.HasRows)
+                {
+                    objDataReader.Read();
+                    tipoHabitacion = new TipoHabitacionBean();
+                    
+                    tipoHabitacion.ID = (int)objDataReader.GetValue(0);
+                    tipoHabitacion.nombre = (string)objDataReader.GetValue(1);
+                    tipoHabitacion.descripcion = (string)objDataReader.GetValue(2);
+                }
 
-                data.Read();
+                return tipoHabitacion;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
 
-                TipoHabitacionBean tipo = new TipoHabitacionBean();
+        public IEnumerable<TipoHabitacionBean> getTipoHabitacionXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
 
-                tipo.ID = (int)data.GetValue(0);
-                tipo.nombre = (string)data.GetValue(1);
-                tipo.descripcion = (string)data.GetValue(2);
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<TipoHabitacionBean> listaTipoHabitacion = new List<TipoHabitacionBean>();
 
-            sql.Close();
+                objDB.Open();
+                String strQuery =   "SELECT A.* " +
+                                    "FROM TipoHabitacion A, TipoHabitacionXHotel B " +
+                                    "WHERE A.idTipoHabitacion = B.idTipoHabitacion and B.idHotel = @idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "idHotel", idHotel);
 
-            return tipo;
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
+                if (objDataReader.HasRows)
+                {
+                    while (objDataReader.Read())
+                    {
+                        TipoHabitacionBean tipoHabitacion = new TipoHabitacionBean();
+
+                        tipoHabitacion.ID = Convert.ToInt32(objDataReader["idTipoHabitacion"]);
+                        tipoHabitacion.nombre = Convert.ToString(objDataReader["nombre"]);
+                        tipoHabitacion.descripcion = Convert.ToString(objDataReader["descripcion"]);
+
+                        listaTipoHabitacion.Add(tipoHabitacion);
+                    }
+                }
+                // en caso de no leer tipos de habitaciones, devolverla una lista vacia
+                return listaTipoHabitacion;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
         public void registrarTipoHabitacion(TipoHabitacionBean tipo) {
