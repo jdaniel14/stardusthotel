@@ -240,7 +240,34 @@ namespace Stardust.Models
             sqlCon.Close();
         }
 
+        public List<OrdenCompras> ObtenerOC(int id)
+        {
+            List<OrdenCompras> listaOC = new List<OrdenCompras>();
 
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM OrdenCompra WHERE idProveedor = "+id;
+            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                OrdenCompras OC = new OrdenCompras();
+                OC.id = (int)dataReader["idOrdenCompra"];
+                OC.precio = (decimal)dataReader["precioTotal"];
+                OC.fecha = Convert.ToString(dataReader["fechaPedido"]);
+                OC.estado = (string)dataReader["estado"];
+                listaOC.Add(OC);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return listaOC;
+        }
 
     }
 }
