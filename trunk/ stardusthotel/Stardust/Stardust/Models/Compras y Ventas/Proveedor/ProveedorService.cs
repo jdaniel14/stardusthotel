@@ -50,5 +50,9 @@ namespace Stardust.Models
 
         /*Pago a proveedor*/
 
+        public List<OrdenCompras> ObtenerOC(int id)
+        {
+            return proveedorDAO.ObtenerOC(id);
+        }
     }
 }
