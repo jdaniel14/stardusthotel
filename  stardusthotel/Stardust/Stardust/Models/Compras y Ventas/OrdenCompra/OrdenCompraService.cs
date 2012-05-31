@@ -18,6 +18,11 @@ namespace Stardust.Models
         {
             ordenCompraDAO.GuardarOrdenCompra(producto);
         }
+        public List<OrdenCompraBean> getordencompra(string nombre1, string fecha1, string fecha2){
+        
+            return ordenCompraDAO.getlista(nombre1, fecha1,fecha2);
+        }
+
 
     }
 }

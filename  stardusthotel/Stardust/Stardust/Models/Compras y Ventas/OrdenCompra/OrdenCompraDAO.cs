@@ -92,5 +92,14 @@ namespace Stardust.Models
             sqlCon2.Close();
         }
 
+        public List<OrdenCompraBean> getlista(string nombre, string fecha1, string fecha2)
+        {
+            List<OrdenCompraBean> orden;
+
+            orden = new List<OrdenCompraBean>();
+            return orden;
+
+        }
+
     }
 }

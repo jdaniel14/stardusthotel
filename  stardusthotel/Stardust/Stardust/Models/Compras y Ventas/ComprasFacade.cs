@@ -30,6 +30,11 @@ namespace Stardust.Models
             ordenCompraService.GuardarOrdenCompra(producto);
         }
 
+        public List<OrdenCompraBean> buscarOrdenes(string nombre1, string fecha1, string fecha2)
+        {
+            return ordenCompraService.getordencompra(nombre1, fecha1, fecha2);
+        }
+
         /**------ Asignar productos a almacen  2 -----*/
         public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
         {

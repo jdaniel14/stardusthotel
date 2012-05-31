@@ -24,6 +24,22 @@ namespace Stardust.Controllers
             return View();
         }
 
+        
+        public ActionResult Buscar2(string nombre, string fecha1, string fecha2)
+        {
+
+            comprasFacade.buscarOrdenes(nombre, fecha1, fecha2);
+            
+            return View();
+        }
+
+        public ActionResult Lista(OrdenCompraBean orden)
+        {
+
+            return View(orden);
+        }
+
+
         public ActionResult Registrar()
         {
             OrdenCompraBean ordenCompra = new OrdenCompraBean();
