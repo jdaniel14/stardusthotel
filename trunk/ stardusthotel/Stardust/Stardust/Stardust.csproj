@@ -124,6 +124,10 @@
     <Compile Include="Models\Administracion\Variables\VariablesDAO.cs" />
     <Compile Include="Models\Administracion\Variables\VariablesFacade.cs" />
     <Compile Include="Models\Administracion\Variables\VariablesService.cs" />
+    <Compile Include="Models\Compras y Ventas\OrdenCompra\DetalleOrdenCompra.cs" />
+    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraBean.cs" />
+    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraDAO.cs" />
+    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraService.cs" />
     <Compile Include="Models\Compras y Ventas\Orden de Compra\DetalleOrdenCompra.cs" />
     <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraBean.cs" />
     <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraDAO.cs" />
@@ -131,6 +135,8 @@
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Compras y Ventas\ComprasFacade.cs" />
     <Compile Include="Models\Compras y Ventas\CuentaFacade.cs" />
+    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenProducto.cs" />
+    <Compile Include="Models\Compras y Ventas\OrdenCompra\Producto.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoAlmacen.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoXAlmacenBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
