@@ -14,10 +14,10 @@ namespace Stardust.Models
         public string nombreEmpleado { get; set; } // <------- SE DEBE JALAR DEL USUARIO
         
         [Display( Name = "Fecha de ingreso" ) ]
-        public string fechaIngreso { get; set; }
+        public DateTime fechaIngreso { get; set; }
 
         [Display( Name = "Fecha de salida" ) ]
-        public string fechaSalida { get; set; }
+        public DateTime fechaSalida { get; set; }
 
         [Display( Name = "Estado" ) ]
         public string estado { get; set; }

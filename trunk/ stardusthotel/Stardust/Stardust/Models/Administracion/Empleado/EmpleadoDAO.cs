@@ -26,9 +26,14 @@ namespace Stardust.Models
 
                 EmpleadoBean empleado = new EmpleadoBean();
 
+                 
                 empleado.ID = (int)data.GetValue(0);
-                empleado.fechaIngreso = (string)data.GetValue(1);
-                empleado.fechaSalida = (string)data.GetValue(2);
+
+                UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
+                empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
+
+                empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                //empleado.fechaSalida = (DateTime)data.GetValue(2);
                 empleado.estado = (string)data.GetValue(3);
 
             sql.Close();
@@ -41,9 +46,14 @@ namespace Stardust.Models
 
             sql.Open();
 
-            String command = "Insert into Empleado (fechaIngreso , fechaSalida , estado) values ( '"
-                                + empleado.fechaIngreso + "', '"
-                                + empleado.fechaSalida + "', 'activo' )";
+            DateTime date = empleado.fechaIngreso;
+
+            String fechaIngreso = date.Date.ToShortDateString() ;
+
+            String command = "Insert into Empleado ( idEmpleado , fechaIngreso , estado) values ( "
+                                + empleado.ID + ", '"
+                                + fechaIngreso + "', "
+                                + "'ACTIVO' )";
 
                 SqlCommand query = new SqlCommand(command, sql);
 
@@ -57,8 +67,8 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Update Empleado SET fechaIngreso = '" + empleado.fechaIngreso
-                                    + "', fechaSalida = '" + empleado.fechaSalida
+                String command = "Update Empleado SET "
+                                    + "fechaSalida = '" + empleado.fechaSalida
                                     + "', estado = '" + empleado.estado
                                     + "' WHERE idEmpleado = " + empleado.ID;
 
@@ -75,7 +85,12 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Update Empleado SET estado = 'inactivo' WHERE idEmpleado = " + id;
+                DateTime date = new DateTime();
+
+                String fechaSalida = date.Date.ToShortDateString();
+
+                String command = "Update Empleado SET estado = 'INACTIVO' , fechaSalida = '" + fechaSalida + 
+                        "' WHERE idEmpleado = " + id;
 
                 SqlCommand query = new SqlCommand(command, sql);
 
@@ -89,7 +104,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Select * from Empleado";
+                String command = "Select * from Empleado ORDER BY fechaIngreso";
 
                 SqlCommand query = new SqlCommand(command, sql);
 
@@ -101,8 +116,13 @@ namespace Stardust.Models
                     EmpleadoBean empleado = new EmpleadoBean();
 
                     empleado.ID = (int)data.GetValue(0);
-                    empleado.fechaIngreso = (string)data.GetValue(1);
-                    empleado.fechaSalida = (string)data.GetValue(2);
+                    UsuarioBean usuario = new UsuarioFacade().getUsuario( empleado.ID ) ;
+                    empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+                    empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                    //var aux = data.GetValue(2);
+                    //if (aux != null)
+                    //    empleado.fechaSalida = (DateTime)aux;
+                    // NO FUNCIONA U_U
                     empleado.estado = (string)data.GetValue(3);
 
                     lista.Add(empleado);
@@ -112,5 +132,8 @@ namespace Stardust.Models
 
             return lista;
         }
+
+        
     }
+
 }

@@ -1,30 +1,39 @@
 ﻿@model Stardust.Models.EmpleadoBean
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles del empleado";
 }
 
-<h2>Details</h2>
+<h2>Detalles del empleado</h2>
 
 <fieldset>
-    <legend>EmpleadoBean</legend>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del empleado</h6></div>
 
-    <div class="display-label">fechaIngreso</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fechaIngreso)
-    </div>
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreEmpleado)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreEmpleado)</div>
+            <div class = "clear" ></div>
+        </div>
 
-    <div class="display-label">fechaSalida</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fechaSalida)
-    </div>
+        <div class="formRow">
+            @Html.LabelFor(model => model.fechaIngreso)
+            <div class = "formRight" >@Html.DisplayFor(model => model.fechaIngreso)</div>
+            <div class = "clear" ></div>
+        </div>
 
-    <div class="display-label">estado</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.estado)
+        <div class="formRow">
+            @Html.LabelFor(model => model.estado)
+            <div class = "formRight" >@Html.DisplayFor(model => model.estado )</div>
+            <div class = "clear" ></div>
+        </div>
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@using (Html.BeginForm("Edit", "Empleado", FormMethod.Post, new { @class = "form" }))
+{
+    <p>
+        <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "List")
+    </p>
+}
