@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Stardust.Models.UsuarioBean>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<h2>Usuarios</h2>
+
+<p>
+    <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir usuario</a>
+</p>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    <thead>
+        <tr>
+            <td>Usuario</td>
+            <td>E-mail</td>
+            <td>Perfil de usuario</td>
+            <td></td>
+            @*<td>Password</td>
+            <td>Nombre</td>
+            <td>Apellido Paterno</td>
+            <td>Apellido Materno</td>
+            <td>Teléfono</td>
+            <td>Tipo de documento</td>
+            <td>Nro. de documento</td>
+            <td>Razón Social</td>
+            <td>Estado</td>
+            <td>Dirección</td>
+            <td>Distrito</td>
+            <td>Provincia</td>
+            <td>Departamento</td>*@
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.user_account )</td>
+            <td>@Html.DisplayFor(modelItem => item.email )</td>
+            <td>@Html.DisplayFor(modelItem => item.nombrePerfilUsuario )</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+            </td>
+        </tr>
+        
+    }
+    </tbody>
+</table>

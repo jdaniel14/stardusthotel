@@ -1,0 +1,117 @@
+﻿@model Stardust.Models.UsuarioBean
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del usuario</h6></div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.user_account)
+            <div class = "formRight" >@Html.DisplayFor(model => model.user_account)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.pass)
+            <div class = "formRight" >@Html.DisplayFor(model => model.pass)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombrePerfilUsuario )
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombrePerfilUsuario)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombres)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombres)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.apPat)
+            <div class = "formRight" >@Html.DisplayFor(model => model.apPat)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.apMat)
+            <div class = "formRight" >@Html.DisplayFor(model => model.apMat)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.email)
+            <div class = "formRight" >@Html.DisplayFor(model => model.email)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.celular)
+            <div class = "formRight" >@Html.DisplayFor(model => model.celular)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.tipoDocumento)
+            <div class = "formRight" >@Html.DisplayFor(model => model.tipoDocumento)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nroDocumento)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nroDocumento)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.razonSocial)
+            <div class = "formRight" >@Html.DisplayFor(model => model.razonSocial)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.estado)
+            <div class = "formRight" >@Html.DisplayFor(model => model.estado)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.direccion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.direccion)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreDistrito)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDistrito)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreProvincia)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreProvincia)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreDepartamento)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDepartamento)</div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+</fieldset>
+
+@using (Html.BeginForm( "Delete" , "Usuario" , FormMethod.Post , new { @class = "form" } )) {
+    <p>
+        <input class = "redB" type="submit" value="Borrar" /> |
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+}
