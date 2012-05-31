@@ -95,6 +95,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Administracion\DAO.cs" />
     <Compile Include="Models\Administracion\Empleado\EmpleadoBean.cs" />
     <Compile Include="Models\Administracion\Empleado\EmpleadoDAO.cs" />
     <Compile Include="Models\Administracion\Empleado\EmpleadoFacade.cs" />
