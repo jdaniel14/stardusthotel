@@ -162,10 +162,16 @@ namespace Stardust.Controllers
         
         /**----- Pago de Proveedor-----*/
         
-        public ViewResult PagoProveedor() 
+        public ActionResult PagoProveedor() 
         {           
             PagoProveedorBean pagoProveedor = new PagoProveedorBean();
             return View(pagoProveedor);
+        }
+
+        [HttpPost]
+        public ActionResult PagoProveedor(PagoProveedorBean pago)
+        {
+            return RedirectToAction("Index");
         }
     }
 }
