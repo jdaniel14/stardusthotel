@@ -34,15 +34,7 @@ namespace Stardust.Models
             string commandString = "SELECT * FROM Proveedor";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-            /*if (i == 1)
-            {
-                Proveedores proveedores = new Proveedores();
-                proveedores.ID = "1";
-                proveedores.Nombre = "Todo";
-                listaProveedor.Add(proveedores);
-            }*/                   
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();            
 
             while (dataReader.Read())
             {
@@ -53,6 +45,7 @@ namespace Stardust.Models
             }
             return listaProveedor;
         }
+
         public SelectList proveedorList { get; set; }
 
         public PagoProveedorBean()
