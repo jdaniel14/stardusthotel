@@ -111,7 +111,7 @@ namespace Stardust.Models
                 commandString = commandString + " AND UPPER(razonSocial) LIKE '%" + nombre.ToUpper() + "%'";
 
             if (!result2)
-                commandString = commandString + " AND UPPER(fecha) LIKE '%" + contacto.ToUpper() + "%'";
+                commandString = commandString + " AND UPPER(fecha) LIKE '%" + fecha1.ToUpper() + "%'";
 
            
 
