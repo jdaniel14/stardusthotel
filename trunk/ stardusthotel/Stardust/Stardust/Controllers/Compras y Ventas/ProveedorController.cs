@@ -171,7 +171,13 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult PagoProveedor(PagoProveedorBean pago)
         {
-            return RedirectToAction("Index");
+            int ID = Convert.ToInt32(pago.ID);
+            return RedirectToAction("ListarOC", new { id = ID});
+        }
+
+        public ActionResult ListarOC(int id)
+        {            
+            return View(proveedorFacade.ObtenerOC(id));
         }
     }
 }
