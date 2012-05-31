@@ -4,17 +4,23 @@
     ViewBag.Title = "Eliminar habitación";
 }
 
-<h2>Eliminar habitación</h2>
+<h2>@ViewBag.Title</h2>
 
 <h3>Seguro de querer eliminar esta habitación?</h3>
 
 <fieldset>
     <div class = "widget" >
-        <div class = "title" ><h6> Eliminar habitación </h6></div>
+        <div class = "title" ><h6> @ViewBag.Title</h6></div>
 
         <div class = "formRow" >
-            @Html.LabelFor(model => model.hotel )
-            <div class = "formRight" > @Html.DisplayFor(model => model.hotel) </div>
+            @Html.LabelFor(model => model.idHotel )
+            <div class = "formRight" > @ViewBag.Hotel </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.idTipoHabitacion )
+            <div class = "formRight" > @ViewBag.TipoHabitacion </div>
             <div class = "clear" ></div>
         </div>
             
@@ -37,16 +43,18 @@
         </div>
 
         <div class = "formRow" >
+            @Html.LabelFor(model => model.aptoFumador)
+            <div class = "formRight" > @Html.DisplayFor(model => model.aptoFumador) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
             @Html.LabelFor(model => model.nroCamas )
             <div class = "formRight" > @Html.DisplayFor(model => model.nroCamas) </div>
             <div class = "clear" ></div>
         </div>
 
-        <div class = "formRow" >
-            @Html.LabelFor(model => model.tipoHabitacion )
-            <div class = "formRight" > @Html.DisplayFor(model => model.tipoHabitacion) </div>
-            <div class = "clear" ></div>
-        </div>
+        
     </div>
 </fieldset>
 
