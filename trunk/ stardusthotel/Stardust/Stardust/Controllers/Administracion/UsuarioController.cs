@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -6,14 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
-using Stardust.Models.Administracion;
 
 namespace Stardust.Controllers
 { 
     public class UsuarioController : Controller
     {
         private CadenaHotelDB db = new CadenaHotelDB();
-        UsuarioFacade usrFac = new UsuarioFacade();
+        UsuarioFacade usuarioFac = new UsuarioFacade();
 
         //
         // GET: /Usuario/
@@ -28,8 +27,8 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            return View(usuario);
+            var model = usuarioFac.getUsuario(id);
+            return View( model );
         }
 
         //
@@ -37,6 +36,11 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
+            PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade() ;
+            ViewBag.perfiles = perfilFac.listarPerfiles();
+
+            ViewBag.documentos = "" ;
+
             return View();
         } 
 
@@ -44,10 +48,10 @@ namespace Stardust.Controllers
         // POST: /Usuario/Create
 
         [HttpPost]
-        public ActionResult Create(UsuarioBean usuario)
+        public ActionResult Create(UsuarioBean usuariobean)
         {
-            usrFac.registrarUsuario(usuario);
-            return RedirectToAction("Index");
+            usuarioFac.registrarUsuario(usuariobean);
+            return RedirectToAction( "List" ) ;
         }
         
         //
@@ -55,23 +59,24 @@ namespace Stardust.Controllers
  
         public ActionResult Edit(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            return View(usuario);
+            var model = usuarioFac.getUsuario(id);
+
+            PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+            ViewBag.perfiles = perfilFac.listarPerfiles();
+
+            ViewBag.documentos = "";
+
+            return View( model );
         }
 
         //
         // POST: /Usuario/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Usuario usuario)
+        public ActionResult Edit(UsuarioBean usuariobean)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(usuario).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(usuario);
+            usuarioFac.actualizarUsuario(usuariobean);
+            return RedirectToAction( "List" ) ;
         }
 
         //
@@ -79,8 +84,8 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
-            return View(usuario);
+            var model = usuarioFac.getUsuario(id);
+            return View( model );
         }
 
         //
@@ -88,38 +93,20 @@ namespace Stardust.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
-            Usuario usuario = db.Usuario.Find(id);
-            db.Usuario.Remove(usuario);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        public ViewResult Buscar( string nombre , string apPat ) {
-            var model = from r in db.Usuario select r;
-
-            ViewBag.resp = "";
-            if (!String.IsNullOrEmpty(nombre))
-            {
-                model = model.Where(r => r.nombres.ToUpper().Contains(nombre.ToUpper()));
-                ViewBag.resp += "1";
-            }
-
-            if (!string.IsNullOrEmpty(apPat))
-            {
-                model = model.Where(r => r.apPat.ToUpper().Contains(apPat.ToUpper()));
-                ViewBag.resp += "1";
-            }
-
-            ViewBag.coincidencias = model.LongCount();
-
-            return View( model.ToList() );
+        {
+            usuarioFac.eliminarUsuario(id);
+            return RedirectToAction("List");
         }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public ViewResult List() {
+            var model = usuarioFac.listarUsuarios();
+            return View( model );
         }
     }
 }
