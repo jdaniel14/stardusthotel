@@ -28,5 +28,7 @@ namespace Stardust.Models
         public DbSet<PerfilUsuarioBean> PerfilUsuarioBean { get; set; }
 
         public DbSet<HotelBean> HotelBean { get; set; }
+
+        public DbSet<EmpleadoBean> EmpleadoBean { get; set; }
     }
 }

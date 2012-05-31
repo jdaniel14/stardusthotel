@@ -65,6 +65,7 @@
     <Compile Include="Controllers\AccountController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Administracion\EmpleadoController.cs" />
     <Compile Include="Controllers\Administracion\HabitacionController.cs" />
     <Compile Include="Controllers\Administracion\HotelController.cs" />
     <Compile Include="Controllers\Administracion\PerfilUsuarioController.cs" />
@@ -96,6 +97,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Administracion\Empleado\EmpleadoBean.cs" />
+    <Compile Include="Models\Administracion\Empleado\EmpleadoDAO.cs" />
+    <Compile Include="Models\Administracion\Empleado\EmpleadoFacade.cs" />
+    <Compile Include="Models\Administracion\Empleado\EmpleadoService.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionBean.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionDAO.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionFacade.cs" />
@@ -121,19 +126,13 @@
     <Compile Include="Models\Administracion\Variables\VariablesDAO.cs" />
     <Compile Include="Models\Administracion\Variables\VariablesFacade.cs" />
     <Compile Include="Models\Administracion\Variables\VariablesService.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\DetalleOrdenCompra.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraBean.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraDAO.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraService.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\Producto.cs" />
+    <Compile Include="Models\Compras y Ventas\Orden de Compra\DetalleOrdenCompra.cs" />
+    <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraBean.cs" />
+    <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraDAO.cs" />
+    <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraService.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Compras y Ventas\ComprasFacade.cs" />
     <Compile Include="Models\Compras y Ventas\CuentaFacade.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\DetalleOrdenCompra.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraBean.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraDAO.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraService.cs" />
-    <Compile Include="Models\Compras y Ventas\OrdenCompra\Producto.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoAlmacen.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoXAlmacenBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
@@ -4320,6 +4319,12 @@
     <Content Include="Views\OrdenCompra\GetProducto.cshtml" />
     <Content Include="Views\OrdenCompra\Registrar.cshtml" />
     <Content Include="Views\Proveedor\PagoProveedor.cshtml" />
+    <Content Include="Views\Empleado\Index.cshtml" />
+    <Content Include="Views\Empleado\Details.cshtml" />
+    <Content Include="Views\Empleado\Create.cshtml" />
+    <Content Include="Views\Empleado\Edit.cshtml" />
+    <Content Include="Views\Empleado\Delete.cshtml" />
+    <Content Include="Views\Empleado\List.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -22,7 +22,9 @@ namespace Stardust.Models
         /**----- Orden de compra(registrar, buscar)  2----------*/
         public IEnumerable<Producto> GetProducto(int id)
         {
-            return ordenCompraService.GetProducto(id);
+            //return ordenCompraService.GetProducto(id);
+            var model = new List<Producto>();
+            return model;
         }
 
         /**------ Asignar productos a almacen  2 -----*/
