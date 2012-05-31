@@ -209,11 +209,12 @@ namespace Stardust.Models
                     int idDistrito = (int)data.GetValue(8);
                     int idProvincia = (int)data.GetValue(9);
                     int idDepartamento = (int)data.GetValue(10);
-
-                    //hotel.idDistrito = this.getNombreDistrito(idDepartamento, idProvincia, idDistrito);
-                    //hotel.idProvincia = this.getNombreProvincia(idDepartamento, idProvincia);
-                    //hotel.idDepartamento = this.getNombreDepartamento(idDepartamento);
-
+                    
+                    UsuarioDAO usuarioDAO = new UsuarioDAO() ;
+                    hotel.nombreDistrito = usuarioDAO.getDistrito(idDepartamento, idProvincia , idDistrito);
+                    hotel.nombreProvincia = usuarioDAO.getProvincia(idDepartamento, idProvincia);
+                    hotel.nombreDepartamento = usuarioDAO.getDepartamento(idDepartamento);
+                    
                     lista.Add(hotel);
                 }
 

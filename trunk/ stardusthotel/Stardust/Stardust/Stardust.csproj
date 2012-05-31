@@ -129,10 +129,6 @@
     <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraBean.cs" />
     <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraDAO.cs" />
     <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenCompraService.cs" />
-    <Compile Include="Models\Compras y Ventas\Orden de Compra\DetalleOrdenCompra.cs" />
-    <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraBean.cs" />
-    <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraDAO.cs" />
-    <Compile Include="Models\Compras y Ventas\Orden de Compra\OrdenCompraService.cs" />
     <Compile Include="Models\CadenaHotelDB.cs" />
     <Compile Include="Models\Compras y Ventas\ComprasFacade.cs" />
     <Compile Include="Models\Compras y Ventas\CuentaFacade.cs" />
