@@ -40,7 +40,7 @@ namespace Stardust.Models
             {
                 Proveedores proveedor = new Proveedores();
                 proveedor.ID = Convert.ToString(dataReader["idProveedor"]);
-                proveedor.Nombre = (string)dataReader["nombre"];
+                proveedor.Nombre = (string)dataReader["razonSocial"];
                 listaProveedor.Add(proveedor);
             }
             return listaProveedor;
