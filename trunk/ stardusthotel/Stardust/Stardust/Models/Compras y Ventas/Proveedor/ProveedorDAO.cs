@@ -173,7 +173,7 @@ namespace Stardust.Models
             {
                 if (prod.listProdProv[i].precio>0)
                 {
-                   string commandString = "INSERT INTO ProductoXAlmacen VALUES ('" +
+                   string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
                    idproveedor + "', '" +
                    prod.listProdProv[i].ID + "', '" +
                    prod.listProdProv[i].precio + "', '" +
