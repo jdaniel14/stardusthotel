@@ -24,7 +24,18 @@ namespace Stardust.Controllers
 
         public ActionResult Details(int id)
         {
-            return View( habitacionFac.getHabitacion( id ) );
+            HabitacionBean habitacion = habitacionFac.getHabitacion(id);
+            if (habitacion != null)
+            {
+                ViewBag.Hotel = new HotelFacade().getHotel(habitacion.idHotel).nombre;
+                ViewBag.TipoHabitacion = new TipoHabitacionFacade().getTipo(habitacion.idTipoHabitacion).nombre;
+            }
+            else
+            {
+                ViewBag.Hotel = "";
+                ViewBag.TipoHabitacion = "";
+            }
+            return View(habitacion);
         }
 
         //
@@ -32,6 +43,8 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.listaHoteles = new HotelFacade().getHoteles();
+            ViewBag.listaTipoHabitacion = new List<TipoHabitacionBean>();
             return View();
         } 
 
@@ -41,8 +54,25 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create( HabitacionBean habitacion )
         {
-            habitacionFac.registrarHabitacion(habitacion);
-            return RedirectToAction("List");
+            //habitacion.estado = "ACTIVO"; //Cuando se crea una habitación, automáticamente se pone como ACTIVA
+            if (ModelState.IsValid)
+            {
+                
+                habitacionFac.registrarHabitacion(habitacion);
+                return RedirectToAction("List");
+            }
+            else if (habitacion.idHotel != 0)
+            {
+                ViewBag.listaHoteles = new HotelFacade().getHoteles();
+                ViewBag.listaTipoHabitacion = new TipoHabitacionFacade().getTipoHabitacionXHotel(habitacion.idHotel);
+                return View();
+            }
+            else
+            {
+                ViewBag.listaHoteles = new HotelFacade().getHoteles();
+                ViewBag.listaTipoHabitacion = new List<TipoHabitacionBean>();
+                return View();
+            }
         }
         
         //
@@ -82,7 +112,12 @@ namespace Stardust.Controllers
         }
 
         public ActionResult List() {
-            return View(habitacionFac.listarHabitaciones());
+            List<HabitacionBean> lstHabitaciones = habitacionFac.listarHabitaciones();
+            if (lstHabitaciones == null)
+            {
+                lstHabitaciones = new List<HabitacionBean>();
+            }
+            return View(lstHabitaciones);
         }
     }
 }
