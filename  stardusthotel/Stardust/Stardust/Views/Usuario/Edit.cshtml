@@ -1,0 +1,94 @@
+﻿@model Stardust.Models.UsuarioBean
+
+@{
+    ViewBag.Title = "Modificar usuario";
+}
+
+<h2>Modificar usuario</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" } ))
+{
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title" ><h6> Modificar usuario </h6></div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idPerfilUsuario )
+                <div class = "formRight" > @Html.DropDownListFor( model => model.idPerfilUsuario , new SelectList( ViewBag.perfiles , "ID" , "nombre" , Model.idPerfilUsuario ) , "Elije un perfil..." ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.user_account )
+                <div class = "formRight" > @Html.DisplayFor( model => model.user_account ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.pass )
+                <div class = "formRight" > @Html.DisplayFor( model => model.pass ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.nombres )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.nombres ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.apPat )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.apPat ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.apMat )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.apMat ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.email )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.email ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.celular )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.celular ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.tipoDocumento )
+                <div class = "formRight" > @Html.DropDownListFor( model => model.tipoDocumento , new SelectList( ViewBag.documentos , "nombre" , "nombre") , "Elije un tipo de documento..." ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.nroDocumento )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.nroDocumento ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.razonSocial )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.razonSocial ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+        </div>
+        <p>
+            <input class = "redB" type="submit" value="Guardar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
