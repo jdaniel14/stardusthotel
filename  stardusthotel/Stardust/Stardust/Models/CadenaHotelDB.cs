@@ -10,7 +10,6 @@ namespace Stardust.Models
 {
     public class CadenaHotelDB : DbContext
     {
-        public DbSet<Usuario> Usuario { get; set; }
         public DbSet<ProductoBean> Producto { get; set; }
         public DbSet<ProveedorBean> Proveedor { get; set; }
         public DbSet<ClienteBean> Cliente { get;  set; }
@@ -30,5 +29,7 @@ namespace Stardust.Models
         public DbSet<HotelBean> HotelBean { get; set; }
 
         public DbSet<EmpleadoBean> EmpleadoBean { get; set; }
+
+        public DbSet<UsuarioBean> UsuarioBean { get; set; }
     }
 }

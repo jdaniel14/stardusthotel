@@ -21,7 +21,7 @@
 
             <div class = "formRow" >
                 @Html.LabelFor(model => model.idTipoHabitacion)
-                <div class = "formRight" >@Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(ViewBag.tipos, "ID", "nombre"), "Elija un tipo de habitación...")</div>
+                <div class = "formRight" >@Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(ViewBag.tipos, "ID", "nombre" ), "Elija un tipo de habitación..." )</div>
                 <div class = "clear" ></div>
             </div>
 
