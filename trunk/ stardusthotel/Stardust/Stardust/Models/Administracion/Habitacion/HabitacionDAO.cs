@@ -56,66 +56,97 @@ namespace Stardust.Models
         }
 
         public void registrarHabitacion(HabitacionBean habitacion) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
 
-            sql.Open();
-            
-                int idHotel = habitacion.idHotel ;
-                int idTipoHabitacion = habitacion.idTipoHabitacion ;
-                int apto = (habitacion.aptoFumador ? 1 : 0);
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
 
-                String command = "Insert into Habitacion ( piso , estado , nroBanos , aptoFumador , nroCamas , idHotel , idTipoHabitacion ) values (" +
-                                    habitacion.piso + ", '" +
-                                    habitacion.estado + "', " +
-                                    habitacion.nroBanos + ", " +
-                                    apto + ", " +
-                                    habitacion.nroCamas + ", " +
-                                    idHotel + ", " +
-                                    idTipoHabitacion + ")";
-            
-                SqlCommand query = new SqlCommand(command, sql);
+                String strQuery = "INSERT INTO Habitacion " +
+                                    "( piso , estado , nroBanos , aptoFumador , nroCamas , idHotel , idTipoHabitacion ) " +
+                                    "VALUES (@piso, @estado, @nroBanos, @aptoFumador, @nroCamas, @idHotel, @idTipoHabitacion)";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "piso", habitacion.piso);
+                DAO.agregarParametro(objQuery, "estado", habitacion.estado);
+                DAO.agregarParametro(objQuery, "nroBanos", habitacion.nroBanos);
+                DAO.agregarParametro(objQuery, "aptoFumador", (habitacion.aptoFumador ? 1 : 0));
+                DAO.agregarParametro(objQuery, "nroCamas", habitacion.nroCamas);
+                DAO.agregarParametro(objQuery, "idHotel", habitacion.idHotel);
+                DAO.agregarParametro(objQuery, "idTipoHabitacion", habitacion.idTipoHabitacion);
 
-                query.ExecuteNonQuery();
-
-            sql.Close();
+                objQuery.ExecuteNonQuery();
+                objDB.Close();
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
         public void actualizarHabitacion(HabitacionBean habitacion) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
 
-            sql.Open();
+                
 
-                int idHotel = habitacion.idHotel;
-                int idTipoHabitacion = habitacion.idTipoHabitacion;
+                String strQuery = "UPDATE Habitacion SET " +
+                                    "piso = @piso," +
+                                    "estado = @estado," +
+                                    "nroBanos = @nroBanos," +
+                                    "nroCamas = @nroCamas," +
+                                    "aptoFumador = @aptoFumador," +
+                                    "idHotel = @idHotel," +
+                                    "idTipoHabitacion = @idTipoHabitacion " +
+                                    "WHERE idHabitacion = @idHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "piso", habitacion.piso);
+                DAO.agregarParametro(objQuery, "estado", habitacion.estado);
+                DAO.agregarParametro(objQuery, "nroBanos", habitacion.nroBanos);
+                DAO.agregarParametro(objQuery, "nroCamas", habitacion.nroCamas);
+                DAO.agregarParametro(objQuery, "aptoFumador", (habitacion.aptoFumador ? 1 : 0));
+                DAO.agregarParametro(objQuery, "idHotel", habitacion.idHotel);
+                DAO.agregarParametro(objQuery, "idTipoHabitacion", habitacion.idTipoHabitacion);
+                DAO.agregarParametro(objQuery, "idHabitacion", habitacion.ID);
 
-                String command = "UPDATE Habitacion SET " +
-                                    "piso = " + habitacion.piso + ", " + 
-                                    "estado = '" + habitacion.estado + "', " +
-                                    "nroBanos = " + habitacion.nroBanos + ", " +
-                                    "aptoFumador = " + habitacion.nroCamas + ", " +
-                                    "idHotel = " + idHotel + ", " +
-                                    "idTipoHabitacion = " + idTipoHabitacion +
-                                    " where idHabitacion = " + habitacion.ID  ;
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                query.ExecuteNonQuery();
-
-            sql.Close();
+                objQuery.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
         public void eliminarHabitacion(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
 
-            sql.Open();
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
 
-                String command = "Delete from Habitacion where idHabitacion = " + id;
+                String strQuery = "DELETE FROM Habitacion where idHabitacion = @idHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "idHabitacion", id);
 
-                SqlCommand query = new SqlCommand(command, sql);
-
-                query.ExecuteNonQuery();
-
-            sql.Close();
+                objQuery.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
         public List<HabitacionBean> listarHabitaciones() {
@@ -167,86 +198,86 @@ namespace Stardust.Models
             }
         }
 
-        public String getNombreHotel(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //public String getNombreHotel(int id) {
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select nombre from Hotel where idHotel = " + id;
+        //        String command = "Select nombre from Hotel where idHotel = " + id;
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                String hotel = (string)data.GetValue(0);
+        //        String hotel = (string)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return hotel;
-        }
+        //    return hotel;
+        //}
 
-        public String getTipoHabitacion(int id) {
+        //public String getTipoHabitacion(int id) {
 
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select nombre from TipoHabitacion where idTipoHabitacion = " + id;
+        //        String command = "Select nombre from TipoHabitacion where idTipoHabitacion = " + id;
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                String tipoHabitacion = (string)data.GetValue(0);
+        //        String tipoHabitacion = (string)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return tipoHabitacion;
-        }
+        //    return tipoHabitacion;
+        //}
 
-        public int getIdHotel(String nombre) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //public int getIdHotel(String nombre) {
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select idHotel from Hotel where nombre = '" + nombre  + "'" ;
+        //        String command = "Select idHotel from Hotel where nombre = '" + nombre  + "'" ;
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                int idHotel = (int)data.GetValue(0);
+        //        int idHotel = (int)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return idHotel;
-        }
+        //    return idHotel;
+        //}
 
-        public int getIdTipoHabitacion(String nombre)
-        {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //public int getIdTipoHabitacion(String nombre)
+        //{
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select idTipoHabitacion from TipoHabitacion where nombre = '" + nombre + "'" ;
+        //        String command = "Select idTipoHabitacion from TipoHabitacion where nombre = '" + nombre + "'" ;
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                int idTipoHabitacion = (int)data.GetValue(0);
+        //        int idTipoHabitacion = (int)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return idTipoHabitacion;
-        }
+        //    return idTipoHabitacion;
+        //}
     }
 }
