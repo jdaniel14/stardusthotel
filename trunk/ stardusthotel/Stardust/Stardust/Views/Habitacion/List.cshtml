@@ -23,8 +23,8 @@
     <tbody>
     @foreach (var item in Model) {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.hotel )</td>
-            <td>@Html.DisplayFor(modelItem => item.tipoHabitacion )</td>
+            <td>@Html.DisplayFor(modelItem => item.nombreHotel )</td>
+            <td>@Html.DisplayFor(modelItem => item.nombreTipoHabitacion )</td>
             <td>@Html.DisplayFor(modelItem => item.piso )</td>
             <td>
                 <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 

@@ -4,55 +4,72 @@
     ViewBag.Title = "Crear habitación";
 }
 
-<h2>Crear habitación</h2>
+<h2>@ViewBag.Title</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+
 
 @using (Html.BeginForm("Create", "Habitacion", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
-    @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6> Crear Habitación </h6></div>
+            <div class = "title" ><h6>@ViewBag.Title</h6></div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.hotel)<span class="req">*</span>
-                <div class = "formRight" > @Html.TextBoxFor(model => model.hotel, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Hotel" }) </div>
+                @Html.LabelFor(model => model.idHotel)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idHotel, new SelectList(ViewBag.listaHoteles, "ID", "nombre"), "..Elija un Hotel", new { onchange = "this.form.submit();" })
+                    @Html.ValidationMessageFor(model => model.idHotel)
+                </div>
                 <div class = "clear" ></div>
             </div>
             
             <div class = "formRow" >
-                @Html.LabelFor(model => model.piso)<span class="req">*</span>
-                <div class = "formRight" > @Html.TextBoxFor(model => model.piso, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "4", placeholder = "" }) </div>
+                @Html.LabelFor(model => model.idTipoHabitacion)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(ViewBag.listaTipoHabitacion, "ID", "nombre"), "..Elija un Tipo de Habitación")
+                    @Html.ValidationMessageFor(model => model.idTipoHabitacion)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.estado)<span class="req">*</span>
-                <div class = "formRight" > @Html.TextBoxFor(model => model.estado, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "" }) </div>
+                @Html.LabelFor(model => model.piso)
+                <div class = "formRight" > 
+                    @Html.TextBoxFor(model => model.piso) 
+                    @Html.ValidationMessageFor(model => model.piso)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+            
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nroBanos)
+                <div class = "formRight" > 
+                    @Html.TextBoxFor(model => model.nroBanos)
+                    @Html.ValidationMessageFor(model => model.nroBanos)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.nroBanos)<span class="req">*</span>
-                <div class = "formRight" > @Html.TextBoxFor(model => model.nroBanos, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "4", placeholder = "" }) </div>
+                @Html.LabelFor(model => model.nroCamas)
+                <div class = "formRight" > 
+                    @Html.TextBoxFor(model => model.nroCamas)
+                    @Html.ValidationMessageFor(model => model.nroCamas)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.nroCamas)<span class="req">*</span>
-                <div class = "formRight" > @Html.TextBoxFor(model => model.nroCamas, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "4", placeholder = "" }) </div>
+                @Html.LabelFor(model => model.estado)
+                <div class = "formRight" > 
+                    @Html.TextBoxFor(model => model.estado, new {value = "ACTIVO", disabled = "disabled"})
+                    @Html.ValidationMessageFor(model => model.nroCamas)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
-            <div class = "formRow" >
-                @Html.LabelFor(model => model.tipoHabitacion)<span class="req">*</span>
-                <div class = "formRight" > @Html.TextBoxFor(model => model.tipoHabitacion, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Tipo de Habitación" }) </div>
-                <div class = "clear" ></div>
-            </div>
         </div>
         <p>
             <input class = "redB" type="submit" value="Crear" />
