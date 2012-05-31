@@ -37,7 +37,6 @@ namespace Stardust.Models
         /*productos a proveedor*/
         public void AsignarProductosxProveedor(int idprove, ProductoxProveedorBean prod)
         {
-
             proveedorDAO.InsertarProveedorxProducto(idprove, prod);
         }
         public ProductoxProveedorBean obtenerlista(int idproveedor)
@@ -47,7 +46,9 @@ namespace Stardust.Models
         public void ModificarproductosxProveedor(int idprove, ProductoxProveedorBean prod)
         {
             proveedorDAO.ActualizarproductosxProveedor(idprove, prod);
-
         }
+
+        /*Pago a proveedor*/
+
     }
 }
