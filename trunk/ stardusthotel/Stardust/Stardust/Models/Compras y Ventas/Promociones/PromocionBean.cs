@@ -121,6 +121,10 @@ namespace Stardust.Models
         public SelectList hotelList { get; set; }
         public SelectList tipoList { get; set; }
 
+        public PromocionBean()
+        {
+        }
+
         public PromocionBean(int i)
         {
             if (i == 1)
