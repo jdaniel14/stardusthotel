@@ -8,6 +8,7 @@ namespace Stardust.Models
     public class OrdenProducto
     {
         public string proveedor { get; set; }
+        public int id { get; set; }
         public List<Producto> listaProducto { get; set; }
     }
 }
