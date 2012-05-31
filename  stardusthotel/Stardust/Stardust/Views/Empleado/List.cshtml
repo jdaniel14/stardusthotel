@@ -15,7 +15,6 @@
         <tr>
             <td>Nombre</td>
             <td>Fecha de Ingreso</td>
-            <td>Fecha de Salida</td>
             <td>Estado</td>
             <td></td>
         </tr>
@@ -26,7 +25,7 @@
         <tr>
             <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
             <td>@Html.DisplayFor(modelItem => item.fechaIngreso )</td>
-            <td>@Html.DisplayFor(modelItem => item.fechaSalida )</td>
+            @*<td>@Html.DisplayFor(modelItem => item.fechaSalida )</td>*@
             <td>@Html.DisplayFor(modelItem => item.estado )</td>
             <td>
                 <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 

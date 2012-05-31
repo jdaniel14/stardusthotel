@@ -1,33 +1,35 @@
 ﻿@model Stardust.Models.EmpleadoBean
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar empleado";
 }
 
-<h2>Delete</h2>
+<h2>Eliminar Empleado</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Seguro de querer eliminar este empleado?</h3>
+
 <fieldset>
-    <legend>EmpleadoBean</legend>
+    <div class = "widget" >
+        <div class = "title"><h6>Detalles del empleado</h6></div>
 
-    <div class="display-label">fechaIngreso</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fechaIngreso)
-    </div>
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreEmpleado)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreEmpleado)</div>
+            <div class = "clear" ></div>
+        </div>
 
-    <div class="display-label">fechaSalida</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.fechaSalida)
-    </div>
-
-    <div class="display-label">estado</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.estado)
+        <div class="formRow">
+            @Html.LabelFor(model => model.fechaIngreso)
+            <div class = "formRight" >@Html.DisplayFor(model => model.fechaIngreso)</div>
+            <div class = "clear" ></div>
+        </div>
     </div>
 </fieldset>
-@using (Html.BeginForm()) {
+
+@using (Html.BeginForm("Delete", "Empleado", FormMethod.Post, new { @class = "form" }))
+{
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <input class = "redB" type="submit" value = "Borrar" /> |
+        @Html.ActionLink("Regresar", "List")
     </p>
 }

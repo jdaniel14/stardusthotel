@@ -35,7 +35,8 @@ namespace Stardust.Controllers.Administracion
 
         public ActionResult Create()
         {
-            // <--------------------------------------------- NO DEBE EXISTIR ESTA OPCION
+            UsuarioFacade usuarioFac = new UsuarioFacade();
+            ViewBag.empleados = usuarioFac.listarUsuarios();
             return View();
         } 
 

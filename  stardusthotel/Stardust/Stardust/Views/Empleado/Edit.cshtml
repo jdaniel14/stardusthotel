@@ -1,51 +1,52 @@
 ﻿@model Stardust.Models.EmpleadoBean
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Modificar empleado";
 }
 
-<h2>Edit</h2>
+<h2>Modificar empleado</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+@using (Html.BeginForm("Edit", "Empleado", FormMethod.Post, new { @class = "form" } ))
+{
+    @Html.ValidationSummary(false)
     <fieldset>
-        <legend>EmpleadoBean</legend>
+        <div class = "widget" >
+            <div class = "title" ><h6> Modificar empleado </h6></div>
 
-        @Html.HiddenFor(model => model.ID)
+            @*<div class = "formRow" >
+                @Html.LabelFor( model => model.nombreEmpleado )
+                <div class = "formRight" > @Html.DropDownListFor( model => model.nombreEmpleado , new SelectList( ViewBag.empleados , "ID" , "nombres" ) , "Elija un usuario... " ) </div>
+                <div class = "clear" ></div>
+            </div>*@
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.fechaIngreso)
-        </div>
-        <div class="editor-field">
-            @Html.DisplayFor(model => model.fechaIngreso)
-            @Html.ValidationMessageFor(model => model.fechaIngreso)
-        </div>
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.nombreEmpleado )
+                <div class = "formRight" > @Html.DisplayFor( model => model.nombreEmpleado ) </div>
+                <div class = "clear" ></div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.fechaSalida)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.fechaSalida)
-            @Html.ValidationMessageFor(model => model.fechaSalida)
-        </div>
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.fechaIngreso )
+                <div class = "formRight" > @Html.DisplayFor( model => model.fechaIngreso ) </div>
+                <div class = "clear" ></div>
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.estado)
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.estado )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.estado ) </div>
+                <div class = "clear" ></div>
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.estado)
-            @Html.ValidationMessageFor(model => model.estado)
-        </div>
-
         <p>
-            <input type="submit" value="Save" />
+            <input class = "redB" type="submit" value="Guardar" />
         </p>
     </fieldset>
 }
 
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Regresar", "List")
 </div>
