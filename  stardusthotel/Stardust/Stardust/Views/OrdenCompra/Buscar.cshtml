@@ -21,7 +21,7 @@
 
 
 
-@using (Html.BeginForm("Buscar", "Producto", FormMethod.Post, new { @class = "form", id = "validate" }))
+@using (Html.BeginForm("Buscar2", "OrdenCompra", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
     @Html.ValidationSummary(false)
     <fieldset>
@@ -36,13 +36,13 @@
             <div class="formRow">
                 <label>Fecha Inicio</label>
                 <div class = "formRight" >
-                    <input type = "text" id = "fecha1"  class="datepicker" /></div>
+                    <input type = "text" id = "fecha1" name = "fecha1" class="datepicker" /></div>
                 <div class = "clear" ></div>
             </div>
             <div class="formRow">
                 <label>Fecha Fin</label>
                 <div class = "formRight" >
-                    <input type = "text" id = "fecha2" name = "nombre" class="datepicker"/></div>
+                    <input type = "text" id = "fecha2" name = "fecha2" class="datepicker"/></div>
                 <div class = "clear" ></div>
             </div>
 
