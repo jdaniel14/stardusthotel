@@ -98,6 +98,11 @@ namespace Stardust.Controllers
 
         public ActionResult AsignarTipoHabitacion()
         {
+            TipoHabitacionFacade tipoFac = new TipoHabitacionFacade();
+            ViewBag.tipos = tipoFac.listarTipoHabitacion();
+
+            ViewBag.hoteles = hotelFac.listarHoteles();
+
             return View();
         }
 

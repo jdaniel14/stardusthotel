@@ -226,79 +226,76 @@ namespace Stardust.Models
             return idDepartamento;
         }
 
-        public int getIdDistrito(string s , int idProvincia , int idDepartamento) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //public int getIdDistrito(string s , int idProvincia , int idDepartamento) {
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select idDistrito from Distrito where nombre = '" + s + "' and idDepartamento = " + idDepartamento + "and idProvincia = " + idProvincia ;
+        //        String command = "Select idDistrito from Distrito where nombre = '" + s + "' and idDepartamento = " + idDepartamento + "and idProvincia = " + idProvincia ;
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                int idDistrito = (int)data.GetValue(0);
+        //        int idDistrito = (int)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return idDistrito;
-        }
+        //    return idDistrito;
+        //}
 
-        public int getIdProvincia(string s ,int idDepartamento ) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //public int getIdProvincia(string s ,int idDepartamento ) {
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select idProvincia from Provincia where nombre = '" + s + "'and idDepartamento = " + idDepartamento ;
+        //        String command = "Select idProvincia from Provincia where nombre = '" + s + "'and idDepartamento = " + idDepartamento ;
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                int idProvincia = (int)data.GetValue(0);
+        //        int idProvincia = (int)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return idProvincia;
-        }
+        //    return idProvincia;
+        //}
 
-        public int getIdDepartamento(string s) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        //public int getIdDepartamento(string s) {
+        //    SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+        //    sql.Open();
 
-                String command = "Select idDepartamento from Departamento where nombre = '" + s + "'";
+        //        String command = "Select idDepartamento from Departamento where nombre = '" + s + "'";
 
-                SqlCommand query = new SqlCommand(command, sql);
+        //        SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+        //        SqlDataReader data = query.ExecuteReader();
 
-                data.Read();
+        //        data.Read();
 
-                int idDepartamento = (int)data.GetValue(0);
+        //        int idDepartamento = (int)data.GetValue(0);
 
-            sql.Close();
+        //    sql.Close();
 
-            return idDepartamento ;
-        }
+        //    return idDepartamento ;
+        //}
 
         public void registrarTipoHabitacion(TipoHabitacionxHotel tipoHabitacion) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
             sql.Open();
 
-                HabitacionDAO habitacionDAO = new HabitacionDAO() ;
-                int idHotel = habitacionDAO.getIdHotel( tipoHabitacion.hotel ) ;
-                int idTipoHabitacion = habitacionDAO.getIdTipoHabitacion(tipoHabitacion.tipoHabitacion);
-
                 String command = "Insert into TipoHabitacionXHotel ( idHotel , idTipoHabitacion , precioBaseXDia ) values (" +
-                                    idHotel + ", " +
-                                    idTipoHabitacion + ", " +
+                                    tipoHabitacion.idHotel + ", " +
+                                    tipoHabitacion.idTipoHabitacion + ", " +
                                     tipoHabitacion.precioBase + ")";
+
                 SqlCommand query = new SqlCommand(command, sql);
 
                 query.ExecuteNonQuery();
@@ -319,14 +316,14 @@ namespace Stardust.Models
 
                 List<TipoHabitacionxHotel> lista = new List<TipoHabitacionxHotel>();
 
-                HabitacionDAO habitacionDAO = new HabitacionDAO();
+                TipoHabitacionFacade tipoFac = new TipoHabitacionFacade();
+
                 while (data.Read()) {
                     TipoHabitacionxHotel tipo = new TipoHabitacionxHotel();
 
-                    tipo.hotel = habitacionDAO.getNombreHotel((int)data.GetValue(0));
-                    tipo.tipoHabitacion = habitacionDAO.getTipoHabitacion((int)data.GetValue(1));
+                    tipo.nombreTipoHabitacion = tipoFac.getTipo( (int)data.GetValue( 1 ) ).nombre ;
                     tipo.precioBase = (decimal)data.GetValue(2);
-
+                    
                     lista.Add(tipo);
                 }
 

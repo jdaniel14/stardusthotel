@@ -1,0 +1,30 @@
+﻿@model Stardust.Models.EmpleadoBean
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>EmpleadoBean</legend>
+
+    <div class="display-label">fechaIngreso</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fechaIngreso)
+    </div>
+
+    <div class="display-label">fechaSalida</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fechaSalida)
+    </div>
+
+    <div class="display-label">estado</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.estado)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
