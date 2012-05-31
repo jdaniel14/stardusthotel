@@ -179,6 +179,11 @@ namespace Stardust.Controllers
         {            
             return View(proveedorFacade.ObtenerOC(id));
         }
+
+        public ActionResult Pagar(int id)
+        {
+            return View();
+        }
     }
 }
 
