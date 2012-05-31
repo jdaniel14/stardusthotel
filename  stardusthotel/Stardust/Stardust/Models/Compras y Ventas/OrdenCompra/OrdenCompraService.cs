@@ -9,11 +9,15 @@ namespace Stardust.Models
     {
         OrdenCompraDAO ordenCompraDAO = new OrdenCompraDAO();
 
-        public OrdenCompraBean GetProducto(int id)
+        public Producto GetProducto(int id)
         {
             return ordenCompraDAO.GetProducto(id);
         }
 
+        public void GuardarOrdenCompra(OrdenProducto producto)
+        {
+            ordenCompraDAO.GuardarOrdenCompra(producto);
+        }
 
     }
 }

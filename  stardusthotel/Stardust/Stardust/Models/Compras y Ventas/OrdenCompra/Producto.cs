@@ -9,5 +9,10 @@ namespace Stardust.Models
     {
         public string id { get; set; }
         public string Nombre { get; set; }
+        public int cantidad { get; set; }
+        public int stockActual { get; set; }
+        public int stockMinimo { get; set; }
+        public int stockMaximo { get; set; }
+        public decimal precio { get; set; }
     }
 }
