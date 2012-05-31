@@ -53,18 +53,18 @@
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.nroCamas)
+                @Html.LabelFor(model => model.aptoFumador)
                 <div class = "formRight" > 
-                    @Html.TextBoxFor(model => model.nroCamas)
-                    @Html.ValidationMessageFor(model => model.nroCamas)
+                    @Html.EditorFor(model => model.aptoFumador)
+                    @Html.ValidationMessageFor(model => model.aptoFumador)
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.estado)
+                @Html.LabelFor(model => model.nroCamas)
                 <div class = "formRight" > 
-                    @Html.TextBoxFor(model => model.estado, new {value = "ACTIVO", disabled = "disabled"})
+                    @Html.TextBoxFor(model => model.nroCamas)
                     @Html.ValidationMessageFor(model => model.nroCamas)
                 </div>
                 <div class = "clear" ></div>
