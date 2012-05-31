@@ -13,6 +13,11 @@ namespace Stardust.Models
             return hotelDAO.getHotel(id);
         }
 
+        public List<HotelBean> getHoteles()
+        {
+            return hotelDAO.getHoteles();
+        }
+
         public void registrarHotel(HotelBean hotel) {
             hotelDAO.registrarHotel(hotel);
         }

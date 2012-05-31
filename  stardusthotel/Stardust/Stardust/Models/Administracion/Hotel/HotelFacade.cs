@@ -13,6 +13,11 @@ namespace Stardust.Models
             return hotelServ.getHotel( id );
         }
 
+        public List<HotelBean> getHoteles()
+        {
+            return hotelServ.getHoteles();
+        }
+
         public void registrarHotel(HotelBean hotel) {
             hotelServ.registrarHotel(hotel);
         }

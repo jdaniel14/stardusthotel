@@ -46,12 +46,12 @@ namespace Stardust.Models
         public int nroPisos { get; set; }
 
         [Display( Name = "Departamento" ) ]
-        public string departamento { get; set; }
+        public int idDepartamento { get; set; }
         
         [Display( Name = "Provincia" ) ]
-        public string provincia { get; set; }
+        public int idProvincia { get; set; }
 
         [Display( Name = "Distrito") ]
-        public string distrito { get; set; }
+        public int idDistrito { get; set; }
     }
 }

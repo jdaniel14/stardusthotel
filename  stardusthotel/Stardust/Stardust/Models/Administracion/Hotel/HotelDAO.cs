@@ -4,46 +4,102 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Configuration;
+
 
 namespace Stardust.Models
 {
     public class HotelDAO
     {
-        String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         
         public HotelBean getHotel(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
 
-            sql.Open();
+                objDB = new SqlConnection(cadenaDB);
+                HotelBean hotel = null;
 
-                String command = "Select * from Hotel where idHotel = " + id;
-                SqlCommand query = new SqlCommand(command, sql);
+                objDB.Open();
+                String strQuery = "SELECT * FROM Hotel WHERE idHotel = @idHotel";
+                SqlCommand objquery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objquery, "idHotel", id);
 
-                SqlDataReader data = query.ExecuteReader();
+                SqlDataReader objDataReader = objquery.ExecuteReader();
+                if (objDataReader.HasRows)
+                {
+                    objDataReader.Read();
+                    hotel = new HotelBean();
 
-                data.Read();
+                    hotel.ID = (int)objDataReader.GetValue(0);
+                    hotel.nombre = (string)objDataReader.GetValue(1);
+                    hotel.razonSocial = (string)objDataReader.GetValue(2);
+                    hotel.direccion = (string)objDataReader.GetValue(3);
+                    hotel.tlf1 = (string)objDataReader.GetValue(4);
+                    hotel.tlf2 = (string)objDataReader.GetValue(5);
+                    hotel.email = (string)objDataReader.GetValue(6);
+                    hotel.nroPisos = (int)objDataReader.GetValue(7);
+                    hotel.idDistrito = Convert.ToInt32(objDataReader["idDistrito"]);
+                    hotel.idProvincia = Convert.ToInt32(objDataReader["idProvincia"]);
+                    hotel.idDepartamento = Convert.ToInt32(objDataReader["idDepartamento"]);
 
-                HotelBean hotel = new HotelBean();
-                hotel.ID = (int)data.GetValue(0);
-                hotel.nombre = (string)data.GetValue(1);
-                hotel.razonSocial = (string)data.GetValue(2);
-                hotel.direccion = (string)data.GetValue(3);
-                hotel.tlf1 = (string)data.GetValue(4);
-                hotel.tlf2 = (string)data.GetValue(5);
-                hotel.email = (string)data.GetValue(6);
-                hotel.nroPisos = (int)data.GetValue(7);
+                }
+                return hotel;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
 
-                int idDistrito = (int)data.GetValue(8);
-                int idProvincia = (int)data.GetValue(9);
-                int idDepartamento = (int)data.GetValue(10);
+        public List<HotelBean> getHoteles()
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<HotelBean> listaHoteles = null;
 
-                hotel.distrito = this.getNombreDistrito(idDepartamento, idProvincia, idDistrito);
-                hotel.provincia = this.getNombreProvincia(idDepartamento, idProvincia);
-                hotel.departamento = this.getNombreDepartamento(idDepartamento);
+                objDB.Open();
+                String strQuery = "SELECT * FROM Hotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
 
-            sql.Close();
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
 
-            return hotel;
+                if (objDataReader.HasRows)
+                {
+                    listaHoteles = new List<HotelBean>();
+                    while (objDataReader.Read())
+                    {
+                        HotelBean hotel = new HotelBean();
+                        hotel.ID = Convert.ToInt32(objDataReader[0]);
+                        hotel.nombre = Convert.ToString(objDataReader[1]);
+                        hotel.razonSocial = Convert.ToString(objDataReader[2]);
+                        hotel.direccion = Convert.ToString(objDataReader[3]);
+                        hotel.tlf1 = Convert.ToString(objDataReader[4]);
+                        hotel.tlf2 = Convert.ToString(objDataReader[5]);
+                        hotel.email = Convert.ToString(objDataReader[6]);
+                        hotel.direccion = Convert.ToString(objDataReader[7]);
+                        hotel.nroPisos = Convert.ToInt32(objDataReader[8]);
+
+                        listaHoteles.Add(hotel);
+                    }
+                }
+
+                return listaHoteles;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+
         }
 
         public void registrarHotel(HotelBean hotel) {
@@ -154,9 +210,9 @@ namespace Stardust.Models
                     int idProvincia = (int)data.GetValue(9);
                     int idDepartamento = (int)data.GetValue(10);
 
-                    hotel.distrito = this.getNombreDistrito(idDepartamento, idProvincia, idDistrito);
-                    hotel.provincia = this.getNombreProvincia(idDepartamento, idProvincia);
-                    hotel.departamento = this.getNombreDepartamento(idDepartamento);
+                    //hotel.idDistrito = this.getNombreDistrito(idDepartamento, idProvincia, idDistrito);
+                    //hotel.idProvincia = this.getNombreProvincia(idDepartamento, idProvincia);
+                    //hotel.idDepartamento = this.getNombreDepartamento(idDepartamento);
 
                     lista.Add(hotel);
                 }
