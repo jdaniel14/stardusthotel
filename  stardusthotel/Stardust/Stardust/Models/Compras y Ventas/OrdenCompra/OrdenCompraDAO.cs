@@ -62,8 +62,9 @@ namespace Stardust.Models
             sqlCmd.ExecuteNonQuery();
 
             commandString = "SELECT * FROM OrdenCompra";
-            sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
 
             int id = 0;
 
@@ -72,14 +73,23 @@ namespace Stardust.Models
                 id = (int)dataReader["idOrdenCompra"];
             }
 
+            sqlCon.Close();
+
+            String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+            sqlCon2.Open();
+
             for (int i = 0; i < producto.listaProducto.Count; i++)
             {
                 Producto prod = producto.listaProducto.ElementAt(i);
                 prod.precio = (prod.precio * prod.cantidad);
                 commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ prod.precio +" )";
+                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
+                sqlCmd3.ExecuteNonQuery();
             }
 
-            sqlCon.Close();
+            sqlCon2.Close();
         }
 
     }
