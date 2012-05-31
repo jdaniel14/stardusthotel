@@ -18,18 +18,17 @@
             <div class = "title" ><h6>@ViewBag.Title</h6></div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.horasEsperaConfirmarReserva)<span class="req">*</span>
+                @Html.LabelFor(model => model.horasEsperaConfirmarReserva)
                 <div class = "formRight" > 
                     @*@Html.TextBoxFor(model => model.horasEsperaConfirmarReserva, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid"})*@
                     @Html.TextBoxFor(model => model.horasEsperaConfirmarReserva)
-                    
                     @Html.ValidationMessageFor(model => model.horasEsperaConfirmarReserva)
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.porcAdelanto)<span class="req">*</span>
+                @Html.LabelFor(model => model.porcAdelanto)
                 <div class = "formRight" > 
                     @*@Html.TextBoxFor(model => model.porcAdelanto, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3" }) </div>*@
                     @Html.TextBoxFor(model => model.porcAdelanto)
@@ -39,7 +38,7 @@
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.diasEsperarSinRetener)<span class="req">*</span>
+                @Html.LabelFor(model => model.diasEsperarSinRetener)
                 <div class = "formRight" > 
                     @*@Html.TextBoxFor(model => model.diasEsperarSinRetener, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "1"}) *@
                     @Html.TextBoxFor(model => model.diasEsperarSinRetener)
@@ -49,7 +48,7 @@
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.porcRetencion)<span class="req">*</span>
+                @Html.LabelFor(model => model.porcRetencion)
                 <div class = "formRight" > 
                     @*@Html.TextBoxFor(model => model.porcRetencion, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3" }) *@
                     @Html.TextBoxFor(model => model.porcRetencion) 

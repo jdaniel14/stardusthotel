@@ -4,18 +4,24 @@
     ViewBag.Title = "Detalle de habitación";
 }
 
-<h2>Detalle de habitación</h2>
+<h2>@ViewBag.Title</h2>
 
 <fieldset>
     <div class = "widget" >
-        <div class = "title" ><h6> Detalle de habitación </h6></div>
+        <div class = "title" ><h6>@ViewBag.Title</h6></div>
 
         <div class = "formRow" >
-            @Html.LabelFor(model => model.hotel )
-            <div class = "formRight" > @Html.DisplayFor(model => model.hotel) </div>
+            @Html.LabelFor(model => model.idHotel )
+            <div class = "formRight" > @ViewBag.Hotel </div>
             <div class = "clear" ></div>
         </div>
-            
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.idTipoHabitacion )
+            <div class = "formRight" > @ViewBag.TipoHabitacion </div>
+            <div class = "clear" ></div>
+        </div>
+
         <div class = "formRow" >
             @Html.LabelFor(model => model.piso )
             <div class = "formRight" > @Html.DisplayFor(model => model.piso) </div>
@@ -40,17 +46,11 @@
             <div class = "clear" ></div>
         </div>
 
-        <div class = "formRow" >
-            @Html.LabelFor(model => model.tipoHabitacion )
-            <div class = "formRight" > @Html.DisplayFor(model => model.tipoHabitacion) </div>
-            <div class = "clear" ></div>
-        </div>
+        
     </div>
 </fieldset>
 
-@using( @Html.BeginForm( "Edit" , "Habitacion" , FormMethod.Post , new { @class = "form" } ) ){
-    <p>
-        <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
-        @Html.ActionLink("Regresar", "List")
-    </p>
-}
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+    @Html.ActionLink("Regresar", "List")
+</p>

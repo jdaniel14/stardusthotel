@@ -90,7 +90,16 @@
                 <ul class="sub">
                     <li><a href = "../TipoHabitacion/Index" title="">Administrar tipo habitación</a></li>
                     <li><a href="../Hotel/Index" title="">Administrar hotel</a></li>
-                    <li><a href = "../Habitacion/Index" title="">Administrar habitación</a></li>
+
+                    <li class="forms"><a href="#" title="" class="exp"><span>Habitaciones<strong>2</strong></span></a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Registrar Habitacion","Create","Habitacion")</li>
+                            <li class="last">@Html.ActionLink("Listar Habitacion","List","Habitacion")</li>
+                        </ul>
+                    </li>
+
+                    
+                    
                     @*<li><a href="" title="">Buscar hotel</a></li>*@
                     
                 </ul>
