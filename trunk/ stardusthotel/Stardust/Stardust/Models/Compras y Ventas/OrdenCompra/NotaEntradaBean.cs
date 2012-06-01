@@ -7,11 +7,15 @@ namespace Stardust.Models
 {
     public class NotaEntradaBean
     {
-        int idordencompra { get; set; }
+        public int idordencompra { get; set; }
 
-        string nombreproveedor { get; set; }
-        
-        int idproveedor { get; set; }
-        List<Notaentrada> notas { get; set; }
+        public   string nombreproveedor { get; set; }
+        public string estado { get; set; } 
+        public string fechaemitida{get;set;}
+        public int idproveedor { get; set; }
+        public decimal preciototal { get; set; }
+        public List<Notaentrada> detallenotaentrada { get; set; }
+
+
     }
 }

@@ -7,7 +7,7 @@ namespace Stardust.Models
 {
     public class Notaentrada:ProductoBean
     {
-        int cantidadrecibida { get; set; }
+        public int cantidadrecibida { get; set; }
 
     }
 }
