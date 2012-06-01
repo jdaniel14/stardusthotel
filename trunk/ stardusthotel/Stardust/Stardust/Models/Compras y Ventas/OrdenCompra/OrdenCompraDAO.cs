@@ -94,33 +94,64 @@ namespace Stardust.Models
 
         public List<OrdenCompraBean> getlista(string nombre, string fecha1, string fecha2)
         {
-            List<OrdenCompraBean> orden;
-            
+
+
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM OrdenCompra WHERE = ";
 
+            string comand2;//="SELECT * FROM Proveedor WHERE UPPER(razonSocial) LIKE "+ 
             bool result1 = String.IsNullOrEmpty(nombre);
             bool result2 = String.IsNullOrEmpty(fecha1);
             bool result3 = String.IsNullOrEmpty(fecha2);
 
+            int idproveedor = 0;
             if (!result1)
-                commandString = commandString + " AND UPPER(razonSocial) LIKE '%" + nombre.ToUpper() + "%'";
+            {//saca el id del proveedor
+                comand2 = "SELECT * FROM Proveedor WHERE  UPPER(razonSocial) LIKE '%" + nombre.ToUpper() + "%'";
 
-            if (!result2)
-                commandString = commandString + " AND UPPER(fecha) LIKE '%" + fecha1.ToUpper() + "%'";
-
-           
-
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
+                SqlCommand sqlCmd = new SqlCommand(comand2, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    idproveedor = (int)dataReader["idProveedor"];
+                }
 
 
-            orden = new List<OrdenCompraBean>();
+            }
+
+            sqlCon.Close();
+
+            // if (!result2)  commandString = commandString + " AND UPPER(fecha) LIKE '%" + fecha1.ToUpper() + "%'";
+            String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+            sqlCon2.Open();
+
+            string commandString = "SELECT * FROM OrdenCompra WHERE idProveedor = " + idproveedor;
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon2);
+            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+            List<OrdenCompraBean> orden = new List<OrdenCompraBean>();
+            while (dataReader2.Read())
+            {
+                OrdenCompraBean ord = new OrdenCompraBean();
+                ord.nombreproveedor = nombre;
+                ord.idproveedor = (int)dataReader2["idProveedor"];
+                ord.estado = (string)dataReader2["estado"];
+                ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
+                ord.fecha = Convert.ToString(dataReader2["fechaPedido"]);
+                ord.preciototal = (decimal)dataReader2["preciototal"];
+
+                orden.Add(ord);
+                //idproveedor = (int)dataReader2["idProveedor"];
+            }
+
+            sqlCon2.Close();
+            //orden = new List<OrdenCompraBean>();
             return orden;
 
         }

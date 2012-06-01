@@ -37,6 +37,11 @@ namespace Stardust.Models
         [Display(Name = "Fecha")]
         public string fecha { get; set; }
 
+        [Display(Name = "Precio Total")]
+        public decimal preciototal { get; set; }
+
+        List<DetalleOrdenCompra> detalles { get; set; }
+
         public IEnumerable<Proveedor> getProveedor() 
         {
             List<Proveedor> listaProveedor = new List<Proveedor>();
