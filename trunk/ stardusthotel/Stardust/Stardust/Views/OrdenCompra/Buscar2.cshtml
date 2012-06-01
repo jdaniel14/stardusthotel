@@ -57,8 +57,8 @@
             <td>@Html.DisplayFor(modelItem => item.preciototal)</td>
             <td>@Html.DisplayFor(modelItem => item.estado)</td>
             <td>
-                <a href="@Url.Action("Detalle", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Detalle </a> | 
-                <a href="@Url.Action("Modificar", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Modificar</a>|
+                <a href="@Url.Action("DetalleOrdenC", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Detalle </a> | 
+                <a href="@Url.Action("ModificarOrdenC", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Modificar</a>|
                 <a href="@Url.Action("RegistrarNotaEntrada", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Registrar Nota entrada</a>
                
             </td>
