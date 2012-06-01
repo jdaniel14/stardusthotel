@@ -91,8 +91,29 @@ namespace Stardust.Controllers
             comprasFacade.GuardarOrdenCompra(producto);
             return RedirectToAction("Buscar");
         }
+
+        public ActionResult DetalleOrdenC(int id) 
+        {
+            return View();
+        }
+
+        public ActionResult ModificarOrdenC(int id)
+        {
+            return View();
+        }
         /*--------Notas de Entrada----------*/
 
+        public ActionResult RegistrarNotaEntrada(int id)
+        {
+            return View();
+        }
 
+        public ActionResult BuscarNotaE(string proveedor)
+        {
+            return View();
+
+        }
+
+        
     }
 }
