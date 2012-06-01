@@ -163,7 +163,7 @@ namespace Stardust.Models
 
         public NotaEntradaBean RegistrarNotaEntrada(int idordencompra)
         {
-            NotaEntradaBean orden;// = new NotaEntradaBean();
+            // = new NotaEntradaBean();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -175,21 +175,44 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            
+            NotaEntradaBean orden= new NotaEntradaBean();
             while (dataReader.Read())
             {
-                
-                //OrdenCompraBean ord = new OrdenCompraBean();
-                //ord.nombreproveedor = nombre;
-                //ord.idproveedor = (int)dataReader2["idProveedor"];
-                //ord.estado = (string)dataReader2["estado"];
-                //ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
-                //ord.fecha = Convert.ToString(dataReader2["fechaPedido"]);
-                //ord.preciototal = (decimal)dataReader2["preciototal"];
+                orden.idproveedor = idordencompra;
+                orden.estado = (string)dataReader["estado"];
+                orden.fechaemitida = Convert.ToString(dataReader["fechaPedido"]);
+                orden.preciototal = (decimal)dataReader["preciototal"];
 
-                //orden.Add(ord);
+            }
+
+            sqlCon.Close();
+
+            String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+            sqlCon2.Open();
+
+            string commandString2 = "SELECT * FROM OrdenCompra WHERE idProveedor = " ;
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon2);
+            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+            List<OrdenCompraBean> orden2 = new List<OrdenCompraBean>();
+            while (dataReader2.Read())
+            {
+                OrdenCompraBean ord = new OrdenCompraBean();
+                //ord.nombreproveedor = nombre;
+                ord.idproveedor = (int)dataReader2["idProveedor"];
+                ord.estado = (string)dataReader2["estado"];
+                ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
+                ord.fecha = Convert.ToString(dataReader2["fechaPedido"]);
+                ord.preciototal = (decimal)dataReader2["preciototal"];
+
+                orden.Add(ord);
                 //idproveedor = (int)dataReader2["idProveedor"];
             }
+
+            sqlCon2.Close();
 
 
             return (orden);
