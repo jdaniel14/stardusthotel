@@ -104,11 +104,16 @@
     <Compile Include="Models\Administracion\Habitacion\HabitacionDAO.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionFacade.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionService.cs" />
+    <Compile Include="Models\Administracion\HorarioEmpleado\DetalleHorario.cs" />
+    <Compile Include="Models\Administracion\HorarioEmpleado\HorarioEmpleadoBean.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelBean.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelDAO.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelFacade.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelService.cs" />
     <Compile Include="Models\Administracion\Hotel\TipoHabitacionxHotel.cs" />
+    <Compile Include="Models\Administracion\Ubigeo\Departamento.cs" />
+    <Compile Include="Models\Administracion\Ubigeo\Distrito.cs" />
+    <Compile Include="Models\Administracion\Ubigeo\Provincia.cs" />
     <Compile Include="Models\Administracion\Usuario\UsuarioBean.cs" />
     <Compile Include="Models\Administracion\Usuario\UsuarioDAO.cs" />
     <Compile Include="Models\Administracion\Usuario\UsuarioFacade.cs" />
@@ -163,6 +168,7 @@
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosService.cs" />
+    <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4346,7 +4352,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57406</DevelopmentServerPort>
+          <DevelopmentServerPort>53053</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -82,6 +82,30 @@
                 <div class = "clear" ></div>
             </div>
 
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idDepartamento )
+                <div class = "formRight" > @Html.DropDownListFor(model => model.idDepartamento, new SelectList(ViewBag.departamentos, "ID", "nombre"), "Elije un departamento...", new { onchange = "this.form.submit();" } ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idProvincia )
+                <div class = "formRight" > @Html.DropDownListFor(model => model.idProvincia, new SelectList(ViewBag.provincias, "ID", "nombre"), "Elije una provincia...", new { onchange = "this.form.submit();" } ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idDistrito )
+                <div class = "formRight" > @Html.DropDownListFor(model => model.idDistrito, new SelectList(ViewBag.distritos, "ID", "nombre"), "Elije un distrito..." ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.direccion )
+                <div class = "formRight" > @Html.TextBoxFor( model => model.direccion ) </div>
+                <div class = "clear" ></div>
+            </div>
+
         </div>
         <p>
             <input class = "redB" type="submit" value="Crear" />

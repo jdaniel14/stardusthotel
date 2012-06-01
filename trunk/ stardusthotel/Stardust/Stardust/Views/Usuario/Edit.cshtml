@@ -82,6 +82,30 @@
                 <div class = "clear" ></div>
             </div>
 
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idDepartamento )
+                <div class = "formRight" > @Html.DisplayFor( model => model.nombreDepartamento ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idProvincia )
+                <div class = "formRight" > @Html.DisplayFor( model => model.nombreProvincia ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idDistrito )
+                <div class = "formRight" > @Html.DisplayFor( model => model.nombreDistrito ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.direccion )
+                <div class = "formRight" > @Html.DisplayFor( model => model.direccion ) </div>
+                <div class = "clear" ></div>
+            </div>
+
         </div>
         <p>
             <input class = "redB" type="submit" value="Guardar" />
