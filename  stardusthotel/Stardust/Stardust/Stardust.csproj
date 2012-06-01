@@ -4334,6 +4334,7 @@
     <Content Include="Views\OrdenCompra\Buscar.cshtml" />
     <Content Include="Views\OrdenCompra\RegistrarOrdenCompra.cshtml" />
     <Content Include="Views\OrdenCompra\Buscar2.cshtml" />
+    <Content Include="Views\Producto\Pagar.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
