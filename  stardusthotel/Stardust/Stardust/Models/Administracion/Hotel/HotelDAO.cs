@@ -283,66 +283,6 @@ namespace Stardust.Models
             return idDepartamento;
         }
 
-        //public int getIdDistrito(string s , int idProvincia , int idDepartamento) {
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
-
-        //    sql.Open();
-
-        //        String command = "Select idDistrito from Distrito where nombre = '" + s + "' and idDepartamento = " + idDepartamento + "and idProvincia = " + idProvincia ;
-
-        //        SqlCommand query = new SqlCommand(command, sql);
-
-        //        SqlDataReader data = query.ExecuteReader();
-
-        //        data.Read();
-
-        //        int idDistrito = (int)data.GetValue(0);
-
-        //    sql.Close();
-
-        //    return idDistrito;
-        //}
-
-        //public int getIdProvincia(string s ,int idDepartamento ) {
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
-
-        //    sql.Open();
-
-        //        String command = "Select idProvincia from Provincia where nombre = '" + s + "'and idDepartamento = " + idDepartamento ;
-
-        //        SqlCommand query = new SqlCommand(command, sql);
-
-        //        SqlDataReader data = query.ExecuteReader();
-
-        //        data.Read();
-
-        //        int idProvincia = (int)data.GetValue(0);
-
-        //    sql.Close();
-
-        //    return idProvincia;
-        //}
-
-        //public int getIdDepartamento(string s) {
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
-
-        //    sql.Open();
-
-        //        String command = "Select idDepartamento from Departamento where nombre = '" + s + "'";
-
-        //        SqlCommand query = new SqlCommand(command, sql);
-
-        //        SqlDataReader data = query.ExecuteReader();
-
-        //        data.Read();
-
-        //        int idDepartamento = (int)data.GetValue(0);
-
-        //    sql.Close();
-
-        //    return idDepartamento ;
-        //}
-
         public void registrarTipoHabitacion(TipoHabitacionxHotel tipoHabitacion) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 

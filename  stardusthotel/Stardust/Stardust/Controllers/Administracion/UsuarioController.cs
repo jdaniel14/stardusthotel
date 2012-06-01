@@ -39,6 +39,11 @@ namespace Stardust.Controllers
             PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade() ;
             ViewBag.perfiles = perfilFac.listarPerfiles();
 
+            Utils utils = new Utils();
+            ViewBag.departamentos = utils.listarDepartamentos();
+            ViewBag.provincias = new List<Provincia>() ;
+            ViewBag.distritos = new List<Distrito>() ;
+            
             ViewBag.documentos = "" ;
 
             return View();
@@ -50,8 +55,48 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(UsuarioBean usuariobean)
         {
-            usuarioFac.registrarUsuario(usuariobean);
-            return RedirectToAction( "List" ) ;
+            if (ModelState.IsValid)
+            {
+                usuarioFac.registrarUsuario(usuariobean);
+                return RedirectToAction("List");
+            }
+            else if (usuariobean.idDepartamento != 0 && usuariobean.idProvincia != 0){
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.documentos = "";
+
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = utils.listarProvincias(usuariobean.idDepartamento);
+                ViewBag.distritos = utils.listarDistritos(usuariobean.idDepartamento, usuariobean.idProvincia);
+                return View();
+            }
+            else if( usuariobean.idDepartamento != 0 ){
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.documentos = "";
+
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = utils.listarProvincias( usuariobean.idDepartamento ) ;
+                ViewBag.distritos = new List<Distrito>();
+                return View();
+            }
+            
+            else {
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.documentos = "";
+
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = new List<Provincia>();
+                ViewBag.distritos = new List<Distrito>();
+                return View();
+            }
         }
         
         //
@@ -75,8 +120,51 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Edit(UsuarioBean usuariobean)
         {
-            usuarioFac.actualizarUsuario(usuariobean);
-            return RedirectToAction( "List" ) ;
+            if (ModelState.IsValid)
+            {
+                usuarioFac.actualizarUsuario(usuariobean);
+                return RedirectToAction("List");
+            }
+            else if (usuariobean.idDepartamento != 0 && usuariobean.idProvincia != 0)
+            {
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.documentos = "";
+
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = utils.listarProvincias(usuariobean.idDepartamento);
+                ViewBag.distritos = utils.listarDistritos(usuariobean.idDepartamento, usuariobean.idProvincia);
+                return View();
+            }
+            else if (usuariobean.idDepartamento != 0)
+            {
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.documentos = "";
+
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = utils.listarProvincias(usuariobean.idDepartamento);
+                ViewBag.distritos = new List<Distrito>();
+                return View();
+            }
+
+            else
+            {
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.documentos = "";
+
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = new List<Provincia>();
+                ViewBag.distritos = new List<Distrito>();
+                return View();
+            }
         }
 
         //
