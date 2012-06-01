@@ -27,8 +27,6 @@ namespace Stardust.Controllers
         
         public ActionResult Buscar2(string nombre, string fecha1, string fecha2)
         {
-
-            int i = 0;
             
             return View(comprasFacade.buscarOrdenes(nombre, fecha1, fecha2));
         }
@@ -105,6 +103,8 @@ namespace Stardust.Controllers
 
         public ActionResult RegistrarNotaEntrada(int id)
         {
+            
+            
             return View();
         }
 
