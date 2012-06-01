@@ -156,5 +156,47 @@ namespace Stardust.Models
 
         }
 
+    
+    
+
+        /*--------------nota de entrada -------*/
+
+        public NotaEntradaBean RegistrarNotaEntrada(int idordencompra)
+        {
+            NotaEntradaBean orden;// = new NotaEntradaBean();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM OrdenCompra WHERE idOrdenCompra = " + idordencompra;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            
+            while (dataReader.Read())
+            {
+                
+                //OrdenCompraBean ord = new OrdenCompraBean();
+                //ord.nombreproveedor = nombre;
+                //ord.idproveedor = (int)dataReader2["idProveedor"];
+                //ord.estado = (string)dataReader2["estado"];
+                //ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
+                //ord.fecha = Convert.ToString(dataReader2["fechaPedido"]);
+                //ord.preciototal = (decimal)dataReader2["preciototal"];
+
+                //orden.Add(ord);
+                //idproveedor = (int)dataReader2["idProveedor"];
+            }
+
+
+            return (orden);
+            
+        }
+    
+    
     }
+
 }
