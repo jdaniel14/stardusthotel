@@ -16,6 +16,7 @@ namespace Stardust.Models
         
         public decimal preciototal { get; set; }
         public string fechaRegistradaOrdenCompra { get; set; }
+
         public List<Notaentrada> detallenotaentrada { get; set; }
 
 
