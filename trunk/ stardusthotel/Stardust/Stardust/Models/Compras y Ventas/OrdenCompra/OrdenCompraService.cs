@@ -22,6 +22,17 @@ namespace Stardust.Models
         
             return ordenCompraDAO.getlista(nombre1, fecha1,fecha2);
         }
+        public OrdenCompraBean buscarordencompra(int idordenCompra)
+        {
+            return ordenCompraDAO.buscarordencompra(idordenCompra);
+        }
+        //notas de entrada
+
+        public List<NotaEntradaBean> listarnotas(int idorden)
+        {
+            return ordenCompraDAO.ListarNotasEntradas(idorden);
+        }
+
 
 
     }

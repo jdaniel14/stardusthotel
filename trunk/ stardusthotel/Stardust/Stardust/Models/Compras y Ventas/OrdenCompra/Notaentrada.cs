@@ -8,6 +8,6 @@ namespace Stardust.Models
     public class Notaentrada:ProductoBean
     {
         public int cantidadrecibida { get; set; }
-
+        public int cantidadsolicitada { get; set; }
     }
 }

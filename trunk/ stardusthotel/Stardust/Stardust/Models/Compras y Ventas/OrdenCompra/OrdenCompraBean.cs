@@ -42,6 +42,9 @@ namespace Stardust.Models
 
         List<DetalleOrdenCompra> detalles { get; set; }
 
+        public List<NotaEntradaBean> notasentrada { get; set; }
+
+
         public IEnumerable<Proveedor> getProveedor() 
         {
             List<Proveedor> listaProveedor = new List<Proveedor>();
@@ -78,5 +81,7 @@ namespace Stardust.Models
         {
             proveedorList = new SelectList(getProveedor(), "ID", "Nombre");
         }
+
+
     }
 }
