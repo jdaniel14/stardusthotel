@@ -92,7 +92,12 @@ namespace Stardust.Controllers
 
         public ActionResult DetalleOrdenC(int id) 
         {
-            return View();
+            OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id);
+            ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
+            ordencompra.nombreproveedor = proveedor.razonSocial;
+
+
+            return View(ordencompra);
         }
 
         public ActionResult ModificarOrdenC(int id)
