@@ -9,5 +9,6 @@ namespace Stardust.Models
     {
         public int Cantidad { get; set; }
         public decimal precio { get; set; }
+        public decimal preciounitario { get; set; }
     }
 }
