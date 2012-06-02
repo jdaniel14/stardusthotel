@@ -101,6 +101,25 @@ namespace Stardust.Controllers
         }
         /*--------Notas de Entrada----------*/
 
+        public ActionResult ListarNotaEntrada(int id)
+        {
+            List<NotaEntradaBean> notas = comprasFacade.listarnotasentrada(id);
+
+            OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id);
+            ordencompra.notasentrada = new List<NotaEntradaBean>();
+            
+            for (int i = 0; i < notas.Count; i++)
+            {
+                ordencompra.notasentrada.Add(notas[i]);
+            }
+            
+            //ordencompra.notasentrada.Add(notas);
+            ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
+            ordencompra.nombreproveedor = proveedor.razonSocial;
+
+            return View(ordencompra);
+        }
+
         public ActionResult RegistrarNotaEntrada(int id)
         {
             
