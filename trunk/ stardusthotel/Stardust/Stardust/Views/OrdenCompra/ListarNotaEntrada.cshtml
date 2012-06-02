@@ -12,7 +12,7 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
  
- @using (Html.BeginForm("ModificarProductosAlmacen", "Producto", FormMethod.Post, new { @class = "form" }))
+ @using (Html.BeginForm("", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
  { 
     <fieldset>
         <div class="widget">
@@ -33,7 +33,7 @@
     </fieldset>
     
     <p>
-    <a href="@Url.Action("RegistrarNotaEntrada", new { idhotel = Model.idOrdenCompra })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Registrar Nota entrada</a>
+    <a href="@Url.Action("RegistrarNotaEntrada", new { id = Model.idOrdenCompra })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Registrar Nota entrada</a>
     </p>
     <p></p><p></p><p></p><p></p>
 
