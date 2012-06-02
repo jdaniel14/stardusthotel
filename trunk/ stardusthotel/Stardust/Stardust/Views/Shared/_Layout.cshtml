@@ -119,12 +119,22 @@
 
             @*<div class="sidebarSep"></div>*@
 
+            
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Empleados</span><strong>3</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Listar Empleados", "Index", "Servicios")</li>
+                    <li>@Html.ActionLink("Buscar Empleado", "BuscarEmpleado", "Servicios")</li>                  
+                </ul>
+            </li>
+
             <li class="forms"><a href="#" title="" class="exp"><span>Clientes</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Clientes Naturales", "Index", "Cliente")</li>
                     <li>@Html.ActionLink("Listar Clientes Juridicos", "IndexJuridicas", "Cliente")</li>
                     <li>@Html.ActionLink("Buscar Ciente Natural", "BuscarClienteNatural", "Cliente")</li>
                     <li>@Html.ActionLink("Buscar Ciente Juridico", "BuscarClienteJuridico", "Cliente")</li>
+                    <li>@Html.ActionLink("Buscar", "BuscarCliente", "Cliente")</li>
                 </ul>
             </li>
 
@@ -132,6 +142,12 @@
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Servicios", "Index", "Servicios")</li>
                     <li>@Html.ActionLink("Buscar Servicio", "BuscarServicio", "Servicios")</li>                  
+                </ul>
+            </li>
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Reserva</span><strong>3</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Reservar Habitacion", "Index", "ReservarHabitacion")</li>                    
                 </ul>
             </li>
 
