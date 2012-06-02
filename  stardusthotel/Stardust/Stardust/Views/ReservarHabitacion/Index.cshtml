@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Reservar habitacion";
+}
+
+<h2>Reservar habitación</h2>
+
+
+<html lang="es">
+
+<head>
+<title>Reservar Habitacion</title>
+<script type="text/javascript" src="/Scripts/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="/Scripts/ReservarHabitacion.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+
+
+</head>
+
+<body>
+
+
+<fieldset>
+    <div class="widget">
+
+        <div class="title">
+            <h6>Registrar Servicio</h6>
+        </div>
+
+        <div class="formRow"><span>Fecha de llegada</span>                
+            <div class = "formRight" >                                         
+                <div class="demo">
+                    <input type="text" id="FechaLlegada">
+                </div>
+            </div>                
+            <div class="clear"></div>
+        </div>
+
+        <div class="formRow"><span>Fecha de salida</span>                
+            <div class = "formRight" > 
+                <div class="demo">
+                    <input type="text" id="FechaSalida">
+                </div>
+            </div>                
+            <div class="clear"></div>
+        </div>
+           
+            
+        @*<div class="formRow"><span>Tipos de habitación</span>                
+            <div class = "formRight" >                                         
+                <div id = "labelTipoHabitacion">
+	                <select id="tipoHabitacion"></select>
+	            </div>
+            </div>                
+            <div class="clear"></div>
+        </div>
+
+        <div class="formRow"><span>Habitaciones disponibles</span>                
+            <div class = "formRight" >                                         
+                <div id = "labelidHabitacion">
+	                <select id="idHabitacion"></select>
+	            </div>
+            </div>                
+            <div class="clear"></div>
+        </div>*@
+    
+
+    </div>
+</fieldset>
+
+
+
+<div class = "widget" >
+
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Tipos de habitacion del hotel</h6></div>
+
+    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+    <thead>
+        <tr>
+            <td>Tipo de habitación</td>
+            <td>Cantidad Habitaciones</td>
+            <td>Precio($)</td>
+                        
+                       
+        </tr>
+    </thead>
+
+    <tbody  id = "tablaTipos">
+        
+    </tbody>
+    </table>
+</div>
+
+<fieldset>
+    <div class="widget">
+
+        <div class="title">
+            <h6>Calculo de cuenta de habitaciones</h6>
+        </div>
+
+        <div class="formRow"><span>Total</span>                
+            <div class = "formRight" >                                         
+                <span id = "Total">0</span>
+            </div>                
+            <div class="clear"></div>
+        </div>
+
+    </div>
+</fieldset>
+
+<p>
+                <input type="submit" value="Recojo de aeropuerto" class = "redB" id = "registrarAeropuerto"/>
+            </p>
+
+<fieldset id = "fieldAeropuerto">
+    <div class="widget">
+
+        <div class="title">
+            <h6>Recojo al aeropuerto</h6>
+        </div>
+
+        <div class="formRow"><span>Hora de llegada</span>                
+            <div class = "formRight" >                                         
+                <input type="text" value="" id = "HoraLlegada"/> 
+            </div>                
+            <div class="clear"></div>
+        </div>
+
+        <div class="formRow"><span>Aerolinea</span>                
+            <div class = "formRight" > 
+                <input type="text" value="" id="Aerolinea" /> 
+            </div>                
+            <div class="clear"></div>
+        </div>    
+
+        <div class="formRow"><span>Nro. Vuelo</span>                
+            <div class = "formRight" > 
+                <input type="text" value="" id="NVuelo" /> 
+            </div>                
+            <div class="clear"></div>
+        </div>  
+
+        <div class="formRow"><span>Cantidad de Personas</span>                
+            <div class = "formRight" > 
+                <input type="text" value="" id="CantPersonas" /> 
+            </div>                
+            <div class="clear"></div>
+        </div>  
+    </div>
+
+
+</fieldset>
+
+<p>
+                <input type="submit" value="Reservar" class = "redB" />
+            </p>
+
+</html>
