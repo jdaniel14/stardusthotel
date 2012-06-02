@@ -114,5 +114,43 @@ namespace Stardust.Controllers.Servicios
             List<ClienteBean> listaClientes = clienteFacade.ListarClientesJuridica(item.razonSocial);
             return View(listaClientes);
         }
+
+        public ActionResult BuscarCliente()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult BuscarCliente(ClienteBean item, FormCollection form)
+        {
+            ClienteBean rpta = new ClienteBean();
+            //ClienteBean rpta;
+
+            String id = form["tipoDocumento"];
+            item.tipoDocumento = id.ToString();
+            
+            //mando a buscar el item y guardo el resultado en rpta
+
+            if (rpta == null)
+            {
+                return RedirectToAction("BuscarClienteNoEncontrado", rpta);
+            }
+
+            return RedirectToAction("BuscarClienteEncontrado", rpta);
+            
+        }
+
+        public ActionResult BuscarClienteNoEncontrado()
+        {
+            return View();
+        }
+
+        public ActionResult BuscarClienteEncontrado(ClienteBean rpta)
+        {
+            return View();
+        }
+
+
+
     }
 }
