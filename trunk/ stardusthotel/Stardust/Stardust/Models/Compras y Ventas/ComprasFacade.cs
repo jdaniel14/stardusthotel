@@ -35,6 +35,10 @@ namespace Stardust.Models
             return ordenCompraService.getordencompra(nombre1, fecha1, fecha2);
         }
 
+        public OrdenCompraBean buscarOrdenes(int idorden)
+        {
+            return ordenCompraService.buscarordencompra(idorden);
+        }
         /**------ Asignar productos a almacen  2 -----*/
         public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
         {
@@ -55,6 +59,11 @@ namespace Stardust.Models
         }
 
         /** ---------Recepcion de producto(notas de entrada) 2 --------*/
+
+        public List<NotaEntradaBean> listarnotasentrada(int ordencompra)
+        {
+            return ordenCompraService.listarnotas(ordencompra);
+        }
 
 
         /**----------- Reporte de compras 3------------*/
