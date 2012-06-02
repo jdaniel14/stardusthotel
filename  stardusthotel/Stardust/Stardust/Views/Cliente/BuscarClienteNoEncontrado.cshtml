@@ -1,0 +1,49 @@
+﻿@model Stardust.Models.ClienteBean
+
+@{
+    ViewBag.Title = "BuscarClienteNoEncontrado";
+}
+
+<h2>BuscarClienteNoEncontrado</h2>
+
+<p>Cliente no encontrado</p>
+
+@using (Html.BeginForm("BuscarCliente", "Cliente", FormMethod.Post, new { @class = "form" }))
+{
+
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Cliente Natural</h6></div>           
+
+            <div class="formRow"><span>Nro. de Documento</span>                
+               <div class = "formRight" > 
+               @Html.TextBoxFor(m => m.nroDocumento)
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Tipo de Documento</span>                
+               <div class = "formRight" > 
+               <select id="tipoDocumento" name="tipoDocumento">
+                    <option value="DNI">DNI</option>
+                    <option value="Carnet de extranjeria">Carnet de extranjeria</option>
+                    <option value="RUC">RUC</option>
+                </select> 
+               </div>                
+               <div class="clear"></div>
+            </div>
+                        
+
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+@using (Html.BeginForm("RegistrarCliente", "Cliente"))
+{
+     <p>
+        <input type="submit" value="Registrar Cliente" class = "redB" />
+    </p>    
+}
