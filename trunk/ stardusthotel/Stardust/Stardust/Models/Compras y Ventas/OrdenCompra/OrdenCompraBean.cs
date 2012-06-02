@@ -40,7 +40,7 @@ namespace Stardust.Models
         [Display(Name = "Precio Total")]
         public decimal preciototal { get; set; }
 
-        List<DetalleOrdenCompra> detalles { get; set; }
+       // List<DetalleOrdenCompra> detalles { get; set; }
 
         public List<NotaEntradaBean> notasentrada { get; set; }
 
