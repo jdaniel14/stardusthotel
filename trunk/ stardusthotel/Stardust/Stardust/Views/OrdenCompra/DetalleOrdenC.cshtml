@@ -1,0 +1,47 @@
+﻿@model Stardust.Models.OrdenCompraBean
+
+@{
+    ViewBag.Title = "Detalle del Orden Compra";
+}
+
+<h2>Proveedor</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+
+    
+@using (Html.BeginForm("DetalleOrdenC", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
+{
+   @Html.ValidationSummary(false)
+    
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Detalle de La Orden Compra</h6>
+            </div>
+            <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)<span class="req">*</span>
+                <div class=" formRight"> @Html.DisplayFor(model => model.nombreproveedor)  </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">@Html.LabelFor(model => model.fecha)<span class="req">*</span>
+                <div class="formRight"> @Html.DisplayFor(model => model.fecha) </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="formRow">@Html.LabelFor(model => model.estado)<span class="req">*</span>
+                <div class="formRight"> @Html.DisplayFor(model => model.estado) </div>
+                <div class="clear"></div>
+            </div>
+          
+            
+        </div>
+    </fieldset>
+    <p>
+        <a href="@Url.Action("ModificarOrdenC", new { id = Model.idOrdenCompra })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+        @Html.ActionLink("Regresar", "../Home/Index")
+    </p>
+    
+}
+       
