@@ -35,6 +35,10 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
+            Utils utils = new Utils();
+            ViewBag.departamentos = utils.listarDepartamentos();
+            ViewBag.provincias = new List<Provincia>();
+            ViewBag.distritos = new List<Distrito>();
             return View();
         } 
 
@@ -44,9 +48,35 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(HotelBean hotelbean)
         {
-            hotelFac.registrarHotel(hotelbean);
-
-            return RedirectToAction("List");
+            if (ModelState.IsValid)
+            {
+                hotelFac.registrarHotel(hotelbean);
+                return RedirectToAction("List");
+            }
+            else if (hotelbean.idDepartamento != 0 && hotelbean.idProvincia != 0)
+            {
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
+                ViewBag.distritos = utils.listarDistritos(hotelbean.idDepartamento, hotelbean.idProvincia);
+                return View();
+            }
+            else if (hotelbean.idDepartamento != 0)
+            {
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
+                ViewBag.distritos = new List<Distrito>();
+                return View();
+            }
+            else
+            {
+                Utils utils = new Utils();
+                ViewBag.departamentos = utils.listarDepartamentos();
+                ViewBag.provincias = new List<Provincia>();
+                ViewBag.distritos = new List<Distrito>();
+                return View();
+            }
         }
         
         //

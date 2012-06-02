@@ -44,6 +44,15 @@ namespace Stardust.Models
                     hotel.idProvincia = Convert.ToInt32(objDataReader["idProvincia"]);
                     hotel.idDepartamento = Convert.ToInt32(objDataReader["idDepartamento"]);
 
+                    int idDistrito = (int)objDataReader.GetValue(8);
+                    int idProvincia = (int)objDataReader.GetValue(9);
+                    int idDepartamento = (int)objDataReader.GetValue(10);
+
+                    UsuarioDAO usuarioDAO = new UsuarioDAO();
+                    hotel.nombreDistrito = usuarioDAO.getDistrito(idDepartamento, idProvincia, idDistrito);
+                    hotel.nombreProvincia = usuarioDAO.getProvincia(idDepartamento, idProvincia);
+                    hotel.nombreDepartamento = usuarioDAO.getDepartamento(idDepartamento);
+
                 }
                 return hotel;
             }
@@ -107,34 +116,47 @@ namespace Stardust.Models
 
             sql.Open();
 
-
-                //int idDepartamento = this.getIdDepartamento(hotel.departamento);
-                //int idProvincia = this.getIdProvincia(hotel.provincia , idDepartamento );
-                //int idDistrito = this.getIdDistrito(hotel.distrito , idProvincia , idDepartamento );
-
-                // LUEGO CAMBIAR ESTOS VALORES
-                int idDepartamento = 15; 
-                int idProvincia = 1;
-                int idDistrito = 22;
-
-
-
                 String command = "Insert into Hotel ( nombre , razonSocial , direccion , tlf1 , tlf2 , email , nroPisos , idDistrito , idProvincia , idDepartamento ) values " +
-                                    "(' " + hotel.nombre + "', '" +
+                                    "('" + hotel.nombre + "', '" +
                                     hotel.razonSocial + "', '" +
                                     hotel.direccion + "', '" +
                                     hotel.tlf1 + "', '" +
                                     hotel.tlf2 + "', '" +
                                     hotel.email + "', " +
                                     hotel.nroPisos + ", " +
-                                    idDistrito + ", " +
-                                    idProvincia + ", " +
-                                    idDepartamento + ")";
+                                    hotel.idDistrito + ", " +
+                                    hotel.idProvincia + ", " +
+                                    hotel.idDepartamento + ")";
                 SqlCommand query = new SqlCommand(command, sql);
 
                 query.ExecuteNonQuery();
 
+                int idHotel = this.buscarHotel(hotel.nombre, hotel.razonSocial);
+                this.registrarAlmacen(idHotel);
+
             sql.Close();
+        }
+
+        public int buscarHotel(string nombre, string razonSocial) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+                String command = "SELECT idHotel FROM Hotel WHERE nombre = @nombre AND razonSocial = @razonSocial";
+                SqlCommand query = new SqlCommand(command, sql);
+
+                Utils utils = new Utils();
+                utils.agregarParametro(query, "nombre", nombre);
+                utils.agregarParametro(query, "razonSocial", razonSocial);
+
+                SqlDataReader data = query.ExecuteReader();
+
+                data.Read();
+                int idHotel = (int)data.GetValue(0);
+
+            sql.Close();
+
+            return idHotel;
         }
 
         public void actualizarHotel(HotelBean hotel) {
@@ -142,24 +164,13 @@ namespace Stardust.Models
 
             sql.Open();
 
-                //int idDepartamento = this.getIdDepartamento(hotel.departamento);
-                //int idProvincia = this.getIdProvincia(hotel.provincia , idDepartamento );
-                //int idDistrito = this.getIdDistrito(hotel.distrito , idProvincia , idDepartamento );
-
-                int idDepartamento = 15;
-                int idProvincia = 1;
-                int idDistrito = 22;
-
                 String command = "Update Hotel SET " +
                                 "nombre = '" + hotel.nombre + "', " +
                                 "razonSocial = '" + hotel.razonSocial + "', " +
                                 "tlf1 = '" + hotel.tlf1 + "', " +
                                 "tlf2 = '" + hotel.tlf2 + "', " +
                                 "email = '" + hotel.email + "', " +
-                                "nroPisos = " + hotel.nroPisos + ", " +
-                                "idDistrito = " + idDistrito + ", " +
-                                "idProvincia = " + idProvincia + ", " +
-                                "idDepartamento = " + idDepartamento +
+                                "nroPisos = " + hotel.nroPisos + " " +
                                 "where idHotel = " + hotel.ID;
                 SqlCommand query = new SqlCommand(command, sql);
 
@@ -209,7 +220,7 @@ namespace Stardust.Models
                     int idDistrito = (int)data.GetValue(8);
                     int idProvincia = (int)data.GetValue(9);
                     int idDepartamento = (int)data.GetValue(10);
-                    
+
                     UsuarioDAO usuarioDAO = new UsuarioDAO() ;
                     hotel.nombreDistrito = usuarioDAO.getDistrito(idDepartamento, idProvincia , idDistrito);
                     hotel.nombreProvincia = usuarioDAO.getProvincia(idDepartamento, idProvincia);
@@ -327,6 +338,25 @@ namespace Stardust.Models
             sql.Close();
 
             return lista;
+        }
+
+        public void registrarAlmacen(int idHotel) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+            
+                String command = "Insert into Almacen ( descripcion , capacidad , idHotel ) values ( @descripcion , @capacidad , @idHotel )";
+
+                SqlCommand query = new SqlCommand(command, sql);
+
+                Utils utils = new Utils();
+                utils.agregarParametro(query, "descripcion", "almacen del hotel " + idHotel);
+                utils.agregarParametro(query, "capacidad", 10000);
+                utils.agregarParametro(query, "idHotel", idHotel);
+
+                query.ExecuteNonQuery();
+
+            sql.Close();
         }
     }
 }
