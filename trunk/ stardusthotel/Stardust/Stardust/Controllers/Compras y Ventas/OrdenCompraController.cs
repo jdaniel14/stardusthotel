@@ -11,6 +11,7 @@ namespace Stardust.Controllers
     {
         public ComprasFacade comprasFacade = new ComprasFacade();
         public ProveedorFacade proveedorFacade = new ProveedorFacade(); 
+  
         
         /*--------Orden de Compra----------*/
 
@@ -96,8 +97,12 @@ namespace Stardust.Controllers
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
             ordencompra.nombreproveedor = proveedor.razonSocial;
 
-
-            return View(ordencompra);
+            for (int i = 0; i < ordencompra.detalle.Count; i++)
+            {
+                ProductoBean produc = proveedorFacade.Getproducto(ordencompra.detalle[i].ID);
+                ordencompra.detalle[i].nombre = produc.nombre;
+            }
+                return View(ordencompra);
         }
 
         public ActionResult ModificarOrdenC(int id)
