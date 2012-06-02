@@ -178,13 +178,36 @@ namespace Stardust.Models
                 orden.preciototal = (decimal)dataReader["preciototal"];
                 orden.idproveedor=(int)dataReader["idProveedor"];
             }
-
             sqlCon.Close();
 
+            //detalle de orden compra
+
+            //String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+            sqlCon2.Open();
+
+            string commandString2 = "SELECT * FROM OrdenCompraDetalle WHERE idOrdenCompra = " + ordencompra;
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+            //List<DetalleOrdenCompra> detalle = new List<DetalleOrdenCompra>();
+            orden.detalle = new List<DetalleOrdenCompra>();
+            while (dataReader2.Read())
+            {
+                DetalleOrdenCompra detalle = new DetalleOrdenCompra();
+                detalle.ID=(int)dataReader2["idProducto"];
+                detalle.Cantidad=(int)dataReader2["cantidad"];
+                detalle.precio=(decimal)dataReader2["precio"];
+                orden.detalle.Add(detalle);
+            }
+            sqlCon2.Close();
             return orden;
         }
     
-    
+        
 
         /*--------------nota de entrada -------*/
 
@@ -208,10 +231,8 @@ namespace Stardust.Models
             {
                 NotaEntradaBean orden = new NotaEntradaBean();
                 orden.idguiaRemision = (int)dataReader["idGuiaRemision"];
-                orden.idordencompra = idordencompra;
-                //orden.estado = (string)dataReader["estado"];
+                orden.idordencompra = idordencompra;                
                 orden.fechaemitida = Convert.ToString(dataReader["fechaEntrega"]);
-               // orden.preciototal = (decimal)dataReader["preciototal"];
                 orden2.Add(orden);
             }
 
