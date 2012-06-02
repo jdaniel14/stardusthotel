@@ -102,12 +102,46 @@ namespace Stardust.Controllers
                 ProductoBean produc = proveedorFacade.Getproducto(ordencompra.detalle[i].ID);
                 ordencompra.detalle[i].nombre = produc.nombre;
             }
-                return View(ordencompra);
+            ProductoxProveedorBean productos = proveedorFacade.obtenerlista(ordencompra.idproveedor);
+            for (int i = 0; i < ordencompra.detalle.Count; i++)
+            {
+                for (int j = 0; j < productos.listProdProv.Count; j++)
+                {
+                    if (ordencompra.detalle[i].ID == productos.listProdProv[j].ID)
+                    {
+                        ordencompra.detalle[i].preciounitario = productos.listProdProv[j].precio;
+                    }
+                }
+            }
+
+            return View(ordencompra);
         }
 
         public ActionResult ModificarOrdenC(int id)
         {
-            return View();
+            OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id);
+            ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
+            ordencompra.nombreproveedor = proveedor.razonSocial;
+
+            for (int i = 0; i < ordencompra.detalle.Count; i++)
+            {
+                ProductoBean produc = proveedorFacade.Getproducto(ordencompra.detalle[i].ID);
+                ordencompra.detalle[i].nombre = produc.nombre;
+            }
+            ProductoxProveedorBean productos = proveedorFacade.obtenerlista(ordencompra.idproveedor);
+            for (int i = 0; i < ordencompra.detalle.Count; i++)
+            {
+                for (int j = 0; j < productos.listProdProv.Count; j++)
+                {
+                    if (ordencompra.detalle[i].ID == productos.listProdProv[j].ID)
+                    {
+                        ordencompra.detalle[i].preciounitario = productos.listProdProv[j].precio;
+                    }
+                }
+            }
+
+            return View(ordencompra);
+
         }
         /*--------Notas de Entrada----------*/
 
