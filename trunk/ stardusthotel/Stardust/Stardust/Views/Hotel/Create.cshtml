@@ -31,12 +31,6 @@
             </div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.direccion)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.direccion)</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
                 @Html.LabelFor(model => model.tlf1)
                 <div class = "formRight" >@Html.TextBoxFor(model => model.tlf1, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", placeholder = "Maximo 9 números aqui" })</div>
                 <div class = "clear" ></div>
@@ -60,23 +54,30 @@
                 <div class = "clear" ></div>
             </div>
 
-            @*<div class="formRow">
-                @Html.LabelFor(model => model.departamento)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.departamento, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30"})</div>
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idDepartamento )
+                <div class = "formRight" > @Html.DropDownListFor(model => model.idDepartamento, new SelectList(ViewBag.departamentos, "ID", "nombre"), "Elije un departamento...", new { onchange = "this.form.submit();" } ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idProvincia )
+                <div class = "formRight" > @Html.DropDownListFor(model => model.idProvincia, new SelectList(ViewBag.provincias, "ID", "nombre"), "Elije una provincia...", new { onchange = "this.form.submit();" } ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.idDistrito )
+                <div class = "formRight" > @Html.DropDownListFor(model => model.idDistrito, new SelectList(ViewBag.distritos, "ID", "nombre"), "Elije un distrito..." ) </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.provincia)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.provincia, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30" })</div>
+                @Html.LabelFor(model => model.direccion)
+                <div class = "formRight" >@Html.TextBoxFor(model => model.direccion)</div>
                 <div class = "clear" ></div>
             </div>
 
-            <div class="formRow">
-                @Html.LabelFor(model => model.distrito)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.distrito, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30" })</div>
-                <div class = "clear" ></div>
-            </div>*@
         </div>
     </fieldset>
     <p>

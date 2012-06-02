@@ -26,14 +26,12 @@ namespace Stardust.Models
         [Required]
         [MinLength( 9 )]
         [MaxLength( 9 )]
-        [RegularExpression("^\\d{9}$")]
         public string tlf1 { get; set; }
 
         [Display( Name = "Teléfono 2" ) ]
         [Required]
         [MinLength(9)]
         [MaxLength(9)]
-        [RegularExpression("^\\d{9}$")]
         public string tlf2 { get; set; }
 
         [Display( Name = "E-mail" ) ]
