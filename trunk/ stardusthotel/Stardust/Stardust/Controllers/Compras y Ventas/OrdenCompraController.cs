@@ -15,10 +15,10 @@ namespace Stardust.Controllers
         
         /*--------Orden de Compra----------*/
 
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public ActionResult Buscar()
         {
@@ -117,7 +117,7 @@ namespace Stardust.Controllers
             return View(ordencompra);
         }
 
-        public ActionResult ModificarOrdenC(int id)
+        public ActionResult ModificarOrdenC(int id) //idordencompra
         {
             OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id);
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
@@ -143,6 +143,14 @@ namespace Stardust.Controllers
             return View(ordencompra);
 
         }
+
+
+        public ActionResult GuardarestadoOrdenC(OrdenCompraBean orden)
+        {
+            //guardar estado de la orden de compra
+            
+            return View();
+        }
         /*--------Notas de Entrada----------*/
 
         public ActionResult ListarNotaEntrada(int id)
@@ -164,15 +172,50 @@ namespace Stardust.Controllers
             return View(ordencompra);
         }
 
-        public ActionResult RegistrarNotaEntrada(int id)
+        public ActionResult RegistrarNotaEntrada(int id) //idordencompra
         {
+            NotaEntradaBean notaentrada = new NotaEntradaBean();
             
+            OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id);
+            ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
+            ordencompra.nombreproveedor = proveedor.razonSocial;
             
-            return View();
+            notaentrada.nombreproveedor = proveedor.razonSocial;
+            notaentrada.idordencompra = id;
+            notaentrada.idproveedor = ordencompra.idproveedor;
+            notaentrada.fechaRegistradaOrdenCompra = ordencompra.fecha;
+            notaentrada.detallenotaentrada = new List<Notaentrada>();
+            notaentrada.estado = ordencompra.estado;
+
+
+            for (int i = 0; i < ordencompra.detalle.Count; i++)
+            {
+                ProductoBean produc = proveedorFacade.Getproducto(ordencompra.detalle[i].ID);
+                ordencompra.detalle[i].nombre = produc.nombre;
+            }
+
+            for (int i = 0; i < ordencompra.detalle.Count; i++)
+            {
+                Notaentrada notas = new Notaentrada();
+                notas.cantidadsolicitada = ordencompra.detalle[i].Cantidad;
+                notas.ID = ordencompra.detalle[i].ID;
+                notas.nombre = ordencompra.detalle[i].nombre;
+
+                notaentrada.detallenotaentrada.Add(notas);
+            }
+
+           return View(notaentrada);
+
         }
 
+        public ActionResult guardarNotaentrad(NotaEntradaBean not)
+        {
+            return View();
+        }
         public ActionResult BuscarNotaE(string proveedor)
         {
+
+
             return View();
 
         }
