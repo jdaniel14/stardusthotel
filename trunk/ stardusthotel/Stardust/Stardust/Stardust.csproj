@@ -4340,6 +4340,8 @@
     <Content Include="Views\Proveedor\ListarOC.cshtml" />
     <Content Include="Views\OrdenCompra\ListarNotaEntrada.cshtml" />
     <Content Include="Views\OrdenCompra\DetalleOrdenC.cshtml" />
+    <Content Include="Views\OrdenCompra\ModificarOrdenC.cshtml" />
+    <Content Include="Views\OrdenCompra\RegistrarNotaEntrada.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
