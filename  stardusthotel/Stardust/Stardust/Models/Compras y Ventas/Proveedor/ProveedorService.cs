@@ -8,7 +8,7 @@ namespace Stardust.Models
     public class ProveedorService
     {
         ProveedorDAO proveedorDAO = new ProveedorDAO();
-        
+
         public List<ProveedorBean> ListarProveedor(String Nombre, String contacto)
         {
             return proveedorDAO.ListarProveedor(Nombre, contacto);
@@ -33,7 +33,7 @@ namespace Stardust.Models
         {
             return proveedorDAO.DeleteProveedor(idProveedor);
         }
-    
+
         /*productos a proveedor*/
         public void AsignarProductosxProveedor(int idprove, ProductoxProveedorBean prod)
         {
@@ -50,9 +50,14 @@ namespace Stardust.Models
 
         /*Pago a proveedor*/
 
-        public List<OrdenCompras> ObtenerOC(int id)
+        public OrdenCompras ObtenerOC(int id)
         {
             return proveedorDAO.ObtenerOC(id);
+        }
+
+        public string GetNombre(int id)
+        {
+            return proveedorDAO.GetNombre(id);
         }
     }
 }

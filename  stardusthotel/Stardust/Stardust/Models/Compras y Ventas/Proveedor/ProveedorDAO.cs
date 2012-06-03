@@ -240,33 +240,63 @@ namespace Stardust.Models
             sqlCon.Close();
         }
 
-        public List<OrdenCompras> ObtenerOC(int id)
+        public string GetNombre(int id)
         {
-            List<OrdenCompras> listaOC = new List<OrdenCompras>();
+            string nombre;
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM Proveedor  WHERE idProveedor = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            dataReader.Read();
+            
+            nombre = (string)dataReader["razonSocial"];
+
+            dataReader.Close();
+            sqlCon.Close();
+
+            return nombre;
+        }
+
+        public OrdenCompras ObtenerOC(int id)
+        {
+            OrdenCompras OC = new OrdenCompras();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM OrdenCompra WHERE idProveedor = "+id;
+            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendido' AND idProveedor = "+id;
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
             while (dataReader.Read())
             {
-                OrdenCompras OC = new OrdenCompras();
-                OC.id = (int)dataReader["idOrdenCompra"];
-                OC.precio = (decimal)dataReader["precioTotal"];
-                OC.fecha = Convert.ToString(dataReader["fechaPedido"]);
-                OC.estado = (string)dataReader["estado"];
-                listaOC.Add(OC);
+                OrdenCompra orden = new OrdenCompra();
+                orden.id = (int)dataReader["idOrdenCompra"];
+                orden.precio = (decimal)dataReader["precioTotal"];
+                orden.fecha = Convert.ToString(dataReader["fechaPedido"]);
+                orden.estado = (string)dataReader["estado"];
+                OC.listaOC.Add(orden);
             }
             dataReader.Close();
             sqlCon.Close();
 
-            return listaOC;
+            return OC;
+        }
+
+        public OrdenCompras ListarOC(int id)
+        {
+            OrdenCompras OC = new OrdenCompras();
+
+            return OC;
         }
 
     }
