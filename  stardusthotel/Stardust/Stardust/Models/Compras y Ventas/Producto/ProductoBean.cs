@@ -18,6 +18,8 @@ namespace Stardust.Models
         [Display(Name = "Descripción")]
         public string descripcion { get; set; }
         
-        public int estado { get; set; }  
+        public int estado { get; set; }
+
+        public string conexion { get; set; }
     }
 }
