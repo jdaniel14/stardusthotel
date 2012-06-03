@@ -263,6 +263,29 @@ namespace Stardust.Models
             return nombre;
         }
 
+        public string GetNombreProducto(int id)
+        {
+            string nombre;
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM Producto  WHERE idProducto = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            dataReader.Read();
+
+            nombre = (string)dataReader["nombre"];
+
+            dataReader.Close();
+            sqlCon.Close();
+
+            return nombre;
+        }
+
         public OrdenCompras ObtenerOC(int id)
         {
             OrdenCompras OC = new OrdenCompras();
@@ -295,8 +318,56 @@ namespace Stardust.Models
         public OrdenCompras ListarOC(int id)
         {
             OrdenCompras OC = new OrdenCompras();
+                  
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM OrdenCompraDetalle WHERE idOrdenCompra = " + id;
+            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            decimal subtotal = 0;
+
+            while (dataReader.Read())
+            {
+                OrdenCompraDetalle orden = new OrdenCompraDetalle();
+                orden.idOC = (int)dataReader["idOrdenCompra"];
+                orden.id = (int)dataReader["idProducto"];
+                orden.precio = (decimal)dataReader["precio"];
+                orden.cantidad = (int)dataReader["cantidad"];
+                orden.nombre = GetNombreProducto(orden.id);
+                subtotal += orden.precio;
+                OC.listaOCDetalle.Add(orden);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            decimal igv = subtotal * 18 / 100;
+            decimal total = subtotal + igv;
+
+            OC.subtotal = subtotal;
+            OC.igv = igv;
+            OC.total = total;
 
             return OC;
+        }
+
+        public void RegistrarPagoContado(OrdenCompras OC)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , "+ OC.total + " , GETDATE() , " + OC.id + ")";
+            
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
         }
 
     }
