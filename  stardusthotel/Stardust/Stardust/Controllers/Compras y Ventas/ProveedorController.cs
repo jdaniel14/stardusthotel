@@ -186,7 +186,17 @@ namespace Stardust.Controllers
 
         public ActionResult Pagar(int id)
         {
-            return View();
+            OrdenCompras OC = new OrdenCompras();
+            OC = proveedorFacade.ListarOC(id);
+            OC.id = id;
+            return View(OC);
+        }
+
+        [HttpPost]
+        public ActionResult Pagar(OrdenCompras OC)
+        {
+            proveedorFacade.RegistrarPagoContado(OC);
+            return RedirectToAction("PagoProveedor");
         }
     }
 }
