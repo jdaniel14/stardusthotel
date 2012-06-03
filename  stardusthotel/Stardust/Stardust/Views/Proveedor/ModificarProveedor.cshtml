@@ -55,6 +55,10 @@
                 <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
                 <div class="clear"></div>
             </div>
+            <div class="formRow">@Html.LabelFor(model => model.telefonocontacto)
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefonocontacto, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8", placeholder = "celular" }) </div>
+                <div class="clear"></div>
+            </div>
             <div class="formRow">@Html.LabelFor(model => model.emailContacto)
                 <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto, new { @class = "validate[required,custom[email]]", name = "emailValid" }) </div>
                 <div class="clear"></div>
