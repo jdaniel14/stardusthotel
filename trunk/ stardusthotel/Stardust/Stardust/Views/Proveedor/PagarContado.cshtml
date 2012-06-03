@@ -12,7 +12,7 @@
 
  @using (Html.BeginForm("PagarContado", "Proveedor", FormMethod.Post, new { @class = "form" }))
 {
-
+    @Html.ValidationSummary(true);
     <div class="title"><h6>Listado de Orden de Compra</h6> </div>
      <p></p><p></p>
     
