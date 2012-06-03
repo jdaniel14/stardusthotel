@@ -3,14 +3,8 @@ var x;
 x = $(document);
 x.ready(inicializarEventos);
 function inicializarEventos() {
-    //$("").datepicker();
-    $("#FechaLlegada, #FechaSalida").datepicker({
-        showOn: "both",
-        beforeShow: customRange,
-        dateFormat: "dd M yy",
-        firstDay: 1,
-        changeFirstDay: false
-    });
+    $("#FechaLlegada").datepicker();
+    $("#FechaSalida").datepicker();
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
     var x;
@@ -176,38 +170,3 @@ function mostrarFieldAeropuerto() {
 //    $(function () {
 //        $("#FechaSalida").datepicker();
 //    });
-function customRange(input) {
-    var min = new Date(2008, 11 - 1, 1), //Set this to your absolute minimum date
-        dateMin = min,
-        dateMax = null,
-        dayRange = 6; // Set this to the range of days you want to restrict to
-
-    if (input.id === "txtStartDate") {
-        if ($("#txtEndDate").datepicker("getDate") != null) {
-            dateMax = $("#txtEndDate").datepicker("getDate");
-            dateMin = $("#txtEndDate").datepicker("getDate");
-            dateMin.setDate(dateMin.getDate() - dayRange);
-            if (dateMin < min) {
-                dateMin = min;
-            }
-        }
-        else {
-            dateMax = new Date; //Set this to your absolute maximum date
-        }
-    }
-    else if (input.id === "txtEndDate") {
-        dateMax = new Date; //Set this to your absolute maximum date
-        if ($("#txtStartDate").datepicker("getDate") != null) {
-            dateMin = $("#txtStartDate").datepicker("getDate");
-            var rangeMax = new Date(dateMin.getFullYear(), dateMin.getMonth(), dateMin.getDate() + dayRange);
-
-            if (rangeMax < dateMax) {
-                dateMax = rangeMax;
-            }
-        }
-    }
-    return {
-        minDate: dateMin,
-        maxDate: dateMax
-    };
-}
