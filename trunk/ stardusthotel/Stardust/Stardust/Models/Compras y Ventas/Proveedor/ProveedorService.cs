@@ -69,5 +69,10 @@ namespace Stardust.Models
         {
             proveedorDAO.RegistrarPagoContado(OC);
         }
+
+        public void RegistrarPagoCredito(OrdenCompras OC)
+        {
+            proveedorDAO.RegistrarPagoCredito(OC);
+        }
     }
 }

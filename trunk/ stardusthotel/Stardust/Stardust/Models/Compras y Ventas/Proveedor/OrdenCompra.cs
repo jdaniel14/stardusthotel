@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
@@ -29,6 +30,10 @@ namespace Stardust.Models
         public decimal subtotal { get; set; }
         public decimal igv { get; set; }
         public decimal total { get; set; }
+        [Display(Name = "Interes (%)")]
+        public int interes { get; set; }
+        [Display(Name = "Numero de Coutas")]
+        public int numCoutas { get; set; }
         public List<OrdenCompra> listaOC { get; set; }
         public List<OrdenCompraDetalle> listaOCDetalle { get; set; }
 
