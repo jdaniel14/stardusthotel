@@ -38,6 +38,9 @@ namespace Stardust.Models
         [Display(Name = "Correo electrónico")]
         public string emailContacto { get; set; }
 
+        [Display(Name = "Teléfono Contacto")]
+        public string telefonocontacto { get; set; }
+        
         [Display(Name = "Observaciones")]
         public string observaciones { get; set; }
 

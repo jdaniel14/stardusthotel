@@ -69,7 +69,7 @@ namespace Stardust.Controllers
         public ActionResult DeleteConfirmed(int ID)
         {
             proveedorFacade.EliminarProveedor(ID);
-            return RedirectToAction("../Home/Index");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Buscar(string razonsocial, string contacto)
@@ -142,7 +142,8 @@ namespace Stardust.Controllers
             int idproveedor = proveedor[0].ID;
 
             proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
-            return RedirectToAction("Index"); 
+
+            return RedirectToAction("ListarProductos/"+idproveedor, "Proveedor"); 
         }
 
         public ActionResult ModificarProductos(ProductoxProveedorBean prod) 

@@ -46,6 +46,7 @@ namespace Stardust.Models
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
+                proveedor.telefonocontacto = (string)dataReader["telefonocontacto"];
                 proveedor.estado = 1;
                 listaProveedor.Add(proveedor);
             }
@@ -73,8 +74,9 @@ namespace Stardust.Models
 				   proveedor.web + "', '" + 
 				   proveedor.telefono + "', '" + 
 				   proveedor.direccion + "', '" + 
-				   proveedor.observaciones + "', '" + 
-				   proveedor.estado + "')";
+				   proveedor.observaciones + "', '" +
+                   proveedor.estado + "', '" + 
+				   proveedor.telefonocontacto + "')";
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -99,7 +101,8 @@ namespace Stardust.Models
 									"', web = '" + proveedor.web +
 									"', telefono = '" + proveedor.telefono + 
 									"', direccion = '" + proveedor.direccion + 
-									"', observaciones = '" + proveedor.observaciones + 
+									"', observaciones = '" + proveedor.observaciones +
+                                    "', telefonocontacto = '" + proveedor.telefonocontacto + 
                                     "' WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -134,6 +137,7 @@ namespace Stardust.Models
                 proveedor.telefono = (string)dataReader["telefono"];
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
+                proveedor.telefonocontacto = (string)dataReader["telefonocontacto"];
                 proveedor.estado = Convert.ToInt32(dataReader["estado"]);         
             }
             dataReader.Close();
