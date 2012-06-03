@@ -208,9 +208,11 @@ namespace Stardust.Controllers
 
         }
 
-        public ActionResult guardarNotaentrad(NotaEntradaBean not)
+        public ActionResult guardarNotaentrad(NotaEntradaBean not) //nueva nota de entrada
         {
-            return View();
+
+            comprasFacade.guardarnotaentrada(not);
+            return RedirectToAction("Buscar");
         }
         public ActionResult BuscarNotaE(string proveedor)
         {
