@@ -50,6 +50,10 @@
                 <div class="formRight"> @Html.DisplayFor(model => model.cargoContacto) </div>
                 <div class="clear"></div>
             </div>
+            <div class="formRow">@Html.LabelFor(model => model.telefonocontacto)
+                <div class="formRight"> @Html.DisplayFor(model => model.telefonocontacto, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8", placeholder = "celular" }) </div>
+                <div class="clear"></div>
+            </div>
             <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
                 <div class="formRight"> @Html.DisplayFor(model => model.emailContacto) </div>
                 <div class="clear"></div>

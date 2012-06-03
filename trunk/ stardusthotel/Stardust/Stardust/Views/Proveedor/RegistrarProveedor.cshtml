@@ -22,7 +22,7 @@
                 <h6>Registrar Proveedor</h6>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
-                <div class="formRight">@Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Maximo 20 caracteres aqui" }) </div>
+                <div class="formRight">@Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Máximo 20 caracteres aqui" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
@@ -35,7 +35,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefono)
-                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength="8", placeholder = "celular" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8", placeholder = "celular" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
@@ -48,6 +48,10 @@
             </div>
             <div class="formRow">@Html.LabelFor(model => model.cargoContacto)<span class="req">*</span>
                 <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "" }) </div>
+                <div class="clear"></div>
+            </div>
+            <div class="formRow">@Html.LabelFor(model => model.telefonocontacto)
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefonocontacto, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8", placeholder = "celular" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
