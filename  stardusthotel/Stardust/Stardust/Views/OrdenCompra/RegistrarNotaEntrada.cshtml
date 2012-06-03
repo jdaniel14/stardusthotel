@@ -15,7 +15,7 @@
 @using (Html.BeginForm("guardarNotaentrad", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
 {
    @Html.ValidationSummary(false)
-    
+    @Html.HiddenFor(model => model.idordencompra) 
     <fieldset>
         <div class="widget">
             <div class="title">
@@ -40,10 +40,21 @@
     </fieldset>
     
     
-    <div class="widget">
-          <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Lista de Productos</h6></div>
-            <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
-                <thead>                    <tr>                        <td>Producto</td>                        <td>Cantidad Solicitada</td>                        <td>Cantidad Entrante</td>                                            </tr>                </thead>
+    <div class="widget">
+
+          <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Lista de Productos</h6></div>
+
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+
+                <thead>
+                    <tr>
+                        <td>Producto</td>
+                        <td>Cantidad Solicitada</td>
+                        <td>Cantidad Entrante</td>
+                        
+                    </tr>
+                </thead>
+
                 <tbody>
                         @for (int i = 0; i < Model.detallenotaentrada.Count; i++)
                         {
@@ -57,9 +68,12 @@
                     </tr>       
                         }
 
-                </tbody>
-            </table>
-      </div>
+                </tbody>
+
+            </table>
+
+      </div>
+
     
     <p>
         <input type="submit" value="Guardar" class = "redB" />
