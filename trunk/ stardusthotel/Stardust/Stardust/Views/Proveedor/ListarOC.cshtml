@@ -39,7 +39,8 @@
                 <td> @Html.TextBoxFor(model => model.listaOC[i].fecha, new { @readonly = "readonly" })  </td>
                 <td> @Html.TextBoxFor(model => model.listaOC[i].precio, new { @readonly = "readonly" })   </td>
                 <td>
-                    <a href="@Url.Action("Pagar", new { id = Model.listaOC[i].id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Pagar </a>                     
+                    <a href="@Url.Action("PagarContado", new { id = Model.listaOC[i].id })"><img src="../../Content/images/icons/color/cash.png", alt="Cash" />Contado </a> |                    
+                    <a href="@Url.Action("PagarCredito", new { id = Model.listaOC[i].id })"><img src="../../Content/images/icons/color/credit.png", alt="Credit" />Credito </a>
                 </td>
      </tr>
 
