@@ -12,7 +12,7 @@ function inicializarEventos() {
     $("#checkAerop").click(function (event) {
         if ($(this).is(":checked")) {
             $("#checkAerop:checkbox:not(:checked)").attr("checked", "checked");
-            $("#fieldAeropuerto").show();
+            $("#fieldAeropuerto").show("slow");
         } else {
             $("#checkAerop:checkbox:checked").removeAttr("checked");
             $("#fieldAeropuerto").hide();
