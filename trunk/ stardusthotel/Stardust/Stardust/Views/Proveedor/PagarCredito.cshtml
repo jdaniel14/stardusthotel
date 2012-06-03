@@ -10,7 +10,7 @@
 
 
 
- @using (Html.BeginForm("PagarCredito", "Proveedor", FormMethod.Post, new { @class = "form" }))
+ @using (Html.BeginForm("PagarCredito", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
 
     <div class="title"><h6>Listado de Orden de Compra</h6> </div>
@@ -70,13 +70,13 @@
 
     <div class="formRow">
                 @Html.LabelFor(model => model.interes)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.interes)</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.interes, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
                 @Html.LabelFor(model => model.numCoutas)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.numCoutas)</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.numCoutas, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
                 <div class = "clear" ></div>
     </div>
 
