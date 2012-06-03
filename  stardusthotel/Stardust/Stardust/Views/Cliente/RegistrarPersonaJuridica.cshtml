@@ -5,12 +5,16 @@
 }
 
 <h2>Registrar Persona Juridica</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
 <p>
     Llene el siguiente formulario para la creación de un nuevo Cliente Juridica
 </p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("RegistrarClienteJ", "Cliente", FormMethod.Post, new { @class = "form", id = "validate" }))
 
 {
 
@@ -23,14 +27,14 @@
 
             <div class="formRow"><span>Razon Social</span>                
                <div class = "formRight" > 
-               @Html.TextBoxFor(m => m.razonSocial)
+               @Html.TextBoxFor(m => m.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" })
                </div>                
                <div class="clear"></div>
             </div>
                         
             <div class="formRow"><span>RUC</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.nroDocumento) 
+                @Html.TextBoxFor(m => m.nroDocumento, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "11", minlength = "1" }) 
                 </div>
                 <div class="clear"></div>
             </div>
