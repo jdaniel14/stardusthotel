@@ -65,9 +65,19 @@
     </tbody>
 
     </table>
+     
+     <fieldset>
+
+    <div class="formRow">
+                @Html.LabelFor(model => model.pagado)<span class="req">*</span>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
+                <div class = "clear" ></div>
+    </div>
+
+    </fieldset>
     <p></p><p></p><p></p><p></p>
     <p>
         <input type="submit" value="Contado" class = "redB" /> |
-        @Html.ActionLink("Regresar", "PagoProveedor","Proveedor")
+        @Html.ActionLink("Regresar", "PagoProveedor", "Proveedor")
     </p>
 }
