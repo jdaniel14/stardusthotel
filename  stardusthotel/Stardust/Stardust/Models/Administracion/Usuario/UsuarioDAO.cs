@@ -170,8 +170,8 @@ namespace Stardust.Models
                                     "tipoDocumento = '" + usuario.tipoDocumento + "', " +
                                     "nroDocumento = '" + usuario.nroDocumento + "', " +
                                     "razonSocial = '" + usuario.razonSocial + "', " +
-                                    "estado = '" + usuario.estado + "', " +
-                                    "WHERE idUsuario = " + usuario.ID;
+                                    "estado = '" + usuario.estado + "' " +
+                                    " WHERE idUsuario = " + usuario.ID;
 
                 SqlCommand query = new SqlCommand(command, sql);
 
