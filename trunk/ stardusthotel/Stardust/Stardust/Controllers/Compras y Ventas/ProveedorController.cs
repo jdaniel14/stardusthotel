@@ -176,8 +176,12 @@ namespace Stardust.Controllers
         }
 
         public ActionResult ListarOC(int id)
-        {            
-            return View(proveedorFacade.ObtenerOC(id));
+        {
+            OrdenCompras OC = new OrdenCompras();
+            OC = proveedorFacade.ObtenerOC(id);
+            OC.id = id;
+            OC.nombre = proveedorFacade.GetNombre(id);
+            return View(OC);
         }
 
         public ActionResult Pagar(int id)
