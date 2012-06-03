@@ -105,8 +105,8 @@
                     "alertText": "* Solo numeros aqui"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-ZñÑáóíéú]+$/,
-                    "alertText": "* Solo Letras Aqui"
+                    "regex": /^[a-zA-Z ñ Ñ á Á éÉ íÍ óÓ úÚ]+$/,
+                    "alertText": "* 31245 ---> Solo Letras Aqui"
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
