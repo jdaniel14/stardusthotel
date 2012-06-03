@@ -48,7 +48,7 @@ namespace Stardust.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var yield = new[] {"pagado"};
-            if (pagado > total)
+            if (pagado >10)
             {
                 yield return new ValidationResult("El monto es mayor del total",yield);
             }
