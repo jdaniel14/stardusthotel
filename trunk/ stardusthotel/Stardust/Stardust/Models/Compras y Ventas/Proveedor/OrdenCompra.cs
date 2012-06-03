@@ -23,7 +23,7 @@ namespace Stardust.Models
         public decimal precio { get; set; }
         public int idProv { get; set; }
     }
-    public class OrdenCompras
+    public class OrdenCompras : IValidatableObject
     {
         public int id { get; set; }        
         public string nombre { get; set; }
@@ -34,6 +34,8 @@ namespace Stardust.Models
         public int interes { get; set; }
         [Display(Name = "Numero de Coutas")]
         public int numCoutas { get; set; }
+        [Display(Name = "Monto a Pagar")]
+        public int pagado { get; set; }
         public List<OrdenCompra> listaOC { get; set; }
         public List<OrdenCompraDetalle> listaOCDetalle { get; set; }
 
@@ -41,6 +43,15 @@ namespace Stardust.Models
         {
             listaOC = new List<OrdenCompra>();
             listaOCDetalle = new List<OrdenCompraDetalle>();
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var yield = new[] {"pagado"};
+            if (pagado > total)
+            {
+                yield return new ValidationResult("El monto es mayor del total",yield);
+            }
         }
     }
 }
