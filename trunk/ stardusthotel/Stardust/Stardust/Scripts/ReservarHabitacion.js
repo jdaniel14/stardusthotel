@@ -7,6 +7,17 @@ function inicializarEventos() {
     $("#FechaSalida").datepicker();
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
+
+
+    $("#checkAerop").click(function (event) {
+        if ($(this).is(":checked")) {
+            $("#checkAerop:checkbox:not(:checked)").attr("checked", "checked");
+            $("#fieldAeropuerto").show();
+        } else {
+            $("#checkAerop:checkbox:checked").removeAttr("checked");
+            $("#fieldAeropuerto").hide();
+        }
+    });
     var x;
     var idHotel = "2";
     $.ajax({
