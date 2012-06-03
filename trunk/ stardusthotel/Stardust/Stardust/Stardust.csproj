@@ -1455,6 +1455,10 @@
     <Content Include="Scripts\a.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Views\OrdenCompra\Registrar.cshtml" />
+    <Content Include="Views\OrdenCompra\Registrar2.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1482,7 +1486,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -4313,7 +4319,6 @@
     <Content Include="Views\Cliente\ModificarClienteNatural.cshtml" />
     <Content Include="Views\Cliente\RegistrarPersonaJuridica.cshtml" />
     <Content Include="Views\Cliente\RegistrarPersonaNatural.cshtml" />
-    <Content Include="Views\OrdenCompra\Registrar.cshtml" />
     <Content Include="Views\Producto\ListadeHoteles.cshtml" />
     <Content Include="Views\Producto\ListarProductosdeAlmacen.cshtml" />
     <Content Include="Views\Producto\AsignarProductosaAlmacen.cshtml" />
@@ -4333,6 +4338,8 @@
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Usuario\List.cshtml" />
+    <Content Include="Views\OrdenCompra\Buscar.cshtml" />
+    <Content Include="Views\Proveedor\ListarOC.cshtml" />
     <Content Include="Views\OrdenCompra\Buscar.cshtml" />
     <Content Include="Views\OrdenCompra\RegistrarOrdenCompra.cshtml" />
     <Content Include="Views\OrdenCompra\Buscar2.cshtml" />
