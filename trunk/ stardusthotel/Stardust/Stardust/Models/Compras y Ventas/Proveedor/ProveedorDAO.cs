@@ -295,7 +295,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendido' AND idProveedor = "+id;
+            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendido' OR estado 'Parcialmente_Atendido' AND idProveedor = "+id;
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -383,6 +383,25 @@ namespace Stardust.Models
             sqlCmd.ExecuteNonQuery();
 
             sqlCon.Close();
+
+            
+                SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion);
+                sqlCon2.Open();
+
+                string commandString2;
+
+                if (OC.total == OC.pagado)
+                {
+                    commandString2 = "UPDATE OrdenCompra SET estado = 'Cancelado' WHERE idOrdenCompra = " + OC.id;
+                }
+                else
+                {
+                    commandString2 = "UPDATE OrdenCompra SET estado = 'Parcialmente_Atendido' WHERE idOrdenCompra = " + OC.id;
+                }
+                SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+                sqlCmd2.ExecuteNonQuery();
+
+                sqlCon2.Close();
         }
     }
 }
