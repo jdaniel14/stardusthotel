@@ -268,8 +268,33 @@ namespace Stardust.Models
             return (orden2);
             
         }
-    
-        
+
+        public void GuardarNotaEntrada(NotaEntradaBean nota)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "INSERT INTO GuiaRemision VALUES  (GETDATE(), " + nota.idordencompra+" )";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+            sqlCon.Close();
+
+            //String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            //SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion);
+            //sqlCon2.Open();
+
+
+            //string commandString2 = "INSERT INTO GuiaRemisionDetalle VALUES  (GETDATE(), " + nota.idordencompra + " )";
+
+            //SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+            //sqlCmd.ExecuteNonQuery();
+            //sqlCon.Close();
+
+        }
     }
 
 }

@@ -65,7 +65,10 @@ namespace Stardust.Models
             return ordenCompraService.listarnotas(ordencompra);
         }
 
-
+        public void guardarnotaentrada(NotaEntradaBean nota)
+        {
+            ordenCompraService.guardarnotaentrada(nota);
+        }
         /**----------- Reporte de compras 3------------*/
 
     }

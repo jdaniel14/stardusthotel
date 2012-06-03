@@ -32,7 +32,11 @@ namespace Stardust.Models
         {
             return ordenCompraDAO.ListarNotasEntradas(idorden);
         }
-
+        public void guardarnotaentrada(NotaEntradaBean nota)
+        {
+            ordenCompraDAO.GuardarNotaEntrada(nota);
+            
+        }
 
 
     }
