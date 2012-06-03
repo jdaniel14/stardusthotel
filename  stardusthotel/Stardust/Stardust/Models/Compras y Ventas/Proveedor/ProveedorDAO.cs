@@ -362,7 +362,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , "+ OC.total + " , GETDATE() , " + OC.id + ")";
+            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , "+ OC.total + " , 'Contado' , GETDATE() , " + OC.id + ")";
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -370,6 +370,20 @@ namespace Stardust.Models
             sqlCon.Close();
         }
 
+        public void RegistrarPagoCredito(OrdenCompras OC)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , " + OC.total + " , 'Credito' , GETDATE() , " + OC.id + " , " + OC.interes + " , " + OC.numCoutas + ")";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
     }
 }
 

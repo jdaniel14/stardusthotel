@@ -115,6 +115,11 @@ namespace Stardust.Models
             proveedorService.RegistrarPagoContado(OC);
         }
 
+        public void RegistrarPagoCredito(OrdenCompras OC)
+        {
+            proveedorService.RegistrarPagoCredito(OC);
+        }
+
         /*-----Registrar Datos de Factura-3------*/
 
     }
