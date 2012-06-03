@@ -44,7 +44,7 @@
         <div class="formRow">
             <label>Descripcion</label>
             <div class="formRight">
-                @Html.TextAreaFor(model => model.descripcion, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "50" })
+                @Html.TextAreaFor(model => model.descripcion, new { maxlength = "50" })
             </div>
             <div class = "clear"></div>
         </div>
