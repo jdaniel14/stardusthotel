@@ -106,69 +106,65 @@
 		    		<tbody  id = "tablaTipos">
 					</tbody>
 				</table>
-			</div>
-
-			<!--fieldset>
-				<div class="widget">
-					<div class="title"> 
-						<h6>Calculo de cuenta de habitaciones</h6>
-					</div>
-					<div class="formRow">
-						<span>Total</span>                
-						<div class = "formRight" > 
-							<span id = "Total">0</span>
-						</div>                
-						<div class="clear"></div>
-					</div>
-
-				</div>
-			</fieldset-->
-		</div>
-	</fieldset>
+			</div>			
+		
+             <div class="widget">
+			    <div class="title">
+				    <h6>Recojo al aeropuerto</h6>
+			    </div>
 
 
-	<p>
-		<input type="submit" value="Recojo de aeropuerto" class = "redB" id = "registrarAeropuerto"/>
-    </p>
+                <div class="formRow"><span>Recojo al aeropuerto</span>
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <input type="checkbox" id="checkAerop" value="one" /><br />                            
+					    </div>
+				    </div>				    
+			    </div>
 
-	<fieldset id = "fieldAeropuerto">
-		<div class="widget">
-			<div class="title">
-				<h6>Recojo al aeropuerto</h6>
-			</div>
+                <div id="fieldAeropuerto">
+			        <div class="formRow">
+				        <span>Hora de llegada</span>                
+				        <div class = "formRight" >                                         
+					        <input type="text" value="" id = "HoraLlegada"/> 
+				        </div>                
+				        <div class="clear"></div>
+			        </div>
 
-			<div class="formRow">
-				<span>Hora de llegada</span>                
-				<div class = "formRight" >                                         
-					<input type="text" value="" id = "HoraLlegada"/> 
-				</div>                
-				<div class="clear"></div>
-			</div>
+			        <div class="formRow">
+				        <span>Aerolinea</span>
+				        <div class = "formRight" >
+					        <input type="text" value="" id="Aerolinea" />
+				        </div>
+				        <div class="clear"></div>
+			        </div>
 
-			<div class="formRow">
-				<span>Aerolinea</span>
-				<div class = "formRight" >
-					<input type="text" value="" id="Aerolinea" />
-				</div>
-				<div class="clear"></div>
-			</div>
-
-			<div class="formRow"><span>Nro. Vuelo</span>                
-				<div class = "formRight" > 
-					<input type="text" value="" id="NVuelo" /> 
-				</div>                
-				<div class="clear"></div>
-			</div>  
+			        <div class="formRow"><span>Nro. Vuelo</span>                
+				        <div class = "formRight" > 
+					        <input type="text" value="" id="NVuelo" /> 
+				        </div>                
+				        <div class="clear"></div>
+			        </div>  
 			
-			<div class="formRow">
-				<span>Cantidad de Personas</span>
-				<div class = "formRight" > 
-					<input type="text" value="" id="CantPersonas" /> 
-				</div>                
-				<div class="clear"></div>
-			</div>  
-		</div>
+			        <div class="formRow">
+				        <span>Cantidad de Personas</span>
+				        <div class = "formRight" > 
+					        <input type="text" value="" id="CantPersonas" /> 
+				        </div>                
+				        <div class="clear"></div>
+			        </div>  
+                </div>
+
+		    </div>	        
+        </div>
 	</fieldset>
+
+
+	<!--p>
+		<input type="submit" value="Recojo de aeropuerto" class = "redB" id = "registrarAeropuerto"/>
+    </p-->
+
+	
 
 	<p>
 		<input type="submit" value="Reservar" class = "redB" />
