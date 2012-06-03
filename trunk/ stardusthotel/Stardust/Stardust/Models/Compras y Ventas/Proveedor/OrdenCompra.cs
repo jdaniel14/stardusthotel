@@ -12,6 +12,7 @@ namespace Stardust.Models
         public int cantidad { get; set; }
         public decimal precio { get; set; }
         public int preciouni { get; set; }
+        public string nombre { get; set; }
     }
     public class OrdenCompra
     {
@@ -25,6 +26,9 @@ namespace Stardust.Models
     {
         public int id { get; set; }        
         public string nombre { get; set; }
+        public decimal subtotal { get; set; }
+        public decimal igv { get; set; }
+        public decimal total { get; set; }
         public List<OrdenCompra> listaOC { get; set; }
         public List<OrdenCompraDetalle> listaOCDetalle { get; set; }
 

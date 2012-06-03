@@ -105,6 +105,16 @@ namespace Stardust.Models
             return proveedorService.GetNombre(id);
         }
 
+        public OrdenCompras ListarOC(int id)
+        {
+            return proveedorService.ListarOC(id);
+        }
+
+        public void RegistrarPagoContado(OrdenCompras OC)
+        {
+            proveedorService.RegistrarPagoContado(OC);
+        }
+
         /*-----Registrar Datos de Factura-3------*/
 
     }

@@ -59,5 +59,15 @@ namespace Stardust.Models
         {
             return proveedorDAO.GetNombre(id);
         }
+
+        public OrdenCompras ListarOC(int id)
+        {
+            return proveedorDAO.ListarOC(id);
+        }
+
+        public void RegistrarPagoContado(OrdenCompras OC)
+        {
+            proveedorDAO.RegistrarPagoContado(OC);
+        }
     }
 }
