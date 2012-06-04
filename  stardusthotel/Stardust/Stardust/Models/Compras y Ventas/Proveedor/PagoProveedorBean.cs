@@ -52,5 +52,6 @@ namespace Stardust.Models
         {
             proveedorList = new SelectList(getProveedores(), "ID", "Nombre");
         }
+
     }
 }
