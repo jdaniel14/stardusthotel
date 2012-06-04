@@ -120,17 +120,34 @@ namespace Stardust.Controllers
             return View(promocionFacade.GetPromocion(id));
         }
 
-        public ActionResult Delete(int id)
+
+        public ActionResult Delete(int ID)
         {
-            return View(promocionFacade.GetPromocion(id));
+            return View(promocionFacade.GetPromocion(ID));
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult DeleteConfirmed(int ID)
         {
-            promocionFacade.EliminarPromocion(id);
-            return RedirectToAction("Buscar");
+            promocionFacade.EliminarPromocion(ID);
+            //return RedirectToAction("Buscar");
+            return Json(new { me = "" });
         }
+
+
+        //public ActionResult Delete(int id)
+        //{
+        //    return View(promocionFacade.GetPromocion(id));
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    promocionFacade.EliminarPromocion(id);
+        //    return RedirectToAction("Buscar");
+        //}
+
+
 
 
     }
