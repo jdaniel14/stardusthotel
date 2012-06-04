@@ -1,4 +1,35 @@
-﻿@model Stardust.Models.OrdenCompraBean
+﻿
+@model Stardust.Models.PagoProveedorBean
+
+@{
+    ViewBag.Title = "Buscar Orden compra";
+}
+
+<h2>Buscar Orden Compra</h2>
+
+@using (Html.BeginForm("Buscar", "Ordencompra", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Orden Compra</h6></div>
+
+            <div class="formRow">
+                <label>Proveedor</label>
+                <div class = "formRight" >@Html.DropDownListFor(model => model.ID,Model.proveedorList)</div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+        @Html.ActionLink("Regresar", "Buscar")
+    </p>
+}
+
+
+
+@*@model Stardust.Models.OrdenCompraBean
 
 <h2>Buscar Orden de Compra </h2>
 
@@ -41,3 +72,4 @@
         @Html.ActionLink("Regresar", "Buscar")
     </p>
 }
+*@
