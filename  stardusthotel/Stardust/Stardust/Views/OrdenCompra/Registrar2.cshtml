@@ -14,13 +14,17 @@
         <div class="widget">
             <div class="title">
                 <h6>Proveedor</h6>
-                @Html.HiddenFor(model => model.id)
+                @Html.HiddenFor(model => model.id) 
+                
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.proveedor)
                 <div class=" formRight">  @Html.TextBoxFor(model => model.proveedor,new{@readonly ="readonly"})  </div>
                 <div class="clear"></div>
             </div>
-            
+            <div class="formRow"> @Html.LabelFor(model =>model.nombrehotel)
+                <div class=" formRight">  @Html.TextBoxFor(model => model.nombrehotel, new { @readonly = "readonly" })  </div>
+                <div class="clear"></div>
+            </div>
             
         </div>
     </fieldset>
