@@ -22,6 +22,10 @@ namespace Stardust.Models
         public int idOrdenCompra { get; set; }
         public int idproveedor { get; set; }
 
+        public string nombrehotel { get; set; }
+
+        public int idhotel { get; set; }
+        
         [Display(Name = "Proveedor")]
         public string idProv { get; set; } 
         
