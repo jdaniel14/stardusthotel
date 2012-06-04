@@ -52,7 +52,8 @@ namespace Stardust.Controllers
         public ActionResult ModificarProveedor(ProveedorBean item)
         {            
             proveedorFacade.ActualizarProveedor(item);
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("DetallesProveedor/" + item.ID, "Proveedor"); 
         }
         public ActionResult DetallesProveedor(int ID)
         {            

@@ -282,19 +282,75 @@ namespace Stardust.Models
             sqlCmd.ExecuteNonQuery();
             sqlCon.Close();
 
-            //String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            cambiarestado(nota.idordencompra, "Parcialmente Atendida"); // cambia de estado
 
-            //SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion);
-            //sqlCon2.Open();
+            String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+            sqlCon2.Open();
+            for (int i = 0; i < nota.detallenotaentrada.Count;i++ )
+            {
 
 
-            //string commandString2 = "INSERT INTO GuiaRemisionDetalle VALUES  (GETDATE(), " + nota.idordencompra + " )";
+                string commandString2 = "INSERT INTO GuiaRemisionDetalle VALUES  ( " + nota.idguiaRemision + ","+
+                                         nota.detallenotaentrada[i].cantidadrecibida+" )";
 
-            //SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
-            //sqlCmd.ExecuteNonQuery();
-            //sqlCon.Close();
+                SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+                sqlCmd.ExecuteNonQuery();
+
+            }
+
+            
+            sqlCon.Close();
 
         }
+
+        public void cambiarestado(int ordencompra, string estado)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "UPDATE OrdenCompra " +
+                                    "SET estado = '" + estado + "' "+
+                                    "WHERE idOrdenCompra = " + ordencompra;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+
+        }
+
+        //public int ObteneridguiaRemision(int idordencompra)
+        //{
+        //    int i = 0;
+
+        //    try
+        //    {
+        //        String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+        //        SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+        //        sqlCon.Open();
+
+        //        string commandString = "SELECT * FROM GuiaRemision WHERE idOrdenCompra = " + idordencompra;
+
+        //        SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+        //        sqlCmd.ExecuteNonQuery();
+        //        sqlCon.Close();
+        //    }
+        //    catch
+        //    {
+
+        //    }
+           
+
+
+        //    return i;
+
+
+        //}
     }
 
 }

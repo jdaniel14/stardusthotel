@@ -12,7 +12,7 @@
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
     
-@using (Html.BeginForm("ModificarOrdenC", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("ModificarOrdenC/"+ Model.idOrdenCompra, "OrdenCompra", FormMethod.Post, new { @class = "form" }))
 {
    @Html.ValidationSummary(false)
     
@@ -57,19 +57,16 @@
                     </tr>       
                         }
 
+                    <tr>
+                        <td></td>
+                        <td></td> 
+                        <td>Monto Total</td>
+                        <td > @Html.TextBoxFor(model => model.preciototal, new { @readonly = "readonly" })</td>
+                    </tr>
                 </tbody>
             </table>
       </div>
-    <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
-        <tbody>
-          <tr>
-            <td>Monto Total</td>
-            <td> @Html.TextBoxFor(model => model.preciototal, new { @readonly = "readonly" })</td>
-          </tr>
-            
-        </tbody>
 
-    </table>
     
     <p>
         <input type="submit" value="Editar" class = "redB" />
