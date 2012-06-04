@@ -16,6 +16,7 @@ namespace Stardust.Models
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            
             sqlCon.Open();
             
             string commandString = "SELECT * FROM Proveedor WHERE estado=1";
