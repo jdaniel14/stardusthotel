@@ -52,17 +52,33 @@ namespace Stardust.Controllers
             return RedirectToAction("Buscar");
         }
 
+
         public ActionResult Delete(int ID)
         {
             return View(produc.Getproducto(ID));
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int ID)
+        public JsonResult DeleteConfirmed(int ID)
         {
             produc.Eliminarproducto(ID);
-            return RedirectToAction("Buscar");
+            //return RedirectToAction("Buscar");
+            return Json(new { me = "" });
         }
+        
+        
+        
+        //public ActionResult Delete(int ID)
+        //{
+        //    return View(produc.Getproducto(ID));
+        //}
+
+        //[HttpPost, ActionName("Delete")]
+        //public ActionResult DeleteConfirmed(int ID)
+        //{
+        //    produc.Eliminarproducto(ID);
+        //    return RedirectToAction("Buscar");
+        //}
 
         public ActionResult Buscar(string nombre)
         {
