@@ -9,16 +9,17 @@ namespace Stardust.Controllers
 {
     public class OrdenCompraController : Controller
     {
-        public ComprasFacade comprasFacade = new ComprasFacade();
-        public ProveedorFacade proveedorFacade = new ProveedorFacade(); 
-  
+        ComprasFacade comprasFacade = new ComprasFacade();
+        ProveedorFacade proveedorFacade = new ProveedorFacade();
+        HotelFacade hoteles = new HotelFacade();
         
         /*--------Orden de Compra----------*/
 
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        public ActionResult Index()
+        {
+            List<HotelBean> hotel = hoteles.getHoteles();    
+            return View(hotel);
+        }
 
         public ActionResult Buscar()
         {
@@ -52,9 +53,11 @@ namespace Stardust.Controllers
         }
 
 
-        public ActionResult Registrar()
+        public ActionResult Registrar(int id)
         {
+
             OrdenCompraBean ordenCompra = new OrdenCompraBean();
+            ordenCompra.idhotel=id;
             return View(ordenCompra);
         }
 
@@ -62,10 +65,10 @@ namespace Stardust.Controllers
         public ActionResult Registrar(OrdenCompraBean ordenCompra)
         {
             int ID = Convert.ToInt32(ordenCompra.idProv);
-            return RedirectToAction("Registrar2", new { id = ID});
+            return RedirectToAction("Registrar2", new { id = ID,idhotel=ordenCompra.idhotel});
         }
 
-        public ViewResult Registrar2(int id)
+        public ViewResult Registrar2(int id, int idhotel)
         {
             OrdenProducto prod = new OrdenProducto();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
@@ -83,10 +86,13 @@ namespace Stardust.Controllers
                 }
             }
 
+            
             prod.listaProducto = produ;
             prod.proveedor = prov.razonSocial;
             prod.id = id;
-
+            prod.idhotel = idhotel;
+            HotelBean hotel = hoteles.getHotel(idhotel);
+            prod.nombrehotel = hotel.nombre;
             //lista de productos en la tabla de productoxproveedor
             for (int i = 0; i < prod.listaProducto.Count; i++)
             {
