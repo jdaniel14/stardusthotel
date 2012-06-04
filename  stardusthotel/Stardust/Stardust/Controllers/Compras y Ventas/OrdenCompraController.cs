@@ -22,13 +22,26 @@ namespace Stardust.Controllers
 
         public ActionResult Buscar()
         {
-            return View();
+            PagoProveedorBean pagoProveedor = new PagoProveedorBean();
+            return View(pagoProveedor);
+            //return View();
         }
 
-        
-        public ActionResult Buscar2(string nombre, string fecha1, string fecha2)
+        [HttpPost]
+        public ActionResult Buscar(PagoProveedorBean pago)
         {
+            int ID = Convert.ToInt32(pago.ID);
+            ProveedorBean prove = proveedorFacade.GetProveedor(ID);
+            string nombre = prove.razonSocial;
             
+            return RedirectToAction("Buscar2", new { nombre = nombre });
+        }
+
+
+        public ActionResult Buscar2(string nombre)
+        {
+            string fecha1 = "";
+            string fecha2 = "";
             return View(comprasFacade.buscarOrdenes(nombre, fecha1, fecha2));
         }
 
