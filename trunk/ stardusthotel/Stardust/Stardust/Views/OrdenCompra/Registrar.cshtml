@@ -15,7 +15,7 @@
             <div class="title">
                 <h6>Registrar Orden de Compra</h6>
             </div>
-
+            @Html.HiddenFor(model => model.idhotel)
             <div class="formRow">
                @Html.LabelFor(model => model.idProv)                              
                 <div class = "formRight" >@Html.DropDownListFor(model => model.idProv, Model.proveedorList)</div>
@@ -28,6 +28,6 @@
             <p></p> <p></p> <p></p>
     <div>
            <input type="submit" value="Buscar" class = "redB" /> |
-           @Html.ActionLink("Regresar", "../Home/Index")
+           @Html.ActionLink("Regresar", "Index")
     </div>
 }
