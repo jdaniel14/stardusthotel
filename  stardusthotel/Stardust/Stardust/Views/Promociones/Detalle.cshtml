@@ -49,7 +49,7 @@
                 <a href="@Url.Action("Edit", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("Detalles", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
                 
-                <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> 
+                <a  id = @item.idPromocion class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> 
                 
                 @*   <a href="@Url.Action("Delete", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> *@                     
             
@@ -61,7 +61,7 @@
 
      <div id="dialogEliminar" title="Desea Eliminar el producto?">
 	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-    La Promocion que UD. Elimine ya no podra ser recuperado</p>
+    La Promocion que UD. Elimine no la vale ?? </p>
     </div>
 
     </tbody>
