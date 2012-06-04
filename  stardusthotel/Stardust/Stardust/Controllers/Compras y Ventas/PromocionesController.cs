@@ -127,28 +127,11 @@ namespace Stardust.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public JsonResult DeleteConfirmed(int ID)
+        public JsonResult DeleteConfirmed(int idPromocion)
         {
-            promocionFacade.EliminarPromocion(ID);
+            promocionFacade.EliminarPromocion(idPromocion);
             //return RedirectToAction("Buscar");
             return Json(new { me = "" });
         }
-
-
-        //public ActionResult Delete(int id)
-        //{
-        //    return View(promocionFacade.GetPromocion(id));
-        //}
-
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    promocionFacade.EliminarPromocion(id);
-        //    return RedirectToAction("Buscar");
-        //}
-
-
-
-
     }
 }
