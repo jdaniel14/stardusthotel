@@ -88,6 +88,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\Servicios\ClienteController.cs" />
+    <Compile Include="Controllers\Servicios\EmpleadoController.cs" />
+    <Compile Include="Controllers\Servicios\ReservarHabitacionController.cs" />
     <Compile Include="Controllers\Servicios\ServiciosController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -158,6 +160,7 @@
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorDAO.cs" />
     <Compile Include="Models\Compras y Ventas\ProveedorFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorService.cs" />
+    <Compile Include="Models\Reservas\DisponibleBean.cs" />
     <Compile Include="Models\Servicios\AmbienteFacade.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteBean.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteDAO.cs" />
@@ -166,6 +169,8 @@
     <Compile Include="Models\Servicios\Cliente\ClienteBean.cs" />
     <Compile Include="Models\Servicios\Cliente\ClienteDAO.cs" />
     <Compile Include="Models\Servicios\Cliente\ClienteService.cs" />
+    <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs" />
+    <Compile Include="Models\Servicios\Reserva\TipoHabXHotel.cs" />
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
@@ -1455,6 +1460,7 @@
     <Content Include="Scripts\a.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\ReservarHabitacion.js" />
     <Content Include="Views\OrdenCompra\Registrar.cshtml" />
     <Content Include="Views\OrdenCompra\Registrar2.cshtml">
       <SubType>Code</SubType>
@@ -4258,10 +4264,8 @@
     <Content Include="Views\TipoHabitacion\Edit.cshtml" />
     <Content Include="Views\TipoHabitacion\Delete.cshtml" />
     <Content Include="Views\Promociones\Registrar.cshtml" />
-    <Content Include="Views\Promociones\Delete.cshtml" />
     <Content Include="Views\Promociones\Edit.cshtml" />
     <Content Include="Views\Promociones\Index.cshtml" />
-    <Content Include="Views\Producto\Delete.cshtml" />
     <Content Include="Views\Producto\Edit.cshtml" />
     <Content Include="Views\Hotel\Delete.cshtml" />
     <Content Include="Views\Hotel\Details.cshtml" />
@@ -4309,8 +4313,6 @@
     <Content Include="Views\Servicios\RegistrarServicio.cshtml" />
     <Content Include="Views\Promociones\Detalle.cshtml" />
     <Content Include="Views\Promociones\Detalles.cshtml" />
-    <Content Include="Views\Proveedor\Eliminar.cshtml" />
-    <Content Include="Views\Proveedor\Eliminar.cshtml" />
     <Content Include="Views\Cliente\BuscarClienteJuridico.cshtml" />
     <Content Include="Views\Cliente\BuscarClienteNatural.cshtml" />
     <Content Include="Views\Cliente\Index.cshtml" />
@@ -4346,6 +4348,9 @@
     <Content Include="Views\OrdenCompra\RegistrarNotaEntrada.cshtml" />
     <Content Include="Views\Proveedor\PagarContado.cshtml" />
     <Content Include="Views\Proveedor\PagarCredito.cshtml" />
+    <Content Include="Views\ReservarHabitacion\Index.cshtml" />
+    <Content Include="Views\Cliente\BuscarCliente.cshtml" />
+    <Content Include="Views\Cliente\BuscarClienteNoEncontrado.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
