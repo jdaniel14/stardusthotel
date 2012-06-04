@@ -43,7 +43,7 @@ namespace Stardust.Controllers
         public ActionResult Detalle(int id) 
         {
             int Id, hotel;
-            if ((id % 100) == 0)
+            if (id > 100)
             {
                 Id = id / 100;
                 hotel = id % 100;
