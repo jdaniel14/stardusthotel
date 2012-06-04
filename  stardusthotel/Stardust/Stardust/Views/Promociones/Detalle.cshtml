@@ -48,11 +48,22 @@
             <td>
                 <a href="@Url.Action("Edit", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("Detalles", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                <a href="@Url.Action("Delete", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>                      
+                
+                <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> 
+                
+                @*   <a href="@Url.Action("Delete", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> *@                     
+            
+            
             </td>
         </tr>
         
     }
+
+     <div id="dialogEliminar" title="Desea Eliminar el producto?">
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+    La Promocion que UD. Elimine ya no podra ser recuperado</p>
+    </div>
+
     </tbody>
 </table>
       </div>
@@ -63,3 +74,47 @@
     <div>
     @Html.ActionLink("Regresar", "Buscar")
     </div>
+
+
+    <script type = "text/javascript">
+        var idEliminar = 0;
+        $(".eliminar").click(function () {
+            //Jp++ GPL version xD
+            $('#dialogEliminar').dialog('open');
+            idEliminar = $(this).attr("id");
+            return false;
+        });
+
+        $('#dialogEliminar').dialog({
+            autoOpen: false,
+            resizable: false,
+            draggable: false,
+            width: 300,
+            modal: true,
+            title: "!Confirmar Eliminacion de Promoción",
+            position: "center",
+            buttons: {
+                "Aceptar": function () {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        url: "Delete/" + idEliminar,
+                        success: function (data) {
+                            oTable.fnDraw(false);
+                            if (data.me == "") {
+                                $(this).dialog("close");
+                                location.reload();
+                            }
+                        }
+                    });
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                    return false;
+                }
+            }
+        });
+
+</script>
