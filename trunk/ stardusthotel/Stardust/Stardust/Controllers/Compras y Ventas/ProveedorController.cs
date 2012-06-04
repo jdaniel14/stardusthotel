@@ -60,17 +60,33 @@ namespace Stardust.Controllers
             return View(item);
         }
 
-        public ActionResult Eliminar(int ID)
+        public ActionResult Delete(int ID)
         {
             return View(proveedorFacade.GetProveedor(ID));
         }
 
-        [HttpPost, ActionName("Eliminar")]
-        public ActionResult DeleteConfirmed(int ID)
+        [HttpPost, ActionName("Delete")]
+        public JsonResult DeleteConfirmed(int ID)
         {
             proveedorFacade.EliminarProveedor(ID);
-            return RedirectToAction("Index");
+            //return RedirectToAction("Buscar");
+            return Json(new { me = "" });
         }
+        
+        
+        //public ActionResult Eliminar(int ID)
+        //{
+        //    return View(proveedorFacade.GetProveedor(ID));
+        //}
+
+        //[HttpPost, ActionName("Eliminar")]
+        //public ActionResult DeleteConfirmed(int ID)
+        //{
+        //    proveedorFacade.EliminarProveedor(ID);
+        //    return RedirectToAction("Index");
+        //}
+
+
 
         public ActionResult Buscar(string razonsocial, string contacto)
         {            
