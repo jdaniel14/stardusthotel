@@ -66,7 +66,11 @@
 <body>
 
     <div id="leftSide" >
-        <div class="logo"><a href="/Home/Index"><img src="@Url.Content("~/Content/images/logo.png")" alt="" /></a></div>
+        <div class="logo">
+            <a href="@Url.Action("Index","Home")">
+                <img src="@Url.Content("~/Content/images/logo.png")" alt="" />
+            </a>
+        </div>
     
         <div class="sidebarSep mt0"></div>
     
@@ -88,17 +92,31 @@
             
             <li class="dash"><a href="#" title="" class="exp"><span>Hotel</span><strong>3</strong></a>
                 <ul class="sub">
-                    <li><a href = "../TipoHabitacion/Index" title="">Administrar tipo habitación</a></li>
-                    <li><a href="../Hotel/Index" title="">Administrar hotel</a></li>
-                    <li><a href="../Hotel/AsignarTipoHabitacion" title="">Asignar tipos de habitación</a></li>
-
-                    <li class="forms"><a href="#" title="" class="exp"><span>Habitaciones<strong>2</strong></span></a>
+                    <li class="dash"><a href="#" title="" class="exp"><span>Hotel<strong>2</strong></span></a>
                         <ul class="sub">
-                            <li>@Html.ActionLink("Registrar Habitacion","Create","Habitacion")</li>
-                            <li class="last">@Html.ActionLink("Listar Habitacion","List","Habitacion")</li>
+                            <li>@Html.ActionLink("Registrar Hotel","Create","Hotel")</li>
+                            <li>@Html.ActionLink("Listar Hoteles","List","Hotel")</li>
+                            @*<li>@Html.ActionLink("Buscar Hotel","Search","Hotel")</li>*@
+                            <li class="last">@Html.ActionLink("Asignar Precios por Tipo de Habitación","AsignarTipoHabitacion","Hotel")</li>
                         </ul>
                     </li>
-                    @*<li><a href="" title="">Buscar hotel</a></li>*@
+
+                    <li class="dash"><a href="#" title="" class="exp"><span>Tipos de Habitacion<strong>2</strong></span></a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Registrar Tipo de Habitación","Create","TipoHabitacion")</li>
+                            <li class="last">@Html.ActionLink("Listar Tipos de Habitaciones","List","TipoHabitacion")</li>
+                        </ul>
+                    </li>
+                    
+                    @*<li><a href="../Hotel/Index" title="">Administrar hotel</a></li>
+                    <li><a href="../Hotel/AsignarTipoHabitacion" title="">Asignar tipos de habitación</a></li>*@
+
+                    <li class="dash"><a href="#" title="" class="exp"><span>Habitaciones<strong>2</strong></span></a>
+                        <ul class="sub">
+                            <li>@Html.ActionLink("Registrar Habitación","Create","Habitacion")</li>
+                            <li class="last">@Html.ActionLink("Listar Habitaciones","List","Habitacion")</li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
 
@@ -240,10 +258,11 @@
         </div>
     
         <!-- Footer line -->
-        <div id="footer">
-            <div class="wrapper">Usted se encuentra en la web de la cadena de Hoteles Stardust</div>
-        </div>
-
+        <footer>
+            <div id="footer">
+                <div class="wrapper">Usted se encuentra en la web de la cadena de Hoteles Stardust</div>
+            </div>
+        </footer>
     </div>
 
 </body>
