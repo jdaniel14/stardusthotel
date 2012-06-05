@@ -257,8 +257,8 @@ namespace Stardust.Controllers
         public ActionResult DetallenotaEntrada(int id) // idguiaremision
         {
 
-
-            return View();
+            List<Notaentrada> detallenotaentrada = comprasFacade.obtenernotas(id);
+            return View(detallenotaentrada);
 
         }
         
