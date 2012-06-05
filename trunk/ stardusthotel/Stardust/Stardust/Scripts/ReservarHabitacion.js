@@ -12,10 +12,10 @@ function inicializarEventos() {
     $("#checkAerop").click(function (event) {
         if ($(this).is(":checked")) {
             $("#checkAerop:checkbox:not(:checked)").attr("checked", "checked");
-            $("#fieldAeropuerto").show("slow");
+            $("#fieldAeropuerto").show("fast");
         } else {
             $("#checkAerop:checkbox:checked").removeAttr("checked");
-            $("#fieldAeropuerto").hide();
+            $("#fieldAeropuerto").hide("slow");
         }
     });
     var x;
