@@ -9,6 +9,7 @@ namespace Stardust.Models
     public class NotaEntradaBean
     {
         public int idordencompra { get; set; }
+        
         public int idproveedor { get; set; }
         public int idguiaRemision { get; set; }
         
