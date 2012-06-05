@@ -15,23 +15,27 @@
 @using (Html.BeginForm("GuardarestadoOrdenC", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
 {
    @Html.ValidationSummary(false)
-    
+    @Html.HiddenFor(model => model.idOrdenCompra)
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Detalle de La Orden Compra</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)<span class="req">*</span>
+            <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)
                 <div class=" formRight"> @Html.DisplayFor(model => model.nombreproveedor)  </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.fecha)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.fecha)
                 <div class="formRight"> @Html.DisplayFor(model => model.fecha) </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow">@Html.LabelFor(model => model.estado)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.estado) </div>
+            <div class="formRow">@Html.LabelFor(model => model.estado)
+                <div class="formRight"> 
+                                     @Html.RadioButtonFor(model => model.estado, "Registrado", true) Registrado <br />
+                                     @Html.RadioButtonFor(model => model.estado, "Cancelado", false) Cancelado    
+                                                                                                            
+                </div> 
                 <div class="clear"></div>
             </div>
 
@@ -73,7 +77,7 @@
     
     <p>
         
-        @Html.ActionLink("Regresar","DetalleOrdenC/"+Model.idOrdenCompra, "OrdenCompra")
+        @Html.ActionLink("Regresar", "DetalleOrdenC/" + Model.idOrdenCompra, "OrdenCompra")
     </p>
     
 }
