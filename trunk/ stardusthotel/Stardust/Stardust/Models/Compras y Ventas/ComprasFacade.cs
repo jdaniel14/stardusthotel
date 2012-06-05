@@ -39,6 +39,12 @@ namespace Stardust.Models
         {
             return ordenCompraService.buscarordencompra(idorden);
         }
+
+        public void modificarestadoordencompra(int idordencompra, string estado)
+        {
+            ordenCompraService.Guardarestadoordencompra(idordencompra, estado);
+        }
+
         /**------ Asignar productos a almacen  2 -----*/
         public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
         {

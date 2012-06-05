@@ -9,6 +9,8 @@ namespace Stardust.Models
 {
     public class OrdenCompraDAO
     {
+        /**********-------------Orden Compra---------***************/
+        
         public Producto GetProducto(int id)
         {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -55,8 +57,8 @@ namespace Stardust.Models
                 if (valor > 0)
                     total += (valor*precio);
             }
-
-            string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Registrado' , " + producto.id + " , " + total+" )";
+            
+            string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + producto.id + " , " + total+" )";
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -206,12 +208,31 @@ namespace Stardust.Models
             sqlCon2.Close();
             return orden;
         }
-    
         
+        public void cambiarestado(int ordencompra, string estado)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "UPDATE OrdenCompra " +
+                                    "SET estado = '" + estado + "'" + 
+                                    " WHERE idOrdenCompra = " + ordencompra;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            sqlCmd.ExecuteNonQuery();
+
+            sqlCon.Close();
+        }
 
         /*--------------nota de entrada -------*/
 
-        public List<NotaEntradaBean> ListarNotasEntradas(int idordencompra)
+        public 
+            
+        
+            
+        List<NotaEntradaBean> ListarNotasEntradas(int idordencompra)
         {
             // = new NotaEntradaBean();
 
@@ -305,23 +326,9 @@ namespace Stardust.Models
 
         }
 
-        public void cambiarestado(int ordencompra, string estado)
-        {
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
-
-            string commandString = "UPDATE OrdenCompra " +
-                                    "SET estado = '" + estado + "' "+
-                                    "WHERE idOrdenCompra = " + ordencompra;
-
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            sqlCmd.ExecuteNonQuery();
-
-            sqlCon.Close();
-
-        }
+        
 
         //public int ObteneridguiaRemision(int idordencompra)
         //{
