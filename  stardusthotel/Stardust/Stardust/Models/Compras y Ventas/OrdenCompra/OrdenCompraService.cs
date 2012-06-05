@@ -43,6 +43,10 @@ namespace Stardust.Models
             
         }
 
+        public List<Notaentrada> obtenernotas(int idguiaremision)
+        {
+            return (ordenCompraDAO.obtenernotas(idguiaremision));
+        }
 
     }
 }
