@@ -86,7 +86,7 @@ namespace Stardust.Models
             {
                 Producto prod = producto.listaProducto.ElementAt(i);
                 prod.precio = (prod.precio * prod.cantidad);
-                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ prod.precio +" )";
+                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ prod.precio + " )";
                 SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
                 sqlCmd3.ExecuteNonQuery();
             }
@@ -94,7 +94,7 @@ namespace Stardust.Models
             sqlCon2.Close();
         }
 
-        public List<OrdenCompraBean> getlista(string nombre, string fecha1, string fecha2)
+        public List<OrdenCompraBean> getlista(string nombre, string fecha1, string fecha2) //nombre proveedor
         {
 
 
@@ -228,11 +228,8 @@ namespace Stardust.Models
 
         /*--------------nota de entrada -------*/
 
-        public 
-            
-        
-            
-        List<NotaEntradaBean> ListarNotasEntradas(int idordencompra)
+
+        public List<NotaEntradaBean> ListarNotasEntradas(int idordencompra)
         {
             // = new NotaEntradaBean();
 
@@ -259,32 +256,6 @@ namespace Stardust.Models
 
             sqlCon.Close();
 
-            
-
-            //String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            //SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
-            //sqlCon2.Open();
-
-            //string commandString2 = "SELECT * FROM OrdenCompraDetalle WHERE idOrdenCompra = "+idordencompra ;
-
-            //SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
-            //SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
-
-            //orden.detallenotaentrada = new List<Notaentrada>();
-
-            ////List<OrdenCompraBean> orden2 = new List<OrdenCompraBean>();
-            //while (dataReader2.Read())
-            //{
-            //    Notaentrada nota = new Notaentrada();
-            //    nota.ID = (int)dataReader2["idProducto"];
-            //    nota.cantidadsolicitada = (int)dataReader2["cantidad"];
-            //    orden.detallenotaentrada.Add(nota);
-
-            //}
-
-            //sqlCon2.Close();
-
 
             return (orden2);
             
@@ -305,59 +276,67 @@ namespace Stardust.Models
 
             cambiarestado(nota.idordencompra, "Parcialmente Atendida"); // cambia de estado
 
+
+            List<NotaEntradaBean> ordenes = ListarNotasEntradas(nota.idordencompra);
+
+            int cantidad = ordenes.Count;
+
+            nota.idguiaRemision=ordenes[cantidad - 1].idguiaRemision;
+
+
             String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
-            sqlCon2.Open();
+            
+            
             for (int i = 0; i < nota.detallenotaentrada.Count;i++ )
             {
+                SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+                sqlCon2.Open();
 
-
-                string commandString2 = "INSERT INTO GuiaRemisionDetalle VALUES  ( " + nota.idguiaRemision + ","+
+                string commandString2 = "INSERT INTO GuiaRemisionDetalle VALUES  ( " + nota.detallenotaentrada[i].ID + "," 
+                                         + nota.idguiaRemision + "," +
                                          nota.detallenotaentrada[i].cantidadrecibida+" )";
-
+                
                 SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
-                sqlCmd.ExecuteNonQuery();
-
+                sqlCmd2.ExecuteNonQuery();
+                sqlCon.Close();
             }
 
             
-            sqlCon.Close();
 
         }
 
+
+        public List<Notaentrada> obtenernotas(int idguiaremision)
+        {
+            
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            List<Notaentrada> notas = new List<Notaentrada>();
+
+            string commandString = "SELECT * FROM GuiaRemisionDetalle WHERE idGuiaRemision = " + idguiaremision;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                Notaentrada nota = new Notaentrada();
+                nota.ID = (int)dataReader["idProducto"];
+                nota.cantidadrecibida = (int)dataReader["cantidadRecibida"];
+                
+                notas.Add(nota);
+
+            }
+
+            sqlCon.Close();
+            return notas;
+        }
         
 
-        
 
-        //public int ObteneridguiaRemision(int idordencompra)
-        //{
-        //    int i = 0;
-
-        //    try
-        //    {
-        //        String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-        //        SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-        //        sqlCon.Open();
-
-        //        string commandString = "SELECT * FROM GuiaRemision WHERE idOrdenCompra = " + idordencompra;
-
-        //        SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-        //        sqlCmd.ExecuteNonQuery();
-        //        sqlCon.Close();
-        //    }
-        //    catch
-        //    {
-
-        //    }
-           
-
-
-        //    return i;
-
-
-        //}
     }
 
 }

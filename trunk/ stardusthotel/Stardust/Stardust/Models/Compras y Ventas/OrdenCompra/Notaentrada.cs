@@ -9,5 +9,6 @@ namespace Stardust.Models
     {
         public int cantidadrecibida { get; set; }
         public int cantidadsolicitada { get; set; }
+        public int cantidadfaltante { get; set; }
     }
 }

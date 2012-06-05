@@ -14,14 +14,20 @@ namespace Stardust.Models
         
         [Display(Name = "Proveedor")]
         public string nombreproveedor { get; set; }
+       
         [Display(Name = "Estado")]
         public string estado { get; set; }
+        
         [Display(Name = "Fecha")]
         public string fechaemitida{get;set;}
+        
         [Display(Name = "Precio Total")]
         public decimal preciototal { get; set; }
+        
+        [Display(Name = "Fecha")]
         public string fechaRegistradaOrdenCompra { get; set; }
 
+       
         public List<Notaentrada> detallenotaentrada { get; set; }
 
 

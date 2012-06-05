@@ -75,6 +75,11 @@ namespace Stardust.Models
         {
             ordenCompraService.guardarnotaentrada(nota);
         }
+
+        public List<Notaentrada> obtenernotas(int idgui){
+
+            return (ordenCompraService.obtenernotas(idgui));
+        }
         /**----------- Reporte de compras 3------------*/
 
     }
