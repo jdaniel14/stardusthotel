@@ -59,7 +59,7 @@
                
                 <td> @Html.TextBoxFor(model => model.notasentrada[i].idguiaRemision, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.notasentrada[i].fechaemitida, new { @readonly = "readonly" })</td>
-                <td><a href="@Url.Action("DetallenotaEntrada", new { id = Model.notasentrada[i].idguiaRemision })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Detalle </a></td>
+                <td><a href="@Url.Action("DetallenotaEntrada", new { id = Model.notasentrada[i].idguiaRemision, id2=Model.idOrdenCompra })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Detalle </a></td>
                
      </tr>
 
