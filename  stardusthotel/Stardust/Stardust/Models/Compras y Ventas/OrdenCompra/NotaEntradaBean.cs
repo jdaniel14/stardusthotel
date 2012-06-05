@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
@@ -10,10 +11,14 @@ namespace Stardust.Models
         public int idordencompra { get; set; }
         public int idproveedor { get; set; }
         public int idguiaRemision { get; set; }
-        public string nombreproveedor { get; set; }
-        public string estado { get; set; } 
-        public string fechaemitida{get;set;}
         
+        [Display(Name = "Proveedor")]
+        public string nombreproveedor { get; set; }
+        [Display(Name = "Estado")]
+        public string estado { get; set; }
+        [Display(Name = "Fecha")]
+        public string fechaemitida{get;set;}
+        [Display(Name = "Precio Total")]
         public decimal preciototal { get; set; }
         public string fechaRegistradaOrdenCompra { get; set; }
 
