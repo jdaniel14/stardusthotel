@@ -26,6 +26,11 @@ namespace Stardust.Models
         {
             return ordenCompraDAO.buscarordencompra(idordenCompra);
         }
+
+        public void Guardarestadoordencompra(int idorden, string estado)
+        {
+            ordenCompraDAO.cambiarestado(idorden, estado);
+        }
         //notas de entrada
 
         public List<NotaEntradaBean> listarnotas(int idorden)
