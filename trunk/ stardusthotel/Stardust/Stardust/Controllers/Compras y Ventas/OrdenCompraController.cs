@@ -184,7 +184,6 @@ namespace Stardust.Controllers
                 ordencompra.notasentrada.Add(notas[i]);
             }
             
-            //ordencompra.notasentrada.Add(notas);
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
             ordencompra.nombreproveedor = proveedor.razonSocial;
 
@@ -225,11 +224,24 @@ namespace Stardust.Controllers
             }
           
             //falta cantidad faltante
-            //List<NotaEntradaBean> notas2 = comprasFacade.listarnotasentrada(id); // lista de notas de entrada de uan orden de compra
-            
-            //List<Notaentrada> notasentrada=comprasFacade.obtenernotas(notaentrada.idguiaRemision);
-            
-            //List<NotaEntradaBean> notasentrada
+            List<NotaEntradaBean> notas2 = comprasFacade.listarnotasentrada(id); // lista de notas de entrada de uan orden de compra
+
+            for (int i = 0; i < notas2.Count; i++)
+            {
+                List<Notaentrada> detallenotaentrada = comprasFacade.obtenernotas(notas2[i].idguiaRemision);
+                for (int j = 0; j < detallenotaentrada.Count; j++)
+                {
+                    for (int k=0;k<notaentrada.detallenotaentrada.Count;k++)
+                    {
+                        if (notaentrada.detallenotaentrada[k].ID == detallenotaentrada[j].ID) 
+                        {
+                            notaentrada.detallenotaentrada[k].cantidadfaltante += detallenotaentrada[j].cantidadrecibida;
+                        }
+
+                    }
+                    
+                }
+            }
 
            return View(notaentrada);
 
