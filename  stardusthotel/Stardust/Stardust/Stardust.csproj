@@ -4352,6 +4352,7 @@
     <Content Include="Views\Cliente\BuscarCliente.cshtml" />
     <Content Include="Views\Cliente\BuscarClienteNoEncontrado.cshtml" />
     <Content Include="Views\OrdenCompra\Index.cshtml" />
+    <Content Include="Views\OrdenCompra\DetallenotaEntrada.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
