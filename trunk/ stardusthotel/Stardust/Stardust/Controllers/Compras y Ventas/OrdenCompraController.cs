@@ -34,7 +34,7 @@ namespace Stardust.Controllers
             int ID = Convert.ToInt32(pago.ID);
             ProveedorBean prove = proveedorFacade.GetProveedor(ID);
             string nombre = prove.razonSocial;
-            
+
             return RedirectToAction("Buscar2", new { nombre = nombre });
         }
 
@@ -167,8 +167,8 @@ namespace Stardust.Controllers
         public ActionResult GuardarestadoOrdenC(OrdenCompraBean orden)
         {
             //guardar estado de la orden de compra
-            
-            return View();
+            comprasFacade.modificarestadoordencompra(orden.idOrdenCompra, orden.estado);
+            return RedirectToAction("Buscar");
         }
         /*--------Notas de Entrada----------*/
 
