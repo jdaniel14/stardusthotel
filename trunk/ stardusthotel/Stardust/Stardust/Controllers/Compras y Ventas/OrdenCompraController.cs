@@ -251,14 +251,39 @@ namespace Stardust.Controllers
         {
 
             comprasFacade.guardarnotaentrada(not);
-            return RedirectToAction("Buscar");
+            return RedirectToAction("ListarNotaEntrada/" + not.idordencompra, "OrdenCompra"); 
         }
 
-        public ActionResult DetallenotaEntrada(int id) // idguiaremision
+        public ActionResult DetallenotaEntrada(int id, int id2) // idguiaremision , idordencompra
         {
+            NotaEntradaBean nota = new NotaEntradaBean();
+            nota.detallenotaentrada= comprasFacade.obtenernotas(id);
+            nota.idguiaRemision = id;
+            nota.idordencompra = id2;
 
-            List<Notaentrada> detallenotaentrada = comprasFacade.obtenernotas(id);
-            return View(detallenotaentrada);
+            List<NotaEntradaBean> notas = comprasFacade.listarnotasentrada(id2);
+
+            for (int i = 0; i < notas.Count; i++)
+            {
+                if (notas[i].idguiaRemision == id)
+                {
+                    nota.fechaemitida = notas[i].fechaemitida;
+                }
+            }
+
+            OrdenCompraBean orden= comprasFacade.buscarOrdenes(id2);
+
+            nota.idproveedor = orden.idproveedor;
+
+            ProveedorBean proveedor = proveedorFacade.GetProveedor(nota.idproveedor);
+            nota.nombreproveedor = proveedor.razonSocial;
+
+            for (int i = 0; i < nota.detallenotaentrada.Count; i++)
+            {
+                ProductoBean producto = proveedorFacade.Getproducto(nota.detallenotaentrada[i].ID);
+                nota.detallenotaentrada[i].nombre = producto.nombre;
+            }
+            return View(nota);
 
         }
         
