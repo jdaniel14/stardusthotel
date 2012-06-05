@@ -6,68 +6,68 @@
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
-                    "alertText": " Este campo es obligatorio",
-                    "alertTextCheckboxMultiple": "* Please select an option",
-                    "alertTextCheckboxe": "* This checkbox is required",
-                    "alertTextDateRange": "* Both date range fields are required"
+                    "alertText": "* Este campo es obligatorio",
+                    "alertTextCheckboxMultiple": "* Porfavor seleccione una opción",
+                    "alertTextCheckboxe": "* Es necesario que eliga una opción",
+                    "alertTextDateRange": "* Los rangos de fechas son requeridos"
                 },
                 "dateRange": {
                     "regex": "none",
-                    "alertText": "* Invalid ",
-                    "alertText2": "Date Range"
+                    "alertText": "* Invalido ",
+                    "alertText2": "Rango de fechas"
                 },
                 "dateTimeRange": {
                     "regex": "none",
-                    "alertText": "* Invalid ",
-                    "alertText2": "Date Time Range"
+                    "alertText": "* Invalido ",
+                    "alertText2": "Rango de fechas-horas"
                 },
                 "minSize": {
                     "regex": "none",
-                    "alertText": "* Minimum ",
-                    "alertText2": " characters allowed"
+                    "alertText": "* Minimo ",
+                    "alertText2": " Solo caracteres permitidos"
                 },
                 "maxSize": {
                     "regex": "none",
-                    "alertText": "* Maximum ",
-                    "alertText2": " characters allowed"
+                    "alertText": "* Maximo ",
+                    "alertText2": " Solo caracteres permitidos"
                 },
 				"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* Usted debe llenar uno de los siguientes campos"
                 },
                 "min": {
                     "regex": "none",
-                    "alertText": "* Minimum value is "
+                    "alertText": "* El mínimo valor es"
                 },
                 "max": {
                     "regex": "none",
-                    "alertText": "* Maximum value is "
+                    "alertText": "* El máximo valor es "
                 },
                 "past": {
                     "regex": "none",
-                    "alertText": "* Date prior to "
+                    "alertText": "* Fecha anterior a "
                 },
                 "future": {
                     "regex": "none",
-                    "alertText": "* Date past "
+                    "alertText": "* Fecha despues de "
                 },	
                 "maxCheckbox": {
                     "regex": "none",
-                    "alertText": "* Maximum ",
-                    "alertText2": " options allowed"
+                    "alertText": "* Máximo ",
+                    "alertText2": " Opciones permitidas"
                 },
                 "minCheckbox": {
                     "regex": "none",
-                    "alertText": "* Please select ",
-                    "alertText2": " options"
+                    "alertText": "* Porfavor seleccione ",
+                    "alertText2": " Opciones"
                 },
                 "equals": {
                     "regex": "none",
-                    "alertText": "* Fields do not match"
+                    "alertText": "* Los campos no coinciden"
                 },
                 "creditCard": {
                     "regex": "none",
-                    "alertText": "* Invalid credit card number"
+                    "alertText": "* Número de tarjeta de crédito inválido"
                 },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
@@ -86,7 +86,7 @@
                 "number": {
                     // Number, including positive, negative, and floating decimal. credit: orefalo
                     "regex": /^[\-\+]?(([0-9]+)([\.,]([0-9]+))?|([\.,]([0-9]+))?)$/,
-                    "alertText": "* Invalid floating decimal number"
+                    "alertText": "* Número punto flotante inválido"
                 },
                 "date": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
@@ -94,7 +94,7 @@
                 },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
-                    "alertText": "* Invalid IP address"
+                    "alertText": "* Dirección IP inválida"
                 },
                 "url": {
                     "regex": /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i,
@@ -105,12 +105,12 @@
                     "alertText": "* Solo numeros aqui"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-Z ñ Ñ á Á éÉ íÍ óÓ úÚ]+$/,
-                    "alertText": "* 31245 ---> Solo Letras Aqui"
+                    "regex": /^[a-zA-Zñ\Ñáóíéú\ \']+$/,
+                    "alertText": "* Solo Letras aqui"
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
-                    "alertText": "* No special characters allowed"
+                    "alertText": "* Caracteres especiales no permitidos"
                 },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
