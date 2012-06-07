@@ -140,12 +140,23 @@ namespace Stardust.Controllers
             return RedirectToAction("IndexAmbientes");
         }
 
-        public ActionResult EliminarAmbiente(int id)
+        public ActionResult Delete2(int ID)
+        {
+            return View();
+            //AmbienteFacade ambienteFacade = new AmbienteFacade();
+            //ambienteFacade.EliminarAmbiente(id);
+            //return RedirectToAction("IndexAmbientes");
+        }
+
+        [HttpPost, ActionName("Delete2")]
+        public JsonResult Delete2Confirmed(int ID)
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
-            ambienteFacade.EliminarAmbiente(id);
-            return RedirectToAction("IndexAmbientes");
+            ambienteFacade.EliminarAmbiente(ID);
+          
+            return Json(new { me = "" });
         }
+
 
         public ActionResult BuscarAmbiente(AmbienteBean item)
         {
