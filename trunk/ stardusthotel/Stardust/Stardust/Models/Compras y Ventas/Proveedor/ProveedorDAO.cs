@@ -452,14 +452,20 @@ namespace Stardust.Models
             sqlCmd.ExecuteNonQuery();
 
             sqlCon.Close();
-
-
+                        
             SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion);
             sqlCon2.Open();
 
             string commandString2;
 
-            commandString2 = "UPDATE OrdenCompra SET estado = 'Cancelado' WHERE idOrdenCompra = " + OC.id;
+            if (OC.total == (OC.pagado + OC.paga))
+            {
+                commandString2 = "UPDATE OrdenCompra SET estado = 'Cancelado' WHERE idOrdenCompra = " + OC.id;
+            }
+            else
+            {
+                commandString2 = "UPDATE OrdenCompra SET estado = 'Parcialmente Atendida' WHERE idOrdenCompra = " + OC.id;
+            }
 
             SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
             sqlCmd2.ExecuteNonQuery();

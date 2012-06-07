@@ -12,9 +12,6 @@
 
  @using (Html.BeginForm("PagarCredito", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
 {
-
-    <div class="title"><h6>Listado de Orden de Compra</h6> </div>
-     <p></p><p></p>
     
         <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
 
@@ -43,6 +40,8 @@
 
     
     }
+
+    @Html.HiddenFor(model => model.estado)
          
     <tr>
         <td></td>
@@ -64,6 +63,8 @@
 
     </tbody>
 
+    </table>
+
     <p></p>
 
     <fieldset>
@@ -80,9 +81,22 @@
                 <div class = "clear" ></div>
     </div>
 
-    </fieldset>
+    <div class="formRow">
+                @Html.LabelFor(model => model.paga)
+                <div class = "formRight" >@Html.TextBoxFor(model => model.paga)</div>
+                @*<div class = "formRight">@ViewBag.error2</div>*@
+                <div class = "clear" ></div>
+    </div>
 
-    </table>
+    <div class="formRow">
+                @Html.LabelFor(model => model.pagado)<span class="req">*</span>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "8", placeholder = "Solo numeros" })</div>
+                <div class = "formRight">@ViewBag.error</div>
+                <div class = "clear" ></div>
+    </div>
+
+    </fieldset>
+    
     <p></p><p></p><p></p>
     <p>
         <input type="submit" value="Credito" class = "redB" /> |        
