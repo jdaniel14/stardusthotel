@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
 
-namespace Stardust.Controllers.Administracion
+namespace Stardust.Controllers
 { 
     public class EmpleadoController : Controller
     {
@@ -26,7 +26,6 @@ namespace Stardust.Controllers.Administracion
 
         public ViewResult Details(int id)
         {
-            // <---------------------------------------------- FALTA HACER MANTENIMIENTO DE USUARIO PARA TERMINAR ESTO
             return View( empleadoFac.getEmpleado( id ) ) ;
         }
 
@@ -46,7 +45,6 @@ namespace Stardust.Controllers.Administracion
         [HttpPost]
         public ActionResult Create(EmpleadoBean empleadobean)
         {
-            // <-------------------------------------------- DEBE HACERSE AUTOMATICA AL CREAR USUARIO EMPLEADO
             empleadoFac.registrarEmpleado(empleadobean);
             return RedirectToAction("List");
         }
@@ -56,7 +54,6 @@ namespace Stardust.Controllers.Administracion
  
         public ActionResult Edit(int id)
         {
-            // <---------------------------------------------- FALTA HACER MANTENIMIENTO DE USUARIO PARA TERMINAR ESTO
             return View( empleadoFac.getEmpleado( id ) );
         }
 
@@ -84,7 +81,6 @@ namespace Stardust.Controllers.Administracion
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            // <---------------------------------------------- FALTA HACER MANTENIMIENTO DE USUARIO PARA TERMINAR ESTO
             empleadoFac.eliminarEmpleado(id);
             return RedirectToAction("List");
         }
@@ -97,7 +93,6 @@ namespace Stardust.Controllers.Administracion
 
         public ViewResult List() {
             var model = empleadoFac.listarEmpleados();
-            // <---------------------------------------------- FALTA HACER MANTENIMIENTO DE USUARIO PARA TERMINAR ESTO
             return View( model );
         }
     }

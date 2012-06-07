@@ -307,5 +307,68 @@ namespace Stardust.Models
 
             return resp;
         }
+
+        public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from Usuario";
+            String mount = "";
+            if (!nombre.Equals("")){
+                mount += " nombres = '" + nombre + "'";
+            }
+            if (!apPat.Equals("")){
+                if (mount.Length > 0) mount += " and";
+                mount += " apPat = '" + apPat + "'";
+            }
+            if (!apMat.Equals("")){
+                if (mount.Length > 0) mount += " and";
+                mount += " apMat = '" + apMat + "'" ;
+            }
+            if (mount.Length > 0) {
+                command += " where";
+                command += mount;
+            }
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            List<UsuarioBean> lista = new List<UsuarioBean>();
+
+            while (data.Read()) {
+                UsuarioBean usuario = new UsuarioBean();
+                usuario.ID = (int)data.GetValue(0);
+                usuario.idPerfilUsuario = (int)data.GetValue(1);
+                usuario.nombrePerfilUsuario = this.getNombrePerfil(usuario.idPerfilUsuario);
+                usuario.user_account = (string)data.GetValue(2);
+                usuario.pass = (string)data.GetValue(3);
+                usuario.nombres = (string)data.GetValue(4);
+                usuario.apPat = (string)data.GetValue(5);
+                usuario.apMat = (string)data.GetValue(6);
+                usuario.email = (string)data.GetValue(7);
+                usuario.celular = (string)data.GetValue(8);
+                usuario.tipoDocumento = (string)data.GetValue(9);
+                usuario.nroDocumento = (string)data.GetValue(10);
+                usuario.razonSocial = (string)data.GetValue(11);
+                usuario.estado = (string)data.GetValue(12);
+                usuario.direccion = (string)data.GetValue(14);
+
+                int idDistrito = (int)data.GetValue(13);
+                int idProvincia = (int)data.GetValue(15);
+                int idDepartamento = (int)data.GetValue(16);
+
+                usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
+                usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
+                usuario.nombreDepartamento = this.getDepartamento(idDepartamento);
+
+                lista.Add(usuario);
+            }
+
+            sql.Close();
+
+            return lista;
+        }
     }
 }

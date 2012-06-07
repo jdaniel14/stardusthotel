@@ -196,5 +196,10 @@ namespace Stardust.Controllers
             var model = usuarioFac.listarUsuarios();
             return View( model );
         }
+
+        public ViewResult Buscar(string nombre, string apPat, string apMat) {
+            var model = usuarioFac.buscarUsuario(nombre, apPat, apMat);
+            return View( model ) ;
+        }
     }
 }
