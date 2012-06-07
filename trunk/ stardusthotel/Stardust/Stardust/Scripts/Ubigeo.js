@@ -1,4 +1,5 @@
-﻿$(document).ready(function () { //$(document).ready(function(){});
+﻿
+$(document).ready(function () { //$(document).ready(function(){});
     $('#idDepartamento').change(function () {
         var idDepartamentoSeleccionado = $(this).val();
         if (idDepartamentoSeleccionado != 0) {
@@ -58,7 +59,3 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    var cmbDepartamento = $('#idDepartamento');
-    cmbDepartamento.val('');
-});
