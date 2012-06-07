@@ -77,4 +77,10 @@ namespace Stardust.Models
         [Display(Name = "Departamento")]
         public string nombreDepartamento { get; set; }
     }
+
+    public class TipoDocumento
+    {
+        public int ID { get; set; }
+        public string nombre { get; set; }
+    }
 }
