@@ -21,7 +21,7 @@
         @Html.HiddenFor(model => model.ID)
     
         <div class="formRow">
-            <label>Nombres</label>
+            <label>Razón Social</label>
             <div class="formRight">
                 @Html.TextBoxFor(m => m.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30" })
             </div>
@@ -29,7 +29,7 @@
         </div>
                 
         <div class="formRow">
-            <label>Apellido Paterno</label>
+            <label>RUC</label>
             <div class="formRight">
                  @Html.TextBoxFor(m => m.nroDocumento, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "11", minlength = "1" }) 
             </div>
