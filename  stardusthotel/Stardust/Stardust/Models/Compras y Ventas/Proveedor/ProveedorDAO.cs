@@ -291,6 +291,28 @@ namespace Stardust.Models
             return nombre;
         }
 
+        public string GetEstado(int id)
+        {
+            string estado = null;
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM OrdenCompra WHERE idOrdenCompra = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {
+                estado = (string)dataReader["estado"];
+            }
+
+            return estado;
+        }
+
         public OrdenCompras ObtenerOC(int id)
         {
             OrdenCompras OC = new OrdenCompras();
@@ -300,7 +322,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendido' OR estado = 'Parcialmente_Atendido' AND idProveedor = "+id;
+            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendida' OR estado = 'Parcialmente Atendida' AND idProveedor = " + id;
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -323,14 +345,16 @@ namespace Stardust.Models
         public OrdenCompras ListarOC(int id)
         {
             OrdenCompras OC = new OrdenCompras();
-                  
+
+            OC.estado = GetEstado(id);
+
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
             string commandString = "SELECT * FROM OrdenCompraDetalle WHERE idOrdenCompra = " + id;
-            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
@@ -350,12 +374,34 @@ namespace Stardust.Models
             dataReader.Close();
             sqlCon.Close();
 
-            decimal igv = subtotal * 18 / 100;
-            decimal total = subtotal + igv;
+            if (OC.estado.Equals("Parcialmente Atendida"))
+            {
+                String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+                sqlCon2.Open();
 
-            OC.subtotal = subtotal;
-            OC.igv = igv;
-            OC.total = total;
+                string commandString2 = "SELECT * FROM Factura WHERE idOrdenCompra = " + id;
+
+                SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+                SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                if (dataReader2.Read())
+                {
+                    OC.subtotal = (decimal)dataReader2["subTotal"];
+                    OC.igv = (decimal)dataReader2["impuesto"];
+                    OC.paga = (decimal)dataReader2["total"];
+                    OC.total = OC.subtotal + OC.igv;
+                }
+            }
+            else
+            {
+                decimal igv = subtotal * 18 / 100;
+                decimal total = subtotal + igv;
+
+                OC.subtotal = subtotal;
+                OC.igv = igv;
+                OC.total = total;
+            }
 
             return OC;
         }
@@ -367,8 +413,8 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , "+ OC.total + " , 'Contado' , GETDATE() , " + OC.id + " , NULL , NULL)";
-            
+            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , " + OC.pagado + " , 'Contado' , GETDATE() , " + OC.id + " , NULL , NULL)";
+
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
 
@@ -385,7 +431,7 @@ namespace Stardust.Models
             }
             else
             {
-                commandString2 = "UPDATE OrdenCompra SET estado = 'Parcialmente_Atendido' WHERE idOrdenCompra = " + OC.id;
+                commandString2 = "UPDATE OrdenCompra SET estado = 'Parcialmente Atendida' WHERE idOrdenCompra = " + OC.id;
             }
             SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
             sqlCmd2.ExecuteNonQuery();
@@ -407,18 +453,18 @@ namespace Stardust.Models
 
             sqlCon.Close();
 
-            
-                SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion);
-                sqlCon2.Open();
 
-                string commandString2;
+            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion);
+            sqlCon2.Open();
 
-                commandString2 = "UPDATE OrdenCompra SET estado = 'Cancelado' WHERE idOrdenCompra = " + OC.id;
-                
-                SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
-                sqlCmd2.ExecuteNonQuery();
+            string commandString2;
 
-                sqlCon2.Close();
+            commandString2 = "UPDATE OrdenCompra SET estado = 'Cancelado' WHERE idOrdenCompra = " + OC.id;
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+            sqlCmd2.ExecuteNonQuery();
+
+            sqlCon2.Close();
         }
     }
 }

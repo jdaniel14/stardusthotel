@@ -179,9 +179,9 @@ namespace Stardust.Controllers
         }
         
         /**----- Pago de Proveedor-----*/
-        
-        public ActionResult PagoProveedor() 
-        {           
+
+        public ActionResult PagoProveedor()
+        {
             PagoProveedorBean pagoProveedor = new PagoProveedorBean();
             return View(pagoProveedor);
         }
@@ -190,7 +190,7 @@ namespace Stardust.Controllers
         public ActionResult PagoProveedor(PagoProveedorBean pago)
         {
             int ID = Convert.ToInt32(pago.ID);
-            return RedirectToAction("ListarOC", new { id = ID});
+            return RedirectToAction("ListarOC", new { id = ID });
         }
 
         public ActionResult ListarOC(int id)
@@ -213,8 +213,26 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult PagarContado(OrdenCompras OC)
         {
-            proveedorFacade.RegistrarPagoContado(OC);
-            return RedirectToAction("PagoProveedor");
+            if (OC.estado.Equals("Parcialmente Atendida"))
+            {
+                if (OC.pagado > (OC.total - OC.paga))
+                {
+                    ViewBag.error2 = "El monto a pagar es mayor del monto que se debe pagar";
+                    OC.pagado = 0;
+                    return View(OC);
+                }
+            }
+            if (OC.pagado > OC.total)
+            {
+                ViewBag.error = "El monto a pagar es mayor del total";
+                OC.pagado = 0;
+                return View(OC);
+            }
+            else
+            {
+                proveedorFacade.RegistrarPagoContado(OC);
+                return RedirectToAction("PagoProveedor");
+            }
         }
 
         public ActionResult PagarCredito(int id)
@@ -228,7 +246,7 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult PagarCredito(OrdenCompras OC)
         {
-            proveedorFacade.RegistrarPagoCredito(OC);
+            //proveedorFacade.RegistrarPagoCredito(OC);
             return RedirectToAction("PagoProveedor");
         }
     }
