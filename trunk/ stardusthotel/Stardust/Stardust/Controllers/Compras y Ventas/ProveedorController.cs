@@ -202,7 +202,7 @@ namespace Stardust.Controllers
             return View(OC);
         }
 
-        public ActionResult PagarContado(int id)
+        public ActionResult PagoContado(int id)
         {
             OrdenCompras OC = new OrdenCompras();
             OC = proveedorFacade.ListarOC(id);
@@ -211,15 +211,20 @@ namespace Stardust.Controllers
         }
 
         [HttpPost]
-        public ActionResult PagarContado(OrdenCompras OC)
+        public ActionResult PagoContado(OrdenCompras OC)
         {
             if (OC.estado.Equals("Parcialmente Atendida"))
             {
                 if (OC.pagado > (OC.total - OC.paga))
                 {
-                    ViewBag.error2 = "El monto a pagar es mayor del monto que se debe pagar";
+                    ViewBag.error = "El monto a pagar es mayor del monto que se debe pagar";
                     OC.pagado = 0;
                     return View(OC);
+                }
+                if ((OC.paga + OC.pagado) == OC.total)
+                {
+                    proveedorFacade.RegistrarPagoContado(OC);
+                    return RedirectToAction("PagoProveedor");
                 }
             }
             if (OC.pagado > OC.total)
