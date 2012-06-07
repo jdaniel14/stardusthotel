@@ -43,8 +43,14 @@ namespace Stardust.Controllers
             ViewBag.departamentos = utils.listarDepartamentos();
             ViewBag.provincias = new List<Provincia>() ;
             ViewBag.distritos = new List<Distrito>() ;
-            
-            ViewBag.documentos = "" ;
+
+            List<TipoDocumento> docs = new List<TipoDocumento>();
+            TipoDocumento d1 = new TipoDocumento("DNI");
+            TipoDocumento d2 = new TipoDocumento("RUC");
+            TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+            TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+            docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+            ViewBag.documentos = docs;
 
             return View();
         } 
@@ -64,7 +70,13 @@ namespace Stardust.Controllers
                 PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
-                ViewBag.documentos = "";
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento( "PASAPORTE" ) ;
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1);                docs.Add(d2);                docs.Add(d3);                docs.Add(d4);
+                ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
                 ViewBag.departamentos = utils.listarDepartamentos();
@@ -76,7 +88,13 @@ namespace Stardust.Controllers
                 PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
-                ViewBag.documentos = "";
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
                 ViewBag.departamentos = utils.listarDepartamentos();
@@ -89,7 +107,13 @@ namespace Stardust.Controllers
                 PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
-                ViewBag.documentos = "";
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
                 ViewBag.departamentos = utils.listarDepartamentos();
@@ -109,7 +133,13 @@ namespace Stardust.Controllers
             PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
             ViewBag.perfiles = perfilFac.listarPerfiles();
 
-            ViewBag.documentos = "";
+            List<TipoDocumento> docs = new List<TipoDocumento>();
+            TipoDocumento d1 = new TipoDocumento("DNI");
+            TipoDocumento d2 = new TipoDocumento("RUC");
+            TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+            TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+            docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+            ViewBag.documentos = docs;
 
             return View( model );
         }
@@ -130,7 +160,13 @@ namespace Stardust.Controllers
                 PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
-                ViewBag.documentos = "";
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
                 ViewBag.departamentos = utils.listarDepartamentos();
@@ -143,7 +179,13 @@ namespace Stardust.Controllers
                 PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
-                ViewBag.documentos = "";
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
                 ViewBag.departamentos = utils.listarDepartamentos();
@@ -157,7 +199,13 @@ namespace Stardust.Controllers
                 PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
-                ViewBag.documentos = "";
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
                 ViewBag.departamentos = utils.listarDepartamentos();

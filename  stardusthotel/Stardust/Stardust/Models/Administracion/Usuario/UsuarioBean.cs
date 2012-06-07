@@ -6,6 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
+    public class TipoDocumento {
+        string nombre;
+        public TipoDocumento(string s) {
+            this.nombre = s;
+        }
+    }
+
     public class UsuarioBean
     {
         public int ID { get; set; }
