@@ -47,6 +47,8 @@ namespace Stardust.Models
                 evento.fechaIni = Convert.ToString(dataReader["fechaIni"]);
                 evento.fechaFin = Convert.ToString(dataReader["fechaFin"]);
                 evento.nroParticipantes = (int)dataReader["nroParticipantes"];
+                evento.horaIni=(string)dataReader["horaIni"];
+                evento.horaFin = (string)dataReader["horaFin"];
 
                 listaEvento.Add(evento);
             }
@@ -64,12 +66,12 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-
+            
             string commandString = "INSERT INTO Evento VALUES ('" +
                    evento.nombre + "', '" +
                    evento.descripcion + "', '" +
                    evento.fechaIni + "', '" +
-                   evento.fechaFin + "', '" +
+                   evento.fechaFin +"', '" +
                    evento.nroParticipantes + "', '" + null + "', '" +
                    evento.horaIni + "', '" +
                    evento.horaFin + 
@@ -95,10 +97,10 @@ namespace Stardust.Models
                                     "SET nombre = '" + evento.nombre +
                                     "', descripcion  = '" + evento.descripcion +
                                     "', fechaIni = '" + evento.fechaIni +
-                                    "', fechaFin = '" + evento.fechaFin +
-                                    "', nroParticipantes = '" + evento.nroParticipantes +
                                     "', horaIni = '" + evento.horaIni +
+                                    "', fechaFin = '" + evento.fechaFin +
                                     "', horaFin = '" + evento.horaFin +
+                                    "', nroParticipantes = '" + evento.nroParticipantes +                                
                                     "' WHERE idEvento = " + evento.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -128,11 +130,11 @@ namespace Stardust.Models
                 evento.ID = (int)dataReader["idEvento"];
                 evento.nombre = (string)dataReader["nombre"];
                 evento.descripcion = (string)dataReader["descripcion"];
-                evento.fechaIni = Convert.ToString(dataReader["fechaIni"]);
-                evento.horaIni  = (string)dataReader["horaIni"];
-                evento.fechaFin = Convert.ToString(dataReader["fechaFin"]);
-                evento.horaFin = (string)dataReader["horaFin"];                
+                evento.fechaIni = Convert.ToString(dataReader["fechaIni"]);                
+                evento.fechaFin = Convert.ToString(dataReader["fechaFin"]);                             
                 evento.nroParticipantes = (int)dataReader["nroParticipantes"];
+                evento.horaIni = (string)dataReader["horaIni"];
+                evento.horaFin = (string)dataReader["horaFin"];  
             }
             dataReader.Close();
             sqlCon.Close();
