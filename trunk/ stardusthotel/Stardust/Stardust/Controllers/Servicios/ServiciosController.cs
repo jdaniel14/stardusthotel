@@ -60,11 +60,29 @@ namespace Stardust.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult EliminarServicio(int id)
+        //public ActionResult EliminarServicio(int id)
+        //{
+        //    ServiciosFacade servicioFacade = new ServiciosFacade();
+        //    servicioFacade.EliminarServicio(id);
+        //    return RedirectToAction("Index");
+        //}
+        public ActionResult Delete(int ID)
+        {
+            //ServiciosFacade servicioFacade = new ServiciosFacade();
+            //servicioFacade.EliminarServicio(id);
+            //return RedirectToAction("Index");
+            return View();
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public JsonResult DeleteConfirmed(int ID)
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
-            servicioFacade.EliminarServicio(id);
-            return RedirectToAction("Index");
+            servicioFacade.EliminarServicio(ID);
+            //return RedirectToAction("Index");
+            //produc.Eliminarproducto(ID);
+            //return RedirectToAction("Buscar");
+            return Json(new { me = "" });
         }
 
         public ActionResult BuscarServicio(String nombre)
@@ -72,6 +90,7 @@ namespace Stardust.Controllers
             ServiciosFacade serviciosFacade = new ServiciosFacade();
             return View( serviciosFacade.ListarServicios(nombre));
         }
+
                 
         public ActionResult MostrarServicios(ServiciosBean item)
         {
