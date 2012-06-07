@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
 using System.Text.RegularExpressions;
+using AutoMapper;
 
 namespace Stardust.Controllers
 { 
@@ -36,16 +37,13 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
-            Utils utils = new Utils();
-            ViewBag.departamentos = utils.listarDepartamentos();
-            ViewBag.provincias = new List<Provincia>();
-            ViewBag.distritos = new List<Distrito>();
-
-            HotelBean hotel = new HotelBean();
-            hotel.Departamentos = utils.listarDepartamentos();
+            //var hotel = new HotelViewModelCreate();
+            var hotel = new HotelBean();
+            hotel.Departamentos = new Utils().listarDepartamentos();
             return View(hotel);
         }
 
+        #region Metodos JSON para combos de Ubigeo
         public ActionResult getProvincias(int idDepartamento)
         {
             return Json(new Utils().listarProvincias(idDepartamento), JsonRequestBehavior.AllowGet);
@@ -55,75 +53,65 @@ namespace Stardust.Controllers
         {
             return Json(new Utils().listarDistritos(idDepartamento, idProvincia), JsonRequestBehavior.AllowGet);
         }
+        #endregion
 
         //
         // POST: /Hotel/Create
 
         [HttpPost]
+        //public ActionResult Create(HotelViewModelCreate hotel)
         public ActionResult Create(HotelBean hotel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                hotelFac.registrarHotel(hotel);
-                return RedirectToAction("List");
+                if (ModelState.IsValid)
+                {
+                    //var aux = Mapper.Map<HotelViewModelCreate, HotelBean>(hotel);
+                    hotelFac.registrarHotel(hotel);
+                    return RedirectToAction("List");
+                }
+                return View(hotel);
             }
-            return View(hotel);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(hotel);
+            }
         }
 
-        //[HttpPost]
-        //public ActionResult Create(HotelBean hotelbean)
-        //{
-        //    if (ModelState.IsValid)
-        //    //hotelbean.idDepartamento != 0 && hotelbean.idProvincia != 0 && hotelbean.idDistrito != 0
-        //    {
-        //        hotelFac.registrarHotel(hotelbean);
-        //        return RedirectToAction("List");
-        //    }
-        //    else if (hotelbean.idDepartamento != 0 && hotelbean.idProvincia != 0) // && hotelbean.idDistrito == 0
-        //    {
-        //        hotelbean.idDistrito = 0;
-        //        Utils utils = new Utils();
-        //        ViewBag.departamentos = utils.listarDepartamentos();
-        //        ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
-        //        ViewBag.distritos = utils.listarDistritos(hotelbean.idDepartamento, hotelbean.idProvincia);
-        //        return View(hotelbean);
-        //    }
-        //    else if (hotelbean.idDepartamento != 0) // hotelbean.idProvincia == 0 && hotelbean.idDistrito == 0
-        //    {
-        //        hotelbean.idProvincia = hotelbean.idDistrito = 0;
-        //        Utils utils = new Utils();
-        //        ViewBag.departamentos = utils.listarDepartamentos();
-        //        ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
-        //        ViewBag.distritos = new List<Distrito>();
-        //        return View(hotelbean);
-        //    }
-        //    else // hotelbean.idDepartamento == 0 && hotelbean.idProvincia == 0 && hotelbean.idDistrito == 0
-        //    {
-        //        hotelbean.idDepartamento = hotelbean.idProvincia = hotelbean.idDistrito = 0;
-        //        Utils utils = new Utils();
-        //        ViewBag.departamentos = utils.listarDepartamentos();
-        //        ViewBag.provincias = new List<Provincia>();
-        //        ViewBag.distritos = new List<Distrito>();
-        //        return View(hotelbean);
-        //    }
-        //}
-        
         //
         // GET: /Hotel/Edit/5
  
         public ActionResult Edit(int id)
         {
-            return View( hotelFac.getHotel( id ) );
+            Utils utils = new Utils();
+            HotelBean hotel = hotelFac.getHotel(id);
+            hotel.Departamentos = utils.listarDepartamentos();
+            hotel.Provincias = utils.listarProvincias(hotel.idDepartamento);
+            hotel.Distritos = utils.listarDistritos(hotel.idDepartamento, hotel.idProvincia);
+            return View( hotel );
         }
 
         //
         // POST: /Hotel/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(HotelBean hotelbean)
+        public ActionResult Edit(HotelBean hotel)
         {
-            hotelFac.actualizarHotel(hotelbean);
-            return RedirectToAction("List");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    hotelFac.actualizarHotel(hotel);
+                    return RedirectToAction("List");
+                }
+                return View(hotel);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(hotel);
+            }
         }
 
         //
