@@ -147,5 +147,16 @@ namespace Stardust.Controllers
             }
             return View(lstHabitaciones);
         }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult Search()
+        //{
+        //    return View();
+        //}
     }
 }
