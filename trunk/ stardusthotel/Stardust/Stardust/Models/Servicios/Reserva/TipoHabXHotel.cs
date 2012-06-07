@@ -10,6 +10,6 @@ namespace Stardust.Models.Servicios
         public int idTipoHab { get; set; }
         public String nombreTipoHab { get; set; }
         public int numPos { get; set; }
-        public int precio { get; set; }
+        public decimal precio { get; set; }
     }
 }
