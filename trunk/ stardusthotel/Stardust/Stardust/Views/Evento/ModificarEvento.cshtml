@@ -26,11 +26,11 @@
                 <h6>Modificar Evento</h6>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.nombre)<span class="req">*</span>
-                <div class="formRight">@Html.TextBoxFor(model => model.nombre, new { @class = "validate[required,custom[onlyLetterNumber]]",  maxlength = "60" }) </div>
+                <div class="formRight">@Html.TextBoxFor(model => model.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "60" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.descripcion)<span class="req">*</span>
-                <div class="formRight"> @Html.TextAreaFor(model => model.descripcion, new { @class = "validate[custom[onlyLetterNumber]]",  maxlength = "100" }) </div>
+                <div class="formRight"> @Html.TextAreaFor(model => model.descripcion, new { @class = "validate[custom[onlyLetterSp]]", name = "lettersValid", maxlength = "100"}) </div>
                 <div class="clear"></div>
             </div>
 
