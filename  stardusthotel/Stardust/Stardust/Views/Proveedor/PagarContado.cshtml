@@ -1,4 +1,4 @@
-﻿@model Stardust.Models.OrdenCompras
+﻿@model Stardust.Models.OrdenCompras          
         
 <h2>Pago a Proveedor al Contado</h2>
 <p></p><p></p><p></p>
@@ -43,6 +43,8 @@
 
     
     }
+
+    @Html.HiddenFor(model => model.estado)
          
     <tr>
         <td></td>
@@ -68,16 +70,24 @@
      
      <fieldset>
 
+     <div class="formRow">
+                @Html.LabelFor(model => model.paga)<span class="req">*</span>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.paga, new { @readonly = "readonly", @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "6", placeholder = "Solo numeros" })</div>
+                <div class = "formRight">@ViewBag.error2</div>
+                <div class = "clear" ></div>
+    </div>
+
     <div class="formRow">
                 @Html.LabelFor(model => model.pagado)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.pagado, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "6", placeholder = "Solo numeros" })</div>
+                <div class = "formRight">@ViewBag.error</div>
                 <div class = "clear" ></div>
     </div>
 
     </fieldset>
     <p></p><p></p><p></p><p></p>
     <p>
-        <input type="submit" value="Contado" class = "redB" /> |
+        <input type="submit" value="Contado" class = "redB"/> |
         @Html.ActionLink("Regresar", "PagoProveedor", "Proveedor")
     </p>
 }
