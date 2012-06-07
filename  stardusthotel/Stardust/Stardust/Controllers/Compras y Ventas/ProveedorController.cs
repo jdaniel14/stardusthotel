@@ -251,8 +251,31 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult PagarCredito(OrdenCompras OC)
         {
-            //proveedorFacade.RegistrarPagoCredito(OC);
-            return RedirectToAction("PagoProveedor");
+            if (OC.estado.Equals("Parcialmente Atendida"))
+            {
+                if (OC.pagado > (OC.total - OC.paga))
+                {
+                    ViewBag.error = "El monto a pagar es mayor del monto que se debe pagar";
+                    OC.pagado = 0;
+                    return View(OC);
+                }
+                if ((OC.paga + OC.pagado) == OC.total)
+                {
+                    proveedorFacade.RegistrarPagoCredito(OC);
+                    return RedirectToAction("PagoProveedor");
+                }
+            }
+            if (OC.pagado > OC.total)
+            {
+                ViewBag.error = "El monto a pagar es mayor del total";
+                OC.pagado = 0;
+                return View(OC);
+            }
+            else
+            {
+                proveedorFacade.RegistrarPagoCredito(OC);
+                return RedirectToAction("PagoProveedor");
+            }
         }
     }
 }
