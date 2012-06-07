@@ -425,7 +425,7 @@ namespace Stardust.Models
 
             string commandString2;
 
-            if (OC.total == OC.pagado)
+            if (OC.total == (OC.pagado+OC.paga))
             {
                 commandString2 = "UPDATE OrdenCompra SET estado = 'Cancelado' WHERE idOrdenCompra = " + OC.id;
             }
