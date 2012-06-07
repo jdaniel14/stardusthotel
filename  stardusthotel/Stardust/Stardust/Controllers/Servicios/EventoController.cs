@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Globalization;
 
 namespace Stardust.Controllers
 {
@@ -34,8 +35,26 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult RegistrarEvento(EventoBean evento)
         {
-            eventoFacade.RegistrarEvento(evento);
-            return RedirectToAction("Index");
+            CultureInfo provider = CultureInfo.InvariantCulture;
+           // if ((DateTime.Parse(evento.fechaIni, provider, DateTimeStyles.AssumeLocal) >= DateTime.Now))
+                
+            //{
+                //if (DateTime.Parse(evento.fechaIni, provider, DateTimeStyles.AssumeLocal)<= DateTime.Parse(evento.fechaFin,provider,DateTimeStyles.AssumeLocal)){
+                    eventoFacade.RegistrarEvento(evento);
+                    return RedirectToAction("Buscar");
+               // else {
+
+                 //   ViewBag.error="La fecha Inicial debe ser menor que la Final";
+                   // return View();
+                //}
+            //}
+            //else{
+              //  ViewBag.error="La fecha Inicial o Final debe ser mayor que el dia de hoy";
+                //    return View();
+
+//            }
+
+            
 
         }
 
