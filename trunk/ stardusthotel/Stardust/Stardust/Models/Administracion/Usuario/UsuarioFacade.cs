@@ -37,5 +37,13 @@ namespace Stardust.Models
         public void asignarHorario(HorarioEmpleadoBean horario ) {
             usuarioServ.asignarHorario(horario);
         }
+
+        public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {
+            if (nombre == null) nombre = "";
+            if (apPat == null) apPat = "";
+            if (apMat == null) apMat = "";
+            if (nombre.Equals(apPat) && apPat.Equals(apMat) && apMat.Equals("")) return new List<UsuarioBean>();
+            return usuarioServ.buscarUsuario(nombre, apPat, apMat);
+        }
     }
 }
