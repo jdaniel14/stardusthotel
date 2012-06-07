@@ -70,20 +70,29 @@ namespace Stardust.Controllers
         //
         // GET: /Empleado/Delete/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int ID)
         {
-            return View(empleadoFac.getEmpleado(id));
+            return View(empleadoFac.getEmpleado(ID));
         }
 
         //
         // POST: /Empleado/Delete/5
 
+     //   [HttpPost, ActionName("Delete")]
+    //    public ActionResult DeleteConfirmed(int id)
+     //   {
+    //        empleadoFac.eliminarEmpleado(id);
+     //       return RedirectToAction("List");
+     //   }
+
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult DeleteConfirmed(int ID)
         {
-            empleadoFac.eliminarEmpleado(id);
-            return RedirectToAction("List");
+            empleadoFac.eliminarEmpleado(ID);
+            //return RedirectToAction("../Home/Index");
+            return Json(new { me = "" });
         }
+
 
         protected override void Dispose(bool disposing)
         {
