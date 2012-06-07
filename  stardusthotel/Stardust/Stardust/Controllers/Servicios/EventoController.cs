@@ -58,16 +58,17 @@ namespace Stardust.Controllers
             return View(item);
         }
 
-        public ActionResult Eliminar(int ID)
+        public ActionResult Delete(int ID)
         {
             return View(eventoFacade.GetEvento(ID));
         }
 
-        [HttpPost, ActionName("Eliminar")]
-        public ActionResult DeleteConfirmed(int ID)
+        [HttpPost, ActionName("Delete")]
+        public JsonResult DeleteConfirmed(int ID)
         {
             eventoFacade.EliminarEvento(ID);
-            return RedirectToAction("../Home/Index");
+            //return RedirectToAction("../Home/Index");
+            return Json(new { me = "" });
         }
 
        public ActionResult Buscar(string nombre, string fechaini, string fechafin)
