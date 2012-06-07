@@ -8,6 +8,7 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/custom.js")" type="text/javascript"></script>
 
 @using (Html.BeginForm("Create", "Empleado", FormMethod.Post, new { @class = "form" } ))
 {
@@ -30,7 +31,7 @@
 
             <div class = "formRow" >
                 @Html.LabelFor( model => model.fechaIngreso )
-                <div class = "formRight" > @Html.TextBoxFor( model => model.fechaIngreso ) </div>
+                <div class = "formRight" > @Html.TextBoxFor(model => model.fechaIngreso, new { @class = "datepicker" }) </div>
                 <div class = "clear" ></div>
             </div>
         </div>
