@@ -75,18 +75,23 @@ function enviarDatos() {
     result = $("#ComboCliente").val();
     $('#mostrarTipoDocumento').html(result);
 
-    var nombre = "";
-    var email = "";
+    var nombreEnvio = "";
+    var email2 = "";
 
     if (result == "RUC") {
-        nombre = $("#razonDReserva").get(0).value;
-        email = $("#mail").get(0).value;
+        nombreEnvio = $("#razonDReserva").get(0).value;
+        email2 = $("#mail").get(0).value;
     }
     else {
-        nombre = $("#nombreDReserva").get(0).value
-        email = $("#mailNatural").get(0).value;
+        nombreEnvio = $("#nombreDReserva").get(0).value
+        email2 = $("#mailNatural").get(0).value;
     }
 
+    var nDoc = $("#nDoc").get(0).value;
+    var FechaLlegada = $("#FechaLlegada").get(0).value;
+    var total1 = $('#Total').text();
+
+    
 
     var DatosReserva = {
 //        jFechaLlegada: "",
@@ -103,11 +108,11 @@ function enviarDatos() {
 //        jCantPersonas: "",
 //        jTipoDocumento: ""
         //...continuará...
-        jNroDocumento :  $("#nDoc").get(0).value,
-        jFechaReserva: $("#FechaLlegada").get(0).value,
-        jTotal: $('#Total').text(),
-        jNombre: nombre,
-        jMail: mail
+        nroDoc :  nDoc,
+        fechaReserva: FechaLlegada,
+        total: total1,
+        nombre: nombreEnvio,
+        email: email2
     };
     var jsonData = JSON.stringify(DatosReserva);
     

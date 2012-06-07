@@ -109,7 +109,7 @@ function llegadaTipoHabitacion(data) {
 
 function cambiarSubTotal1() {
     var id;
-    var numHab = $('#numHabitSelect1.numHabitSelect option:selected').attr("text")
+    var numHab = $('#numHabitSelect1.numHabitSelect option:selected').attr("value");
     var precio = $('#precio0').text();
     //  alert(x);
     //alert(numHab);
