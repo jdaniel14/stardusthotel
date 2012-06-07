@@ -4,13 +4,19 @@ doc.ready(cargarSegHoja);
 function cargarSegHoja() {
 
 
-    $("#maps").gMap({ markers: [{ latitude: 47.660937,
-        longitude: 9.569803,
-        html: "Tettnang, Germany",
+    $("#maps").gMap({
+        controls: false,
+        markers: [
+        { 
+        controls:false,
+        latitude: -12.093084,
+        longitude: -77.046491,
+        html: "Stardust Hotel",
         popup: true
-    }],
-        zoom: 6
-    });
+        }],
+        zoom: 14
+    }
+    );
     //$("#maps").html("xD");
 
     $("#juridica").hide();
