@@ -62,12 +62,60 @@
 
                 <td>
                     @Html.ActionLink("Modificar", "ModificarAmbiente", new { id = item.id }) <img src="../../Content/images/icons/color/pencil.png" />|
-                    @Html.ActionLink("Eliminar", "EliminarAmbiente", new { id = item.id }) <img src="../../Content/images/icons/color/cross.png" />                    
+                       <a  id = @item.id class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>                 
+                @*<a href="@Url.Action("EliminarAmbiente", new { id = item.id })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Eliminar</a>                        *@
                 </td>
             </tr>
     }
     
+    <div id="dialogEliminar" title="Desea Eliminar el Ambiente?">
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+    El Ambiente que UD. Elimine ya no podra ser recuperado</p>
+    </div>
     </tbody>
 
     </table>
 </div>
+
+<script type = "text/javascript">
+    var idEliminar = 0;
+    $(".eliminar").click(function () {
+
+        $('#dialogEliminar').dialog('open');
+        idEliminar = $(this).attr("id");
+        return false;
+    });
+
+    $('#dialogEliminar').dialog({
+        autoOpen: false,
+        resizable: false,
+        draggable: false,
+        width: 300,
+        modal: true,
+        title: "!Confirmar Eliminacion de Ambiente",
+        position: "center",
+        buttons: {
+            "Aceptar": function () {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    url: "Delete2/" + idEliminar,
+                    success: function (data) {
+                        oTable.fnDraw(false);
+                        if (data.me == "") {
+                            $(this).dialog("close");
+                            location.reload();
+                        }
+                    }
+                });
+
+            },
+            "Cancelar": function () {
+                $(this).dialog("close");
+                return false;
+            }
+        }
+    });
+
+</script>
