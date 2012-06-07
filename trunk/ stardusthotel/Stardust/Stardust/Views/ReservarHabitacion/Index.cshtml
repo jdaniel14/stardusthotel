@@ -9,42 +9,48 @@
 
 <head>
 <title>Reservar Habitacion</title>
-	<script type="text/javascript" src="/Scripts/jquery-1.5.1.js"></script>
+@*	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>*@
 	<script type="text/javascript" src="/Scripts/ReservarHabitacion.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-    <style>
+    <script type="text/javascript" src="/Scripts/ReservaCliente.js"></script>
+    <script type="text/javascript" src="/Scripts/ReservaFinal.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;"></script>    
+    <script type="text/javascript" src="http://gmap.nurtext.de/js/jquery.gmap-1.1.0-min.js"></script>
+	@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>*@
+    <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
+    
+    <style type="text/css">
         #box-table-a
         {
-	        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	        font-family: Arial, Helvetica, sans-serif;	        
 	        font-size: 12px;
 	        margin: 45px;
-	        width: 480px;
+	        width: 90%;
 	        text-align: left;
 	        border-collapse: collapse;
         }
         #box-table-a th
         {
 	        font-size: 13px;
-	        font-weight: normal;
+	        font-weight: bold;
 	        padding: 8px;
-	        background: #b9c9fe;
-	        border-top: 4px solid #aabcfe;
+	        background: #2A323E ;	        
 	        border-bottom: 1px solid #fff;
-	        color: #039;
+	        color: white;
+	        text-align:center;
         }
         #box-table-a td
         {
 	        padding: 8px;
-	        background: #e8edff; 
-	        border-bottom: 1px solid #fff;
-	        color: #669;
+	        background:#F0F0F0 ; 
+	        border-bottom: 1px solid #F0F0F0 ;
+	        color: #696969;
 	        border-top: 1px solid transparent;
 	        text-align:center;
         }
         #box-table-a tr:hover td
         {
-	        background: #d0dafd;
-	        color: #339;
+	        background: #DCDCDC;
+	        color: #111;
         }
         #Total
         {
@@ -55,20 +61,33 @@
             text-align:right;
         }
     </style>
+    
 </head>
 
 <body>
+	
+    <div class = "demo">
 
-	<fieldset>
+    <div id="tabs">
+	<ul>
+		<li><a href="#tabs-1" id = "pestana1">Reserva de habitación</a></li>		
+        <li><a href="#tabs-2" id = "pestana2">Datos del cliente</a></li>
+        <li><a href="#tabs-3" id = "pestana3">Confirmación de Datos</a></li>
+	</ul>
+
+
+
+    <div id="tabs-1">
+
 		<div class="widget">
 			<div class="title">
-				<h6>Registrar Servicio</h6>
+				<h6>Registrar reserva</h6>
 			</div>
 
 			<div class="formRow"><span>Fecha de llegada</span>                
 				<div class = "formRight" >                                         
 					<div class="demo">
-						<input type="text" id="FechaLlegada">
+						<input type="text" id="FechaLlegada"/>
 					</div>
 				</div>                
 				<div class="clear"></div>
@@ -77,26 +96,31 @@
 			<div class="formRow"><span>Fecha de salida</span>                
 				<div class = "formRight" > 
 					<div class="demo">
-						<input type="text" id="FechaSalida">
+						<input type="text" id="FechaSalida"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Buscar" class = "redB" />
 					</div>
 				</div>                
 				<div class="clear"></div>
 			</div>
-		<!--/div>
-	</fieldset-->
-			<div class = "widgetxD" >
+        </div>
+      
+
+      
+		
+			<div class = "widget" >
 				<div class="title"><!--img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /--><h6>Tipos de habitacion del hotel</h6></div>
 				<table cellpadding = "0" cellspacing = "0" width = "90%" id = "box-table-a" >
 					<thead>
 						<tr>
 							<th>Tipo de habitación</th>
 							<th>Cantidad Habitaciones</th>
-							<th>Precio($)</th>
+							<th>Precio unitario($)</th>
+                            <th>Subtotal($)</th>
 						</tr>
 					</thead>
                     
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th></th>
                             <th id="TotalLabel">Total</th>
                             <th id="Total">0</th>
@@ -156,18 +180,235 @@
                 </div>
 
 		    </div>	        
+        
+	@*<p>
+		<input id = "continuarP2" type="submit" value="Continuar" class = "redB" />
+    </p>*@
+      </div> 
+    
+
+
+
+		
+	<div id="tabs-2">	
+
+	<div class="widget">
+
+            <div class="title">
+                <h6>Registrar Datos de la reserva</h6>
+            </div>
+
+            <div class="formRow"><span>Tipo de Documento</span>
+                
+               <div class = "formRight" > 
+                    <select id="ComboCliente">
+                        <option value = "0">Escoja un tipo de documento</option>
+                        <option value = "DNI">DNI</option>
+                        <option value = "RUC">RUC</option>
+                    </select>
+               </div>
+                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Documento</span>
+                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nDoc" />
+               </div>
+                
+               <div class="clear"></div>
+            </div>
+            
+            <div id="juridica">
+                <div class="formRow"><span>Razon Social</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="razonDReserva" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Email</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="mail" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Teléfono</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="telef" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Tarjeta de credito</span>
+                
+                   <div class = "formRight" > 
+                        <select>
+                            <option value = "Visa">Visa</option>
+                            <option value = "Mastercard">Mastercard</option>
+                        </select>
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Nro. de tarjeta</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="nTarjeta" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Fecha de caducidad</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <input type="text" id="FechaCaduca"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+                <div class="formRow"><span>Comentarios</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <textarea></textarea>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+            </div>
+
+            <div id="natural">
+                <div class="formRow"><span>Nombre</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="nombreDReserva" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+            
+
+                <div class="formRow"><span>Apellidos</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="ApellidoDReserva" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+            
+                <div class="formRow"><span>Email</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="mailNatural" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Teléfono</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="telefNatural" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Tarjeta de credito</span>
+                
+                   <div class = "formRight" > 
+                        <select>
+                            <option value = "Visa">Visa</option>
+                            <option value = "Mastercard">Mastercard</option>
+                        </select>
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Nro. de tarjeta</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="nTarjetaNatural" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Fecha de caducidad</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <input type="text" id="FechaCaducaNatural"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+                <div class="formRow"><span>Comentarios</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <textarea></textarea>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+            </div>
         </div>
-	</fieldset>
 
-
-	<!--p>
-		<input type="submit" value="Recojo de aeropuerto" class = "redB" id = "registrarAeropuerto"/>
-    </p-->
-
-	
-
-	<p>
-		<input type="submit" value="Reservar" class = "redB" />
+        <p>
+		<input id = "continuarP3" type="submit" value="Reservar" class = "redB" />
     </p>
+    
+    </div>
 
+    <div id = "tabs-3">
+        <div class="widget">
+            
+            <div class="title">
+                <h6>Confirmación reserva</h6>            
+            </div>
+
+            <div id="maps" style="height: 350px; border: 1px solid #979797;visibility="hidden";>
+
+            </div>
+
+            <div class="formRow"><span>Fecha de reserva</span>
+                
+                   <div class = "formRight" > 
+                        <span id = "mostrarFechaReserva"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+                
+               
+        </div>
+
+        <p>
+		<input id = "retornar" type="submit" value="Atras" class = "redB" />
+        </p>
+            
+        </div>
+    </div>
+
+
+</div>
+
+     
+
+</body>
 </html>
+
