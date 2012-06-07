@@ -105,11 +105,11 @@
                     "alertText": "* Solo numeros aqui"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-Zñ\Ñáóíéú\ \']+$/,
+                    "regex": /^[a-zA-Z\Ñáóíéú\ \']+$/,
                     "alertText": "* Solo Letras aqui"
                 },
                 "onlyLetterNumber": {
-                    "regex": /^[0-9a-zA-Z]+$/,
+                    "regex": /^[0-9a-zA-Z\ñ\Ñ\ó\Ó\á\Á\é\É\í\Í\Ú\ú\.]+$/,
                     "alertText": "* Caracteres especiales no permitidos"
                 },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
