@@ -1,0 +1,162 @@
+﻿@model IEnumerable<Stardust.Models.EventoBean>
+
+<h2>Buscar Evento</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/custom.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.mousewheel.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm("Buscar", "Evento", FormMethod.Post, new { @class = "form" }))
+{
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Evento</h6></div>
+
+            <div class="formRow">
+                <label>Nombre</label>
+                <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" /></div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                <label>Fecha Inicial</label>
+               <div class = "formRight" >
+                    <input type = "text" id = "fechaIni" name = "fechaIni" class="datepicker" /></div>
+                <div class = "clear" ></div>
+            </div>
+
+             <div class="formRow">
+                <label>Fecha Final</label>
+                <div class = "formRight" >
+                    <input type = "text" id = "fechaFin" name = "fechaFin" class="datepicker" /></div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Buscar", "Evento")
+    
+</div>
+
+<p></p><p></p>
+
+
+<div class="wrapper">
+    <div class="widget">
+      <div class="title">
+      <h6>Lista de Eventos</h6>
+      </div>
+      <div class="dataTables_wrapper">
+        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
+    
+    
+        <thead>
+        <tr>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+                <div class="DataTables_sort_wrapper">
+                Nombre
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;" >
+                <div class="DataTables_sort_wrapper">
+                Descripción
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>               
+               <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+                <div class="DataTables_sort_wrapper">
+                Número de Participantes
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1">
+
+             </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
+            <td>@Html.DisplayFor(modelItem => item.nroParticipantes)</td>
+            <td>
+                <a href="@Url.Action("ModificarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> |                              
+                <a href="@Url.Action("DetallesEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("EliminarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>  |                      
+                
+                
+                @* <a href="@Url.Action("ListarProductos", new { id = item.ID })"><img src="../../Content/images/icons/color/notebook.png", alt="Delete" />Asignar Productos</a>    *@
+            </td>
+        </tr>
+        
+    }
+
+     <div id="dialogEliminar" title="Desea Eliminar el producto?">
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+    El Evento que UD. Elimine ya no podra ser recuperado</p>
+    </div>
+
+
+    </tbody>
+</table>
+      </div>
+        
+    </div>
+    </div>
+
+    
+    <script type = "text/javascript">
+        var idEliminar = 0;
+        $(".eliminar").click(function () {
+            //Jp++ GPL version xD
+            $('#dialogEliminar').dialog('open');
+            idEliminar = $(this).attr("id");
+            return false;
+        });
+
+        $('#dialogEliminar').dialog({
+            autoOpen: false,
+            resizable: false,
+            draggable: false,
+            width: 300,
+            modal: true,
+            title: "!Confirmar Eliminacion de Proveedor",
+            position: "center",
+            buttons: {
+                "Aceptar": function () {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        url: "Delete/" + idEliminar,
+                        success: function (data) {
+                            oTable.fnDraw(false);
+                            if (data.me == "") {
+                                $(this).dialog("close");
+                                location.reload();
+                            }
+                        }
+                    });
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                    return false;
+                }
+            }
+        });
+
+</script>
