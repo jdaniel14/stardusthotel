@@ -105,7 +105,7 @@
                     "alertText": "* Solo numeros aqui"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-Z\бсѓэщњ\ \']+$/,
+                    "regex": /^[a-zA-Z\ё\б\ѓ\г\с\С\щ\Щ\э\Э\к\њ\ \']+$/,
                     "alertText": "* Solo Letras aqui"
                 },
                 "onlyLetterNumber": {
