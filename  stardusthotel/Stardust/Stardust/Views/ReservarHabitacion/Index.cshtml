@@ -18,7 +18,14 @@
 	@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>*@
     <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
     
-    <style type="text/css">
+    <style type="text/css">        
+        #maps
+        {
+            height: 150px; 
+            width:420px; 
+            border: 1px solid #979797;
+            visibility = "visible";            
+            }
         #box-table-a
         {
 	        font-family: Arial, Helvetica, sans-serif;	        
@@ -375,15 +382,20 @@
     </div>
 
     <div id = "tabs-3">
+
+        &nbsp;
+        &nbsp;
+        <p>
+		<input id = "retornar" type="submit" value="Atras" class = "redB" />
+        </p>
+                 
         <div class="widget">
             
             <div class="title">
                 <h6>Confirmación reserva</h6>            
             </div>
-
-            <div id="maps" style="height: 350px; border: 1px solid #979797;visibility="hidden";>
-
-            </div>
+                        
+            
 
             <div class="formRow"><span>Fecha de reserva</span>
                 
@@ -392,13 +404,76 @@
                    </div>
                 
                    <div class="clear"></div>
-                </div>
+            </div>
+
+            <div class="formRow"><span>Fecha de Salida</span>
                 
+                   <div class = "formRight" > 
+                        <span id = "mostrarFechaSalida"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>    
+
+            <div class="formRow"><span>Total($)</span>
+                
+                   <div class = "formRight" > 
+                        <span id = "mostrarTotal"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>  
+            
+            <div class="formRow"><span>Tipo de Documento</span>
+                
+                   <div class = "formRight" > 
+                        <span id = "mostrarTipoDocumento"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>  
+
+            <div class="formRow"><span>Nro de Documento</span>
+                
+                   <div class = "formRight" > 
+                        <span id = "mostrarNroDocumento"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>  
+
+            <div class="formRow"><span>Nombre</span>
+                
+                   <div class = "formRight" > 
+                        <span id = "mostrarNombre"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Email</span>
+                
+                   <div class = "formRight" > 
+                        <span id = "mostrarEmail"></span>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>
+
+
+            <div class="formRow"><span>Ubicación</span>
+                
+                   <div class = "formRight" > 
+                       <div id="maps"></div>
+                   </div>
+                
+                   <div class="clear"></div>
+            </div>    
                
         </div>
 
         <p>
-		<input id = "retornar" type="submit" value="Atras" class = "redB" />
+		<input id = "enviar" type="submit" value="Enviar" class = "redB" />
         </p>
             
         </div>
