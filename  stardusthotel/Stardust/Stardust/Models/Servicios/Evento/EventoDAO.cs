@@ -19,20 +19,20 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Evento";
+            string commandString = "SELECT * FROM Evento WHERE estado=1";
             bool result1 = String.IsNullOrEmpty(nombre);//Nombre.Equals("") ;  
             bool result2 = String.IsNullOrEmpty(fechaini);
             bool result3 = String.IsNullOrEmpty(fechafin);
 
 
             if (!result1)
-                commandString = commandString + " WHERE UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'";
+                commandString = commandString + " AND UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'";
 
             if (!result2)
-                commandString = commandString + " WHERE (CONVERT(VARCHAR(10),fechaIni,103) LIKE'%" + fechaini + "%' )";
+                commandString = commandString + " AND (CONVERT(VARCHAR(10),fechaIni,103) LIKE'%" + fechaini + "%' )";
 
             if (!result3)
-                commandString = commandString + " WHERE (CONVERT(VARCHAR(10),fechaFin,103) LIKE'%" + fechafin + "%' )";
+                commandString = commandString + " AND (CONVERT(VARCHAR(10),fechaFin,103) LIKE'%" + fechafin + "%' )";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -61,7 +61,7 @@ namespace Stardust.Models
         public String insertarEvento(EventoBean evento)
         {
             String me = "";
-
+             evento.estado = 1;
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -74,7 +74,8 @@ namespace Stardust.Models
                    evento.fechaFin +"', '" +
                    evento.nroParticipantes + "', '" + null + "', '" +
                    evento.horaIni + "', '" +
-                   evento.horaFin + 
+                   evento.horaFin + "', '" +
+                   evento.estado +
                    " ')";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -151,7 +152,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "DELETE from Evento WHERE idEvento = " + idEvento;
+            string commandString = "UPDATE Evento SET estado=0 WHERE idEvento = " + idEvento;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
