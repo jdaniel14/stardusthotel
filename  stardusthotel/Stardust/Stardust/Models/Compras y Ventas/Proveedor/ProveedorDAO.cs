@@ -325,9 +325,8 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-
             string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendida' OR estado = 'Parcialmente Atendida' AND idProveedor = " + id;
-            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+            
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
