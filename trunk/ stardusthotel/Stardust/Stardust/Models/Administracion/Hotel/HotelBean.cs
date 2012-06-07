@@ -7,6 +7,56 @@ using System.Web.Mvc;
 
 namespace Stardust.Models
 {
+    public class HotelViewModelCreate
+    {
+        [Display(Name="Nombre")]
+        [Required(ErrorMessage = "Debe ingresar el nombre del Hotel")]
+        public string nombre { get; set; }
+
+        [Display(Name = "Razón Social")]
+        public string razonSocial { get; set; }
+
+        [Display(Name = "Dirección")]
+        [Required(ErrorMessage = "Debe ingresar la dirección del Hotel")]
+        public string direccion { get; set; }
+
+        [Display(Name = "Teléfono Principal")]
+        [Required(ErrorMessage = "Debe ingresar el teléfono")]
+        [StringLength(9, MinimumLength = 9, ErrorMessage = "Debe ingresar 9 dígitos")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
+        public string tlf1 { get; set; }
+
+        [Display(Name = "Teléfono Secundario")]
+        [Remote("ValidaFonoNoRequerido", "Hotel")]
+        public string tlf2 { get; set; }
+
+        [Display(Name = "E-mail")]
+        [Remote("ValidaEmail", "Hotel")]
+        public string email { get; set; }
+
+        [Display(Name = "Número de pisos")]
+        [Required(ErrorMessage = "Debe indicar el número de pisos")]
+        [Range(0, 999, ErrorMessage = "El número de pisos es incorrecto")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número positivo")]
+        public int nroPisos { get; set; }
+
+        [Display(Name = "Departamento")]
+        [Required(ErrorMessage = "Debe seleccionar un departamento")]
+        public int idDepartamento { get; set; }
+
+        [Display(Name = "Provincia")]
+        [Required(ErrorMessage = "Debe seleccionar una provincia")]
+        public int idProvincia { get; set; }
+
+        [Display(Name = "Distrito")]
+        [Required(ErrorMessage = "Debe seleccionar un distrito")]
+        public int idDistrito { get; set; }
+
+        public List<Departamento> Departamentos { get; set; }
+        
+        public AlmacenBean almacen { get; set; }
+    }
+
     public class HotelBean
     {
         [Key]
@@ -47,29 +97,38 @@ namespace Stardust.Models
         [Required(ErrorMessage = "Debe indicar el número de pisos")]
         [Range( 0 , 999, ErrorMessage = "El número de pisos es incorrecto")]
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número positivo")]
-        public int nroPisos { get; set; }
+        public int? nroPisos { get; set; }
 
         [Display( Name = "Departamento" ) ]
         [Required(ErrorMessage = "Debe seleccionar un departamento")]
         public int idDepartamento { get; set; }
 
-        [Display(Name = "Departamento")]
-        public string nombreDepartamento { get; set; }
-        
         [Display( Name = "Provincia" )]
         [Required(ErrorMessage = "Debe seleccionar una provincia")]
         public int idProvincia { get; set; }
-
-        [Display(Name = "Provincia")]
-        public string nombreProvincia { get; set; }
 
         [Display( Name = "Distrito") ]
         [Required(ErrorMessage = "Debe seleccionar un distrito")]
         public int idDistrito { get; set; }
 
-        [Display(Name = "Distrito")]
+        public string nombreDepartamento { get; set; }
+        public string nombreProvincia { get; set; }
         public string nombreDistrito { get; set; }
 
         public List<Departamento> Departamentos { get; set; }
+        public List<Provincia> Provincias { get; set; }
+        public List<Distrito> Distritos { get; set; }
+
+        public AlmacenBean Almacen { get; set; }
+    }
+
+    public class AlmacenBean
+    {
+        [Display(Name="Descripcion del Almacen")]
+        public string descripcion { get; set; }
+
+        [Display(Name = "Cantidad Máxima del Almacen")]
+        [Required(ErrorMessage="Es necesario ingresar la cantidad máxima del almacen que contendra este hotel")]
+        public int cantidad { get; set; }
     }
 }
