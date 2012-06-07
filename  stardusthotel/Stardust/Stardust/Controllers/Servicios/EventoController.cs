@@ -49,9 +49,10 @@ namespace Stardust.Controllers
         public ActionResult ModificarEvento(EventoBean item)
         {
             eventoFacade.ActualizarEvento(item);
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("DetallesEvento/" + item.ID, "Evento");
         }
-        public ActionResult DetallesProveedor(int ID)
+        public ActionResult DetallesEvento(int ID)
         {
             EventoBean item = eventoFacade.GetEvento(ID);
             return View(item);
