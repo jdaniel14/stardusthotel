@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+//using iTextSharp.text;
+//using iTextSharp.text.pdf;
 using System.Diagnostics;
 using System.IO;
 
@@ -478,52 +478,52 @@ namespace Stardust.Models
 
         public void pdf()
         {
-            try
-            {
-                Document doc = new Document(PageSize.A4.Rotate(), 10, 10
-                                            , 10, 10);
-                string filename = "yeti.pdf";
-                FileStream file = new FileStream(filename,
-                                                 FileMode.OpenOrCreate,
-                                                 FileAccess.ReadWrite,
-                                                 FileShare.ReadWrite);
-                PdfWriter.GetInstance(doc, file);
-                doc.Open();
-                GenerarDocumento(doc);
-                doc.Close();
-                Process.Start(filename);
-            }
-            catch (Exception ex)
-            {
-            }            
+            //try
+            //{
+            //    Document doc = new Document(PageSize.A4.Rotate(), 10, 10
+            //                                , 10, 10);
+            //    string filename = "yeti.pdf";
+            //    FileStream file = new FileStream(filename,
+            //                                     FileMode.OpenOrCreate,
+            //                                     FileAccess.ReadWrite,
+            //                                     FileShare.ReadWrite);
+            //    PdfWriter.GetInstance(doc, file);
+            //    doc.Open();
+            //    GenerarDocumento(doc);
+            //    doc.Close();
+            //    Process.Start(filename);
+            //}
+            //catch (Exception ex)
+            //{
+            //}            
         }
 
-        public void GenerarDocumento(Document doc)
+        public void GenerarDocumento()//Document doc)
         {
-            doc.Add(new Paragraph("Proveedor"));
-            doc.Add(new Paragraph("Lista de Ordenes de Compra"));
-            PdfPTable tabla = new PdfPTable(3);
-            tabla.DefaultCell.Padding = 3;
-            float[] headerwidths = {3.5f,3.5f,3.5f};
-            tabla.SetWidths(headerwidths);
-            tabla.WidthPercentage = 100;
-            tabla.DefaultCell.BorderWidth = 2;
-            tabla.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            tabla.AddCell("ID");
-            tabla.AddCell("Nombre");
-            tabla.AddCell("Direccion");
-            tabla.HeaderRows = 1;
-            tabla.DefaultCell.BorderWidth = 1;
-            for (int i = 1; i < 4; i++)
-            {
-                tabla.AddCell("id-"+i);
-                tabla.AddCell("nombre-" + i);
-                tabla.AddCell("direccion-" + i);
-            }
+            //doc.Add(new Paragraph("Proveedor"));
+            //doc.Add(new Paragraph("Lista de Ordenes de Compra"));
+            //PdfPTable tabla = new PdfPTable(3);
+            //tabla.DefaultCell.Padding = 3;
+            //float[] headerwidths = { 3.5f, 3.5f, 3.5f };
+            //tabla.SetWidths(headerwidths);
+            //tabla.WidthPercentage = 100;
+            //tabla.DefaultCell.BorderWidth = 2;
+            //tabla.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            //tabla.AddCell("ID");
+            //tabla.AddCell("Nombre");
+            //tabla.AddCell("Direccion");
+            //tabla.HeaderRows = 1;
+            //tabla.DefaultCell.BorderWidth = 1;
+            //for (int i = 1; i < 4; i++)
+            //{
+            //    tabla.AddCell("id-" + i);
+            //    tabla.AddCell("nombre-" + i);
+            //    tabla.AddCell("direccion-" + i);
+            //}
 
-            tabla.CompleteRow();
+            //tabla.CompleteRow();
 
-            doc.Add(tabla);
+            //doc.Add(tabla);
         }
     }
 }
