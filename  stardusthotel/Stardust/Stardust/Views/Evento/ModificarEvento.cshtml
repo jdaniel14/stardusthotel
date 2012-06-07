@@ -35,22 +35,22 @@
             </div>
 
             <div class="formRow">@Html.LabelFor(model => model.fechaIni)<span class="req">*</span>                     
-                <div class="formRight"> @Html.TextBoxFor(model => model.fechaIni, new { @class="datepicker", id="fechaini"}) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.fechaIni, new { @class = "datepicker", id = "fechaini" }) </div>
                 <div class="clear"></div>
             </div>
 
             <div class="formRow">@Html.LabelFor(model => model.horaIni)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.horaIni, new {@class="timepicker", id="horaIni",maxlength = "5" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.horaIni, new {@class="timepicker",maxlength = "5" }) </div>
                 <div class="clear"></div>
             </div>
 
              <div class="formRow">@Html.LabelFor(model => model.fechaFin)<span class="req">*</span>                     
-                <div class="formRight"> @Html.TextBoxFor(model => model.fechaFin, new { @class="datepicker", id="fechafin"}) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.fechaFin, new { @class = "datepicker", id = "fechafin" }) </div>
                 <div class="clear"></div>
             </div>
 
             <div class="formRow">@Html.LabelFor(model => model.horaFin)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.horaFin, new { @class = "timepicker", id = "horaFin", maxlength = "5" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.horaFin, new { @class = "timepicker", maxlength = "5" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.nroParticipantes)<span class="req">*</span>

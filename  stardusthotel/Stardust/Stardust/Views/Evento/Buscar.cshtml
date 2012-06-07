@@ -61,19 +61,19 @@
     
         <thead>
         <tr>
-            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:180px;">
                 <div class="DataTables_sort_wrapper">
                 Nombre
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                 </div>
              </th>
-            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;" >
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:300px;" >
                 <div class="DataTables_sort_wrapper">
                 Descripción
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                 </div>
              </th>               
-               <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+               <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;" >
                 <div class="DataTables_sort_wrapper">
                 Número de Participantes
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
@@ -95,7 +95,7 @@
             <td>
                 <a href="@Url.Action("ModificarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> |                              
                 <a href="@Url.Action("DetallesEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                <a href="@Url.Action("EliminarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>  |                      
+                <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
                 
                 
                 @* <a href="@Url.Action("ListarProductos", new { id = item.ID })"><img src="../../Content/images/icons/color/notebook.png", alt="Delete" />Asignar Productos</a>    *@
@@ -133,7 +133,7 @@
             draggable: false,
             width: 300,
             modal: true,
-            title: "!Confirmar Eliminacion de Proveedor",
+            title: "!Confirmar Eliminacion de Evento",
             position: "center",
             buttons: {
                 "Aceptar": function () {
