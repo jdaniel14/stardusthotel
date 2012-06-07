@@ -13,7 +13,7 @@
 
 @using (Html.BeginForm("RegistrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id="validate"}))
 {
-   @Html.ValidationSummary(false)
+  
     
 
     <fieldset>
@@ -21,9 +21,9 @@
             <div class="title">
                 <h6>Registrar Proveedor</h6>
             </div>
-            <div class="formRow"> Razon social<span class="req">*</span>
+            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
                 <div class="formRight">
-                    <input type="text" value="esto es una caracter invalido" class="validate[required, custom[onlyLetterSp]]" name="lettersValid" id="razonsocial"/>
+                    @Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required]", name = "", maxlength = "50", placeholder = "Máximo de caracteres de 50" })
                 </div>
                 <div class="clear"></div>
             </div>
