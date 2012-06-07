@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Stardust.Models.EventoBean>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de Proveedores</h2>
+
+<p>
+    <a href="@Url.Action("RegistrarEvento")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir</a>
+</p>
+
+
+<div class = "widget" >
+
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Eventos</h6></div>
+
+    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Descripcion</td>
+            <td>Fecha Inicial</td>       
+            <td>Fecha Final</td>
+            <td>Numero de Participantes</td>
+            <td></td>            
+        </tr>
+    </thead>
+
+    <tbody>
+
+    @foreach (var item in Model) {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.nombre) </td>
+                <td> @Html.DisplayFor(modelItem => item.descripcion)         </td>
+                <td> @Html.DisplayFor(modelItem => item.fechaIni)   </td>
+                <td> @Html.DisplayFor(modelItem => item.fechaFin)    </td>
+                <td> @Html.DisplayFor(modelItem => item.nroParticipantes)    </td>
+                <td>
+                <a href="@Url.Action("ModificarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("DetallesEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("EliminarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> |
+                <a href="@Url.Action("ListarEvento", new { id = item.ID })"><img src="../../Content/images/icons/color/notebook.png", alt="Delete" />Listar Eventos</a>                  
+                </td>
+            </tr>
+    }
+    
+    </tbody>
+
+    </table>
+</div>
