@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using System.Text.RegularExpressions;
 
 namespace Stardust.Controllers
 { 
@@ -39,45 +40,73 @@ namespace Stardust.Controllers
             ViewBag.departamentos = utils.listarDepartamentos();
             ViewBag.provincias = new List<Provincia>();
             ViewBag.distritos = new List<Distrito>();
-            return View();
-        } 
+
+            HotelBean hotel = new HotelBean();
+            hotel.Departamentos = utils.listarDepartamentos();
+            return View(hotel);
+        }
+
+        public ActionResult getProvincias(int idDepartamento)
+        {
+            return Json(new Utils().listarProvincias(idDepartamento), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getDistritos(int idDepartamento, int idProvincia)
+        {
+            return Json(new Utils().listarDistritos(idDepartamento, idProvincia), JsonRequestBehavior.AllowGet);
+        }
 
         //
         // POST: /Hotel/Create
 
         [HttpPost]
-        public ActionResult Create(HotelBean hotelbean)
+        public ActionResult Create(HotelBean hotel)
         {
             if (ModelState.IsValid)
             {
-                hotelFac.registrarHotel(hotelbean);
+                hotelFac.registrarHotel(hotel);
                 return RedirectToAction("List");
             }
-            else if (hotelbean.idDepartamento != 0 && hotelbean.idProvincia != 0)
-            {
-                Utils utils = new Utils();
-                ViewBag.departamentos = utils.listarDepartamentos();
-                ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
-                ViewBag.distritos = utils.listarDistritos(hotelbean.idDepartamento, hotelbean.idProvincia);
-                return View();
-            }
-            else if (hotelbean.idDepartamento != 0)
-            {
-                Utils utils = new Utils();
-                ViewBag.departamentos = utils.listarDepartamentos();
-                ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
-                ViewBag.distritos = new List<Distrito>();
-                return View();
-            }
-            else
-            {
-                Utils utils = new Utils();
-                ViewBag.departamentos = utils.listarDepartamentos();
-                ViewBag.provincias = new List<Provincia>();
-                ViewBag.distritos = new List<Distrito>();
-                return View();
-            }
+            return View(hotel);
         }
+
+        //[HttpPost]
+        //public ActionResult Create(HotelBean hotelbean)
+        //{
+        //    if (ModelState.IsValid)
+        //    //hotelbean.idDepartamento != 0 && hotelbean.idProvincia != 0 && hotelbean.idDistrito != 0
+        //    {
+        //        hotelFac.registrarHotel(hotelbean);
+        //        return RedirectToAction("List");
+        //    }
+        //    else if (hotelbean.idDepartamento != 0 && hotelbean.idProvincia != 0) // && hotelbean.idDistrito == 0
+        //    {
+        //        hotelbean.idDistrito = 0;
+        //        Utils utils = new Utils();
+        //        ViewBag.departamentos = utils.listarDepartamentos();
+        //        ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
+        //        ViewBag.distritos = utils.listarDistritos(hotelbean.idDepartamento, hotelbean.idProvincia);
+        //        return View(hotelbean);
+        //    }
+        //    else if (hotelbean.idDepartamento != 0) // hotelbean.idProvincia == 0 && hotelbean.idDistrito == 0
+        //    {
+        //        hotelbean.idProvincia = hotelbean.idDistrito = 0;
+        //        Utils utils = new Utils();
+        //        ViewBag.departamentos = utils.listarDepartamentos();
+        //        ViewBag.provincias = utils.listarProvincias(hotelbean.idDepartamento);
+        //        ViewBag.distritos = new List<Distrito>();
+        //        return View(hotelbean);
+        //    }
+        //    else // hotelbean.idDepartamento == 0 && hotelbean.idProvincia == 0 && hotelbean.idDistrito == 0
+        //    {
+        //        hotelbean.idDepartamento = hotelbean.idProvincia = hotelbean.idDistrito = 0;
+        //        Utils utils = new Utils();
+        //        ViewBag.departamentos = utils.listarDepartamentos();
+        //        ViewBag.provincias = new List<Provincia>();
+        //        ViewBag.distritos = new List<Distrito>();
+        //        return View(hotelbean);
+        //    }
+        //}
         
         //
         // GET: /Hotel/Edit/5
@@ -146,6 +175,25 @@ namespace Stardust.Controllers
             var model = hotelFac.listarTipos(id);
             ViewBag.hotel = hotelFac.getHotel(id).nombre;
             return View( model );
+        }
+
+        public ActionResult ValidaEmail(string email)
+        {
+            if (String.IsNullOrEmpty(email) ||
+                Regex.IsMatch(email, @"[a-z0-9!#$%&'*+/=?^_`B|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum|pe)\b"))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(String.Format("El correo {0} no es válido", email), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ValidaFonoNoRequerido(string tlf2)
+        {
+            if (String.IsNullOrEmpty(tlf2) || Regex.IsMatch(tlf2, "([0-9]+)"))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(String.Format("El valor ingresado debe tener la sintaxis de un telefóno", tlf2), JsonRequestBehavior.AllowGet);
         }
     }
 }
