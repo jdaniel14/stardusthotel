@@ -111,51 +111,76 @@ namespace Stardust.Models
         }
 
         public void registrarHotel(HotelBean hotel) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
 
-            sql.Open();
+                String strQuery = "Insert into Hotel (nombre, razonSocial, direccion, tlf1, tlf2, email, nroPisos, idDistrito, idProvincia, idDepartamento) values " +
+                                    "(@nombre, @razonSocial, @direccion, @tlf1, @tlf2, @email, @nroPisos, @idDistrito, @idProvincia, @idDepartamento)";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "nombre", hotel.nombre);
+                DAO.agregarParametro(objQuery, "razonSocial", hotel.razonSocial);
+                DAO.agregarParametro(objQuery, "direccion", hotel.direccion);
+                DAO.agregarParametro(objQuery, "tlf1", hotel.tlf1);
+                DAO.agregarParametro(objQuery, "tlf2", hotel.tlf2);
+                DAO.agregarParametro(objQuery, "email", hotel.email);
+                DAO.agregarParametro(objQuery, "nroPisos", hotel.nroPisos);
+                DAO.agregarParametro(objQuery, "idDistrito", hotel.idDistrito);
+                DAO.agregarParametro(objQuery, "idProvincia", hotel.idProvincia);
+                DAO.agregarParametro(objQuery, "idDepartamento", hotel.idDepartamento);
 
-                String command = "Insert into Hotel ( nombre , razonSocial , direccion , tlf1 , tlf2 , email , nroPisos , idDistrito , idProvincia , idDepartamento ) values " +
-                                    "('" + hotel.nombre + "', '" +
-                                    hotel.razonSocial + "', '" +
-                                    hotel.direccion + "', '" +
-                                    hotel.tlf1 + "', '" +
-                                    hotel.tlf2 + "', '" +
-                                    hotel.email + "', " +
-                                    hotel.nroPisos + ", " +
-                                    hotel.idDistrito + ", " +
-                                    hotel.idProvincia + ", " +
-                                    hotel.idDepartamento + ")";
-                SqlCommand query = new SqlCommand(command, sql);
-
-                query.ExecuteNonQuery();
-
-                int idHotel = this.buscarHotel(hotel.nombre, hotel.razonSocial);
-                this.registrarAlmacen(idHotel);
-
-            sql.Close();
+                objQuery.ExecuteNonQuery();
+                
+                // Al registrar un hotel, se le debe ingresar como mínimo 1 almacén
+                hotel.ID = this.buscarHotel(hotel);
+                this.registrarAlmacen(hotel);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
-        public int buscarHotel(string nombre, string razonSocial) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        public int buscarHotel(HotelBean hotel)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
 
-            sql.Open();
+                //La exactitud de la búsqueda va dentro del método, debe ser inherente a la llamada en los parámetros
+                String strQuery = "SELECT idHotel FROM Hotel WHERE nombre = @nombre AND razonSocial = @razonSocial";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "nombre", hotel.nombre);
+                DAO.agregarParametro(objQuery, "razonSocial", hotel.razonSocial);
 
-                String command = "SELECT idHotel FROM Hotel WHERE nombre = @nombre AND razonSocial = @razonSocial";
-                SqlCommand query = new SqlCommand(command, sql);
+                SqlDataReader data = objQuery.ExecuteReader();
 
-                Utils utils = new Utils();
-                utils.agregarParametro(query, "nombre", nombre);
-                utils.agregarParametro(query, "razonSocial", razonSocial);
+                if (data.HasRows)
+                {
+                    data.Read();
+                    return Convert.ToInt32(data.GetValue(0));
+                }
+                return -1; // en caso no encuentre el hotel que esta buscando con las caracteristicas pasadas por parametro
+            }
+            //catch (Exception ex)
+            //{
 
-                SqlDataReader data = query.ExecuteReader();
+            //}
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
 
-                data.Read();
-                int idHotel = (int)data.GetValue(0);
-
-            sql.Close();
-
-            return idHotel;
         }
 
         public void actualizarHotel(HotelBean hotel) {
@@ -341,23 +366,27 @@ namespace Stardust.Models
             return lista;
         }
 
-        public void registrarAlmacen(int idHotel) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        public void registrarAlmacen(HotelBean hotel) {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+                String strQuery = "Insert into Almacen ( descripcion , capacidad , idHotel ) values ( @descripcion , @capacidad , @idHotel )";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "descripcion", hotel.Almacen.descripcion);
+                DAO.agregarParametro(objQuery, "capacidad", hotel.Almacen.cantidad);
+                DAO.agregarParametro(objQuery, "idHotel", hotel.ID);
 
-            sql.Open();
-            
-                String command = "Insert into Almacen ( descripcion , capacidad , idHotel ) values ( @descripcion , @capacidad , @idHotel )";
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                Utils utils = new Utils();
-                utils.agregarParametro(query, "descripcion", "almacen del hotel " + idHotel);
-                utils.agregarParametro(query, "capacidad", 10000);
-                utils.agregarParametro(query, "idHotel", idHotel);
-
-                query.ExecuteNonQuery();
-
-            sql.Close();
+                objQuery.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
         public void eliminarAlmacen(int idHotel) {
