@@ -76,7 +76,12 @@
     </table>
     <p></p><p></p><p></p><p></p>
     <p>
-        <input type="submit" value="Modificar" class = "redB" />
+        
+        @if (Model.listProdalmacen.Count > 0)
+        {
+            <input type="submit" value="Modificar" class = "redB" />
+            
+        }
         @Html.ActionLink("Regresar", "ListadeHoteles", "Producto")
     </p>
     }
