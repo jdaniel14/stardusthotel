@@ -4,6 +4,9 @@
     ViewBag.Title = "Eliminar Hotel";
 }
 
+@if (ViewBag.depend == 0)
+{
+
 <h3>Seguro de querer eliminar este hotel?</h3>
 
 <fieldset>
@@ -29,18 +32,25 @@
         </div>
 
         <div class="formRow">
-            @Html.LabelFor(model => model.distrito)
-            <div class = "formRight" >@Html.DisplayFor(model => model.distrito)</div>
+            @Html.LabelFor(model => model.nombreDistrito)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDistrito)</div>
             <div class = "clear" ></div>
         </div>
     </div>
 </fieldset>
 
-@using (Html.BeginForm()) {
+using (Html.BeginForm())
+{
     <p>
         <input type="submit" value="Eliminar" class = "redB"/> |
         @Html.ActionLink("Regresar", "List")
     </p>
 }
 
-
+}
+else { 
+    <h3>Imposible eliminar este hotel. Ya se le han asignado tipos de habitación.</h3>
+    <p>
+        @Html.ActionLink("Regresar", "List")
+    </p>
+}

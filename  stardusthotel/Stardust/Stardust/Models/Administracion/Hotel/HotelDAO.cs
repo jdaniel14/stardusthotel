@@ -17,7 +17,6 @@ namespace Stardust.Models
             SqlConnection objDB = null;
             try
             {
-
                 objDB = new SqlConnection(cadenaDB);
                 HotelBean hotel = null;
 
@@ -182,6 +181,8 @@ namespace Stardust.Models
         public void eliminarHotel(int id) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
+            this.eliminarAlmacen(id);
+            
             sql.Open();
 
                 String command = "Delete from Hotel where idHotel = " + id;
@@ -357,6 +358,42 @@ namespace Stardust.Models
                 query.ExecuteNonQuery();
 
             sql.Close();
+        }
+
+        public void eliminarAlmacen(int idHotel) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+                String command = "Delete from Almacen where idHotel = " + idHotel;
+                SqlCommand query = new SqlCommand(command, sql);
+
+                query.ExecuteNonQuery();
+
+            sql.Close();
+        }
+
+        public int getAlmacen(int idHotel) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select idAlmacen from Almacen where idHotel = " + idHotel;
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            data.Read();
+
+            int resp = (int)data.GetValue(0);
+
+            sql.Close();
+
+            return resp;
+        }
+
+        public int getDependencias(int id) {
+            return this.listarTipos(id).Count;
         }
     }
 }

@@ -53,20 +53,22 @@ namespace Stardust.Models
         [Required(ErrorMessage = "Debe seleccionar un departamento")]
         public int idDepartamento { get; set; }
 
+        [Display(Name = "Departamento")]
         public string nombreDepartamento { get; set; }
         
         [Display( Name = "Provincia" )]
         [Required(ErrorMessage = "Debe seleccionar una provincia")]
         public int idProvincia { get; set; }
 
+        [Display(Name = "Provincia")]
         public string nombreProvincia { get; set; }
 
         [Display( Name = "Distrito") ]
         [Required(ErrorMessage = "Debe seleccionar un distrito")]
         public int idDistrito { get; set; }
 
+        [Display(Name = "Distrito")]
         public string nombreDistrito { get; set; }
-
 
         public List<Departamento> Departamentos { get; set; }
     }

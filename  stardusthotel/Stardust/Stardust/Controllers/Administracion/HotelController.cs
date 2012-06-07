@@ -131,7 +131,7 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-
+            ViewBag.depend = hotelFac.getDependencias(id);
             return View(hotelFac.getHotel(id));
         }
 
@@ -161,6 +161,7 @@ namespace Stardust.Controllers
             ViewBag.tipos = tipoFac.listarTipoHabitacion();
 
             ViewBag.hoteles = hotelFac.listarHoteles();
+            //ViewBag.hoteles = hotelFac.getHotel( id );
 
             return View();
         }

@@ -41,5 +41,9 @@ namespace Stardust.Models
         public List<TipoHabitacionxHotel> listarTipos(int id) {
             return hotelServ.listarTipos(id);
         }
+
+        public int getDependencias(int id) {
+            return hotelServ.getDependencias(id);
+        }
     }
 }
