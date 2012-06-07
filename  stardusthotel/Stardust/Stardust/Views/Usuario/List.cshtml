@@ -17,6 +17,7 @@
             <td>E-mail</td>
             <td>Perfil de usuario</td>
             <td></td>
+            <td>Estado</td>
             @*<td>Password</td>
             <td>Nombre</td>
             <td>Apellido Paterno</td>
@@ -39,13 +40,64 @@
             <td>@Html.DisplayFor(modelItem => item.user_account )</td>
             <td>@Html.DisplayFor(modelItem => item.email )</td>
             <td>@Html.DisplayFor(modelItem => item.nombrePerfilUsuario )</td>
+            <td>@Html.DisplayFor(modelItem => item.estado )</td>
             <td>
                 <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+                  <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> |
+               @* <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+               *@
+
             </td>
         </tr>
         
     }
+    <div id="dialogEliminar" title="Desea Eliminar el ?">
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+    El usuario QUE UD. Elimine ya no podra ser recuperado nunca mas en la vidaaa natural </p>
+    </div>
     </tbody>
 </table>
+
+    <script type = "text/javascript">
+        var idEliminar = 0;
+        $(".eliminar").click(function () {
+            //Jp++ GPL version xD
+            $('#dialogEliminar').dialog('open');
+            idEliminar = $(this).attr("id");
+            return false;
+        });
+
+        $('#dialogEliminar').dialog({
+            autoOpen: false,
+            resizable: false,
+            draggable: false,
+            width: 300,
+            modal: true,
+            title: "!Confirmar Eliminacion del Empleado",
+            position: "center",
+            buttons: {
+                "Aceptar": function () {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        url: "Delete/" + idEliminar,
+                        success: function (data) {
+                            //oTable.fnDraw(false);
+                            if (data.me == "") {
+                                $(this).dialog("close");
+                                location.reload();
+                            }
+                        }
+                    });
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                    return false;
+                }
+            }
+        });
+
+</script>
