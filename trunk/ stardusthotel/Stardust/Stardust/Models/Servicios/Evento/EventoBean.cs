@@ -12,6 +12,7 @@ namespace Stardust.Models
     public class EventoBean
     {
         public int ID { get; set; }
+        public int estado;
 
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
