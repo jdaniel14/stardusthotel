@@ -237,7 +237,7 @@ namespace Stardust.Controllers
             {
                 proveedorFacade.RegistrarPagoContado(OC);
                 return RedirectToAction("PagoProveedor");
-            }
+            } 
         }
 
         public ActionResult PagarCredito(int id)
@@ -276,6 +276,18 @@ namespace Stardust.Controllers
                 proveedorFacade.RegistrarPagoCredito(OC);
                 return RedirectToAction("PagoProveedor");
             }
+        }
+
+        public ActionResult Reporte()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Reporte(string razonSocial)
+        {
+            proveedorFacade.pdf();
+            return View();
         }
     }
 }
