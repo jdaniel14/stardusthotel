@@ -32,7 +32,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public JsonResult cerrarReserva(FinReserva reserva) {
             String message="";
-            message = "Estimado "+reserva.nombre+ ", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
+            message = "Estimado gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
             System.Net.NetworkCredential cred = new System.Net.NetworkCredential("jkliose14@gmail.com", "aprenderc");
