@@ -84,9 +84,10 @@ namespace Stardust.Models
 
             for (int i = 0; i < producto.listaProducto.Count; i++)
             {
+                decimal precio = 0;
                 Producto prod = producto.listaProducto.ElementAt(i);
-                prod.precio = (prod.precio * prod.cantidad);
-                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ prod.precio + " )";
+                precio = (prod.precio * prod.cantidad);
+                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ precio + " )";
                 SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
                 sqlCmd3.ExecuteNonQuery();
             }
@@ -140,12 +141,15 @@ namespace Stardust.Models
             List<OrdenCompraBean> orden = new List<OrdenCompraBean>();
             while (dataReader2.Read())
             {
+                DateTime date = new DateTime();
                 OrdenCompraBean ord = new OrdenCompraBean();
                 ord.nombreproveedor = nombre;
                 ord.idproveedor = (int)dataReader2["idProveedor"];
                 ord.estado = (string)dataReader2["estado"];
                 ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
-                ord.fecha = Convert.ToString(dataReader2["fechaPedido"]);
+
+                date = Convert.ToDateTime(dataReader2["fechaPedido"]);
+                ord.fecha = String.Format("{0:d/M/yyyy}",date);
                 ord.preciototal = (decimal)dataReader2["preciototal"];
 
                 orden.Add(ord);
@@ -174,9 +178,11 @@ namespace Stardust.Models
 
             while (dataReader.Read())
             {
+                DateTime date = new DateTime();
                 orden.idOrdenCompra = ordencompra;
                 orden.estado = (string)dataReader["estado"];
-                orden.fecha = Convert.ToString(dataReader["fechaPedido"]);
+                date = Convert.ToDateTime(dataReader["fechaPedido"]);
+                orden.fecha = String.Format("{0:d/M/yyyy}",date);
                 orden.preciototal = (decimal)dataReader["preciototal"];
                 orden.idproveedor=(int)dataReader["idProveedor"];
             }
