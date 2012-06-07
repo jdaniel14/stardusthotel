@@ -1,82 +1,221 @@
-﻿@model Stardust.Models.HotelBean
+﻿@using Stardust.Models
+@model Stardust.Models.HotelBean
 
 @{
     ViewBag.Title = "Registrar hotel";
 }
 
-<h2>Registrar Nuevo Local</h2>
+
+<h2>@ViewBag.Title</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
-@using (Html.BeginForm("Create", "Hotel", FormMethod.Post, new { @class = "form", id = "validate"}))
+<script type="text/javascript">
+    $(function () { //$(document).ready(function(){});
+        $('#idDepartamento').change(function () {
+            var idDepartamentoSeleccionado = $(this).val();
+            if (idDepartamentoSeleccionado != 0) {
+                $.getJSON('@Url.Action("getProvincias")', { idDepartamento: idDepartamentoSeleccionado }, function (provincias) {//ver si le puedo cambiar de nombre a la funcion
+                    var cmbProvincia = $('#idProvincia');
+                    var cmbDistrito = $('#idDistrito');
+                    cmbProvincia.empty();
+                    cmbDistrito.empty();
+                    cmbProvincia.append($('<option/>').text('Seleccione una Provincia').attr('value', ''));
+                    cmbDistrito.append($('<option/>').text('Seleccione una Provincia primero').attr('value', ''));
+                    $.each(provincias, function (index, provincia) {
+                        cmbProvincia.append(
+                                $('<option/>')
+                                    .attr('value', provincia.ID)
+                                    .text(provincia.nombre)
+                            );
+                    });
+                });
+            }
+            else {
+                var cmbProvincia = $('#idProvincia');
+                var cmbDistrito = $('#idDistrito');
+                cmbProvincia.empty();
+                cmbDistrito.empty();
+                cmbProvincia.append($('<option/>').text('Seleccione un Departamento primero').attr('value', ''));
+                cmbDistrito.append($('<option/>').text('Seleccione un Departamento primero').attr('value', ''));
+            }
+        });
+    });
+
+    $(function () {
+        $('#idProvincia').change(function () {
+            var idDepartamentoSeleccionado = $('#idDepartamento').val();
+            var idProvinciaSeleccionado = $(this).val();
+            if (idProvinciaSeleccionado != 0) {
+                $.getJSON('@Url.Action("getDistritos")', { idProvincia: idProvinciaSeleccionado, idDepartamento: idDepartamentoSeleccionado  }, function (distritos) {//ver si le puedo cambiar de nombre a la funcion
+                    var cmbDistrito = $('#idDistrito');
+                    cmbDistrito.empty();
+                    cmbDistrito.append($('<option/>').text('Seleccione un Distrito').attr('value', ''));
+                    $.each(distritos, function (index, distrito) {
+                        cmbDistrito.append(
+                                $('<option/>')
+                                    .attr('value', distrito.ID)
+                                    .text(distrito.nombre)
+                            );
+                    });
+                });
+            }
+            else {
+                var cmbDistrito = $('#idDistrito');
+                cmbDistrito.empty();
+                cmbDistrito.append($('<option/>').text('Seleccione una Provincia primero').attr('value', ''));
+            }
+        });
+    });
+
+    $(function () {
+        var cmbDepartamento = $('#idDepartamento');
+        cmbDepartamento.val('');
+    });
+
+</script>
+
+@Html.ValidationSummary(true)
+
+@*@using (Html.BeginForm("Create", "Hotel", FormMethod.Post, new { @class = "form", id = "validate"}))*@
+@using (Html.BeginForm("Create", "Hotel", FormMethod.Post, new { @class = "form"}))
 {
-    @Html.ValidationSummary(false)
+    
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>Crear Hotel</h6></div>
+            <div class = "title"><h6>@ViewBag.Title</h6></div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.nombre)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" })</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" })</div>
+                @Html.LabelFor(model => model.nombre)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nombre, new { placeholder = "Maximo 30 caracteres aqui, evite usar caracteres extraños" })
+                    @Html.ValidationMessageFor(model => model.nombre)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
-                @Html.LabelFor(model => model.tlf1)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.tlf1, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", placeholder = "Maximo 9 números aqui" })</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.tlf2)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.tlf2, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", placeholder = "Maximo 9 números aqui" })</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.email)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.email, new { @class = "validate[custom[email]]", name = "emailValid", maxlength = "50", placeholder = "" })</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class="formRow">
-                @Html.LabelFor(model => model.nroPisos)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.nroPisos, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Maximo 2 números aqui" })</div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idDepartamento )
-                <div class = "formRight" > @Html.DropDownListFor(model => model.idDepartamento, new SelectList(ViewBag.departamentos, "ID", "nombre"), "Elije un departamento...", new { onchange = "this.form.submit();" } ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idProvincia )
-                <div class = "formRight" > @Html.DropDownListFor(model => model.idProvincia, new SelectList(ViewBag.provincias, "ID", "nombre"), "Elije una provincia...", new { onchange = "this.form.submit();" } ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idDistrito )
-                <div class = "formRight" > @Html.DropDownListFor(model => model.idDistrito, new SelectList(ViewBag.distritos, "ID", "nombre"), "Elije un distrito..." ) </div>
+                @Html.LabelFor(model => model.razonSocial)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.razonSocial, new { placeholder = "Evite usar caracteres extraños" })
+                    @Html.ValidationMessageFor(model => model.razonSocial)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.direccion)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.direccion)</div>
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.direccion)
+                    @Html.ValidationMessageFor(model => model.direccion)
+                </div>
                 <div class = "clear" ></div>
             </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.tlf1)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.tlf1, new { placeholder = "Ejm: 015055050" })
+                    @Html.ValidationMessageFor(model => model.tlf1)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.tlf2)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.tlf2, new { placeholder = "Ejm: 015055050" })
+                    @Html.ValidationMessageFor(model => model.tlf2)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.email)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.email, new { placeholder = "Ejm: stardust@stardust.pe" })
+                    @Html.ValidationMessageFor(model => model.email)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nroPisos)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nroPisos, new { placeholder = "No más de 3 dígitos aquí" })
+                    @Html.ValidationMessageFor(model => model.nroPisos)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDepartamento)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(Model.Departamentos, "ID", "nombre"), "Elije un departamento...") 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDepartamento)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div>
+                @for (int i = 0; i < Model.Departamentos.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Departamentos[i].ID)
+                    @Html.HiddenFor(m => m.Departamentos[i].nombre)
+                }
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idProvincia)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idProvincia, Enumerable.Empty<SelectListItem>(), "Elije un departamento primero...") 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idProvincia)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDistrito)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idDistrito, Enumerable.Empty<SelectListItem>(), "Elije un departamento primero...") 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDistrito)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            @*<div class = "formRow" >
+                @Html.LabelFor(model => model.idDepartamento)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(ViewBag.departamentos, "ID", "nombre"), "Elije un departamento...", new { onchange = "this.form.submit();" }) 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDepartamento)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idProvincia)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idProvincia, new SelectList(ViewBag.provincias, "ID", "nombre"), "Elije una provincia...", new { onchange = "this.form.submit();" }) 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idProvincia)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDistrito)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idDistrito, new SelectList(ViewBag.distritos, "ID", "nombre"), "Elije un distrito...") 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDistrito)
+                </div>
+                <div class = "clear" ></div>
+            </div>*@
 
         </div>
     </fieldset>
