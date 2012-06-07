@@ -11,7 +11,7 @@
 
 @ViewBag.lol
 
-@using (Html.BeginForm("RegistrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
+@using (Html.BeginForm("RegistrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id="validate"}))
 {
    @Html.ValidationSummary(false)
     
@@ -21,8 +21,10 @@
             <div class="title">
                 <h6>Registrar Proveedor</h6>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
-                <div class="formRight">@Html.TextBoxFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "Máximo 20 caracteres aqui" }) </div>
+            <div class="formRow"> Razon social<span class="req">*</span>
+                <div class="formRight">
+                    <input type="text" value="esto es una caracter invalido" class="validate[required, custom[onlyLetterSp]]" name="lettersValid" id="razonsocial"/>
+                </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
