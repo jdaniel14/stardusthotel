@@ -120,6 +120,11 @@ namespace Stardust.Models
             proveedorService.RegistrarPagoCredito(OC);
         }
 
+        public void pdf()
+        {
+            proveedorService.pdf();
+        }
+
         /*-----Registrar Datos de Factura-3------*/
 
     }

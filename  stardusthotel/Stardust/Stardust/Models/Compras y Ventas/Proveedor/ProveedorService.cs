@@ -74,5 +74,10 @@ namespace Stardust.Models
         {
             proveedorDAO.RegistrarPagoCredito(OC);
         }
+
+        public void pdf()
+        {
+            proveedorDAO.pdf();
+        }
     }
 }
