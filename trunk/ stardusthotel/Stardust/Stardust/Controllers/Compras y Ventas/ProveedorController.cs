@@ -74,21 +74,6 @@ namespace Stardust.Controllers
             return Json(new { me = "" });
         }
         
-        
-        //public ActionResult Eliminar(int ID)
-        //{
-        //    return View(proveedorFacade.GetProveedor(ID));
-        //}
-
-        //[HttpPost, ActionName("Eliminar")]
-        //public ActionResult DeleteConfirmed(int ID)
-        //{
-        //    proveedorFacade.EliminarProveedor(ID);
-        //    return RedirectToAction("Index");
-        //}
-
-
-
         public ActionResult Buscar(string razonsocial, string contacto)
         {            
             return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
