@@ -154,7 +154,7 @@ namespace Stardust.Controllers
 
             productosfacade.RegistrarproductosxAlmacen(prod);
 
-            return RedirectToAction("ListarProductos/" + prod.idhotel, "Producto"); 
+            return RedirectToAction("ListarProductosdeAlmacen/" + prod.idhotel, "Producto"); 
         }
 
         public ActionResult ModificarProductosAlmacen(ProductoXAlmacenBean prod)
