@@ -4,11 +4,11 @@
     ViewBag.Title = "Hoteles";
 }
 
-<h2>Hoteles</h2>
+<h2>Escoger un hotel </h2>
 
-<p>
-    <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Añadir hotel</a>
-</p>
+<p></p>
+<p></p>
+<p></p>
 
 <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
     
@@ -18,7 +18,6 @@
             <td>Razón Social</td>
             <td>Dirección</td>
             <td>Telefono 1</td>
-            @*<td>Distrito</td>*@
             <td></td>
         </tr>
     </thead>
@@ -29,8 +28,7 @@
         <td>  @Html.DisplayFor(modelItem => item.razonSocial) </td>
         <td>  @Html.DisplayFor(modelItem => item.direccion)  </td>
         <td>    @Html.DisplayFor(modelItem => item.tlf1) </td>    
-        @*<td> @Html.DisplayFor(modelItem => item.distrito)</td>*@
-        <td>
+         <td>
             <a href="@Url.Action("ListarProductosdeAlmacen", new { id = item.ID })"><img src="../../Content/images/icons/color/notebook.png", alt="Edit" />Lista Productos </a> 
 
         </td>

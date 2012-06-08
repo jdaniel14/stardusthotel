@@ -32,7 +32,74 @@
     
     <p></p><p></p><p></p><p></p>
 
-        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+      
+       <div class="wrapper">
+    <div class="widget">
+      <div class="title">
+      <h6>Lista de Productos</h6>
+      </div>
+      <div class="dataTables_wrapper">
+
+        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "display dTable">
+        <thead>
+        <tr>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+                <div class="DataTables_sort_wrapper">
+                Producto
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;" >
+                <div class="DataTables_sort_wrapper">
+                Precio
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+        </tr>
+    </thead>
+
+        <tbody>
+   @for (int i = 0; i < Model.listProdProv.Count; i++)
+   {
+
+       if (!Model.listProdProv[i].estado2)
+       {
+         @Html.HiddenFor(model => model.listProdProv[i].ID, new { @readonly = "readonly" }) 
+         
+     <tr class="gradeA odd">       
+                
+                <td class="sorting_1"> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" })</td>
+                <td class="center">@Html.TextBoxFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })          </td>   
+     </tr>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.listProdProv[i].nombre) 
+            @Html.HiddenFor(model => model.listProdProv[i].precio)         
+            @Html.HiddenFor(model => model.listProdProv[i].cantMaxima)
+        }
+   }
+  
+    </tbody>
+        </table>
+
+      </div>
+    </div>
+    </div>
+    
+
+    <p>
+
+            <input type="submit" value="Aceptar" class = "redB" />
+
+      </p>   
+        
+       @Html.ActionLink("Regresar", "Index")
+  }
+
+    
+
+        @*<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
 
     <thead>
         <tr>
@@ -46,14 +113,14 @@
     <tbody>
     @for (int i = 0; i < Model.listProdProv.Count; i++)
     {
-    
+
         if (!Model.listProdProv[i].estado2)
         {
          @Html.HiddenFor(model => model.listProdProv[i].ID, new { @readonly = "readonly" }) 
      <tr>       
                 
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new{@class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
                    
      </tr>
         }
@@ -68,16 +135,4 @@
     
     </tbody>
 
-    </table>
-
-    <p>
-
-            <input type="submit" value="Aceptar" class = "redB" />
-
-      </p>   
-        
-       @Html.ActionLink("Regresar", "Index")
-  }
-
-    
-
+    </table>*@

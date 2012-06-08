@@ -15,7 +15,7 @@
 
 
  @using (Html.BeginForm("Guardarproductos2", "Producto", FormMethod.Post, new { @class = "form", id = "validate" }))
-{   
+ {   
      @Html.HiddenFor(model => model.idalmacen) 
       @Html.HiddenFor(model => model.idhotel) 
     <fieldset>
@@ -35,9 +35,77 @@
 
     <p></p><p></p><p></p><p></p>
 
+    <div class="wrapper">
+    <div class="widget">
+      <div class="title">
+      <h6>Lista de Productos</h6>
+      </div>
+      <div class="dataTables_wrapper">
+
+        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "display dTable">
+        <thead>
+        <tr>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+                <div class="DataTables_sort_wrapper">
+                Producto
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;" >
+                <div class="DataTables_sort_wrapper">
+                Stock Minimo
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+               <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+                <div class="DataTables_sort_wrapper">
+                Stock Actual
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+               <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+                <div class="DataTables_sort_wrapper">
+                Stock Máximo
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+        </tr>
+    </thead>
+
+        <tbody>
+            @for (int i = 0; i < Model.listProdalmacen.Count; i++)
+            {
+
+                 @Html.HiddenFor(model => model.listProdalmacen[i].ID) 
+         
+             <tr class="gradeA odd">       
+                
+                        <td class="sorting_1"> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
+                        <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockminimo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })         </td>
+                        <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockactual, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })         </td>
+                        <td class="center"> @Html.TextBoxFor(model => model.listProdalmacen[i].stockmaximo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })         </td>   
+             </tr>
+
+            }
 
     
-        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+    </tbody>
+        </table>
+
+      </div>
+        
+    </div>
+    </div>
+    
+
+    <p></p><p></p><p></p><p></p>
+    <p>
+        <input type="submit" value="Guardar" class = "redB" />
+        @Html.ActionLink("Regresar", "ListarProductosdeAlmacen/" + Model.idhotel, "Producto")
+    </p>
+ }
+
+         @*<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
 
     <thead>
         <tr>
@@ -67,10 +135,4 @@
            
     </tbody>
 
-    </table>
-    <p></p><p></p><p></p><p></p>
-    <p>
-        <input type="submit" value="Guardar" class = "redB" />
-        @Html.ActionLink("Regresar", "Index")
-    </p>
-    }
+    </table>*@
