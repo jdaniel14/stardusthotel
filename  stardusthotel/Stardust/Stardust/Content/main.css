@@ -227,7 +227,7 @@ ul.userDropdown li a:hover { border-right: none; border-left: none; }
 .nav li.ui a span { background-image: url(images/icons/light/user.png); }
 .nav li.widgets a span { background-image: url(images/icons/light/fullscreen.png); }
 
-.nav li a span { background-position: 12px 13px; background-repeat:repeat-y; }
+.nav li a span { background-position: 12px 13px; background-repeat:no-repeat; }
 
 
 
