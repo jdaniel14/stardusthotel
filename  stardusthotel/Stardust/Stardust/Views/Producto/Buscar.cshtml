@@ -63,13 +63,12 @@
     @foreach (var item in Model)
     {
         
-        <tr>
+        <tr class="gradeA odd">
             <td>@Html.DisplayFor(modelItem => item.nombre)</td>
             <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
             <td>
                 <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
-               @* <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>*@
-              
+                         
               <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
 
             </td>
