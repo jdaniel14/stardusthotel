@@ -28,14 +28,13 @@ namespace Stardust.Controllers
             //ViewData["Tipo"] = promociones.getTipo();
             //ViewData["Hotel"] = promociones.getHoteles();
             return View(promociones);
-            //PromocionBean promociones = db.Promociones.Find(id);
+
         }
 
         [HttpPost]
         public ActionResult Buscar(PromocionBean promocion)
         {
-            //int id = Convert.ToInt32(promocion.ID);
-            //int hotel = Convert.ToInt32(promocion.tipo);
+
             int ID = Convert.ToInt32(promocion.tipo + promocion.ID);//(hotel*10)+id;
             return RedirectToAction("Detalle",new{id = ID});
         }
@@ -130,7 +129,6 @@ namespace Stardust.Controllers
         public JsonResult DeleteConfirmed(int idPromocion)
         {
             promocionFacade.EliminarPromocion(idPromocion);
-            //return RedirectToAction("Buscar");
             return Json(new { me = "" });
         }
     }
