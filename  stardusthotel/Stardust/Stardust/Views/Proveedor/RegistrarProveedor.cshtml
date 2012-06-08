@@ -14,8 +14,6 @@
 @using (Html.BeginForm("RegistrarProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id="validate"}))
 {
   
-    
-
     <fieldset>
         <div class="widget">
             <div class="title">
@@ -33,7 +31,7 @@
             </div>
 
             <div class="formRow">@Html.LabelFor(model => model.direccion)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.direccion, new { @class = "validate[required]", name = "", maxlength = "40", placeholder = "" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.direccion, new { @class = "validate[required]", maxlength = "40"}) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefono)
@@ -41,7 +39,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.web, new { @class = "validate[required]", name = "urlField", maxlength = "30", placeholder = "" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.web, new { @class = "validate[required]", name = "urlField", maxlength = "30"}) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.contacto)<span class="req">*</span>
@@ -49,7 +47,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.cargoContacto)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20", placeholder = "" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "20"}) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefonocontacto)
@@ -57,7 +55,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto, new { @class = "validate[required,custom[email]]", name = "emailValid", maxlength = "40", placeholder = "" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto, new { @class = "validate[required,custom[email]]", name = "emailValid", maxlength = "40" }) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.observaciones)
