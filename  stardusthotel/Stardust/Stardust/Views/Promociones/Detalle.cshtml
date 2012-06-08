@@ -41,25 +41,20 @@
     <tbody>
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="gradeA odd">
             <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
             <td>@Html.DisplayFor(modelItem => item.razon)</td>
             <td>@Html.DisplayFor(modelItem => item.porcDescontar)</td>
             <td>
                 <a href="@Url.Action("Edit", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("Detalles", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                
                 <a  id = @item.idPromocion class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> 
-                
-                @*   <a href="@Url.Action("Delete", new { id = item.idPromocion })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> *@                     
-            
-            
             </td>
         </tr>
         
     }
 
-     <div id="dialogEliminar" title="Desea Eliminar el producto?">
+     <div id="dialogEliminar" title="Desea Eliminar el Promocion?">
 	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
     La Promocion que UD. Elimine no la vale ?? </p>
     </div>
@@ -79,7 +74,6 @@
     <script type = "text/javascript">
         var idEliminar = 0;
         $(".eliminar").click(function () {
-            //Jp++ GPL version xD
             $('#dialogEliminar').dialog('open');
             idEliminar = $(this).attr("id");
             return false;
