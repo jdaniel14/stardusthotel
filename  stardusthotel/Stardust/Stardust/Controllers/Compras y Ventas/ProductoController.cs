@@ -89,7 +89,7 @@ namespace Stardust.Controllers
 
         public ActionResult ListadeHoteles()
         {
-            return View(hotelFac.listarHoteles());
+            return View(hotelFac.getHoteles());
         }
 
         public ActionResult ListarProductosdeAlmacen(int id)//idhotel
@@ -150,7 +150,7 @@ namespace Stardust.Controllers
 
         public ActionResult guardarproductosxAlmacen(ProductoXAlmacenBean prod)
         {
-            List<HotelBean> hoteles = hotelFac.listarHoteles();
+            List<HotelBean> hoteles = hotelFac.getHoteles();
 
             productosfacade.RegistrarproductosxAlmacen(prod);
 
@@ -164,7 +164,7 @@ namespace Stardust.Controllers
         }
         public ActionResult Guardarproductos2(ProductoXAlmacenBean prod)
         {
-            List<HotelBean> hoteles = hotelFac.listarHoteles();
+            List<HotelBean> hoteles = hotelFac.getHoteles();
             productosfacade.modificarproductosxalmacen(prod);
             return RedirectToAction("ListadeHoteles");
         }
