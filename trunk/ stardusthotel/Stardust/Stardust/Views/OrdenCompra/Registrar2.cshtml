@@ -18,11 +18,11 @@
                 
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.proveedor)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.proveedor,new{@readonly ="readonly"})  </div>
+                <div class=" formRight">  @Html.DisplayFor(model => model.proveedor, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow"> @Html.LabelFor(model =>model.nombrehotel)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.nombrehotel, new { @readonly = "readonly" })  </div>
+                <div class=" formRight">  @Html.TexDisplayFortBoxFor(model => model.nombrehotel, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
             
