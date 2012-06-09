@@ -32,9 +32,9 @@
     {
              <tr>       
                
-                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].cantidad, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].precio, new { @readonly = "readonly" }) </td>
+                <td> @Html.DisplayFor(model => model.listaOCDetalle[i].nombre, new { @readonly = "readonly" }) </td>
+                <td> @Html.DisplayFor(model => model.listaOCDetalle[i].cantidad, new { @readonly = "readonly" }) </td>
+                <td> @Html.DisplayFor(model => model.listaOCDetalle[i].precio, new { @readonly = "readonly" }) </td>
             </tr>
 
     
@@ -45,19 +45,19 @@
     <tr>
         <td></td>
         <td>Total Sin IGV</td>
-        <td>@Html.TextBoxFor(model => model.subtotal, new { @readonly = "readonly" })</td>
+        <td>@Html.DisplayFor(model => model.subtotal, new { @readonly = "readonly" })</td>
     </tr> 
 
     <tr>
         <td></td>
         <td>IGV</td>
-        <td>@Html.TextBoxFor(model => model.igv, new { @readonly = "readonly" })</td>
+        <td>@Html.DisplayFor(model => model.igv, new { @readonly = "readonly" })</td>
     </tr>
     
     <tr>
         <td></td>
         <td>Total</td>
-        <td>@Html.TextBoxFor(model => model.total, new { @readonly = "readonly" })</td>
+        <td>@Html.DisplayFor(model => model.total, new { @readonly = "readonly" })</td>
     </tr>
 
     </tbody>
