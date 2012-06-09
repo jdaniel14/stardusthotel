@@ -29,10 +29,6 @@ namespace Stardust.Models
             hotelDAO.eliminarHotel(id);
         }
 
-        public List<HotelBean> listarHoteles() {
-            return hotelDAO.listarHoteles();
-        }
-
         public void registrarTipoHabitacion(TipoHabitacionxHotel tipo) {
             hotelDAO.registrarTipoHabitacion(tipo);
         }
