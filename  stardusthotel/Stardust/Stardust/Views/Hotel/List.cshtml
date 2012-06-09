@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Stardust.Models.HotelBean>
+﻿@model IEnumerable<Stardust.Models.HotelViewModelList>
 
 @{
     ViewBag.Title = "Hoteles";
 }
 
-<h2>Hoteles</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Añadir hotel</a>
@@ -14,12 +14,12 @@
     
      <thead>
         <tr>
-            <td>Nombre del hotel</td>
+            <td>Nombre</td>
             <td>Razón Social</td>
-            <td>Dirección</td>
-            <td>Telefono 1</td>
+            <td>Departamento</td>
+            <td>Provincia</td>
             <td>Distrito</td>
-            <td></td>
+            <td>Opciones</td>
         </tr>
     </thead>
     <tbody>
@@ -32,10 +32,10 @@
             @Html.DisplayFor(modelItem => item.razonSocial)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.direccion)
+            @Html.DisplayFor(modelItem => item.nombreDepartamento)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tlf1)
+            @Html.DisplayFor(modelItem => item.nombreProvincia)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nombreDistrito)
