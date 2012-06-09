@@ -7,7 +7,7 @@ namespace Stardust.Models{
 
     public class ProductoProveedor : ProductoBean
     {
-        public decimal precio { get; set; }
+        public Decimal precio { get; set; }
         public int cantMaxima { get; set; }
         public bool estados { get; set; }
         public bool estado2 { get; set; }
