@@ -59,7 +59,12 @@
             <td>
                 <a href="@Url.Action("DetalleOrdenC", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/edit-column.png", alt="Edit" />Detalle </a> | 
                 <a href="@Url.Action("ModificarOrdenC", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/pencil.png", alt="Delete" />Modificar</a>|
-                <a href="@Url.Action("ListarNotaEntrada", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/notebook.png", alt="Delete" />Registrar Nota entrada</a>
+                @if (item.estado != "Tramite" || item.estado != "Cancelado")
+                {
+                    
+                   <a href="@Url.Action("ListarNotaEntrada", new { id = item.idOrdenCompra })"><img src="../../Content/images/icons/color/notebook.png", alt="Delete" />Registrar Nota entrada</a>
+                }
+                
                
             </td>
         </tr>
