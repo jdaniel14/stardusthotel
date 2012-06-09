@@ -48,12 +48,12 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            decimal total=0;
+            double total=0; // decimal
 
             for (int i = 0; i < producto.listaProducto.Count;i++ )
             {
                 int valor = producto.listaProducto.ElementAt(i).cantidad;
-                decimal precio = producto.listaProducto.ElementAt(i).precio;
+                double precio = producto.listaProducto.ElementAt(i).precio; // decimal
                 if (valor > 0)
                     total += (valor*precio);
             }
@@ -84,7 +84,7 @@ namespace Stardust.Models
 
             for (int i = 0; i < producto.listaProducto.Count; i++)
             {
-                decimal precio = 0;
+                double precio = 0; // decimal
                 Producto prod = producto.listaProducto.ElementAt(i);
                 precio = (prod.precio * prod.cantidad);
                 commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ precio + " )";
