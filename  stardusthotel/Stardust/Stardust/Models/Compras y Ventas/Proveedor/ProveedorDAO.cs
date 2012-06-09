@@ -214,7 +214,7 @@ namespace Stardust.Models
                 ProductoProveedor prodProveedor = new ProductoProveedor();
                 idprove= (int)dataReader["idProveedor"];
                 prodProveedor.ID = (int)dataReader["idProducto"];
-                prodProveedor.precio = (decimal)dataReader["precio"];
+                prodProveedor.precio =(Decimal) dataReader["precio"];
                 prodProveedor.cantMaxima = (int)dataReader["cantPedidoMax"];
                 i++;
                 prod.listProdProv.Add(prodProveedor);
