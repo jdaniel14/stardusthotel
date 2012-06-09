@@ -16,8 +16,7 @@ namespace Stardust.Models
 
 
         [Display(Name = "Razon Social")]
-        [Required(ErrorMessage = "Debe seleccionar un distrito")]
-        [RegularExpression("^([a-zA-Z-9ÑñáéíóúÁÉÍÓÚ]*\\w*\\d*\\s*)*$", ErrorMessage = "El nombre ingresado no es válido")]
+        
         public string razonSocial { get; set; }
 
         [Display(Name = "RUC")]
