@@ -9,99 +9,226 @@ namespace Stardust.Models
 {
     public class Utils
     {
-        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        public static String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        
 
-        public List<Departamento> listarDepartamentos() {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        public static List<Departamento> listarDepartamentos() {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<Departamento> lstDepartamento = null;
 
-            sql.Open();
+                objDB.Open();
+                String strQuery = "SELECT idDepartamento, nombre FROM Departamento";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
 
-                String command = "Select * from Departamento";
+                SqlDataReader objReader = objQuery.ExecuteReader();
 
-                SqlCommand query = new SqlCommand(command, sql);
+                if (objReader.HasRows)
+                {
+                    lstDepartamento = new List<Departamento>();
+                    while (objReader.Read())
+                    {
+                        Departamento departamento = new Departamento();
 
-                SqlDataReader data = query.ExecuteReader();
+                        departamento.ID = Convert.ToInt32(objReader[0]);
+                        departamento.nombre = Convert.ToString(objReader[1]);
 
-                List<Departamento> lista = new List<Departamento>();
-            
-                while (data.Read()) {
-                    Departamento dep = new Departamento();
-
-                    dep.ID = (int)data.GetValue(0);
-                    dep.nombre = (string)data.GetValue(1);
-
-                    lista.Add(dep);
+                        lstDepartamento.Add(departamento);
+                    }
+                    return lstDepartamento;
                 }
-
-            sql.Close();
-
-            return lista;
-        }
-
-        public List<Provincia> listarProvincias(int idDepartamento) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            sql.Open();
-
-                String command = "Select * from Provincia where idDepartamento = @idDepartamento";
-
-                SqlCommand query = new SqlCommand( command , sql ) ;
-
-                this.agregarParametro(query, "idDepartamento", idDepartamento);
-
-                SqlDataReader data = query.ExecuteReader();
-
-                List<Provincia> lista = new List<Provincia>();
-
-                while (data.Read()) {
-                    Provincia prov = new Provincia();
-
-                    prov.ID = (int)data.GetValue(1);
-                    prov.nombre = (string)data.GetValue(2);
-
-                    lista.Add(prov);
-                }
-
-            sql.Close();
-
-            return lista;
-        }
-
-        public List<Distrito> listarDistritos(int idDepartamento, int idProvincia) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            sql.Open();
-
-            String command = "Select * from Distrito where idDepartamento = @idDepartamento AND idProvincia = @idProvincia";
-
-            SqlCommand query = new SqlCommand(command, sql);
-
-            this.agregarParametro(query, "idDepartamento", idDepartamento);
-            this.agregarParametro(query, "idProvincia", idProvincia);
-
-            SqlDataReader data = query.ExecuteReader();
-
-            List<Distrito> lista = new List<Distrito>();
-
-            while (data.Read()) {
-                Distrito distrito = new Distrito();
-
-                distrito.ID = (int)data.GetValue(2);
-                distrito.nombre = (string)data.GetValue(3);
-
-                lista.Add(distrito);
+                return null;
             }
-
-            sql.Close();
-
-            return lista;
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
-        public void agregarParametro(SqlCommand objQuery, String nombreParametro, object valorParametro)
+        public static List<Provincia> listarProvincias(int idDepartamento) {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<Provincia> lstProvincia = null;
+
+                objDB.Open();
+                String strQuery = "SELECT idProvincia, nombre FROM Provincia WHERE idDepartamento = @idDepartamento";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                if (objReader.HasRows)
+                {
+                    lstProvincia = new List<Provincia>();
+                    while (objReader.Read())
+                    {
+                        Provincia provincia = new Provincia();
+
+                        provincia.ID = Convert.ToInt32(objReader[0]);
+                        provincia.nombre = Convert.ToString(objReader[1]);
+
+                        lstProvincia.Add(provincia);
+                    }
+                    return lstProvincia;
+                }
+                return null;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public static List<Distrito> listarDistritos(int idDepartamento, int idProvincia) {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<Distrito> lstDistrito = null;
+                
+                objDB.Open();
+                String strQuery = "SELECT idDistrito, nombre FROM Distrito " + 
+                                    "WHERE idDepartamento = @idDepartamento AND idProvincia = @idProvincia";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+                agregarParametro(objQuery, "@idProvincia", idProvincia);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                if (objReader.HasRows)
+                {
+                    lstDistrito = new List<Distrito>();
+                    while (objReader.Read())
+                    {
+                        Distrito distrito = new Distrito();
+
+                        distrito.ID = Convert.ToInt32(objReader[0]);
+                        distrito.nombre = Convert.ToString(objReader[1]);
+
+                        lstDistrito.Add(distrito);
+                    }
+                    return lstDistrito;
+                }
+                return null;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public static string getNombreDepartamento(int idDepartamento)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "SELECT nombre FROM Departamento WHERE idDepartamento = @idDepartamento";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    objReader.Read();
+                    return Convert.ToString(objReader[0]);
+                }
+                return null;
+                //return String.Empty; <-- podria ser, tal vez depende de lo que se quiera
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public static string getNombreProvincia(int idDepartamento, int idProvincia)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "SELECT nombre FROM Provincia WHERE idDepartamento = @idDepartamento AND idProvincia = @idProvincia";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+                agregarParametro(objQuery, "@idProvincia", idProvincia);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    objReader.Read();
+                    return Convert.ToString(objReader[0]);
+                }
+                return null;
+                //return String.Empty; <-- podria ser, tal vez depende de lo que se quiera
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public static string getNombreDistrito(int idDepartamento, int idProvincia, int idDistrito)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "SELECT nombre FROM Distrito " + 
+                                    " WHERE idDepartamento = @idDepartamento AND idProvincia = @idProvincia AND idDistrito = @idDistrito";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+                agregarParametro(objQuery, "@idProvincia", idProvincia);
+                agregarParametro(objQuery, "@idDistrito", idDistrito);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    objReader.Read();
+                    return Convert.ToString(objReader[0]);
+                }
+                return null;
+                //return String.Empty; <-- podria ser, tal vez depende de lo que se quiera
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public static void agregarParametro(SqlCommand objQuery, String nombreParametro, object valorParametro)
         {
             SqlParameter objParametro = new SqlParameter();
             objParametro.ParameterName = nombreParametro;
-            objParametro.Value = valorParametro;
+            objParametro.Value = valorParametro ?? DBNull.Value;
             objQuery.Parameters.Add(objParametro);
         }
     }
