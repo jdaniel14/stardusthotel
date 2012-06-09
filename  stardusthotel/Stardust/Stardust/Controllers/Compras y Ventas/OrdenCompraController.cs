@@ -128,7 +128,7 @@ namespace Stardust.Controllers
                 {
                     if (ordencompra.detalle[i].ID == productos.listProdProv[j].ID)
                     {
-                        ordencompra.detalle[i].preciounitario = productos.listProdProv[j].precio;
+                        ordencompra.detalle[i].preciounitario =Convert.ToDecimal( productos.listProdProv[j].precio);
                     }
                 }
             }
@@ -154,7 +154,7 @@ namespace Stardust.Controllers
                 {
                     if (ordencompra.detalle[i].ID == productos.listProdProv[j].ID)
                     {
-                        ordencompra.detalle[i].preciounitario = productos.listProdProv[j].precio;
+                        ordencompra.detalle[i].preciounitario = Convert.ToDecimal( productos.listProdProv[j].precio);
                     }
                 }
             }
