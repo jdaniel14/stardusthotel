@@ -12,7 +12,8 @@ namespace Stardust.Models
         {
             SqlParameter objParametro = new SqlParameter();
             objParametro.ParameterName = nombreParametro;
-            objParametro.Value = valorParametro;
+            // en caso valorParametro sea null se asigna el DBNull.value al valor del parametro
+            objParametro.Value = valorParametro ?? DBNull.Value;
             objQuery.Parameters.Add(objParametro);
         }
     }
