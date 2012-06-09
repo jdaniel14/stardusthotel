@@ -57,65 +57,100 @@ namespace Stardust.Models
 
         public String getDistrito(int idDepartamento, int idProvincia, int idDistrito)
         {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                objDB.Open();
 
-                String command = "Select nombre from Distrito where idDepartamento = " + idDepartamento + " AND idProvincia = " + idProvincia + " AND idDistrito = " + idDistrito;
+                //String command = "SELECT nombre FROM Distrito WHERE idDepartamento = " + idDepartamento + " AND idProvincia = " + idProvincia + " AND idDistrito = " + idDistrito;
+                String strQuery =    "SELECT nombre FROM Distrito WHERE " +
+                                    "idDepartamento = @idDepartamento AND idProvincia = @idProvincia AND idDistrito = @idDistrito";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+                DAO.agregarParametro(objQuery, "@idProvincia", idProvincia);
+                DAO.agregarParametro(objQuery, "@idDistrito", idDistrito);
 
-                SqlCommand query = new SqlCommand(command, sql);
+                SqlDataReader data = objQuery.ExecuteReader();
+                if (data.HasRows)
+                {
+                    data.Read();
+                    return Convert.ToString(data.GetValue(0));
+                }
+                return null;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
 
-                SqlDataReader data = query.ExecuteReader();
-
-                data.Read();
-
-                String distrito = (string)data.GetValue(0);
-
-            sql.Close();
-
-            return distrito;
         }
 
         public String getProvincia(int idDepartamento, int idProvincia)
         {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                objDB.Open();
 
-                String command = "Select nombre from Provincia where idDepartamento = " + idDepartamento + " AND idProvincia = " + idProvincia;
+                String strQuery = "SELECT nombre FROM Provincia WHERE " +
+                                    "idDepartamento = @idDepartamento AND idProvincia = @idProvincia";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "@idDepartamento", idDepartamento);
+                DAO.agregarParametro(objQuery, "@idProvincia", idProvincia);
 
-                SqlCommand query = new SqlCommand(command, sql);
+                SqlDataReader data = objQuery.ExecuteReader();
+                if (data.HasRows)
+                {
+                    data.Read();
+                    return Convert.ToString(data.GetValue(0));
+                }
+                return null;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
 
-                SqlDataReader data = query.ExecuteReader();
-
-                data.Read();
-
-                String provincia = (string)data.GetValue(0);
-
-            sql.Close();
-
-            return provincia;
         }
 
         public String getDepartamento(int idDepartamento)
         {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                objDB.Open();
 
-                String command = "Select nombre from Departamento where idDepartamento = " + idDepartamento;
+                String strQuery = "SELECT nombre FROM Departamento WHERE idDepartamento = @idDepartamento";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "@idDepartamento", idDepartamento);
 
-                SqlCommand query = new SqlCommand(command, sql);
-
-                SqlDataReader data = query.ExecuteReader();
-
-                data.Read();
-
-                String departamento = (string)data.GetValue(0);
-
-            sql.Close();
-
-            return departamento;
+                SqlDataReader data = objQuery.ExecuteReader();
+                if (data.HasRows)
+                {
+                    data.Read();
+                    return Convert.ToString(data.GetValue(0));
+                }
+                return null;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
         public String getNombrePerfil(int idPerfil)
