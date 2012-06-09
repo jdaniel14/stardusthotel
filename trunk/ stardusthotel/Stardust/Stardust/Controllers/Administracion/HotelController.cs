@@ -13,119 +13,113 @@ namespace Stardust.Controllers
 { 
     public class HotelController : Controller
     {
-        private CadenaHotelDB db = new CadenaHotelDB();
         HotelFacade hotelFac = new HotelFacade();
 
-        //
         // GET: /Hotel/
-
         public ViewResult Index()
         {
-            return View(hotelFac.listarHoteles());
+            return View();
         }
 
-        //
         // GET: /Hotel/Details/5
-
         public ViewResult Details(int id)
         {
-            return View( hotelFac.getHotel( id ) );
+            HotelBean hotel = hotelFac.getHotel(id);
+            var hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
+            hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
+            hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
+            hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
+            return View(hotelVMD);
         }
 
-        //
-        // GET: /Hotel/Create
+        #region Create
 
+        // GET: /Hotel/Create
         public ActionResult Create()
         {
-            //var hotel = new HotelViewModelCreate();
-            var hotel = new HotelBean();
-            hotel.Departamentos = new Utils().listarDepartamentos();
-            return View(hotel);
+            var hotelVWC = new HotelViewModelCreate();
+            hotelVWC.Departamentos = Utils.listarDepartamentos();
+            return View(hotelVWC);
         }
+
+        // POST: /Hotel/Create
+        [HttpPost]
+        public ActionResult Create(HotelViewModelCreate hotelVWC)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var hotel = Mapper.Map<HotelViewModelCreate, HotelBean>(hotelVWC);
+                    hotelFac.registrarHotel(hotel);
+                    return RedirectToAction("List"); //despues de crear a donde quieres que vaya???
+                }
+                return View(hotelVWC);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(hotelVWC);
+            }
+        }
+
+        #endregion
 
         #region Metodos JSON para combos de Ubigeo
         public ActionResult getProvincias(int idDepartamento)
         {
-            return Json(new Utils().listarProvincias(idDepartamento), JsonRequestBehavior.AllowGet);
+            return Json(Utils.listarProvincias(idDepartamento), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult getDistritos(int idDepartamento, int idProvincia)
         {
-            return Json(new Utils().listarDistritos(idDepartamento, idProvincia), JsonRequestBehavior.AllowGet);
+            return Json(Utils.listarDistritos(idDepartamento, idProvincia), JsonRequestBehavior.AllowGet);
         }
         #endregion
 
-        //
-        // POST: /Hotel/Create
 
-        [HttpPost]
-        //public ActionResult Create(HotelViewModelCreate hotel)
-        public ActionResult Create(HotelBean hotel)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    //var aux = Mapper.Map<HotelViewModelCreate, HotelBean>(hotel);
-                    hotelFac.registrarHotel(hotel);
-                    return RedirectToAction("List");
-                }
-                return View(hotel);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(hotel);
-            }
-        }
-
-        //
+        #region Edit
         // GET: /Hotel/Edit/5
- 
         public ActionResult Edit(int id)
         {
-            Utils utils = new Utils();
             HotelBean hotel = hotelFac.getHotel(id);
-            hotel.Departamentos = utils.listarDepartamentos();
-            hotel.Provincias = utils.listarProvincias(hotel.idDepartamento);
-            hotel.Distritos = utils.listarDistritos(hotel.idDepartamento, hotel.idProvincia);
-            return View( hotel );
+            var hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
+            hotelVWE.Departamentos = Utils.listarDepartamentos();
+            hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
+            hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
+            return View(hotelVWE);
         }
 
-        //
         // POST: /Hotel/Edit/5
-
         [HttpPost]
-        public ActionResult Edit(HotelBean hotel)
+        public ActionResult Edit(HotelViewModelEdit hotelVWE)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    var hotel = Mapper.Map<HotelViewModelEdit, HotelBean>(hotelVWE);
                     hotelFac.actualizarHotel(hotel);
                     return RedirectToAction("List");
                 }
-                return View(hotel);
+                return View(hotelVWE);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View(hotel);
+                return View(hotelVWE);
             }
         }
+        #endregion
 
-        //
         // GET: /Hotel/Delete/5
- 
         public ActionResult Delete(int id)
         {
             ViewBag.depend = hotelFac.getDependencias(id);
             return View(hotelFac.getHotel(id));
         }
 
-        //
         // POST: /Hotel/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -133,22 +127,28 @@ namespace Stardust.Controllers
             return RedirectToAction("List");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
-
+        #region List
         public ActionResult List() {
-            return View(hotelFac.listarHoteles());
+            List<HotelBean> lstHotel = hotelFac.getHoteles();
+            List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
+            foreach (HotelBean hotel in lstHotel)
+            {
+                HotelViewModelList hotelAux = Mapper.Map<HotelBean, HotelViewModelList>(hotel);
+                hotelAux.nombreDepartamento = Utils.getNombreDepartamento(hotelAux.idDepartamento);
+                hotelAux.nombreProvincia = Utils.getNombreProvincia(hotelAux.idDepartamento, hotelAux.idProvincia);
+                hotelAux.nombreDistrito = Utils.getNombreDistrito(hotelAux.idDepartamento, hotelAux.idProvincia, hotelAux.idDistrito);
+                hotelVML.Add(hotelAux);
+            }
+            return View(hotelVML);
         }
+        #endregion
 
         public ActionResult AsignarTipoHabitacion()
         {
             TipoHabitacionFacade tipoFac = new TipoHabitacionFacade();
             ViewBag.tipos = tipoFac.listarTipoHabitacion();
 
-            ViewBag.hoteles = hotelFac.listarHoteles();
+            ViewBag.hoteles = hotelFac.getHoteles();
             //ViewBag.hoteles = hotelFac.getHotel( id );
 
             return View();
