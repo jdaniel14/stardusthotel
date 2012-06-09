@@ -53,14 +53,14 @@
      <tr>       
                 
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio2, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
                    
      </tr>
         }
         else
         {
             @Html.HiddenFor(model => model.listProdProv[i].nombre) 
-            @Html.HiddenFor(model => model.listProdProv[i].precio)         
+            @Html.HiddenFor(model => model.listProdProv[i].precio2)         
             @Html.HiddenFor(model => model.listProdProv[i].cantMaxima)  
         }
     }
