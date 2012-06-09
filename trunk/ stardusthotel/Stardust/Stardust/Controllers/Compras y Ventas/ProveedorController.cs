@@ -143,6 +143,11 @@ namespace Stardust.Controllers
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
 
+            for (int i = 0; i < prod.listProdProv.Count; i++)
+            {
+                prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) ;
+            }
+            int j = 0;
             proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
 
             return RedirectToAction("ListarProductos/"+idproveedor, "Proveedor"); 
@@ -159,6 +164,11 @@ namespace Stardust.Controllers
         {
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
+            for (int i = 0; i < prod.listProdProv.Count; i++)
+            {
+                prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) / 100;
+            }
+            int j = 0;
             proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
             return RedirectToAction("ListarProductos/" + idproveedor, "Proveedor"); 
         }
