@@ -53,10 +53,10 @@
                         {
                     <tr>       
                
-                        <td> @Html.TextBoxFor(model => model.detalle[i].nombre, new { @readonly = "readonly" }) </td>
-                        <td> @Html.TextBoxFor(model => model.detalle[i].Cantidad, new { @readonly = "readonly" })</td>
-                        <td> @Html.TextBoxFor(model => model.detalle[i].preciounitario, new { @readonly = "readonly" })</td>
-                        <td> @Html.TextBoxFor(model => model.detalle[i].precio, new { @readonly = "readonly" })</td>
+                        <td> @Html.DisplayFor(model => model.detalle[i].nombre, new { @readonly = "readonly" }) </td>
+                        <td> @Html.DisplayFor(model => model.detalle[i].Cantidad, new { @readonly = "readonly" })</td>
+                        <td> @Html.DisplayFor(model => model.detalle[i].preciounitario, new { @readonly = "readonly" })</td>
+                        <td> @Html.DisplayFor(model => model.detalle[i].precio, new { @readonly = "readonly" })</td>
                       
                     </tr>       
                         }
@@ -65,7 +65,7 @@
                         <td></td>
                         <td></td> 
                         <td>Monto Total</td>
-                        <td > @Html.TextBoxFor(model => model.preciototal, new { @readonly = "readonly" })</td>
+                        <td > @Html.DisplayFor(model => model.preciototal, new { @readonly = "readonly" })</td>
                     </tr>
                 </tbody>
             </table>
