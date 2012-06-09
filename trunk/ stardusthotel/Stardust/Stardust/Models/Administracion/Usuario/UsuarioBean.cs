@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Stardust.Models
 {
     public class TipoDocumento {
-        string nombre;
+        public string nombre { get; set; }
         public TipoDocumento(string s) {
             this.nombre = s;
         }
