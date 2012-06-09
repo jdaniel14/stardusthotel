@@ -12,6 +12,7 @@ namespace Stardust.Models
         public string proveedor { get; set; }
 
         public int id { get; set; }
+
         public List<Producto> listaProducto { get; set; }
         
         [Display(Name = "IdHotel")]

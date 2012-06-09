@@ -13,6 +13,6 @@ namespace Stardust.Models
         public int stockActual { get; set; }
         public int stockMinimo { get; set; }
         public int stockMaximo { get; set; }
-        public decimal precio { get; set; }
+        public double precio { get; set; }
     }
 }
