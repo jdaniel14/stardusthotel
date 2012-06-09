@@ -40,9 +40,9 @@
     <thead>
         <tr>
             <td>Producto</td>
-           <td>Precio</td>
+            <td>Precio</td>
            <td>Stock Actual</td>
-           <td>Stock Minimo</td>
+           @*<td>Stock Minimo</td>*@
            <td>Stock Maximo</td>
            <td>Cantidad</td>
            
@@ -57,11 +57,11 @@
     @Html.HiddenFor(model => model.listaProducto[i].id) 
              <tr>       
                
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].Nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].precio, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].stockActual, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].stockMinimo, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].stockMaximo, new { @readonly = "readonly" })   </td>
+                <td> @Html.DisplayFor(model => model.listaProducto[i].Nombre, new { @readonly = "readonly" }) </td>
+                <td> @Html.DisplayFor(model => model.listaProducto[i].precio, new { @readonly = "readonly" }) </td>
+                <td> @Html.DisplayFor(model => model.listaProducto[i].stockActual, new { @readonly = "readonly" })   </td>
+                @*<td> @Html.TextBoxFor(model => model.listaProducto[i].stockMinimo, new { @readonly = "readonly" })   </td>*@
+                <td> @Html.DisplayFor(model => model.listaProducto[i].stockMaximo, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].cantidad, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" })   </td>
      </tr>
 
