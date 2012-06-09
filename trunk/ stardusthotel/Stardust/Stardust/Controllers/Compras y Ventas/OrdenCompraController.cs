@@ -68,7 +68,7 @@ namespace Stardust.Controllers
             return RedirectToAction("Registrar2", new { id = ID,idhotel=ordenCompra.idhotel});
         }
 
-        public ViewResult Registrar2(int id, int idhotel)
+        public ViewResult Registrar2(int id, int idhotel) //registrar orden compra ..
         {
             OrdenProducto prod = new OrdenProducto();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
@@ -81,7 +81,7 @@ namespace Stardust.Controllers
                 Producto producto = comprasFacade.GetProducto(productos.listProdProv.ElementAt(i).ID);
                 if (producto != null)
                 {
-                    producto.precio = productos.listProdProv.ElementAt(i).precio;
+                    producto.precio = Convert.ToDouble(productos.listProdProv.ElementAt(i).precio);
                     produ.Add(producto);//lista de los productos en la tabla productoxproveedor                
                 }
             }
