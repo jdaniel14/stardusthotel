@@ -160,7 +160,7 @@ namespace Stardust.Controllers
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
             proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
-            return RedirectToAction("Index");
+            return RedirectToAction("ListarProductos/" + idproveedor, "Proveedor"); 
         }
         
         /**----- Pago de Proveedor-----*/
