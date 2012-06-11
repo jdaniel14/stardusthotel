@@ -25,6 +25,11 @@ namespace Stardust.Models
             return proveedorService.ListarProveedor(razonSocial, contacto);
         }
 
+        public ProveedorList ListarProveedor2()
+        {
+            return proveedorService.ListarProveedor2();
+        }
+
         public String RegistrarProveedor(ProveedorBean proveedor)
         {
             return proveedorService.RegistrarProveedor(proveedor);
@@ -118,11 +123,6 @@ namespace Stardust.Models
         public void RegistrarPagoCredito(OrdenCompras OC)
         {
             proveedorService.RegistrarPagoCredito(OC);
-        }
-
-        public void pdf()
-        {
-            proveedorService.pdf();
         }
 
         /*-----Registrar Datos de Factura-3------*/
