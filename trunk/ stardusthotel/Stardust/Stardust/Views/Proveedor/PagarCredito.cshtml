@@ -32,9 +32,10 @@
     {
              <tr>       
                
-                <td> @Html.DisplayFor(model => model.listaOCDetalle[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.DisplayFor(model => model.listaOCDetalle[i].cantidad, new { @readonly = "readonly" }) </td>
-                <td> @Html.DisplayFor(model => model.listaOCDetalle[i].precio, new { @readonly = "readonly" }) </td>
+                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].nombre, new { @readonly = "readonly" }) </td>
+                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].cantidad, new { @readonly = "readonly" }) </td>
+                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].precio1, new { @readonly = "readonly" }) </td>
+                @Html.HiddenFor(model => model.listaOCDetalle[i].precio)
             </tr>
 
     
@@ -45,19 +46,22 @@
     <tr>
         <td></td>
         <td>Total Sin IGV</td>
-        <td>@Html.DisplayFor(model => model.subtotal, new { @readonly = "readonly" })</td>
+        <td>@Html.TextBoxFor(model => model.subtotal1, new { @readonly = "readonly" })</td>
+        @Html.HiddenFor(model => model.subtotal)
     </tr> 
 
     <tr>
         <td></td>
         <td>IGV</td>
-        <td>@Html.DisplayFor(model => model.igv, new { @readonly = "readonly" })</td>
+        <td>@Html.TextBoxFor(model => model.igv1, new { @readonly = "readonly" })</td>
+        @Html.HiddenFor(model => model.igv)
     </tr>
     
     <tr>
         <td></td>
         <td>Total</td>
-        <td>@Html.DisplayFor(model => model.total, new { @readonly = "readonly" })</td>
+        <td>@Html.TextBoxFor(model => model.total1, new { @readonly = "readonly" })</td>
+        @Html.HiddenFor(model => model.total)
     </tr>
 
     </tbody>
@@ -71,26 +75,36 @@
     <div class="formRow">
                 @Html.LabelFor(model => model.interes)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.interes, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
+                <div class = "formRight">@ViewBag.error</div>
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
-                @Html.LabelFor(model => model.numCoutas)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.numCoutas, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
+                @Html.LabelFor(model => model.numCuotas)<span class="req">*</span>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.numCuotas, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
+                <div class = "formRight">@ViewBag.error2</div>
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
                 @Html.LabelFor(model => model.paga)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.paga)</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.paga1, new { @readonly = "readonly" })</div>
+                @Html.HiddenFor(model => model.paga)
                 @*<div class = "formRight">@ViewBag.error2</div>*@
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
+                @Html.LabelFor(model => model.pagar)
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagar1, new { @readonly = "readonly" })</div>
+                @Html.HiddenFor(model => model.pagar)                 
+                <div class = "clear" ></div>
+    </div>
+
+    <div class="formRow">
                 @Html.LabelFor(model => model.pagado)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "8", placeholder = "Solo numeros" })</div>
-                <div class = "formRight">@ViewBag.error</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado1, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "8", placeholder = "Solo numeros" })</div>
+                <div class = "formRight">@ViewBag.error3</div>
                 <div class = "clear" ></div>
     </div>
 
