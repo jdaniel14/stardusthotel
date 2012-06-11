@@ -14,6 +14,11 @@ namespace Stardust.Models
             return proveedorDAO.ListarProveedor(Nombre, contacto);
         }
 
+        public ProveedorList ListarProveedor2()
+        {
+            return proveedorDAO.ListarProveedor2();
+        }
+
         public String RegistrarProveedor(ProveedorBean proveedor)
         {
             return proveedorDAO.insertarProveedor(proveedor);
@@ -73,11 +78,6 @@ namespace Stardust.Models
         public void RegistrarPagoCredito(OrdenCompras OC)
         {
             proveedorDAO.RegistrarPagoCredito(OC);
-        }
-
-        public void pdf()
-        {
-            proveedorDAO.pdf();
         }
     }
 }
