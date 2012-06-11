@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using ReportManagement;
 
 namespace Stardust.Controllers
 {
-    public class ProveedorController : Controller
+    public class ProveedorController : Controller 
     {
         //
         // GET: /Proveedores/
@@ -147,7 +148,6 @@ namespace Stardust.Controllers
             {
                 prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) ;
             }
-            int j = 0;
             proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
 
             return RedirectToAction("ListarProductos/"+idproveedor, "Proveedor"); 
@@ -168,7 +168,6 @@ namespace Stardust.Controllers
             {
                 prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) / 100;
             }
-            int j = 0;
             proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
             return RedirectToAction("ListarProductos/" + idproveedor, "Proveedor"); 
         }
@@ -207,29 +206,15 @@ namespace Stardust.Controllers
 
         [HttpPost]
         public ActionResult PagoContado(OrdenCompras OC)
-        {
-            if (OC.estado.Equals("Parcialmente Atendida"))
+        {           
+            if (Convert.ToDecimal(OC.pagado1) == 0)
             {
-                if (OC.pagado > (OC.total - OC.paga))
-                {
-                    ViewBag.error = "El monto a pagar es mayor del monto que se debe pagar";
-                    OC.pagado = 0;
-                    return View(OC);
-                }
-                if ((OC.paga + OC.pagado) == OC.total)
-                {
-                    proveedorFacade.RegistrarPagoContado(OC);
-                    return RedirectToAction("PagoProveedor");
-                }
-            }
-            if (OC.pagado > OC.total)
-            {
-                ViewBag.error = "El monto a pagar es mayor del total";
+                ViewBag.error = "El monto a pagar debe ser mayor a 0";
                 OC.pagado = 0;
                 return View(OC);
             }
             else
-            {
+            {                
                 proveedorFacade.RegistrarPagoContado(OC);
                 return RedirectToAction("PagoProveedor");
             } 
@@ -246,24 +231,24 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult PagarCredito(OrdenCompras OC)
         {
-            if (OC.estado.Equals("Parcialmente Atendida"))
+            bool est = false;
+            if (OC.interes == 0)
             {
-                if (OC.pagado > (OC.total - OC.paga))
-                {
-                    ViewBag.error = "El monto a pagar es mayor del monto que se debe pagar";
-                    OC.pagado = 0;
-                    return View(OC);
-                }
-                if ((OC.paga + OC.pagado) == OC.total)
-                {
-                    proveedorFacade.RegistrarPagoCredito(OC);
-                    return RedirectToAction("PagoProveedor");
-                }
+                ViewBag.error = "El interes debe ser mayor a 0";
+                est = true;
             }
-            if (OC.pagado > OC.total)
+            if (OC.numCuotas == 0)
             {
-                ViewBag.error = "El monto a pagar es mayor del total";
-                OC.pagado = 0;
+                ViewBag.error2 = "El numero de cuotas debe ser mayor a 0";
+                est = true;
+            }
+            if (Convert.ToDecimal(OC.pagado1) == 0)
+            {
+                ViewBag.error3 = "El monto a pagar debe ser mayor a 0";
+                est = true;
+            }
+            if (est)
+            {                
                 return View(OC);
             }
             else
@@ -271,18 +256,6 @@ namespace Stardust.Controllers
                 proveedorFacade.RegistrarPagoCredito(OC);
                 return RedirectToAction("PagoProveedor");
             }
-        }
-
-        public ActionResult Reporte()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Reporte(string razonSocial)
-        {
-            proveedorFacade.pdf();
-            return View();
         }
     }
 }
