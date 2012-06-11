@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+using AutoMapper;
+using Stardust.Models;
+
 namespace Stardust
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -35,6 +38,24 @@ namespace Stardust
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            Mapper.CreateMap<HotelViewModelCreate, HotelBean>();
+            Mapper.CreateMap<HotelBean, HotelViewModelDetails>();
+            Mapper.CreateMap<HotelBean, HotelViewModelEdit>();
+            Mapper.CreateMap<HotelViewModelEdit, HotelBean>();
+            Mapper.CreateMap<HotelBean, HotelViewModelList>();
+                //.ForMember(dest => dest.nombre, opt => opt.MapFrom(src => src.nombre))
+                //.ForMember(dest => dest.razonSocial, opt => opt.MapFrom(src => src.razonSocial))
+                //.ForMember(dest => dest.direccion, opt => opt.MapFrom(src => src.direccion))
+                //.ForMember(dest => dest.tlf1, opt => opt.MapFrom(src => src.tlf1))
+                //.ForMember(dest => dest.tlf2, opt => opt.MapFrom(src => src.tlf2))
+                //.ForMember(dest => dest.email, opt => opt.MapFrom(src => src.email))
+                //.ForMember(dest => dest.nroPisos, opt => opt.MapFrom(src => src.nroPisos))
+                //.ForMember(dest => dest.idDepartamento, opt => opt.MapFrom(src => src.idDepartamento))
+                //.ForMember(dest => dest.idProvincia, opt => opt.MapFrom(src => src.idProvincia))
+                //.ForMember(dest => dest.idDistrito, opt => opt.MapFrom(src => src.idDistrito))
+                //.ForMember(dest => dest.Departamentos, opt => opt.MapFrom(src => src.Departamentos))
+                //.ForMember(dest => dest.Almacen, opt => opt.MapFrom(src => src.Almacen));
         }
     }
 }
