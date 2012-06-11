@@ -61,6 +61,46 @@ namespace Stardust.Models
             return listaProveedor;
         }
 
+        public ProveedorList ListarProveedor2()
+        {
+
+            ProveedorList listaProveedor = new ProveedorList();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                ProveedorBean proveedor = new ProveedorBean();
+
+                proveedor.ID = (int)dataReader["idProveedor"];
+                proveedor.razonSocial = (string)dataReader["razonSocial"];
+                proveedor.contacto = (string)dataReader["contacto"];
+                proveedor.emailContacto = (string)dataReader["emailContacto"];
+                proveedor.cargoContacto = (string)dataReader["cargoContacto"];
+                proveedor.ruc = (string)dataReader["ruc"];
+                proveedor.web = (string)dataReader["web"];
+                proveedor.telefono = (string)dataReader["telefono"];
+                proveedor.direccion = (string)dataReader["direccion"];
+                proveedor.observaciones = (string)dataReader["observaciones"];
+                proveedor.telefonocontacto = (string)dataReader["telefonocontacto"];
+                proveedor.estado = 1;
+                listaProveedor.Add(proveedor);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return listaProveedor;
+        }
+
         public String insertarProveedor(ProveedorBean proveedor) {
             String me = "";
             
@@ -373,6 +413,7 @@ namespace Stardust.Models
                 orden.nombre = GetNombreProducto(orden.id);
                 subtotal += orden.precio;
                 OC.listaOCDetalle.Add(orden);
+                orden.precio1 = Convert.ToString(orden.precio);
             }
             dataReader.Close();
             sqlCon.Close();
@@ -392,8 +433,9 @@ namespace Stardust.Models
                 {
                     OC.subtotal = (decimal)dataReader2["subTotal"];
                     OC.igv = (decimal)dataReader2["impuesto"];
-                    OC.paga = (decimal)dataReader2["total"];
+                    OC.paga = (decimal)dataReader2["total"];                    
                     OC.total = OC.subtotal + OC.igv;
+                    OC.pagar = OC.total - OC.paga;                    
                 }
             }
             else
@@ -404,13 +446,21 @@ namespace Stardust.Models
                 OC.subtotal = subtotal;
                 OC.igv = igv;
                 OC.total = total;
+                OC.pagar = OC.total;
             }
+
+            OC.paga1 = Convert.ToString(OC.paga);
+            OC.pagar1 = Convert.ToString(OC.pagar);
+            OC.subtotal1 = Convert.ToString(OC.subtotal);
+            OC.igv1 = Convert.ToString(OC.igv);
+            OC.total1 = Convert.ToString(OC.total);
 
             return OC;
         }
 
         public void RegistrarPagoContado(OrdenCompras OC)
         {
+            OC.pagado = Convert.ToDecimal(OC.pagado1);
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -444,12 +494,13 @@ namespace Stardust.Models
 
         public void RegistrarPagoCredito(OrdenCompras OC)
         {
+            OC.pagado = Convert.ToDecimal(OC.pagado1);
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , " + OC.total + " , 'Credito' , GETDATE() , " + OC.id + " , " + OC.interes + " , " + OC.numCoutas + ")";
+            string commandString = "INSERT INTO Factura VALUES (" + OC.subtotal + " , " + OC.igv + " , " + OC.pagado + " , 'Credito' , GETDATE() , " + OC.id + " , " + OC.interes + " , " + OC.numCuotas + ")";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -474,56 +525,6 @@ namespace Stardust.Models
             sqlCmd2.ExecuteNonQuery();
 
             sqlCon2.Close();
-        }
-
-        public void pdf()
-        {
-            //try
-            //{
-            //    Document doc = new Document(PageSize.A4.Rotate(), 10, 10
-            //                                , 10, 10);
-            //    string filename = "yeti.pdf";
-            //    FileStream file = new FileStream(filename,
-            //                                     FileMode.OpenOrCreate,
-            //                                     FileAccess.ReadWrite,
-            //                                     FileShare.ReadWrite);
-            //    PdfWriter.GetInstance(doc, file);
-            //    doc.Open();
-            //    GenerarDocumento(doc);
-            //    doc.Close();
-            //    Process.Start(filename);
-            //}
-            //catch (Exception ex)
-            //{
-            //}            
-        }
-
-        public void GenerarDocumento()//Document doc)
-        {
-            //doc.Add(new Paragraph("Proveedor"));
-            //doc.Add(new Paragraph("Lista de Ordenes de Compra"));
-            //PdfPTable tabla = new PdfPTable(3);
-            //tabla.DefaultCell.Padding = 3;
-            //float[] headerwidths = { 3.5f, 3.5f, 3.5f };
-            //tabla.SetWidths(headerwidths);
-            //tabla.WidthPercentage = 100;
-            //tabla.DefaultCell.BorderWidth = 2;
-            //tabla.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //tabla.AddCell("ID");
-            //tabla.AddCell("Nombre");
-            //tabla.AddCell("Direccion");
-            //tabla.HeaderRows = 1;
-            //tabla.DefaultCell.BorderWidth = 1;
-            //for (int i = 1; i < 4; i++)
-            //{
-            //    tabla.AddCell("id-" + i);
-            //    tabla.AddCell("nombre-" + i);
-            //    tabla.AddCell("direccion-" + i);
-            //}
-
-            //tabla.CompleteRow();
-
-            //doc.Add(tabla);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Stardust.Models
         public decimal precio { get; set; }
         public int preciouni { get; set; }
         public string nombre { get; set; }
+        public string precio1 { get; set; }
     }
     public class OrdenCompra
     {
@@ -33,12 +34,22 @@ namespace Stardust.Models
         [Display(Name = "Interes (%)")]
         public int interes { get; set; }
         [Display(Name = "Numero de Coutas")]
-        public int numCoutas { get; set; }
-        [Display(Name = "Monto a Pagar")]
+        public int numCuotas { get; set; }
+        [Display(Name = "Ingrese el monto")]
         public decimal pagado { get; set; }
         [Display(Name = "Monto pagado")]
         public decimal paga { get; set; }
+        [Display(Name = "Monto a Pagar")]
+        public decimal pagar { get; set; }
         public string estado { get; set; }
+        public string pagado1 { get; set; }
+        public string paga1 { get; set; }
+        public string pagar1 { get; set; }
+        public string subtotal1 { get; set; }
+        public string igv1 { get; set; }
+        public string total1 { get; set; }
+        public string interes1 { get; set; }
+        public string numCuotas1 { get; set; }
         public List<OrdenCompra> listaOC { get; set; }
         public List<OrdenCompraDetalle> listaOCDetalle { get; set; }
 
