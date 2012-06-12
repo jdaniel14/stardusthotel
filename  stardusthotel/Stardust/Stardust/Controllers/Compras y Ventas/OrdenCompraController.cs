@@ -280,6 +280,7 @@ namespace Stardust.Controllers
 
             comprasFacade.guardarnotaentrada(not);
             //.. cambiar stock de producto
+            comprasFacade.actualizarstock(not);
             return RedirectToAction("ListarNotaEntrada/" + not.idordencompra, "OrdenCompra"); 
         }
 
