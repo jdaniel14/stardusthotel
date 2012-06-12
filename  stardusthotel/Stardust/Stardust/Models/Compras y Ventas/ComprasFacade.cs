@@ -80,6 +80,11 @@ namespace Stardust.Models
 
             return (ordenCompraService.obtenernotas(idgui));
         }
+
+        public void actualizarstock(NotaEntradaBean nota)
+        {
+            ordenCompraService.actualizarstock(nota);
+        }
         /**----------- Reporte de compras 3------------*/
 
     }
