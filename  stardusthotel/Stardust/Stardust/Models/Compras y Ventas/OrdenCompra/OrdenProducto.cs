@@ -11,7 +11,7 @@ namespace Stardust.Models
         [Display(Name = "Proveedor")]
         public string proveedor { get; set; }
 
-        public int id { get; set; }
+        public int id { get; set; } //idproveedor
 
         public List<Producto> listaProducto { get; set; }
         
