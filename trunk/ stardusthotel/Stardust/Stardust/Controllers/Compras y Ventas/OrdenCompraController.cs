@@ -68,37 +68,65 @@ namespace Stardust.Controllers
             return RedirectToAction("Registrar2", new { id = ID,idhotel=ordenCompra.idhotel});
         }
 
-        public ViewResult Registrar2(int id, int idhotel) //registrar orden compra ..
+        public ViewResult Registrar2(int id, int idhotel) //registrar orden compra.......idproveedor y id hotel
         {
             OrdenProducto prod = new OrdenProducto();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
+            
+
+            ProductoxProveedorBean productosprov = proveedorFacade.obtenerlista(id); // de la tabla productoxpreoveedor
+            int idalmacen = comprasFacade.obteneralmacen(idhotel);
+            ProductoXAlmacenBean productosalmacen = comprasFacade.obtenerlistadAlmacen(idalmacen); // de la tabla productoxalmacen
+
+            
+            
+
+            //for (int i = 0; i < productos.listProdProv.Count; i++)
+            //{
+            //    Producto producto = comprasFacade.GetProducto(productos.listProdProv.ElementAt(i).ID);
+            //    if (producto != null)
+            //    {
+            //        producto.precio = productos.listProdProv.ElementAt(i).precio;
+            //        produ.Add(producto);    
+            //    }
+            //}
+
             List<Producto> produ = new List<Producto>();
 
-            ProductoxProveedorBean productos = proveedorFacade.obtenerlista(id);
-
-            for (int i = 0; i < productos.listProdProv.Count; i++)
+            for (int i = 0; i < productosalmacen.listProdalmacen.Count; i++)
             {
-                Producto producto = comprasFacade.GetProducto(productos.listProdProv.ElementAt(i).ID);
-                if (producto != null)
+                for (int j = 0; j < productosprov.listProdProv.Count; j++)
                 {
-                    producto.precio = Convert.ToDouble(productos.listProdProv.ElementAt(i).precio);
-                    produ.Add(producto);//lista de los productos en la tabla productoxproveedor                
+                    if (productosalmacen.listProdalmacen[i].ID == productosprov.listProdProv[j].ID)
+                    {
+                        Producto produc = new Producto();
+                        produc.idproducto = productosalmacen.listProdalmacen[i].ID;
+                        produc.precio = productosprov.listProdProv[j].precio;
+                        produc.stockActual = productosalmacen.listProdalmacen[i].stockactual;
+                        produc.stockMinimo = productosalmacen.listProdalmacen[i].stockminimo;
+                        produc.stockMaximo = productosalmacen.listProdalmacen[i].stockmaximo;
+                        if (produc.stockActual <= produc.stockMinimo) { produc.estado = true; }
+                        else { produc.estado = false; }
+                        produ.Add(produc);
+                    }
+                    
                 }
             }
-
             
             prod.listaProducto = produ;
             prod.proveedor = prov.razonSocial;
-            prod.id = id;
+            prod.id = id;//idproveedor
             prod.idhotel = idhotel;
             HotelBean hotel = hoteles.getHotel(idhotel);
             prod.nombrehotel = hotel.nombre;
+            
+            
             //lista de productos en la tabla de productoxproveedor
-            for (int i = 0; i < prod.listaProducto.Count; i++)
-            {
-                ProductoBean producto = proveedorFacade.Getproducto(Convert.ToInt32(prod.listaProducto[i].id));
-                prod.listaProducto[i].Nombre = producto.nombre;
-            }
+            //for (int i = 0; i < prod.listaProducto.Count; i++)
+            //{
+            //    ProductoBean producto = proveedorFacade.Getproducto(Convert.ToInt32(prod.listaProducto[i].id));
+            //    prod.listaProducto[i].Nombre = producto.nombre;
+            //}
 
             return View(prod);
         }
@@ -251,6 +279,7 @@ namespace Stardust.Controllers
         {
 
             comprasFacade.guardarnotaentrada(not);
+            //.. cambiar stock de producto
             return RedirectToAction("ListarNotaEntrada/" + not.idordencompra, "OrdenCompra"); 
         }
 
