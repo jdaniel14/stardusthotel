@@ -27,6 +27,7 @@ namespace Stardust.Models
             {
                 Producto producto = new Producto();
                 producto.id = Convert.ToString(dataReader["idProducto"]);
+                producto.idproducto = (int)dataReader["idProducto"];
                 producto.stockActual = (int)dataReader["stockActual"];
                 producto.stockMaximo = (int)dataReader["stockMaximo"];
                 producto.stockMinimo = (int)(dataReader["stockMinimo"]);
@@ -48,12 +49,12 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            double total=0; // decimal
+            decimal total=0; // decimal
 
             for (int i = 0; i < producto.listaProducto.Count;i++ )
             {
                 int valor = producto.listaProducto.ElementAt(i).cantidad;
-                double precio = producto.listaProducto.ElementAt(i).precio; // decimal
+                decimal precio = producto.listaProducto.ElementAt(i).precio; // decimal
                 if (valor > 0)
                     total += (valor*precio);
             }
@@ -84,7 +85,7 @@ namespace Stardust.Models
 
             for (int i = 0; i < producto.listaProducto.Count; i++)
             {
-                double precio = 0; // decimal
+                decimal precio = 0; // decimal
                 Producto prod = producto.listaProducto.ElementAt(i);
                 precio = (prod.precio * prod.cantidad);
                 commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ precio + " )";
