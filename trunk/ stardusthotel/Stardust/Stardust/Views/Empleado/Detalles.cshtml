@@ -1,0 +1,20 @@
+﻿@model Stardust.Models.horario
+@{
+    ViewBag.Title = "Horario Detalles";
+}
+
+<h2>Usuarios</h2>
+
+<p>
+    Detalles del Horario del Empleado
+</p>
+
+<p>
+   @* <a href="@Url.Action("HorarioDetalle", new { id = ViewBag.horario })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a>
+   *@
+    @Html.ActionLink("Asignar Detalle", "CrearDetalle", new { id=Model.ID})
+</p>
+
+<p>
+    @Html.ActionLink("Modificar Detalle", "EditDetalle", new { id = Model.ID})
+</p>
