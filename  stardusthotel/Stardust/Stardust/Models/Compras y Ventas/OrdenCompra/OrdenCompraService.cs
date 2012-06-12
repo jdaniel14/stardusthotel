@@ -48,5 +48,9 @@ namespace Stardust.Models
             return (ordenCompraDAO.obtenernotas(idguiaremision));
         }
 
+        public void actualizarstock(NotaEntradaBean nota)
+        {
+            ordenCompraDAO.actualizarstock(nota);
+        }
     }
 }
