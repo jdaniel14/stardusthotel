@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Stardust.Models.horario>
+
+@{
+    ViewBag.Title = "Lista Horario por empleado";
+}
+
+<h2>Horario </h2>
+
+
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+     
+    <thead>
+        <tr>
+            
+            <td>Nombre </td>
+            <td>FechaIni</td>
+            <td>FechaFin</td>
+            <td>Opciones</td>
+            <td>Horario Detalle</td>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model) {
+        <tr> 
+        @*
+            <td>
+               <a href="@Url.Action("CreateHorario", new { id = item.idempleado })"><img src="../../Content/images/icons/color/application-plus-black.png", alt="Create" /></a>
+            </td>
+        *@
+            <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
+            <td>@Html.DisplayFor(modelItem => item.fechainiciohorario )</td>
+           
+            <td>@Html.DisplayFor(modelItem => item.fechafinhorario)</td>
+            <td> <a href="@Url.Action("Editar", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
+
+            <td>
+                               
+               <a href="@Url.Action("HorarioDetalle", new { id = item.ID })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a>
+           @* 
+                <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> |
+            *@
+            </td>
+        </tr>
+        
+    }
+    
+    <div id="dialogEliminar" title="Desea Eliminar el ?">
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+    Esta seguro al eliminar </p>
+    </div>
+    </tbody>
+</table>
+
+
+
+    <script type = "text/javascript">
+        var idEliminar = 0;
+        $(".eliminar").click(function () {
+            //Jp++ GPL version xD
+            $('#dialogEliminar').dialog('open');
+            idEliminar = $(this).attr("id");
+            return false;
+        });
+
+        $('#dialogEliminar').dialog({
+            autoOpen: false,
+            resizable: false,
+            draggable: false,
+            width: 300,
+            modal: true,
+            title: "!Confirmar Eliminacion del Empleado",
+            position: "center",
+            buttons: {
+                "Aceptar": function () {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        url: "Delete/" + idEliminar,
+                        success: function (data) {
+                            //oTable.fnDraw(false);
+                            if (data.me == "") {
+                                $(this).dialog("close");
+                                location.reload();
+                            }
+                        }
+                    });
+
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                    return false;
+                }
+            }
+        });
+
+</script>
