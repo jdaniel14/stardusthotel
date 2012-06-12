@@ -28,5 +28,27 @@ namespace Stardust.Models
         public List<EmpleadoBean> listarEmpleados() {
             return empleadoServ.listarEmpleados();
         }
+
+        public void asignarhorario(horario horar)
+        {
+            empleadoServ.asignarhorario(horar);
+
+        }
+
+        public horario gethorario(int id)
+        {
+            return empleadoServ.gethorario(id);
+
+        }
+
+        public void modificarHorario(horario h)
+        {
+            empleadoServ.modificarHorario(h);
+        }
+
+        public List<horario> listarHorario()
+        {
+            return empleadoServ.listarHorario();
+        }
     }
 }

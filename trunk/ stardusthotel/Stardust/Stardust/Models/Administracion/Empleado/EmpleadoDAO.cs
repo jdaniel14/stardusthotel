@@ -131,8 +131,156 @@ namespace Stardust.Models
             sql.Close();
 
             return lista;
+
+
+
         }
 
+        //horarios
+
+        public void asignarhorario(horario horario) {
+
+
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            DateTime dateini = horario.fechainiciohorario;
+            DateTime datefin = horario.fechafinhorario;
+            String fechaIngreso = dateini.Date.ToShortDateString();
+            String fechaSalida = datefin.Date.ToShortDateString();
+
+
+            String command = "Insert into Horario ( idHorario , fechaIni , fechaFin, idEmpleado) values ( "
+                               + horario.ID + ", '"
+                               + horario.fechainiciohorario + "',  '"
+                                + horario.fechafinhorario + "', "
+                                 + horario.idempleado+  ")";
+                              
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            query.ExecuteNonQuery();
+
+            sql.Close();
+        
+        }
+
+
+        public horario gethorario(int id)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from Horario where idHorario = " + id;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            data.Read();
+
+            horario h = new horario();
+
+            h.ID = (int)data.GetValue(0);
+            h.fechainiciohorario = (DateTime)data.GetValue(1);
+            h.fechafinhorario = (DateTime)data.GetValue(2);
+            h.idempleado = (int)data.GetValue(2);
+            
+              EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(h.idempleado);
+              h.nombreEmpleado = empleado.nombreEmpleado;
+
+           // UsuarioBean usuario = new UsuarioFacade().getUsuario(h.idempleado);
+          //  empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+
+           
+
+            sql.Close();
+
+            return h;
+        }
+
+
+        public void modificarHorario(horario h)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Update Empleado SET "
+                                + "fechaIni = '" + h.fechainiciohorario
+                                + "', fechaFin = '" + h.fechafinhorario
+                                + "' WHERE idEmpleado = " + h.ID;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            query.ExecuteNonQuery();
+
+            sql.Close();
+
+        }
+
+        public void eliminarHorario(int id)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            DateTime date = new DateTime();
+
+            String fechaSalida = date.Date.ToShortDateString();
+
+            String command = "Update Empleado SET estado = 'INACTIVO' , fechaSalida = '" + fechaSalida +
+                    "' WHERE idEmpleado = " + id;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            query.ExecuteNonQuery();
+
+            sql.Close();
+        }
+
+        public List<horario> listarHorario(int id)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from Horario,Empleado  ORDER BY id";
+            // where idHorario = " + id +"
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            List<horario> lista = new List<horario>();
+
+            while (data.Read())
+            {
+                horario horar = new horario();
+
+                horar.ID = (int)data.GetValue(0);
+                UsuarioBean usuario = new UsuarioFacade().getUsuario(horar.idempleado);
+                EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(horar.idempleado);
+               // empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+                horar.fechainiciohorario = (DateTime)data.GetValue(1);
+                //var aux = data.GetValue(2);
+                //if (aux != null)
+                //    empleado.fechaSalida = (DateTime)aux;
+                // NO FUNCIONA U_U
+                horar.fechafinhorario = (DateTime)data.GetValue(2);
+                horar.idempleado = (int)data.GetValue(3);
+
+                lista.Add(horar);
+            }
+
+            sql.Close();
+
+            return lista;
+
+
+
+        }
         
     }
 
