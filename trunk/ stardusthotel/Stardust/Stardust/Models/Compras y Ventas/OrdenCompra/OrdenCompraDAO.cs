@@ -342,6 +342,10 @@ namespace Stardust.Models
             return notas;
         }
         
+        public void actualizarstock(NotaEntradaBean nota)
+        {
+            //****actualizar stock en almacen.. 
+        }
 
 
     }
