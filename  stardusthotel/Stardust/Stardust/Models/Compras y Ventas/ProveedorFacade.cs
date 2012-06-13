@@ -25,10 +25,10 @@ namespace Stardust.Models
             return proveedorService.ListarProveedor(razonSocial, contacto);
         }
 
-        public ProveedorList ListarProveedor2()
-        {
-            return proveedorService.ListarProveedor2();
-        }
+        //public ProveedorList ListarProveedor2()
+        //{
+        //    return proveedorService.ListarProveedor2();
+        //}
 
         public String RegistrarProveedor(ProveedorBean proveedor)
         {

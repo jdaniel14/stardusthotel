@@ -14,10 +14,10 @@ namespace Stardust.Models
             return proveedorDAO.ListarProveedor(Nombre, contacto);
         }
 
-        public ProveedorList ListarProveedor2()
-        {
-            return proveedorDAO.ListarProveedor2();
-        }
+        //public ProveedorList ListarProveedor2()
+        //{
+        //    return proveedorDAO.ListarProveedor2();
+        //}
 
         public String RegistrarProveedor(ProveedorBean proveedor)
         {
