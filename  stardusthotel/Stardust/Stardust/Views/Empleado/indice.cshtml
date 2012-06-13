@@ -10,7 +10,7 @@
 @*new { @class = "form"   *@
 @using (Html.BeginForm("indice", "Empleado", FormMethod.Post,  new { @class = "form" } ))
 {
-    @Html.ValidationSummary(false)
+    @Html.ValidationSummary(true)
     <fieldset>
         <div class = "widget" >
             <div class = "title" ><h6> Elija Empleado </h6></div>

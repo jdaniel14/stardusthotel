@@ -204,8 +204,8 @@ namespace Stardust.Models
                                     "celular = '" + usuario.email + "', " +
                                     "tipoDocumento = '" + usuario.tipoDocumento + "', " +
                                     "nroDocumento = '" + usuario.nroDocumento + "', " +
-                                    "razonSocial = '" + usuario.razonSocial + "', " +
-                                    "estado = '" + usuario.estado + "' " +
+                                    "razonSocial = '" + usuario.razonSocial + //"', " +
+                                    //"estado = '" + usuario.estado + "' " +
                                     " WHERE idUsuario = " + usuario.ID;
 
                 SqlCommand query = new SqlCommand(command, sql);
@@ -277,70 +277,6 @@ namespace Stardust.Models
                 sql.Close();
 
             return lista;
-        }
-
-        public void asignarHorario(HorarioEmpleadoBean horario) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            if (existeHorarioActivo(horario.fechaIni)) return;
-
-            sql.Open();
-
-                String command = "Insert into Horario ( fechaIni , fechaFin , idEmpleado ) values( "
-                                    + horario.fechaIni + ", " 
-                                    + horario.fechaFin + ", "
-                                    + horario.idEmpleado + ")" ;
-
-                SqlCommand query = new SqlCommand( command , sql ) ;
-
-                query.ExecuteNonQuery() ;
-
-                List<DetalleHorario> lista = horario.detalleHorario ;
-                for (int i = 0; i < lista.Count; i++) {
-                    asignarDia( lista.ElementAt( i ) ) ;
-                }
-
-            sql.Close();
-        }
-
-        public void asignarDia(DetalleHorario detalle ) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            sql.Open();
-
-                String command = "Insert into HorarioDetalle ( diaSemana , horaEntrada , horaSalida , idHorario ) values ( '"
-                                    + detalle.diaSemana + "', "
-                                    + detalle.horaEntrada + ", "
-                                    + detalle.horaSalida + ", "
-                                    + detalle.idHorario + ") ";
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                query.ExecuteNonQuery();
-
-            sql.Close();
-        }
-
-        public bool existeHorarioActivo(DateTime fechaIni) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            sql.Open();
-
-                String command = "Select fechaFin from Horario ORDER BY fechaFin DESC";
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                SqlDataReader data = query.ExecuteReader();
-
-                data.Read();
-
-                DateTime fechaFin = (DateTime)data.GetValue(0);
-
-                bool resp = (fechaFin >= fechaIni);
-
-            sql.Close();
-
-            return resp;
         }
 
         public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {

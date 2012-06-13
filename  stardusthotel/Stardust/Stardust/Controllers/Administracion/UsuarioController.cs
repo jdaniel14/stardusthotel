@@ -223,20 +223,20 @@ namespace Stardust.Controllers
         //
         // POST: /Usuario/Delete/5
 
-     //   [HttpPost, ActionName("Delete")]
-     //   public ActionResult DeleteConfirmed(int id)
-     //   {
-     //       usuarioFac.eliminarUsuario(id);
-     //       return RedirectToAction("List");
-     //   }
-
         [HttpPost, ActionName("Delete")]
-        public JsonResult DeleteConfirmed(int ID)
+        public ActionResult DeleteConfirmed(int id)
         {
-            usuarioFac.eliminarUsuario(ID);
-            //return RedirectToAction("../Home/Index");
-            return Json(new { me = "" });
+            usuarioFac.eliminarUsuario(id);
+            return RedirectToAction("List");
         }
+
+        //[HttpPost, ActionName("Delete")]
+        //public JsonResult DeleteConfirmed(int ID)
+        //{
+        //    usuarioFac.eliminarUsuario(ID);
+        //    //return RedirectToAction("../Home/Index");
+        //    return Json(new { me = "" });
+        //}
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
