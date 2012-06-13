@@ -117,8 +117,12 @@
     <Compile Include="Models\Administracion\Habitacion\HabitacionDAO.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionFacade.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionService.cs" />
-    <Compile Include="Models\Administracion\HorarioEmpleado\DetalleHorario.cs" />
-    <Compile Include="Models\Administracion\HorarioEmpleado\HorarioEmpleadoBean.cs" />
+    <Compile Include="Models\Administracion\HorarioEmpleado\DetalleHorario.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Administracion\HorarioEmpleado\HorarioEmpleadoBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Administracion\Hotel\HotelBean.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelDAO.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelFacade.cs" />
@@ -4378,6 +4382,16 @@
     <Content Include="Views\Evento\RegistrarEvento.cshtml" />
     <Content Include="Views\ReservarHabitacion\AddServicio.cshtml" />
     <Content Include="Views\ReservarHabitacion\datosReserva.cshtml" />
+    <Content Include="Views\Empleado\ListHorario.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Empleado\CrearHorario.cshtml" />
+    <Content Include="Views\Empleado\indice.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Empleado\EditarHorario.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

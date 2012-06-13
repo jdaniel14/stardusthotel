@@ -13,6 +13,8 @@ namespace Stardust.Controllers
     {
         EmpleadoFacade empleadoFac = new EmpleadoFacade();
 
+        /* ======== EMPLEADO ======== */
+        #region Empleado
         //
         // GET: /Empleado/
 
@@ -79,19 +81,11 @@ namespace Stardust.Controllers
         //
         // POST: /Empleado/Delete/5
 
-        //   [HttpPost, ActionName("Delete")]
-        //    public ActionResult DeleteConfirmed(int id)
-        //   {
-        //        empleadoFac.eliminarEmpleado(id);
-        //       return RedirectToAction("List");
-        //   }
-
         [HttpPost, ActionName("Delete")]
-        public JsonResult DeleteConfirmed(int ID)
+        public ActionResult DeleteConfirmed(int ID)
         {
             empleadoFac.eliminarEmpleado(ID);
-            //return RedirectToAction("../Home/Index");
-            return Json(new { me = "" });
+            return RedirectToAction("List");
         }
 
 
@@ -106,49 +100,81 @@ namespace Stardust.Controllers
             var model = empleadoFac.listarEmpleados();
             return View(model);
         }
+        #endregion
 
-        //HORARIO
-
+        /* ======== HORARIO ======== */
+        #region Horario
         public ActionResult indice()
         {
-            EmpleadoFacade empleado = new EmpleadoFacade();
-
-            ViewBag.empleados = empleado.listarEmpleados();
+            ViewBag.empleados = empleadoFac.listarEmpleados();
             return View();
         }
 
         [HttpPost]
-        public ActionResult indice(EmpleadoBean empl)
+        public ActionResult indice(EmpleadoBean empleado)
         {
-            int codigoempleado = empl.ID;
+            int codigoempleado = empleado.ID;
             // empleadoFac.listarHorario(codigoempleado);
-            return RedirectToAction("ListH", new { id = codigoempleado });
-
-
+            return RedirectToAction("ListHorario", new { id = codigoempleado });
         }
 
-        //crear horarioo   
-
-        public ActionResult crearhorario()
+        public ActionResult CrearHorario()
         {
-
             EmpleadoFacade empleadoFac = new EmpleadoFacade();
             ViewBag.empleados = empleadoFac.listarEmpleados();
             return View();
         }
 
         [HttpPost]
-        public ActionResult crearhorario(horario horariobeam)
+        public ActionResult CrearHorario(Horario horario)
         {
-
-            empleadoFac.asignarhorario(horariobeam);
-
-            var m = horariobeam;
-            int codigoempleado = horariobeam.idempleado;
-            // return RedirectToAction("Creardetalle", m
-            return RedirectToAction("ListH", new { id = codigoempleado });
-
+            DateTime ini = horario.fechaInicioHorario;
+            DateTime fin = horario.fechaFinHorario;
+            if (ini <= fin)
+            {
+                int resp = empleadoFac.asignarHorario(horario);
+                if (resp == -1) {
+                    ViewBag.error = "Existe un horario que se cruza con dichas fechas.";
+                    ViewBag.empleados = empleadoFac.listarEmpleados();
+                    return View();
+                }
+                return RedirectToAction("ListHorario", new { id = horario.idEmpleado });
+            }
+            ViewBag.empleados = empleadoFac.listarEmpleados();
+            ViewBag.error = "Ingrese fechas válidas";
+            return View();
         }
+
+        public ViewResult ListHorario(int id)
+        {
+            var model = empleadoFac.listarHorario(id);
+            return View(model);
+        }
+
+        public ActionResult EditarHorario(int id)
+        {
+            var model = empleadoFac.getHorario(id);
+            return View(model);
+        }
+
+        //
+        // POST: /Empleado/Edit/5
+        [HttpPost]
+        public ActionResult EditarHorario(Horario horario)
+        {
+            //System.Diagnostics.Debug.WriteLine("idEmpleado = " + horario.idEmpleado);
+            DateTime ini = horario.fechaInicioHorario;
+            DateTime fin = horario.fechaFinHorario;
+            if (ini <= fin)
+            {
+                empleadoFac.modificarHorario(horario);
+                return RedirectToAction("ListHorario", new { id = horario.idEmpleado } );
+            }
+            ViewBag.error = "Ingrese fechas válidas";
+            return View();
+        }
+        #endregion
+
         //crear detalle 
         /*
         public ActionResult Creardetalle( horario horariobeam)
@@ -176,37 +202,7 @@ namespace Stardust.Controllers
         }
         */
 
-        public ViewResult ListH(int id)
-        {
-
-            var model = empleadoFac.listarHorario(id);
-            return View(model);
-
-            // return View()
-        }
-
-
-        public ActionResult Editar(int id)
-        {
-            var model = empleadoFac.gethorario(id);
-            System.Diagnostics.Debug.WriteLine(" antes del editar idempleado =" + model.idempleado);
-            return View(model);
-        }
-
-        //
-        // POST: /Empleado/Edit/5
-
-
-        [HttpPost]
-        public ActionResult Editar(horario horariobeam)
-        {
-            //horariobeam.ID =26 ;
-            // horariobeam.idempleado = 21;
-            empleadoFac.modificarHorario(horariobeam);
-            System.Diagnostics.Debug.WriteLine(" antes del editar idempleado  =" + horariobeam.idempleado);
-            return RedirectToAction("ListH", new { id = horariobeam.idempleado });
-        }
-
+        
 
         //horariodetalle
         /*
@@ -237,8 +233,6 @@ namespace Stardust.Controllers
         }
 
         */
-
     }
-
-
+        
 }
