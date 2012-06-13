@@ -60,7 +60,7 @@ namespace Stardust.Models
     public class HotelViewModelDetails
     {
         [Key]
-        public int ID { get; set; } //Para que pueda ir de la pantalla Details a la pantall Edit
+        public int ID { get; set; } //Para que pueda ir de la pantalla Details a la pantalla Edit
 
         [Display(Name = "Nombre")]
         public string nombre { get; set; }
@@ -177,9 +177,55 @@ namespace Stardust.Models
         public string nombreDistrito { get; set; }
     }
 
-    public class HotelViewModelDetele
+    public class HotelViewModelDelete
     {
+        [Key]
+        public int ID { get; set; }
 
+        [Display(Name = "Nombre")]
+        public string nombre { get; set; }
+
+        [Display(Name = "Razón Social")]
+        public string razonSocial { get; set; }
+
+        [Display(Name = "Dirección")]
+        public string direccion { get; set; }
+
+        [Display(Name = "Departamento")]
+        public string nombreDepartamento { get; set; }
+
+        [Display(Name = "Provincia")]
+        public string nombreProvincia { get; set; }
+
+        [Display(Name = "Distrito")]
+        public string nombreDistrito { get; set; }
+
+        // INFORMACIÓN PARA QUE LA PIENSE EN CASO DESEE DESACTIVAR EL HOTEL xD!
+        // --------------------------------------------------------------------
+        [Display(Name = "N° de Tipos de Habitaciones")]
+        public int nTipoHabitacion { get; set; }
+
+        [Display(Name = "N° de Habitaciones")]
+        public int nHabitacion { get; set; }
+
+        [Display(Name = "N° de Ambientes")]
+        public int nAmbientes { get; set; }
+
+        [Display(Name = "N° de Servicios")]
+        public int nServicios { get; set; }
+
+        [Display(Name = "N° de Promociones")]
+        public int nPromociones { get; set; }
+
+        [Display(Name = "N° de Almacenes")]
+        public int nAlmacenes { get; set; }
+        // --------------------------------------------------------------------
+
+        //con estos 3 datos, se obtiene el nombre del departamentos, provincia o distrito pero
+        //no son parte visible en el view
+        public int idDepartamento { get; set; }
+        public int idProvincia { get; set; }
+        public int idDistrito { get; set; }
     }
 
     public class HotelBean
@@ -236,6 +282,8 @@ namespace Stardust.Models
         [Required(ErrorMessage = "Debe seleccionar un distrito")]
         public int idDistrito { get; set; }
 
+        public bool estado { get; set; }
+        
         public string nombreDepartamento { get; set; }
         public string nombreProvincia { get; set; }
         public string nombreDistrito { get; set; }

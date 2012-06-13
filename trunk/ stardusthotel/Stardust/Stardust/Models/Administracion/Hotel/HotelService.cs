@@ -13,8 +13,14 @@ namespace Stardust.Models
             return hotelDAO.getHotel(id);
         }
 
-        public List<HotelBean> getHoteles(){
+        public List<HotelBean> getHoteles()
+        {
             return hotelDAO.getHoteles();
+        }
+
+        public List<HotelBean> getHotelesActivos()
+        {
+            return hotelDAO.getHotelesActivos();
         }
 
         public void registrarHotel(HotelBean hotel){
@@ -25,8 +31,9 @@ namespace Stardust.Models
             hotelDAO.actualizarHotel(hotel);
         }
 
-        public void eliminarHotel(int id) {
-            hotelDAO.eliminarHotel(id);
+        public void desactivarHotel(int id)
+        {
+            hotelDAO.desactivarHotel(id);
         }
 
         public void registrarTipoHabitacion(TipoHabitacionxHotel tipo) {
@@ -37,8 +44,37 @@ namespace Stardust.Models
             return hotelDAO.listarTipos(id);
         }
 
-        public int getDependencias(int id) {
-            return hotelDAO.getDependencias(id);
+        //Parte para dar información antes de desactivar un Hotel
+        //--------------------------------------------------------
+        public int getNHabitacionesXHotel(int idHotel)
+        {
+            return hotelDAO.getNHabitacionesXHotel(idHotel);
         }
+
+        public int getNTipoHabitacionesXHotel(int idHotel)
+        {
+            return hotelDAO.getNTipoHabitacionesXHotel(idHotel);
+        }
+
+        public int getNAmbientesXHotel(int idHotel)
+        {
+            return hotelDAO.getNAmbientesXHotel(idHotel);
+        }
+
+        public int getNServiciosXHotel(int idHotel)
+        {
+            return hotelDAO.getNServiciosXHotel(idHotel);
+        }
+
+        public int getNPromocionesXHotel(int idHotel)
+        {
+            return hotelDAO.getNPromocionesXHotel(idHotel);
+        }
+
+        public int getNAlmacenesXHotel(int idHotel)
+        {
+            return hotelDAO.getNAlmacenesXHotel(idHotel);
+        }
+        //--------------------------------------------------------
     }
 }
