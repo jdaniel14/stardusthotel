@@ -149,10 +149,10 @@ namespace Stardust.Models
             DateTime datefin = horario.fechafinhorario;
             String fechaIngreso = dateini.Date.ToShortDateString();
             String fechaSalida = datefin.Date.ToShortDateString();
+            
 
-
-            String command = "Insert into Horario ( idHorario , fechaIni , fechaFin, idEmpleado) values ( "
-                               + horario.ID + ", '"
+            String command = "Insert into Horario (  fechaIni , fechaFin, idEmpleado) values ( '"
+                               
                                + horario.fechainiciohorario + "',  '"
                                 + horario.fechafinhorario + "', "
                                  + horario.idempleado+  ")";
@@ -185,8 +185,9 @@ namespace Stardust.Models
 
             h.ID = (int)data.GetValue(0);
             h.fechainiciohorario = (DateTime)data.GetValue(1);
+            
             h.fechafinhorario = (DateTime)data.GetValue(2);
-            h.idempleado = (int)data.GetValue(2);
+            h.idempleado = (int)data.GetValue(3);
             
               EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(h.idempleado);
               h.nombreEmpleado = empleado.nombreEmpleado;
@@ -207,12 +208,16 @@ namespace Stardust.Models
             SqlConnection sql = new SqlConnection(cadenaDB);
 
             sql.Open();
+            String fechaini=h.fechainiciohorario.Year +"-"+h.fechafinhorario.Month+"-"+h.fechainiciohorario.Day;
+            String fechafin = h.fechafinhorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechafinhorario.Day;
+           // String a = h.fechainiciohorario;
 
-            String command = "Update Empleado SET "
+            String command = "Update Horario SET "
                                 + "fechaIni = '" + h.fechainiciohorario
                                 + "', fechaFin = '" + h.fechafinhorario
-                                + "' WHERE idEmpleado = " + h.ID;
-
+                //+ "' WHERE idEmpleado = " + h.idempleado
+                //+" AND idHorario=" + h.ID;
+                                + "' WHERE idHorario = " + h.ID;
             SqlCommand query = new SqlCommand(command, sql);
 
             query.ExecuteNonQuery();
@@ -247,8 +252,8 @@ namespace Stardust.Models
 
             sql.Open();
 
-            String command = "Select * from Horario,Empleado  ORDER BY id";
-            // where idHorario = " + id +"
+            String command = "Select * from Horario  ORDER BY idHorario";
+           
             SqlCommand query = new SqlCommand(command, sql);
 
             SqlDataReader data = query.ExecuteReader();
@@ -260,17 +265,14 @@ namespace Stardust.Models
                 horario horar = new horario();
 
                 horar.ID = (int)data.GetValue(0);
-                UsuarioBean usuario = new UsuarioFacade().getUsuario(horar.idempleado);
-                EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(horar.idempleado);
-               // empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+                            
+            
                 horar.fechainiciohorario = (DateTime)data.GetValue(1);
-                //var aux = data.GetValue(2);
-                //if (aux != null)
-                //    empleado.fechaSalida = (DateTime)aux;
-                // NO FUNCIONA U_U
                 horar.fechafinhorario = (DateTime)data.GetValue(2);
                 horar.idempleado = (int)data.GetValue(3);
 
+                EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(horar.idempleado);
+                horar.nombreEmpleado = empleado.nombreEmpleado;
                 lista.Add(horar);
             }
 
@@ -281,7 +283,40 @@ namespace Stardust.Models
 
 
         }
-        
+
+
+        //detalle
+        /*
+
+        public void asignarhorario(horariodetalle horariod)
+        {
+
+
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            DateTime dateini = horariod.horasentrada.;
+            DateTime datefin = horariod.fechafinhorario;
+            String fechaIngreso = dateini.Date.ToShortDateString();
+            String fechaSalida = datefin.Date.ToShortDateString();
+
+
+            String command = "Insert into Horario ( idHorario , fechaIni , fechaFin, idEmpleado) values ( "
+                               + horario.ID + ", '"
+                               + horario.fechainiciohorario + "',  '"
+                                + horario.fechafinhorario + "', "
+                                 + horario.idempleado + ")";
+
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            query.ExecuteNonQuery();
+
+            sql.Close();
+
+        }
+        */
     }
 
 }

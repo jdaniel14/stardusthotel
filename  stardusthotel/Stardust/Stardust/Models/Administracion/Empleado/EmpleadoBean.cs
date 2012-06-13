@@ -31,11 +31,17 @@ namespace Stardust.Models
 
             [Display(Name = "Nombre Empleado")] // 
             public string nombreEmpleado { get; set; }
-           
-            [Display(Name = "Fecha inicio de Horario ")]
-            public DateTime fechainiciohorario { get; set; }
 
+
+         // [DisplayFormat(DataFormatString = "{0:yyyy mm dd}")]
+          [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
+            [Display(Name = "Fecha inicio de Horario ")]
+         //   [DataType(DataType.Date)] 
+            public DateTime fechainiciohorario { get; set; }
+            
             [Display(Name = "Fecha fin de Horario ")]
+            [DisplayFormat(DataFormatString = "{0:yyyy MM dd}")]
+         //   [DataType(DataType.Date)] 
             public DateTime fechafinhorario { get; set; }
 
             [Display(Name = "Codigo del Empleado")]
@@ -46,7 +52,7 @@ namespace Stardust.Models
     public class horariodetalle {
 
         [Display(Name = "Codigo del Detalle del Empleado ")]
-        public int horariodetalle;
+        public int idhorariodetalle;
 
         [Display(Name = "Nombre Empleado")] // 
         public string nombreEmpleado { get; set; }
@@ -54,11 +60,12 @@ namespace Stardust.Models
         [Display(Name = " Dias de la semana")]      
         public string diasemana;
 
+        //solo me importa la hora
         [Display(Name = "Horario de Entrada ")]
-        public string horasentrada;
+        public DateTime horasentrada;
 
          [Display(Name = "Horario de Salida ")]
-        public string horasSalida;
+        public DateTime horasSalida;
 
          [Display(Name = "Horario ")]
         public int horario;
@@ -72,9 +79,13 @@ namespace Stardust.Models
           [Display(Name = "Codigo de Asistencia")]
         public int horarioassitencia;
 
+          [DataType(DataType.Date)] 
+
           [Display(Name = "Hora de Marca")]
         public string horamarcada;
 
+
+        [DataType(DataType.Time)] 
           [Display(Name = "Tipo de Estado")]
         public string tipoE;
 

@@ -43,8 +43,13 @@ namespace Stardust.Models
             empleadoDAO.modificarHorario(h);
         }
 
-        public List<horario> listarHorario() {
-            return empleadoDAO.listarHorario();
+        public List<horario> listarHorario(int id) {
+            return empleadoDAO.listarHorario(id);
         }
+
+       // public void asignarDetalle(int horariodetallebeam){
+        
+       //    return 
+       // }
     }
 }

@@ -46,9 +46,9 @@ namespace Stardust.Models
             empleadoServ.modificarHorario(h);
         }
 
-        public List<horario> listarHorario()
+        public List<horario> listarHorario(int id)
         {
-            return empleadoServ.listarHorario();
+            return empleadoServ.listarHorario(id);
         }
     }
 }
