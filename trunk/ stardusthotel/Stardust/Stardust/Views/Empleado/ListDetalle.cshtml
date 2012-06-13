@@ -2,12 +2,12 @@
     ViewBag.Title = "ListDetalle";
 }
 
-<h2>ListDetalle</h2>
+<h2>Listar Detalle</h2>
 
 @model IEnumerable<Stardust.Models.horariodetalle>
 
 @{
-    ViewBag.Title = "Lista de Detalles por empleado";
+    ViewBag.Title = "Lista de Detalles del horario;
 }
 
 <h2>Horario </h2>
@@ -19,11 +19,10 @@
     <thead>
         <tr>
             
-            <td>diaSemana </td>
+            <td>Día de Semana </td>
             <td>Hora de entrada</td>
             <td>Hora de Salida</td>
             <td>Opciones</td>
-            <td>Horario Detalle</td>
         </tr>
     </thead>
 
@@ -35,79 +34,18 @@
                <a href="@Url.Action("CreateHorario", new { id = item.idempleado })"><img src="../../Content/images/icons/color/application-plus-black.png", alt="Create" /></a>
             </td>
         *@
-            <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
+            @* <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td> *@
             
            
             <td>@Html.DisplayFor(modelItem => item.diasemana)</td>
-            <td> <a href="@Url.Action("Editar", new { id = item.idhorariodetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
-
+			<td>@Html.DisplayFor(modelItem => item.horasentrada)</td>
+			<td>@Html.DisplayFor(modelItem => item.horasSalida)</td>
+			
             <td>
-             <td>@Html.DisplayFor(modelItem => item.horasentrada)</td>
-            <td> <a href="@Url.Action("Editar", new { id = item.idhorariodetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
-             <td>   
-            <td>
-               @* 
-
-
-
-            <td>                   
-               <a href="@Url.Action("HorarioDetalle", new { id = item.ID })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a>
-           @* 
-                <a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> |
-            *@
-            </td>
+				<a href="@Url.Action("Editar", new { id = item.idhorariodetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a
+			</td>
         </tr>
         
     }
-    
-    <div id="dialogEliminar" title="Desea Eliminar el ?">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-    Esta seguro al eliminar </p>
-    </div>
     </tbody>
 </table>
-
-
-
-    <script type = "text/javascript">
-        var idEliminar = 0;
-        $(".eliminar").click(function () {
-            //Jp++ GPL version xD
-            $('#dialogEliminar').dialog('open');
-            idEliminar = $(this).attr("id");
-            return false;
-        });
-
-        $('#dialogEliminar').dialog({
-            autoOpen: false,
-            resizable: false,
-            draggable: false,
-            width: 300,
-            modal: true,
-            title: "!Confirmar Eliminacion del Empleado",
-            position: "center",
-            buttons: {
-                "Aceptar": function () {
-                    $.ajax({
-                        type: "POST",
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        url: "Delete/" + idEliminar,
-                        success: function (data) {
-                            //oTable.fnDraw(false);
-                            if (data.me == "") {
-                                $(this).dialog("close");
-                                location.reload();
-                            }
-                        }
-                    });
-
-                },
-                "Cancelar": function () {
-                    $(this).dialog("close");
-                    return false;
-                }
-            }
-        });
-
-</script>

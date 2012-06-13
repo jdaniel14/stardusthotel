@@ -26,7 +26,7 @@
             <td>@Html.DisplayFor(modelItem => item.fechaFinHorario)</td>
 
             <td> <a href="@Url.Action("EditarHorario", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
-            <td><a href="@Url.Action("HorarioDetalle", new { id = item.ID })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a></td>
+            <td><a href="@Url.Action("IndiceDetalle", new { id = item.ID })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a></td>
         </tr>
     }
     </tbody>

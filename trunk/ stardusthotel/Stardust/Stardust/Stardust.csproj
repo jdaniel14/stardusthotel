@@ -4386,6 +4386,7 @@
     <Content Include="Views\Empleado\EditarHorario.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Empleado\IndiceDetalle.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
