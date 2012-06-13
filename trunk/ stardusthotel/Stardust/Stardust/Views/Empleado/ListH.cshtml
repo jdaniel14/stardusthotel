@@ -33,7 +33,7 @@
             <td>@Html.DisplayFor(modelItem => item.fechainiciohorario )</td>
            
             <td>@Html.DisplayFor(modelItem => item.fechafinhorario)</td>
-            <td> <a href="@Url.Action("Editar", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
+            <td> <a href="@Url.Action("Editar", new { id = item.ID , codigo=item.idempleado })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
 
             <td>
                                
