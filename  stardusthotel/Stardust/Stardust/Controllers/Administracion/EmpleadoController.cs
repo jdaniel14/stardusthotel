@@ -198,10 +198,11 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Editar(horario horariobeam)
         {
+            System.Diagnostics.Debug.WriteLine(" codigo =");
             //horariobeam.ID =26 ;
           // horariobeam.idempleado = 21;
             empleadoFac.modificarHorario(horariobeam);
-            System.Diagnostics.Debug.WriteLine(" antes del editar idempleado  =" + horariobeam.idempleado);
+            System.Diagnostics.Debug.WriteLine(" despues del editar idempleado  =" + horariobeam.idempleado);
             return RedirectToAction("ListH", new { id = horariobeam.idempleado});
         }
 
