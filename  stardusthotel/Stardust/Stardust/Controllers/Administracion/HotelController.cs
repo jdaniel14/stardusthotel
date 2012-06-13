@@ -51,6 +51,7 @@ namespace Stardust.Controllers
                 if (ModelState.IsValid)
                 {
                     var hotel = Mapper.Map<HotelViewModelCreate, HotelBean>(hotelVWC);
+                    hotel.estado = true;
                     hotelFac.registrarHotel(hotel);
                     return RedirectToAction("List"); //despues de crear a donde quieres que vaya???
                 }
@@ -90,7 +91,6 @@ namespace Stardust.Controllers
             return View(hotelVWE);
         }
 
-        // POST: /Hotel/Edit/5
         [HttpPost]
         public ActionResult Edit(HotelViewModelEdit hotelVWE)
         {
@@ -112,34 +112,65 @@ namespace Stardust.Controllers
         }
         #endregion
 
+        #region Delete
         // GET: /Hotel/Delete/5
         public ActionResult Delete(int id)
         {
-            ViewBag.depend = hotelFac.getDependencias(id);
-            return View(hotelFac.getHotel(id));
+            HotelBean hotel = hotelFac.getHotel(id);
+            var hotelVMDe = Mapper.Map<HotelBean, HotelViewModelDelete>(hotel);
+            hotelVMDe.nombreDepartamento = Utils.getNombreDepartamento(hotelVMDe.idDepartamento);
+            hotelVMDe.nombreProvincia = Utils.getNombreProvincia(hotelVMDe.idDepartamento, hotelVMDe.idProvincia);
+            hotelVMDe.nombreDistrito = Utils.getNombreDistrito(hotelVMDe.idDepartamento, hotelVMDe.idProvincia, hotelVMDe.idDistrito);
+
+            hotelVMDe.nTipoHabitacion = hotelFac.getNTipoHabitacionesXHotel(hotelVMDe.ID);
+            hotelVMDe.nHabitacion = hotelFac.getNHabitacionesXHotel(hotelVMDe.ID);
+            hotelVMDe.nAmbientes = hotelFac.getNAmbientesXHotel(hotelVMDe.ID);
+            hotelVMDe.nServicios = hotelFac.getNServiciosXHotel(hotelVMDe.ID);
+            hotelVMDe.nPromociones = hotelFac.getNPromocionesXHotel(hotelVMDe.ID);
+            hotelVMDe.nAlmacenes = hotelFac.getNAlmacenesXHotel(hotelVMDe.ID);
+
+            return View(hotelVMDe);
         }
 
-        // POST: /Hotel/Delete/5
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(HotelViewModelDelete hotelVMD)
         {
-            hotelFac.eliminarHotel(id);
-            return RedirectToAction("List");
+            try
+            {
+                hotelFac.desactivarHotel(hotelVMD.ID);
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(hotelVMD);
+            }
         }
+        #endregion
 
         #region List
-        public ActionResult List() {
-            List<HotelBean> lstHotel = hotelFac.getHoteles();
-            List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
-            foreach (HotelBean hotel in lstHotel)
+        public ActionResult List() 
+        {
+            try
             {
-                HotelViewModelList hotelAux = Mapper.Map<HotelBean, HotelViewModelList>(hotel);
-                hotelAux.nombreDepartamento = Utils.getNombreDepartamento(hotelAux.idDepartamento);
-                hotelAux.nombreProvincia = Utils.getNombreProvincia(hotelAux.idDepartamento, hotelAux.idProvincia);
-                hotelAux.nombreDistrito = Utils.getNombreDistrito(hotelAux.idDepartamento, hotelAux.idProvincia, hotelAux.idDistrito);
-                hotelVML.Add(hotelAux);
+                List<HotelBean> lstHotel = hotelFac.getHotelesActivos();
+                //List<HotelBean> lstHotel = hotelFac.getHoteles();
+                List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
+                foreach (HotelBean hotel in lstHotel)
+                {
+                    HotelViewModelList hotelAux = Mapper.Map<HotelBean, HotelViewModelList>(hotel);
+                    hotelAux.nombreDepartamento = Utils.getNombreDepartamento(hotelAux.idDepartamento);
+                    hotelAux.nombreProvincia = Utils.getNombreProvincia(hotelAux.idDepartamento, hotelAux.idProvincia);
+                    hotelAux.nombreDistrito = Utils.getNombreDistrito(hotelAux.idDepartamento, hotelAux.idProvincia, hotelAux.idDistrito);
+                    hotelVML.Add(hotelAux);
+                }
+                return View(hotelVML);
             }
-            return View(hotelVML);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
         }
         #endregion
 
@@ -148,7 +179,7 @@ namespace Stardust.Controllers
             TipoHabitacionFacade tipoFac = new TipoHabitacionFacade();
             ViewBag.tipos = tipoFac.listarTipoHabitacion();
 
-            ViewBag.hoteles = hotelFac.getHoteles();
+            ViewBag.hoteles = hotelFac.getHotelesActivos();
             //ViewBag.hoteles = hotelFac.getHotel( id );
 
             return View();
