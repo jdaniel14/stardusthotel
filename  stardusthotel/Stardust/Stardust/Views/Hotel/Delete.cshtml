@@ -1,17 +1,14 @@
-﻿@model Stardust.Models.HotelBean
+﻿@model Stardust.Models.HotelViewModelDelete
 
 @{
     ViewBag.Title = "Eliminar Hotel";
 }
 
-@if (ViewBag.depend == 0)
-{
-
 <h3>Seguro de querer eliminar este hotel?</h3>
 
 <fieldset>
     <div class = "widget" >
-        <div class = "title"><h6>Detalles del hotel</h6></div>
+        <div class = "title"><h6>@ViewBag.Title</h6></div>
 
         <div class="formRow">
             @Html.LabelFor(model => model.nombre)
@@ -32,25 +29,68 @@
         </div>
 
         <div class="formRow">
+            @Html.LabelFor(model => model.nombreDepartamento)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDepartamento)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreProvincia)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreProvincia)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
             @Html.LabelFor(model => model.nombreDistrito)
             <div class = "formRight" >@Html.DisplayFor(model => model.nombreDistrito)</div>
             <div class = "clear" ></div>
         </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nTipoHabitacion)
+            <div class = "formRight" >
+                @Html.DisplayFor(model => model.nTipoHabitacion)
+            </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nHabitacion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nHabitacion)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nAmbientes)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nAmbientes)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nServicios)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nServicios)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nPromociones)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nPromociones)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nAlmacenes)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nAlmacenes)</div>
+            <div class = "clear" ></div>
+        </div>
+
     </div>
 </fieldset>
 
-using (Html.BeginForm())
+@using( @Html.BeginForm( "Delete" , "Hotel" , FormMethod.Post , new { @class = "form" } ) )
 {
     <p>
         <input type="submit" value="Eliminar" class = "redB"/> |
-        @Html.ActionLink("Regresar", "List")
-    </p>
-}
-
-}
-else { 
-    <h3>Imposible eliminar este hotel. Ya se le han asignado tipos de habitación.</h3>
-    <p>
         @Html.ActionLink("Regresar", "List")
     </p>
 }
