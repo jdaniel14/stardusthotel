@@ -1,9 +1,10 @@
 ﻿@model Stardust.Models.Horario
 
-
 @{
-    ViewBag.Title = "Crear Horario";
+    ViewBag.Title = "Editar Horario";
 }
+
+<h2>Modificar Horario Asignado</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -15,23 +16,22 @@
     </div>
 }
 
-@using (Html.BeginForm("crearhorario", "Empleado", FormMethod.Post, new { @class = "form", id = "validate" }))
+@using (Html.BeginForm("EditarHorario", "Empleado",  FormMethod.Post, new { @class = "form" }))
 {
     @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6>Crear Horario</h6></div>
-
-            @*<div class = "formRow" >
-                @Html.LabelFor( model => model.nombreEmpleado )
-                <div class = "formRight" > @Html.DropDownListFor( model => model.nombreEmpleado , new SelectList( ViewBag.empleados , "ID" , "nombres" ) , "Elija un usuario... " ) </div>
-                <div class = "clear" ></div>
-            </div>*@
+            <div class = "title" ><h6> Editar Horario </h6></div>
 
             <div class = "formRow" >
-                @Html.LabelFor( model => model.nombreEmpleado )
-                 
-                <div class = "formRight" > @Html.DropDownListFor(model => model.idEmpleado, new SelectList(ViewBag.empleados, "ID", "nombreEmpleado"), "Elija un empleado... ") </div>
+                @Html.LabelFor(model => model.nombreEmpleado)
+                <div class = "formRight" > @Html.DisplayFor(model => model.nombreEmpleado) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" style = "display:none" >
+                @Html.LabelFor(model => model.nombreEmpleado)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.idEmpleado) </div>
                 <div class = "clear" ></div>
             </div>
 
@@ -40,17 +40,19 @@
                 <div class = "formRight" > @Html.TextBoxFor(model => model.fechaInicioHorario, new { @class = "datepicker" }) </div>
                 <div class = "clear" ></div>
             </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.fechaFinHorario )
+             <div class = "formRow" >
+                @Html.LabelFor(model => model.fechaFinHorario)
                 <div class = "formRight" > @Html.TextBoxFor(model => model.fechaFinHorario, new { @class = "datepicker" }) </div>
                 <div class = "clear" ></div>
-            </div>
+            </div> 
+            
         </div>
         <p>
-            <input class = "redB" type="submit" value=" Siguiente " />
+            <input class = "redB" type="submit" value="Guardar" />
         </p>
     </fieldset>
 }
 
-<p></p><p></p><p></p><p></p><p></p><p></p><p></p>
+<div>
+    @Html.ActionLink("Regresar", "List")
+</div>

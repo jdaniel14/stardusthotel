@@ -11,7 +11,6 @@ namespace Stardust.Models
     {
         public static String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         
-
         public static List<Departamento> listarDepartamentos() {
             SqlConnection objDB = null;
             try
@@ -230,6 +229,12 @@ namespace Stardust.Models
             objParametro.ParameterName = nombreParametro;
             objParametro.Value = valorParametro ?? DBNull.Value;
             objQuery.Parameters.Add(objParametro);
+        }
+
+        public static String DateToString(DateTime date) { 
+            return date.Year + "-" +
+                    (date.Month < 10 ? "0" + date.Month : "" + date.Month) + "-" +
+                    (date.Day < 10 ? "0" + date.Day : "" + date.Day);
         }
     }
 }

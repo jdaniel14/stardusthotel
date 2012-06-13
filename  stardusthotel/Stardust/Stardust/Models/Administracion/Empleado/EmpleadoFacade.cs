@@ -29,26 +29,20 @@ namespace Stardust.Models
             return empleadoServ.listarEmpleados();
         }
 
-        public void asignarhorario(horario horar)
-        {
-            empleadoServ.asignarhorario(horar);
-
+        public int asignarHorario(Horario horario){
+            return empleadoServ.asignarHorario(horario);
         }
 
-        public horario gethorario(int id)
-        {
-            return empleadoServ.gethorario(id);
-
+        public Horario getHorario(int id){
+            return empleadoServ.getHorario(id);
         }
 
-        public void modificarHorario(horario h)
-        {
-            empleadoServ.modificarHorario(h);
+        public void modificarHorario(Horario horario){
+            empleadoServ.modificarHorario( horario ) ;
         }
 
-        public List<horario> listarHorario(int id)
-        {
-            return empleadoServ.listarHorario(id);
+        public List<Horario> listarHorario(int id){
+            return empleadoServ.listarHorario( id ) ;
         }
     }
 }
