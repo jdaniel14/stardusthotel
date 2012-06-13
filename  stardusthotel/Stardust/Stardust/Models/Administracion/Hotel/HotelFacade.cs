@@ -18,6 +18,11 @@ namespace Stardust.Models
             return hotelServ.getHoteles();
         }
 
+        public List<HotelBean> getHotelesActivos()
+        {
+            return hotelServ.getHotelesActivos();
+        }
+
         public void registrarHotel(HotelBean hotel) {
             hotelServ.registrarHotel(hotel);
         }
@@ -26,8 +31,9 @@ namespace Stardust.Models
             hotelServ.actualizarHotel(hotel);
         }
 
-        public void eliminarHotel(int id) {
-            hotelServ.eliminarHotel(id);
+        public void desactivarHotel(int id)
+        {
+            hotelServ.desactivarHotel(id);
         }
 
         public void registrarTipoHabitacion(TipoHabitacionxHotel tipo) {
@@ -38,8 +44,37 @@ namespace Stardust.Models
             return hotelServ.listarTipos(id);
         }
 
-        public int getDependencias(int id) {
-            return hotelServ.getDependencias(id);
+        //Parte para dar información antes de desactivar un Hotel
+        //--------------------------------------------------------
+        public int getNHabitacionesXHotel(int idHotel)
+        {
+            return hotelServ.getNHabitacionesXHotel(idHotel);
         }
+
+        public int getNTipoHabitacionesXHotel(int idHotel)
+        {
+            return hotelServ.getNTipoHabitacionesXHotel(idHotel);
+        }
+
+        public int getNAmbientesXHotel(int idHotel)
+        {
+            return hotelServ.getNAmbientesXHotel(idHotel);
+        }
+
+        public int getNServiciosXHotel(int idHotel)
+        {
+            return hotelServ.getNServiciosXHotel(idHotel);
+        }
+
+        public int getNPromocionesXHotel(int idHotel)
+        {
+            return hotelServ.getNPromocionesXHotel(idHotel);
+        }
+
+        public int getNAlmacenesXHotel(int idHotel)
+        {
+            return hotelServ.getNAlmacenesXHotel(idHotel);
+        }
+        //--------------------------------------------------------
     }
 }

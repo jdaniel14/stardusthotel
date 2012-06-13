@@ -43,6 +43,7 @@ namespace Stardust.Models
                     hotel.idDistrito = Convert.ToInt32(objDataReader["idDistrito"]);
                     hotel.idProvincia = Convert.ToInt32(objDataReader["idProvincia"]);
                     hotel.idDepartamento = Convert.ToInt32(objDataReader["idDepartamento"]);
+                    hotel.estado = Convert.ToBoolean(objDataReader["estado"]);
                 }
                 return hotel;
             }
@@ -61,7 +62,7 @@ namespace Stardust.Models
             try
             {
                 objDB = new SqlConnection(cadenaDB);
-                List<HotelBean> listaHoteles = null;
+                List<HotelBean> listaHoteles = new List<HotelBean>();
 
                 objDB.Open();
                 String strQuery = "SELECT * FROM Hotel";
@@ -71,22 +72,73 @@ namespace Stardust.Models
 
                 if (objDataReader.HasRows)
                 {
-                    listaHoteles = new List<HotelBean>();
+                    //listaHoteles = new List<HotelBean>();
                     while (objDataReader.Read())
                     {
                         HotelBean hotel = new HotelBean();
 
-                        hotel.ID = Convert.ToInt32(objDataReader[0]);
-                        hotel.nombre = Convert.ToString(objDataReader[1]);
-                        hotel.razonSocial = Convert.ToString(objDataReader[2]);
-                        hotel.direccion = Convert.ToString(objDataReader[3]);
-                        hotel.tlf1 = Convert.ToString(objDataReader[4]);
-                        hotel.tlf2 = Convert.ToString(objDataReader[5]);
-                        hotel.email = Convert.ToString(objDataReader[6]);
-                        hotel.nroPisos = Convert.ToInt32(objDataReader[7]);
+                        hotel.ID = Convert.ToInt32(objDataReader["idHotel"]);
+                        hotel.nombre = Convert.ToString(objDataReader["nombre"]);
+                        hotel.razonSocial = Convert.ToString(objDataReader["razonSocial"]);
+                        hotel.direccion = Convert.ToString(objDataReader["direccion"]);
+                        hotel.tlf1 = Convert.ToString(objDataReader["tlf1"]);
+                        hotel.tlf2 = Convert.ToString(objDataReader["tlf2"]);
+                        hotel.email = Convert.ToString(objDataReader["email"]);
+                        hotel.nroPisos = Convert.ToInt32(objDataReader["nroPisos"]);
                         hotel.idDepartamento = Convert.ToInt32(objDataReader["idDepartamento"]);
                         hotel.idProvincia = Convert.ToInt32(objDataReader["idProvincia"]);
                         hotel.idDistrito = Convert.ToInt32(objDataReader["idDistrito"]);
+                        hotel.estado = Convert.ToBoolean(objDataReader["estado"]);
+
+                        listaHoteles.Add(hotel);
+                    }
+                }
+
+                return listaHoteles;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+
+        }
+
+        public List<HotelBean> getHotelesActivos()
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<HotelBean> listaHoteles = new List<HotelBean>();
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM Hotel WHERE estado = 1"; //obtener todos los hoteles activos
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
+
+                if (objDataReader.HasRows)
+                {
+                    //listaHoteles = new List<HotelBean>();
+                    while (objDataReader.Read())
+                    {
+                        HotelBean hotel = new HotelBean();
+
+                        hotel.ID = Convert.ToInt32(objDataReader["idHotel"]);
+                        hotel.nombre = Convert.ToString(objDataReader["nombre"]);
+                        hotel.razonSocial = Convert.ToString(objDataReader["razonSocial"]);
+                        hotel.direccion = Convert.ToString(objDataReader["direccion"]);
+                        hotel.tlf1 = Convert.ToString(objDataReader["tlf1"]);
+                        hotel.tlf2 = Convert.ToString(objDataReader["tlf2"]);
+                        hotel.email = Convert.ToString(objDataReader["email"]);
+                        hotel.nroPisos = Convert.ToInt32(objDataReader["nroPisos"]);
+                        hotel.idDepartamento = Convert.ToInt32(objDataReader["idDepartamento"]);
+                        hotel.idProvincia = Convert.ToInt32(objDataReader["idProvincia"]);
+                        hotel.idDistrito = Convert.ToInt32(objDataReader["idDistrito"]);
+                        hotel.estado = Convert.ToBoolean(objDataReader["estado"]);
 
                         listaHoteles.Add(hotel);
                     }
@@ -111,19 +163,20 @@ namespace Stardust.Models
                 objDB = new SqlConnection(cadenaDB);
                 objDB.Open();
 
-                String strQuery = "Insert into Hotel (nombre, razonSocial, direccion, tlf1, tlf2, email, nroPisos, idDistrito, idProvincia, idDepartamento) values " +
-                                    "(@nombre, @razonSocial, @direccion, @tlf1, @tlf2, @email, @nroPisos, @idDistrito, @idProvincia, @idDepartamento)";
+                String strQuery = "Insert into Hotel (nombre, razonSocial, direccion, tlf1, tlf2, email, nroPisos, idDistrito, idProvincia, idDepartamento, estado) values " +
+                                    "(@nombre, @razonSocial, @direccion, @tlf1, @tlf2, @email, @nroPisos, @idDistrito, @idProvincia, @idDepartamento, @estado)";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                DAO.agregarParametro(objQuery, "@nombre", hotel.nombre);
-                DAO.agregarParametro(objQuery, "@razonSocial", hotel.razonSocial);
-                DAO.agregarParametro(objQuery, "@direccion", hotel.direccion);
-                DAO.agregarParametro(objQuery, "@tlf1", hotel.tlf1);
-                DAO.agregarParametro(objQuery, "@tlf2", hotel.tlf2);
-                DAO.agregarParametro(objQuery, "@email", hotel.email);
-                DAO.agregarParametro(objQuery, "@nroPisos", hotel.nroPisos);
-                DAO.agregarParametro(objQuery, "@idDistrito", hotel.idDistrito);
-                DAO.agregarParametro(objQuery, "@idProvincia", hotel.idProvincia);
-                DAO.agregarParametro(objQuery, "@idDepartamento", hotel.idDepartamento);
+                Utils.agregarParametro(objQuery, "@nombre", hotel.nombre);
+                Utils.agregarParametro(objQuery, "@razonSocial", hotel.razonSocial);
+                Utils.agregarParametro(objQuery, "@direccion", hotel.direccion);
+                Utils.agregarParametro(objQuery, "@tlf1", hotel.tlf1);
+                Utils.agregarParametro(objQuery, "@tlf2", hotel.tlf2);
+                Utils.agregarParametro(objQuery, "@email", hotel.email);
+                Utils.agregarParametro(objQuery, "@nroPisos", hotel.nroPisos);
+                Utils.agregarParametro(objQuery, "@idDistrito", hotel.idDistrito);
+                Utils.agregarParametro(objQuery, "@idProvincia", hotel.idProvincia);
+                Utils.agregarParametro(objQuery, "@idDepartamento", hotel.idDepartamento);
+                Utils.agregarParametro(objQuery, "@estado", hotel.estado);
 
                 objQuery.ExecuteNonQuery();
             }
@@ -136,7 +189,7 @@ namespace Stardust.Models
             }
         }
 
-        public int buscarHotel(HotelBean hotel)
+        public int buscarHotel(HotelBean hotel)// buscar a un hotel con características determinadas
         {
             SqlConnection objDB = null;
             try
@@ -183,7 +236,7 @@ namespace Stardust.Models
                 String strQuery = "UPDATE Hotel SET nombre = @nombre, razonSocial = @razonSocial, direccion = @direccion, " +
                                     "tlf1 = @tlf1, tlf2 = @tlf2, email = @email, nroPisos = @nroPisos, " +
                                     "idDepartamento = @idDepartamento, idProvincia = @idProvincia, idDistrito = @idDistrito " +
-                                    "where idHotel = @idHotel";
+                                    "WHERE idHotel = @idHotel";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
 
                 Utils.agregarParametro(objQuery, "@idHotel", hotel.ID);
@@ -210,22 +263,60 @@ namespace Stardust.Models
             }
         }
 
-        public void eliminarHotel(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+        /*
+         * la eliminación del hotel es solo un cambio de estado porque en verdad no se debe poder eliminar la información
+         * porque si no se pierde referencia de las Promociones, Tipos de Habitación por Hotel, Almacenes,
+         * Servicios, Ambientes y Habitaciones
+         */
+        public void desactivarHotel(int idHotel) {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                //this.eliminarAlmacen(id);
 
-            this.eliminarAlmacen(id);
-            
-            sql.Open();
+                objDB.Open();
+                String strQuery = "UPDATE Hotel SET estado = 0 WHERE idHotel = @idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
 
-                String command = "Delete from Hotel where idHotel = " + id;
-
-                SqlCommand query = new SqlCommand(command, sql);
-
-                query.ExecuteNonQuery();
-
-            sql.Close();
+                objQuery.ExecuteNonQuery();
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
         }
 
+        public void activarHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                //this.eliminarAlmacen(id);
+
+                objDB.Open();
+                String strQuery = "UPDATE SET estado = 1 WHERE idHotel = @idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                objQuery.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        //
         public void registrarTipoHabitacion(TipoHabitacionxHotel tipoHabitacion) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
@@ -243,6 +334,7 @@ namespace Stardust.Models
             sql.Close();
         }
 
+        //
         public List<TipoHabitacionxHotel> listarTipos(int id) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
@@ -297,6 +389,7 @@ namespace Stardust.Models
             }
         }
 
+        //
         public void eliminarAlmacen(int idHotel) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
@@ -310,6 +403,7 @@ namespace Stardust.Models
             sql.Close();
         }
 
+        //
         public int getAlmacen(int idHotel) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
@@ -329,8 +423,181 @@ namespace Stardust.Models
             return resp;
         }
 
-        public int getDependencias(int id) {
-            return this.listarTipos(id).Count;
+        //Parte para dar información antes de desactivar un Hotel
+        //--------------------------------------------------------
+        public int getNHabitacionesXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) " + 
+                                "FROM Hotel A, TipoHabitacionXHotel B, Habitacion C " +
+                                "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel and " +
+                                "B.idHotel = C.idHotel and B.idTipoHabitacion = C.idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                objReader.Read();
+                return Convert.ToInt32(objReader[0]);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+
+            //preguntar si tiene habitaciones
+            //en caso no tenga, se pregunta si tiene ambientes
+            //en caso no tenga, se pregunta si tiene servicios
         }
+
+        public int getNTipoHabitacionesXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) FROM Hotel A, TipoHabitacionXHotel B " +
+                                "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                objReader.Read();
+                return Convert.ToInt32(objReader[0]);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public int getNAmbientesXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) FROM Hotel A, Ambiente B " +
+                                "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                objReader.Read();
+                return Convert.ToInt32(objReader[0]);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public int getNServiciosXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) FROM Hotel A, ServicioXHotel B " +
+                                "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                objReader.Read();
+                return Convert.ToInt32(objReader[0]);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public int getNPromocionesXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) FROM Hotel A, Promocion B " +
+                                "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                objReader.Read();
+                return Convert.ToInt32(objReader[0]);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public int getNAlmacenesXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) FROM Hotel A, Almacen B " +
+                                "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                objReader.Read();
+                return Convert.ToInt32(objReader[0]);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+        //--------------------------------------------------------
     }
 }
