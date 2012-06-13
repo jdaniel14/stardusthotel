@@ -36,12 +36,24 @@ namespace Stardust.Models
             hotelDAO.desactivarHotel(id);
         }
 
-        public void registrarTipoHabitacion(TipoHabitacionxHotel tipo) {
+        public void registrarTipoHabitacion(TipoHabitacionXHotel tipo)
+        {
             hotelDAO.registrarTipoHabitacion(tipo);
         }
 
-        public List<TipoHabitacionxHotel> listarTipos(int id) {
-            return hotelDAO.listarTipos(id);
+        public List<TipoHabitacion> getTipoHabitacionXHotel(int id)
+        {
+            return hotelDAO.getTipoHabitacionXHotel(id);
+        }
+
+        public List<TipoHabitacion> getTipoHabitaciones()
+        {
+            return hotelDAO.getTipoHabitaciones();
+        }
+
+        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            return hotelDAO.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
         }
 
         //Parte para dar información antes de desactivar un Hotel

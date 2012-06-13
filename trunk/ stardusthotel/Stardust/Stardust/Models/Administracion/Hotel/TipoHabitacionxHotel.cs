@@ -6,19 +6,56 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
-    public class TipoHabitacionxHotel
+    public class TipoHabitacion
     {
-        [Display( Name = "Tipo de Habitación" ) ]
-        public int idTipoHabitacion { get; set; }
+        [Key]
+        public int ID { get; set; }
+        
+        [Display(Name = "Tipo de Habitación")]
+        public string nombre { get; set; }
 
-        public string nombreTipoHabitacion { get; set; }
-
-        [Display( Name = "Hotel" ) ]
-        public int idHotel { get; set; }
-
-        [Display( Name = "Precio base" ) ]
-        [Range( 0 , 10000 )]
-        public decimal precioBase { get; set; }
+        [Display( Name = "Descripcion" ) ]
+        public string descripcion { get; set; }
 
     }
+
+    public class TipoHabitacionXHotel
+    {
+        public int idHotel { get; set; }
+        public int ID { get; set; }
+        public decimal precio { get; set; }
+    }
+
+    public class TipoHabitacionXHotelViewModelCreate
+    {
+        [Display(Name="Hotel")]
+        [Required(ErrorMessage="Seleccione un Hotel")]
+        public int idHotel { get; set; }
+
+        [Key]
+        [Display(Name = "Tipo de Habitacion")]
+        [Required(ErrorMessage="Seleccion un Tipo de Habitacion")]
+        public int ID { get; set; }
+        
+        [Display(Name = "Precio")]
+        [Required(ErrorMessage="Ingrese el precio")]
+        public decimal precio { get; set; }
+
+        public List<HotelBean> Hoteles { get; set; }
+        public List<TipoHabitacion> TipoHabitaciones { get; set; }
+
+    }
+
+    public class TipoHabitacionXHotelViewModelList
+    {
+        
+        [Key]
+        public int ID { get; set; } //facilita la busqueda del precio, por eso lo jalo
+        public string nombre { get; set; }
+        public string descripcion { get; set; }
+
+        //public string nombreHotel { get; set; }
+        public decimal precio { get; set; }
+    }
+
 }
