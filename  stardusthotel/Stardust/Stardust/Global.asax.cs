@@ -44,6 +44,7 @@ namespace Stardust
             Mapper.CreateMap<HotelBean, HotelViewModelEdit>();
             Mapper.CreateMap<HotelViewModelEdit, HotelBean>();
             Mapper.CreateMap<HotelBean, HotelViewModelList>();
+            Mapper.CreateMap<HotelBean, HotelViewModelDelete>();
                 //.ForMember(dest => dest.nombre, opt => opt.MapFrom(src => src.nombre))
                 //.ForMember(dest => dest.razonSocial, opt => opt.MapFrom(src => src.razonSocial))
                 //.ForMember(dest => dest.direccion, opt => opt.MapFrom(src => src.direccion))
