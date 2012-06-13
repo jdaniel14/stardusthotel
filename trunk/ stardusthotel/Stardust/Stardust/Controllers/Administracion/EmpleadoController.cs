@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Stardust.Models;
 
 namespace Stardust.Controllers
-{ 
+{
     public class EmpleadoController : Controller
     {
         EmpleadoFacade empleadoFac = new EmpleadoFacade();
@@ -26,7 +26,7 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            return View( empleadoFac.getEmpleado( id ) ) ;
+            return View(empleadoFac.getEmpleado(id));
         }
 
         //
@@ -36,9 +36,9 @@ namespace Stardust.Controllers
         {
             UsuarioFacade usuarioFac = new UsuarioFacade();
             ViewBag.empleados = usuarioFac.listarUsuarios();
-            
+
             return View();
-        } 
+        }
 
         //
         // POST: /Empleado/Create
@@ -49,13 +49,13 @@ namespace Stardust.Controllers
             empleadoFac.registrarEmpleado(empleadobean);
             return RedirectToAction("List");
         }
-        
+
         //
         // GET: /Empleado/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
-            return View( empleadoFac.getEmpleado( id ) );
+            return View(empleadoFac.getEmpleado(id));
         }
 
         //
@@ -70,7 +70,7 @@ namespace Stardust.Controllers
 
         //
         // GET: /Empleado/Delete/5
- 
+
         public ActionResult Delete(int ID)
         {
             return View(empleadoFac.getEmpleado(ID));
@@ -79,12 +79,12 @@ namespace Stardust.Controllers
         //
         // POST: /Empleado/Delete/5
 
-     //   [HttpPost, ActionName("Delete")]
-    //    public ActionResult DeleteConfirmed(int id)
-     //   {
-    //        empleadoFac.eliminarEmpleado(id);
-     //       return RedirectToAction("List");
-     //   }
+        //   [HttpPost, ActionName("Delete")]
+        //    public ActionResult DeleteConfirmed(int id)
+        //   {
+        //        empleadoFac.eliminarEmpleado(id);
+        //       return RedirectToAction("List");
+        //   }
 
         [HttpPost, ActionName("Delete")]
         public JsonResult DeleteConfirmed(int ID)
@@ -101,14 +101,16 @@ namespace Stardust.Controllers
             //base.Dispose(disposing);
         }
 
-        public ViewResult List() {
+        public ViewResult List()
+        {
             var model = empleadoFac.listarEmpleados();
-            return View( model );
+            return View(model);
         }
 
         //HORARIO
 
-        public ActionResult indice(){
+        public ActionResult indice()
+        {
             EmpleadoFacade empleado = new EmpleadoFacade();
 
             ViewBag.empleados = empleado.listarEmpleados();
@@ -119,17 +121,17 @@ namespace Stardust.Controllers
         public ActionResult indice(EmpleadoBean empl)
         {
             int codigoempleado = empl.ID;
-           // empleadoFac.listarHorario(codigoempleado);
-            return RedirectToAction("ListH",  new { id = codigoempleado });
+            // empleadoFac.listarHorario(codigoempleado);
+            return RedirectToAction("ListH", new { id = codigoempleado });
 
-            
+
         }
 
-    //crear horarioo   
+        //crear horarioo   
 
         public ActionResult crearhorario()
         {
-            
+
             EmpleadoFacade empleadoFac = new EmpleadoFacade();
             ViewBag.empleados = empleadoFac.listarEmpleados();
             return View();
@@ -138,16 +140,16 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult crearhorario(horario horariobeam)
         {
-            
+
             empleadoFac.asignarhorario(horariobeam);
-        
+
             var m = horariobeam;
             int codigoempleado = horariobeam.idempleado;
-           // return RedirectToAction("Creardetalle", m
-             return RedirectToAction("ListH",  new { id = codigoempleado });
-            
+            // return RedirectToAction("Creardetalle", m
+            return RedirectToAction("ListH", new { id = codigoempleado });
+
         }
-//crear detalle 
+        //crear detalle 
         /*
         public ActionResult Creardetalle( horario horariobeam)
         {
@@ -176,11 +178,11 @@ namespace Stardust.Controllers
 
         public ViewResult ListH(int id)
         {
-            
+
             var model = empleadoFac.listarHorario(id);
             return View(model);
 
-           // return View()
+            // return View()
         }
 
 
@@ -198,16 +200,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Editar(horario horariobeam)
         {
-            System.Diagnostics.Debug.WriteLine(" codigo =");
             //horariobeam.ID =26 ;
-          // horariobeam.idempleado = 21;
+            // horariobeam.idempleado = 21;
             empleadoFac.modificarHorario(horariobeam);
-            System.Diagnostics.Debug.WriteLine(" despues del editar idempleado  =" + horariobeam.idempleado);
-            return RedirectToAction("ListH", new { id = horariobeam.idempleado});
+            System.Diagnostics.Debug.WriteLine(" antes del editar idempleado  =" + horariobeam.idempleado);
+            return RedirectToAction("ListH", new { id = horariobeam.idempleado });
         }
 
 
- //horariodetalle
+        //horariodetalle
         /*
         public ViewResult listarDetalle(int idhorario)
         {
@@ -239,5 +240,5 @@ namespace Stardust.Controllers
 
     }
 
-    
+
 }
