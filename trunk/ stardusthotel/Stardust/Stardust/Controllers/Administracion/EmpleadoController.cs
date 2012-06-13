@@ -134,7 +134,7 @@ namespace Stardust.Controllers
             {
                 int resp = empleadoFac.asignarHorario(horario);
                 if (resp == -1) {
-                    ViewBag.error = "Existe un horario que se cruza con dichas fechas.";
+                    ViewBag.error = "Existe un horario que se cruza con dichas fechas";
                     ViewBag.empleados = empleadoFac.listarEmpleados();
                     return View();
                 }
@@ -167,8 +167,13 @@ namespace Stardust.Controllers
             DateTime fin = horario.fechaFinHorario;
             if (ini <= fin)
             {
-                empleadoFac.modificarHorario(horario);
-                return RedirectToAction("ListHorario", new { id = horario.idEmpleado } );
+                int resp = empleadoFac.modificarHorario(horario);
+                if (resp == -1)
+                {
+                    ViewBag.error = "Existe un horario que se cruza con dichas fechas";
+                    return View();
+                }
+                return RedirectToAction("ListHorario", new { id = horario.idEmpleado });
             }
             ViewBag.error = "Ingrese fechas válidas";
             return View();

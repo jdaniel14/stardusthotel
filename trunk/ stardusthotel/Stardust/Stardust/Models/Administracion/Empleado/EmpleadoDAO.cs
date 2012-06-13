@@ -148,7 +148,7 @@ namespace Stardust.Models
                 String fechaIni = Utils.DateToString(horario.fechaInicioHorario);
                 String fechaFin = Utils.DateToString(horario.fechaFinHorario);
 
-                if ( existeHorario( horario.idEmpleado , horario.fechaInicioHorario , horario.fechaFinHorario ) ) return -1;
+                if ( existeHorario( horario.ID , horario.idEmpleado , horario.fechaInicioHorario , horario.fechaFinHorario ) ) return -1;
 
                 String command = "Insert into Horario ( fechaIni , fechaFin, idEmpleado) values ( '"
                                    + fechaIni + "',  '"
@@ -194,7 +194,7 @@ namespace Stardust.Models
             return h;
         }
 
-        public void modificarHorario(Horario horario)
+        public int modificarHorario(Horario horario)
         {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
@@ -202,7 +202,9 @@ namespace Stardust.Models
 
                 String fechaIni = Utils.DateToString(horario.fechaInicioHorario);
                 String fechaFin = Utils.DateToString(horario.fechaFinHorario);
-           
+
+                if (existeHorario(horario.ID , horario.idEmpleado, horario.fechaInicioHorario, horario.fechaFinHorario)) return -1;
+
                 String command = "Update Horario SET "
                                     + "fechaIni = '" + fechaIni
                                     + "', fechaFin = '" + fechaFin
@@ -212,6 +214,8 @@ namespace Stardust.Models
                 query.ExecuteNonQuery();
 
             sql.Close();
+
+            return 0;
         }
 
         public List<Horario> listarHorario(int id)
@@ -248,12 +252,15 @@ namespace Stardust.Models
             return lista;
         }
 
-        public bool existeHorario(int idEmpleado, DateTime fechaIni, DateTime fechaFin) {
+        public bool existeHorario(int idHorario , int idEmpleado, DateTime fechaIni, DateTime fechaFin) {
             List<Horario> listHorarios = this.listarHorario( idEmpleado ) ;
             //System.Diagnostics.Debug.WriteLine("FechaINI = " + Utils.DateToString( fechaIni ) ) ;
             //System.Diagnostics.Debug.WriteLine("FechaFIN = " + Utils.DateToString( fechaFin ) ) ;
             for (int i = 0; i < listHorarios.Count; i++) {
                 Horario horario = listHorarios.ElementAt( i ) ;
+
+                if (horario.ID == idHorario) continue;
+
                 DateTime ini = horario.fechaInicioHorario;
                 DateTime fin = horario.fechaFinHorario;
 

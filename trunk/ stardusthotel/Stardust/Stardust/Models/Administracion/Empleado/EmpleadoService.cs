@@ -37,8 +37,8 @@ namespace Stardust.Models
             return empleadoDAO.getHorario(id);
         }
 
-        public void modificarHorario(Horario horario) {
-            empleadoDAO.modificarHorario(horario);
+        public int modificarHorario(Horario horario) {
+            return empleadoDAO.modificarHorario(horario);
         }
 
         public List<Horario> listarHorario(int id) {
