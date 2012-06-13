@@ -1,33 +1,37 @@
-﻿@model Stardust.Models.TipoHabitacionxHotel
+﻿@model Stardust.Models.TipoHabitacionXHotelViewModelCreate
 
 @{
     ViewBag.Title = "Asignar tipo de habitacion";
 }
 
-<h2> Asignar tipo de habitacion </h2>
+<h2>@ViewBag.Title</h2>
+
+@Html.ValidationSummary(true)
 
 @using (@Html.BeginForm("AsignarTipoHabitacion", "Hotel", FormMethod.Post, new { @class = "form" }))
 { 
-    @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6> Asignar tipo de habitación </h6></div>
+            <div class = "title" ><h6>@ViewBag.Title</h6></div>
 
             <div class = "formRow" >
                 @Html.LabelFor(model => model.idHotel)
-                <div class = "formRight" > @Html.DropDownListFor( model => model.idHotel , new SelectList( ViewBag.hoteles , "ID" , "nombre" ) , "Elija un hotel..." )</div>
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idHotel, new SelectList(Model.Hoteles, "ID", "nombre", Model.idHotel), "Elija un hotel...")
+                </div>
+
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.idTipoHabitacion)
-                <div class = "formRight" >@Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(ViewBag.tipos, "ID", "nombre" ), "Elija un tipo de habitación..." )</div>
+                @Html.LabelFor(model => model.ID)
+                <div class = "formRight" >@Html.DropDownListFor(model => model.ID, new SelectList(Model.TipoHabitaciones, "ID", "nombre", Model.ID), "Elija un tipo de habitación..." )</div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor(model => model.precioBase)
-                <div class = "formRight" > @Html.TextBoxFor(model => model.precioBase) </div>
+                @Html.LabelFor(model => model.precio)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.precio)</div>
                 <div class = "clear" ></div>
             </div>
         </div>
