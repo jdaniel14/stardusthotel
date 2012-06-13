@@ -43,7 +43,7 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.listaHoteles = new HotelFacade().getHoteles();
+            ViewBag.listaHoteles = new HotelFacade().getHotelesActivos();
             ViewBag.listaTipoHabitacion = new List<TipoHabitacionBean>();
             return View();
         } 
