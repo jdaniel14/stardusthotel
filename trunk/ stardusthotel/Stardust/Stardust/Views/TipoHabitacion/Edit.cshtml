@@ -13,7 +13,7 @@
 
 
 @using (Html.BeginForm( "Edit" , "TipoHabitacion" , FormMethod.Post , new { @class = "form", id = "validate" } ) ){
-    @Html.ValidationSummary(false)
+    @Html.ValidationSummary(true)
     <fieldset>
         <div class = "widget" >
             <div class = "title"><h6>Modificar tipo de habitación</h6></div>

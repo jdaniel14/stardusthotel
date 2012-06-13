@@ -34,10 +34,6 @@ namespace Stardust.Models
             return usuarioDAO.listarUsuarios();
         }
 
-        public void asignarHorario(HorarioEmpleadoBean horario) {
-            usuarioDAO.asignarHorario(horario);
-        }
-
         public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {
             return usuarioDAO.buscarUsuario(nombre, apPat, apMat);
         }
