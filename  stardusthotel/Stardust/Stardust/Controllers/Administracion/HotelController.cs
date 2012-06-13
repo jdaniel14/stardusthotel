@@ -78,7 +78,6 @@ namespace Stardust.Controllers
         }
         #endregion
 
-
         #region Edit
         // GET: /Hotel/Edit/5
         public ActionResult Edit(int id)
@@ -151,11 +150,11 @@ namespace Stardust.Controllers
         #region List
         public ActionResult List() 
         {
+            List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
             try
             {
                 List<HotelBean> lstHotel = hotelFac.getHotelesActivos();
                 //List<HotelBean> lstHotel = hotelFac.getHoteles();
-                List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
                 foreach (HotelBean hotel in lstHotel)
                 {
                     HotelViewModelList hotelAux = Mapper.Map<HotelBean, HotelViewModelList>(hotel);
@@ -169,32 +168,69 @@ namespace Stardust.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View();
+                return View(hotelVML);
             }
         }
         #endregion
 
-        public ActionResult AsignarTipoHabitacion()
+        #region AsignarTipoHabitacion
+        public ActionResult AsignarTipoHabitacion(int id)
         {
-            TipoHabitacionFacade tipoFac = new TipoHabitacionFacade();
-            ViewBag.tipos = tipoFac.listarTipoHabitacion();
-
-            ViewBag.hoteles = hotelFac.getHotelesActivos();
-            //ViewBag.hoteles = hotelFac.getHotel( id );
-
-            return View();
+            var tipoHabitacionXhotelVMC = new TipoHabitacionXHotelViewModelCreate();
+            try
+            {
+                tipoHabitacionXhotelVMC.idHotel = id;
+                tipoHabitacionXhotelVMC.Hoteles = hotelFac.getHotelesActivos();
+                tipoHabitacionXhotelVMC.TipoHabitaciones = hotelFac.getTipoHabitaciones();
+                return View(tipoHabitacionXhotelVMC);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(tipoHabitacionXhotelVMC);
+            }
         }
 
         [HttpPost]
-        public ActionResult AsignarTipoHabitacion( TipoHabitacionxHotel tipo ) {
-            hotelFac.registrarTipoHabitacion(tipo);
-            return RedirectToAction("List") ;
+        public ActionResult AsignarTipoHabitacion(TipoHabitacionXHotelViewModelCreate tipoHabitacionXHotelVMC)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var tipoHabitacion = Mapper.Map<TipoHabitacionXHotelViewModelCreate, TipoHabitacionXHotel>(tipoHabitacionXHotelVMC);
+                    hotelFac.registrarTipoHabitacion(tipoHabitacion);
+                    return RedirectToAction("VerTiposHabitacion", new { id = tipoHabitacion.idHotel});
+                }
+                return View(tipoHabitacionXHotelVMC);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(tipoHabitacionXHotelVMC);
+            }
         }
+        #endregion
 
-        public ViewResult VerTiposHabitacion( int id ) {
-            var model = hotelFac.listarTipos(id);
-            ViewBag.hotel = hotelFac.getHotel(id).nombre;
-            return View( model );
+        //Muestra todos los tipos de habitacion que ya han sido asignado a un determinado hotel
+        public ActionResult VerTiposHabitacion(int id)
+        {
+            List<TipoHabitacion> lstTipoHabitacionXHotel = hotelFac.getTipoHabitacionXHotel(id);
+            List<TipoHabitacionXHotelViewModelList> tipoHabitacionXHotelVML =  new List<TipoHabitacionXHotelViewModelList>();
+            //string nombreHotel = hotelFac.getHotel(idHotel).nombre; // uno puede asegurar que todos los tipos de habitacion vienen del mismo hotel
+
+            foreach (TipoHabitacion tipoHXH in lstTipoHabitacionXHotel)
+            {
+                TipoHabitacionXHotelViewModelList tipoHabitacionAux = Mapper.Map<TipoHabitacion, TipoHabitacionXHotelViewModelList>(tipoHXH);
+
+                //tipoHabitacionAux.nombreHotel = nombreHotel;
+                tipoHabitacionAux.precio = hotelFac.getPrecioTipoHabitacionXHotel(id, tipoHabitacionAux.ID);
+                tipoHabitacionXHotelVML.Add(tipoHabitacionAux);
+            }
+
+            ViewBag.nombreHotel = hotelFac.getHotel(id).nombre;
+            ViewBag.idHotel = id;
+            return View(tipoHabitacionXHotelVML);
         }
 
         public ActionResult ValidaEmail(string email)
