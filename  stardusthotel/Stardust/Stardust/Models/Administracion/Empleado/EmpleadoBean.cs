@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
+    #region Empleado
     public class EmpleadoBean
     {
         [Display(Name = "Codigo del Empleado")]
@@ -23,7 +24,9 @@ namespace Stardust.Models
         [Display( Name = "Estado" ) ]
         public string estado { get; set; }
     }
+    #endregion
 
+    #region Horario
     public class Horario
     {
         [Display(Name = "Código de Horario Empleado ")]
@@ -43,51 +46,33 @@ namespace Stardust.Models
         [Display(Name = "Codigo del Empleado")]
         public int idEmpleado { get; set; }
     }
+    #endregion
 
-    public class horariodetalle {
+    #region Detalle Horario
+    public class HorarioDetalle {
 
         [Display(Name = "Codigo del Detalle del Empleado ")]
-        public int idhorariodetalle;
+        public int idHorarioDetalle;
 
         [Display(Name = "Nombre Empleado")]
         public string nombreEmpleado { get; set; }
 
-        [Display(Name = " Dias de la semana")]      
-        public string diasemana;
+        [Display(Name = "Dias de la semana")]      
+        public string diaSemana;
 
-        //solo me importa la hora
-        [Display(Name = "Horario de Entrada ")]
-        public DateTime horasentrada;
+        [Display(Name = "Hora de Entrada")]
+        public DateTime horaEntrada;
 
-         [Display(Name = "Horario de Salida ")]
-        public DateTime horasSalida;
+         [Display(Name = "Hora de Salida")]
+        public DateTime horaSalida;
 
          [Display(Name = "Horario ")]
-        public int horario;
+        public int idHorario;
     }
+    #endregion
 
-    public class horarioasistencia
+    public class HorarioAsistencia
     {
-          [Display(Name = "Codigo de Asistencia")]
-        public int horarioassitencia;
-
-          [DataType(DataType.Date)] 
-
-          [Display(Name = "Hora de Marca")]
-        public string horamarcada;
-
-
-        [DataType(DataType.Time)] 
-          [Display(Name = "Tipo de Estado")]
-        public string tipoE;
-
-          [Display(Name = "Codigo del empleado")]
-        public string estado;
-
-          [Display(Name = "Codigo del Detalle del Empleado")]
-        public int idhorariodetalle;
-
-
 
     }
 }

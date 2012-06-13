@@ -24,17 +24,15 @@
                 <div class = "clear" ></div>
             </div>*@
 
-             
-
             <div class = "formRow" >
                 @Html.LabelFor(model => model.diasemana)
-                <div class = "formRight" > @Html.TextBoxFor(model => model.diasemana) </div>
+                <div class = "formRight" > @Html.DropDownListFor(model => model.diasemana, new SelectList(ViewBag.diassemana,"diassemana"), "Elija un dia... ")) </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
                 @Html.LabelFor(model => model.horasentrada)
-                <div class = "formRight" > @Html.TextBoxFor(model => model.horasentrada) </div>
+                <div class = "formRight" > @Html.TextBoxFor(model => model.horasentrada, new { @class = "datepicker hasTimeEntry"  }) </div>
                 <div class = "clear" ></div>
             </div>
              <div class = "formRow" >
@@ -44,6 +42,18 @@
                 <div class = "clear" ></div>
             </div>
 
+            <div class = "formRow"  style="display:none">
+               
+                @Html.LabelFor(model => model.horario)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.horario) </div>
+                <div class = "clear" ></div>
+            </div>
+            <div class = "formRow"  style="display:none">
+               
+                @Html.LabelFor(model => model.nombreEmpleado)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.nombreEmpleado) </div>
+                <div class = "clear" ></div>
+            </div>
         </div>
         <p>
             <input class = "redB" type="submit" value="Crear" />
