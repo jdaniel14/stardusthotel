@@ -58,6 +58,11 @@ namespace Stardust.Models
         {
             return productoDAO.obteneralmacen(id);
         }
-
+        
+        /*--------------------actualizar stock--------------*/
+        public void actualizarStock(ProductoXAlmacenBean prod)
+        {
+            productoDAO.actualizarStock(prod);
+        }
     }
 }
