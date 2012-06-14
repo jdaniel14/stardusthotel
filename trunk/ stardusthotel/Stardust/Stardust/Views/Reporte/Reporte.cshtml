@@ -1,0 +1,47 @@
+﻿@using Stardust.Models
+@model ProveedorList
+<br />
+
+<div align="center">
+    ASD
+</div>
+<div> </div>
+
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="20%" align="center">
+            Name
+        </td>
+        <td width="50%" align="center">
+            Address
+        </td>
+        <td width="30%" align="center">
+            Place
+        </td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (ProveedorBean proveedor in Model)
+    {
+        <tr border="1" bgcolor="@Odd">
+            <td>@proveedor.razonSocial
+            </td>
+            <td>@proveedor.direccion
+            </td>
+            <td>@proveedor.cargoContacto
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+</table>
