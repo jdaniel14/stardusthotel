@@ -103,7 +103,7 @@
 			<div class="formRow"><span>Fecha de salida</span>                
 				<div class = "formRight" > 
 					<div class="demo">
-						<input type="text" id="FechaSalida"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Buscar" class = "redB" />
+						<input type="text" id="FechaSalida"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id = "buscame" type="submit" value="Buscar" class = "redB" />
 					</div>
 				</div>                
 				<div class="clear"></div>
@@ -113,13 +113,13 @@
 
       
 		
-			<div class = "widget" >
+			<div class = "widget" id = "tipos">
 				<div class="title"><!--img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /--><h6>Tipos de habitacion del hotel</h6></div>
 				<table cellpadding = "0" cellspacing = "0" width = "90%" id = "box-table-a" >
 					<thead>
 						<tr>
 							<th>Tipo de habitación</th>
-							<th>Cantidad Habitaciones</th>
+							<th>Cantidad de Habitaciones</th>
 							<th>Precio unitario($)</th>
                             <th>Subtotal($)</th>
 						</tr>
@@ -139,7 +139,7 @@
 				</table>
 			</div>			
 		
-             <div class="widget">
+             <div class="widget" id = "tipos2">
 			    <div class="title">
 				    <h6>Servicio de Recepcion al aeropueto</h6>
 			    </div>
@@ -186,6 +186,65 @@
 			        </div>  
                 </div>
 
+                <div class="widget" id = "tipos3">
+
+			        <div class="title">
+				        <h6>Servicios Adicionales</h6>
+			        </div>
+
+                    <div class="formRow"><span>Desea contar con servicios adicionales?</span>
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <input type="checkbox" id="checkServices" value="one" /><br />                            
+					    </div>
+				    </div>				    
+			        </div>
+
+                    <div id = "ServiciosAdicionales">
+                        
+                        <div class="formRow"><span>Desayuno</span>
+				            <div class = "formRight" > 
+					            <div class="demo">
+						            <input type="checkbox" id="checkDesayuno" value="one" /><br />                            
+					            </div>
+				            </div>				    
+			            </div>
+
+                        <div class="formRow"><span>Almuerzo</span>
+				            <div class = "formRight" > 
+					            <div class="demo">
+						            <input type="checkbox" id="checkAlmuerzo" value="one" /><br />                            
+					            </div>
+				            </div>				    
+			            </div>
+                    
+                        <div class="formRow"><span>Cena</span>
+				            <div class = "formRight" > 
+					            <div class="demo">
+						            <input type="checkbox" id="checkCena" value="one" /><br />                            
+					            </div>
+				            </div>				    
+			            </div>          
+
+
+                        <div class="formRow"><span>Adicional Servicios</span>                
+				            <div class = "formRight" >                              
+					            <span id = "Adicional">0</span>
+				            </div>                
+				            <div class="clear"></div>
+			            </div>
+
+                        <div class="formRow"><span>Total</span>                
+				            <div class = "formRight" >                              
+					            <span id = "TotalAjeno"></span>
+				            </div>                
+				            <div class="clear"></div>
+			            </div>
+
+                
+                    </div>
+                </div>
+
 		    </div>	        
         
 	@*<p>
@@ -226,7 +285,7 @@
                 
                <div class="clear"></div>
             </div>
-            
+             
             <div id="juridica">
                 <div class="formRow"><span>Razon Social</span>
                 
@@ -258,7 +317,7 @@
                 <div class="formRow"><span>Tarjeta de credito</span>
                 
                    <div class = "formRight" > 
-                        <select>
+                        <select id = "tipoTarjetaJ">
                             <option value = "Visa">Visa</option>
                             <option value = "Mastercard">Mastercard</option>
                         </select>
@@ -276,19 +335,19 @@
                    <div class="clear"></div>
                 </div>
 
-                <div class="formRow"><span>Fecha de caducidad</span>                
+                @*<div class="formRow"><span>Fecha de caducidad</span>                
 				    <div class = "formRight" > 
 					    <div class="demo">
 						    <input type="text" id="FechaCaduca"/>
 					    </div>
 				    </div>                
 				    <div class="clear"></div>
-			    </div>
+			    </div>*@
 
                 <div class="formRow"><span>Comentarios</span>                
 				    <div class = "formRight" > 
 					    <div class="demo">
-						    <textarea></textarea>
+						    <textarea id = "comment"></textarea>
 					    </div>
 				    </div>                
 				    <div class="clear"></div>
@@ -337,7 +396,7 @@
                 <div class="formRow"><span>Tarjeta de credito</span>
                 
                    <div class = "formRight" > 
-                        <select>
+                        <select id = "tipoTarjeta">
                             <option value = "Visa">Visa</option>
                             <option value = "Mastercard">Mastercard</option>
                         </select>
@@ -355,19 +414,19 @@
                    <div class="clear"></div>
                 </div>
 
-                <div class="formRow"><span>Fecha de caducidad</span>                
+                @*<div class="formRow"><span>Fecha de caducidad</span>                
 				    <div class = "formRight" > 
 					    <div class="demo">
 						    <input type="text" id="FechaCaducaNatural"/>
 					    </div>
 				    </div>                
 				    <div class="clear"></div>
-			    </div>
+			    </div>*@
 
                 <div class="formRow"><span>Comentarios</span>                
 				    <div class = "formRight" > 
 					    <div class="demo">
-						    <textarea></textarea>
+						    <textarea id = "commentN"></textarea>
 					    </div>
 				    </div>                
 				    <div class="clear"></div>
