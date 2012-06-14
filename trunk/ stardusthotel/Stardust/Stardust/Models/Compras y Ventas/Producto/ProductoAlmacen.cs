@@ -11,6 +11,7 @@ namespace Stardust.Models
         public int stockmaximo { get; set; }
         public int stockactual { get; set; }
         public int stockminimo { get; set; }
+        public int stocksaliente { get; set; }
         public bool estados { get; set; }
         public bool estado2 { get; set; }
     }
