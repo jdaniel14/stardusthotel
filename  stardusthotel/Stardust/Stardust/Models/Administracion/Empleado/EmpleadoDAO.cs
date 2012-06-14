@@ -32,9 +32,9 @@ namespace Stardust.Models
                  
                 empleado.ID = (int)data.GetValue(0);
 
-                UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
-                empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
-
+                //UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
+                //empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
+                empleado.nombreEmpleado="EMPLEADO :)";
                 empleado.fechaIngreso = (DateTime)data.GetValue(1);
                 //empleado.fechaSalida = (DateTime)data.GetValue(2);
                 empleado.estado = (string)data.GetValue(3);
