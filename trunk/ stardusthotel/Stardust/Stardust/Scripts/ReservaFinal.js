@@ -128,11 +128,16 @@ function enviarDatos() {
 
         var habits = arreglosHabit[id];
 
-        var arregloInterior = new Array();
+        //        var arregloInterior = new Array();
 
-        arregloInterior[0] = id;
-        arregloInterior[1] = cantHabit;
-        arregloInterior[2] = habits;
+        //        arregloInterior[0] = id;
+        //        arregloInterior[1] = cantHabit;
+        //        arregloInterior[2] = habits;
+        var arregloInterior = {
+             tipo : id,
+             cant : cantHabit,
+             list : habits
+        };
 
         listaTipos[i] = arregloInterior;
 
