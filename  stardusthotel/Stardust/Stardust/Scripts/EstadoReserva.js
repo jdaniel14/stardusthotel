@@ -34,6 +34,7 @@ function llegadaReservas(data) {
     var arreglosElim = new Array();
 
     $.each(data, function (i, item) {
+        alert(item.codReserva);
         cant = cant + 1;
 
         result += '<tr id = "linea' + item.codReserva + '" ><td>' + item.nombCliente + '</td>';
