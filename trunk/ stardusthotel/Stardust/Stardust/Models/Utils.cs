@@ -236,5 +236,30 @@ namespace Stardust.Models
                     (date.Month < 10 ? "0" + date.Month : "" + date.Month) + "-" +
                     (date.Day < 10 ? "0" + date.Day : "" + date.Day);
         }
+
+        public static bool comprobarLogin(string usuario, string contrasenia)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM Usuario WHERE user_account = @usuario AND pass = @contrasenia AND estado = 'ACTIVO'";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@usuario", usuario);
+                Utils.agregarParametro(objQuery, "@contrasenia", contrasenia);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                return objReader.HasRows;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
     }
 }

@@ -24,7 +24,8 @@ namespace Stardust.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (loginmodel.Usuario == "stardust" && loginmodel.Contrasenia == "stardust")
+                //if (loginmodel.Usuario == "stardust" && loginmodel.Contrasenia == "stardust")
+                if (Utils.comprobarLogin(loginmodel.Usuario, loginmodel.Contrasenia))
                 {
                     FormsAuthentication.SetAuthCookie(loginmodel.Usuario, false);
                     return RedirectToAction("Index", "Home");
