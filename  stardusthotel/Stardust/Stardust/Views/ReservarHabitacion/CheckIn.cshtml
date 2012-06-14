@@ -10,10 +10,18 @@
 
     <head>
         <title>Reservar Habitacion</title>
+
+        <style>
+        .campo { width: 30em; height: 1.5em; }
+        
+        
+        </style>
+
     </head>
 
     <body>
 
+    <div id = "checkeo">
 
 
         <div class="widget">
@@ -39,7 +47,188 @@
 			<div class="title">
 				<h6>Habitaciones</h6>
 			</div>
-        </div>
+
+            <div class="formRow">
+				        <span>Cantidad de personas a registrar</span>
+				        <div class = "formRight" >
+					        <span>5</span>
+				        </div>
+				        <div class="clear"></div>
+			 </div>
+      </div>      
+                @*Arreglar el javasrcipt para que muestre los datos dinamicamente*@
+                <div class="widget" id = "xtipoHabit1">
+                
+			        <div class="title">
+				        <h6>Matrimonial</h6>
+			        </div>
+                <div id = "tipoHabit1">
+                        <div class="widget" id = "huesped11">
+			            <div class="title">
+				            <h6>Huesped 1</h6>
+			            </div>
+
+                        <div class="formRow">
+				            <span>Nombres</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="nombre11" class = "campo"/>
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+                    
+                        <div class="formRow">
+				            <span>Dni</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="dni11" />
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+
+                        </div>
+                    
+
+                    <div class="widget" id = "huesped12">
+			            <div class="title">
+				            <h6>Huesped 2</h6>
+			            </div>
+
+                        <div class="formRow">
+				            <span>Nombres</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="nombre12" class = "campo"/>
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+                    
+                        <div class="formRow">
+				            <span>Dni</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="dni12" />
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+
+                        </div>
+
+
+
+
+                </div>
+               </div>
+
+
+               @*FIN TIPO 1***************************@
+
+               <div class="widget" id = "xtipoHabit2">
+               
+			        <div class="title">
+				        <h6>Doble</h6>
+			        </div>
+            <div id = "tipoHabit2">
+                        <div class="widget" id = "huesped21">
+			            <div class="title">
+				            <h6>Huesped 1</h6>
+			            </div>
+
+                        <div class="formRow">
+				            <span>Nombres</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="nombre21" class = "campo"/>
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+                    
+                        <div class="formRow">
+				            <span>Dni</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="dni21" />
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+
+                        </div>
+
+                        <div class="widget" id = "huesped22">
+			            <div class="title">
+				            <h6>Huesped 2</h6>
+			            </div>
+
+                        <div class="formRow">
+				            <span>Nombres</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="nombre22" class = "campo"/>
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+                    
+                        <div class="formRow">
+				            <span>Dni</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="dni22" />
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+
+                        </div>  
+                </div>
+               </div>
+
+               @*FIN TIPO 2**************************@
+
+               <div class="widget" id = "xtipoHabit3">
+               
+			        <div class="title">
+				        <h6>Simple</h6>
+			        </div>
+            <div id = "tipoHabit3">
+                        <div class="widget" id = "huesped31">
+			            <div class="title">
+				            <h6>Huesped 1</h6>
+			            </div>
+
+                        <div class="formRow">
+				            <span>Nombres</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="nombre31" class = "campo"/>
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+                    
+                        <div class="formRow">
+				            <span>Dni</span>
+				            <div class = "formRight" >
+					            <input type="text" value="" id="dni31" />
+				            </div>
+				            <div class="clear"></div>
+			            </div>
+
+                        </div>
+               </div>                                
+               </div>
+
+
+              
+
+        <br />
+        <input id = "check" type="submit" value="Check" class = "redB" />
+    </div>
+    
+    
+    <div id = "confirmacion">
+
+    <br />
+    <br />
+    <span>BIENVENIDO!!!!</span>
+    <br />
+    <br />
+    <div id = "imagen"></div>
+    <br />
+    <br />
+    <span>Check In realizado</span>
+    
+    
+    
+    </div>
       
 
     </body>
