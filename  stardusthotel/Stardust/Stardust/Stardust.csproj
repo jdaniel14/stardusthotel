@@ -92,6 +92,7 @@
     <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Compras y Ventas\ReporteController.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,6 +151,10 @@
     <Compile Include="Models\Compras y Ventas\CuentaFacade.cs" />
     <Compile Include="Models\Compras y Ventas\OrdenCompra\OrdenProducto.cs" />
     <Compile Include="Models\Compras y Ventas\OrdenCompra\Producto.cs" />
+    <Compile Include="Models\Compras y Ventas\PagoFacade.cs" />
+    <Compile Include="Models\Compras y Ventas\Pago\PagoDAO.cs" />
+    <Compile Include="Models\Compras y Ventas\Pago\PagoService.cs" />
+    <Compile Include="Models\Compras y Ventas\Pago\ReservaBean.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoAlmacen.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoXAlmacenBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
@@ -4417,6 +4422,8 @@
     <Content Include="Views\Proveedor\Pago.cshtml" />
     <Content Include="Views\Empleado\Buscar.cshtml" />
     <Content Include="Views\Habitacion\Buscar.cshtml" />
+    <Content Include="Views\Pago\Buscar.cshtml" />
+    <Content Include="Views\Pago\Listar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
@@ -4441,7 +4448,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53053</DevelopmentServerPort>
+          <DevelopmentServerPort>62846</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
