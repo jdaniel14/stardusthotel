@@ -29,7 +29,7 @@ namespace Stardust.Models.Servicios
             while (dataReader.Read())
             {
                 HabitacionReserva hab = new HabitacionReserva();
-                hab.idHabitacion = (int)dataReader["idHabitacion"];
+                hab.idHab= (int)dataReader["idHabitacion"];
                 hab.idTipoHabitacion = 0;
                 hab.numero = "";
                 hab.piso = 0;
@@ -63,7 +63,7 @@ namespace Stardust.Models.Servicios
             while (dataReader.Read())
             {
                 HabitacionReserva hab = new HabitacionReserva();
-                hab.idHabitacion = (int)dataReader["idHabitacion"];
+                hab.idHab= (int)dataReader["idHabitacion"];
                 hab.idTipoHabitacion = (int)dataReader["idTipoHabitacion"];
                 hab.numero = (string)dataReader["numero"];
                 hab.piso = (int)dataReader["piso"];
@@ -290,10 +290,14 @@ namespace Stardust.Models.Servicios
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
+
+            System.Diagnostics.Debug.WriteLine("total : " + listTip.Count);
             for (int i = 0; i < listTip.Count; i++) {
+                System.Diagnostics.Debug.WriteLine("--> " + listTip[i].cant);
                 for (int j = 0; j < listTip[i].cant; j++) {
-                    int hab = listTip[i].list[j].idHabitacion;
-                    String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),'POR CONFIRMAR')";
+                    int hab = listTip[i].list[j].idHab;
+                    String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),2)";
+                    System.Diagnostics.Debug.WriteLine("query--> " + query);
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.ExecuteNonQuery();
 
