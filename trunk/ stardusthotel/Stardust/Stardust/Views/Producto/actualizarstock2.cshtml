@@ -1,0 +1,111 @@
+﻿@model Stardust.Models.ProductoXAlmacenBean
+           
+@{
+    ViewBag.Title = "actualizarstock2";
+}
+
+<h2>Lista de Productos</h2>
+<p></p><p></p>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+
+
+
+ @using (Html.BeginForm("guardarstock", "Producto", FormMethod.Post, new { @class = "form", id = "validate"}))
+ {   
+
+     @Html.HiddenFor(model => model.idalmacen) 
+      @Html.HiddenFor(model => model.idhotel) 
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Hotel</h6>
+            </div>
+            <div class="formRow"> @Html.LabelFor(model => model.Hotel)
+                <div class=" formRight">  @Html.TextBoxFor(model => model.Hotel, new { @readonly = "readonly" })  </div>
+                <div class="clear"></div>
+            </div>
+            
+            
+        </div>
+    </fieldset>
+    
+   
+    <p></p><p></p>
+
+    <div class="title"><h6>Productos del Hotel</h6> </div>
+     <p></p>
+    
+     <div class="wrapper">
+    <div class="widget">
+      <div class="title">
+      <h6>Lista de Productos</h6>
+      </div>
+      <div class="">
+
+        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "display dTable">
+        <thead>
+        <tr>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+                <div class="DataTables_sort_wrapper">
+                Producto
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+             <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+                <div class="DataTables_sort_wrapper">
+                Stock Actual
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+             <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
+                <div class="DataTables_sort_wrapper">
+                Stock Saliente
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+        </tr>
+    </thead>
+
+        <tbody>
+        @for (int i = 0; i < Model.listProdalmacen.Count; i++)
+        {
+         @Html.HiddenFor(model => model.listProdalmacen[i].ID, new { @readonly = "readonly" }) 
+    if (Model.listProdalmacen[i].estado2)
+    {
+             <tr class="gradeA odd">
+                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
+                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockactual, new { @readonly = "readonly" })  </td>
+                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stocksaliente, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })</td>
+             </tr>
+    }
+    else
+    {
+                
+                 @Html.HiddenFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" })
+                @Html.HiddenFor(model => model.listProdalmacen[i].stockactual, new { @readonly = "readonly" })
+                 @Html.HiddenFor(model => model.listProdalmacen[i].stocksaliente, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })
+    }
+        }    
+    </tbody>
+        </table>
+      </div>
+        
+    </div>
+    </div>
+     
+
+    <p></p><p></p><p></p><p></p>
+    <p>
+        
+        @if (Model.listProdalmacen.Count > 0)
+        {
+            <input type="submit" value="Actualizar Stock" class = "redB" />
+            
+        }
+        @Html.ActionLink("Regresar", "actualizarStock", "Producto")
+    </p>
+ }
