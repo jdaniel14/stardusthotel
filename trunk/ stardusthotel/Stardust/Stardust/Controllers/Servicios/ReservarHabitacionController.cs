@@ -34,6 +34,8 @@ namespace Stardust.Controllers.Servicios
         {
             String message = "";
             MensajeBean rpta = facadeReservas.registrarReserva(reserva);
+
+            System.Diagnostics.Debug.WriteLine(reserva.client.apell);
             message = "Estimado "+reserva.client.nomb+", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
@@ -73,9 +75,13 @@ namespace Stardust.Controllers.Servicios
         {
             //DateTime fechaIni = DateTime.ParseExact("11-06-2012", "dd-MM-yyyy", null);
             //DateTime fechaFin = DateTime.ParseExact("17-06-2012", "dd-MM-yyyy", null);
-            //String.Format("{0:yyyy-M-d}", fechaIni);
-            System.Diagnostics.Debug.Write("Ini : " + String.Format("{0:MM/dd/yyyy}", request.fechaIni));
-            System.Diagnostics.Debug.Write("Fin : " + String.Format("{0:MM/dd/yyyy}", request.fechaFin));
+            //String.Format("{0:yyyy-M-d}", fechaIni);            
+            //DateTime FechaIni = Convert.ToDateTime(request.fechaIni);
+            //DateTime FechaFin= Convert.ToDateTime(request.fechaFin);
+            //System.Diagnostics.Debug.Write("Ini : " + String.Format("{0:MM/dd/yyyy}", FechaIni));
+            //System.Diagnostics.Debug.Write("Fin : " + String.Format("{0:MM/dd/yyyy}", FechaFin));
+            System.Diagnostics.Debug.Write(request.fechaIni);
+            System.Diagnostics.Debug.Write(request.fechaFin);
             ResponseResHabXTipo res = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
             //return "Here we go!!!!";
             //var rpta = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
