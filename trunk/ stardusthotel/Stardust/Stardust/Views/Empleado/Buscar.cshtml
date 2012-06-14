@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Stardust.Models.EmpleadoBean>
+
+@{
+    ViewBag.Title = "Empleados";
+}
+
+<h2>Empleados</h2>
+
+@using( Html.BeginForm( "Buscar" , "Empleado" , FormMethod.Post , new { @class = "form" } ) ){
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Empleado</h6></div>
+
+            <div class="formRow">
+                <label>Nombre</label>
+                <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" /></div>
+                <div class = "clear" ></div>
+            </div>
+            
+            <div class="formRow">
+                <label>Fecha de Inicio</label>
+                <div class = "formRight" ><input type = "text" id = "fechaInicio" name = "fechaInicio" class = "datepicker" /></div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+<p></p><p></p>
+
+@if (!String.IsNullOrEmpty(ViewBag.results + "" )) { 
+    <div class="nNote nInformation hideit">
+        <p><strong>Encontrados: </strong>@ViewBag.results empleado(s)</p>
+    </div>
+}
+<p></p>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Fecha Inicio</td>
+            <td>Estado</td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.nombreEmpleado)</td>
+            <td>@Html.DisplayFor(modelItem => item.fechaIngreso)</td>
+            <td>@Html.DisplayFor(modelItem => item.estado)</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+            </td>
+        </tr>
+        
+    }
+    </tbody>
+</table>

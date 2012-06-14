@@ -180,8 +180,8 @@ namespace Stardust.Models
                         habitacion.nroCamas = (int)objDataReader.GetValue(5);
                         habitacion.idHotel = (int)objDataReader.GetValue(6);
                         habitacion.idTipoHabitacion = (int)objDataReader.GetValue(7);
-                        habitacion.nombreHotel = (string)objDataReader.GetValue(8);
-                        habitacion.nombreTipoHabitacion = (string)objDataReader.GetValue(9);
+                        habitacion.nombreHotel = this.getNombreHotel(habitacion.idHotel);
+                        habitacion.nombreTipoHabitacion = this.getTipoHabitacion(habitacion.idTipoHabitacion);
                         
                         lstHabitaciones.Add(habitacion);
                     }
@@ -198,46 +198,93 @@ namespace Stardust.Models
             }
         }
 
-        //public String getNombreHotel(int id) {
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
+        public List<HabitacionBean> buscarHabitacion(int idTipoHabitacion, int nroCamas , int piso) {
+            SqlConnection sql = new SqlConnection(cadenaDB);
 
-        //    sql.Open();
+            sql.Open();
 
-        //        String command = "Select nombre from Hotel where idHotel = " + id;
+                String command = "Select * from Habitacion WHERE nroCamas >= @nroCamas AND piso >= @piso";
+                
+                SqlCommand query = new SqlCommand(command, sql);
 
-        //        SqlCommand query = new SqlCommand(command, sql);
+                Utils.agregarParametro(query, "nroCamas", nroCamas);
+                Utils.agregarParametro(query, "piso", piso);
+                if (idTipoHabitacion != 0)
+                {
+                    command += " idTipoHabitacion = @idTipoHabitacion ";
+                    Utils.agregarParametro(query, "idTipoHabitacion", idTipoHabitacion);
+                }
 
-        //        SqlDataReader data = query.ExecuteReader();
+                command += "ORDER BY idHotel , idTipoHabitacion";
 
-        //        data.Read();
+                SqlDataReader data = query.ExecuteReader();
+            
+                List<HabitacionBean> lista = new List<HabitacionBean>();
 
-        //        String hotel = (string)data.GetValue(0);
+                while (data.Read()) {
+                    HabitacionBean habitacion = new HabitacionBean();
 
-        //    sql.Close();
+                    habitacion.ID = Convert.ToInt32(data["idHabitacion"]);
+                    habitacion.piso = Convert.ToInt32(data["piso"]);
+                    habitacion.estado = Convert.ToString(data["estado"]);
+                    habitacion.nroBanos = Convert.ToInt32(data["nroBanos"]);
+                    habitacion.aptoFumador = Convert.ToBoolean(data["aptoFumador"]);
+                    habitacion.nroCamas = Convert.ToInt32(data["nroCamas"]);
+                    habitacion.idHotel = Convert.ToInt32(data["idHotel"]);
+                    habitacion.idTipoHabitacion = Convert.ToInt32(data["idTipoHabitacion"]);
+                    habitacion.nombreHotel = this.getNombreHotel(habitacion.idHotel);
+                    habitacion.nombreTipoHabitacion = this.getTipoHabitacion(habitacion.idTipoHabitacion);
 
-        //    return hotel;
-        //}
+                    lista.Add(habitacion);
+                }
 
-        //public String getTipoHabitacion(int id) {
+            sql.Close();
 
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
+            return lista;
+        }
 
-        //    sql.Open();
+        public String getNombreHotel(int id)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
 
-        //        String command = "Select nombre from TipoHabitacion where idTipoHabitacion = " + id;
+            sql.Open();
 
-        //        SqlCommand query = new SqlCommand(command, sql);
+                String command = "Select nombre from Hotel where idHotel = " + id;
 
-        //        SqlDataReader data = query.ExecuteReader();
+                SqlCommand query = new SqlCommand(command, sql);
 
-        //        data.Read();
+                SqlDataReader data = query.ExecuteReader();
 
-        //        String tipoHabitacion = (string)data.GetValue(0);
+                data.Read();
 
-        //    sql.Close();
+                String hotel = (string)data.GetValue(0);
 
-        //    return tipoHabitacion;
-        //}
+            sql.Close();
+
+            return hotel;
+        }
+
+        public String getTipoHabitacion(int id)
+        {
+
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+                String command = "Select nombre from TipoHabitacion where idTipoHabitacion = " + id;
+
+                SqlCommand query = new SqlCommand(command, sql);
+
+                SqlDataReader data = query.ExecuteReader();
+
+                data.Read();
+
+                String tipoHabitacion = (string)data.GetValue(0);
+
+            sql.Close();
+
+            return tipoHabitacion;
+        }
 
         //public int getIdHotel(String nombre) {
         //    SqlConnection sql = new SqlConnection(cadenaDB);

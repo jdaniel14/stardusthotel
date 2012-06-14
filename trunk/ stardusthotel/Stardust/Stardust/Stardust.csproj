@@ -4416,6 +4416,7 @@
     <Content Include="Views\Reporte\ListaOC.cshtml" />
     <Content Include="Views\Proveedor\Pago.cshtml" />
     <Content Include="Views\Empleado\Buscar.cshtml" />
+    <Content Include="Views\Habitacion\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
