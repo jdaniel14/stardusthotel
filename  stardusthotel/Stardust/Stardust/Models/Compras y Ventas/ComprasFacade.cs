@@ -85,6 +85,12 @@ namespace Stardust.Models
         {
             ordenCompraService.actualizarstock(nota);
         }
+
+        public void actualizarStock(ProductoXAlmacenBean prod)
+        {
+            produservice.actualizarStock(prod);
+        }
+
         /**----------- Reporte de compras 3------------*/
 
     }
