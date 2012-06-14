@@ -61,45 +61,45 @@ namespace Stardust.Models
             return listaProveedor;
         }
 
-        //public ProveedorList ListarProveedor2()
-        //{
+        public ProveedorList ListarProveedor2()
+        {
 
-        //    ProveedorList listaProveedor = new ProveedorList();
+            ProveedorList listaProveedor = new ProveedorList();
 
-        //    String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-        //    SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
-        //    sqlCon.Open();
+            sqlCon.Open();
 
-        //    string commandString = "SELECT * FROM Proveedor WHERE estado=1";
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1";
 
-        //    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-        //    SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-        //    while (dataReader.Read())
-        //    {
-        //        ProveedorBean proveedor = new ProveedorBean();
+            while (dataReader.Read())
+            {
+                ProveedorBean proveedor = new ProveedorBean();
 
-        //        proveedor.ID = (int)dataReader["idProveedor"];
-        //        proveedor.razonSocial = (string)dataReader["razonSocial"];
-        //        proveedor.contacto = (string)dataReader["contacto"];
-        //        proveedor.emailContacto = (string)dataReader["emailContacto"];
-        //        proveedor.cargoContacto = (string)dataReader["cargoContacto"];
-        //        proveedor.ruc = (string)dataReader["ruc"];
-        //        proveedor.web = (string)dataReader["web"];
-        //        proveedor.telefono = (string)dataReader["telefono"];
-        //        proveedor.direccion = (string)dataReader["direccion"];
-        //        proveedor.observaciones = (string)dataReader["observaciones"];
-        //        proveedor.telefonocontacto = (string)dataReader["telefonocontacto"];
-        //        proveedor.estado = 1;
-        //        listaProveedor.Add(proveedor);
-        //    }
-        //    dataReader.Close();
-        //    sqlCon.Close();
+                proveedor.ID = (int)dataReader["idProveedor"];
+                proveedor.razonSocial = (string)dataReader["razonSocial"];
+                proveedor.contacto = (string)dataReader["contacto"];
+                proveedor.emailContacto = (string)dataReader["emailContacto"];
+                proveedor.cargoContacto = (string)dataReader["cargoContacto"];
+                proveedor.ruc = (string)dataReader["ruc"];
+                proveedor.web = (string)dataReader["web"];
+                proveedor.telefono = (string)dataReader["telefono"];
+                proveedor.direccion = (string)dataReader["direccion"];
+                proveedor.observaciones = (string)dataReader["observaciones"];
+                proveedor.telefonocontacto = (string)dataReader["telefonocontacto"];
+                proveedor.estado = 1;
+                listaProveedor.Add(proveedor);
+            }
+            dataReader.Close();
+            sqlCon.Close();
 
-        //    return listaProveedor;
-        //}
+            return listaProveedor;
+        }
 
         public String insertarProveedor(ProveedorBean proveedor) {
             String me = "";
