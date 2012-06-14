@@ -78,16 +78,9 @@
                 <div class="clear"></div>
             </div>
 
-           <div class="formRow"><span>Largo del escenario</span>
+           <div class="formRow"><span>Piso</span><span class="req">*</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.largo_escenario, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
-                </div>
-                <div class="clear"></div>
-            </div>
-
-            <div class="formRow"><span>Ancho del escenario</span>
-                <div class="formRight">
-                @Html.TextBoxFor(m => m.ancho_escenario, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
+                @Html.TextBoxFor(m => m.piso, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2" }) 
                 </div>
                 <div class="clear"></div>
             </div>
@@ -110,7 +103,7 @@
                 <div class="clear"></div>
             </div>*@
 
-            <div class="formRow"><span>Proyector</span>
+            @*<div class="formRow"><span>Proyector</span>
                 <div class="formRight">
                 
                 Si
@@ -126,7 +119,7 @@
 
                 </div>
                 <div class="clear"></div>
-            </div>
+            </div>*@
             
                       
         </div>
