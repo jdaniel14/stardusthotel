@@ -42,7 +42,7 @@ namespace Stardust.Controllers
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
             servicioFacade.RegistrarServicio(model);
-            return RedirectToAction("Index");
+            return RedirectToAction("BuscarServicio");
         }
 
         public ActionResult ModificarServicio(int id)            
@@ -57,7 +57,7 @@ namespace Stardust.Controllers
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
             servicioFacade.ActualizarServicio(item);
-            return RedirectToAction("Index");
+            return RedirectToAction("BuscarServicio");
         }
 
         //public ActionResult EliminarServicio(int id)
@@ -122,7 +122,7 @@ namespace Stardust.Controllers
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();                       
             ambienteFacade.RegistrarAmbiente(item);
-            return RedirectToAction("IndexAmbientes");
+            return RedirectToAction("BuscarAmbiente");
         }
 
         public ActionResult ModificarAmbiente(int id)
@@ -137,7 +137,7 @@ namespace Stardust.Controllers
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
             ambienteFacade.ActualizarAmbiente(item);
-            return RedirectToAction("IndexAmbientes");
+            return RedirectToAction("BuscarAmbiente");
         }
 
         public ActionResult Delete2(int ID)
