@@ -564,7 +564,10 @@ namespace Stardust.Models
         {
             OrdenCompras OC = new OrdenCompras();
 
+            OC.listaOC = new List<OrdenCompra>();
+
             OC.nombre = GetNombre(id);
+            OC.id = id;
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -583,9 +586,11 @@ namespace Stardust.Models
 
             if (dataReader.Read())
             {
+                DateTime date = new DateTime();
                 OrdenCompra Orden = new OrdenCompra();
                 Orden.id = (int)dataReader["idOrdenCompra"];
-                Orden.fecha = (string)dataReader["fechaPedido"];
+                date = (DateTime)dataReader["fechaPedido"];
+                Orden.fecha = String.Format("{0:d/M/yyyy}", date);
                 Orden.estado = (string)dataReader["estado"];
                 Orden.precio = (decimal)dataReader["precioTotal"];
                 OC.listaOC.Add(Orden);

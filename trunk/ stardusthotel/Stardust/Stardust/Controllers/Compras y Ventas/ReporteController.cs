@@ -26,13 +26,13 @@ namespace Stardust.Controllers.Compras_y_Ventas
         public ActionResult Proveedor(Proveed prov)
         {
             int ID = Convert.ToInt32(prov.id);
-            return RedirectToAction("ReporteProveedor", new { id = ID});
+            return RedirectToAction("ListaOC", new { id = ID});
         }
 
-        public ActionResult ReporteProveedor(int id)
-        {
-            proveedorFacade.GetOC(id);
-            return RedirectToAction("ListarOC/"+id,"Proveedor");
+        public ActionResult ListaOC(int id)
+        {            
+            return View(proveedorFacade.GetOC(id));
+            //return RedirectToAction("ListarOC");
         }
 
         public ActionResult Nada(int id)
