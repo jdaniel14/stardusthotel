@@ -142,10 +142,7 @@ function enviarDatos() {
    
 
     var Hotel = "1";
-
-    var DatosReserva = {
-        idHotel:Hotel,
-        //client: [
+    var clientexD = {
             tipoDoc:tipoDocu,
             nroDoc:nDoc,
             nomb:nombreEnvio,
@@ -154,7 +151,21 @@ function enviarDatos() {
             telf:telefono,
             tipoTarj:tipoDeTarjeta,
             nroTarj:numTarjeta
-        //]
+    }
+
+    var DatosReserva = {
+        idHotel: Hotel,
+        client:clientexD
+//         [
+//            tipoDoc:tipoDocu,
+//            nroDoc:nDoc,
+//            nomb:nombreEnvio,
+//            apell:apellido,
+//            email:email2,
+//            telf:telefono,
+//            tipoTarj:tipoDeTarjeta,
+//            nroTarj:numTarjeta
+//        ]
         ,
         listTip:listaTipos,
         fechaIni:fechaLlegada,
@@ -183,5 +194,5 @@ function enviarDatos() {
     });
 }
 function finRes(data) {
-    console.log("se hizo");
+    //console.log("se hizo");
 }

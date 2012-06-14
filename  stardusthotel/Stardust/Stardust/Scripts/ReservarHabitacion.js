@@ -35,8 +35,8 @@ function inicializarEventos() {
     });
     $("#ServiciosAdicionales").hide();
     $("#continuarP3").click(inicializarMostreo);
-    $("#FechaLlegada").datepicker();
-    $("#FechaSalida").datepicker();
+    $("#FechaLlegada").datepicker({ dateFormat: 'dd-mm-yy' });
+    $("#FechaSalida").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
     
@@ -151,7 +151,7 @@ function mostrarBuscame() {
     }
     var jsonData = JSON.stringify(Hotel);
     //alert'ant');
-    console.log(jsonData);
+    //console.log(jsonData);
     //alert('desp');
     $.ajax({
         type: "POST",
@@ -176,7 +176,7 @@ function llegadaTipoHabitacion(data) {
     //alert(data.fechaIni.toString());
     //alert(data.fechaFin.toString());
 
-    console.log(data);
+    //console.log(data);
     var result = "";
     var i = 0;
     var cant = 0;
