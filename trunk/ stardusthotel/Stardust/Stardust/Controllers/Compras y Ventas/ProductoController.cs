@@ -162,7 +162,48 @@ namespace Stardust.Controllers
             productosfacade.modificarproductosxalmacen(prod);
             return RedirectToAction("ListadeHoteles");
         }
+        public ActionResult actualizarStock()
+        {
+            return View(hotelFac.getHoteles());
+        }
 
-       
+        public ActionResult actualizarstock2(int id) //idhotel
+        {
+            ProductoXAlmacenBean productosalmacen = new ProductoXAlmacenBean();
+
+            HotelBean hotel = hotelFac.getHotel(id);
+            int idalmacen = productosfacade.obteneralmacen(id);
+
+            ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
+            List<ProductoBean> productos = produc.ListarProducto("");
+
+            productosalmacen.Hotel = hotel.nombre;
+            productosalmacen.idalmacen = idalmacen;
+            productosalmacen.idhotel = id;
+            productosalmacen.listProdalmacen = new List<ProductoAlmacen>();
+            for (int i = 0; i < productos.Count; i++)
+            {
+                ProductoAlmacen prodProveedor = new ProductoAlmacen();
+
+                prodProveedor.nombre = productos[i].nombre;
+                prodProveedor.ID = productos[i].ID;
+                prodProveedor.estados = false;
+                for (int j = 0; j < prod2.listProdalmacen.Count; j++)
+                    if (prodProveedor.ID == prod2.listProdalmacen[j].ID)
+                    {
+                        prodProveedor.estado2 = true;
+                        prodProveedor.stockactual = prod2.listProdalmacen[j].stockactual;
+                    } 
+               
+                productosalmacen.listProdalmacen.Add(prodProveedor);
+            }
+            return View(productosalmacen);
+        }
+
+        public ActionResult actualizarStock3 (ProductoXAlmacenBean prod)
+        {
+            productosfacade.actualizarStock(prod);
+            return RedirectToAction("actualizarStock");
+        }       
     }
 }
