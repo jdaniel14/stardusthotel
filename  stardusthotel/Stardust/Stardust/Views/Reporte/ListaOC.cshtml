@@ -12,12 +12,11 @@
 
  @using (Html.BeginForm("ListarOC", "Proveedor", FormMethod.Post, new { @class = "form" }))
 {
-
     <div class="title"><h6>Orden de Compra del Proveedor</h6> </div>
      <p></p><p></p>
      
      <fieldset>
-
+     @Html.DisplayFor(model => model.id)
      <div class = "formRow">
          <label>Nombre Proveedor</label>
          <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
@@ -50,9 +49,7 @@
                 <td> @Html.TextBoxFor(model => model.listaOC[i].fecha, new { @readonly = "readonly" })  </td>
                 <td> @Html.TextBoxFor(model => model.listaOC[i].precio, new { @readonly = "readonly" })   </td>
 
-            </tr>
-
-    
+            </tr>    
     }
            
     </tbody>
@@ -60,7 +57,7 @@
     </table>
     <p></p><p></p><p></p><p></p>
     <p>
-        @Html.ActionLink("Imprimir", "Nada", new { id = Model.id}, new { target = "_blank" })
+        @Html.ActionLink("Imprimir", "Nada", new { id = Model.id}, new { target = "_blank" }) |
         @Html.ActionLink("Regresar", "Proveedor", "Reporte")
     </p>
     }

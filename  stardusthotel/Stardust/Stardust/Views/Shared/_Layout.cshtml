@@ -65,7 +65,7 @@
     @*<script type="text/javascript" src="@Url.Content( "~/Content/js/charts/chart.js" )"></script> <-- esto genera que no se puedan realizar las validaciones bien*@
 </head>
 
-<body>
+<body style=" height:1280px">
 
     <div id="leftSide" >
         <div class="logo">
@@ -200,17 +200,16 @@
                     </ul>
             </li>*@
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Compra</span><strong>3</strong></a>
-                <ul class="sub">
-                    <li class="dash"><a href="#" title="" class="exp"><span>Administrar Producto</span><strong>2</strong></a>
+            <li class="forms"><a href="#" title="" class="exp"><span>Producto</span><strong>2</strong></a>
                         <ul class="sub">
                             <li>@Html.ActionLink("Registrar", "Create", "Producto")</li>
                             @*<li><a href="../Producto/Create" title="">Registrar</a></li>*@
                             <li>@Html.ActionLink("Buscar", "Buscar", "Producto")</li>
                             <li>@Html.ActionLink("Asignar a Almacen", "ListadeHoteles", "Producto")</li>
                         </ul>
-                    </li>
-                    <li class="dash"><a href="#" title="" class="exp"><span>Administrar Proveedor</span><strong>2</strong></a>
+            </li>
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Proveedor</span><strong>2</strong></a>
                         <ul class="sub">
                             <li>@Html.ActionLink("Registrar", "RegistrarProveedor", "Proveedor")</li>
                             <li>@Html.ActionLink("Buscar", "Buscar", "Proveedor")</li>
@@ -218,31 +217,40 @@
                             @*<li><a href="../Proveedor/RegistrarProveedor" title="">Registrar</a></li>
                             <li><a href="../Proveedor/Buscar" title="">Buscar</a></li>*@
                         </ul>
-                    </li>
-                    <li class="dash"><a href="#" title="" class="exp"><span>Administrar Orden de Compra</span><strong>2</strong></a>
+            </li>
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Orden de Compra</span><strong>2</strong></a>
                         <ul class="sub">
                             <li>@Html.ActionLink("Registrar", "Index", "OrdenCompra")</li>
                             <li>@Html.ActionLink("Buscar", "Buscar", "OrdenCompra")</li>
                             @*<li><a href="../Proveedor/RegistrarProveedor" title="">Registrar</a></li>
                             <li><a href="../Proveedor/Buscar" title="">Buscar</a></li>*@
                         </ul>
-                    </li>                   
-                </ul>
-            </li>
+            </li> 
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Venta</span><strong>1</strong></a>
+            @*<li class="forms"><a href="#" title="" class="exp"><span>Compra</span><strong>3</strong></a>
                 <ul class="sub">
-                    <li class="dash"><a href="#" title="" class="exp"><span>Administrar Promociones</span><strong>2</strong></a>
+                    
+                    
+                                      
+                </ul>
+            </li>*@
+
+            <li class="forms"><a href="#" title="" class="exp"><span>Promociones</span><strong>2</strong></a>
                         <ul class="sub">
                         <li>@Html.ActionLink("Registrar", "Registrar", "Promociones")</li>
                             <li>@Html.ActionLink("Buscar", "Buscar", "Promociones")</li>
                             @*<li><a href="../Promociones/Registrar" title="">Registrar</a></li>
                             <li><a href="../Promociones/Buscar" title="">Buscar</a></li*@>
                         </ul>
-                    </li>
+            </li>
+
+            @*<li class="forms"><a href="#" title="" class="exp"><span>Venta</span><strong>1</strong></a>
+                <ul class="sub">
+                    
 
                 </ul>
-            </li>
+            </li>*@
         </ul>
     </div>
 
