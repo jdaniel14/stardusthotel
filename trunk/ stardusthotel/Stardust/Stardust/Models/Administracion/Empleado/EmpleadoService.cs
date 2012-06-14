@@ -43,6 +43,7 @@ namespace Stardust.Models
 
         public List<Horario> listarHorario(int id) {
             return empleadoDAO.listarHorario(id);
+
         }
     }
 }
