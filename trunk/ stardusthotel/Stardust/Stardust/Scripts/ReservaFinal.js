@@ -1,17 +1,4 @@
 ﻿
-
-
-//$("#maps").gMap({ markers: [{ latitude: 47.660937,
-//    longitude: 9.569803,
-//    html: "Tettnang, Germany",
-//    popup: true
-//}],
-//    zoom: 6
-//});
-
-
-
-
 function inicializarMostreo() {
 
     $("#retornar").click(regresar);
@@ -77,42 +64,108 @@ function enviarDatos() {
 
     var nombreEnvio = "";
     var email2 = "";
+    var tipoDocu = "";
+    var apellido = "";
+    var telefono = "";
+    var tipoDeTarjeta = "";
+    var numTarjeta = "";
+    var comentario = "";
+    var fechaLlegada = $("#FechaLlegada").get(0).value;
+    var fechaSalida = $("#FechaSalida").get(0).value;
+    var checkeado = 0;
 
-    if (result == "RUC") {
-        nombreEnvio = $("#razonDReserva").get(0).value;
-        email2 = $("#mail").get(0).value;
+    if ($("#checkAerop").is(":checked")) {
+        checkeado = 1;
     }
     else {
-        nombreEnvio = $("#nombreDReserva").get(0).value
-        email2 = $("#mailNatural").get(0).value;
+        checkeado = 0;
     }
 
-    var nDoc = $("#nDoc").get(0).value;
-    var FechaLlegada = $("#FechaLlegada").get(0).value;
-    var total1 = $('#Total').text();
+    var horaLlegada;
+    var aerop;
+    var numVuelo;
+    var numPersonas;
 
-    
+    horaLlegada = $("#HoraLlegada").get(0).value;
+    aerop = $("#Aerolinea").get(0).value;
+    numVuelo = $("#NVuelo").get(0).value;
+    numPersonas = $("#CantPersonas").get(0).value;
+
+    if (result == "RUC") {
+        tipoDocu = "RUC";
+        nombreEnvio = $("#razonDReserva").get(0).value;
+        email2 = $("#mail").get(0).value;
+        telefono = $("#telef").get(0).value;
+        tipoDeTarjeta = $("#tipoTarjetaJ").val();
+        numTarjeta = $("#nTarjeta").get(0).value;
+        comentario = $("#comment").get(0).value;
+    }
+    else {
+        tipoDocu = "DNI";
+        nombreEnvio = $("#nombreDReserva").get(0).value;
+        apellido = $("#ApellidoDReserva").get(0).value;
+        email2 = $("#mailNatural").get(0).value;
+        telefono = $("#telefonoNatural").get(0).value;
+        tipoDeTarjeta = $("#tipoTarjeta").val();
+        numTarjeta = $("#nTarjetaNatural").get(0).value;
+        comentario = $("#commentJ").get(0).value;
+    }
+
+    var nDoc = $("#nDoc").get(0).value;    
+    var total1 = $('#Total').text();
+    var listaTipos = new Array();
+    var i = 0;
+
+
+    arreglosId.forEach(function (elemento) {
+        var cmd = ""
+        cmd += elemento + ".numHabitSelect option:selected";
+        var cantHabit = $(cmd).attr("value");
+
+
+        var id = elemento.substring(15);
+
+        var habits = arreglosHabit[id];
+
+        var arregloInterior = new Array();
+
+        arregloInterior[0] = id;
+        arregloInterior[1] = cantHabit;
+        arregloInterior[2] = habits;
+
+        listaTipos[i] = arregloInterior;
+
+        i++;
+    });
+
+   
+
+    var Hotel = "1";
 
     var DatosReserva = {
-//        jFechaLlegada: "",
-//        jFechaSalida: "",
-//        jcantTipo1: "",
-//        jcantTipo2: "",
-//        jcantTipo3: "",
-//        jcantTipo4: "",
-//        jcantTipo5: "",
-//        jContarConServicio: "",
-//        jHoraLlegada: "",
-//        jAerolinea: "",
-//        jNroVuelo: "",
-//        jCantPersonas: "",
-//        jTipoDocumento: ""
-        //...continuará...
-        nroDoc :  nDoc,
-        fechaReserva: FechaLlegada,
-        total: total1,
-        nombre: nombreEnvio,
-        email: email2
+        idHotel:Hotel,
+        //client: [
+            tipoDoc:tipoDocu,
+            nroDoc:nDoc,
+            nomb:nombreEnvio,
+            apell:apellido,
+            email:email2,
+            telf:telefono,
+            tipoTarj:tipoDeTarjeta,
+            nroTarj:numTarjeta
+        //]
+        ,
+        listTip:listaTipos,
+        fechaIni:fechaLlegada,
+        fechaFin:fechaSalida,
+        coment:comentario,
+        rec:checkeado,
+        //datRec:[
+            hrLleg:horaLlegada,
+            aero:aerop,
+            vuel:numVuelo,
+            nroPer:numPersonas
+        //]        
     };
     var jsonData = JSON.stringify(DatosReserva);
     
@@ -124,7 +177,7 @@ function enviarDatos() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "ReservarHabitacion/cerrarReserva",        
+        url: "ReservarHabitacion/registrarReserva",        
         success: finRes
     });
 }

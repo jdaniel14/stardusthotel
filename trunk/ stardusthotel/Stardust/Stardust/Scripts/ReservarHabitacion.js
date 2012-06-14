@@ -1,29 +1,49 @@
-﻿
+﻿var arreglosId = new Array();
+var arreglosHabit = new Array();
+
 var x;
 x = $(document);
 x.ready(inicializarEventos);
 function inicializarEventos() {
-
-
-//    $('#contenido_pestanas div').css('position', 'absolute').not(':first').hide();
-//    $('#contenido_pestanas ul li:first a').addClass('aqui');
-//    $('#contenido_pestanas a').click(function(){
-//        $('#contenido_pestanas a').removeClass('aqui');
-//        $(this).addClass('aqui');
-//        $('#contenido_pestanas div').fadeOut(350).filter(this.hash).fadeIn(350);
-//        return false;
-//    });
-
-    //$("#continuarP2").click(continuar2);
+    
     $("#pestana3").hide();
+
+    $("#tipos").hide();
+    $("#tipos2").hide();
+    $("#buscame").click(mostrarBuscame);
+
+    $("#checkServices").click(function (event) {
+        $("#TotalAjeno").text(
+        $("#Total").text()
+//        parseFloat($('#subtotal1').text()) +
+//        parseFloat($('#subtotal2').text()) +
+//        parseFloat($('#subtotal3').text()) +
+//        parseFloat($('#subtotal4').text()) +
+//        parseFloat($('#subtotal5').text())
+        );
+        if ($(this).is(":checked")) {
+            $("#checkServices:checkbox:not(:checked)").attr("checked", "checked");
+            $("#ServiciosAdicionales").show("slow");
+        } else {
+            $("#checkServices:checkbox:checked").removeAttr("checked");
+            $("#ServiciosAdicionales").hide("slow");
+        }
+        $("#checkDesayuno").click(AddDesayuno);
+        $("#checkAlmuerzo").click(AddAlmuerzo);
+        $("#checkCena").click(AddCena);
+
+    });
+    $("#ServiciosAdicionales").hide();
     $("#continuarP3").click(inicializarMostreo);
-    $("#FechaLlegada").datepicker({dateFormat: 'dd-mm-yy'});
-    $("#FechaSalida").datepicker({ dateFormat: 'dd-mm-yy' });
+    $("#FechaLlegada").datepicker();
+    $("#FechaSalida").datepicker();
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
+    
     $('#HoraLlegada').timepicker({});
 
     $("#checkAerop").click(function (event) {
+        
         if ($(this).is(":checked")) {
             $("#checkAerop:checkbox:not(:checked)").attr("checked", "checked");
             $("#fieldAeropuerto").show("slow");
@@ -31,25 +51,25 @@ function inicializarEventos() {
             $("#checkAerop:checkbox:checked").removeAttr("checked");
             $("#fieldAeropuerto").hide("slow");
         }
-    }); 
+     }); 
 
     var x;
-    var Hotel = {
-        idHotel : "2"
-    }
-    var jsonData = JSON.stringify(Hotel);
-    //alert('ant');
-    console.log(jsonData);
-    //alert('desp');
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType:"json",
-        contentType: "application/json; charset=utf-8",
-        url: "ReservarHabitacion/infoReserva",
-        beforeSend:inicioEnvioTipoHotel(),
-        success: llegadaTipoHabitacion
-    });
+//    var Hotel = {
+//        idHotel : "2"
+//    }
+//    var jsonData = JSON.stringify(Hotel);
+//    //alert('ant');
+//    console.log(jsonData);
+//    //alert('desp');
+//    $.ajax({
+//        type: "POST",
+//        data: jsonData,
+//        dataType:"json",
+//        contentType: "application/json; charset=utf-8",
+//        url: "ReservarHabitacion/infoReserva",
+//        beforeSend:inicioEnvioTipoHotel(),
+//        success: llegadaTipoHabitacion
+//    });
     
 
     x = $("#FechaLlegada");
@@ -58,137 +78,205 @@ function inicializarEventos() {
     x.focus(clickFechaout);
 }
 
-function inicioEnvioTipoHotel() {
-    //console.log(data);
+function AddAlmuerzo() {
+    if ($(this).is(":checked")) {
+        $("#checkAlmuerzo:checkbox:not(:checked)").attr("checked", "checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) + 10
+        );
+        
+    } else {
+        $("#checkAlmuerzo:checkbox:checked").removeAttr("checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) - 10
+        );
+    }
+
+    $("#TotalAjeno").text(
+        parseFloat($("#Adicional").text())+
+        parseFloat($("#Total").text())
+    );
+}
+
+function AddDesayuno() {
+    if ($(this).is(":checked")) {
+        $("#checkDesayuno:checkbox:not(:checked)").attr("checked", "checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) + 10
+        );
+
+    } else {
+        $("#checkDesayuno:checkbox:checked").removeAttr("checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) - 10
+        );
+    }
+    $("#TotalAjeno").text(
+        parseFloat($("#Adicional").text()) +
+        parseFloat($("#Total").text())
+    );
+}
+
+function AddCena() {
+    if ($(this).is(":checked")) {
+        $("#checkCena:checkbox:not(:checked)").attr("checked", "checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) + 10
+        );
+
+    } else {
+        $("#checkCena:checkbox:checked").removeAttr("checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) - 10
+        );
+    }
+    $("#TotalAjeno").text(
+        parseFloat($("#Adicional").text()) +
+        parseFloat($("#Total").text())
+    );
+}
+
+function mostrarBuscame() {
+    $("#tipos").show("slow");
+    
+    var fechaInicio = $("#FechaLlegada").attr("value");
+    var fechaFinal = $("#FechaSalida").attr("value");
+    
+
+    //alert(fechaFinal);
+    var Hotel = {
+        idHotel: "2",
+        fechaIni: fechaInicio,
+        fechaFin: fechaFinal
+    }
+    var jsonData = JSON.stringify(Hotel);
+    //alert'ant');
+    console.log(jsonData);
+    //alert('desp');
+    $.ajax({
+        type: "POST",
+        data: jsonData,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "ReservarHabitacion/consultarDisponibles",
+        beforeSend: inicioEnvioTipoHotel(),
+        success: llegadaTipoHabitacion
+    });
+
+    $('#Total').text(0);
+
+}
+
+function inicioEnvioTipoHotel() {   
     var x = $("#tablaTipos");
     x.html('<img src="http://www.coliseogym.com/Gym/Iconos/cargando.gif">');
-//	$( "#progressbar" ).progressbar({
-//		value: 100
-//	});
-    //alert('Cargando...');
 }
 
 function llegadaTipoHabitacion(data) {
+    //alert(data.fechaIni.toString());
+    //alert(data.fechaFin.toString());
+
     console.log(data);
     var result = "";
     var i = 0;
     var cant = 0;
+    
+    var id = "";
+    var lista = data.listaXTipo;
 
-    $.each(data, function (i, item) {
+    $.each(lista, function (i, item) {
         cant = cant + 1;
-        //result += '<div style:visibility="hidden" id="numHabitSelect' + item.idTipoHab + '_div" >' + item.precio + '</div>';
+
         result += '<tr><td> ' + item.nombreTipoHab + '</td>';
         result += '<td>' + '<select id= "numHabitSelect' + item.idTipoHab + '" class = "numHabitSelect">';
 
-        for (j = 0; j <= item.numPos; j++) {
+        for (j = 0; j <= item.nroHab; j++) {
             result += '<option value = "' + j + '" id = "idTipoHab' + j + item.idTipoHab + '">' + j + '</option>';
         }
-        result += '<td><span id = "precio' + i+ '">' + item.precio + '</span></td>';
-        
+        result += '<td><span id = "precio' + i + '">' + item.precioTipoHab + '</span></td>';
         result += '</select></td><td><span id = "subtotal' + item.idTipoHab + '">' + 0 + '</span></td></tr>';
 
-
+        id = "#numHabitSelect";
+        id += item.idTipoHab;
+        arreglosId[item.idTipoHab] = id;
+        arreglosHabit[item.idTipoHab] = item.listaDisp;
     });
-
     $('#tablaTipos').html(result);
-        
-    $('#numHabitSelect1').change(cambiarSubTotal1);
-    $('#numHabitSelect2').change(cambiarSubTotal2);
-    $('#numHabitSelect3').change(cambiarSubTotal3);
-    $('#numHabitSelect4').change(cambiarSubTotal4);
-    $('#numHabitSelect5').change(cambiarSubTotal5);
 
-    /*$.each(data, function (i, item) {
-        result += '<option value= "' + item.idTipo + '">' + item.nombreTipo + '</option>';
 
+    if (parseInt($("#Total").text()) > 0) {
+        $("#tipos2").show("slow");
+    }
+    else if (parseInt($("#Total").text()) < 1) {
+        $("#tipos2").hide("slow");
+    }
+
+    $("#TotalAjeno").text(
+    parseFloat($("#Adicional").text()) +
+    parseFloat($("#Total").text())
+    );
+
+    
+    
+//    var func = "";
+//    var j;
+//    for (j = 1; j < cant + 1; j++) {
+//        id = "#numHabitSelect";
+//        id += j;
+//        arreglosId[j] = id;        
+//    }
+
+    arreglosId.forEach(function (elemento) {
+        $(elemento).change(function (event) {
+            var cmd = "";
+            var cambiar = 0;
+            cmd += elemento + ".numHabitSelect option:selected";
+
+            var x = $(cmd).attr("value");
+            var n = elemento.substring(15);
+
+            var subtotal = "#subtotal";
+            var precio = "#precio";
+            subtotal += n;
+            n = n - 1;
+            precio += n;
+            var y = $(precio).text();
+
+            $(subtotal).text(x * y);
+
+            if (parseInt($("#Total").text()) > 0) {
+                cambiar = 0;
+            }
+            else {
+                cambiar = 1;
+            }
+            $("#Total").text(0);
+            arreglosId.forEach(function (elemento) {
+
+                var num = elemento.substring(15);
+                var sub = "#subtotal";
+
+                sub += num;
+
+                $("#Total").text(
+                    parseFloat($("#Total").text()) +
+                    parseFloat($(sub).text())
+                );
+
+                $("#TotalAjeno").text(
+                parseFloat($("#Adicional").text()) +
+                parseFloat($("#Total").text())
+                );
+            });
+            if (parseInt($("#Total").text()) > 0) {
+                $("#tipos2").show("slow");
+            }
+            else if (parseInt($("#Total").text()) < 1) {
+                $("#tipos2").hide("slow");
+            }
+
+        });
     });
-    $('#tipoHabitacion').html(result);
-    $("#labelTipoHabitacion").show();
-    */  
-}
-
-function cambiarSubTotal1() {
-    var id;
-    var numHab = $('#numHabitSelect1.numHabitSelect option:selected').attr("value");
-    var precio = $('#precio0').text();
-    //  alert(x);
-    //alert(numHab);
-    //alert(precio);
-    $('#subtotal1').text(precio * numHab);
-//    alert(10 * x);   
-    //alert(":D");    
-    $('#Total').text(
-        parseFloat($('#subtotal1').text()) +
-        parseFloat($('#subtotal2').text()) +
-        parseFloat($('#subtotal3').text()) +
-        parseFloat($('#subtotal4').text()) +
-        parseFloat($('#subtotal5').text())
-    );
-}
-
-function cambiarSubTotal2() {
-    var id;
-    var x = $('#numHabitSelect2.numHabitSelect option:selected').attr("value");
-    var precio = $('#precio1').text();
-    //alert(x);
-    $('#subtotal2').text(precio * x);
-    //alert(":D");    
-    $('#Total').text(
-        parseFloat($('#subtotal1').text()) +
-        parseFloat($('#subtotal2').text()) +
-        parseFloat($('#subtotal3').text()) +
-        parseFloat($('#subtotal4').text()) +
-        parseFloat($('#subtotal5').text())
-    );
-}
-
-function cambiarSubTotal3() {
-    var id;
-    var x = $('#numHabitSelect3.numHabitSelect option:selected').attr("value");
-    var precio = $('#precio2').text();
-    //alert(x);
-    $('#subtotal3').text(precio * x);
-    //alert(":D");    
-    $('#Total').text(
-        parseFloat($('#subtotal1').text()) +
-        parseFloat($('#subtotal2').text()) +
-        parseFloat($('#subtotal3').text()) +
-        parseFloat($('#subtotal4').text()) +
-        parseFloat($('#subtotal5').text())
-    );
-}
-
-function cambiarSubTotal4() {
-    var id;
-    var x = $('#numHabitSelect4.numHabitSelect option:selected').attr("value");
-    var precio = $('#precio3').text();
-    //alert(x);
-    $('#subtotal4').text(precio * x);
-    //alert(":D");    
-    $('#Total').text(
-        parseFloat($('#subtotal1').text()) +
-        parseFloat($('#subtotal2').text()) +
-        parseFloat($('#subtotal3').text()) +
-        parseFloat($('#subtotal4').text()) +
-        parseFloat($('#subtotal5').text())
-    );
-}
-
-function cambiarSubTotal5() {
-    var id;
-    var x = $('#numHabitSelect5.numHabitSelect option:selected').attr("value");
-    var precio = $('#precio4').text();
-    //alert(x);
-    $('#subtotal5').text(precio * x);
-    //alert(":D");
-    //alert($('#subtotal1').attr("value"));
-    $('#Total').text(
-        parseFloat($('#subtotal1').text()) +
-        parseFloat($('#subtotal2').text()) +
-        parseFloat($('#subtotal3').text()) +
-        parseFloat($('#subtotal4').text()) +
-        parseFloat($('#subtotal5').text())
-    );
 }
 
 function clickFechain() {
@@ -202,25 +290,19 @@ function clickFechaout() {
 }
 
 function mostrarFieldAeropuerto() {
-    $("#fieldAeropuerto").show();
-    
-    
+    $("#fieldAeropuerto").show();    
 }
 
 $(function () {
     $("#tabs").tabs();
 });
 
-function continuar2() {
-    
-    $("#tabs").tabs('select','#tabs-2'); // switch to third tab
-
+function continuar2() {    
+    $("#tabs").tabs('select','#tabs-2'); 
 }
 
 function continuar3() {
-
-    $("#tabs").tabs('select', '#tabs-3'); // switch to third tab
-
+    $("#tabs").tabs('select', '#tabs-3');
 }
 
 
