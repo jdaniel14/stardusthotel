@@ -142,6 +142,8 @@ namespace Stardust.Controllers
             }
             ViewBag.empleados = empleadoFac.listarEmpleados();
             ViewBag.error = "Ingrese fechas válidas";
+            EmpleadoFacade f = new EmpleadoFacade();
+           
             return View();
         }
 
