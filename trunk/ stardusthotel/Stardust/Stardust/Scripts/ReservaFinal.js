@@ -178,7 +178,7 @@ function enviarDatos() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "ReservarHabitacion/registrarReserva",        
+        url: "ReservarHabitacion/cerrarReserva",        
         success: finRes
     });
 }
