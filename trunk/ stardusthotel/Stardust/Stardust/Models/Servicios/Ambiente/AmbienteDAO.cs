@@ -42,13 +42,12 @@ namespace Stardust.Models
                 ambiente.nombre = (string)dataReader["nombre"];
                 ambiente.descripcion = (string)dataReader["descripcion"];
                 ambiente.cap_maxima = (int)dataReader["capacMaxima"];
-                ambiente.largo  = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
-                ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                //ambiente.largo  = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
+                //ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                ambiente.largo = decimal.Parse(dataReader["largo"].ToString());
+                ambiente.ancho = decimal.Parse(dataReader["ancho"].ToString());
                 //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
                 ambiente.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString()); 
-                ambiente.largo_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("largoEscenario"));
-                ambiente.ancho_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("anchoEscenario"));
-                ambiente.proyector = (int)dataReader["proyector"];
                 ambiente.piso = (int)dataReader["piso"];
                 ambiente.estado = (string)dataReader["estado"];
                 listaAmbientes.Add(ambiente);
@@ -68,7 +67,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "INSERT INTO Ambiente VALUES ('" + ambiente.nombre + "', '" + ambiente.descripcion + "', " + ambiente.cap_maxima + ", " + ambiente.largo + ", " + ambiente.ancho + ", " + ambiente.precioXhora + ", " + ambiente.largo_escenario + ", " + ambiente.ancho_escenario + ", " + ambiente.proyector + ", " + ambiente.piso + ", 'ACTIVO', 2)";
+            string commandString = "INSERT INTO Ambiente VALUES ('" + ambiente.nombre + "', '" + ambiente.descripcion + "', " + ambiente.cap_maxima + ", " + ambiente.largo + ", " + ambiente.ancho + ", " + ambiente.precioXhora + ", " + ambiente.piso + ", 'ACTIVO', 1)";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -86,7 +85,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "UPDATE Ambiente " +
-                                    "SET  nombre = '" + ambiente.nombre + "', descripcion = '" + ambiente.descripcion + "', capacMaxima = " + ambiente.cap_maxima + ", largo = " + ambiente.largo + ", ancho = " + ambiente.ancho + ", precioXHora= " + ambiente.precioXhora + ", largoEscenario = " + ambiente.largo_escenario + ", anchoEscenario = " + ambiente.ancho_escenario + ", proyector = " + ambiente.proyector + ", piso = " + ambiente.piso +  " " +
+                                    "SET  nombre = '" + ambiente.nombre + "', descripcion = '" + ambiente.descripcion + "', capacMaxima = " + ambiente.cap_maxima + ", largo = " + ambiente.largo + ", ancho = " + ambiente.ancho + ", precioXHora= " +  ", piso = " + ambiente.piso +  " " +
                                     //"SETEA estado = 'INACTIVO' " +
                                     "WHERE idAmbiente = " + ambiente.id.ToString();
 
@@ -116,13 +115,12 @@ namespace Stardust.Models
                 ambiente.nombre = (string)dataReader["nombre"];
                 ambiente.descripcion = (string)dataReader["descripcion"];
                 ambiente.cap_maxima = (int)dataReader["capacMaxima"];
-                ambiente.largo = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
-                ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                //ambiente.largo = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
+                //ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                ambiente.largo = decimal.Parse(dataReader["largo"].ToString());
+                ambiente.ancho = decimal.Parse(dataReader["ancho"].ToString());
                 //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
                 ambiente.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString()); 
-                ambiente.largo_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("largoEscenario"));
-                ambiente.ancho_escenario = (float)dataReader.GetDouble(dataReader.GetOrdinal("anchoEscenario"));
-                ambiente.proyector = (int)dataReader["proyector"];
                 ambiente.piso = (int)dataReader["piso"];
                 ambiente.estado = (string)dataReader["estado"];
             }
