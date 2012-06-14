@@ -11,6 +11,22 @@ namespace Stardust.Controllers
 
         /*---------Pago de Servicios, Evento y ambientes------*/
 
+        public ActionResult Buscar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Buscar(string nombre)
+        {
+            return RedirectToAction("Listar", new { nom = nombre });
+        }
+
+        public ActionResult Listar(string nom)
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();
