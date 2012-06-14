@@ -37,7 +37,7 @@ namespace Stardust.Controllers.Compras_y_Ventas
 
         public ActionResult Nada(int id)
         {
-            return this.ViewPdf("ProveedorBean", "Reporte", proveedorFacade.GetOC(id));
+            return this.ViewPdf("", "Reporte", proveedorFacade.GetOC(id));
         }
     }
 }
