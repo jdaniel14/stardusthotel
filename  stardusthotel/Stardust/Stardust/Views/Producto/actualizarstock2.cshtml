@@ -14,7 +14,7 @@
 
 
 
- @using (Html.BeginForm("guardarstock", "Producto", FormMethod.Post, new { @class = "form", id = "validate"}))
+ @using (Html.BeginForm("actualizarStock3", "Producto", FormMethod.Post, new { @class = "form", id = "validate"}))
  {   
 
      @Html.HiddenFor(model => model.idalmacen) 
@@ -51,6 +51,12 @@
         <tr>
             <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
                 <div class="DataTables_sort_wrapper">
+                Id Producto
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
+            <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
+                <div class="DataTables_sort_wrapper">
                 Producto
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                 </div>
@@ -73,10 +79,11 @@
         <tbody>
         @for (int i = 0; i < Model.listProdalmacen.Count; i++)
         {
-         @Html.HiddenFor(model => model.listProdalmacen[i].ID, new { @readonly = "readonly" }) 
+          
     if (Model.listProdalmacen[i].estado2)
     {
              <tr class="gradeA odd">
+                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].ID, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockactual, new { @readonly = "readonly" })  </td>
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stocksaliente, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })</td>
@@ -84,7 +91,7 @@
     }
     else
     {
-                
+                @Html.HiddenFor(model => model.listProdalmacen[i].ID, new { @readonly = "readonly" })
                  @Html.HiddenFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" })
                 @Html.HiddenFor(model => model.listProdalmacen[i].stockactual, new { @readonly = "readonly" })
                  @Html.HiddenFor(model => model.listProdalmacen[i].stocksaliente, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })
