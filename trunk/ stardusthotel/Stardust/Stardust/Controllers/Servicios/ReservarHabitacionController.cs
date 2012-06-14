@@ -22,11 +22,11 @@ namespace Stardust.Controllers.Servicios
 
         [HttpPost]
         public JsonResult infoReserva(ReservaRequest request)
-        {   
+        {
             System.Diagnostics.Debug.WriteLine(request.idHotel);
-            List<TipoHabXHotel> lista = facadeReservas.listaDisponibles(request.idHotel);            
-            var res = lista;            
-            return Json (res);
+            List<TipoHabXHotel> lista = facadeReservas.listaDisponibles(request.idHotel);
+            var res = lista;
+            return Json(res);
         }
 
         [HttpPost]
@@ -36,7 +36,7 @@ namespace Stardust.Controllers.Servicios
             MensajeBean rpta = facadeReservas.registrarReserva(reserva);
 
             System.Diagnostics.Debug.WriteLine(reserva.client.apell);
-            message = "Estimado "+reserva.client.nomb+", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
+            message = "Estimado " + reserva.client.nomb + ", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
             System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
@@ -53,10 +53,10 @@ namespace Stardust.Controllers.Servicios
             smtp.EnableSsl = true;
             smtp.Credentials = cred;
             smtp.Port = 587;
-            smtp.Send(mail);            
+            smtp.Send(mail);
             return Json(rpta);
         }
-                
+
         public ActionResult EstadoReserva()
         {
             return View();
