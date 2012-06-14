@@ -148,15 +148,22 @@ namespace Stardust.Controllers
             return View(lstHabitaciones);
         }
 
-        public ActionResult Search()
+       
+        public ViewResult Buscar( string idTipoHabitacion , string nroCamas , string piso )
         {
-            return View();
-        }
+            int A , B , C ;
+            if (!String.IsNullOrEmpty( idTipoHabitacion ) ) A = Convert.ToInt32(idTipoHabitacion);
+            else A = 0;
 
-        //[HttpPost]
-        //public ActionResult Search()
-        //{
-        //    return View();
-        //}
+            if (!String.IsNullOrEmpty(nroCamas)) B = Convert.ToInt32(nroCamas);
+            else B = 0;
+
+            if (!String.IsNullOrEmpty( piso ) ) C = Convert.ToInt32(piso);
+            else C = 0;
+
+            var model = habitacionFac.buscarHabitacion(A,B,C);
+            ViewBag.listaTipoHabitacion = new TipoHabitacionFacade().listarTipoHabitacion();
+            return View( model );
+        }
     }
 }

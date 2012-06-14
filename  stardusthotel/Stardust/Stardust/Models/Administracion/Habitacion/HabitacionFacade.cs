@@ -28,5 +28,11 @@ namespace Stardust.Models
         public List<HabitacionBean> listarHabitaciones() {
             return habitacionServ.listarHabitaciones();
         }
+
+        public List<HabitacionBean> buscarHabitacion(int idTipoHabitacion , int nroCamas , int piso)
+        {
+            if (idTipoHabitacion == nroCamas && nroCamas == piso && piso == 0) return new List<HabitacionBean>();
+            return habitacionServ.buscarHabitacion(idTipoHabitacion, nroCamas , piso);
+        }
     }
 }

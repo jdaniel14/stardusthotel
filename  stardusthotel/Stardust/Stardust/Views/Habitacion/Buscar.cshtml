@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Stardust.Models.HabitacionBean>
+
+@{
+    ViewBag.Title = "Habitaciones";
+}
+
+<h2>Habitaciones</h2>
+
+@using( Html.BeginForm( "Buscar" , "Habitacion" , FormMethod.Post , new { @class = "form" } ) ){
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>Buscar Habitación</h6></div>
+
+            <div class = "formRow" >
+                <label>Tipo de habitación</label>
+                <div class = "formRight" > @Html.DropDownList( "idTipoHabitacion" , new SelectList( ViewBag.listaTipoHabitacion , "ID" , "nombre" ) , "Elije un tipo de habitación..." ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                <label>Número de camas</label>
+                <div class = "formRight" ><input type = "text" id = "nroCamas" name = "nroCamas" /></div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                <label>Piso</label>
+                <div class = "formRight" ><input type = "text" id = "piso" name = "piso" /></div>
+                <div class = "clear" ></div>
+            </div>
+        </div>
+    </fieldset>
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />
+    </p>
+}
+
+<p></p><p></p>
+
+@if (!String.IsNullOrEmpty(ViewBag.results + "" )) { 
+    <div class="nNote nInformation hideit">
+        <p><strong>Encontrados: </strong>@ViewBag.results empleado(s)</p>
+    </div>
+}
+<p></p>
+
+<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+    <thead>
+        <tr>
+            <td>Hotel</td>
+            <td>Tipo de habitación</td>
+            <td>Piso</td>
+            <td>Estado</td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.nombreHotel)</td>
+            <td>@Html.DisplayFor(modelItem => item.nombreTipoHabitacion)</td>
+            <td>@Html.DisplayFor(modelItem => item.piso)</td>
+            <td>@Html.DisplayFor(modelItem => item.estado)</td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+            </td>
+        </tr>
+        
+    }
+    </tbody>
+</table>
