@@ -29,6 +29,10 @@ namespace Stardust.Models
             return empleadoDAO.listarEmpleados();
         }
 
+        public List<EmpleadoBean> buscarEmpleado(string nombre, string fechaInicio) {
+            return empleadoDAO.buscarEmpleado(nombre, fechaInicio);
+        }
+
         public int asignarHorario(Horario horario) {
             return empleadoDAO.asignarHorario(horario);
         }

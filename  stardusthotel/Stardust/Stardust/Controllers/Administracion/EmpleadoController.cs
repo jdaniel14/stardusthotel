@@ -105,6 +105,15 @@ namespace Stardust.Controllers
             var model = empleadoFac.listarEmpleados();
             return View(model);
         }
+
+        public ViewResult Buscar(string nombre , string fechaInicio ) {
+            var model = empleadoFac.buscarEmpleado(nombre, fechaInicio);
+            if (model == null)
+                model = new List<EmpleadoBean>();
+            else
+                ViewBag.results = model.Count;
+            return View( model );
+        }
         #endregion
 
         /* ======== HORARIO ======== */

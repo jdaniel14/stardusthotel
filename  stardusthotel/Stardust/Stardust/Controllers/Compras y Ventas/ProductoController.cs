@@ -137,7 +137,7 @@ namespace Stardust.Controllers
 
             }
 
-            if (cantidad == 0) productosalmacen.estado = true; else productosalmacen.estado = false;
+            //if (cantidad == 0) productosalmacen.estado = true; else productosalmacen.estado = false;
 
             return View(productosalmacen);
         }
