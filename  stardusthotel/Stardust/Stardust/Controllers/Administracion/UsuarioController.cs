@@ -40,6 +40,7 @@ namespace Stardust.Controllers
             ViewBag.perfiles = perfilFac.listarPerfiles();
 
             ViewBag.departamentos = Utils.listarDepartamentos();
+
             ViewBag.provincias = new List<Provincia>() ;
             ViewBag.distritos = new List<Distrito>() ;
 
@@ -80,6 +81,7 @@ namespace Stardust.Controllers
                 ViewBag.departamentos = Utils.listarDepartamentos();
                 ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
                 ViewBag.distritos = Utils.listarDistritos(usuariobean.idDepartamento, usuariobean.idProvincia);
+
                 return View();
             }
             else if( usuariobean.idDepartamento != 0 ){
@@ -96,6 +98,7 @@ namespace Stardust.Controllers
 
                 ViewBag.departamentos = Utils.listarDepartamentos();
                 ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
+
                 ViewBag.distritos = new List<Distrito>();
                 return View();
             }
@@ -113,7 +116,9 @@ namespace Stardust.Controllers
                 ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
+
                 ViewBag.departamentos = Utils.listarDepartamentos();
+
                 ViewBag.provincias = new List<Provincia>();
                 ViewBag.distritos = new List<Distrito>();
                 return View();
@@ -166,9 +171,11 @@ namespace Stardust.Controllers
                 ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
+
                 ViewBag.departamentos = Utils.listarDepartamentos();
                 ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
                 ViewBag.distritos = Utils.listarDistritos(usuariobean.idDepartamento, usuariobean.idProvincia);
+
                 return View();
             }
             else if (usuariobean.idDepartamento != 0)
@@ -186,6 +193,7 @@ namespace Stardust.Controllers
 
                 ViewBag.departamentos = Utils.listarDepartamentos();
                 ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
+
                 ViewBag.distritos = new List<Distrito>();
                 return View();
             }
@@ -204,7 +212,9 @@ namespace Stardust.Controllers
                 ViewBag.documentos = docs;
 
                 Utils utils = new Utils();
+
                 ViewBag.departamentos = Utils.listarDepartamentos();
+
                 ViewBag.provincias = new List<Provincia>();
                 ViewBag.distritos = new List<Distrito>();
                 return View();
