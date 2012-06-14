@@ -4376,7 +4376,7 @@
     <Content Include="Views\Evento\RegistrarEvento.cshtml" />
     <Content Include="Views\ReservarHabitacion\AddServicio.cshtml" />
     <Content Include="Views\ReservarHabitacion\datosReserva.cshtml" />
-    <Content Include="Views\Reporte\Report.cshtml" />
+    <Content Include="Views\Reporte\Proveedor.cshtml" />
     <Content Include="Views\Empleado\ListHorario.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -4390,6 +4390,8 @@
     <Content Include="Views\Empleado\IndiceDetalle.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_AnonLayout.cshtml" />
+    <Content Include="Views\Reporte\ListaOC.cshtml" />
+    <Content Include="Views\Proveedor\Pago.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
