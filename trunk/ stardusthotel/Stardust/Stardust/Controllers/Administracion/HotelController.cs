@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
 using System.Text.RegularExpressions;
-//using AutoMapper;
+using AutoMapper;
 
 namespace Stardust.Controllers
 { 
@@ -24,12 +24,12 @@ namespace Stardust.Controllers
         // GET: /Hotel/Details/5
         public ViewResult Details(int id)
         {
-            //HotelBean hotel = hotelFac.getHotel(id);
-            //var hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
-            //hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
-            //hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
-            //hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
-            return View();//hotelVMD);
+            HotelBean hotel = hotelFac.getHotel(id);
+            var hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
+            hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
+            hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
+            hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
+            return View(hotelVMD);
         }
 
         #region Create
