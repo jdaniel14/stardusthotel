@@ -190,21 +190,21 @@ namespace Stardust.Controllers
         /* ======== DETALLE HORARIO ======== */
         #region Detalle Horario
         public ActionResult IndiceDetalle(int id) {
+            ViewBag.codigo=id;
             return View();
         }
         
         //crear detalle 
-        /*
-        public ActionResult Creardetalle( horario horariobeam)
+        
+        public ActionResult Creardetalle( int id)
         {
             EmpleadoFacade empleadoFac = new EmpleadoFacade();
 
-            horario horar = empleadoFac.gethorario(id);
-            EmpleadoBean emple = empleadoFac.getEmpleado(horar.idempleado);
-
-            horariodetalle horariodetallebeam = new horariodetalle();
-            horariodetallebeam.nombreEmpleado = emple.nombreEmpleado;
-            horariodetallebeam.horario = horar.ID;
+            Horario horar = empleadoFac.getHorario(id);
+          
+            HorarioDetalle horariodetallebeam = new HorarioDetalle();
+            horariodetallebeam.nombreEmpleado = horar.nombreEmpleado;
+            horariodetallebeam.idHorario = horar.ID;
 
             var diassemana = new List<String>{
 									"Lunes", 
@@ -221,11 +221,12 @@ namespace Stardust.Controllers
         }
 
         [HttpPost]
-        public ActionResult Creardetalle(horariodetalle horariodetallebeam)
+        public ActionResult Creardetalle(HorarioDetalle horariodetallebeam)
         {
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.horasentrada);
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.diasemana);
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.horario);
+            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.diaSemana);
+            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.horaEntrada);
+            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.horaSalida);
+            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.idHorario);
 
             EmpleadoFacade empleadoFac = new EmpleadoFacade();
 
@@ -235,18 +236,18 @@ namespace Stardust.Controllers
             //horariodetallebeam.horario = 1;
             //fin harcodeo
            // horario horar = empleadoFac.gethorario(horariodetallebeam.horario);
-            int ide = horariodetallebeam.horario;
+            int ide = horariodetallebeam.idHorario;
             return RedirectToAction("ListDetalle", new { id = ide });
         }
-
+        /*
         public ViewResult IndiceDetalle(int id)
         {
             var model = id;
             ViewBag.codigo = id;
             return View();
         }
-
-        //horariodetalle
+        */
+       
       
         public ViewResult ListDetalle(int idhorario)
         {
@@ -257,23 +258,23 @@ namespace Stardust.Controllers
             return View(model);
         }
 
-        public ActionResult EditarDetalle(int idhorario)
+        public ActionResult EditarDetalle(int id)
         {
-            //horariodetalle horariod = empleadoFac.gethorarioDetalle(idhorario);
-            return View();//horariod);
+            EmpleadoFacade empleadofac = new EmpleadoFacade();
+            var model= empleadofac.gethorarioDetalle(id);
+            return View(model);
         }
 
-        //
-        // POST: /Empleado/Edit/5
-
+      
 
         [HttpPost]
-        public ActionResult EditarDetalle(horariodetalle horariodetallebeam)
+        public ActionResult EditarDetalle(HorarioDetalle horariodetallebeam)
         {
             empleadoFac.modificarHorarioDetalle(horariodetallebeam);
-            return RedirectToAction("ListH", new { id = empleadoFac.gethorario(horariodetallebeam.horario).idempleado });
+            int codigohorario = empleadoFac.getHorario(horariodetallebeam.idHorario).ID;
+            return RedirectToAction("ListDetalle", new { id = codigohorario });
         }
-         */
+         
         #endregion
     }
 }
