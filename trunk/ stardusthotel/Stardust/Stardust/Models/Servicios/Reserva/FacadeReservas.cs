@@ -9,6 +9,38 @@ namespace Stardust.Models.Servicios
 {
     public class FacadeReservas
     {
+        ServiceHabitacion serviceHabitacion = new ServiceHabitacion();
+
+        //SERVICE HABITACION
+        public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        {
+            return serviceHabitacion.consultarHabitacionDisponibles(idHotel, fechaIni, fechaFin);
+        }
+
+        public List<UbicacionClienteBean> consutarHabitacionDeCliente(String nombre) {
+            return serviceHabitacion.consutarHabitacionDeCliente(nombre);
+        }
+
+
+        //SERVICE RESERVA
+        public MensajeBean anularReserva(int idReserva, String nroDocumento) {
+            MensajeBean mensaje = new MensajeBean();
+            mensaje.me = serviceHabitacion.anularReserva(idReserva, nroDocumento);
+            return mensaje;
+        }
+
+        public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
+            return serviceHabitacion.registrarReserva(reserva);
+        }
+
+        public List<CheckInBean> check_in(int idHotel, String documento)
+        {
+            List<CheckInBean> lista = serviceHabitacion.check_in(idHotel, documento);
+            return lista;
+        }
+
+
+
         public List<TipoHabXHotel> listaDisponibles(int idHotel) {
             //return new List<TipoHabXHotel>();
             List<TipoHabXHotel> listadisp = new List<TipoHabXHotel>();
@@ -41,5 +73,38 @@ namespace Stardust.Models.Servicios
 
             return listadisp;
         }
+
+        public List<ReservaMostreo> listaReservas()
+        {
+            List<ReservaMostreo> lista = new List<ReservaMostreo>();
+
+            ReservaMostreo dato = new ReservaMostreo();
+            dato.codReserva = 1;
+            dato.nombCliente = "Pedro";
+            dato.fechaReserva = "12/01/12";
+
+            lista.Add(dato);
+
+            dato.codReserva = 2;
+            dato.nombCliente = "Juan";
+            dato.fechaReserva = "11/02/02";
+
+            lista.Add(dato);
+
+            return lista;
+        }
+
+        //SERVICE RESERVA
+        //public void registrarReserva() { }
+        public void consultarReservas() { }
+        public void checkOut() { }
+        //SERVICE CLIENTE
+        public void enSistemaCliente() { }
+        public void registrarCliente() { }
+        public void check_in() { }
+        public void anular_reserva() { }
+        public void ubicacion_cliente() { }
+        
+
     }
 }
