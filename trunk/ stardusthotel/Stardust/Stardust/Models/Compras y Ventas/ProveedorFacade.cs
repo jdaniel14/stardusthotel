@@ -125,6 +125,11 @@ namespace Stardust.Models
             proveedorService.RegistrarPagoCredito(OC);
         }
 
+        public List<Proveedors> GetList()
+        {
+            return proveedorService.GetList();
+        }
+
         /*-----Registrar Datos de Factura-3------*/
 
     }

@@ -79,5 +79,10 @@ namespace Stardust.Models
         {
             proveedorDAO.RegistrarPagoCredito(OC);
         }
+
+        public List<Proveedors> GetList()
+        {
+            return proveedorDAO.GetList();
+        }
     }
 }
