@@ -215,7 +215,6 @@ namespace Stardust.Models
                         sqlCmd.ExecuteNonQuery();
                     }
                 }
-
                 sqlCon.Close();
             }
             catch
@@ -290,6 +289,31 @@ namespace Stardust.Models
             catch { }
         }
 
+        public void actualizarStock (ProductoXAlmacenBean prod)
+        {
+            int stocksobrante = 0;
 
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+                
+                for (int i = 0; i < prod.listProdalmacen.Count; i++)
+                {
+                    stocksobrante = prod.listProdalmacen[i].stockactual - prod.listProdalmacen[i].stocksaliente;
+                    string commandString = "UPDATE ProductoXAlmacen SET stockActual = " + stocksobrante +
+                                           " WHERE idAlmacen = " + prod.idalmacen + "AND idProducto = " + prod.listProdalmacen[i].ID;
+
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+
+                }
+
+                sqlCon.Close();
+            }
+            catch { }
+        }
     }
 }
