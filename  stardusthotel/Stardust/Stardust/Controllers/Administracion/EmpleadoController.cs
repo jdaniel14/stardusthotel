@@ -57,6 +57,11 @@ namespace Stardust.Controllers
 
         public ActionResult Edit(int id)
         {
+            List<TipoDocumento> estados = new List<TipoDocumento>();
+            TipoDocumento d1 = new TipoDocumento("ACTIVO");
+            TipoDocumento d2 = new TipoDocumento("INACTIVO");
+            estados.Add(d1); estados.Add(d2);
+            ViewBag.estados = estados;
             return View(empleadoFac.getEmpleado(id));
         }
 

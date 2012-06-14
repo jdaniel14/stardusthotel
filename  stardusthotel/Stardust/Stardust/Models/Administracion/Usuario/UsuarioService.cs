@@ -34,8 +34,8 @@ namespace Stardust.Models
             return usuarioDAO.listarUsuarios();
         }
 
-        public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {
-            return usuarioDAO.buscarUsuario(nombre, apPat, apMat);
+        public List<UsuarioBean> buscarUsuario(string account ,string nombre, string apPat, string apMat,string tipoDocumento,string nroDocumento) {
+            return usuarioDAO.buscarUsuario(account , nombre, apPat, apMat,tipoDocumento,nroDocumento);
         }
     }
 }

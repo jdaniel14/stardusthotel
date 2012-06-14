@@ -12,6 +12,12 @@
             <div class = "title"><h6>Buscar Usuario</h6></div>
 
             <div class="formRow">
+                <label>Cuenta de usuario</label>
+                <div class = "formRight" ><input type = "text" id = "account" name = "account" /></div>
+                <div class = "clear" ></div>
+            </div>
+            
+            <div class="formRow">
                 <label>Nombre</label>
                 <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" /></div>
                 <div class = "clear" ></div>
@@ -26,6 +32,18 @@
             <div class="formRow">
                 <label>Apellido Materno</label>
                 <div class = "formRight" ><input type = "text" id = "apMat" name = "apMat" /></div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                <label>Tipo de documento</label>
+                <div class = "formRight" > @Html.DropDownList( "tipoDocumento" , new SelectList( ViewBag.documentos , "nombre" , "nombre" ) , "Elije un tipo de documento..." ) </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                <label>Nro. Documento</label>
+                <div class = "formRight" ><input type = "text" id = "nroDocumento" name = "nroDocumento" /></div>
                 <div class = "clear" ></div>
             </div>
         </div>

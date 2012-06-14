@@ -36,7 +36,7 @@
 
             <div class = "formRow" >
                 @Html.LabelFor( model => model.estado )
-                <div class = "formRight" > @Html.TextBoxFor( model => model.estado ) </div>
+                <div class = "formRight" > @Html.DropDownListFor( model => model.estado , new SelectList( ViewBag.estados , "nombre" , "nombre" , Model.estado ) ) </div>
                 <div class = "clear" ></div>
             </div>
         </div>

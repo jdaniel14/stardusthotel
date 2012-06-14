@@ -16,6 +16,7 @@ namespace Stardust.Models
         public string nombreEmpleado { get; set; }
         
         [Display( Name = "Fecha de ingreso" ) ]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
         public DateTime fechaIngreso { get; set; }
 
         [Display( Name = "Fecha de salida" ) ]
