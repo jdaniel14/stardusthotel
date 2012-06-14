@@ -52,7 +52,11 @@ namespace Stardust.Models
     public class HorarioDetalle {
 
         [Display(Name = "Codigo del Detalle del Empleado ")]
+
+        public int horariodetalles {get; set;}
+
         public int idHorarioDetalle;
+
 
         [Display(Name = "Nombre Empleado")]
         public string nombreEmpleado { get; set; }
