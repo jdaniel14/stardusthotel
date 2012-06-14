@@ -6,12 +6,14 @@ x.ready(inicializarEventos);
 function inicializarEventos() {
 
     $("#habitaciones").hide();
+
     $("#xtipoHabit1").hide();
     $("#xtipoHabit2").hide();
     $("#xtipoHabit3").hide();
     $("#confirmacion").hide();
-
+        
     $("#check").hide();
+
     $("#buscarReserva").click(buscarHabitaciones);
     $("#tipoHabit1").hide();
     $("#tipoHabit2").hide();
@@ -25,20 +27,21 @@ function inicializarEventos() {
 }
 
 
+
 function confirmar() {
 
     var x = $("#imagen");
     x.html('<img src="http://localhost:53053/Content/images/logo.png">');
-
+    
 
     var question = confirm("Los datos son correctos??");
 
     if (question != "0") {
         $("#checkeo").hide("slow");
-
+        
         $("#confirmacion").show("slow");
     }
-
+    
 
 
 }
@@ -75,6 +78,7 @@ function muestra3() {
 
 
 
+
 function buscarHabitaciones() {
 
     $("#habitaciones").show("slow");
@@ -83,24 +87,27 @@ function buscarHabitaciones() {
     $("#xtipoHabit3").show("slow");
     $("#check").show("slow");
 
-    //    var numero = $("#nroReserva").text();
-    //    var pasar = {
-    //        nroReserva:numero
-    //    }
-    //    var jsonData = JSON.stringify(pasar);
 
-    //    console.log(jsonData);
+//    var numero = $("#nroReserva").text();
+//    var pasar = {
+//        nroReserva:numero
+//    }
+//    var jsonData = JSON.stringify(pasar);
 
-    //    $.ajax({
-    //        type: "POST",
-    //        data: jsonData,
-    //        dataType: "json",
-    //        contentType: "application/json; charset=utf-8",
-    //        url: "ReservarHabitacion/habitacionesXReseva",
-    //        beforeSend: inicioHabitacionesXReserva(),
-    //        success: llegadaHabitacionesXReserva
-    //    });
 
+
+//    console.log(jsonData);
+
+
+//    $.ajax({
+//        type: "POST",
+//        data: jsonData,
+//        dataType: "json",
+//        contentType: "application/json; charset=utf-8",
+//        url: "ReservarHabitacion/habitacionesXReseva",
+//        beforeSend: inicioHabitacionesXReserva(),
+//        success: llegadaHabitacionesXReserva
+//    });
 }
 
 function inicioHabitacionesXReserva() {
@@ -112,19 +119,20 @@ function llegadaHabitacionesXReserva(data) {
     var listaHab;
     var result = "";
 
-    //    $.each(lista, function (i, item) {
-    //        checkIn = item.datosCheckIn;
-    //        var tipoHab = checkIn.idTipHab;
-    //        var numPersonas = checkIn.nroPers;
-    //        var listaHabitaciones = checkIn.listHab;
 
-    //        result += '<div class= "formRow"><span>Tipo de Habitacion</span>';
-    //        result += '<div class = "formRight">';
-    //        result += 
+//    $.each(lista, function (i, item) {
+//        checkIn = item.datosCheckIn;
+//        var tipoHab = checkIn.idTipHab;
+//        var numPersonas = checkIn.nroPers;
+//        var listaHabitaciones = checkIn.listHab;
+
+//        result += '<div class= "formRow"><span>Tipo de Habitacion</span>';
+//        result += '<div class = "formRight">';
+//        result += 
 
 
-    //    });
-
+//    });
+    
 
 
 }
