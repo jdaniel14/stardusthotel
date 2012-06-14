@@ -24,12 +24,12 @@ namespace Stardust.Models.Servicios
             int k = 0; int tam_noDisp = listaNoDisp.Count;
             int l = 0; int tam_tot = listaTodas.Count;
             while(k<tam_noDisp && l<tam_tot){
-                if (listaNoDisp[k].idHabitacion == listaTodas[l].idHabitacion) {
+                if (listaNoDisp[k].idHab == listaTodas[l].idHab) {
                     disp[l] = false;
                     k++;
                     l++;                    
                 }
-                else if(listaNoDisp[k].idHabitacion < listaTodas[l].idHabitacion) {
+                else if(listaNoDisp[k].idHab< listaTodas[l].idHab) {
                     k++;
                 }
                 else { 
@@ -60,7 +60,7 @@ namespace Stardust.Models.Servicios
                 if (disp[i]) {
                     int tipo = dictTipoHab[ listaTodas[i].idTipoHabitacion ];
                     ReservaHabitacionBean habRes = new ReservaHabitacionBean();
-                    habRes.idHab = listaTodas[i].idHabitacion;
+                    habRes.idHab = listaTodas[i].idHab;
                     //System.Diagnostics.Debug.WriteLine("Habitacion ==> " + listaTodas[i].idHabitacion);
                     habRes.numero = listaTodas[i].numero;
                     habRes.piso = listaTodas[i].piso;
