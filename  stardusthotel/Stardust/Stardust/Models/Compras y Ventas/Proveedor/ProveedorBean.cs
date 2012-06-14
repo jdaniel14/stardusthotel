@@ -9,6 +9,18 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Stardust.Models
 {
+    public class Proveedors
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+    }
+
+    public class Proveed
+    {
+        public string id { get; set; }
+        public List<Proveedors> list { get; set; }
+    }
+
     public class ProveedorBean
     {
 

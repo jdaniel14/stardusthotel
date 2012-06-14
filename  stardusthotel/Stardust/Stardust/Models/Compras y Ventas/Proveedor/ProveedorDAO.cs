@@ -526,6 +526,37 @@ namespace Stardust.Models
 
             sqlCon2.Close();
         }
+
+        public List<Proveedors> GetList()
+        {
+            List<Proveedors> list = new List<Proveedors>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                Proveedors proveedor = new Proveedors();
+
+
+                proveedor.id = Convert.ToString(dataReader["idProveedor"]);
+                proveedor.name = (string)dataReader["razonSocial"];
+
+                list.Add(proveedor);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return list;
+        }
     }
 }
 
