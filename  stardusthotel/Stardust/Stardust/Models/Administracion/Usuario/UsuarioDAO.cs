@@ -40,9 +40,9 @@ namespace Stardust.Models
                 usuario.nroDocumento = (string)data.GetValue(10);
                 usuario.razonSocial = (string)data.GetValue(11);
                 usuario.estado = (string)data.GetValue(12);
-                usuario.direccion = (string)data.GetValue(14);
+                usuario.direccion = (string)data.GetValue(13);
 
-                int idDistrito = (int)data.GetValue(13);
+                int idDistrito = (int)data.GetValue(14);
                 int idProvincia = (int)data.GetValue(15);
                 int idDepartamento = (int)data.GetValue(16);
 
