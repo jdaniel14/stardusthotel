@@ -85,11 +85,12 @@ namespace Stardust.Models.Servicios
 
             lista.Add(dato);
 
-            dato.codReserva = 2;
-            dato.nombCliente = "Juan";
-            dato.fechaReserva = "11/02/02";
+            ReservaMostreo dato2 = new ReservaMostreo();
+            dato2.codReserva = 2;
+            dato2.nombCliente = "Juan";
+            dato2.fechaReserva = "11/02/02";
 
-            lista.Add(dato);
+            lista.Add(dato2);
 
             return lista;
         }
