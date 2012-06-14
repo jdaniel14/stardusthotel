@@ -84,5 +84,10 @@ namespace Stardust.Models
         {
             return proveedorDAO.GetList();
         }
+
+        public OrdenCompras GetOC(int id)
+        {
+            return proveedorDAO.GetOC(id);
+        }
     }
 }

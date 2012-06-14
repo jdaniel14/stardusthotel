@@ -211,12 +211,23 @@ namespace Stardust.Controllers
                 ViewBag.error = "El monto a pagar debe ser mayor a 0";
                 OC.pagado = 0;
                 return View(OC);
-            }
+            }               
             else
             {                
                 proveedorFacade.RegistrarPagoContado(OC);
+                if (Convert.ToDecimal(OC.pagado1) > OC.total)
+                {
+                    decimal saldo = OC.total - Convert.ToDecimal(OC.pagado1);
+                    return RedirectToAction("Pago", new { id = saldo});
+                }
                 return RedirectToAction("PagoProveedor");
             } 
+        }
+
+        public ActionResult Pago(decimal id)
+        {
+            ViewBag.Mensaje = "Se ha registrado el pago con un cambio de: "+id;
+            return View();
         }
 
         public ActionResult PagarCredito(int id)
