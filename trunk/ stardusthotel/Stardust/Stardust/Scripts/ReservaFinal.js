@@ -58,6 +58,7 @@ function regresar() {
 
 function enviarDatos() {
 
+    alert('enviando');
     result = "";
     result = $("#ComboCliente").val();
     $('#mostrarTipoDocumento').html(result);
