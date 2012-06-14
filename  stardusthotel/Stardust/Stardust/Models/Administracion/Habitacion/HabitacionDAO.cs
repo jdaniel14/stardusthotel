@@ -205,17 +205,23 @@ namespace Stardust.Models
 
                 String command = "Select * from Habitacion WHERE nroCamas >= @nroCamas AND piso >= @piso";
                 
-                SqlCommand query = new SqlCommand(command, sql);
 
-                Utils.agregarParametro(query, "nroCamas", nroCamas);
-                Utils.agregarParametro(query, "piso", piso);
+                
                 if (idTipoHabitacion != 0)
                 {
-                    command += " idTipoHabitacion = @idTipoHabitacion ";
-                    Utils.agregarParametro(query, "idTipoHabitacion", idTipoHabitacion);
+                    command += " AND idTipoHabitacion = @idTipoHabitacion ";
                 }
 
                 command += "ORDER BY idHotel , idTipoHabitacion";
+
+                SqlCommand query = new SqlCommand(command, sql);
+                Utils.agregarParametro(query, "nroCamas", nroCamas);
+                Utils.agregarParametro(query, "piso", piso);
+
+                if (idTipoHabitacion != 0)
+                {
+                    Utils.agregarParametro(query, "idTipoHabitacion", idTipoHabitacion);
+                }
 
                 SqlDataReader data = query.ExecuteReader();
             
