@@ -117,6 +117,7 @@ namespace Stardust.Controllers
             productosalmacen.Hotel = hotel.nombre;
             productosalmacen.idalmacen = idalmacen;
             productosalmacen.idhotel = idhotel;
+            int cantidad = 0;
             productosalmacen.listProdalmacen= new List<ProductoAlmacen>();
             for (int i = 0; i < productos.Count; i++)
             {
@@ -126,12 +127,17 @@ namespace Stardust.Controllers
                 prodProveedor.ID = productos[i].ID;
                 prodProveedor.estados = false;
                 for (int j = 0; j < prod2.listProdalmacen.Count; j++)
-                    if (prodProveedor.ID == prod2.listProdalmacen[j].ID) prodProveedor.estado2 = true;
+                    if (prodProveedor.ID == prod2.listProdalmacen[j].ID)
+                    {
+                        prodProveedor.estado2 = true;
+                    }
+                    else cantidad++;
 
                 productosalmacen.listProdalmacen.Add(prodProveedor);
 
             }
 
+            if (cantidad == 0) productosalmacen.estado = true; else productosalmacen.estado = false;
 
             return View(productosalmacen);
         }
