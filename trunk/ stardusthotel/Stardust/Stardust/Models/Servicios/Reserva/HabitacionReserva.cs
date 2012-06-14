@@ -7,7 +7,7 @@ namespace Stardust.Models.Servicios
 {
     public class HabitacionReserva
     {
-        public int idHabitacion { get; set; }
+        public int idHab{ get; set; }
         public int idTipoHabitacion { get; set; }
         public string numero { get; set; }
         public int piso { get; set; }
