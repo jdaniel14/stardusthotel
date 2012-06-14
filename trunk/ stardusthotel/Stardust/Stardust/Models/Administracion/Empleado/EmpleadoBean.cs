@@ -65,6 +65,7 @@ namespace Stardust.Models
         [Display(Name = "Dias de la semana")]      
         public string diaSemana;
 
+        [DataType(DataType.Time)]
         [Display(Name = "Hora de Entrada")]
         public DateTime horaEntrada;
 

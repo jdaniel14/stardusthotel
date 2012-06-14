@@ -271,11 +271,12 @@ namespace Stardust.Models
         }
         #endregion
 
+
         #region HorarioDetalle
         //detalle
-        /*
 
-        public void asignarhorario(horariodetalle horariod)
+
+        public void asignarDetalle(HorarioDetalle horariod)
         {
 
 
@@ -283,17 +284,20 @@ namespace Stardust.Models
 
             sql.Open();
 
-            DateTime dateini = horariod.horasentrada.;
-            DateTime datefin = horariod.fechafinhorario;
-            String fechaIngreso = dateini.Date.ToShortDateString();
-            String fechaSalida = datefin.Date.ToShortDateString();
+           // DateTime dateini = horariod.horasentrada;
+          //  DateTime datefin = horariod.horasSalida;
+           // String fechaIngreso = dateini.Date.ToShortDateString();
+           // String fechaSalida = datefin.Date.ToShortDateString();
 
 
-            String command = "Insert into Horario ( idHorario , fechaIni , fechaFin, idEmpleado) values ( "
-                               + horario.ID + ", '"
-                               + horario.fechaInicioHorario + "',  '"
-                                + horario.fechafinhorario + "', "
-                                 + horario.idempleado + ")";
+
+            String command = "Insert into HorarioDetalle ( diaSemana , horaEntrada , horaSalida, idHorario) values ( '"
+                               + horariod.diaSemana + "', '"
+                               + horariod.horaEntrada+ "',  '"
+                                + horariod.horaSalida + "', "
+                                 + horariod.idHorario+ ")";
+
+           
 
 
             SqlCommand query = new SqlCommand(command, sql);
@@ -303,7 +307,109 @@ namespace Stardust.Models
             sql.Close();
 
         }
-        */
+
+
+        public List<HorarioDetalle> listarDetalle(int id)
+        {
+
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from HorarioDetalle WHERE idHorarioDetalle=" + id + " ORDER BY idHorario";
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            List<HorarioDetalle> lista = new List<HorarioDetalle>();
+
+            while (data.Read())
+            {
+                HorarioDetalle horar = new HorarioDetalle();
+
+                horar.idHorarioDetalle = (int)data.GetValue(0);
+
+
+                horar.diaSemana = (String)data.GetValue(1);
+                horar.horaEntrada = (DateTime)data.GetValue(2);
+                horar.horaSalida = (DateTime)data.GetValue(3);
+                horar.idHorario = (int)data.GetValue(3);
+
+                EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(getHorario(horar.idHorario).idEmpleado);
+                horar.nombreEmpleado = empleado.nombreEmpleado;
+                lista.Add(horar);
+            }
+
+            sql.Close();
+
+            return lista;
+
+
+
+        }
+
+        public HorarioDetalle gethorarioDetalle(int id)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from HorarioDetalle where idHorario = " + id;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            data.Read();
+
+            HorarioDetalle hd = new HorarioDetalle();
+
+            hd.idHorarioDetalle = (int)data.GetValue(0);
+            hd.diaSemana = (String)data.GetValue(1);
+
+            hd.horaEntrada = (DateTime)data.GetValue(2);
+            hd.horaSalida = (DateTime)data.GetValue(3);
+            hd.idHorario= (int)data.GetValue(4);
+
+            //  EmpleadoBean empleado = new EmpleadoFacade().gethorario(h.idempleado);
+            //  hd.nombreEmpleado = empleado.nombreEmpleado;
+
+            // UsuarioBean usuario = new UsuarioFacade().getUsuario(h.idempleado);
+            //  empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+
+
+
+            sql.Close();
+
+            return hd;
+        }
+
+
+
+        public void modificarHorarioDetalle(HorarioDetalle hd)
+        {
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+            // String fechaini = h.fechainiciohorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechainiciohorario.Day;
+            //  String fechafin = h.fechafinhorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechafinhorario.Day;
+            // String a = h.fechainiciohorario;
+
+            String command = "Update HorarioDetalle SET "
+                                + "fechaIni = '" + hd.horaEntrada
+                                + "', fechaFin = '" + hd.horaSalida
+                //+ "' WHERE idEmpleado = " + h.idempleado
+                //+" AND idHorario=" + h.ID;
+                                + "' WHERE idHorarioDetalle = " + hd.idHorarioDetalle;
+            SqlCommand query = new SqlCommand(command, sql);
+
+            query.ExecuteNonQuery();
+
+            sql.Close();
+
+        }
+
         #endregion
     }
 }
