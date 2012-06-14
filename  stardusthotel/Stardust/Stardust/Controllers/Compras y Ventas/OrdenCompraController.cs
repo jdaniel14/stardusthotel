@@ -101,6 +101,7 @@ namespace Stardust.Controllers
                     {
                         Producto produc = new Producto();
                         produc.idproducto = productosalmacen.listProdalmacen[i].ID;
+                        produc.Nombre = proveedorFacade.GetNombreProducto(productosalmacen.listProdalmacen[i].ID);
                         produc.precio = productosprov.listProdProv[j].precio;
                         produc.stockActual = productosalmacen.listProdalmacen[i].stockactual;
                         produc.stockMinimo = productosalmacen.listProdalmacen[i].stockminimo;
