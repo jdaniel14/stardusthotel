@@ -85,7 +85,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "UPDATE Ambiente " +
-                                    "SET  nombre = '" + ambiente.nombre + "', descripcion = '" + ambiente.descripcion + "', capacMaxima = " + ambiente.cap_maxima + ", largo = " + ambiente.largo + ", ancho = " + ambiente.ancho + ", precioXHora= " +  ", piso = " + ambiente.piso +  " " +
+                                    "SET  nombre = '" + ambiente.nombre + "', descripcion = '" + ambiente.descripcion + "', capacMaxima = " + ambiente.cap_maxima + ", largo = " + ambiente.largo + ", ancho = " + ambiente.ancho + ", precioXHora= " + ambiente.precioXhora + ", piso = " + ambiente.piso + " " +
                                     //"SETEA estado = 'INACTIVO' " +
                                     "WHERE idAmbiente = " + ambiente.id.ToString();
 
