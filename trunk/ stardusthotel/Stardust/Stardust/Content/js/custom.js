@@ -485,7 +485,7 @@ $(function() {
 	
 	$('.timepicker').timeEntry({
 		show24Hours: true, // 24 hours format		
-	    spinnerImage: '../images/forms/spinnerUpDown.png',
+	    spinnerImage: '../Content/images/forms/spinnerUpDown.png',
         //spinnerImage: '../../images/forms/spinnerUpDown.png',// Arrows image
 		spinnerSize: [19, 30, 0], // Image size
 		spinnerIncDecOnly: true // Only up and down arrows
