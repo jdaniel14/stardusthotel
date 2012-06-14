@@ -1,13 +1,8 @@
-﻿@{
-    ViewBag.Title = "ListDetalle";
-}
-
-<h2>Listar Detalle</h2>
-
-@model IEnumerable<Stardust.Models.horariodetalle>
+﻿
+@model IEnumerable<Stardust.Models.HorarioDetalle>
 
 @{
-    ViewBag.Title = "Lista de Detalles del horario;
+    ViewBag.Title = "Lista de Detalles del horario";
 }
 
 <h2>Horario </h2>
@@ -37,12 +32,12 @@
             @* <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td> *@
             
            
-            <td>@Html.DisplayFor(modelItem => item.diasemana)</td>
-			<td>@Html.DisplayFor(modelItem => item.horasentrada)</td>
-			<td>@Html.DisplayFor(modelItem => item.horasSalida)</td>
+            <td>@Html.DisplayFor(modelItem => item.diaSemana)</td>
+			<td>@Html.DisplayFor(modelItem => item.horaEntrada)</td>
+			<td>@Html.DisplayFor(modelItem => item.horaSalida)</td>
 			
             <td>
-				<a href="@Url.Action("Editar", new { id = item.idhorariodetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a
+				<a href="@Url.Action("EditarDetalle", new { id = item.idHorarioDetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a
 			</td>
         </tr>
         

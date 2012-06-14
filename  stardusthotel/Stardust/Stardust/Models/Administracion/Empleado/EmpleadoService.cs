@@ -45,5 +45,21 @@ namespace Stardust.Models
             return empleadoDAO.listarHorario(id);
 
         }
+
+        public void asignarDetalle(HorarioDetalle horariod) {
+            empleadoDAO.asignarDetalle(horariod);
+        }
+        public List<HorarioDetalle> listarDetalle(int id) {
+            return empleadoDAO.listarDetalle(id);
+        }
+
+        public HorarioDetalle gethorarioDetalle(int id) {
+            return empleadoDAO.gethorarioDetalle(id);
+        }
+
+        public void modificarHorarioDetalle(HorarioDetalle hd) {
+
+            empleadoDAO.modificarHorarioDetalle(hd);
+        }
     }
 }
