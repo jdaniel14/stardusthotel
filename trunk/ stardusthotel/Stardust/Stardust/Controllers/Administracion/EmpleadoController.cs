@@ -223,6 +223,7 @@ namespace Stardust.Controllers
             EmpleadoFacade empleadoFac = new EmpleadoFacade();
 
             empleadoFac.asignarDetalle(horariodetallebeam);
+
             //harcodeo 
             //horariodetallebeam.horario = 1;
             //fin harcodeo
@@ -236,7 +237,6 @@ namespace Stardust.Controllers
             var model = id;
             ViewBag.codigo = id;
             return View();
-
         }
 
         //horariodetalle
@@ -252,8 +252,8 @@ namespace Stardust.Controllers
 
         public ActionResult EditarDetalle(int idhorario)
         {
-            horariodetalle horariod = empleadoFac.gethorarioDetalle(idhorario);
-            return View(horariod);
+            //horariodetalle horariod = empleadoFac.gethorarioDetalle(idhorario);
+            return View();//horariod);
         }
 
         //
@@ -264,7 +264,6 @@ namespace Stardust.Controllers
         public ActionResult EditarDetalle(horariodetalle horariodetallebeam)
         {
             empleadoFac.modificarHorarioDetalle(horariodetallebeam);
-
             return RedirectToAction("ListH", new { id = empleadoFac.gethorario(horariodetallebeam.horario).idempleado });
         }
          */

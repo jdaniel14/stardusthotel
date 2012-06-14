@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
 using System.Text.RegularExpressions;
-using AutoMapper;
+//using AutoMapper;
 
 namespace Stardust.Controllers
 { 
@@ -24,12 +24,12 @@ namespace Stardust.Controllers
         // GET: /Hotel/Details/5
         public ViewResult Details(int id)
         {
-            HotelBean hotel = hotelFac.getHotel(id);
-            var hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
-            hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
-            hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
-            hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
-            return View(hotelVMD);
+            //HotelBean hotel = hotelFac.getHotel(id);
+            //var hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
+            //hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
+            //hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
+            //hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
+            return View();//hotelVMD);
         }
 
         #region Create
@@ -83,11 +83,11 @@ namespace Stardust.Controllers
         public ActionResult Edit(int id)
         {
             HotelBean hotel = hotelFac.getHotel(id);
-            var hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
-            hotelVWE.Departamentos = Utils.listarDepartamentos();
-            hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
-            hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
-            return View(hotelVWE);
+            //var hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
+            //hotelVWE.Departamentos = Utils.listarDepartamentos();
+            //hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
+            //hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
+            return View();//hotelVWE);
         }
 
         [HttpPost]
@@ -97,8 +97,8 @@ namespace Stardust.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var hotel = Mapper.Map<HotelViewModelEdit, HotelBean>(hotelVWE);
-                    hotelFac.actualizarHotel(hotel);
+                    //var hotel = Mapper.Map<HotelViewModelEdit, HotelBean>(hotelVWE);
+                    //hotelFac.actualizarHotel(hotel);
                     return RedirectToAction("List");
                 }
                 return View(hotelVWE);
@@ -148,6 +148,7 @@ namespace Stardust.Controllers
         #endregion
 
         #region List
+		
         public ActionResult List() 
         {
             List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
