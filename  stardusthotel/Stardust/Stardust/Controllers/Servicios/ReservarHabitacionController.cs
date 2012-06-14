@@ -30,14 +30,16 @@ namespace Stardust.Controllers.Servicios
         }
 
         [HttpPost]
-        public JsonResult cerrarReserva(FinReserva reserva) {
-            String message="";
-            message = "Estimado "+reserva.nombre+", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
+        public JsonResult cerrarReserva(ReservaRegistroBean reserva)
+        {
+            String message = "";
+            MensajeBean rpta = facadeReservas.registrarReserva(reserva);
+            message = "Estimado "+reserva.client.nomb+", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
             System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
 
-            mail.To.Add(reserva.email);
+            mail.To.Add(reserva.client.email);
             mail.Subject = "Stardust Reservacion";
 
             mail.From = new System.Net.Mail.MailAddress("jkliose14@gmail.com");
@@ -49,9 +51,8 @@ namespace Stardust.Controllers.Servicios
             smtp.EnableSsl = true;
             smtp.Credentials = cred;
             smtp.Port = 587;
-            smtp.Send(mail);
-            String me = "";
-            return Json(me);
+            smtp.Send(mail);            
+            return Json(rpta);
         }
                 
         public ActionResult EstadoReserva()
