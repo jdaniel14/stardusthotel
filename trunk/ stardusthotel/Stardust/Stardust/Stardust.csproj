@@ -183,8 +183,12 @@
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
     <Compile Include="Models\Servicios\Reserva\CheckInBean.cs" />
     <Compile Include="Models\Servicios\Reserva\ClienteReservaBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs" />
-    <Compile Include="Models\Servicios\Reserva\FinReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\FinReserva.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Servicios\Reserva\HabInsertBean.cs" />
     <Compile Include="Models\Servicios\Reserva\HabitacionReserva.cs" />
     <Compile Include="Models\Servicios\Reserva\MensajeBean.cs" />
@@ -193,13 +197,17 @@
     <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs" />
     <Compile Include="Models\Servicios\Reserva\ReservaMostreo.cs" />
     <Compile Include="Models\Servicios\Reserva\ReservaRegistroBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\ReservaRequest.cs" />
+    <Compile Include="Models\Servicios\Reserva\ReservaRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Servicios\Reserva\ReservaTipoHabitacion.cs" />
     <Compile Include="Models\Servicios\Reserva\ResponseResHabXTipo.cs" />
     <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs" />
     <Compile Include="Models\Servicios\Reserva\ServiceReserva.cs" />
     <Compile Include="Models\Servicios\Reserva\TipoHabDisp.cs" />
-    <Compile Include="Models\Servicios\Reserva\TipoHabXHotel.cs" />
+    <Compile Include="Models\Servicios\Reserva\TipoHabXHotel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Servicios\Reserva\UbicacionClienteBean.cs" />
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
@@ -4407,8 +4415,7 @@
     <Content Include="Views\Shared\_AnonLayout.cshtml" />
     <Content Include="Views\Reporte\ListaOC.cshtml" />
     <Content Include="Views\Proveedor\Pago.cshtml" />
-    <Content Include="Views\ReservarHabitacion\CheckIn.cshtml" />
-    <Content Include="Views\ReservarHabitacion\EstadoReserva.cshtml" />
+    <Content Include="Views\Empleado\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">

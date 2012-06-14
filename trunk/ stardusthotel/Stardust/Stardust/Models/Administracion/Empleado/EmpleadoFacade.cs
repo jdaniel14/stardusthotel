@@ -29,6 +29,13 @@ namespace Stardust.Models
             return empleadoServ.listarEmpleados();
         }
 
+        public List<EmpleadoBean> buscarEmpleado(string nombre, string fechaInicio) {
+            if (nombre == null) nombre = "";
+            if (fechaInicio == null) fechaInicio = "";
+            if (nombre.Equals("") && fechaInicio.Equals("")) return null;
+            return empleadoServ.buscarEmpleado(nombre, fechaInicio);
+        }
+
         public int asignarHorario(Horario horario){
             return empleadoServ.asignarHorario(horario);
         }
