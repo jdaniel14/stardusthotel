@@ -67,6 +67,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public ActionResult ModificarClienteNatural(ClienteBean item)
         {
+            item.tipoDocumento = "DNI";
             ClienteFacade clienteFacade = new ClienteFacade();
             clienteFacade.ActualizarCliente(item);
             return RedirectToAction("Index");
@@ -82,6 +83,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public ActionResult ModificarClienteJuridico(ClienteBean item)
         {
+            item.tipoDocumento = "RUC";
             ClienteFacade clienteFacade = new ClienteFacade();
             clienteFacade.ActualizarCliente(item);
             return RedirectToAction("IndexJuridicas");
