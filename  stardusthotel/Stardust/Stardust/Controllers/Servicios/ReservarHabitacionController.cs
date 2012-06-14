@@ -32,10 +32,10 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public JsonResult cerrarReserva(FinReserva reserva) {
             String message="";
-            message = "Estimado gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
+            message = "Estimado "+reserva.nombre+", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
-            System.Net.NetworkCredential cred = new System.Net.NetworkCredential("jkliose14@gmail.com", "aprenderc");
+            System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
 
             mail.To.Add(reserva.email);
             mail.Subject = "Stardust Reservacion";
@@ -53,10 +53,44 @@ namespace Stardust.Controllers.Servicios
             String me = "";
             return Json(me);
         }
-
-        public ActionResult DatosReserva()
+                
+        public ActionResult EstadoReserva()
         {
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult mostrarReservas(ReservaRequest request)
+        {
+            List<ReservaMostreo> lista = facadeReservas.listaReservas();
+            var rpta = lista;
+            return Json(rpta);
+        }
+
+        [HttpPost]
+        public JsonResult consultarDisponibles(ReservaRequest request)
+        {
+            //DateTime fechaIni = DateTime.ParseExact("11-06-2012", "dd-MM-yyyy", null);
+            //DateTime fechaFin = DateTime.ParseExact("17-06-2012", "dd-MM-yyyy", null);
+            //String.Format("{0:yyyy-M-d}", fechaIni);
+            System.Diagnostics.Debug.Write("Ini : " + String.Format("{0:MM/dd/yyyy}", request.fechaIni));
+            System.Diagnostics.Debug.Write("Fin : " + String.Format("{0:MM/dd/yyyy}", request.fechaFin));
+            ResponseResHabXTipo res = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
+            //return "Here we go!!!!";
+            //var rpta = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
+            return Json(res);
+        }
+
+        public ActionResult CheckIn()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult habitacionesXReserva(Object parametro)
+        {
+            var rpta = "";
+            return Json(rpta);
         }
 
     }
