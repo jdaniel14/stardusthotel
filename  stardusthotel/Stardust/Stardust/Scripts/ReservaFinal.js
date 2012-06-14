@@ -106,10 +106,10 @@ function enviarDatos() {
         nombreEnvio = $("#nombreDReserva").get(0).value;
         apellido = $("#ApellidoDReserva").get(0).value;
         email2 = $("#mailNatural").get(0).value;
-        telefono = $("#telefonoNatural").get(0).value;
+        telefono = $("#telefNatural").get(0).value;
         tipoDeTarjeta = $("#tipoTarjeta").val();
         numTarjeta = $("#nTarjetaNatural").get(0).value;
-        comentario = $("#commentJ").get(0).value;
+        comentario = $("#commentN").get(0).value;
     }
 
     var nDoc = $("#nDoc").get(0).value;    
