@@ -33,6 +33,8 @@ function llegadaReservas(data) {
     var eliminar = "";
     var arreglosElim = new Array();
 
+    console.log(data);
+
     $.each(data, function (i, item) {
         alert(item.codReserva);
         cant = cant + 1;
