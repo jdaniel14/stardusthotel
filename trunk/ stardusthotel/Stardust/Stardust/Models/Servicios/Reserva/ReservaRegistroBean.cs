@@ -10,8 +10,8 @@ namespace Stardust.Models.Servicios
         public int idHotel { get; set; }
         public ClienteReservaBean client { get; set; }
         public List<HabInsertBean> listTip { get; set; }
-        public DateTime fechaIni { get; set; }
-        public DateTime fechaFin { get; set; }
+        public String fechaIni { get; set; }
+        public String fechaFin { get; set; }
         public int rec { get; set; }
         public Object datRec { get; set; }
         public String coment { get; set; }

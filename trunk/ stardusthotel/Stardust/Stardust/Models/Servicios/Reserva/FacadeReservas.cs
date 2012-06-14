@@ -12,7 +12,7 @@ namespace Stardust.Models.Servicios
         ServiceHabitacion serviceHabitacion = new ServiceHabitacion();
 
         //SERVICE HABITACION
-        public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, String fechaIni, String fechaFin)
         {
             return serviceHabitacion.consultarHabitacionDisponibles(idHotel, fechaIni, fechaFin);
         }

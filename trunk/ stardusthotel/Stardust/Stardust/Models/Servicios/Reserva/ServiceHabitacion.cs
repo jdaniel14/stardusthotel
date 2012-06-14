@@ -10,7 +10,7 @@ namespace Stardust.Models.Servicios
     public class ServiceHabitacion
     {
         ReservaHabitacionDAO reservaHabitacionDAO = new ReservaHabitacionDAO();
-        public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, String fechaIni, String fechaFin)
         {
             ResponseResHabXTipo response = new ResponseResHabXTipo();
 
