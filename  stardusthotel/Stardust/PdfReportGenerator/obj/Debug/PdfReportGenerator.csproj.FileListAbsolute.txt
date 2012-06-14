@@ -10,3 +10,9 @@ C:\Users\DJ\Desktop\ stardusthotel\Stardust\PdfReportGenerator\bin\Debug\itextsh
 C:\Users\DJ\Desktop\ stardusthotel\Stardust\PdfReportGenerator\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\DJ\Desktop\ stardusthotel\Stardust\PdfReportGenerator\obj\Debug\PdfReportGenerator.dll
 C:\Users\DJ\Desktop\ stardusthotel\Stardust\PdfReportGenerator\obj\Debug\PdfReportGenerator.pdb
+C:\Users\DJ\Desktop\sw\Stardust\PdfReportGenerator\bin\Debug\PdfReportGenerator.dll
+C:\Users\DJ\Desktop\sw\Stardust\PdfReportGenerator\bin\Debug\PdfReportGenerator.pdb
+C:\Users\DJ\Desktop\sw\Stardust\PdfReportGenerator\bin\Debug\itextsharp.dll
+C:\Users\DJ\Desktop\sw\Stardust\PdfReportGenerator\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\DJ\Desktop\sw\Stardust\PdfReportGenerator\obj\Debug\PdfReportGenerator.dll
+C:\Users\DJ\Desktop\sw\Stardust\PdfReportGenerator\obj\Debug\PdfReportGenerator.pdb
