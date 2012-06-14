@@ -1,22 +1,22 @@
 ﻿@using Stardust.Models
-@model ProveedorList
+@model OrdenCompras
 <br />
 
 <div align="center">
     ASD
 </div>
-<div> </div>
+<div>Nombre del Proveedor: @Model.nombre </div>
 
 <table cellpadding="3" cellspacing="3">
     <tr border="1" bgcolor="#777777" color="#ffffff">
         <td width="20%" align="center">
-            Name
+            Estado
         </td>
         <td width="50%" align="center">
-            Address
+            Fecha
         </td>
         <td width="30%" align="center">
-            Place
+            Precio
         </td>
     </tr>
     @{
@@ -24,14 +24,14 @@
         var evenColor = "#EEFFFF";
         var Odd = OddColor;
     }
-    @foreach (ProveedorBean proveedor in Model)
+    @foreach (OrdenCompra proveedor in Model.listaOC)
     {
         <tr border="1" bgcolor="@Odd">
-            <td>@proveedor.razonSocial
+            <td>@proveedor.estado
             </td>
-            <td>@proveedor.direccion
+            <td>@proveedor.fecha
             </td>
-            <td>@proveedor.cargoContacto
+            <td>@proveedor.precio
             </td>
         </tr>
         if (Odd == OddColor)
