@@ -25,30 +25,37 @@ namespace Stardust.Models
 
                 UsuarioBean usuario = new UsuarioBean();
 
-                data.Read();
-                usuario.ID = (int)data.GetValue(0);
-                usuario.idPerfilUsuario = (int)data.GetValue(1);
-                usuario.nombrePerfilUsuario = this.getNombrePerfil(usuario.idPerfilUsuario);
-                usuario.user_account = (string)data.GetValue(2);
-                usuario.pass = (string)data.GetValue(3);
-                usuario.nombres = (string)data.GetValue(4);
-                usuario.apPat = (string)data.GetValue(5);
-                usuario.apMat = (string)data.GetValue(6);
-                usuario.email = (string)data.GetValue(7);
-                usuario.celular = (string)data.GetValue(8);
-                usuario.tipoDocumento = (string)data.GetValue(9);
-                usuario.nroDocumento = (string)data.GetValue(10);
-                usuario.razonSocial = (string)data.GetValue(11);
-                usuario.estado = (string)data.GetValue(12);
-                usuario.direccion = (string)data.GetValue(13);
 
-                int idDistrito = (int)data.GetValue(14);
-                int idProvincia = (int)data.GetValue(15);
-                int idDepartamento = (int)data.GetValue(16);
 
-                usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
-                usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
-                usuario.nombreDepartamento = this.getDepartamento(idDepartamento);
+					if (data.HasRows)
+                {
+                    data.Read();
+                    usuario.ID = Convert.ToInt32(data["idUsuario"]);
+                    usuario.idPerfilUsuario = Convert.ToInt32(data["idPerfilUsuario"]);
+                    usuario.nombrePerfilUsuario = this.getNombrePerfil(usuario.idPerfilUsuario);
+                    usuario.user_account = Convert.ToString(data["user_account"]);
+                    usuario.pass = Convert.ToString(data["pass"]);
+                    usuario.nombres = Convert.ToString(data["nombres"]);
+                    usuario.apPat = Convert.ToString(data["apPat"]);
+                    usuario.apMat = Convert.ToString(data["apMat"]);
+                    usuario.email = Convert.ToString(data["email"]);
+                    usuario.celular = Convert.ToString(data["celular"]);
+                    usuario.tipoDocumento = Convert.ToString(data["tipoDocumento"]);
+                    usuario.nroDocumento = Convert.ToString(data["nroDocumento"]);
+                    usuario.razonSocial = Convert.ToString(data["razonSocial"]);
+                    usuario.estado = Convert.ToString(data["estado"]);
+                    usuario.direccion = Convert.ToString(data["direccion"]);
+
+                    int idDistrito = Convert.ToInt32(data["idDistrito"]);
+                    int idProvincia = Convert.ToInt32(data["idProvincia"]);
+                    int idDepartamento = Convert.ToInt32(data["idDepartamento"]);
+
+                    usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
+                    usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
+                    usuario.nombreDepartamento = this.getDepartamento(idDepartamento);
+
+                }
+                else usuario = null;
 
             sql.Close();
 
@@ -196,19 +203,28 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Update Usuario SET idPerfilUsuario = " + usuario.idPerfilUsuario +
-                                    ", nombres = '" + usuario.nombres + "', " +
-                                    "apPat = '" + usuario.apPat + "', " +
-                                    "apMat = '" + usuario.apMat + "', " +
-                                    "email = '" + usuario.email + "', " +
-                                    "celular = '" + usuario.email + "', " +
-                                    "tipoDocumento = '" + usuario.tipoDocumento + "', " +
-                                    "nroDocumento = '" + usuario.nroDocumento + "', " +
-                                    "razonSocial = '" + usuario.razonSocial + //"', " +
-                                    //"estado = '" + usuario.estado + "' " +
-                                    " WHERE idUsuario = " + usuario.ID;
-
+                String command = "Update Usuario SET idPerfilUsuario = @idPerfilUsuario , " +
+                                    "nombres = @nombres , " +
+                                    "apPat = @apPat , " +
+                                    "apMat = @apMat , " +
+                                    "email = @email , " +
+                                    "celular = @celular , " +
+                                    "tipoDocumento = @tipoDocumento , " +
+                                    "nroDocumento = @nroDocumento , " +
+                                    "razonSocial = @razonSocial " +
+                                    "WHERE idUsuario = @idUsuario";
                 SqlCommand query = new SqlCommand(command, sql);
+
+                Utils.agregarParametro(query, "idPerfilUsuario", usuario.idPerfilUsuario);
+                Utils.agregarParametro(query, "nombres", usuario.nombres);
+                Utils.agregarParametro(query, "apPat", usuario.apPat);
+                Utils.agregarParametro(query, "apMat", usuario.apMat);
+                Utils.agregarParametro(query, "email", usuario.email);
+                Utils.agregarParametro(query, "celular", usuario.celular);
+                Utils.agregarParametro(query, "tipoDocumento", usuario.tipoDocumento);
+                Utils.agregarParametro(query, "nroDocumento", usuario.nroDocumento);
+                Utils.agregarParametro(query, "razonSocial", usuario.razonSocial);
+                Utils.agregarParametro(query, "idUsuario", usuario.ID);
 
                 query.ExecuteNonQuery();
 
@@ -221,9 +237,11 @@ namespace Stardust.Models
 
             sql.Open();
 
-                String command = "Update Usuario SET estado = 'INACTIVO' WHERE idUsuario = " + id;
+                String command = "Update Usuario SET estado = 'INACTIVO' WHERE idUsuario = @idUsuario";
 
                 SqlCommand query = new SqlCommand(command, sql);
+
+                Utils.agregarParametro(query, "idUsuario", id);
 
                 query.ExecuteNonQuery();
 
@@ -248,24 +266,24 @@ namespace Stardust.Models
                 {
                     UsuarioBean usuario = new UsuarioBean();
 
-                    usuario.ID = (int)data.GetValue(0);
-                    usuario.nombrePerfilUsuario = this.getNombrePerfil((int)data.GetValue(1));
-                    usuario.user_account = (string)data.GetValue(2);
-                    usuario.pass = (string)data.GetValue(3);
-                    usuario.nombres = (string)data.GetValue(4);
-                    usuario.apPat = (string)data.GetValue(5);
-                    usuario.apMat = (string)data.GetValue(6);
-                    usuario.email = (string)data.GetValue(7);
-                    usuario.celular = (string)data.GetValue(8);
-                    usuario.tipoDocumento = (string)data.GetValue(9);
-                    usuario.nroDocumento = (string)data.GetValue(10);
-                    usuario.razonSocial = (string)data.GetValue(11);
-                    usuario.estado = (string)data.GetValue(12);
-                    usuario.direccion = (string)data.GetValue(14);
+                    usuario.ID = Convert.ToInt32 ( data["idUsuario"] ) ;
+                    usuario.nombrePerfilUsuario = this.getNombrePerfil(Convert.ToInt32(data["idPerfilUsuario"]));
+                    usuario.user_account = Convert.ToString(data["user_account"]);
+                    usuario.pass = Convert.ToString(data["pass"]);
+                    usuario.nombres = Convert.ToString(data["nombres"]);
+                    usuario.apPat = Convert.ToString(data["apPat"]);
+                    usuario.apMat = Convert.ToString(data["apMat"]);
+                    usuario.email = Convert.ToString(data["email"]);
+                    usuario.celular = Convert.ToString(data["celular"]);
+                    usuario.tipoDocumento = Convert.ToString(data["tipoDocumento"]);
+                    usuario.nroDocumento = Convert.ToString(data["nroDocumento"]);
+                    usuario.razonSocial = Convert.ToString(data["razonSocial"]);
+                    usuario.estado = Convert.ToString(data["estado"]);
+                    usuario.direccion = Convert.ToString(data["direccion"]);
 
-                    int idDistrito = (int)data.GetValue(13);
-                    int idProvincia = (int)data.GetValue(15);
-                    int idDepartamento = (int)data.GetValue(16);
+                    int idDistrito = Convert.ToInt32(data["idDistrito"]);
+                    int idProvincia = Convert.ToInt32(data["idProvincia"]);
+                    int idDepartamento = Convert.ToInt32(data["idDepartamento"]);
 
                     usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
                     usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
@@ -274,68 +292,81 @@ namespace Stardust.Models
                     lista.Add(usuario);
                 }
 
-                sql.Close();
+            sql.Close();
 
             return lista;
         }
 
-        public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {
+        public List<UsuarioBean> buscarUsuario(string account , string nombre, string apPat, string apMat , string tipoDocumento , string nroDocumento ) {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
             sql.Open();
 
-            String command = "Select * from Usuario";
-            String mount = "";
-            if (!nombre.Equals("")){
-                mount += " nombres = '" + nombre + "'";
-            }
-            if (!apPat.Equals("")){
-                if (mount.Length > 0) mount += " and";
-                mount += " apPat = '" + apPat + "'";
-            }
-            if (!apMat.Equals("")){
-                if (mount.Length > 0) mount += " and";
-                mount += " apMat = '" + apMat + "'" ;
-            }
-            if (mount.Length > 0) {
-                command += " where";
-                command += mount;
-            }
+                String command = "Select * from Usuario";
+                String mount = "";
+                if (!nombre.Equals("")){
+                    mount += " nombres = '" + nombre + "'";
+                }
+                if (!account.Equals("")) {
+                    if (mount.Length > 0) mount += " and";
+                    mount += " user_account = '" + account + "'";
+                }
+                if (!apPat.Equals("")){
+                    if (mount.Length > 0) mount += " and";
+                    mount += " apPat = '" + apPat + "'";
+                }
+                if (!apMat.Equals("")){
+                    if (mount.Length > 0) mount += " and";
+                    mount += " apMat = '" + apMat + "'" ;
+                }
+                if (!tipoDocumento.Equals("")) {
+                    if (mount.Length > 0) mount += " and";
+                    mount += " tipoDocumento = '" + tipoDocumento + "'";
+                }
+                if (!nroDocumento.Equals("")) {
+                    if (mount.Length > 0) mount += " and";
+                    mount += " nroDocumento = '" + nroDocumento + "'";
+                }
+                if (mount.Length > 0) {
+                    command += " where";
+                    command += mount;
+                }
 
-            SqlCommand query = new SqlCommand(command, sql);
+                SqlCommand query = new SqlCommand(command, sql);
 
-            SqlDataReader data = query.ExecuteReader();
+                SqlDataReader data = query.ExecuteReader();
 
-            List<UsuarioBean> lista = new List<UsuarioBean>();
+                List<UsuarioBean> lista = new List<UsuarioBean>();
 
-            while (data.Read()) {
-                UsuarioBean usuario = new UsuarioBean();
-                usuario.ID = (int)data.GetValue(0);
-                usuario.idPerfilUsuario = (int)data.GetValue(1);
-                usuario.nombrePerfilUsuario = this.getNombrePerfil(usuario.idPerfilUsuario);
-                usuario.user_account = (string)data.GetValue(2);
-                usuario.pass = (string)data.GetValue(3);
-                usuario.nombres = (string)data.GetValue(4);
-                usuario.apPat = (string)data.GetValue(5);
-                usuario.apMat = (string)data.GetValue(6);
-                usuario.email = (string)data.GetValue(7);
-                usuario.celular = (string)data.GetValue(8);
-                usuario.tipoDocumento = (string)data.GetValue(9);
-                usuario.nroDocumento = (string)data.GetValue(10);
-                usuario.razonSocial = (string)data.GetValue(11);
-                usuario.estado = (string)data.GetValue(12);
-                usuario.direccion = (string)data.GetValue(14);
+                while (data.Read())
+                {
+                    UsuarioBean usuario = new UsuarioBean();
 
-                int idDistrito = (int)data.GetValue(13);
-                int idProvincia = (int)data.GetValue(15);
-                int idDepartamento = (int)data.GetValue(16);
+                    usuario.ID = Convert.ToInt32(data["idUsuario"]);
+                    usuario.nombrePerfilUsuario = this.getNombrePerfil(Convert.ToInt32(data["idPerfilUsuario"]));
+                    usuario.user_account = Convert.ToString(data["user_account"]);
+                    usuario.pass = Convert.ToString(data["pass"]);
+                    usuario.nombres = Convert.ToString(data["nombres"]);
+                    usuario.apPat = Convert.ToString(data["apPat"]);
+                    usuario.apMat = Convert.ToString(data["apMat"]);
+                    usuario.email = Convert.ToString(data["email"]);
+                    usuario.celular = Convert.ToString(data["celular"]);
+                    usuario.tipoDocumento = Convert.ToString(data["tipoDocumento"]);
+                    usuario.nroDocumento = Convert.ToString(data["nroDocumento"]);
+                    usuario.razonSocial = Convert.ToString(data["razonSocial"]);
+                    usuario.estado = Convert.ToString(data["estado"]);
+                    usuario.direccion = Convert.ToString(data["direccion"]);
 
-                usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
-                usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
-                usuario.nombreDepartamento = this.getDepartamento(idDepartamento);
+                    int idDistrito = Convert.ToInt32(data["idDistrito"]);
+                    int idProvincia = Convert.ToInt32(data["idProvincia"]);
+                    int idDepartamento = Convert.ToInt32(data["idDepartamento"]);
 
-                lista.Add(usuario);
-            }
+                    usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
+                    usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
+                    usuario.nombreDepartamento = this.getDepartamento(idDepartamento);
+
+                    lista.Add(usuario);
+                }
 
             sql.Close();
 

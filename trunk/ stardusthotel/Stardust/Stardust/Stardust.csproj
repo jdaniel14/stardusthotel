@@ -92,7 +92,6 @@
     <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\Compras y Ventas\ReporteController.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -34,12 +34,15 @@ namespace Stardust.Models
             return usuarioServ.listarUsuarios();
         }
 
-        public List<UsuarioBean> buscarUsuario(string nombre, string apPat, string apMat) {
+        public List<UsuarioBean> buscarUsuario(string account , string nombre, string apPat, string apMat , string tipoDocumento , string nroDocumento) {
+            if (account == null) account = "";
             if (nombre == null) nombre = "";
             if (apPat == null) apPat = "";
             if (apMat == null) apMat = "";
-            if (nombre.Equals(apPat) && apPat.Equals(apMat) && apMat.Equals("")) return new List<UsuarioBean>();
-            return usuarioServ.buscarUsuario(nombre, apPat, apMat);
+            if (tipoDocumento == null) tipoDocumento = "";
+            if (nroDocumento == null) nroDocumento = "";
+            if (account.Equals( nombre ) && nombre.Equals(apPat) && apPat.Equals(apMat) && apMat.Equals("") &&tipoDocumento.Equals(apMat) &&nroDocumento.Equals(nombre)) return new List<UsuarioBean>();
+            return usuarioServ.buscarUsuario(account , nombre, apPat, apMat,tipoDocumento,nroDocumento);
         }
     }
 }

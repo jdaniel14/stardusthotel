@@ -258,8 +258,15 @@ namespace Stardust.Controllers
             return View( model );
         }
 
-        public ViewResult Buscar(string nombre, string apPat, string apMat) {
-            var model = usuarioFac.buscarUsuario(nombre, apPat, apMat);
+        public ViewResult Buscar(string account , string nombre, string apPat, string apMat , string tipoDocumento , string nroDocumento ) {
+            var model = usuarioFac.buscarUsuario(account , nombre, apPat, apMat, tipoDocumento , nroDocumento);
+            List<TipoDocumento> docs = new List<TipoDocumento>();
+            TipoDocumento d1 = new TipoDocumento("DNI");
+            TipoDocumento d2 = new TipoDocumento("RUC");
+            TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+            TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+            docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+            ViewBag.documentos = docs;
             return View( model ) ;
         }
     }
