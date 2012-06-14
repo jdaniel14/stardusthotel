@@ -15,7 +15,7 @@ namespace Stardust.Controllers.Compras_y_Ventas
 
         ProveedorFacade proveedorFacade = new ProveedorFacade();
 
-        public ActionResult Report()
+        public ActionResult Proveedor()
         {
             Proveed prov = new Proveed();
             prov.list = proveedorFacade.GetList();
@@ -23,7 +23,7 @@ namespace Stardust.Controllers.Compras_y_Ventas
         }
 
         [HttpPost]
-        public ActionResult Report(Proveed prov)
+        public ActionResult Proveedor(Proveed prov)
         {
             int ID = Convert.ToInt32(prov.id);
             return RedirectToAction("ReporteProveedor", new { id = ID});
@@ -31,18 +31,13 @@ namespace Stardust.Controllers.Compras_y_Ventas
 
         public ActionResult ReporteProveedor(int id)
         {
-
-            return View();
+            proveedorFacade.GetOC(id);
+            return RedirectToAction("ListarOC/"+id,"Proveedor");
         }
 
         public ActionResult Nada(int id)
         {
-            return this.ViewPdf("ProveedorBean", "Reporte", Reportes(id));
-        }
-
-        private ProveedorList Reportes(int id)
-        {
-            return proveedorFacade.ListarProveedor2();
+            return this.ViewPdf("ProveedorBean", "Reporte", proveedorFacade.GetOC(id));
         }
     }
 }

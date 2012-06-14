@@ -542,6 +542,8 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
+            list.Add(new Proveedors { id = "0",name = "Todo"});
+
             while (dataReader.Read())
             {
                 Proveedors proveedor = new Proveedors();
@@ -556,6 +558,40 @@ namespace Stardust.Models
             sqlCon.Close();
 
             return list;
+        }
+
+        public OrdenCompras GetOC(int id)
+        {
+            OrdenCompras OC = new OrdenCompras();
+
+            OC.nombre = GetNombre(id);
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM OrdenCompra ";
+
+            if (id > 0)
+                commandString += "WHERE idProveedor = " + id;
+
+            commandString += " ORDER BY estado";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {
+                OrdenCompra Orden = new OrdenCompra();
+                Orden.id = (int)dataReader["idOrdenCompra"];
+                Orden.fecha = (string)dataReader["fechaPedido"];
+                Orden.estado = (string)dataReader["estado"];
+                Orden.precio = (decimal)dataReader["precioTotal"];
+                OC.listaOC.Add(Orden);
+            }
+
+            return OC;
         }
     }
 }
