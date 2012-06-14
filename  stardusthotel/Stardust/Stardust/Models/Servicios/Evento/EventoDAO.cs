@@ -28,11 +28,13 @@ namespace Stardust.Models
             if (!result1)
                 commandString = commandString + " AND UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'";
 
-            if (!result2)
+            if (!result2) 
                 commandString = commandString + " AND (CONVERT(VARCHAR(10),fechaIni,103) LIKE'%" + fechaini + "%' )";
 
             if (!result3)
                 commandString = commandString + " AND (CONVERT(VARCHAR(10),fechaFin,103) LIKE'%" + fechafin + "%' )";
+            if (!result1 && !result2)
+                commandString = commandString + " AND " + fechaini + " BETWEEN (CONVERT(VARCHAR(10),fechaIni,103) AND (CONVERT(VARCHAR(10),fechaFin,103) ";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
