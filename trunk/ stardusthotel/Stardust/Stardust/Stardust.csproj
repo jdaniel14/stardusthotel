@@ -181,10 +181,26 @@
     <Compile Include="Models\Servicios\Evento\EventoBean.cs" />
     <Compile Include="Models\Servicios\Evento\EventoDAO.cs" />
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
+    <Compile Include="Models\Servicios\Reserva\CheckInBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\ClienteReservaBean.cs" />
     <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs" />
     <Compile Include="Models\Servicios\Reserva\FinReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\HabInsertBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\HabitacionReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\MensajeBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\RequestResHab.cs" />
+    <Compile Include="Models\Servicios\Reserva\ReservaHabitacionBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs" />
+    <Compile Include="Models\Servicios\Reserva\ReservaMostreo.cs" />
+    <Compile Include="Models\Servicios\Reserva\ReservaRegistroBean.cs" />
     <Compile Include="Models\Servicios\Reserva\ReservaRequest.cs" />
+    <Compile Include="Models\Servicios\Reserva\ReservaTipoHabitacion.cs" />
+    <Compile Include="Models\Servicios\Reserva\ResponseResHabXTipo.cs" />
+    <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs" />
+    <Compile Include="Models\Servicios\Reserva\ServiceReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\TipoHabDisp.cs" />
     <Compile Include="Models\Servicios\Reserva\TipoHabXHotel.cs" />
+    <Compile Include="Models\Servicios\Reserva\UbicacionClienteBean.cs" />
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
@@ -4391,6 +4407,8 @@
     <Content Include="Views\Shared\_AnonLayout.cshtml" />
     <Content Include="Views\Reporte\ListaOC.cshtml" />
     <Content Include="Views\Proveedor\Pago.cshtml" />
+    <Content Include="Views\ReservarHabitacion\CheckIn.cshtml" />
+    <Content Include="Views\ReservarHabitacion\EstadoReserva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
