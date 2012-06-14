@@ -40,12 +40,6 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp">
-      <HintPath>..\..\..\itextsharp.dll</HintPath>
-    </Reference>
-    <Reference Include="itextsharp.xtra">
-      <HintPath>..\..\..\itextsharp.xtra.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Json">
@@ -98,6 +92,7 @@
     <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Compras y Ventas\ReporteController.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -172,6 +167,7 @@
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorBean.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorDAO.cs" />
     <Compile Include="Models\Compras y Ventas\ProveedorFacade.cs" />
+    <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorList.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorService.cs" />
     <Compile Include="Models\Reservas\DisponibleBean.cs" />
     <Compile Include="Models\Servicios\AmbienteFacade.cs" />
@@ -4372,7 +4368,7 @@
     <Content Include="Views\OrdenCompra\Index.cshtml" />
     <Content Include="Views\OrdenCompra\DetallenotaEntrada.cshtml" />
     <Content Include="Views\Usuario\Buscar.cshtml" />
-    <Content Include="Views\Proveedor\Reporte.cshtml" />
+    <Content Include="Views\Reporte\Reporte.cshtml" />
     <Content Include="Views\Evento\Buscar.cshtml" />
     <Content Include="Views\Evento\DetallesEvento.cshtml" />
     <Content Include="Views\Evento\Index.cshtml" />
@@ -4380,6 +4376,7 @@
     <Content Include="Views\Evento\RegistrarEvento.cshtml" />
     <Content Include="Views\ReservarHabitacion\AddServicio.cshtml" />
     <Content Include="Views\ReservarHabitacion\datosReserva.cshtml" />
+    <Content Include="Views\Reporte\Report.cshtml" />
     <Content Include="Views\Empleado\ListHorario.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -4393,6 +4390,12 @@
     <Content Include="Views\Empleado\IndiceDetalle.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_AnonLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
+      <Project>{DF00196A-3B96-4BCD-8C4E-879DB8EDFE95}</Project>
+      <Name>PdfReportGenerator</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
