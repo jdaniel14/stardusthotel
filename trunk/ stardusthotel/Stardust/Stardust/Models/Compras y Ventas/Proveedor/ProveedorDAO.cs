@@ -542,7 +542,7 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            list.Add(new Proveedors { id = "0",name = "Todo"});
+            //list.Add(new Proveedors { id = "0",name = "Todo"});
 
             while (dataReader.Read())
             {
