@@ -59,7 +59,7 @@ namespace Stardust.Models
                     total += (valor*precio);
             }
             
-            string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + producto.id + " , " + total+" )";
+            string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id+" )";
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -88,7 +88,7 @@ namespace Stardust.Models
                 decimal precio = 0; // decimal
                 Producto prod = producto.listaProducto.ElementAt(i);
                 precio = (prod.precio * prod.cantidad);
-                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.id +" , "+ id + " , "+ prod.cantidad + " , "+ precio + " )";
+                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.idproducto +" , "+ id + " , "+ prod.cantidad + " , "+ precio + " )";
                 SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
                 sqlCmd3.ExecuteNonQuery();
             }

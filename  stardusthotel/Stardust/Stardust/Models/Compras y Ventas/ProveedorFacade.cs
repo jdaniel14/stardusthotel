@@ -135,6 +135,11 @@ namespace Stardust.Models
             return proveedorService.GetOC(id);
         }
 
+        public string GetNombreProducto(int id)
+        {
+            return proveedorService.GetNombreProducto(id);
+        }
+
         /*-----Registrar Datos de Factura-3------*/
 
     }
