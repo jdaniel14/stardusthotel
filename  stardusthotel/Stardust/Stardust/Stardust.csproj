@@ -100,6 +100,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\Servicios\ClienteController.cs" />
+    <Compile Include="Controllers\Servicios\EventoController.cs" />
     <Compile Include="Controllers\Servicios\ReservarHabitacionController.cs" />
     <Compile Include="Controllers\Servicios\ServiciosController.cs">
       <SubType>Code</SubType>
