@@ -39,7 +39,9 @@ namespace Stardust.Models.Servicios
             return lista;
         }
 
-
+        public ConsultaReservaBean consultarReserva(int idHotel, int idReserva, String documento) {
+            return serviceHabitacion.consultarReserva(idHotel, idReserva, documento);
+        }
 
         public List<TipoHabXHotel> listaDisponibles(int idHotel) {
             //return new List<TipoHabXHotel>();
@@ -97,7 +99,7 @@ namespace Stardust.Models.Servicios
 
         //SERVICE RESERVA
         //public void registrarReserva() { }
-        public void consultarReservas() { }
+        
         public void checkOut() { }
         //SERVICE CLIENTE
         public void enSistemaCliente() { }
