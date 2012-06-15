@@ -89,8 +89,8 @@ namespace Stardust.Models.Servicios
             return reservaHabitacionDAO.ubicarPersona(nombre);
         }
 
-        public String anularReserva(int idReserva, String nroDocumento) {
-            return reservaHabitacionDAO.deleteReserva(idReserva, nroDocumento);
+        public String anularReserva(int idReserva) {
+            return reservaHabitacionDAO.deleteReserva(idReserva);
         }
 
         public List<CheckInBean> check_in(int idHotel, String documento)

@@ -110,7 +110,7 @@ namespace Stardust.Models.Servicios
         }
 
 
-        public String deleteReserva(int idReserva, String nroDocumento)
+        public String deleteReserva(int idReserva)
         {
             String me = "";
 
@@ -119,39 +119,20 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = " SELECT count(idReserva) as ok" +
-                                        " FROM Reserva r, Usuario u" +
-                                        " WHERE idReserva = " + idReserva.ToString() + " and r.idUsuario=u.idUsuario and u.nroDocumento = '" + nroDocumento + "'";
+            String query1 = " UPDATE Reserva" +
+                            " SET estado='CANCELADO'" +
+                            " WHERE idReserva=" + idReserva.ToString();
+            SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
+            sqlCmd1.ExecuteNonQuery();
 
-            System.Diagnostics.Debug.WriteLine("Anular " + query);
+            String query2 = " UPDATE ReservaXHabitacion " +
+                            " SET estado=4" +
+                            " WHERE idReserva=" + idReserva.ToString();
+            SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
+            sqlCmd2.ExecuteNonQuery();
 
-            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            me = "Su reserva fue anulada satisfactoriamente";
 
-            int tot = -1;
-            if (dataReader.Read())
-            {
-                tot = (int)dataReader["ok"];
-            }
-            if (tot == -1) me = "Error al acceder a base de datos";
-            else if (tot == 0) me = "Ingrese sus datos correctamente";
-            else if (tot == 1)
-            {
-                String query1 = " UPDATE Reserva" +
-                                " SET estado='CANCELADO'" +
-                                " WHERE idReserva=" + idReserva.ToString();
-                SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
-                sqlCmd1.ExecuteNonQuery();
-
-                String query2 = " UPDATE ReservaXHabitacion " +
-                                " SET estado=4" +
-                                " WHERE idReserva=" + idReserva.ToString();
-                SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
-                sqlCmd2.ExecuteNonQuery();
-
-                me = "Su reserva fue anulada satisfactoriamente";
-            }
-            dataReader.Close();
             sqlCon.Close();
 
 

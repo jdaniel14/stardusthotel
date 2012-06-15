@@ -23,9 +23,9 @@ namespace Stardust.Models.Servicios
 
 
         //SERVICE RESERVA
-        public MensajeBean anularReserva(int idReserva, String nroDocumento) {
+        public MensajeBean anularReserva(int idReserva) {
             MensajeBean mensaje = new MensajeBean();
-            mensaje.me = serviceHabitacion.anularReserva(idReserva, nroDocumento);
+            mensaje.me = serviceHabitacion.anularReserva(idReserva);
             return mensaje;
         }
 
@@ -104,8 +104,7 @@ namespace Stardust.Models.Servicios
         //SERVICE CLIENTE
         public void enSistemaCliente() { }
         public void registrarCliente() { }
-        public void check_in() { }
-        public void anular_reserva() { }
+        public void check_in() { }        
         public void ubicacion_cliente() { }
         
 
