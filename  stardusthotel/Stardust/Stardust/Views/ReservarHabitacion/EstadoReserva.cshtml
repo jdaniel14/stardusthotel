@@ -6,27 +6,93 @@
 
 <script type="text/javascript" src="/Scripts/EstadoReserva.js"></script>
 
-<div class = "widget" >
+<div id = "consulta">
 
-    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Reservas</h6></div>
+    <div class = "widget" >
 
-    <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+    <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" />
+        <h6>Consultar Reserva</h6>
+    </div>
 
-    <thead>
-        <tr>
-            <td>Cliente</td>
-            <td>Codigo de Reserva</td>
-            <td>Fecha de reserva</td>
-            <td></td>            
-        </tr>
-    </thead>
+    <div class="formRow"><span>N° de Reserva</span>                
+		<div class = "formRight" >                                         
+			<div class="demo">
+				<input type="text" id="nroReserva"/>
+			</div>
+		</div>                
+		<div class="clear"></div>
+	</div>
 
-    <tbody id = "tablaReservas">
+    <div class="formRow"><span>N° de Documento</span>                
+		<div class = "formRight" >                                         
+			<div class="demo">
+				<input type="text" id="nroDocumento"/>
+			</div>
+		</div>                
+		<div class="clear"></div>
+	</div>
+
+    </div>
+
+</div>
+
+<p>
+    <input id = "buttonDatos" type="submit" value="Buscar Reserva" class = "redB" />
+</p>
 
 
-    </tbody>
+<div id = "datos">
+    <div class = "widget">
+
+        <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Datos de la Reserva</h6></div>
+
+        <div id = "insertarDatos">
+        
+        </div>
 
 
 
-    </table>
+        @*<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+        <thead>
+            <tr>
+                <td>Cliente</td>
+                <td>Codigo de Reserva</td>
+                <td>Fecha de reserva</td>
+                <td></td>            
+            </tr>
+        </thead>
+
+        <tbody id = "tablaReservas">
+
+
+        </tbody>
+        </table>*@
+    </div>
+
+    <div class = "widget">
+
+        <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Habitaciones</h6></div>
+
+        
+        
+        <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
+
+        <thead>
+            <tr>
+                <td>Nombre del tipo de habitación</td>
+                <td>Cantidad de habitaciones</td>                         
+            </tr>
+        </thead>
+
+        <tbody id = "tablaReservas">
+
+
+        </tbody>
+        </table>      
+    </div>
+
+    <p>
+    <input id = "anular" type="submit" value="Anular Reserva" class = "redB" />
+    </p>
 </div>
