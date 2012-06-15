@@ -58,7 +58,7 @@ function regresar() {
 
 function enviarDatos() {
 
-    alert('enviando');
+    //alert('enviando');
     result = "";
     result = $("#ComboCliente").val();
     $('#mostrarTipoDocumento').html(result);
@@ -199,5 +199,7 @@ function enviarDatos() {
     });
 }
 function finRes(data) {
-    //console.log("se hizo");
+    console.log("se hizo");
+    $(location).attr('href', '../');
+    alert(data.mes.toString());
 }

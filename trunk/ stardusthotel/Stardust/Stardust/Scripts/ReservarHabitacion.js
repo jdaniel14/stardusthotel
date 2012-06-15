@@ -145,7 +145,7 @@ function mostrarBuscame() {
 
     //alert(fechaFinal);
     var Hotel = {
-        idHotel: "2",
+        idHotel: "1",
         fechaIni: fechaInicio,
         fechaFin: fechaFinal
     }
