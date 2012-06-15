@@ -323,7 +323,7 @@ namespace Stardust.Models.Servicios
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
                         
-            if (dataReader.Read())
+            while (dataReader.Read())
             {
                 TipoHabCant tipo = new TipoHabCant();
                 tipo.nombreTipoHab = (String)dataReader["nombre"];
