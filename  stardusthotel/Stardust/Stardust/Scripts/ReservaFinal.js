@@ -201,5 +201,6 @@ function enviarDatos() {
 function finRes(data) {
     console.log("se hizo");
     $(location).attr('href', '../');
-    alert(data.mes.toString());
+    alert('Se registro');
+    //alert(data.mes.toString());
 }
