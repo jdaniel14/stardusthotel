@@ -117,6 +117,7 @@ namespace Stardust.Models.Servicios
             bool result = reserva.me.Equals("");
             if (result)
             {
+                consulta.idReserva = idReserva;
                 consulta.fechaIni = reserva.fechaLlegada;
                 consulta.fechaFin = reserva.fechaSalida;                
                 consulta.doc = reserva.doc;
