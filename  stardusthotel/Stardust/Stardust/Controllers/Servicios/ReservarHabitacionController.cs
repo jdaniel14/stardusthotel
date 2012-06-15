@@ -92,6 +92,11 @@ namespace Stardust.Controllers.Servicios
         {
             return View();
         }
+        [HttpPost]
+        public JsonResult anularReserva(int idReserva) {
+            MensajeBean res = facadeReservas.anularReserva(idReserva);
+            return Json(res);
+        }
 
         [HttpPost]
         public JsonResult habitacionesXReserva(Object parametro)
