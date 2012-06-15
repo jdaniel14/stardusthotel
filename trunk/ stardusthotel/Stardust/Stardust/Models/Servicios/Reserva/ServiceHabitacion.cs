@@ -12,10 +12,11 @@ namespace Stardust.Models.Servicios
         ReservaHabitacionDAO reservaHabitacionDAO = new ReservaHabitacionDAO();
         public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, String fechaIni, String fechaFin)
         {
+            System.Diagnostics.Debug.WriteLine("Hotel : " + idHotel);
             ResponseResHabXTipo response = new ResponseResHabXTipo();
 
             List<HabitacionReserva> listaNoDisp = reservaHabitacionDAO.listarNoDisponibles(idHotel, fechaIni, fechaFin);
-            List<HabitacionReserva> listaTodas = reservaHabitacionDAO.listarHabitaciones();
+            List<HabitacionReserva> listaTodas = reservaHabitacionDAO.listarHabitaciones(idHotel);
             List<ReservaTipoHabitacion> listaTipHab = reservaHabitacionDAO.listaTipoHabitacion(idHotel);
             int totTipHab = listaTipHab.Count;
             int tam = listaTodas.Count;
@@ -27,7 +28,7 @@ namespace Stardust.Models.Servicios
                 if (listaNoDisp[k].idHab == listaTodas[l].idHab) {
                     disp[l] = false;
                     k++;
-                    l++;                    
+                    l++;
                 }
                 else if(listaNoDisp[k].idHab< listaTodas[l].idHab) {
                     k++;
@@ -53,11 +54,13 @@ namespace Stardust.Models.Servicios
                 tipoHabDisp.listaDisp = new List<ReservaHabitacionBean>();
                 listaRespuesta.Add(tipoHabDisp);
                 int numTip = listaRespuesta[i].idTipoHab;
+                System.Diagnostics.Debug.WriteLine("-> " + numTip);
                 dictTipoHab[numTip] = i;
 
             }
             for (int i = 0; i < tam_tot; i++) {
                 if (disp[i]) {
+                    System.Diagnostics.Debug.WriteLine(listaTodas[i].idTipoHabitacion);
                     int tipo = dictTipoHab[ listaTodas[i].idTipoHabitacion ];
                     ReservaHabitacionBean habRes = new ReservaHabitacionBean();
                     habRes.idHab = listaTodas[i].idHab;
@@ -98,6 +101,7 @@ namespace Stardust.Models.Servicios
             MensajeBean mensaje = new MensajeBean();
             int idUsuario = reservaHabitacionDAO.registraCliente(reserva.client);
             int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, idUsuario, reserva.fechaIni, reserva.fechaFin, reserva.coment);
+            reservaHabitacionDAO.registrarXtipoHabitacion(idReserva, reserva.idHotel, reserva.listTip);
             reservaHabitacionDAO.resgistrarHabitaciones(reserva.listTip, reserva.fechaIni, reserva.fechaFin, idReserva);
             //if(reserva.rec==1)
             //    reservaHabitacionDAO.registrarServicio(reserva.datRec);
