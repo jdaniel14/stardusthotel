@@ -15,7 +15,10 @@ function inicializarEventos() {
 
 function buscarReserva(){
 
+    $("#consulta").hide("slow");
     $("#datos").show("slow");
+    $("#buttonDatos").hide("slow");
+
 
     var num = $("#nroReserva").get(0).value;
     var num2 = $("#nroDocumento").get(0).value;
@@ -33,7 +36,7 @@ function buscarReserva(){
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "ReservarHabitacion/consultarReserva",
+        url: "consultarReserva",
         beforeSend: inicioEnvioReservas(),
         success: llegadaReservas
     });
@@ -48,12 +51,12 @@ function llegadaReservas(data) {
     console.log(data);
 
     $("#anular").show("slow");
-    
-    var idReserva = data.idReserva;
-    var fechaLlegada = data.fechaLlegada;
-    var fechaSalida = data.fechaSalida;
-    var nroDoc = data.nroDoc;
-    var nombre = data.nombre;
+
+    var idReserva = data.idReserva;    
+    var fechaLlegada = data.fechaIni;
+    var fechaSalida = data.fechaFin;
+    var nroDoc = data.doc;
+    var nombre = data.Nombre;
     var lista = data.listaHab
 
     result = "";
@@ -90,7 +93,7 @@ function llegadaReservas(data) {
     $.each(lista, function (i, item) {
 
         result += '<tr>';
-        result += '<td>' + item.nombTipoHab + '</td>';
+        result += '<td>' + item.nombreTipoHab + '</td>';
         result += '<td>' + item.cant + '</td>';
         result += '</tr>';
 
@@ -180,6 +183,7 @@ function waitEliminar() {
 }
 
 function eliminadoReserva(data) {
-    $(location).attr('href', '../');
-    alert('Eliminado');
+    alert(data.me.toString());
+    $(location).attr('href', '../../');
+    
 }
