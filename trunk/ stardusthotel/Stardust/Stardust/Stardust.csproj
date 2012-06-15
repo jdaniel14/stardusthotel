@@ -115,6 +115,8 @@
     <Compile Include="Models\Administracion\Habitacion\HabitacionDAO.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionFacade.cs" />
     <Compile Include="Models\Administracion\Habitacion\HabitacionService.cs" />
+    <Compile Include="Models\Administracion\HorarioEmpleado\DetalleHorario.cs" />
+    <Compile Include="Models\Administracion\HorarioEmpleado\HorarioEmpleadoBean.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelBean.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelDAO.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelFacade.cs" />
@@ -186,34 +188,31 @@
     <Compile Include="Models\Servicios\Evento\EventoBean.cs" />
     <Compile Include="Models\Servicios\Evento\EventoDAO.cs" />
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
-    <Compile Include="Models\Servicios\Reserva\CheckInBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\ClienteReservaBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\FinReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\HabInsertBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\HabitacionReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\RequestResHab.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\ReservaRegistroBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\ReservaHabitacionBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\ReservaMostreo.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\ReservaTipoHabitacion.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\ConsultaReservaBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\MensajeBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\ReservaRequest.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\ResponseResHabXTipo.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\TipoHabDisp.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\TipoHabCant.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\TipoHabXHotel.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\UbicacionClienteBean.cs" />
     <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Servicios\Reserva\FinReserva.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Servicios\Reserva\HabInsertBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\HabitacionReserva.cs" />
-    <Compile Include="Models\Servicios\Reserva\MensajeBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\RequestResHab.cs" />
-    <Compile Include="Models\Servicios\Reserva\ReservaHabitacionBean.cs" />
     <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs" />
-    <Compile Include="Models\Servicios\Reserva\ReservaMostreo.cs" />
-    <Compile Include="Models\Servicios\Reserva\ReservaRegistroBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\ReservaRequest.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Servicios\Reserva\ReservaTipoHabitacion.cs" />
-    <Compile Include="Models\Servicios\Reserva\ResponseResHabXTipo.cs" />
     <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs" />
-    <Compile Include="Models\Servicios\Reserva\ServiceReserva.cs" />
-    <Compile Include="Models\Servicios\Reserva\TipoHabDisp.cs" />
-    <Compile Include="Models\Servicios\Reserva\TipoHabXHotel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\Servicios\Reserva\UbicacionClienteBean.cs" />
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
