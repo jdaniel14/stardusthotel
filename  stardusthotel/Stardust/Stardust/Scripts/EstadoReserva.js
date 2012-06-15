@@ -170,7 +170,7 @@ function cancelarReserva() {
             data: jsonData,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            url: "ReservarHabitacion/eliminarReserva",
+            url: "anularReserva",
             beforeSend: waitEliminar(),
             success: eliminadoReserva
         });
