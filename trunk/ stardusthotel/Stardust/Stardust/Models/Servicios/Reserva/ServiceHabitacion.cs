@@ -108,5 +108,22 @@ namespace Stardust.Models.Servicios
             //mensaje.me = "";
             return mensaje;
         }
+
+
+        public ConsultaReservaBean consultarReserva(int idHotel, int idReserva, String documento) { 
+            ConsultaReservaBean  consulta = new ConsultaReservaBean();
+            DatosReservaBean reserva = reservaHabitacionDAO.consultarReserva(idHotel, idReserva, documento);
+            consulta.me = reserva.me;
+            bool result = reserva.me.Equals("");
+            if (result)
+            {
+                consulta.fechaIni = reserva.fechaLlegada;
+                consulta.fechaFin = reserva.fechaSalida;                
+                consulta.doc = reserva.doc;
+                consulta.Nombre = reserva.nomb;
+                consulta.listaHab = reservaHabitacionDAO.listarTipHabReserva(idReserva);
+            }
+            return consulta;
+        }
     }
 }

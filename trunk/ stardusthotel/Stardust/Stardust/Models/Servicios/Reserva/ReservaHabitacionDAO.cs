@@ -296,10 +296,60 @@ namespace Stardust.Models.Servicios
         }
 
 
-        public void consultarReserva(int idReserva, String documento) {
-            String query = "SELECT "+
-                           "FROM Reserva r, ReservaXTipoHabitacionXHotel rXt" +
-                           "WHERE ";
+        public DatosReservaBean consultarReserva(int idHotel, int idReserva, String documento)
+        {
+            DatosReservaBean consulta = new DatosReservaBean();
+            
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            String query = " SELECT r.idReserva, r.fechaLlegada, r.fechaSalida, u.nroDocumento, (u.razonSocial+u.nombres+' '+u.apPat) as nombre"+
+                           " FROM Reserva r, Usuario u " +
+                           " WHERE r.idHotel = " + idHotel + " and r.idReserva = "+idReserva+ " and r.idUsuario = u.idUsuario and u.nroDocumento = '" + documento + "'";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            consulta.me = "";
+            if (dataReader.Read())
+            {
+                consulta.idReserva = (int)dataReader["idReserva"];
+                consulta.fechaLlegada = ((DateTime)dataReader["fechaLlegada"]).ToString("dd-MM-yyyy");
+                consulta.fechaSalida = ((DateTime)dataReader["fechaSalida"]).ToString("dd-MM-yyyy");
+                consulta.doc = (String)dataReader["nroDocumento"];
+                consulta.nomb= (String)dataReader["nombre"];   
+            }
+            else 
+            {
+                consulta.me = "No se encontro ninguna Reserva con esos datos";
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return consulta;
+        }
+        public List<TipoHabCant> listarTipHabReserva(int idReserva){
+            List<TipoHabCant> lista = new List<TipoHabCant>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            String query = "SELECT t.nombre , r.cantidad FROM ReservaXTipoHabitacionXHotel r, TipoHabitacion t WHERE idReserva = " + idReserva + " and r.idTipoHabitacion = t.idTipoHabitacion";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+                        
+            if (dataReader.Read())
+            {
+                TipoHabCant tipo = new TipoHabCant();
+                tipo.nombreTipoHab = (String)dataReader["nombre"];
+                tipo.cant = (int)dataReader["cantidad"];
+                lista.Add(tipo);
+            }
+            return lista;
         }
 
 
