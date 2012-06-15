@@ -7,8 +7,8 @@ namespace Stardust.Models.Servicios
 {
     public class RequestResHab
     {
-        int idHotel { get; set; }
-        DateTime fechaIni { get; set; }
-        DateTime fechaFin { get; set; }
+        public int idHotel { get; set; }
+        public DateTime fechaIni { get; set; }
+        public DateTime fechaFin { get; set; }
     }
 }
