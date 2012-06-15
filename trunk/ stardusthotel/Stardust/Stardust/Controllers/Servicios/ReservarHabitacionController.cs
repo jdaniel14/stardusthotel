@@ -100,5 +100,10 @@ namespace Stardust.Controllers.Servicios
             return Json(rpta);
         }
 
+        [HttpPost]
+        public JsonResult consultarReserva(ConsultaReserva request) {
+            ConsultaReservaBean consulta = facadeReservas.consultarReserva(request.idHotel, request.idReserva, request.documento);
+            return Json(consulta);
+        }
     }
 }
