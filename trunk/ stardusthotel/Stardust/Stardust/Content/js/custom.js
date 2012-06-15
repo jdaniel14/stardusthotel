@@ -762,6 +762,7 @@ $(function() {
 	];
 	
 	var opts = {
+		'spinnerSinDecimales': {decimals:0},
 		'sDec': {decimals:2},
 		'sStep': {stepping: 0.25},
 		'sCur': {currency: '$'},
