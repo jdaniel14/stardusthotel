@@ -66,6 +66,7 @@ namespace Stardust.Models
                 reserva.total = (decimal)dataReader["montoTotal"];
                 reserva.idHotel = (int)dataReader["idHotel"];
                 reserva.idUsuario = (int)dataReader["idUsuario"];
+                ListReserva.Add(reserva);
             }
             sqlCon.Close();
 
