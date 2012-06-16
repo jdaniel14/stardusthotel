@@ -88,5 +88,10 @@ namespace Stardust.Models
             return hotelDAO.getNAlmacenesXHotel(idHotel);
         }
         //--------------------------------------------------------
+
+        public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacion)
+        {
+            return hotelDAO.existeTipoHabitacion_Hotel(tipoHabitacion);
+        }
     }
 }

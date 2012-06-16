@@ -694,5 +694,31 @@ namespace Stardust.Models
             }
         }
         //--------------------------------------------------------
+
+        public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacion)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacionXHotel " +
+                    "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacion.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacion.ID);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                return objReader.HasRows;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
     }
 }
