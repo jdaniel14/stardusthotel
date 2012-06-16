@@ -97,7 +97,10 @@ namespace Stardust.Controllers
             }
         }
 
-
+        public ActionResult PagoHabContado(int id)
+        {
+            return View(pagoFacade.ObtenerReserva(id));
+        }
 
     }
 }
