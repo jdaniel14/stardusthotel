@@ -1,0 +1,23 @@
+﻿@model Stardust.Models.
+@{
+    ViewBag.Title = "Error";
+}
+
+<h2>Error</h2>
+
+<h2>Lo sentimos pero ocurrio un problema, intente de nuevo </h2>
+<div>
+    
+    <div>
+        El problema que se presento es de @ViewData
+
+    </div>
+
+
+    <div>
+        Por Favor regrese a la pagina de inicio 
+
+    </div>
+
+    @Html.ActionLink("Inicio","Home/Index")
+</div>
