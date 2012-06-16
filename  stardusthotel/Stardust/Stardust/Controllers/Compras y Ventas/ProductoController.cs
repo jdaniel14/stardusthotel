@@ -23,6 +23,11 @@ namespace Stardust.Controllers
         ComprasFacade productosfacade = new ComprasFacade();
 
 
+        public ViewResult Error(string error)
+        {
+            ViewData["Error de Conexión"] = error;
+            return View();
+        }
         public ViewResult Index()
         {
             return View();
@@ -36,9 +41,18 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(ProductoBean producto)
         {
-            produc.Registrarproducto(producto);
-            return RedirectToAction("Buscar");//("../Home/Index");
-        }
+            
+             string estadoconexion= produc.Registrarproducto(producto);
+             int j = 0;
+             if (estadoconexion == "Bien")
+             {
+                 return RedirectToAction("Buscar");
+             }
+             else
+             {
+                 return RedirectToAction("Error/"+estadoconexion);
+             }
+         }
 
         public ActionResult Edit(int ID)
         {
