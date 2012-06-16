@@ -15,5 +15,10 @@ namespace Stardust.Models
         {
             return pagoService.GetReserva(nombre);
         }
+
+        public Reserva ObtenerReserva(int id)
+        {
+            return pagoService.ObtenerReserva(id);
+        }
     }
 }
