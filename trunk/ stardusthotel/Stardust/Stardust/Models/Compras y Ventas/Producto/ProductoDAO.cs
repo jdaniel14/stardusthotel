@@ -56,7 +56,7 @@ namespace Stardust.Models
             return listaProducto;
         }
 
-        public void RegistrarProducto(ProductoBean producto)
+        public string RegistrarProducto(ProductoBean producto)
         {
             
             try
@@ -73,11 +73,14 @@ namespace Stardust.Models
                 sqlCmd.ExecuteNonQuery();
 
                 sqlCon.Close();
+                producto.conexion = "Bien";
             }
-            catch
+            catch(Exception e)
             {
-
+                producto.conexion = Convert.ToString( e);
             }
+
+            return producto.conexion;
             
         }
         public ProductoBean GetProducto(int id)
