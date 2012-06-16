@@ -10,7 +10,8 @@ namespace Stardust.Models.Servicios
     public class FacadeReservas
     {
         ServiceHabitacion serviceHabitacion = new ServiceHabitacion();
-
+        //SERVICE CLIENTE
+        
         //SERVICE HABITACION
         public ResponseResHabXTipo consultarHabitacionDisponibles(int idHotel, String fechaIni, String fechaFin)
         {
@@ -33,10 +34,10 @@ namespace Stardust.Models.Servicios
             return serviceHabitacion.registrarReserva(reserva);
         }
 
-        public List<CheckInBean> check_in(int idHotel, String documento)
+        public CheckInBean check_in(int idHotel, int idReserva)
         {
-            List<CheckInBean> lista = serviceHabitacion.check_in(idHotel, documento);
-            return lista;
+            CheckInBean check = serviceHabitacion.check_in(idHotel, idReserva);
+            return check;
         }
 
         public ConsultaReservaBean consultarReserva(int idHotel, int idReserva, String documento) {
@@ -104,7 +105,7 @@ namespace Stardust.Models.Servicios
         //SERVICE CLIENTE
         public void enSistemaCliente() { }
         public void registrarCliente() { }
-        public void check_in() { }        
+                
         public void ubicacion_cliente() { }
         
 

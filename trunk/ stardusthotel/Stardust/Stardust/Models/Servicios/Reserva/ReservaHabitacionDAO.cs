@@ -140,15 +140,41 @@ namespace Stardust.Models.Servicios
             return me;
         }
 
-        
-        
-
-        public List<CheckInBean> SelectDatosCheckIn(int idHotel, String nombre)
+        public DatosReservaBean SelectDatosCheckIn(int idHotel, int idReserva)
         {
-            List<CheckInBean> listaReturn = new List<CheckInBean>();
+            DatosReservaBean reserva = new DatosReservaBean();
 
-            return new List<CheckInBean>();
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            String query =  " SELECT u.nroDocumento as doc , (u.razonSocial + u.nombres + ' ' + u.apPat) as nomb, r.fechaRegistro as fechaReg, r.fechaLlegada as fechaLleg " +
+                            " FROM Reserva r, Usuario u " + 
+                            " WHERE r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario ";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {                
+                reserva.doc = (String)dataReader["doc"];
+                reserva.nomb = (String)dataReader["nomb"];
+                reserva.fechaRegistro = (String)dataReader["fechaReg"];
+                reserva.fechaLlegada = (String)dataReader["fechaLleg"];
+            }
+            else {
+                reserva.me = "No se encontro dicha Reserva";
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return reserva;
         }
+
+        /*public ListarTipHabCheckIn(int idReserva){
+            String query = "SELECT * FROM WHERE";
+        }*/
 
         public int registraCliente(ClienteReservaBean client){
         
@@ -268,7 +294,9 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
             for (int i = 0; i < listTip.Count; i++) {
-                String query = "INSERT INTO ReservaXTipoHabitacionXHotel Values(" + idReserva + ", " + idHotel + ", " + listTip[i].tipo + ", " + listTip[i].cant + ")";
+                String query = "";
+                if(listTip[i].cant > 0)
+                    query = "INSERT INTO ReservaXTipoHabitacionXHotel Values(" + idReserva + ", " + idHotel + ", " + listTip[i].tipo + ", " + listTip[i].cant + ")";
                 System.Diagnostics.Debug.WriteLine("query TIPO--> " + query);
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 sqlCmd.ExecuteNonQuery();

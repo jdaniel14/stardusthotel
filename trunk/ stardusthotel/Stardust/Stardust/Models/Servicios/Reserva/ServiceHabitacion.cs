@@ -93,10 +93,23 @@ namespace Stardust.Models.Servicios
             return reservaHabitacionDAO.deleteReserva(idReserva);
         }
 
-        public List<CheckInBean> check_in(int idHotel, String documento)
+        public CheckInBean check_in(int idHotel, int idReserva)
         {
-            return reservaHabitacionDAO.SelectDatosCheckIn(idHotel, documento);
+            CheckInBean checkin = new CheckInBean();
+            DatosReservaBean reserva = reservaHabitacionDAO.SelectDatosCheckIn(idHotel, idReserva);
+            bool result = reserva.me.Equals("");
+            checkin.me = reserva.me;
+            if (result)
+            {
+                checkin.doc = reserva.doc;
+                checkin.nomb = reserva.nomb;
+                checkin.fechaLleg = reserva.fechaLlegada;
+                checkin.fechaReg = reserva.fechaRegistro;
+                //checkin.lista = reservaHabitacionDAO.ListarTipHabCheckIn(idReserva);
+            }
+            return new CheckInBean();
         }
+
         public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
             MensajeBean mensaje = new MensajeBean();
             int idUsuario = reservaHabitacionDAO.registraCliente(reserva.client);
