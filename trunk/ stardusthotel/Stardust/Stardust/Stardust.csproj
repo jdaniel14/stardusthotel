@@ -4423,6 +4423,7 @@
     <Content Include="Views\Habitacion\Buscar.cshtml" />
     <Content Include="Views\Pago\Buscar.cshtml" />
     <Content Include="Views\Pago\Listar.cshtml" />
+    <Content Include="Views\Pago\PagoHabContado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
