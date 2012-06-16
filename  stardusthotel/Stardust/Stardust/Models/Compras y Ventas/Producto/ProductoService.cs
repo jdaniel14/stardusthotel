@@ -15,9 +15,9 @@ namespace Stardust.Models
             return listaproducto;
         }
 
-        public void Registrarproducto(ProductoBean producto)
+        public string Registrarproducto(ProductoBean producto)
         {
-            productoDAO.RegistrarProducto(producto);
+            return(productoDAO.RegistrarProducto(producto));
         }
 
         public void Actualizarproducto(ProductoBean producto)
