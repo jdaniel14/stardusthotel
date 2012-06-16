@@ -77,7 +77,7 @@ namespace Stardust.Models
             }
             catch(Exception e)
             {
-                producto.conexion = Convert.ToString( e);
+                producto.conexion = "Falla en Conexión";
             }
 
             return producto.conexion;
@@ -104,7 +104,7 @@ namespace Stardust.Models
                 producto.descripcion = (string)dataReader["descripcion"];
                 producto.estado = Convert.ToInt32(dataReader["estado"]);
                 sqlCon.Close();
-
+                producto.conexion = "Bien";
             }
             catch
             {
@@ -120,7 +120,7 @@ namespace Stardust.Models
         //public void SeleccionarProducto(int ID)
         //{
         //}
-        public void ActualizarProducto(ProductoBean producto)
+        public string ActualizarProducto(ProductoBean producto)
         {
             try
             {
@@ -137,15 +137,19 @@ namespace Stardust.Models
                 sqlCmd.ExecuteNonQuery();
 
                 sqlCon.Close();
+                producto.conexion = "Bien";
             }
             catch
             {
-
+                producto.conexion = "no hay conexion";
             }
+
+            return producto.conexion;
             
         }
-        public void EliminarProducto(int id)
+        public string EliminarProducto(int id)
         {
+            string conexion="";
             try
             {
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -158,13 +162,15 @@ namespace Stardust.Models
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
-
                 sqlCon.Close();
+                conexion = "Bien";
             }
             catch
             {
+                conexion = "no hay conexion";
             }
-            
+
+            return conexion;
         }
 
         /*----Asignar Productos a Almacen----*/
@@ -191,12 +197,13 @@ namespace Stardust.Models
             }
             catch
             {
-
+                idalmacen = -1; // no hay conexion
             }
             return idalmacen;
         }
-        public void InsertaralmacenxProducto(ProductoXAlmacenBean prod)
+        public string InsertaralmacenxProducto(ProductoXAlmacenBean prod)
         {
+            string conexion = "";
             try
             {
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -219,13 +226,15 @@ namespace Stardust.Models
                     }
                 }
                 sqlCon.Close();
+                conexion = "Bien";
             }
             catch
             {
 
-
+                conexion = "no hay conexion";
             }
-            
+
+            return conexion;
         }
 
         public ProductoXAlmacenBean obtenerlistaproductos(int idalmacen)
@@ -260,13 +269,18 @@ namespace Stardust.Models
                 }
                 dataReader.Close();
                 sqlCon.Close();
+                prod.conexion = "Bien";
             }
-            catch { }
+            catch 
+            {
+                prod.conexion = "Error";
+            }
             return prod;
         }
 
-        public void Actualizarproductosxalmacen( ProductoXAlmacenBean prod)
+        public string Actualizarproductosxalmacen( ProductoXAlmacenBean prod)
         {
+            string conexion = "";
             try
             {
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -288,14 +302,22 @@ namespace Stardust.Models
                 }
 
                 sqlCon.Close();
+
+                conexion = "Bien";
             }
-            catch { }
+            catch 
+            {
+                conexion = "Error";
+            }
+
+            return conexion;
+
         }
 
-        public void actualizarStock (ProductoXAlmacenBean prod)
+        public string actualizarStock (ProductoXAlmacenBean prod)
         {
             int stocksobrante = 0;
-
+            string conexion = "";
             try
             {
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -315,8 +337,14 @@ namespace Stardust.Models
                 }
 
                 sqlCon.Close();
+                conexion = "Bien";
             }
-            catch { }
+            catch
+            {
+                conexion = "Error";
+            }
+
+            return conexion;
         }
     }
 }

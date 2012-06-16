@@ -20,9 +20,9 @@ namespace Stardust.Models
             return(productoDAO.RegistrarProducto(producto));
         }
 
-        public void Actualizarproducto(ProductoBean producto)
+        public string Actualizarproducto(ProductoBean producto)
         {
-            productoDAO.ActualizarProducto(producto);
+            return (productoDAO.ActualizarProducto(producto));
         }
 
         public ProductoBean Getproducto(int idproducto)
@@ -30,39 +30,39 @@ namespace Stardust.Models
             return productoDAO.GetProducto(idproducto);
         }
 
-        public void Eliminarproducto(int idproducto)
+        public string Eliminarproducto(int idproducto)
         {
-            productoDAO.EliminarProducto(idproducto);
+            return (productoDAO.EliminarProducto(idproducto));
         }
 
 
 
          /* -----asignar productos a almacen------*/
 
-        public void AsignarProductosxalmacen( ProductoXAlmacenBean prod)
+        public string AsignarProductosxalmacen( ProductoXAlmacenBean prod)
         {
 
-            productoDAO.InsertaralmacenxProducto(prod);
+            return (productoDAO.InsertaralmacenxProducto(prod));
         }
         public ProductoXAlmacenBean obtenerlistaalmacen(int idalmacen)
         {
             return productoDAO.obtenerlistaproductos(idalmacen);
         }
-        public void Modificarproductosxalmacen( ProductoXAlmacenBean prod)
+        public string Modificarproductosxalmacen( ProductoXAlmacenBean prod)
         {
-            productoDAO.Actualizarproductosxalmacen( prod);
+            return(productoDAO.Actualizarproductosxalmacen( prod));
 
         }
 
-        public int obteneralmacen(int id)
+        public int obteneralmacen(int id) 
         {
-            return productoDAO.obteneralmacen(id);
+            return productoDAO.obteneralmacen(id); //-1 error de conexion
         }
         
         /*--------------------actualizar stock--------------*/
-        public void actualizarStock(ProductoXAlmacenBean prod)
+        public string actualizarStock(ProductoXAlmacenBean prod)
         {
-            productoDAO.actualizarStock(prod);
+            return (productoDAO.actualizarStock(prod));
         }
     }
 }

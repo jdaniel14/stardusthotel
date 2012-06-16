@@ -16,5 +16,7 @@ namespace Stardust.Models
         public int idhotel { get; set; }
         public bool estado { get; set; }
         public List<ProductoAlmacen> listProdalmacen { get; set; }
+
+        public string conexion { get; set; }
     }
 }
