@@ -88,9 +88,11 @@ namespace Stardust.Controllers.Servicios
             return Json(res);
         }
 
-        public ActionResult CheckIn()
+        [HttpPost]
+        public JsonResult CheckIn(ConsultaReserva request)
         {
-            return View();
+            CheckInBean check = facadeReservas.check_in(request.idHotel, request.idReserva);
+            return Json(check);
         }
         [HttpPost]
         public JsonResult anularReserva(int idReserva) {
