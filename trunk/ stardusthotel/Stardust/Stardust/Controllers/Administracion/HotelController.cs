@@ -21,6 +21,7 @@ namespace Stardust.Controllers
             return View();
         }
 
+        #region Details
         // GET: /Hotel/Details/5
         public ViewResult Details(int id)
         {
@@ -31,6 +32,7 @@ namespace Stardust.Controllers
             hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
             return View(hotelVMD);
         }
+        #endregion
 
         #region Create
 
@@ -83,11 +85,11 @@ namespace Stardust.Controllers
         public ActionResult Edit(int id)
         {
             HotelBean hotel = hotelFac.getHotel(id);
-            //var hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
-            //hotelVWE.Departamentos = Utils.listarDepartamentos();
-            //hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
-            //hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
-            return View();//hotelVWE);
+            var hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
+            hotelVWE.Departamentos = Utils.listarDepartamentos();
+            hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
+            hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
+            return View(hotelVWE);
         }
 
         [HttpPost]
@@ -97,8 +99,8 @@ namespace Stardust.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //var hotel = Mapper.Map<HotelViewModelEdit, HotelBean>(hotelVWE);
-                    //hotelFac.actualizarHotel(hotel);
+                    var hotel = Mapper.Map<HotelViewModelEdit, HotelBean>(hotelVWE);
+                    hotelFac.actualizarHotel(hotel);
                     return RedirectToAction("List");
                 }
                 return View(hotelVWE);
@@ -136,8 +138,18 @@ namespace Stardust.Controllers
         {
             try
             {
-                hotelFac.desactivarHotel(hotelVMD.ID);
-                return RedirectToAction("List");
+                if (hotelVMD.nTipoHabitacion == 0 && hotelVMD.nHabitacion == 0 &&
+                    hotelVMD.nAmbientes == 0 && hotelVMD.nServicios == 0 &&
+                    hotelVMD.nPromociones == 0 && hotelVMD.nAlmacenes == 0)
+                {
+                    hotelFac.desactivarHotel(hotelVMD.ID);
+                    return RedirectToAction("List");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Operacion Inválida: No se debe eliminar el Hotel");
+                    return View(hotelVMD);
+                }
             }
             catch (Exception ex)
             {
@@ -200,8 +212,16 @@ namespace Stardust.Controllers
                 if (ModelState.IsValid)
                 {
                     var tipoHabitacion = Mapper.Map<TipoHabitacionXHotelViewModelCreate, TipoHabitacionXHotel>(tipoHabitacionXHotelVMC);
-                    hotelFac.registrarTipoHabitacion(tipoHabitacion);
-                    return RedirectToAction("VerTiposHabitacion", new { id = tipoHabitacion.idHotel});
+                    if (!hotelFac.existeTipoHabitacion_Hotel(tipoHabitacion))
+                    {
+                        hotelFac.registrarTipoHabitacion(tipoHabitacion);
+                        return RedirectToAction("VerTiposHabitacion", new { id = tipoHabitacion.idHotel });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("","El Tipo de Habitacion y el Hotel ya han sido asignados");
+                        return View(tipoHabitacionXHotelVMC);
+                    }
                 }
                 return View(tipoHabitacionXHotelVMC);
             }
