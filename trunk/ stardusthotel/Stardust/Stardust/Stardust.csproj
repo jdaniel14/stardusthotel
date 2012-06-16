@@ -188,6 +188,9 @@
     <Compile Include="Models\Servicios\Evento\EventoBean.cs" />
     <Compile Include="Models\Servicios\Evento\EventoDAO.cs" />
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
+<<<<<<< .mine
+    <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs">
+=======
     <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
@@ -209,10 +212,76 @@
     <Compile Include="Models\Servicios\Reserva\Bean\TipoHabXHotel.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\UbicacionClienteBean.cs" />
     <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
+>>>>>>> .r1235
       <SubType>Code</SubType>
     </Compile>
+<<<<<<< .mine
+    <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\FinReserva.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\HabInsertBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\HabitacionReserva.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\RequestResHab.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\ReservaRegistroBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\ReservaHabitacionBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\ReservaMostreo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\ReservaTipoHabitacion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\ConsultaReservaBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\MensajeBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\ReservaRequest.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\ResponseResHabXTipo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\TipoHabDisp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\TipoHabCant.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\TipoHabXHotel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\UbicacionClienteBean.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+=======
     <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs" />
     <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs" />
+>>>>>>> .r1235
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
@@ -1489,6 +1558,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Libraries\AutoMapper.dll" />
+    <Content Include="Scripts\CheckIn.js" />
+    <Content Include="Scripts\EstadoReserva.js" />
     <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.4.js" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
@@ -1503,6 +1574,8 @@
     <Content Include="Scripts\a.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\ReservaCliente.js" />
+    <Content Include="Scripts\ReservaFinal.js" />
     <Content Include="Scripts\ReservarHabitacion.js" />
     <Content Include="Scripts\Ubigeo.js" />
     <Content Include="Views\OrdenCompra\Registrar.cshtml" />
@@ -4423,6 +4496,8 @@
     <Content Include="Views\Habitacion\Buscar.cshtml" />
     <Content Include="Views\Pago\Buscar.cshtml" />
     <Content Include="Views\Pago\Listar.cshtml" />
+    <Content Include="Views\ReservarHabitacion\CheckIn.cshtml" />
+    <Content Include="Views\ReservarHabitacion\EstadoReserva.cshtml" />
     <Content Include="Views\Pago\PagoHabContado.cshtml" />
   </ItemGroup>
   <ItemGroup>
