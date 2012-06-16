@@ -6,89 +6,125 @@
 
 <h3>Seguro de querer eliminar este hotel?</h3>
 
-<fieldset>
-    <div class = "widget" >
-        <div class = "title"><h6>@ViewBag.Title</h6></div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nombre)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.razonSocial)
-            <div class = "formRight" >@Html.DisplayFor(model => model.razonSocial)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.direccion)
-            <div class = "formRight" >@Html.DisplayFor(model => model.direccion)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nombreDepartamento)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDepartamento)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nombreProvincia)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombreProvincia)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nombreDistrito)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDistrito)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nTipoHabitacion)
-            <div class = "formRight" >
-                @Html.DisplayFor(model => model.nTipoHabitacion)
-            </div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nHabitacion)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nHabitacion)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nAmbientes)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nAmbientes)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nServicios)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nServicios)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nPromociones)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nPromociones)</div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class="formRow">
-            @Html.LabelFor(model => model.nAlmacenes)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nAlmacenes)</div>
-            <div class = "clear" ></div>
-        </div>
-
-    </div>
-</fieldset>
+@Html.ValidationSummary(true)
 
 @using( @Html.BeginForm( "Delete" , "Hotel" , FormMethod.Post , new { @class = "form" } ) )
 {
+    
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title"><h6>@ViewBag.Title</h6></div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nombre)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nombre)
+                    @Html.HiddenFor(model => model.nombre)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.razonSocial)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.razonSocial)
+                    @Html.HiddenFor(model => model.razonSocial)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.direccion)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.direccion)
+                    @Html.HiddenFor(model => model.direccion)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nombreDepartamento)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nombreDepartamento)
+                    @Html.HiddenFor(model => model.nombreDepartamento)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nombreProvincia)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nombreProvincia)
+                    @Html.HiddenFor(model => model.nombreProvincia)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nombreDistrito)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nombreDistrito)
+                    @Html.HiddenFor(model => model.nombreDistrito)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nTipoHabitacion)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nTipoHabitacion)
+                    @Html.HiddenFor(model => model.nTipoHabitacion)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nHabitacion)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nHabitacion)
+                    @Html.HiddenFor(model => model.nHabitacion)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nAmbientes)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nAmbientes)
+                    @Html.HiddenFor(model => model.nAmbientes)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nServicios)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nServicios)
+                    @Html.HiddenFor(model => model.nServicios)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nPromociones)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nPromociones)
+                    @Html.HiddenFor(model => model.nPromociones)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">
+                @Html.LabelFor(model => model.nAlmacenes)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.nAlmacenes)
+                    @Html.HiddenFor(model => model.nAlmacenes)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+        </div>
+    </fieldset>
     <p>
         <input type="submit" value="Eliminar" class = "redB"/> |
         @Html.ActionLink("Regresar", "List")
