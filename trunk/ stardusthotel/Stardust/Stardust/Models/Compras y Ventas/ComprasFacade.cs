@@ -46,17 +46,17 @@ namespace Stardust.Models
         }
 
         /**------ Asignar productos a almacen  2 -----*/
-        public void RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
+        public string RegistrarproductosxAlmacen( ProductoXAlmacenBean prod)
         {
-            produservice.AsignarProductosxalmacen( prod);
+            return(produservice.AsignarProductosxalmacen( prod));
         }
         public ProductoXAlmacenBean obtenerlistadAlmacen(int id)
         {
             return produservice.obtenerlistaalmacen(id);
         }
-        public void modificarproductosxalmacen( ProductoXAlmacenBean prod)
+        public string  modificarproductosxalmacen( ProductoXAlmacenBean prod)
         {
-            produservice.Modificarproductosxalmacen(prod);
+            return (produservice.Modificarproductosxalmacen(prod));
         }
 
         public int obteneralmacen(int id)
@@ -86,9 +86,9 @@ namespace Stardust.Models
             ordenCompraService.actualizarstock(nota);
         }
 
-        public void actualizarStock(ProductoXAlmacenBean prod)
+        public string actualizarStock(ProductoXAlmacenBean prod)
         {
-            produservice.actualizarStock(prod);
+            return (produservice.actualizarStock(prod));
         }
 
         /**----------- Reporte de compras 3------------*/

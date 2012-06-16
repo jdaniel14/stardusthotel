@@ -1,23 +1,31 @@
-﻿@model Stardust.Models.
+﻿
+
 @{
     ViewBag.Title = "Error";
 }
 
-<h2>Error</h2>
+
 
 <h2>Lo sentimos pero ocurrio un problema, intente de nuevo </h2>
+
+<p></p><p></p><p></p><p></p>
 <div>
-    
+    <p></p><p></p>
     <div>
         El problema que se presento es de @ViewData
 
     </div>
-
-
+    <div>
+     En estos momentos estamos solucionado el problema. 
+     </div>
+     <img style=" text-align:center" src="http://2.bp.blogspot.com/_5K41bGtWV2o/TPveOfy4_TI/AAAAAAAABcc/oaN6ycxm_Yo/s1600/construccion+simpson.jpg"/>
+     @*<img style=" text-align:center" src="http://www.grupocreativa.com.pe/greenlife/en-construccion.gif" />*@
+    <p></p><p></p>
     <div>
         Por Favor regrese a la pagina de inicio 
 
     </div>
 
-    @Html.ActionLink("Inicio","Home/Index")
+    <p></p><p></p><p></p>
+    @Html.ActionLink("Inicio","Index","Home")
 </div>

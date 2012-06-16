@@ -19,7 +19,8 @@ namespace Stardust.Models
         
         /*---------Administrar Proveedor-1--------*/
         ProveedorService proveedorService = new ProveedorService();
-        
+        ProductoService productoService = new ProductoService();
+
         public List<ProveedorBean> ListarProveedor(String razonSocial, String contacto)
         {
             return proveedorService.ListarProveedor(razonSocial, contacto);
@@ -53,7 +54,7 @@ namespace Stardust.Models
 
         /*--------Administrar Producto-1------------*/
 
-        ProductoService productoService = new ProductoService();
+        
 
         public List<ProductoBean> ListarProducto(String nombre)
         {
@@ -65,9 +66,9 @@ namespace Stardust.Models
             return (productoService.Registrarproducto(producto));
         }
 
-        public void ActualizarProducto(ProductoBean producto)
+        public string ActualizarProducto(ProductoBean producto)
         {
-            productoService.Actualizarproducto(producto);
+            return (productoService.Actualizarproducto(producto));
         }
 
         public ProductoBean Getproducto(int idProducto)
@@ -75,9 +76,9 @@ namespace Stardust.Models
             return productoService.Getproducto(idProducto);
         }
 
-        public void Eliminarproducto(int idproducto)
+        public string Eliminarproducto(int idproducto)
         {
-            productoService.Eliminarproducto(idproducto);
+            return(productoService.Eliminarproducto(idproducto));
         }
 
 

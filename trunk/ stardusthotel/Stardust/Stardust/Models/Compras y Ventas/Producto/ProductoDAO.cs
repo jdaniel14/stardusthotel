@@ -75,7 +75,7 @@ namespace Stardust.Models
                 sqlCon.Close();
                 producto.conexion = "Bien";
             }
-            catch(Exception e)
+            catch
             {
                 producto.conexion = "Falla en Conexión";
             }

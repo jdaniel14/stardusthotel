@@ -25,7 +25,7 @@ namespace Stardust.Controllers
 
         public ViewResult Error(string error)
         {
-            ViewData["Error de Conexión"] = error;
+            ViewData["Error de Conexión"] = "Error de Conexión";
             return View();
         }
         public ViewResult Index()
@@ -43,7 +43,7 @@ namespace Stardust.Controllers
         {
             
              string estadoconexion= produc.Registrarproducto(producto);
-             int j = 0;
+             
              if (estadoconexion == "Bien")
              {
                  return RedirectToAction("Buscar");
@@ -56,32 +56,66 @@ namespace Stardust.Controllers
 
         public ActionResult Edit(int ID)
         {
-            return View(produc.Getproducto(ID));
+
+            ProductoBean prod = produc.Getproducto(ID);
+
+            if (prod.conexion == "Bien")
+            {
+                return View(prod);
+            }
+            else
+            {
+                return RedirectToAction("Error/" + prod.conexion);
+            }
+            
         }
 
         [HttpPost]
         public ActionResult Edit(ProductoBean producto)
         {
-            produc.ActualizarProducto(producto);
-            return RedirectToAction("Buscar");
+            string conexion =produc.ActualizarProducto(producto);
+            if (conexion == "Bien")
+            {
+                return RedirectToAction("Buscar");
+            }
+            else
+            {
+                return RedirectToAction("Error/" + conexion);
+            }
         }
 
 
         public ActionResult Delete(int ID)
         {
-            return View(produc.Getproducto(ID));
+            ProductoBean prod = produc.Getproducto(ID);
+            if (prod.conexion == "Bien")
+            {
+                return View(prod);
+            }
+            else
+            {
+                return RedirectToAction("Error/" + prod.conexion);
+            }
+            
+
         }
 
         [HttpPost, ActionName("Delete")]
         public JsonResult DeleteConfirmed(int ID)
         {
-            produc.Eliminarproducto(ID);
-            //return RedirectToAction("Buscar");
-            return Json(new { me = "" });
+            string conexion=produc.Eliminarproducto(ID);
+            if (conexion == "Bien")
+            {
+                return Json(new { me = "" });
+            }
+            else
+            {
+                return Json(new { me = "" });
+            }
+            
+
         }
         
-        
-
         public ActionResult Buscar(string nombre)
         {
             return View(produc.ListarProducto(nombre));
@@ -98,71 +132,95 @@ namespace Stardust.Controllers
         {
             ProductoXAlmacenBean prod;
             HotelBean hotel = hotelFac.getHotel(id);
+            string conexion = "";
 
             int idalmacen = productosfacade.obteneralmacen(id);
-            List<ProductoBean> productos = produc.ListarProducto("");
-
-            prod = productosfacade.obtenerlistadAlmacen(idalmacen);//lista de los productos en la tabla productoxalmacen
-
-            prod.Hotel = hotel.nombre;
-            prod.idhotel = id;
-            prod.idalmacen = idalmacen;
-            ////lista de productos en la tabla de productoxalmacen
-            for (int i = 0; i < prod.listProdalmacen.Count; i++)
+            if (idalmacen == -1)
             {
-                ProductoBean producto = produc.Getproducto(prod.listProdalmacen[i].ID);
-                prod.listProdalmacen[i].nombre = producto.nombre;
-                prod.listProdalmacen[i].estado2 = false;
+                List<ProductoBean> productos = produc.ListarProducto("");
+
+                prod = productosfacade.obtenerlistadAlmacen(idalmacen);//lista de los productos en la tabla productoxalmacen
+
+                prod.Hotel = hotel.nombre;
+                prod.idhotel = id;
+                prod.idalmacen = idalmacen;
+                ////lista de productos en la tabla de productoxalmacen
+                for (int i = 0; i < prod.listProdalmacen.Count; i++)
+                {
+                    ProductoBean producto = produc.Getproducto(prod.listProdalmacen[i].ID);
+                    prod.listProdalmacen[i].nombre = producto.nombre;
+                    prod.listProdalmacen[i].estado2 = false;
+                }
+
+                return View(prod);
+            }
+            else
+            {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
             }
 
-            return View(prod);
         }
 
-        public ViewResult AsignarProductosaAlmacen(int idhotel)
+        public ActionResult AsignarProductosaAlmacen(int idhotel)
         {
             ProductoXAlmacenBean productosalmacen = new ProductoXAlmacenBean();
            
             HotelBean hotel = hotelFac.getHotel(idhotel);
             int idalmacen = productosfacade.obteneralmacen(idhotel);
-
-            ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
-            List<ProductoBean> productos = produc.ListarProducto("");
-
-            productosalmacen.Hotel = hotel.nombre;
-            productosalmacen.idalmacen = idalmacen;
-            productosalmacen.idhotel = idhotel;
-            int cantidad = 0;
-            productosalmacen.listProdalmacen= new List<ProductoAlmacen>();
-            for (int i = 0; i < productos.Count; i++)
+            string conexion="";
+            if (idalmacen == -1)
             {
-                ProductoAlmacen prodProveedor = new ProductoAlmacen();
+                ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
+                List<ProductoBean> productos = produc.ListarProducto("");
 
-                prodProveedor.nombre = productos[i].nombre;
-                prodProveedor.ID = productos[i].ID;
-                prodProveedor.estados = false;
-                for (int j = 0; j < prod2.listProdalmacen.Count; j++)
-                    if (prodProveedor.ID == prod2.listProdalmacen[j].ID)
-                    {
-                        prodProveedor.estado2 = true;
-                    }
-                    else cantidad++;
+                productosalmacen.Hotel = hotel.nombre;
+                productosalmacen.idalmacen = idalmacen;
+                productosalmacen.idhotel = idhotel;
+                int cantidad = 0;
+                productosalmacen.listProdalmacen = new List<ProductoAlmacen>();
+                for (int i = 0; i < productos.Count; i++)
+                {
+                    ProductoAlmacen prodProveedor = new ProductoAlmacen();
 
-                productosalmacen.listProdalmacen.Add(prodProveedor);
+                    prodProveedor.nombre = productos[i].nombre;
+                    prodProveedor.ID = productos[i].ID;
+                    prodProveedor.estados = false;
+                    for (int j = 0; j < prod2.listProdalmacen.Count; j++)
+                        if (prodProveedor.ID == prod2.listProdalmacen[j].ID)
+                        {
+                            prodProveedor.estado2 = true;
+                        }
+                        else cantidad++;
 
+                    productosalmacen.listProdalmacen.Add(prodProveedor);
+
+                }
+
+                return View(productosalmacen);
             }
-
-            //if (cantidad == 0) productosalmacen.estado = true; else productosalmacen.estado = false;
-
-            return View(productosalmacen);
+            else
+            {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
+            }
+            
         }
 
         public ActionResult guardarproductosxAlmacen(ProductoXAlmacenBean prod)
         {
             List<HotelBean> hoteles = hotelFac.getHoteles();
 
-            productosfacade.RegistrarproductosxAlmacen(prod);
-
-            return RedirectToAction("ListarProductosdeAlmacen/" + prod.idhotel, "Producto"); 
+            string conexion =productosfacade.RegistrarproductosxAlmacen(prod);
+            if (conexion == "Bien")
+            {
+                return RedirectToAction("ListarProductosdeAlmacen/" + prod.idhotel, "Producto"); 
+            }
+            else
+            {
+                return RedirectToAction("Error/" + conexion);
+            }
+            
         }
 
         public ActionResult ModificarProductosAlmacen(ProductoXAlmacenBean prod)
@@ -173,8 +231,16 @@ namespace Stardust.Controllers
         public ActionResult Guardarproductos2(ProductoXAlmacenBean prod)
         {
             List<HotelBean> hoteles = hotelFac.getHoteles();
-            productosfacade.modificarproductosxalmacen(prod);
-            return RedirectToAction("ListadeHoteles");
+            string conexion=productosfacade.modificarproductosxalmacen(prod);
+            if (conexion == "Bien")
+            {
+                return RedirectToAction("ListadeHoteles");
+            }
+            else
+            {
+                return RedirectToAction("Error/" + conexion);
+            }
+            
         }
         public ActionResult actualizarStock()
         {
@@ -184,40 +250,58 @@ namespace Stardust.Controllers
         public ActionResult actualizarstock2(int id) //idhotel
         {
             ProductoXAlmacenBean productosalmacen = new ProductoXAlmacenBean();
-
+            string conexion = "";
             HotelBean hotel = hotelFac.getHotel(id);
             int idalmacen = productosfacade.obteneralmacen(id);
-
-            ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
-            List<ProductoBean> productos = produc.ListarProducto("");
-
-            productosalmacen.Hotel = hotel.nombre;
-            productosalmacen.idalmacen = idalmacen;
-            productosalmacen.idhotel = id;
-            productosalmacen.listProdalmacen = new List<ProductoAlmacen>();
-            for (int i = 0; i < productos.Count; i++)
+            if (idalmacen == -1)
             {
-                ProductoAlmacen prodProveedor = new ProductoAlmacen();
+                ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
+                List<ProductoBean> productos = produc.ListarProducto("");
 
-                prodProveedor.nombre = productos[i].nombre;
-                prodProveedor.ID = productos[i].ID;
-                prodProveedor.estados = false;
-                for (int j = 0; j < prod2.listProdalmacen.Count; j++)
-                    if (prodProveedor.ID == prod2.listProdalmacen[j].ID)
-                    {
-                        prodProveedor.estado2 = true;
-                        prodProveedor.stockactual = prod2.listProdalmacen[j].stockactual;
-                    } 
-               
-                productosalmacen.listProdalmacen.Add(prodProveedor);
+                productosalmacen.Hotel = hotel.nombre;
+                productosalmacen.idalmacen = idalmacen;
+                productosalmacen.idhotel = id;
+                productosalmacen.listProdalmacen = new List<ProductoAlmacen>();
+                for (int i = 0; i < productos.Count; i++)
+                {
+                    ProductoAlmacen prodProveedor = new ProductoAlmacen();
+
+                    prodProveedor.nombre = productos[i].nombre;
+                    prodProveedor.ID = productos[i].ID;
+                    prodProveedor.estados = false;
+                    for (int j = 0; j < prod2.listProdalmacen.Count; j++)
+                        if (prodProveedor.ID == prod2.listProdalmacen[j].ID)
+                        {
+                            prodProveedor.estado2 = true;
+                            prodProveedor.stockactual = prod2.listProdalmacen[j].stockactual;
+                        }
+
+                    productosalmacen.listProdalmacen.Add(prodProveedor);
+                }
+                return View(productosalmacen);
             }
-            return View(productosalmacen);
+            else
+            {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
+            }
+            
         }
 
         public ActionResult actualizarStock3 (ProductoXAlmacenBean prod)
         {
-            productosfacade.actualizarStock(prod);
-            return RedirectToAction("actualizarStock");
+            string conexion=productosfacade.actualizarStock(prod);
+
+            if (conexion == "Bien")
+            {
+                return RedirectToAction("actualizarStock");
+            }
+            else
+            {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
+            }
+            
         }       
     }
 }
