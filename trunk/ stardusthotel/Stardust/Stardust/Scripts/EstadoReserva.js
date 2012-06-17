@@ -93,8 +93,8 @@ function llegadaReservas(data) {
     $.each(lista, function (i, item) {
 
         result += '<tr>';
-        result += '<td>' + item.nombreTipoHab + '</td>';
-        result += '<td>' + item.cant + '</td>';
+        result += '<td>' + item.nombTipHab + '</td>';
+        result += '<td>' + item.nroPers + '</td>';
         result += '</tr>';
 
     });
