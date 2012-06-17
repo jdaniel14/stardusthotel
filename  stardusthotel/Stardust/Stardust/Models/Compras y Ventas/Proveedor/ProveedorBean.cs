@@ -47,6 +47,7 @@ namespace Stardust.Models
         public string telefono { get; set; }
 
         [Display(Name = "Pagina Web")]
+        [RegularExpression("/[\w-\.]{3,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
         public string web { get; set; }
 
         [Display(Name = "Contacto")]
