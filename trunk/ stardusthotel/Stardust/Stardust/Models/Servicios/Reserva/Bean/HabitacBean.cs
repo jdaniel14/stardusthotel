@@ -8,6 +8,6 @@ namespace Stardust.Models.Servicios
     public class HabitacBean
     {
         public int idHab { get; set; }
-        public String nomb { get; set; }
+        public String numero { get; set; }
     }
 }

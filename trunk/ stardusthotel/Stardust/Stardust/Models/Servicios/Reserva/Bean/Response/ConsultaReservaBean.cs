@@ -10,7 +10,7 @@ namespace Stardust.Models.Servicios
         public int idReserva { get; set; }
         public String fechaIni { get; set; }
         public String fechaFin { get; set; }
-        public List<TipoHabCant> listaHab { get; set; }
+        public List<TipHabCheckInBean> listaHab { get; set; }
         public String doc { get; set; }
         public String Nombre { get; set; }
         public String me { get; set; }
