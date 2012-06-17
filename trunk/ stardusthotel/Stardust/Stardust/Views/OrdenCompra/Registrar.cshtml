@@ -18,7 +18,9 @@
             @Html.HiddenFor(model => model.idhotel)
             <div class="formRow">
                @Html.LabelFor(model => model.idProv)                              
-                <div class = "formRight" >@Html.DropDownListFor(model => model.idProv, Model.proveedorList)</div>
+                
+                <div class = "formRight" >
+                <div class = "selector">@Html.DropDownListFor(model => model.idProv, Model.proveedorList)</div></div>
                 <div class = "clear" ></div>
             </div>
 
