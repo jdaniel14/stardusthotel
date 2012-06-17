@@ -78,18 +78,6 @@ namespace Stardust.Controllers
             int idalmacen = comprasFacade.obteneralmacen(idhotel);
             ProductoXAlmacenBean productosalmacen = comprasFacade.obtenerlistadAlmacen(idalmacen); // de la tabla productoxalmacen
 
-            
-            
-
-            //for (int i = 0; i < productos.listProdProv.Count; i++)
-            //{
-            //    Producto producto = comprasFacade.GetProducto(productos.listProdProv.ElementAt(i).ID);
-            //    if (producto != null)
-            //    {
-            //        producto.precio = productos.listProdProv.ElementAt(i).precio;
-            //        produ.Add(producto);    
-            //    }
-            //}
 
             List<Producto> produ = new List<Producto>();
 
@@ -122,12 +110,6 @@ namespace Stardust.Controllers
             prod.nombrehotel = hotel.nombre;
             
             
-            //lista de productos en la tabla de productoxproveedor
-            //for (int i = 0; i < prod.listaProducto.Count; i++)
-            //{
-            //    ProductoBean producto = proveedorFacade.Getproducto(Convert.ToInt32(prod.listaProducto[i].id));
-            //    prod.listaProducto[i].Nombre = producto.nombre;
-            //}
 
             return View(prod);
         }
@@ -136,6 +118,18 @@ namespace Stardust.Controllers
         public ActionResult RegistrarOC(OrdenProducto producto)
         {
             comprasFacade.GuardarOrdenCompra(producto);
+            for (int i = 0; i < producto.listaProducto.Count; i++)
+            {
+                if (producto.listaProducto[i].cantidad > 0)
+                {
+                    producto.listaProducto[i].estadoguardar = true;
+                    
+                }
+                else
+                {
+                    producto.listaProducto[i].estadoguardar = false;
+                }
+            }
             return RedirectToAction("Buscar");
         }
 
