@@ -42,7 +42,7 @@
       </div>
       <div class="dataTables_wrapper">
 
-        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "display"> @*cambiar*@
+        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "display dTable"> @*cambiar*@
         <thead>
         <tr>
             <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
@@ -105,34 +105,4 @@
     </p>
  }
 
-         @*<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
-
-    <thead>
-        <tr>
-          <td>Producto</td>
-            <td>Stock Mínimo</td>
-            <td>Stock Actual</td>
-            <td>Stock Máximo</td>
          
-        </tr>
-    </thead>
-
-    <tbody>
-
-  
-    @for (int i = 0; (i < Model.listProdalmacen.Count); i++)
-    {
-            @Html.HiddenFor(model => model.listProdalmacen[i].ID) 
-             <tr>  
-                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockminimo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })         </td>
-                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockactual, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })         </td>
-                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockmaximo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0" })         </td>   
-     </tr>
-
-    
-    }
-           
-    </tbody>
-
-    </table>*@
