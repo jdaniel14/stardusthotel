@@ -188,38 +188,22 @@
     <Compile Include="Models\Servicios\Evento\EventoBean.cs" />
     <Compile Include="Models\Servicios\Evento\EventoDAO.cs" />
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
-
-    <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs"/>
-
     <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs" />
+	
     <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\FinReserva.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\HabInsertBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\HabitacionReserva.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaReserva.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Request\RequestResHab.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Request\ReservaRegistroBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\ReservaHabitacionBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\ReservaMostreo.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\ReservaTipoHabitacion.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Response\ConsultaReservaBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Response\MensajeBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Response\ReservaRequest.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Response\ResponseResHabXTipo.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\Response\TipoHabDisp.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\TipoHabCant.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\TipoHabXHotel.cs" />
-    <Compile Include="Models\Servicios\Reserva\Bean\UbicacionClienteBean.cs" />
-    <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
 
-      <SubType>Code</SubType>
-    </Compile>
+    
+    
+    
+    
+    
+    
+    
+    
 
     <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\FinReserva.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -279,8 +263,6 @@
       <SubType>Code</SubType>
     </Compile>
 
-    <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs" />
-    <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs" />
 
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
