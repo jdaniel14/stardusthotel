@@ -15,7 +15,7 @@
     
   @using (Html.BeginForm("guardarproductosxProveedor", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
   {
-    
+    @Html.HiddenFor(model => model.idproveedor) 
     <fieldset>
         <div class="widget">
             <div class="title">
@@ -77,7 +77,7 @@
 
       </p>   
         
-       @Html.ActionLink("Regresar", "Index")
+       @Html.ActionLink("Regresar", "ListarProductos/" + Model.idproveedor, "Proveedor");
   }
 
     

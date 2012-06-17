@@ -31,7 +31,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Proveedor";
+            string commandString = "SELECT * FROM Proveedor where estado=1";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();            

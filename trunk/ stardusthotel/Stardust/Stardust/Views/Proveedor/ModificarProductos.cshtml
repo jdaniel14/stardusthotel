@@ -16,14 +16,14 @@
 
  @using (Html.BeginForm("Guardarproductos2", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate" }))
 {   
-
+    @Html.HiddenFor(model => model.idproveedor)
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Proveedor</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Proveedor)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.Proveedor,new{@readonly ="readonly"})  </div>
+                <div class=" formRight">  @Html.TextBoxFor(model => model.Proveedor, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
             
@@ -48,15 +48,15 @@
 
   
     @for (int i = 0; (i < Model.listProdProv.Count); i++)
-{
+    {
             @Html.HiddenFor(model => model.listProdProv[i].ID) 
              <tr>  
                 <td> @Html.TextBoxFor(model => model.listProdProv[i].nombre, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio2, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
+                <td> @Html.TextBoxFor(model => model.listProdProv[i].precio, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", placeholder = "0.00" })         </td>
               
      </tr>
 
-}
+    }
            
     </tbody>
 
@@ -64,6 +64,6 @@
     <p></p><p></p><p></p><p></p>
     <p>
         <input type="submit" value="Guardar" class = "redB" />
-        @Html.ActionLink("Regresar", "Index")
+         @Html.ActionLink("Regresar", "ListarProductos/" + Model.idproveedor, "Proveedor");
     </p>
     }
