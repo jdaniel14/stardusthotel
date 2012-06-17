@@ -105,7 +105,7 @@ namespace Stardust.Controllers
                 prod.listProdProv[i].nombre = producto.nombre;
                 prod.listProdProv[i].estado2 = false;
             }
-
+            prod.idproveedor = ID;
                 return View(prod);
         }
         public ViewResult AsignarProductos(string nombre)
@@ -118,7 +118,7 @@ namespace Stardust.Controllers
             List<ProductoBean> productos = proveedorFacade.ListarProducto("");
 
             prod.Proveedor = nombre; //prov[0].razonSocial;
-            
+            prod.idproveedor = proveedor[0].ID;
             prod.listProdProv = new List<ProductoProveedor>();
             for (int i = 0; i < productos.Count; i++)
             {
