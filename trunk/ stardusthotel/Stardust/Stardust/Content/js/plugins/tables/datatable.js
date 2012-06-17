@@ -965,13 +965,13 @@
 			 *   by javascript
 			 */
 			this.oLanguage = {
-				"sProcessing": "Processing...",
+				"sProcessing": "Procesando...",
 				"sLengthMenu": "<span class='itemsPerPage'>Resultados por pagina:</span> _MENU_",
-				"sZeroRecords": "No matching records found",
-				"sEmptyTable": "No data available in table",
-				"sLoadingRecords": "Loading...",
-				"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-				"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+				"sZeroRecords": "No hay datos Coincidentes encontrados",
+				"sEmptyTable": "No hay datos Disponibles",
+				"sLoadingRecords": "Cargando...",
+				"sInfo": "Mostrando _START_ a _END_ del _TOTAL_ entradas",
+				"sInfoEmpty": "Mostrando 0 de 0 entradas",
 				"sInfoFiltered": "(_MAX_ in total)",
 				"sInfoPostFix": "",
 				"sInfoThousands": ",",
