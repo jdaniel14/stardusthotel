@@ -137,6 +137,12 @@ namespace Stardust.Controllers
             int idalmacen = productosfacade.obteneralmacen(id);
             if (idalmacen == -1)
             {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
+                
+            }
+            else
+            {
                 List<ProductoBean> productos = produc.ListarProducto("");
 
                 prod = productosfacade.obtenerlistadAlmacen(idalmacen);//lista de los productos en la tabla productoxalmacen
@@ -154,11 +160,6 @@ namespace Stardust.Controllers
 
                 return View(prod);
             }
-            else
-            {
-                conexion = "Error";
-                return RedirectToAction("Error/" + conexion);
-            }
 
         }
 
@@ -170,6 +171,12 @@ namespace Stardust.Controllers
             int idalmacen = productosfacade.obteneralmacen(idhotel);
             string conexion="";
             if (idalmacen == -1)
+            {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
+                
+            }
+            else
             {
                 ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
                 List<ProductoBean> productos = produc.ListarProducto("");
@@ -197,12 +204,7 @@ namespace Stardust.Controllers
 
                 }
 
-                return View(productosalmacen);
-            }
-            else
-            {
-                conexion = "Error";
-                return RedirectToAction("Error/" + conexion);
+                return View(productosalmacen); 
             }
             
         }
@@ -230,11 +232,17 @@ namespace Stardust.Controllers
         }
         public ActionResult Guardarproductos2(ProductoXAlmacenBean prod)
         {
-            List<HotelBean> hoteles = hotelFac.getHoteles();
+           // List<HotelBean> hoteles = hotelFac.getHoteles();
+
+            for(int i=0;i<prod.listProdalmacen.Count;i++)
+            {
+                List<ProductoBean> productos=produc.ListarProducto(prod.listProdalmacen[i].nombre);
+                prod.listProdalmacen[i].ID = productos[0].ID;
+            }
             string conexion=productosfacade.modificarproductosxalmacen(prod);
             if (conexion == "Bien")
             {
-                return RedirectToAction("ListadeHoteles");
+                return RedirectToAction("ListarProductosdeAlmacen/" + prod.idhotel);
             }
             else
             {
@@ -254,6 +262,12 @@ namespace Stardust.Controllers
             HotelBean hotel = hotelFac.getHotel(id);
             int idalmacen = productosfacade.obteneralmacen(id);
             if (idalmacen == -1)
+            {
+                conexion = "Error";
+                return RedirectToAction("Error/" + conexion);
+                
+            }
+            else
             {
                 ProductoXAlmacenBean prod2 = productosfacade.obtenerlistadAlmacen(idalmacen); // de la tabla proveedorxproducto
                 List<ProductoBean> productos = produc.ListarProducto("");
@@ -279,11 +293,6 @@ namespace Stardust.Controllers
                     productosalmacen.listProdalmacen.Add(prodProveedor);
                 }
                 return View(productosalmacen);
-            }
-            else
-            {
-                conexion = "Error";
-                return RedirectToAction("Error/" + conexion);
             }
             
         }
