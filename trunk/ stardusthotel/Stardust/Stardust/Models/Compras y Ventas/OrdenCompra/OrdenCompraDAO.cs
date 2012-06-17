@@ -44,56 +44,79 @@ namespace Stardust.Models
 
         public void GuardarOrdenCompra(OrdenProducto producto)
         {
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
-
-            decimal total=0; // decimal
-
-            for (int i = 0; i < producto.listaProducto.Count;i++ )
+            int cantidad = 0;
+            for (int i = 0; i<producto.listaProducto.Count; i++)
             {
-                int valor = producto.listaProducto.ElementAt(i).cantidad;
-                decimal precio = producto.listaProducto.ElementAt(i).precio; // decimal
-                if (valor > 0)
-                    total += (valor*precio);
+                if (producto.listaProducto[i].estadoguardar) cantidad++;
             }
-            
-            string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id+" )";
-            
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            sqlCmd.ExecuteNonQuery();
-
-            commandString = "SELECT * FROM OrdenCompra";
-
-            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
-
-            int id = 0;
-
-            while (dataReader.Read())
+            try
             {
-                id = (int)dataReader["idOrdenCompra"];
+                if (cantidad > 0)
+                {
+                    String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                    SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                    sqlCon.Open();
+
+                    decimal total = 0; // decimal
+
+                    for (int i = 0; i < producto.listaProducto.Count; i++)
+                    {
+                        if (producto.listaProducto[i].estadoguardar)
+                        {
+                            int valor = producto.listaProducto.ElementAt(i).cantidad;
+                            decimal precio = producto.listaProducto.ElementAt(i).precio; // decimal
+                            total += (valor * precio);
+                        }
+                    }
+
+                    string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id + " )";//idproveedor
+
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+
+                    commandString = "SELECT * FROM OrdenCompra";
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader = sqlCmd2.ExecuteReader();
+
+                    int id = 0;
+
+                    while (dataReader.Read())
+                    {
+                        id = (int)dataReader["idOrdenCompra"];
+                    }
+
+                    sqlCon.Close();
+
+                    String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                    SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+                    sqlCon2.Open();
+
+                    for (int i = 0; i < producto.listaProducto.Count; i++)
+                    {
+                        if (producto.listaProducto[i].estadoguardar)
+                        {
+                            decimal precio = 0; // decimal
+                            Producto prod = producto.listaProducto.ElementAt(i);
+                            precio = (prod.precio * prod.cantidad);
+                            commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.idproducto + " , " + id + " , " + prod.cantidad + " , " + precio + " )";
+                            SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
+                            sqlCmd3.ExecuteNonQuery();
+                        }
+                    }
+
+                    sqlCon2.Close();
+                }
+
             }
-
-            sqlCon.Close();
-
-            String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
-            sqlCon2.Open();
-
-            for (int i = 0; i < producto.listaProducto.Count; i++)
+            catch
             {
-                decimal precio = 0; // decimal
-                Producto prod = producto.listaProducto.ElementAt(i);
-                precio = (prod.precio * prod.cantidad);
-                commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.idproducto +" , "+ id + " , "+ prod.cantidad + " , "+ precio + " )";
-                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
-                sqlCmd3.ExecuteNonQuery();
+
             }
 
-            sqlCon2.Close();
         }
 
         public List<OrdenCompraBean> getlista(string nombre, string fecha1, string fecha2) //nombre proveedor

@@ -23,5 +23,7 @@ namespace Stardust.Models
         public decimal precio { get; set; }
 
         public Boolean estado { get; set; }
+
+        public Boolean estadoguardar { get; set; }
     }
 }
