@@ -9,6 +9,7 @@ namespace Stardust.Models.Servicios
 {
     public class ReservaHabitacionDAO
     {
+        #region DIPONIBLES
         public List<HabitacionReserva> listarNoDisponibles(int idHotel, String fechaIni, String fechaFin) {
             List<HabitacionReserva> listaHab = new List<HabitacionReserva>();
 
@@ -108,7 +109,44 @@ namespace Stardust.Models.Servicios
 
             return listTipHab;
         }
+        #endregion
 
+        #region CONSULTA_ELIMINAR_RESERVA
+
+        public DatosReservaBean consultarReserva(int idHotel, int idReserva, String documento)
+        {
+            DatosReservaBean consulta = new DatosReservaBean();
+
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            String query = " SELECT r.idReserva, r.fechaLlegada, r.fechaSalida, u.nroDocumento, (u.razonSocial+u.nombres+' '+u.apPat) as nombre" +
+                           " FROM Reserva r, Usuario u " +
+                           " WHERE r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario and u.nroDocumento = '" + documento + "'";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            consulta.me = "";
+            if (dataReader.Read())
+            {
+                consulta.idReserva = (int)dataReader["idReserva"];
+                consulta.fechaLlegada = ((DateTime)dataReader["fechaLlegada"]).ToString("dd-MM-yyyy");
+                consulta.fechaSalida = ((DateTime)dataReader["fechaSalida"]).ToString("dd-MM-yyyy");
+                consulta.doc = (String)dataReader["nroDocumento"];
+                consulta.nomb = (String)dataReader["nombre"];
+            }
+            else
+            {
+                consulta.me = "No se encontro ninguna Reserva con esos datos";
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return consulta;
+        }
 
         public String deleteReserva(int idReserva)
         {
@@ -139,43 +177,9 @@ namespace Stardust.Models.Servicios
 
             return me;
         }
-
-        public DatosReservaBean SelectDatosCheckIn(int idHotel, int idReserva)
-        {
-            DatosReservaBean reserva = new DatosReservaBean();
-
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
-
-            String query =  " SELECT u.nroDocumento as doc , (u.razonSocial + u.nombres + ' ' + u.apPat) as nomb, r.fechaRegistro as fechaReg, r.fechaLlegada as fechaLleg " +
-                            " FROM Reserva r, Usuario u " + 
-                            " WHERE r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario ";
-
-            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-            if (dataReader.Read())
-            {                
-                reserva.doc = (String)dataReader["doc"];
-                reserva.nomb = (String)dataReader["nomb"];
-                reserva.fechaRegistro = (String)dataReader["fechaReg"];
-                reserva.fechaLlegada = (String)dataReader["fechaLleg"];
-            }
-            else {
-                reserva.me = "No se encontro dicha Reserva";
-            }
-            dataReader.Close();
-            sqlCon.Close();
-
-            return reserva;
-        }
-
-        /*public ListarTipHabCheckIn(int idReserva){
-            String query = "SELECT * FROM WHERE";
-        }*/
-
+        #endregion
+        
+        #region REGISTRAR_RESERVA
         public int registraCliente(ClienteReservaBean client){
         
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -242,13 +246,14 @@ namespace Stardust.Models.Servicios
         }
         public int  resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, String coment){
 
-
+            int reservaEstado = 1;//POR CONFIRMAR
+            int reservaPago = 1;//CERO PAGO
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = "INSERT INTO Reserva Values (convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ,NULL, 'POR CONFIRMAR', 0, 0, 0, " + idHotel.ToString() + ", " + idUsuario + ", GETDATE())";
+            String query = "INSERT INTO Reserva Values (convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ,NULL, "+reservaEstado+" , 0, 0, 0, " + idHotel.ToString() + ", " + idUsuario + ", GETDATE() , "+reservaPago+")";
             System.Diagnostics.Debug.WriteLine("query de RESERVA : " + query);
 
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
@@ -295,74 +300,144 @@ namespace Stardust.Models.Servicios
             sqlCon.Open();
             for (int i = 0; i < listTip.Count; i++) {
                 String query = "";
-                if(listTip[i].cant > 0)
+                if (listTip[i].cant > 0)
+                {
                     query = "INSERT INTO ReservaXTipoHabitacionXHotel Values(" + idReserva + ", " + idHotel + ", " + listTip[i].tipo + ", " + listTip[i].cant + ")";
-                System.Diagnostics.Debug.WriteLine("query TIPO--> " + query);
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteNonQuery();
+                    System.Diagnostics.Debug.WriteLine("query TIPO--> " + query);
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                }
             }
             sqlCon.Close();
         }
+        #endregion
 
+        #region CHECK IN
 
-        public DatosReservaBean consultarReserva(int idHotel, int idReserva, String documento)
+        public DatosReservaBean SelectDatosCheckIn(int idHotel, int idReserva)
         {
-            DatosReservaBean consulta = new DatosReservaBean();
-            
+            DatosReservaBean reserva = new DatosReservaBean();
+            int estado_confirmado = 1;
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = " SELECT r.idReserva, r.fechaLlegada, r.fechaSalida, u.nroDocumento, (u.razonSocial+u.nombres+' '+u.apPat) as nombre"+
-                           " FROM Reserva r, Usuario u " +
-                           " WHERE r.idHotel = " + idHotel + " and r.idReserva = "+idReserva+ " and r.idUsuario = u.idUsuario and u.nroDocumento = '" + documento + "'";
+            String query =  " SELECT u.nroDocumento as doc , (u.razonSocial + u.nombres + ' ' + u.apPat) as nomb, r.fechaRegistro as fechaReg, r.fechaLlegada as fechaLleg " +
+                            " FROM Reserva r, Usuario u " +
+                            " WHERE r.estado = "+ estado_confirmado + " and  r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario ";
+
+            System.Diagnostics.Debug.WriteLine("Query Check IN " + query);
 
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            consulta.me = "";
+            reserva.me = "";
             if (dataReader.Read())
             {
-                consulta.idReserva = (int)dataReader["idReserva"];
-                consulta.fechaLlegada = ((DateTime)dataReader["fechaLlegada"]).ToString("dd-MM-yyyy");
-                consulta.fechaSalida = ((DateTime)dataReader["fechaSalida"]).ToString("dd-MM-yyyy");
-                consulta.doc = (String)dataReader["nroDocumento"];
-                consulta.nomb= (String)dataReader["nombre"];   
+                reserva.doc = (String)dataReader["doc"];
+                reserva.nomb = (String)dataReader["nomb"];
+                reserva.fechaRegistro = ((DateTime)dataReader["fechaReg"]).ToString("dd-MM-yyyy");
+                reserva.fechaLlegada = ((DateTime)dataReader["fechaLleg"]).ToString("dd-MM-yyyy");
             }
-            else 
+            else
             {
-                consulta.me = "No se encontro ninguna Reserva con esos datos";
+                reserva.me = "No se encontro dicha Reserva";
             }
             dataReader.Close();
             sqlCon.Close();
 
-            return consulta;
+            return reserva;
         }
-        public List<TipoHabCant> listarTipHabReserva(int idReserva){
-            List<TipoHabCant> lista = new List<TipoHabCant>();
+
+
+        public List<TipHabCheckInBean> listarTipHabReserva(int idReserva)
+        {
+            List<TipHabCheckInBean> lista = new List<TipHabCheckInBean>();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = "SELECT t.nombre , r.cantidad FROM ReservaXTipoHabitacionXHotel r, TipoHabitacion t WHERE idReserva = " + idReserva + " and r.idTipoHabitacion = t.idTipoHabitacion";
+            String query = "SELECT t.nombre , r.cantidad, r.idTipoHabitacion FROM ReservaXTipoHabitacionXHotel r, TipoHabitacion t WHERE idReserva = " + idReserva + " and r.idTipoHabitacion = t.idTipoHabitacion";
 
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
-                        
+
             while (dataReader.Read())
             {
-                TipoHabCant tipo = new TipoHabCant();
-                tipo.nombreTipoHab = (String)dataReader["nombre"];
-                tipo.cant = (int)dataReader["cantidad"];
+                TipHabCheckInBean tipo = new TipHabCheckInBean();
+                tipo.idTipHab = (int)dataReader["idTipoHabitacion"];
+                tipo.nombTipHab = (String)dataReader["nombre"];
+                tipo.nroPers = (int)dataReader["cantidad"];                
                 lista.Add(tipo);
             }
+
+            dataReader.Close();
+
+            String queryHab =   " SELECT rXh.idHabitacion, h.idTipoHabitacion, h.numero " +
+                                " FROM ReservaXHabitacion rXh, Habitacion h " +
+                                " WHERE rXh.idReserva = " + idReserva + " AND rXh.idHabitacion = h.idHabitacion " +
+                                " ORDER BY idTipoHabitacion";
+
+            SqlCommand sqlCmdHab = new SqlCommand(queryHab, sqlCon);
+            SqlDataReader dataReaderHab = sqlCmdHab.ExecuteReader();
+
+            if (dataReaderHab.Read())
+            {
+                //bool sale = false;
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    int tipoHab = lista[i].idTipHab;
+                    List<HabitacBean> listaHabitac = new List<HabitacBean>();
+                    System.Diagnostics.Debug.WriteLine("TipoHab " + tipoHab);
+
+
+                    while (tipoHab == (int)dataReaderHab["idTipoHabitacion"])
+                    {
+                        System.Diagnostics.Debug.WriteLine("--> " + (int)dataReaderHab["idHabitacion"]);
+                        HabitacBean habitac = new HabitacBean();
+                        habitac.idHab = (int)dataReaderHab["idHabitacion"];
+                        habitac.numero = (String)dataReaderHab["numero"];
+                        listaHabitac.Add(habitac);
+                        if(!dataReaderHab.Read()){
+                            //sale = true;
+                            break;
+                        }
+                    }
+                    lista[i].lista = listaHabitac;
+                    //if (sale) break;
+                }
+            }
+            dataReaderHab.Close();
+            sqlCon.Close();
             return lista;
         }
 
+        public String InsertClientesHabitacion(List<ClienteHabBean> listClientHab)
+        {
+            String me = "";
 
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            for (int i = 0; i < listClientHab.Count; i++) {
+                ClienteHabBean cliente = listClientHab[i];
+                String query = "INSERT INTO ReservaXHabitacionXCliente VALUES ( " + cliente.idReserva + " , " + cliente.idHab + " , '" + cliente.nombresYAp + "' , '" + cliente.dni + "' )";
+                
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+            }
+            sqlCon.Close();
+            return me;
+        }
+
+        #endregion
+
+        #region BUSCARPERSONA
         public List<UbicacionClienteBean> ubicarPersona(String nombre)
         {
             List<UbicacionClienteBean> listClientes = new List<UbicacionClienteBean>();
@@ -396,6 +471,6 @@ namespace Stardust.Models.Servicios
 
             return listClientes;
         }
-        //public String registrarServicio(Object datRec){}
+        #endregion
     }
 }
