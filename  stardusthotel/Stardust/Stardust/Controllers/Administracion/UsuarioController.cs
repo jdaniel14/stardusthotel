@@ -41,9 +41,6 @@ namespace Stardust.Controllers
 
             ViewBag.departamentos = Utils.listarDepartamentos();
 
-            ViewBag.provincias = new List<Provincia>() ;
-            ViewBag.distritos = new List<Distrito>() ;
-
             List<TipoDocumento> docs = new List<TipoDocumento>();
             TipoDocumento d1 = new TipoDocumento("DNI");
             TipoDocumento d2 = new TipoDocumento("RUC");
@@ -66,63 +63,7 @@ namespace Stardust.Controllers
                 usuarioFac.registrarUsuario(usuariobean);
                 return RedirectToAction("List");
             }
-            else if (usuariobean.idDepartamento != 0 && usuariobean.idProvincia != 0){
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento( "PASAPORTE" ) ;
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1);                docs.Add(d2);                docs.Add(d3);                docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-                ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
-                ViewBag.distritos = Utils.listarDistritos(usuariobean.idDepartamento, usuariobean.idProvincia);
-
-                return View();
-            }
-            else if( usuariobean.idDepartamento != 0 ){
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-                ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
-
-                ViewBag.distritos = new List<Distrito>();
-                return View();
-            }
-            
-            else {
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                Utils utils = new Utils();
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-
-                ViewBag.provincias = new List<Provincia>();
-                ViewBag.distritos = new List<Distrito>();
-                return View();
-            }
+            return View( usuariobean ) ;
         }
         
         //
@@ -131,6 +72,7 @@ namespace Stardust.Controllers
         public ActionResult Edit(int id)
         {
             var model = usuarioFac.getUsuario(id);
+            //System.Diagnostics.Debug.WriteLine("Perfil del usuario = " + model.idPerfilUsuario);
 
             PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
             ViewBag.perfiles = perfilFac.listarPerfiles();
@@ -143,6 +85,10 @@ namespace Stardust.Controllers
             docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
             ViewBag.documentos = docs;
 
+            ViewBag.departamentos = Utils.listarDepartamentos();
+            ViewBag.provincias = Utils.listarProvincias(model.idDepartamento);
+            ViewBag.distritos = Utils.listarDistritos(model.idDepartamento, model.idProvincia);
+
             return View( model );
         }
 
@@ -152,73 +98,20 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Edit(UsuarioBean usuariobean)
         {
-            if (ModelState.IsValid)
+            try
             {
+                //System.Diagnostics.Debug.WriteLine("Perfil de Usuario = " + usuariobean.idPerfilUsuario);
+                //if (ModelState.IsValid)
+                //{
                 usuarioFac.actualizarUsuario(usuariobean);
                 return RedirectToAction("List");
             }
-            else if (usuariobean.idDepartamento != 0 && usuariobean.idProvincia != 0)
-            {
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                Utils utils = new Utils();
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-                ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
-                ViewBag.distritos = Utils.listarDistritos(usuariobean.idDepartamento, usuariobean.idProvincia);
-
-                return View();
+            catch(Exception e ) {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+                return View(usuariobean);
             }
-            else if (usuariobean.idDepartamento != 0)
-            {
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-                ViewBag.provincias = Utils.listarProvincias(usuariobean.idDepartamento);
-
-                ViewBag.distritos = new List<Distrito>();
-                return View();
-            }
-
-            else
-            {
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                Utils utils = new Utils();
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-
-                ViewBag.provincias = new List<Provincia>();
-                ViewBag.distritos = new List<Distrito>();
-                return View();
-            }
+            //}
+            //return View();
         }
 
         //
