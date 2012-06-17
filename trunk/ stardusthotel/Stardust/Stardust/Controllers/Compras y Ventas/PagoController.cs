@@ -102,5 +102,12 @@ namespace Stardust.Controllers
             return View(pagoFacade.ObtenerReserva(id));
         }
 
+        [HttpPost]
+        public ActionResult PagoHabContado(Reserva reserva)
+        {
+            return RedirectToAction("List");
+        }
+            
+
     }
 }
