@@ -32,10 +32,11 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public JsonResult cerrarReserva(ReservaRegistroBean reserva)
         {
-            String message = "";
+            //String message = "";
+            System.Diagnostics.Debug.WriteLine("ESTAMOS EN CERRAR RESERVA");
             MensajeBean rpta = facadeReservas.registrarReserva(reserva);
-
-            System.Diagnostics.Debug.WriteLine(reserva.client.apell);
+            
+            /*System.Diagnostics.Debug.WriteLine(reserva.client.apell);
             message = "Estimado " + reserva.client.nomb + ", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
@@ -53,7 +54,7 @@ namespace Stardust.Controllers.Servicios
             smtp.EnableSsl = true;
             smtp.Credentials = cred;
             smtp.Port = 587;
-            smtp.Send(mail);
+            smtp.Send(mail);*/
             return Json(rpta);
         }
 
@@ -88,11 +89,23 @@ namespace Stardust.Controllers.Servicios
             return Json(res);
         }
 
+        public ActionResult CheckIn()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult CheckIn(ConsultaReserva request)
         {
             CheckInBean check = facadeReservas.check_in(request.idHotel, request.idReserva);
             return Json(check);
+        }
+
+        [HttpPost]
+        public JsonResult ResgitrarClientesCheckIn(List<ClienteHabBean> listClientHab) { 
+            MensajeBean mensaje = new MensajeBean ();
+            mensaje.me = facadeReservas.RegistrarDatClientesCheckIn(listClientHab);
+            return Json(mensaje);
         }
         [HttpPost]
         public JsonResult anularReserva(int idReserva) {
