@@ -12,15 +12,20 @@ namespace Stardust.Models
         public int id { get; set; }
         public DateTime fechaRegistro { get; set; }
         public DateTime fechaCheckOut { get; set; }
-        public string estado { get; set; }
+        public int estado { get; set; }
+        public int estadoPago { get; set; }
+        public string estados { get; set; }
+        public string estadoPagos { get; set; }
         public decimal pagoIni { get; set; }
         public decimal total { get; set; }
         public int idHotel { get; set; }
         public string nombre { get; set; }
-        public int idUsuario { get; set; }
+        public int idUsuario { get; set; }        
     }
     public class Reserva
     {
+        public string numDoc { get; set; }
+        public string tipoDoc { get; set; }
         public int id { get; set; }
         public int idHotel { get; set; }
         public int idUsuario { get; set; }
@@ -33,7 +38,10 @@ namespace Stardust.Models
         public decimal igv { get; set; }
         public decimal total { get; set; }
         public decimal interes { get; set; }
+        public decimal pagado { get; set; }
         public int numCuotas { get; set; }
+        public int estado { get; set; }
+        public int estadoPago { get; set; }
         public List<TipoHab> listaHab { get; set; }
         public Reserva()
         {
