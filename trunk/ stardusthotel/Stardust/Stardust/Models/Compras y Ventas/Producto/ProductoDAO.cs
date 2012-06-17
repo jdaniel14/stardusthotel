@@ -190,7 +190,7 @@ namespace Stardust.Models
 
                 while (dataReader.Read())
                 {
-                    idalmacen = (int)dataReader["idalmacen"];
+                    idalmacen = (int)dataReader["idAlmacen"];
                 }
                 dataReader.Close();
                 sqlCon.Close();
@@ -259,7 +259,7 @@ namespace Stardust.Models
                 {
                     ProductoAlmacen prodalmacen = new ProductoAlmacen();
 
-                    idal = (int)dataReader["idalmacen"];
+                    idal = (int)dataReader["idAlmacen"];
                     prodalmacen.ID = (int)dataReader["idProducto"];
                     prodalmacen.stockminimo = (int)dataReader["stockMinimo"];
                     prodalmacen.stockactual = (int)dataReader["stockActual"];
