@@ -31,13 +31,14 @@
             
             <div class="formRow">                
                 @Html.LabelFor(model => model.porcDescontar)<span class="req">*</span>                
-                <div class = "formRight"> @Html.TextBoxFor(model => model.porcDescontar, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" }) </div>
+                <div class = "formRight"> @Html.TextBoxFor(model => model.porcDescontar2, new { @class = "maskPct", placeholder = "Ejemplo: 15%" }) </div>
                 <div class = "clear" ></div>
             </div>
             
             <div class="formRow">
                 @Html.LabelFor(model => model.idhotel)<span class="req">*</span>
-                <div class = "formRight" >@Html.DropDownListFor(model => model.ID, Model.hotelList)</div>
+                <div class = "formRight" >
+                <div class = "selector">@Html.DropDownListFor(model => model.ID, Model.hotelList)</div></div>
                 <div class = "clear" ></div>
             </div>         
             
