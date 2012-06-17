@@ -116,7 +116,7 @@
                     contentType: "application/json; charset=utf-8",
                     url: "Delete/" + idEliminar,
                     success: function (data) {
-                        oTable.fnDraw(false);
+                        //oTable.fnDraw(false);
                         if (data.me == "") {
                             $(this).dialog("close");
                             location.reload();
