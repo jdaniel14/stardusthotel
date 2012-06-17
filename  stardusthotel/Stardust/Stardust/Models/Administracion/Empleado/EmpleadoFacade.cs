@@ -52,9 +52,9 @@ namespace Stardust.Models
             return empleadoServ.listarHorario( id ) ;
         }
 
-        public void asignarDetalle(HorarioDetalle horariod)
+        public int asignarDetalle(HorarioDetalle horariod)
         {
-            empleadoServ.asignarDetalle(horariod);
+            return empleadoServ.asignarDetalle(horariod);
         }
         public List<HorarioDetalle> listarDetalle(int id)
         {
@@ -66,10 +66,10 @@ namespace Stardust.Models
             return empleadoServ.gethorarioDetalle(id);
         }
 
-        public void modificarHorarioDetalle(HorarioDetalle hd)
+        public int modificarHorarioDetalle(HorarioDetalle hd)
         {
 
-            empleadoServ.modificarHorarioDetalle(hd);
+            return empleadoServ.modificarHorarioDetalle(hd);
         }
 
 
