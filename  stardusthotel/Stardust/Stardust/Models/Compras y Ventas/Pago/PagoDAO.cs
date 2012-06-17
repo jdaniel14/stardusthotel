@@ -61,7 +61,7 @@ namespace Stardust.Models
                 reserva.id = (int)dataReader["idReserva"];
                 reserva.fechaRegistro = (DateTime)dataReader["fechaRegistro"];
                 reserva.fechaCheckOut = (DateTime)dataReader["fechaSalida"];
-                reserva.estado = (string)dataReader["estado"];
+                reserva.estado = (int)dataReader["estado"];
                 reserva.pagoIni = (decimal)dataReader["pagoInicial"];
                 reserva.total = (decimal)dataReader["montoTotal"];
                 reserva.idHotel = (int)dataReader["idHotel"];
@@ -73,9 +73,9 @@ namespace Stardust.Models
             return ListReserva;
         }
 
-        public string GetNombreUsuario(int id)
+        public UsuarioBean GetNombreUsuario(int id)
         {
-            string nombre = null;
+            UsuarioBean usuario = new UsuarioBean();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -90,13 +90,15 @@ namespace Stardust.Models
 
             if (dataReader.Read())
             {
-                nombre = (string)dataReader["nombres"];
+                usuario.nombres = (string)dataReader["nombres"];
+                usuario.nroDocumento = (string)dataReader["nroDocumento"];
+                usuario.tipoDocumento = (string)dataReader["tipoDocumento"];
             }
 
             dataReader.Close();
             sqlCon.Close();
 
-            return nombre;
+            return usuario;
         }
 
         public string GetNombreHotel(int id)
@@ -240,12 +242,78 @@ namespace Stardust.Models
             reserva.igv = igv;
             reserva.total = total;
             reserva.hotel = GetNombreHotel(reserva.idHotel);
-            reserva.usuario = GetNombreUsuario(reserva.idUsuario);
+            UsuarioBean usuario = GetNombreUsuario(reserva.idUsuario);
+            reserva.usuario = usuario.nombres;
+            reserva.numDoc = usuario.nroDocumento;
+            reserva.tipoDoc = usuario.tipoDocumento;
 
             dataReader.Close();
             sqlCon.Close();
 
             return reserva;
+        }
+
+        public string RegistrarPagoContado(Reserva reserva)
+        {
+            string conexion = null;
+            try
+            {   
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                string commandString = null;
+
+                if (reserva.tipoDoc.Equals("RUC"))
+                {
+                    commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Factura' , "+reserva.id+" , NULL)";
+                }
+                else
+                {
+                    commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Boleta' , "+reserva.id+" , NULL)";
+                }
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                if (reserva.estadoPago == 1) //Pago cero
+                {
+                    if (reserva.pagado < reserva.total)
+                        commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 2 WHERE idReserva = " + reserva.id;
+                    else
+                        commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 4 WHERE idReserva = " + reserva.id;
+                }
+                else
+                {
+                    if (reserva.estadoPago == 2) //Inicial
+                    {
+                        if (reserva.pagado < reserva.total)
+                            commandString = "UPDATE Reserva SET estadoPago = 3 WHERE idReserva = " + reserva.id;
+                        else
+                            commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
+                    }
+                    else
+                    {
+                        if (reserva.estadoPago == 3) //Parcial Pagado
+                        {
+                            if (reserva.pagado == reserva.total)
+                                commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
+                        }
+                    }
+                }
+
+                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                sqlCmd2.ExecuteNonQuery();
+
+                sqlCon.Close();        
+            }
+            catch
+            {
+                conexion = "Falla en Conexión";
+            }
+
+            return conexion;
         }
     }
 }
