@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Stardust.Models
 {
@@ -18,60 +19,79 @@ namespace Stardust.Models
         public int ID { get; set; }
 
         [Display(Name = "Perfil Usuario")]
+        [Required(ErrorMessage = "Debe ingresar un perfil al usuario")]
         public int idPerfilUsuario { get; set; }
 
         [Display(Name = "Perfil Usuario")]
         public string nombrePerfilUsuario { get; set; }
 
         [Display(Name = "Usuario")]
+        [Required(ErrorMessage = "Debe ingresar un nombre para la cuenta de usuario")]
         public string user_account { get; set; }
 
         [Display(Name = "Password")]
+        [Required(ErrorMessage = "Debe ingresar una contraseña")]
         public string pass { get; set; }
 
         [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Debe ingresar su nombre")]
         public string nombres { get; set; }
 
         [Display(Name = "Apellido Paterno")]
+        [Required(ErrorMessage = "Debe ingresar su apellido paterno")]
         public string apPat { get; set; }
 
         [Display(Name = "Apellido Materno")]
+        [Required(ErrorMessage = "Debe ingresar su apellido materno")]
         public string apMat { get; set; }
 
         [Display(Name = "E-mail")]
+        [Remote("ValidaEmail", "Validation")]
         public string email { get; set; }
 
         [Display(Name = "Teléfono")]
+        [StringLength(7, MinimumLength = 7, ErrorMessage = "Debe ingresar 7 dígitos")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
+        //[Remote("ValidaFonoNoRequerido", "Validation")]
         public string celular { get; set; }
 
         [Display(Name = "Tipo de documento")]
+        [Required( ErrorMessage = "Debe ingresar un tipo de documento" ) ]
         public string tipoDocumento { get; set; }
 
         [Display(Name = "Nro. de Documento")]
+        [Required( ErrorMessage = "Debe ingresar un número de documento" ) ]
+        [StringLength(12, MinimumLength = 8, ErrorMessage = "Debe ingresar mínimo 8 dígitos")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un documento")]
         public string nroDocumento { get; set; }
 
         [Display(Name = "Razón Social")]
+        [Required(ErrorMessage = "Debe ingresar una razón social")]
         public string razonSocial { get; set; }
 
         [Display(Name = "Estado")]
         public string estado { get; set; }
 
         [Display(Name = "Dirección")]
+        [Required(ErrorMessage = "Debe ingresar dirección")]
         public string direccion { get; set; }
 
         [Display(Name = "Distrito")]
+        [Required(ErrorMessage = "Debe elegir un distrito")]
         public int idDistrito { get; set; }
 
         [Display(Name = "Distrito")]
         public string nombreDistrito { get; set; }
 
         [Display(Name = "Provincia")]
+        [Required(ErrorMessage = "Debe elegir una provincia")]
         public int idProvincia { get; set; }
 
         [Display(Name = "Provincia")]
         public string nombreProvincia { get; set; }
 
         [Display(Name = "Departamento")]
+        [Required(ErrorMessage = "Debe elegir un departamento")]
         public int idDepartamento { get; set; }
 
         [Display(Name = "Departamento")]

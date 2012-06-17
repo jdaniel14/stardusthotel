@@ -102,6 +102,7 @@
     <Compile Include="Controllers\Servicios\ServiciosController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,18 +190,7 @@
     <Compile Include="Models\Servicios\Evento\EventoDAO.cs" />
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs" />
-	
     <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
-
-    
-    
-    
-    
-    
-    
-    
-    
-
     <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -262,8 +252,6 @@
     <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs">
       <SubType>Code</SubType>
     </Compile>
-
-
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
@@ -4505,7 +4493,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62846</DevelopmentServerPort>
+          <DevelopmentServerPort>53957</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

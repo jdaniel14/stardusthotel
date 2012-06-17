@@ -63,9 +63,9 @@ namespace Stardust.Models
                 while (data.Read()) {
                     PerfilUsuarioBean perfil = new PerfilUsuarioBean();
 
-                    perfil.ID = (int)data.GetValue(0);
-                    perfil.nombre = (string)data.GetValue(1);
-                    perfil.descripcion = (string)data.GetValue(2);
+                    perfil.ID = Convert.ToInt32( data[ "idPerfilUsuario" ] ) ;
+                    perfil.nombre = Convert.ToString(data["nombre"]);
+                    perfil.descripcion = Convert.ToString(data["descripcion"]);
 
                     lista.Add(perfil);
                 }

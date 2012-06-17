@@ -82,8 +82,8 @@ namespace Stardust.Controllers
         {
             promocion.tipoDescuento = 1;
             
-            string b = promocion.porcDescontar2.Remove(2, 1);
-            promocion.porcDescontar = Convert.ToInt32(b);
+            //string b = promocion.porcDescontar2.Remove(2, 1);
+            //promocion.porcDescontar = Convert.ToInt32(b);
             
 
             promocion.razon = promocion.dias;
@@ -102,10 +102,10 @@ namespace Stardust.Controllers
         {
             promocion.tipoDescuento = 2;
             
-            string a = promocion.adelanto2.Remove(2, 1);
-            string b = promocion.porcDescontar2.Remove(2, 1);
-            promocion.porcDescontar = Convert.ToInt32(b);
-            promocion.adelanto = Convert.ToInt32(a);
+            //string a = promocion.adelanto2.Remove(2, 1);
+            //string b = promocion.porcDescontar2.Remove(2, 1);
+            //promocion.porcDescontar = Convert.ToInt32(b);
+            //promocion.adelanto = Convert.ToInt32(a);
             promocion.razon = promocion.adelanto;
             promocionFacade.RegistrarPromocion(promocion);
             return RedirectToAction("Buscar");

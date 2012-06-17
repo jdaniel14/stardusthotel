@@ -46,9 +46,9 @@ namespace Stardust.Models
                     usuario.estado = Convert.ToString(data["estado"]);
                     usuario.direccion = Convert.ToString(data["direccion"]);
 
-                    int idDistrito = Convert.ToInt32(data["idDistrito"]);
-                    int idProvincia = Convert.ToInt32(data["idProvincia"]);
-                    int idDepartamento = Convert.ToInt32(data["idDepartamento"]);
+                    int idDistrito = usuario.idDistrito = Convert.ToInt32(data["idDistrito"]);
+                    int idProvincia = usuario.idProvincia = Convert.ToInt32(data["idProvincia"]);
+                    int idDepartamento = usuario.idDepartamento = Convert.ToInt32(data["idDepartamento"]);
 
                     usuario.nombreDistrito = this.getDistrito(idDepartamento, idProvincia, idDistrito);
                     usuario.nombreProvincia = this.getProvincia(idDepartamento, idProvincia);
