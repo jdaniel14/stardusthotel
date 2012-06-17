@@ -156,7 +156,7 @@ namespace Stardust.Controllers
             }
             ViewBag.empleados = empleadoFac.listarEmpleados();
             ViewBag.error = "Ingrese fechas válidas";
-            EmpleadoFacade f = new EmpleadoFacade();
+           // EmpleadoFacade f = new EmpleadoFacade();
            
             return View();
         }
@@ -207,46 +207,78 @@ namespace Stardust.Controllers
         
         public ActionResult Creardetalle( int id)
         {
-            EmpleadoFacade empleadoFac = new EmpleadoFacade();
+            
+                EmpleadoFacade empleadoFac = new EmpleadoFacade();
 
-            Horario horar = empleadoFac.getHorario(id);
-          
-            HorarioDetalle horariodetallebeam = new HorarioDetalle();
-            horariodetallebeam.nombreEmpleado = horar.nombreEmpleado;
-            horariodetallebeam.idHorario = horar.ID;
+                Horario horar = empleadoFac.getHorario(id);
 
-            var diassemana = new List<String>{
-									"Lunes", 
-									"Martes", 
-									"Miercoles",
-									"Jueves",
-									"Viernes",
-									"Sabado",
-								};
 
-            ViewBag.diassemana = diassemana;
-            var model = horariodetallebeam;
-            return View(model);
+                HorarioDetalle horariodetallebeam = new HorarioDetalle();
+                horariodetallebeam.nombreEmpleado = horar.nombreEmpleado;
+                horariodetallebeam.idHorario = horar.ID;
+
+                List<DiaSemana> docs = new List<DiaSemana>();
+                DiaSemana d1 = new DiaSemana("Lunes");
+                DiaSemana d2 = new DiaSemana("Martes");
+                DiaSemana d3 = new DiaSemana("Miercoles");
+                DiaSemana d4 = new DiaSemana("Jueves");
+                DiaSemana d5 = new DiaSemana("Viernes");
+                DiaSemana d6 = new DiaSemana("Sabado");
+                DiaSemana d7 = new DiaSemana("Domingo");
+
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4); docs.Add(d5); docs.Add(d6); docs.Add(d7);
+                ViewBag.semana = docs;
+
+
+               
+                var model = horariodetallebeam;
+                System.Diagnostics.Debug.WriteLine(" dia  =" + horariodetallebeam.diaSemana);
+                System.Diagnostics.Debug.WriteLine(" entrada  =" + horariodetallebeam.horaEntrada);
+                System.Diagnostics.Debug.WriteLine(" salida  =" + horariodetallebeam.horaSalida);
+                System.Diagnostics.Debug.WriteLine(" idhorario  =" + horariodetallebeam.idHorario);
+
+                return View(model);
+           
         }
 
         [HttpPost]
         public ActionResult Creardetalle(HorarioDetalle horariodetallebeam)
         {
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.diaSemana);
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.horaEntrada);
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.horaSalida);
-            System.Diagnostics.Debug.WriteLine(" codigo  =" + horariodetallebeam.idHorario);
+          
+           // System.Diagnostics.Debug.WriteLine(" despues  dia  =" + horariodetallebeam.diaSemana);
+           // System.Diagnostics.Debug.WriteLine(" despues entrada  =" + horariodetallebeam.horaEntrada);
+           // System.Diagnostics.Debug.WriteLine("despues  salida  =" + horariodetallebeam.horaSalida);
+           // System.Diagnostics.Debug.WriteLine(" despues idhorario  =" + horariodetallebeam.idHorario);
+           // System.Diagnostics.Debug.WriteLine(" despues iddetalle  =" + horariodetallebeam.idHorarioDetalle);  
+
 
             EmpleadoFacade empleadoFac = new EmpleadoFacade();
+            try{
+            int resp = empleadoFac.asignarDetalle(horariodetallebeam);
+            if ((resp == -1) || (resp == 0))
+            {
+                List<DiaSemana> docs = new List<DiaSemana>();
+                DiaSemana d1 = new DiaSemana("Lunes");
+                DiaSemana d2 = new DiaSemana("Martes");
+                DiaSemana d3 = new DiaSemana("Miercoles");
+                DiaSemana d4 = new DiaSemana("Jueves");
+                DiaSemana d5 = new DiaSemana("Viernes");
+                DiaSemana d6 = new DiaSemana("Sabado");
+                DiaSemana d7 = new DiaSemana("Domingo");
 
-            empleadoFac.asignarDetalle(horariodetallebeam);
-
-            //harcodeo 
-            //horariodetallebeam.horario = 1;
-            //fin harcodeo
-           // horario horar = empleadoFac.gethorario(horariodetallebeam.horario);
-            int ide = horariodetallebeam.idHorario;
-            return RedirectToAction("ListDetalle", new { id = ide });
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4); docs.Add(d5); docs.Add(d6); docs.Add(d7);
+                ViewBag.semana = docs;
+                if (resp == -1) ViewBag.error = "Este dia ya a sido asignado";
+                if (resp == 0) ViewBag.error = "La hora de entrada debe de ser menor";  
+                return View();
+            }
+            
+            return RedirectToAction("ListDetalle", new { idhorario=horariodetallebeam.idHorario });
+            }
+            catch
+            {return View();}
+                  
+           // return horariodetallebeam.idHorario.ToString();
         }
         /*
         public ViewResult IndiceDetalle(int id)
@@ -279,9 +311,16 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult EditarDetalle(HorarioDetalle horariodetallebeam)
         {
-            empleadoFac.modificarHorarioDetalle(horariodetallebeam);
-            int codigohorario = empleadoFac.getHorario(horariodetallebeam.idHorario).ID;
-            return RedirectToAction("ListDetalle", new { id = codigohorario });
+            EmpleadoFacade empleadoFac = new EmpleadoFacade();
+            int resp = empleadoFac.modificarHorarioDetalle(horariodetallebeam);
+            if (resp == -1)
+            {
+                var model = horariodetallebeam;
+                ViewBag.error = "Este dia ya a sido asignado";
+                return View(model);
+            }
+            return RedirectToAction("ListDetalle", new { idhorario = horariodetallebeam.idHorario });
+           
         }
          
         #endregion
