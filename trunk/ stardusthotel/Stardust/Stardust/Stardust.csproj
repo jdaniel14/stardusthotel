@@ -188,9 +188,9 @@
     <Compile Include="Models\Servicios\Evento\EventoBean.cs" />
     <Compile Include="Models\Servicios\Evento\EventoDAO.cs" />
     <Compile Include="Models\Servicios\Evento\EventoService.cs" />
-<<<<<<< .mine
-    <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs">
-=======
+
+    <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs"/>
+
     <Compile Include="Models\Servicios\Reserva\Bean\CheckInBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\DatosReservaBean.cs" />
@@ -212,10 +212,10 @@
     <Compile Include="Models\Servicios\Reserva\Bean\TipoHabXHotel.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\UbicacionClienteBean.cs" />
     <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
->>>>>>> .r1235
+
       <SubType>Code</SubType>
     </Compile>
-<<<<<<< .mine
+
     <Compile Include="Models\Servicios\Reserva\Bean\ClienteReservaBean.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -278,10 +278,10 @@
     <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs">
       <SubType>Code</SubType>
     </Compile>
-=======
+
     <Compile Include="Models\Servicios\Reserva\ReservaHabitacionDAO.cs" />
     <Compile Include="Models\Servicios\Reserva\ServiceHabitacion.cs" />
->>>>>>> .r1235
+
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
