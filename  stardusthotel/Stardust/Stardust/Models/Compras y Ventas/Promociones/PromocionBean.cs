@@ -50,7 +50,7 @@ namespace Stardust.Models
         [Display(Name = "Hotel")]
         public string hotel { get; set; }
 
-        [Display(Name = "Numero dias/Porcentaje Pago adelanto")]
+        [Display(Name = "Numero dias/Porc. Pago adelanto")]
         public int razon { get; set; }
 
         [Display(Name = "Numero de Dias")]
@@ -58,9 +58,11 @@ namespace Stardust.Models
 
         [Display(Name = "Porcentaje de Pago Adelantado")]
         public int adelanto { get; set;}
+        public string adelanto2{ get; set;}
 
         [Display(Name = "Porcentaje de Descuento")]
         public int porcDescontar { get; set; }
+        public string porcDescontar2 { get; set; }
 
         [Display(Name = "Hotel")]
         public int idhotel { get; set; }
