@@ -54,9 +54,9 @@
         
     }
 
-     <div id="dialogEliminar" title="Desea Eliminar el Promocion?">
+     <div id="dialogEliminar" title="Desea Eliminar el Promoción?">
 	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-    La Promocion que UD. Elimine no la vale ?? </p>
+    La Promocion que UD. Elimine no podra recuperarla </p>
     </div>
 
     </tbody>
@@ -93,7 +93,7 @@
                         type: "POST",
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
-                        url: "../Delete/" + idEliminar,
+                        url: "../../Promociones/Delete/" + idEliminar,
                         success: function (data) {
                             oTable.fnDraw(false);
                             if (data.me == "") {
