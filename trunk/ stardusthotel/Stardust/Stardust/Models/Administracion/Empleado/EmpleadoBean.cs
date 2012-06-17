@@ -56,26 +56,38 @@ namespace Stardust.Models
 
         public int horariodetalles {get; set;}
 
-        public int idHorarioDetalle;
-
-
+        
+        public int idHorarioDetalle { get; set; }
+        
         [Display(Name = "Nombre Empleado")]
         public string nombreEmpleado { get; set; }
 
         [Display(Name = "Dias de la semana")]      
-        public string diaSemana;
+        public string diaSemana { get; set; }
 
-        [DataType(DataType.Time)]
+       
         [Display(Name = "Hora de Entrada")]
-        public DateTime horaEntrada;
+        public String horaEntrada { get; set; }
 
          [Display(Name = "Hora de Salida")]
-        public DateTime horaSalida;
+        public String horaSalida { get; set; }
 
          [Display(Name = "Horario ")]
-        public int idHorario;
+         public int idHorario { get; set; }
     }
+    
+
+    public class DiaSemana
+    {
+        public string dia { get; set; }
+        public DiaSemana(string s)
+        {
+            this.dia = s;
+        }
+    }
+
     #endregion
+
 
     public class HorarioAsistencia
     {

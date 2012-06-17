@@ -30,9 +30,16 @@ namespace Stardust.Models
                 EmpleadoBean empleado = new EmpleadoBean();
             
                 empleado.ID = (int)data.GetValue(0);
+<<<<<<< .mine
+                UsuarioFacade usuario = new UsuarioFacade();
+                UsuarioBean usuar = usuario.getUsuario(empleado.ID);
+                empleado.nombreEmpleado = usuar.nombres+" " + usuar.apMat + " "+usuar.apPat;
+               
+=======
                 UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
                 empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
                 //empleado.nombreEmpleado="EMPLEADO :)";
+>>>>>>> .r1266
                 empleado.fechaIngreso = (DateTime)data.GetValue(1);
                 //empleado.fechaSalida = (DateTime)data.GetValue(2);
                 empleado.estado = Convert.ToString(data["estado"]);
@@ -320,7 +327,7 @@ namespace Stardust.Models
         //detalle
 
 
-        public void asignarDetalle(HorarioDetalle horariod)
+        public int asignarDetalle(HorarioDetalle horariod)
         {
 
 
@@ -333,8 +340,8 @@ namespace Stardust.Models
            // String fechaIngreso = dateini.Date.ToShortDateString();
            // String fechaSalida = datefin.Date.ToShortDateString();
 
-
-
+            if (this.comparadetalles(horariod)) return -1;
+            if (this.comparahoras(horariod)) return 0;
             String command = "Insert into HorarioDetalle ( diaSemana , horaEntrada , horaSalida, idHorario) values ( '"
                                + horariod.diaSemana + "', '"
                                + horariod.horaEntrada+ "',  '"
@@ -349,7 +356,7 @@ namespace Stardust.Models
             query.ExecuteNonQuery();
 
             sql.Close();
-
+            return 1;
         }
 
 
@@ -360,7 +367,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-            String command = "Select * from HorarioDetalle WHERE idHorarioDetalle=" + id + " ORDER BY idHorario";
+            String command = "Select * from HorarioDetalle WHERE idHorario=" + id ;
 
             SqlCommand query = new SqlCommand(command, sql);
 
@@ -376,9 +383,9 @@ namespace Stardust.Models
 
 
                 horar.diaSemana = (String)data.GetValue(1);
-                horar.horaEntrada = (DateTime)data.GetValue(2);
-                horar.horaSalida = (DateTime)data.GetValue(3);
-                horar.idHorario = (int)data.GetValue(3);
+                horar.horaEntrada = (String)data.GetValue(2);
+                horar.horaSalida = (String)data.GetValue(3);
+                horar.idHorario = (int)data.GetValue(4);
 
                 EmpleadoBean empleado = new EmpleadoFacade().getEmpleado(getHorario(horar.idHorario).idEmpleado);
                 horar.nombreEmpleado = empleado.nombreEmpleado;
@@ -399,7 +406,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-            String command = "Select * from HorarioDetalle where idHorario = " + id;
+            String command = "Select * from HorarioDetalle where idHorarioDetalle = " + id;
 
             SqlCommand query = new SqlCommand(command, sql);
 
@@ -412,8 +419,8 @@ namespace Stardust.Models
             hd.idHorarioDetalle = (int)data.GetValue(0);
             hd.diaSemana = (String)data.GetValue(1);
 
-            hd.horaEntrada = (DateTime)data.GetValue(2);
-            hd.horaSalida = (DateTime)data.GetValue(3);
+            hd.horaEntrada = (String)data.GetValue(2);
+            hd.horaSalida = (String)data.GetValue(3);
             hd.idHorario= (int)data.GetValue(4);
 
             //  EmpleadoBean empleado = new EmpleadoFacade().gethorario(h.idempleado);
@@ -431,7 +438,7 @@ namespace Stardust.Models
 
 
 
-        public void modificarHorarioDetalle(HorarioDetalle hd)
+        public int modificarHorarioDetalle(HorarioDetalle hd)
         {
             SqlConnection sql = new SqlConnection(cadenaDB);
 
@@ -439,10 +446,16 @@ namespace Stardust.Models
             // String fechaini = h.fechainiciohorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechainiciohorario.Day;
             //  String fechafin = h.fechafinhorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechafinhorario.Day;
             // String a = h.fechainiciohorario;
+            System.Diagnostics.Debug.WriteLine(" DAOhorariodetalles =" + hd.horariodetalles);
+            System.Diagnostics.Debug.WriteLine(" DAO =" + hd.horaEntrada);
+            System.Diagnostics.Debug.WriteLine(" DAO =" + hd.horaSalida);
+            System.Diagnostics.Debug.WriteLine(" DAOiddetalles..este es =" + hd.idHorarioDetalle);
+            System.Diagnostics.Debug.WriteLine(" DAOhorario =" + hd.idHorario);
 
+            if (this.comparadetalles(hd)) return -1;
             String command = "Update HorarioDetalle SET "
-                                + "fechaIni = '" + hd.horaEntrada
-                                + "', fechaFin = '" + hd.horaSalida
+                                + "horaEntrada = '" + hd.horaEntrada
+                                + "', horaSalida = '" + hd.horaSalida
                 //+ "' WHERE idEmpleado = " + h.idempleado
                 //+" AND idHorario=" + h.ID;
                                 + "' WHERE idHorarioDetalle = " + hd.idHorarioDetalle;
@@ -451,9 +464,56 @@ namespace Stardust.Models
             query.ExecuteNonQuery();
 
             sql.Close();
-
+            return 0;
         }
 
+        public bool comparadetalles(HorarioDetalle horariod) {
+
+            List<HorarioDetalle> listHorariosdetalle = this.listarDetalle(horariod.idHorario);
+            //System.Diagnostics.Debug.WriteLine("FechaINI = " + Utils.DateToString( fechaIni ) ) ;
+            //System.Diagnostics.Debug.WriteLine("FechaFIN = " + Utils.DateToString( fechaFin ) ) ;
+            for (int i = 0; i < listHorariosdetalle.Count; i++)
+            {
+                try
+                {
+                    HorarioDetalle horariodetalle = listHorariosdetalle.ElementAt(i);
+
+                    if (horariodetalle.diaSemana == horariod.diaSemana) return true;
+
+                    // if (fechaIni.CompareTo(ini) >= 0 && fechaIni.CompareTo(fin) <= 0) return true;
+                    //  if (fechaFin.CompareTo(ini) >= 0 && fechaFin.CompareTo(fin) <= 0) return true;
+                }
+                catch {
+                    return false;
+                }
+            }
+
+            return false;
+            
+        }
+
+
+        public bool comparahoras(HorarioDetalle horariod)
+        {
+
+          
+            //System.Diagnostics.Debug.WriteLine("FechaINI = " + Utils.DateToString( fechaIni ) ) ;
+          
+               
+                    DateTime iniprueba = Convert.ToDateTime(horariod.horaEntrada);
+                    
+
+                    DateTime ini = Convert.ToDateTime (horariod.horaEntrada);
+                    DateTime fin = Convert.ToDateTime(horariod.horaSalida);
+                  
+                    if (ini> fin) return true;
+                 
+                    return false;
+                
+            
+
+
+        }
         #endregion
     }
 }
