@@ -12,7 +12,7 @@
                     "alertTextDateRange": "* Los rangos de fechas son requeridos"
                 },
                 "dateRange": {
-                    "regex": "none",
+                    "regex": /^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/,
                     "alertText": "* Invalido ",
                     "alertText2": "Rango de fechas"
                 },
@@ -105,13 +105,16 @@
                     "alertText": "* Solo numeros aqui"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-Z\ñ\Ñ\ó\Ó\á\Á\é\É\í\Í\Ú\ú\ \']+$/,
+                    "regex": /^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$/,
                     "alertText": "* Solo Letras aqui"
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z\ñ\Ñ\ó\Ó\á\Á\é\É\í\Í\Ú\ú\.]+$/,
                     "alertText": "* Caracteres especiales no permitidos"
                 },
+               
+                }
+
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
                     "url": "ajaxValidateFieldUser",
