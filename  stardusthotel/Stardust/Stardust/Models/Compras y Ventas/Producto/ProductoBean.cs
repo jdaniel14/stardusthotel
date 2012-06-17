@@ -13,6 +13,8 @@ namespace Stardust.Models
         public int ID { get; set; }
         
         [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Debe ingresar nombre de Producto")]
+        [RegularExpression("^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$", ErrorMessage = "El nombre ingresado no es válido")]
         public string nombre { get; set; }
         
         [Display(Name = "Descripción")]
