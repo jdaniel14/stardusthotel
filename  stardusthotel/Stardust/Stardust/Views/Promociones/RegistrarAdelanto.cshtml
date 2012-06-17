@@ -1,6 +1,6 @@
 ﻿@model Stardust.Models.PromocionBean
 
-<h2>Registrar Promoción Pago Adelantado</h2>
+<h2>Registrar Promoción de Pago Adelantado</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -14,7 +14,7 @@
     <fieldset>
             <div class="widget">
             <div class="title">
-                <h6>Registrar Promocion</h6>
+                <h6>Registrar Promoción</h6>
             </div>
 
             <div class="formRow">
@@ -25,25 +25,26 @@
             
             <div class="formRow">
                 @Html.LabelFor(model => model.adelanto)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.adelanto, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.adelanto2, new { @class = "maskPct", placeholder = "Ejemplo: 15%" })</div>
                 <div class = "clear" ></div>
             </div>  
             
             <div class="formRow">
                 <div class = "clear" >
                 @Html.LabelFor(model => model.porcDescontar)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.porcDescontar, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" })</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.porcDescontar2, new { @class = "maskPct", placeholder = "Ejemplo: 15%" })</div>
                 </div>
                 <div class = "clear" ></div>
             </div>
             
             <div class="formRow">
                 @Html.LabelFor(model => model.idhotel)<span class="req">*</span>
-                <div class = "formRight" >@Html.DropDownListFor(model => model.ID, Model.hotelList)</div>
+                <div class = "formRight" >
+                <div class = "selector">@Html.DropDownListFor(model => model.ID, Model.hotelList)</div></div>
                 <div class = "clear" ></div>
             </div>         
-            
             </div>
+            
     </fieldset>
             <p></p> <p></p> <p></p>
     <div>
