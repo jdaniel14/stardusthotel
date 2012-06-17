@@ -7,6 +7,7 @@ namespace Stardust.Models.Servicios
 {
     public class TipHabCheckInBean
     {
+        public int idTipHab { get; set; }
         public String nombTipHab { get; set; }
         public int nroPers { get; set; }
         public List <HabitacBean> lista{get; set;}
