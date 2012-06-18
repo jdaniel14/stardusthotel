@@ -199,7 +199,7 @@ function enviarDatos() {
     });
 }
 function finRes(data) {
-    alert(data.me);
+    //alert(data.me);
     console.log("se hizo");
     $(location).attr('href', '../');
     alert('Se registro');
