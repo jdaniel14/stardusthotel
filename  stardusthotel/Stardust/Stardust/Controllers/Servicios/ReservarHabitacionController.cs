@@ -102,9 +102,10 @@ namespace Stardust.Controllers.Servicios
         }
 
         [HttpPost]
-        public JsonResult ResgitrarClientesCheckIn(List<ClienteHabBean> listClientHab) { 
+        public JsonResult ResgitrarClientesCheckIn(ListClienteBean listaClient) { 
             MensajeBean mensaje = new MensajeBean ();
-            mensaje.me = facadeReservas.RegistrarDatClientesCheckIn(listClientHab);
+            System.Diagnostics.Debug.WriteLine("total = " + listaClient.lista.Count);
+            mensaje.me = facadeReservas.RegistrarDatClientesCheckIn(listaClient.lista);
             return Json(mensaje);
         }
         [HttpPost]
