@@ -119,16 +119,61 @@ namespace Stardust.Models.Servicios
 
         public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
             MensajeBean mensaje = new MensajeBean();
-            int idUsuario = reservaHabitacionDAO.registraCliente(reserva.client);
-            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, idUsuario, reserva.fechaIni, reserva.fechaFin, reserva.coment);
+            mensaje.me = "";
+            int idUsuario = reservaHabitacionDAO.registraCliente(reserva.client); // !0 => Se registro bien el Usuario; 0=> hubo error
+            if (idUsuario == 0) {
+                mensaje.me = "No se puedo Registrar los datos del Usuario";
+                return mensaje;
+            }
+
+            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, idUsuario, reserva.fechaIni, reserva.fechaFin, reserva.coment);// !0 => Se registro bien la Reserva; 0=> hubo error
+            if (idReserva == 0) {
+                mensaje.me = "No se pudo registrar la Reserva";
+                return mensaje;
+            }
+            
             reservaHabitacionDAO.registrarXtipoHabitacion(idReserva, reserva.idHotel, reserva.listTip);
             reservaHabitacionDAO.resgistrarHabitaciones(reserva.listTip, reserva.fechaIni, reserva.fechaFin, idReserva);
+
+            int resEmail = envioEmail(idReserva, reserva.client.nomb, reserva.client.email);
+            System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
+            if (resEmail != 0) {
+                mensaje.me = "No se pudo enviar el email";
+                return mensaje;
+            }
             //if(reserva.rec==1)
             //    reservaHabitacionDAO.registrarServicio(reserva.datRec);
             //mensaje.me = "";
             return mensaje;
         }
 
+        public int envioEmail(int idReserva, String nombres, String email) {
+            try
+            {
+                String message = "Estimado " + nombres + ", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones; por el momento puede ver los datos de su reserva con el sgte codigo : '"+ idReserva + "'. Agradecemos su preferencia";
+                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+
+                System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
+
+                mail.To.Add(email);
+                mail.Subject = "Stardust Reservacion";
+
+                mail.From = new System.Net.Mail.MailAddress("stardusthotelperu@gmail.com");
+                mail.IsBodyHtml = true;
+                mail.Body = message;
+
+                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = cred;
+                smtp.Port = 587;
+                smtp.Send(mail);
+            }
+            catch(Exception ex){
+                return 1;
+            }
+            return 0;
+        }
 
         public ConsultaReservaBean consultarReserva(int idHotel, int idReserva, String documento) { 
             ConsultaReservaBean  consulta = new ConsultaReservaBean();
