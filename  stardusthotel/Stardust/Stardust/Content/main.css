@@ -4,7 +4,7 @@
 @import "css/ui_custom.css";
 @import "css/prettyPhoto.css";
 @import "css/elfinder.css";
-
+@import Site.css
 
 /* Table of Content
 ==================================================
@@ -25,7 +25,6 @@
 	# Other plugin styles
 	# Media queries (remove them if you don't want to use responsive layout)
 ==================================================*/
-
 
 
 /* #Basic Styles
