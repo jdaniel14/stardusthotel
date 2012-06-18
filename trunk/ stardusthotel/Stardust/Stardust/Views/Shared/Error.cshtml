@@ -44,7 +44,14 @@
     
          
         <!-- Main content wrapper -->
-        <div class="errorWrapper">            <span class="sadEmo"></span>            <span class="errorTitle">Ohh, algo salio mal aquí :(</span>            @*<span class="errorNum">403</span>*@            <span class="errorDesc">Oops! Un error grave ocurrio aquí</span>                <a href="@Url.Action("Index","Home")" title="" class="button dredB"><span>Back to dashboard</span></a>        </div> 
+        <div class="errorWrapper">
+            <span class="sadEmo"></span>
+            <span class="errorTitle">Ohh, algo salio mal aquí :(</span>
+            @*<span class="errorNum">403</span>*@
+            <span class="errorDesc">Oops! Un error grave ocurrio aquí</span>
+            <a href="@Url.Action("Index","Home")" title="" class="button dredB"><span>Back to dashboard</span></a>
+            <span>@Model.ControllerName..@Model.ActionName</span>
+        </div> 
     
         <!-- Footer line -->
        @* <footer>
