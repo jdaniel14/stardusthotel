@@ -360,7 +360,9 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = "SELECT t.nombre , r.cantidad, r.idTipoHabitacion FROM ReservaXTipoHabitacionXHotel r, TipoHabitacion t WHERE idReserva = " + idReserva + " and r.idTipoHabitacion = t.idTipoHabitacion";
+            String query = " SELECT t.nombre , tXh.nroPersonas, r.idTipoHabitacion " +
+                            " FROM ReservaXTipoHabitacionXHotel r, TipoHabitacion t , TipoHabitacionXHotel tXh " +
+                            " WHERE idReserva = " + idReserva + " and r.idHotel = tXh.idHotel and  r.idTipoHabitacion = t.idTipoHabitacion and tXh.idTipoHabitacion = t.idTipoHabitacion";
 
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -370,7 +372,7 @@ namespace Stardust.Models.Servicios
                 TipHabCheckInBean tipo = new TipHabCheckInBean();
                 tipo.idTipHab = (int)dataReader["idTipoHabitacion"];
                 tipo.nombTipHab = (String)dataReader["nombre"];
-                tipo.nroPers = (int)dataReader["cantidad"];                
+                tipo.nroPers = (int)dataReader["nroPersonas"];                
                 lista.Add(tipo);
             }
 
