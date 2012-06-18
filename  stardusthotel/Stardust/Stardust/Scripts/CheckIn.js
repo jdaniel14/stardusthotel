@@ -1,17 +1,19 @@
-﻿
+﻿var reserva;
 var x;
+var habitaciones = new Array();
+var cantXHabit = new Array();
 x = $(document);
 x.ready(inicializarEventos);
 
 function inicializarEventos() {
-
+    $("#footer").hide();
 
     $("#buscarReserva").click(comienzaElChongo);    
 }
 
 function comienzaElChongo() {
 
-    var reserva = $("#nroReserva").get(0).value;
+    reserva = $("#nroReserva").get(0).value;
 
     var Envio = {
         idHotel: "1",
@@ -40,6 +42,8 @@ function llegadaDatosCheckIn(data) {
 
     result = "";
 
+    result += '<div class = "widget"><div class="title"><h6>Datos de la reserva</h6></div>';
+
     result += '<div class="formRow"><span>Doc. de identidad</span>';
     result += '<div class = "formRight" >';
     result += '<span id = nroReserva>' + data.doc + '</span>';
@@ -60,97 +64,154 @@ function llegadaDatosCheckIn(data) {
     result += '<span id = nroReserva>' + data.fechaLleg + '</span>';
     result += '</div><div class="clear"></div></div>';
 
+    result += '</div>';
+
+    $("#imprimeDatos").html(result);
+
     var lista = data.lista;
 
     result = "";
     var k = 0;
-
-    var habitaciones = new Array();
-    var cantXHabit = new Array();
-
+    
     $.each(lista, function (i, item) {
 
         k++;
-        result += '<h3><a href="#">' + item.nombTipoHab + '</a></h3>';
-        result += '<div>';
+        result += '<div class = "widget">';
+        result += '<div class = "title">';
+        result += '<img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" />';
+        result += '<h6>' + item.nombTipHab + '</h6></div>';
 
-        var numPersonas = data.nroPers;
+
+        var numPersonas = item.nroPers;
 
         result += '<div class="formRow"><span>Cantidad de personas a registrar</span>';
-        result += '<div class = "formRight" >';
-        result += '<span id = cantHabit' + k + '>' + data.nroPers + '</span>';
+        result += '<div class = "formRight">';
+        result += '<span id = "cantHabit' + k + '">' + item.nroPers + '</span>';
         result += '</div><div class="clear"></div></div>';
 
-        var listaHabitaciones = item.listaHab;
+        var listaHabitaciones = item.lista;
 
         var m = 0;
 
-        $.each(lista, function (j, cosito) {
+        $.each(listaHabitaciones, function (j, cosito) {
 
             var id = cosito.idHab;
-            
+
             habitaciones.push(id);
             cantXHabit.push(numPersonas);
 
             m++;
-            result += '<div class="formRow"><span>Habitacion ' + cosito.numero + '</span></div>';
+            result += '<div class="widget"><div class = "title"><h6>:: Habitacion ' + cosito.numero + '</h6></div>'
+
+            result += '<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >';
+
+            result += '<thead><tr><td>Doc. de Identidad</td><td>Nombres</td></tr></thead>';
+
+            result += '<tbody>';
 
             var n = 0;
             for (n = 0; n < numPersonas; n++) {
 
-                result += '<div class="formRow"><span>Doc. de identidad</span>';
-                result += '<div class = "formRight" >';
-                result += '<input type="text" id="DNICliente' + cosito.idHab + '-' + n + '"/>';
-                result += '</div><div class="clear"></div></div>';
 
-                result += '<div class="formRow"><span>Nombre</span>';
-                result += '<div class = "formRight" >';
-                result += '<input type="text" id="nombCliente' + cosito.idHab + '-' + n + '"/>';
-                result += '</div><div class="clear"></div></div>';
+                result += '<tr><td align = "center">';
+                result += '<input type="text" class = "dnicampo" id="DNICliente' + cosito.idHab + '-' + n + '"/>';
+                result += '</td><td align = "center">';
 
+                result += '<input type="text" class = "campo" id="nombCliente' + cosito.idHab + '-' + n + '"/>';
+                result += '</td></tr>';
             }
+
+            result += '</tbody></table>';
+            result += '</div>';
+
         });
 
         result += '</div>';
 
     });
 
+    result += '<br /><input id = "registrarReserva" type="submit" value="Registrar" class = "redB" />';
+    console.log(result);
     $("#accordion").html(result);
 
-    var dni = "DNICliente";
-    var nombre = "nombCliente";
+    console.log(habitaciones);
+    console.log(cantXHabit);
 
-    var listaDevolver;
+    $("#registrarReserva").click(enviarDatos);
+}
+
+function enviarDatos() {
+
+    var a;
+    var b;
+    var n = 0;
+    var listaDev = new Array();
 
     habitaciones.forEach(function (elemento) {
 
-        var idHabit = elemento;
-        dni += idHabit;
-        
 
+
+        var y = 0;
+        for (y = 0; y < cantXHabit[n]; y++) {
+            a = "#DNICliente";
+            a += elemento;
+            a += "-";
+
+            b = "#nombCliente";
+            b += elemento;
+            b += "-";
+
+            a += y;
+            b += y;
+
+            var valorA = $(a).attr("value");
+            var valorB = $(b).attr("value");
+
+            var lista = {
+                idReserva: reserva,
+                idHab: elemento,
+                clientes: valorB,
+                dni: valorA
+            }
+
+            listaDev.push(lista);
+
+        }
+
+
+    });
+
+    console.log(listaDev);
+
+    var pasar = {
+        lista : listaDev
+    }
+
+    jsonData = JSON.stringify(pasar);
+    console.log(jsonData);
+
+    $.ajax({
+        type: "POST",
+        data: jsonData,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "ResgitrarClientesCheckIn",
+        beforeSend: esperaConfirmacion(),
+        success: Confirma
     });
 
 
 }
 
+function esperaConfirmacion(){
+}
 
-//result += '<h3><a href="#">Section 1</a></h3><div></div>';
-//result += '<h3><a href="#">Section 1</a></h3><div></div>';
-//result += '<h3><a href="#">Section 1</a></h3><div></div>';
-//$("#accordion").html(result);
-
-//<h3><a href="#">Section 1</a></h3>
-//        <div>
-//            <div class="formRow"><span>Nro. de reserva</span>                
-//				<div class = "formRight" > 
-//					<input type="text" id="num"/>
-//                    </div>                
-//				<div class="clear"></div>
-//			</div>
-//        </div>
+function Confirma(data) {
+    alert('OK');
+}
 
 
 
-$(function () {
-    $("#accordion").accordion();
-});
+
+
+
