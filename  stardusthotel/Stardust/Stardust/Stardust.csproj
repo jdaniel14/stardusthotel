@@ -200,9 +200,11 @@
     <Compile Include="Models\Servicios\Reserva\Bean\HabInsertBean.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\HabitacBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\HabitacionReserva.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\ClienteHabBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaReserva.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\RequestResHab.cs">
       <SubType>Code</SubType>
@@ -234,6 +236,7 @@
     <Compile Include="Models\Servicios\Reserva\Bean\Response\TipoHabDisp.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\TipHabCheckInBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\TipoHabCant.cs">
       <SubType>Code</SubType>
     </Compile>
