@@ -164,6 +164,7 @@ function enviarDatos() {
             a += y;
             b += y;
 
+
             var valorA = $(a).attr("value");
             var valorB = $(b).attr("value");
 
@@ -177,7 +178,7 @@ function enviarDatos() {
             listaDev.push(lista);
 
         }
-
+        n++;
 
     });
 
