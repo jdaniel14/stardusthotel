@@ -127,8 +127,14 @@ namespace Stardust.Models
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     sqlCmd2.ExecuteNonQuery();
                 }
+
+                commandString = "UPDATE Reserva SET estado = 4 , fechaCheckOut = GETDATE() WHERE idReserva = " + reserva.id;
+                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                sqlCmd3.ExecuteNonQuery();
+
+
                 
-                mensaje.me = "Se ha registrado el pago satisfactoriamente";
+                mensaje.me = "Se registro satisfactoriamente";
                 return mensaje;
             }
             catch (Exception e)
@@ -136,6 +142,31 @@ namespace Stardust.Models
                 mensaje.me = e.ToString();
                 return mensaje;
             }           
+        }
+
+        public string ActualizarHabitacion(int id)
+        {
+            string mensaje;
+
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                string commandString = "UPDATE ReservaXHabitacion SET estado = 4 WHERE idReserva = "+id;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                return mensaje = "Se registro satsfactoriamente";
+            }
+            catch(Exception e)
+            {
+                mensaje = e.ToString();
+                return mensaje;
+            }
         }
 
         public UsuarioBean GetNombreUsuario(int id)
