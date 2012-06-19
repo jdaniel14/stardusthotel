@@ -132,9 +132,8 @@ namespace Stardust.Models
                 SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
                 sqlCmd3.ExecuteNonQuery();
 
-
+                mensaje.me = ActualizarHabitacion(id);              
                 
-                mensaje.me = "Se registro satisfactoriamente";
                 return mensaje;
             }
             catch (Exception e)
