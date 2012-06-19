@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
@@ -11,7 +12,8 @@ namespace Stardust.Models
         public string Nombre { get; set; }
 
         public int idproducto { get; set; }
-        
+
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado es incorrecto")]
         public int cantidad { get; set; }
         
         public int stockActual { get; set; }
