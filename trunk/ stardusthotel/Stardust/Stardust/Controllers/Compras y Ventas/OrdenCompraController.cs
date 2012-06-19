@@ -43,7 +43,16 @@ namespace Stardust.Controllers
         {
             string fecha1 = "";
             string fecha2 = "";
-            return View(comprasFacade.buscarOrdenes(nombre, fecha1, fecha2));
+
+            List<OrdenCompraBean> orden= comprasFacade.buscarOrdenes(nombre, fecha1, fecha2);
+
+            for (int i = 0; i < orden.Count; i++)
+            {
+                if (orden[i].estado == "Tramite" || orden[i].estado == "Cancelado") orden[i].estado2 = true;
+                else orden[i].estado2 = false;
+
+            }
+            return View(orden);
         }
 
         public ActionResult Lista(OrdenCompraBean orden)
