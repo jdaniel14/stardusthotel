@@ -244,7 +244,7 @@ namespace Stardust.Models.Servicios
         
         
         }
-        public int  resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, String coment){
+        public int  resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
 
             int reservaEstado = 1;//POR CONFIRMAR
             int reservaPago = 1;//CERO PAGO
@@ -253,11 +253,21 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = "INSERT INTO Reserva Values (convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ,NULL, "+reservaEstado+" , 0, 0, 0, " + idHotel.ToString() + ", " + idUsuario + ", GETDATE() , "+reservaPago+")";
-            System.Diagnostics.Debug.WriteLine("query de RESERVA : " + query);
-
+            String query = "SELECT porcAdelanto FROM Politica";
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            sqlCmd.ExecuteNonQuery();
+            SqlDataReader ReaderPorc = sqlCmd.ExecuteReader();
+
+            int porc = 0;
+            if (ReaderPorc.Read()) {
+                porc = (int)ReaderPorc["porcAdelanto"];
+            }
+
+            Decimal adelanto = (porc * total) / 100;
+            String query1 = "INSERT INTO Reserva Values (convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ,NULL, "+reservaEstado+" , " + adelanto + ", " + total + ", 0, " + idHotel.ToString() + ", " + idUsuario + ", GETDATE() , "+reservaPago+")";
+            System.Diagnostics.Debug.WriteLine("query de RESERVA : " + query1);
+
+            SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
+            sqlCmd1.ExecuteNonQuery();
 
             string query2 = "SELECT IDENT_CURRENT('" + "Reserva" + "') as lastId";
             SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
