@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using Stardust.Models.Servicios;
 
 namespace Stardust.Models
 {
@@ -14,6 +15,11 @@ namespace Stardust.Models
         public ReservaCheckOut GetReserva(int id)
         {
             return pagoService.GetReserva(id);
+        }
+
+        public MensajeBean RegistrarCheckOut(int id)
+        {
+            return pagoService.RegistrarCheckOut(id);
         }
     }
 }
