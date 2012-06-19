@@ -74,7 +74,7 @@
          @Html.HiddenFor(model => model.listProdProv[i].ID) 
         <tr class="gradeA odd">
             <td class="sorting_1">@Html.DisplayFor(model => model.listProdProv[i].nombre)</td>
-            <td>@Html.TextBoxFor(model => model.listProdProv[i].precio)</td>
+            <td>@Html.TextBoxFor(model => model.listProdProv[i].precio, new { @readonly = "readonly" })</td>
              @*@Html.HiddenFor(model => model.listProdProv[i].precio) *@
              @Html.HiddenFor(model => model.listProdProv[i].nombre) 
         </tr>
