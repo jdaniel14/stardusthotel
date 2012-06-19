@@ -15,9 +15,9 @@ namespace Stardust.Models
         public decimal IGV { get; set; }
         public decimal montPagado { get; set; }
         public decimal faltante { get; set; }
-        public DateTime fechaIni { get; set; }
-        public DateTime fechaFin { get; set; }
-        public DateTime fechaHoy { get; set; }
+        public string fechaIni { get; set; }
+        public string fechaFin { get; set; }
+        public string fechaHoy { get; set; }
         public int idHotel { get; set; }
         public string nombre { get; set; }
         public string dni { get; set; }

@@ -48,14 +48,18 @@ namespace Stardust.Models
             string commandString = "SELECT * FROM Reserva WHERE idReserva = "+id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();            
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();  
+            DateTime fechaIni = new DateTime();
+            DateTime fechaHoy = new DateTime();
 
             if (dataReader.Read())
             {                
-                reserva.id = (int)dataReader["idReserva"];
-                reserva.fechaIni = (DateTime)dataReader["fechaLlegada"];
-                reserva.fechaFin = (DateTime)dataReader["fechaSalida"];
-                reserva.fechaHoy = DateTime.Now;
+                reserva.id = (int)dataReader["idReserva"];  
+                fechaIni = (DateTime)dataReader["fechaLlegada"];
+                reserva.fechaIni  = fechaIni.ToString("dd-MM-yyyy");                
+                reserva.fechaFin = ((DateTime)dataReader["fechaSalida"]).ToString("dd-MM-yyyy");
+                fechaHoy = DateTime.Now;
+                reserva.fechaHoy = fechaHoy.ToString("dd-MM-yyyy");
                 int idU = (int)dataReader["idUsuario"];
                 UsuarioBean usuario = GetNombreUsuario(idU);
                 reserva.dni = usuario.nroDocumento;
@@ -69,7 +73,7 @@ namespace Stardust.Models
             SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
-            TimeSpan dias = reserva.fechaHoy - reserva.fechaIni;
+            TimeSpan dias = fechaHoy - fechaIni;
 
             int idDoc=0;
 
@@ -78,8 +82,8 @@ namespace Stardust.Models
                 reserva.faltante = (decimal)dataReader2["montoFaltante"];
                 reserva.total = (decimal)dataReader2["montoTotal"];
                 reserva.subTotal = (decimal)dataReader2["subTotal"];
-                decimal faltante = (decimal)dataReader2["igv"];
-                reserva.montPagado = reserva.total - faltante;
+                reserva.IGV = (decimal)dataReader2["igv"];
+                reserva.montPagado = reserva.total - reserva.faltante;
                 idDoc = (int)dataReader2["idDocPago"];
             }
 
