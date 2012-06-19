@@ -9,5 +9,6 @@ namespace Stardust.Models.Servicios
     {
         public String me { get; set; }
         public List<TipoHabDisp> listaXTipo { get; set; }
+        public int cantDias { get; set; }
     }
 }
