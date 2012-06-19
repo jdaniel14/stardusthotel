@@ -5,10 +5,9 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
- @using (Html.BeginForm("RegistrarOC", "OrdenCompra", FormMethod.Post, new { @class = "form", id = "validate" }))
+
+ @using (Html.BeginForm("RegistrarOC", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
  {   
     <fieldset>
         <div class="widget">
@@ -64,17 +63,17 @@
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].stockActual, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].stockMinimo, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(model => model.listaProducto[i].stockMaximo, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(model => model.listaProducto[i].cantidad, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" })   </td>
+                <td> @Html.TextBoxFor(model => model.listaProducto[i].cantidad) @Html.ValidationMessageFor(model => model.listaProducto[i].cantidad)   </td>
      </tr>
         }
         else
         {
-            @Html.HiddenFor(model => model.listaProducto[i].Nombre, new { @readonly = "readonly" })
-            @Html.HiddenFor(model => model.listaProducto[i].precio, new { @readonly = "readonly" })
-            @Html.HiddenFor(model => model.listaProducto[i].stockActual, new { @readonly = "readonly" }) 
-            @Html.HiddenFor(model => model.listaProducto[i].stockMinimo, new { @readonly = "readonly" }) 
-            @Html.HiddenFor(model => model.listaProducto[i].stockMaximo, new { @readonly = "readonly" })
-            @Html.HiddenFor(model => model.listaProducto[i].cantidad, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "3", placeholder = "Solo numeros" })
+            @Html.HiddenFor(model => model.listaProducto[i].Nombre)
+            @Html.HiddenFor(model => model.listaProducto[i].precio)
+            @Html.HiddenFor(model => model.listaProducto[i].stockActual) 
+            @Html.HiddenFor(model => model.listaProducto[i].stockMinimo) 
+            @Html.HiddenFor(model => model.listaProducto[i].stockMaximo)
+            @Html.HiddenFor(model => model.listaProducto[i].cantidad)
         }
 
 
