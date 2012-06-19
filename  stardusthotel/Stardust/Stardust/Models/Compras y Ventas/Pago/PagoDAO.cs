@@ -113,7 +113,9 @@ namespace Stardust.Models
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
                 sqlCon.Open();
 
-                string commandString = "UPDATE DocumentoPago SET montoTotal = "+reserva.total+" , subTotal = "+reserva.subTotal+" , igv = "+ reserva.IGV+" , montoFaltante = 0 , estado = 3 WHERE idReserva = "+id;
+                decimal faltante = 0;
+
+                string commandString = "UPDATE DocumentoPago SET montoTotal = " + reserva.total + " , montoFaltante = " + faltante + " , subTotal = " + reserva.subTotal + " , igv = " + reserva.IGV + " , estado = 3 WHERE idDocPago = " + reserva.idDocPago;
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
@@ -131,7 +133,7 @@ namespace Stardust.Models
             }
             catch (Exception e)
             {
-                mensaje.me = "Se ha producido un error";
+                mensaje.me = e.ToString();
                 return mensaje;
             }           
         }
