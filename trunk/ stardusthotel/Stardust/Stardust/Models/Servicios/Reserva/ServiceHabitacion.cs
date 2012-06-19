@@ -130,8 +130,8 @@ namespace Stardust.Models.Servicios
                 mensaje.me = "No se puedo Registrar los datos del Usuario";
                 return mensaje;
             }
-
-            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, idUsuario, reserva.fechaIni, reserva.fechaFin, reserva.coment);// !0 => Se registro bien la Reserva; 0=> hubo error
+            
+            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, idUsuario, reserva.fechaIni, reserva.fechaFin, reserva.total, reserva.coment);// !0 => Se registro bien la Reserva; 0=> hubo error
             if (idReserva == 0) {
                 mensaje.me = "No se pudo registrar la Reserva";
                 return mensaje;
