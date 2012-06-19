@@ -184,7 +184,7 @@ function enviarDatos() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "direccionDondeRecibo",
+        url: "registrarCheckOut",
         beforeSend: esperaConfirmacion(),
         success: confirma
     });
@@ -196,7 +196,7 @@ function esperaConfirmacion(){
 }
 
 function confirma(data) {
-    alert('OK');
+    alert(data.me);
 }
 
 
