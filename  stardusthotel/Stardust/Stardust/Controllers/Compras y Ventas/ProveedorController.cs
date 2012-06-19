@@ -145,6 +145,11 @@ namespace Stardust.Controllers
 
             for (int i = 0; i < prod.listProdProv.Count; i++)
             {
+                List<ProductoBean> productos = proveedorFacade.ListarProducto(prod.listProdProv[i].nombre);
+                prod.listProdProv[i].ID = productos[0].ID;
+            }
+            for (int i = 0; i < prod.listProdProv.Count; i++)
+            {
                 prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) ;
             }
             proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
