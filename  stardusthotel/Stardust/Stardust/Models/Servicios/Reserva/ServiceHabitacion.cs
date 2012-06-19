@@ -15,6 +15,12 @@ namespace Stardust.Models.Servicios
             System.Diagnostics.Debug.WriteLine("Hotel : " + idHotel);
             ResponseResHabXTipo response = new ResponseResHabXTipo();
 
+            DateTime fFin = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
+            DateTime fIni = DateTime.ParseExact(fechaIni, "dd-MM-yyyy", null);
+            TimeSpan ts = fFin - fIni;
+            response.cantDias = ts.Days;
+            System.Diagnostics.Debug.WriteLine("Diferencia de dias " + response.cantDias);
+
             List<HabitacionReserva> listaNoDisp = reservaHabitacionDAO.listarNoDisponibles(idHotel, fechaIni, fechaFin);
             List<HabitacionReserva> listaTodas = reservaHabitacionDAO.listarHabitaciones(idHotel);
             List<ReservaTipoHabitacion> listaTipHab = reservaHabitacionDAO.listaTipoHabitacion(idHotel);
@@ -80,12 +86,7 @@ namespace Stardust.Models.Servicios
             //        System.Diagnostics.Debug.WriteLine("------>" + listaRespuesta[i].listaDisp[j].numero);
             }
             response.me = "";
-            response.listaXTipo = listaRespuesta;
-            DateTime fFin = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
-            DateTime fIni = DateTime.ParseExact(fechaIni, "dd-MM-yyyy", null);
-            TimeSpan ts = fFin - fIni;
-            response.cantDias = ts.Days;
-            System.Diagnostics.Debug.WriteLine("Diferencia de dias " + response.cantDias);
+            response.listaXTipo = listaRespuesta;            
             return response;
         }
 
@@ -125,8 +126,8 @@ namespace Stardust.Models.Servicios
         public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
             MensajeBean mensaje = new MensajeBean();
             mensaje.me = "";
-            int idUsuario = reservaHabitacionDAO.registraCliente(reserva.client); // !0 => Se registro bien el Usuario; 0=> hubo error
-            if (idUsuario == 0) {
+            UsuarioBean usuario = reservaHabitacionDAO.registraCliente(reserva.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            if (usuario == null) {
                 mensaje.me = "No se puedo Registrar los datos del Usuario";
                 return mensaje;
             }
@@ -136,7 +137,10 @@ namespace Stardust.Models.Servicios
                 mensaje.me = "No se pudo registrar la Reserva";
                 return mensaje;
             }
-            
+
+            int docPago = reservaHabitacionDAO.registrarFactura(idUsuario, reserva.total, idReserva);
+            int detDocPago = reservaHabitacionDAO.registrarDetalleFactura();
+
             reservaHabitacionDAO.registrarXtipoHabitacion(idReserva, reserva.idHotel, reserva.listTip);
             reservaHabitacionDAO.resgistrarHabitaciones(reserva.listTip, reserva.fechaIni, reserva.fechaFin, idReserva);
 
