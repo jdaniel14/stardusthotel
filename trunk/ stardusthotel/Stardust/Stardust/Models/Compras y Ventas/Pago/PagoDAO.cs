@@ -48,12 +48,7 @@ namespace Stardust.Models
             string commandString = "SELECT * FROM Reserva WHERE idReserva = "+id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-            commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
-
-            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();            
 
             if (dataReader.Read())
             {                
@@ -67,19 +62,28 @@ namespace Stardust.Models
                 reserva.nombre = usuario.nombres;                
             }
 
+            dataReader.Close();
+
+            commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+            TimeSpan dias = reserva.fechaHoy - reserva.fechaIni;
+
             int idDoc=0;
 
             if (dataReader2.Read())
             {               
-                reserva.faltante = (decimal)dataReader["montoFaltante"];
-                reserva.total = (decimal)dataReader["montoTotal"];
-                reserva.subTotal = (decimal)dataReader["subTotal"];
-                decimal faltante = (decimal)dataReader["igv"];
+                reserva.faltante = (decimal)dataReader2["montoFaltante"];
+                reserva.total = (decimal)dataReader2["montoTotal"];
+                reserva.subTotal = (decimal)dataReader2["subTotal"];
+                decimal faltante = (decimal)dataReader2["igv"];
                 reserva.montPagado = reserva.total - faltante;
-                idDoc = (int)dataReader["idDocPago"];
+                idDoc = (int)dataReader2["idDocPago"];
             }
 
-            reserva.listaDetalles = ListaDetalle(idDoc);
+            reserva.listaDetalles = ListaDetalle(idDoc,dias.Days);
 
             sqlCon.Close();
 
@@ -192,7 +196,7 @@ namespace Stardust.Models
             return precio;
         }
 
-        public List<TipoDetalle> ListaDetalle(int id)
+        public List<TipoDetalle> ListaDetalle(int id, int dias)
         {
             List<TipoDetalle> listaDetalle = new List<TipoDetalle>();
 
@@ -214,7 +218,7 @@ namespace Stardust.Models
                 detalle.detalle = (string)dataReader["detalle"];
                 detalle.cantidad = (int)dataReader["cantidad"];
                 detalle.pUnit = (decimal)dataReader["precioUnitario"];
-                detalle.totalDet = (decimal)dataReader["total"];
+                detalle.totalDet = detalle.cantidad * detalle.pUnit * dias;
                 listaDetalle.Add(detalle);
             }
 
@@ -293,79 +297,79 @@ namespace Stardust.Models
         //    return reserva;
         //}
 
-        public string RegistrarPagoContado(Reserva reserva)
-        {
-            string conexion = null;
-            try
-            {   
-                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+    //    public string RegistrarPagoContado(Reserva reserva)
+    //    {
+    //        string conexion = null;
+    //        try
+    //        {   
+    //            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-                sqlCon.Open();
+    //            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+    //            sqlCon.Open();
 
-                string commandString = null;
+    //            string commandString = null;
 
-                if (reserva.tipoDoc.Equals("RUC"))
-                {
-                    commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Factura' , "+reserva.id+" , NULL)";
-                }
-                else
-                {
-                    commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Boleta' , "+reserva.id+" , NULL)";
-                }
+    //            if (reserva.tipoDoc.Equals("RUC"))
+    //            {
+    //                commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Factura' , "+reserva.id+" , NULL)";
+    //            }
+    //            else
+    //            {
+    //                commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Boleta' , "+reserva.id+" , NULL)";
+    //            }
 
-                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                sqlCmd.ExecuteNonQuery();
+    //            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+    //            sqlCmd.ExecuteNonQuery();
 
-                //commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + reserva.id; Registrar el detalle del pago :S
+    //            commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + reserva.id; Registrar el detalle del pago :S
 
-                //SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-                //SqlDataReader dataReader = sqlCmd2.ExecuteReader();
+    //            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+    //            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
 
-                //int id = 0;
+    //            int id = 0;
 
-                //if (dataReader.Read())
-                //    id = (int)dataReader["idDocumentoPago"];
+    //            if (dataReader.Read())
+    //                id = (int)dataReader["idDocumentoPago"];
 
-                //commandString = "INSERT INTO DocumentoPago_Detalle VALUES ( "++" )"
+    //            commandString = "INSERT INTO DocumentoPago_Detalle VALUES ( "++" )"
 
-                if (reserva.estadoPago == 1) //Pago cero
-                {
-                    if (reserva.pagado < reserva.total)
-                        commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 2 WHERE idReserva = " + reserva.id;
-                    else
-                        commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 4 WHERE idReserva = " + reserva.id;
-                }
-                else
-                {
-                    if (reserva.estadoPago == 2) //Inicial
-                    {
-                        if (reserva.pagado < reserva.total)
-                            commandString = "UPDATE Reserva SET estadoPago = 3 WHERE idReserva = " + reserva.id;
-                        else
-                            commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
-                    }
-                    else
-                    {
-                        if (reserva.estadoPago == 3) //Parcial Pagado
-                        {
-                            if (reserva.pagado == reserva.total)
-                                commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
-                        }
-                    }
-                }
+    //            if (reserva.estadoPago == 1) //Pago cero
+    //            {
+    //                if (reserva.pagado < reserva.total)
+    //                    commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 2 WHERE idReserva = " + reserva.id;
+    //                else
+    //                    commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 4 WHERE idReserva = " + reserva.id;
+    //            }
+    //            else
+    //            {
+    //                if (reserva.estadoPago == 2) //Inicial
+    //                {
+    //                    if (reserva.pagado < reserva.total)
+    //                        commandString = "UPDATE Reserva SET estadoPago = 3 WHERE idReserva = " + reserva.id;
+    //                    else
+    //                        commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
+    //                }
+    //                else
+    //                {
+    //                    if (reserva.estadoPago == 3) //Parcial Pagado
+    //                    {
+    //                        if (reserva.pagado == reserva.total)
+    //                            commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
+    //                    }
+    //                }
+    //            }
 
-                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
-                sqlCmd3.ExecuteNonQuery();
+    //            SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+    //            sqlCmd3.ExecuteNonQuery();
 
-                sqlCon.Close();        
-            }
-            catch
-            {
-                conexion = "Falla en Conexión";
-            }
+    //            sqlCon.Close();        
+    //        }
+    //        catch
+    //        {
+    //            conexion = "Falla en Conexión";
+    //        }
 
-            return conexion;
-        }
+    //        return conexion;
+    //    }
     }
 }

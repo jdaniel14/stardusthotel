@@ -13,10 +13,5 @@ namespace Stardust.Models
         {
             return pagoDAO.GetReserva(id);
         }
-
-        public string RegistrarPagoContado(Reserva reserva)
-        {
-            return pagoDAO.RegistrarPagoContado(reserva);
-        }
     }
 }
