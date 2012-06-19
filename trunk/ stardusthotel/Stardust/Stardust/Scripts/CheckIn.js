@@ -171,7 +171,7 @@ function enviarDatos() {
             var lista = {
                 idReserva: reserva,
                 idHab: elemento,
-                clientes: valorB,
+                nombresYAp: valorB,
                 dni: valorA
             }
 
