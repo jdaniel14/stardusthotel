@@ -11,14 +11,14 @@ namespace Stardust.Models
     {
         PagoService pagoService = new PagoService();
 
-        public List<ReservaBean> GetReserva(string nombre)
+        public ReservaCheckOut GetReserva(int id)
         {
-            return pagoService.GetReserva(nombre);
+            return pagoService.GetReserva(id);
         }
 
-        public Reserva ObtenerReserva(int id)
+        public string RegistrarPagoContado(Reserva reserva)
         {
-            return pagoService.ObtenerReserva(id);
+            return pagoService.RegistrarPagoContado(reserva);
         }
     }
 }
