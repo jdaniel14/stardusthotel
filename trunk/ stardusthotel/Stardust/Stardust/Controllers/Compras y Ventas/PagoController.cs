@@ -25,10 +25,13 @@ namespace Stardust.Controllers
             return RedirectToAction("Listar", new { nom = nombre });
         }
 
-        public ActionResult Listar(string nom)
-        {
-            return View(pagoFacade.GetReserva(nom));
-        }
+        //public ActionResult Listar(string nom)
+        //{
+        //    List<ReservaBean> reserva = pagoFacade.GetReserva(nom);
+        //    if (reserva.Count == 0)
+        //        ViewBag.Error = "No se encontraron reservas o el usuario no existe";
+        //    return View(reserva);
+        //}
 
         public ActionResult Index()
         {
@@ -95,19 +98,7 @@ namespace Stardust.Controllers
             {
                 return View();
             }
-        }
-
-        public ActionResult PagoHabContado(int id)
-        {
-            return View(pagoFacade.ObtenerReserva(id));
-        }
-
-        [HttpPost]
-        public ActionResult PagoHabContado(Reserva reserva)
-        {
-            return RedirectToAction("List");
-        }
-            
+        }           
 
     }
 }
