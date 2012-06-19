@@ -11,9 +11,8 @@ namespace Stardust.Controllers
 {
     public class ValidationController : Controller
     {
-        //
+        
         // GET: /Validation/
-
         public ActionResult Index()
         {
             return View();
@@ -31,7 +30,9 @@ namespace Stardust.Controllers
         }
         #endregion
 
-        #region Validar Email
+        /* Cuando el email necesita ser validado pero puede aceptar campos nulos por el hecho que no es un
+         * campo [Required]
+         */
         public ActionResult ValidaEmail(string email)
         {
             if (String.IsNullOrEmpty(email) ||
@@ -41,9 +42,9 @@ namespace Stardust.Controllers
             }
             return Json(String.Format("El correo {0} no es válido", email), JsonRequestBehavior.AllowGet);
         }
-        #endregion
 
-        #region Validar Teléfono
+        /* Cuando el fono necesita ser validado 
+         */
         public ActionResult ValidaFonoNoRequerido(string tlf2)
         {
             if (String.IsNullOrEmpty(tlf2) || Regex.IsMatch(tlf2, "([0-9]+)"))
@@ -52,6 +53,5 @@ namespace Stardust.Controllers
             }
             return Json(String.Format("El valor ingresado debe tener la sintaxis de un telefóno", tlf2), JsonRequestBehavior.AllowGet);
         }
-        #endregion
     }
 }
