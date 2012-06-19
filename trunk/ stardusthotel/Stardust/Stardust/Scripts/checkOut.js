@@ -26,7 +26,7 @@ function iniciarFlujo() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "direccionDondeRecibo",
+        url: "registroCheckOut",
         beforeSend: esperaCheckOut(),
         success: llegadaCheckOut
     });
