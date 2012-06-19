@@ -36,6 +36,8 @@ function esperaCheckOut() {
 }
 
 function llegadaCheckOut(data) {
+
+    console.log(data);
     var result = "";
 
     result += '<div class="widget"><div class="title"><h6>Datos del Cliente</h6></div>';
@@ -82,8 +84,8 @@ function llegadaCheckOut(data) {
 
     result += '<tfoot>';
 
-    result += '<tr><th></th><th></th><th>Total</th><th id="subTotal">' + data.subTotal + '</th></tr>';
-    result += '<tr><th></th><th></th><th>Total</th><th id="IGV">' + data.IGV + '</th></tr>';
+    result += '<tr><th></th><th></th><th>SubTotal</th><th id="subTotal">' + data.subTotal + '</th></tr>';
+    result += '<tr><th></th><th></th><th>IGV</th><th id="IGV">' + data.IGV + '</th></tr>';
     result += '<tr><th></th><th></th><th>Total</th><th id="total">' + data.total + '</th></tr>';    
 
     result += '</tfoot>';
