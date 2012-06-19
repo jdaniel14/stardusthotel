@@ -180,8 +180,9 @@ namespace Stardust.Models.Servicios
         #endregion
         
         #region REGISTRAR_RESERVA
-        public int registraCliente(ClienteReservaBean client){
-        
+        public UsuarioBean registraCliente(ClienteReservaBean client){
+
+            UsuarioBean usuario = new UsuarioBean();
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -246,6 +247,7 @@ namespace Stardust.Models.Servicios
         }
         public int  resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
 
+            System.Diagnostics.Debug.WriteLine("total a pagar : " + total);
             int reservaEstado = 1;//POR CONFIRMAR
             int reservaPago = 1;//CERO PAGO
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -261,6 +263,8 @@ namespace Stardust.Models.Servicios
             if (ReaderPorc.Read()) {
                 porc = (int)ReaderPorc["porcAdelanto"];
             }
+            ReaderPorc.Close();
+            System.Diagnostics.Debug.WriteLine("porcentaje : " + porc);
 
             Decimal adelanto = (porc * total) / 100;
             String query1 = "INSERT INTO Reserva Values (convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ,NULL, "+reservaEstado+" , " + adelanto + ", " + total + ", 0, " + idHotel.ToString() + ", " + idUsuario + ", GETDATE() , "+reservaPago+")";
