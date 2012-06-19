@@ -35,42 +35,55 @@ namespace Stardust.Models
             return id;
         }
 
-        public List<ReservaBean> GetReserva(string nombre)
+        public ReservaCheckOut GetReserva(int id)
         {
-            List<ReservaBean> ListReserva = new List<ReservaBean>();
-
-            int id = GetID(nombre);
-
-            if (id == 0)
-                return null;
-
+            ReservaCheckOut reserva = new ReservaCheckOut();
+            
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Reserva WHERE idUsuario = "+id;
+            string commandString = "SELECT * FROM Reserva WHERE idReserva = "+id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            while (dataReader.Read())
-            {
-                ReservaBean reserva = new ReservaBean();
+            commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+            if (dataReader.Read())
+            {                
                 reserva.id = (int)dataReader["idReserva"];
-                reserva.fechaRegistro = (DateTime)dataReader["fechaRegistro"];
-                reserva.fechaCheckOut = (DateTime)dataReader["fechaSalida"];
-                reserva.estado = (int)dataReader["estado"];
-                reserva.pagoIni = (decimal)dataReader["pagoInicial"];
-                reserva.total = (decimal)dataReader["montoTotal"];
-                reserva.idHotel = (int)dataReader["idHotel"];
-                reserva.idUsuario = (int)dataReader["idUsuario"];
-                ListReserva.Add(reserva);
+                reserva.fechaIni = (DateTime)dataReader["fechaLlegada"];
+                reserva.fechaFin = (DateTime)dataReader["fechaSalida"];
+                reserva.fechaHoy = DateTime.Now;
+                int idU = (int)dataReader["idUsuario"];
+                UsuarioBean usuario = GetNombreUsuario(idU);
+                reserva.dni = usuario.nroDocumento;
+                reserva.nombre = usuario.nombres;                
             }
+
+            int idDoc=0;
+
+            if (dataReader2.Read())
+            {               
+                reserva.faltante = (decimal)dataReader["montoFaltante"];
+                reserva.total = (decimal)dataReader["montoTotal"];
+                reserva.subTotal = (decimal)dataReader["subTotal"];
+                decimal faltante = (decimal)dataReader["igv"];
+                reserva.montPagado = reserva.total - faltante;
+                idDoc = (int)dataReader["idDocPago"];
+            }
+
+            reserva.listaDetalles = ListaDetalle(idDoc);
+
             sqlCon.Close();
 
-            return ListReserva;
+            return reserva;
         }
 
         public UsuarioBean GetNombreUsuario(int id)
@@ -179,9 +192,9 @@ namespace Stardust.Models
             return precio;
         }
 
-        public List<TipoHab> ListaHab(int id)
+        public List<TipoDetalle> ListaDetalle(int id)
         {
-            List<TipoHab> listaHab = new List<TipoHab>();
+            List<TipoDetalle> listaDetalle = new List<TipoDetalle>();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -189,69 +202,96 @@ namespace Stardust.Models
 
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM ReservaXTipoHabitacionXHotel WHERE idReserva = " + id;
+            string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = " + id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
             while (dataReader.Read())
             {
-                TipoHab hab = new TipoHab();
-                hab.id = (int)dataReader["idTipoHabitacion"];
-                hab.cantidad = (int)dataReader["cantidad"];
-                hab.nombre = GetNombreTipoHab(hab.id);
-                hab.precio = GetPrecioTipoHab(hab.id);
-                listaHab.Add(hab);
+                TipoDetalle detalle = new TipoDetalle();
+                detalle.id = (int)dataReader["idDocPago"];
+                detalle.detalle = (string)dataReader["detalle"];
+                detalle.cantidad = (int)dataReader["cantidad"];
+                detalle.pUnit = (decimal)dataReader["precioUnitario"];
+                detalle.totalDet = (decimal)dataReader["total"];
+                listaDetalle.Add(detalle);
             }
 
             dataReader.Close();
             sqlCon.Close();
 
-            return listaHab;
+            return listaDetalle;
         }
 
-        public Reserva ObtenerReserva(int id)
-        {
-            Reserva reserva = new Reserva();
+        //public ReservaBean ObtenerReserva(int id)
+        //{
+        //    ReservaBean reserva = new ReservaBean();
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        //    String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+        //    SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
-            sqlCon.Open();
+        //    sqlCon.Open();
 
-            string commandString = "SELECT * FROM Reserva WHERE idReserva = " + id;
+        //    string commandString = "SELECT * FROM Reserva WHERE idReserva = " + id;
 
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+        //    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+        //    SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            while (dataReader.Read())
-            {
-                reserva.id = (int)dataReader["idReserva"];
-                reserva.pagoIni = (decimal)dataReader["pagoInicial"];
-                reserva.subTotal = (decimal)dataReader["montoTotal"]; //Sin IGV :S
-                reserva.idHotel = (int)dataReader["idHotel"];
-                reserva.idUsuario = (int)dataReader["idUsuario"];
-            }
+        //    while (dataReader.Read())
+        //    {
+        //        reserva.id = (int)dataReader["idReserva"];
+        //        reserva.pagoIni = (decimal)dataReader["pagoInicial"];
+        //        reserva.subTotal = (decimal)dataReader["montoTotal"]; //Sin IGV :S
+        //        reserva.idHotel = (int)dataReader["idHotel"];
+        //        reserva.idUsuario = (int)dataReader["idUsuario"];
+        //        reserva.estado = (int)dataReader["estado"];
+        //        reserva.estadoPago = (int)dataReader["estadoPago"];
+        //        reserva.fechaLlegada = (DateTime)dataReader["fechaLlegada"];
+        //        reserva.fechaSalida = (DateTime)dataReader["fechaSalida"];
+        //    }
 
-            decimal subtotal = reserva.subTotal;
-            decimal igv = subtotal * 18/100;
-            decimal total = subtotal + igv;
+        //    dataReader.Close();
 
-            reserva.listaHab = ListaHab(reserva.id);
-            reserva.igv = igv;
-            reserva.total = total;
-            reserva.hotel = GetNombreHotel(reserva.idHotel);
-            UsuarioBean usuario = GetNombreUsuario(reserva.idUsuario);
-            reserva.usuario = usuario.nombres;
-            reserva.numDoc = usuario.nroDocumento;
-            reserva.tipoDoc = usuario.tipoDocumento;
+        //    if (reserva.estadoPago == 2 || reserva.estadoPago == 3)
+        //    {
+        //        commandString = "SELECT * FROM DocumentoPago WHERE idReserva = "+reserva.id;
+        //        SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+        //        SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+        //        if (dataReader2.Read())
+        //        {
+        //            reserva.pago = (int)dataReader2["montoTotal"];
+        //        }
+        //    }
+                        
+        //    decimal total=0;
 
-            dataReader.Close();
-            sqlCon.Close();
+        //    int dia = reserva.fechaSalida.Day - reserva.fechaLlegada.Day;
 
-            return reserva;
-        }
+        //    reserva.listaHab = ListaHab(reserva.id);
+        //    for (int i = 0; i < reserva.listaHab.Count; i++)
+        //    {
+        //        TipoHab hab = reserva.listaHab.ElementAt(i);
+
+        //    }
+
+        //    decimal subtotal = reserva.subTotal;
+        //    decimal igv = subtotal * 18 / 100;
+
+        //    reserva.igv = igv;
+        //    reserva.total = total;
+        //    reserva.hotel = GetNombreHotel(reserva.idHotel);
+        //    UsuarioBean usuario = GetNombreUsuario(reserva.idUsuario);
+        //    reserva.usuario = usuario.nombres;
+        //    reserva.numDoc = usuario.nroDocumento;
+        //    reserva.tipoDoc = usuario.tipoDocumento;
+        //    reserva.apagar = reserva.total - reserva.pago;
+            
+        //    sqlCon.Close();
+
+        //    return reserva;
+        //}
 
         public string RegistrarPagoContado(Reserva reserva)
         {
@@ -276,6 +316,18 @@ namespace Stardust.Models
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
+
+                //commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + reserva.id; Registrar el detalle del pago :S
+
+                //SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                //SqlDataReader dataReader = sqlCmd2.ExecuteReader();
+
+                //int id = 0;
+
+                //if (dataReader.Read())
+                //    id = (int)dataReader["idDocumentoPago"];
+
+                //commandString = "INSERT INTO DocumentoPago_Detalle VALUES ( "++" )"
 
                 if (reserva.estadoPago == 1) //Pago cero
                 {
@@ -303,8 +355,8 @@ namespace Stardust.Models
                     }
                 }
 
-                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-                sqlCmd2.ExecuteNonQuery();
+                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                sqlCmd3.ExecuteNonQuery();
 
                 sqlCon.Close();        
             }
