@@ -15,9 +15,7 @@
             <h6>Panel de Login</h6>
         </div>
 
-        <div>
         @Html.ValidationSummary(true)
-        </div>
 
         @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form"}))
         {
