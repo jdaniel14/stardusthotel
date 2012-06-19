@@ -82,13 +82,13 @@ function llegadaCheckOut(data) {
 
     result += '<thead><tr><td>Detalle</td><td>Cantidad</td><td>Precio Unitario</td><td>Total</td></tr></thead>';
 
-    result += '<tfoot>';
+//    result += '<tfoot>';
 
-    result += '<tr><th></th><th></th><th>SubTotal</th><th id="subTotal">' + data.subTotal + '</th></tr>';
-    result += '<tr><th></th><th></th><th>IGV</th><th id="IGV">' + data.IGV + '</th></tr>';
-    result += '<tr><th></th><th></th><th>Total</th><th id="total">' + data.total + '</th></tr>';    
+//    result += '<tr><th></th><th></th><th>SubTotal</th><th id="subTotal">' + data.subTotal + '</th></tr>';
+//    result += '<tr><th></th><th></th><th>IGV</th><th id="IGV">' + data.IGV + '</th></tr>';
+//    result += '<tr><th></th><th></th><th>Total</th><th id="total">' + data.total + '</th></tr>';    
 
-    result += '</tfoot>';
+//    result += '</tfoot>';
 
     result += '<tbody>';
 
@@ -101,7 +101,7 @@ function llegadaCheckOut(data) {
         result += '</td>';
 
         result += '<td align = "center">';
-        result += '<span>' + item.cant + '</span>';
+        result += '<span>' + item.cantidad + '</span>';
         result += '</td>';
 
         result += '<td align = "center">';
@@ -115,6 +115,10 @@ function llegadaCheckOut(data) {
         result += '</tr>';
 
     });
+
+    result += '<tr><td></td><td></td><td><h6>SubTotal</h6></td><td id="subTotal">' + data.subTotal + '</td></tr>';
+    result += '<tr><td></td><td></td><td><h6>IGV</h6></td><td id="IGV">' + data.IGV + '</td></tr>';
+    result += '<tr><td></td><td></td><td><h6>Total</h6></td><td id="total">' + data.total + '</td></tr>';
 
     result += '</tbody></table>';
     result += '</div>';
@@ -142,7 +146,7 @@ function llegadaCheckOut(data) {
 
     result += '<div class="formRow"><span>Vuelto</span>';
     result += '<div class = "formRight" >';
-    result += '<span id = "vuelto"></span>';
+    result += '<span id = "vuelto">'+data.faltante+'</span>';
     result += '</div><div class="clear"></div></div>';
 
     result += '</div>';
@@ -159,8 +163,8 @@ function llegadaCheckOut(data) {
 
 function actualizarVuelto() {
     $("#vuelto").text(
-        parseFloat($("#vuelto").text()) -
-        parseFloat($("#cantPagado").get(0).value)    
+        parseFloat($("#faltante").text()) -
+        parseFloat($("#cantPagando").get(0).value)    
     );
 }
 
