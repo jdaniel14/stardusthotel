@@ -105,15 +105,15 @@ namespace Stardust.Models.Servicios
             DatosReservaBean reserva = reservaHabitacionDAO.SelectDatosCheckIn(idHotel, idReserva);
             bool result = reserva.me.Equals("");
 
-            checkin.me = reserva.me;
-            if (result)
-            {
-                checkin.doc = reserva.doc;
-                checkin.nomb = reserva.nomb;
-                checkin.fechaLleg = reserva.fechaLlegada;
-                checkin.fechaReg = reserva.fechaRegistro;
-                checkin.lista = reservaHabitacionDAO.listarTipHabReserva(idReserva);
-            }
+            //checkin.me = reserva.me;
+            //if (result)
+            //{
+            //    checkin.doc = reserva.doc;
+            //    checkin.nomb = reserva.nomb;
+            //    checkin.fechaLleg = reserva.fechaLlegada;
+            //    checkin.fechaReg = reserva.fechaRegistro;
+            //    checkin.lista = reservaHabitacionDAO.listarTipHabReserva(idReserva);
+            //}
 
             return checkin;
         }
@@ -126,20 +126,20 @@ namespace Stardust.Models.Servicios
         public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
             MensajeBean mensaje = new MensajeBean();
             mensaje.me = "";
-            UsuarioBean usuario = reservaHabitacionDAO.registraCliente(reserva.client); // 0=> hubo error ; 1 => natural; 2 => juridico
-            if (usuario == null) {
-                mensaje.me = "No se puedo Registrar los datos del Usuario";
-                return mensaje;
-            }
+            int usuario = reservaHabitacionDAO.registraCliente(reserva.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            //if (usuario == null) {
+            //    mensaje.me = "No se puedo Registrar los datos del Usuario";
+            //    return mensaje;
+            //}
             
-            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, idUsuario, reserva.fechaIni, reserva.fechaFin, reserva.total, reserva.coment);// !0 => Se registro bien la Reserva; 0=> hubo error
+            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, usuario , reserva.fechaIni, reserva.fechaFin, reserva.total, reserva.coment);// !0 => Se registro bien la Reserva; 0=> hubo error
             if (idReserva == 0) {
                 mensaje.me = "No se pudo registrar la Reserva";
                 return mensaje;
             }
 
-            int docPago = reservaHabitacionDAO.registrarFactura(idUsuario, reserva.total, idReserva);
-            int detDocPago = reservaHabitacionDAO.registrarDetalleFactura();
+            //int docPago = reservaHabitacionDAO.registrarFactura(idUsuario, reserva.total, idReserva);
+            //int detDocPago = reservaHabitacionDAO.registrarDetalleFactura();
 
             reservaHabitacionDAO.registrarXtipoHabitacion(idReserva, reserva.idHotel, reserva.listTip);
             reservaHabitacionDAO.resgistrarHabitaciones(reserva.listTip, reserva.fechaIni, reserva.fechaFin, idReserva);
@@ -179,6 +179,7 @@ namespace Stardust.Models.Servicios
                 smtp.Send(mail);
             }
             catch(Exception ex){
+                System.Diagnostics.Debug.WriteLine(ex.Message);
                 return 1;
             }
             return 0;
