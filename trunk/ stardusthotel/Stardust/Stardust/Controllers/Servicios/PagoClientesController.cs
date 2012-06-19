@@ -28,8 +28,5 @@ namespace Stardust.Controllers.Servicios
             System.Diagnostics.Debug.WriteLine("NOMBRE DEL CHECK OUT : " + res.nombre);
             return Json(res);
         }
-
-
-
     }
 }
