@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
 using System.Data.SqlClient;
+using Stardust.Models.Servicios;
 
 namespace Stardust.Models
 {
@@ -80,18 +81,59 @@ namespace Stardust.Models
             if (dataReader2.Read())
             {               
                 reserva.faltante = (decimal)dataReader2["montoFaltante"];
-                reserva.total = (decimal)dataReader2["montoTotal"];
-                reserva.subTotal = (decimal)dataReader2["subTotal"];
-                reserva.IGV = (decimal)dataReader2["igv"];
-                reserva.montPagado = reserva.total - reserva.faltante;
+                reserva.idDocPago = (int)dataReader2["idDocPago"];                
                 idDoc = (int)dataReader2["idDocPago"];
             }
 
             reserva.listaDetalles = ListaDetalle(idDoc,dias.Days);
 
+            for (int i = 0; i < reserva.listaDetalles.Count; i++)
+                reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
+
+            reserva.IGV = reserva.subTotal * 18 / 100;
+            reserva.total = reserva.IGV + reserva.subTotal;
+
+            reserva.montPagado = reserva.total - reserva.faltante;
+
             sqlCon.Close();
 
             return reserva;
+        }
+
+        public MensajeBean RegistrarCheckOut(int id)
+        {
+            MensajeBean mensaje = new MensajeBean();
+
+            try
+            {
+                ReservaCheckOut reserva = GetReserva(id);
+
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                string commandString = "UPDATE DocumentoPago SET montoTotal = "+reserva.total+" , subTotal = "+reserva.subTotal+" , igv = "+ reserva.IGV+" , montoFaltante = 0 , estado = 3 WHERE idReserva = "+id;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                if (reserva.faltante > 0)
+                {
+                    commandString = "INSERT INTO Pagos VALUES ( " + reserva.faltante + " , NULL , GETDATE() , " + reserva.idDocPago + " )";
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd2.ExecuteNonQuery();
+                }
+                
+                mensaje.me = "Se ha registrado el pago satisfactoriamente";
+                return mensaje;
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Se ha producido un error";
+                return mensaje;
+            }           
         }
 
         public UsuarioBean GetNombreUsuario(int id)

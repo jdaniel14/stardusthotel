@@ -10,6 +10,7 @@ namespace Stardust.Models
     public class ReservaCheckOut
     {
         public int id { get; set; }
+        public int idDocPago { get; set; }
         public decimal total { get; set; }
         public decimal subTotal { get; set; }
         public decimal IGV { get; set; }
