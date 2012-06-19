@@ -37,7 +37,8 @@ namespace Stardust.Models
         
         [Display(Name = "Estado")]
         public string estado { get; set; }
-        
+
+        public bool estado2 { get; set; }
         [Display(Name = "Fecha")]
         public string fecha { get; set; }
 
