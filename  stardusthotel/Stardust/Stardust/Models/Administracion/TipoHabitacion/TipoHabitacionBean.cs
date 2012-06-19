@@ -11,7 +11,7 @@ namespace Stardust.Models
         [Key]
         public int ID { get; set; }
 
-        [Display( Name = "Nombre" ) ]
+        [Display( Name = "Tipo de Habitación" ) ]
         public String nombre { get; set; }
 
         [Display( Name = "Descripción" ) ]
