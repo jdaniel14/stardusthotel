@@ -163,32 +163,37 @@ function llegadaCheckOut(data) {
 
 function actualizarVuelto() {
     $("#vuelto").text(
-        parseFloat($("#faltante").text()) -
-        parseFloat($("#cantPagando").get(0).value)    
+        parseFloat($("#cantPagando").get(0).value) -
+        parseFloat($("#faltante").text())
+        
     );
 }
 
 function enviarDatos() {
 
-    var documento = $("#nroReserva").get(0).value;
-
-    var enviar = {
-        idReserva: documento
+    if (parseFloat($("#vuelto").text()) < 0) {
+        alert("Cantidad insuficiente");
     }
+    else {
+        var documento = $("#nroReserva").get(0).value;
 
-    jsonData = JSON.stringify(enviar);
-    console.log(jsonData);
+        var enviar = {
+            idReserva: documento
+        }
 
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "registrarCheckOut",
-        beforeSend: esperaConfirmacion(),
-        success: confirma
-    });
+        jsonData = JSON.stringify(enviar);
+        console.log(jsonData);
 
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "registrarCheckOut",
+            beforeSend: esperaConfirmacion(),
+            success: confirma
+        });
+    }
 }
 
 
