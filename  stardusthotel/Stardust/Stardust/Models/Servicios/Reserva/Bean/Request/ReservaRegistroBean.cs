@@ -15,5 +15,6 @@ namespace Stardust.Models.Servicios
         public int rec { get; set; }
         public Object datRec { get; set; }
         public String coment { get; set; }
+        public 
     }
 }

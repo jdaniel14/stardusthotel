@@ -271,6 +271,8 @@ namespace Stardust.Models.Servicios
             dataReader.Close();
             sqlCon.Close();
             
+
+            //String query_Factura = "INSERT INTO DocumentoPago VALUES("+idUsuario+")";
             return last_id;
         }
         public String resgistrarHabitaciones(List<HabInsertBean> listTip, String fechaIni, String fechaFin, int idReserva) {
