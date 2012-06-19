@@ -180,7 +180,7 @@ namespace Stardust.Models.Servicios
         #endregion
         
         #region REGISTRAR_RESERVA
-        public UsuarioBean registraCliente(ClienteReservaBean client){
+        public int registraCliente(ClienteReservaBean client){
 
             UsuarioBean usuario = new UsuarioBean();
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;

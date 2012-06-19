@@ -157,7 +157,7 @@
     <Compile Include="Models\Compras y Ventas\PagoFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Pago\PagoDAO.cs" />
     <Compile Include="Models\Compras y Ventas\Pago\PagoService.cs" />
-    <Compile Include="Models\Compras y Ventas\Pago\ReservaBean.cs" />
+    <Compile Include="Models\Compras y Ventas\Pago\ReservaCheckOut.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoAlmacen.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoXAlmacenBean.cs" />
     <Compile Include="Models\Compras y Ventas\Promociones\PromocionBean.cs" />
