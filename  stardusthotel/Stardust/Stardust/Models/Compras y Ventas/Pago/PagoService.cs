@@ -9,14 +9,14 @@ namespace Stardust.Models
     public class PagoService
     {
         PagoDAO pagoDAO = new PagoDAO();
-        public List<ReservaBean> GetReserva(string nombre)
+        public ReservaCheckOut GetReserva(int id)
         {
-            return pagoDAO.GetReserva(nombre);
+            return pagoDAO.GetReserva(id);
         }
 
-        public Reserva ObtenerReserva(int id)
+        public string RegistrarPagoContado(Reserva reserva)
         {
-            return pagoDAO.ObtenerReserva(id);
+            return pagoDAO.RegistrarPagoContado(reserva);
         }
     }
 }
