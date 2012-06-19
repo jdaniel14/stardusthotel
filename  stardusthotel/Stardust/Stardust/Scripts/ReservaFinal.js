@@ -144,10 +144,10 @@ function enviarDatos() {
         i++;
     });
 
-   
+   var suma = $("#Total").text();
 
-    var Hotel = "1";
-    var clientexD = {
+   var Hotel = "1";
+   var clientexD = {
             tipoDoc:tipoDocu,
             nroDoc:nDoc,
             nomb:nombreEnvio,
@@ -181,8 +181,9 @@ function enviarDatos() {
             hrLleg:horaLlegada,
             aero:aerop,
             vuel:numVuelo,
-            nroPer:numPersonas
+            nroPer:numPersonas,
         //]        
+        total: suma
     };
     var jsonData = JSON.stringify(DatosReserva);
     

@@ -176,13 +176,14 @@ function llegadaTipoHabitacion(data) {
     //alert(data.fechaIni.toString());
     //alert(data.fechaFin.toString());
 
-    //console.log(data);
+    console.log(data);
     var result = "";
     var i = 0;
     var cant = 0;
     
     var id = "";
     var lista = data.listaXTipo;
+    var cantDias = data.cantDias;
 
     $.each(lista, function (i, item) {
         cant = cant + 1;
@@ -216,7 +217,7 @@ function llegadaTipoHabitacion(data) {
     parseFloat($("#Total").text())
     );
 
-    
+    $("#cantDias").text(cantDias);    
     
 //    var func = "";
 //    var j;
@@ -242,7 +243,7 @@ function llegadaTipoHabitacion(data) {
             precio += n;
             var y = $(precio).text();
 
-            $(subtotal).text(x * y);
+            $(subtotal).text(x * y* cantDias);
 
             if (parseInt($("#Total").text()) > 0) {
                 cambiar = 0;
