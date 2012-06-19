@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Stardust.Models;
+using Stardust.Models.Servicios;
 using System.Web.Mvc;
 
 namespace Stardust.Controllers.Servicios
@@ -27,6 +28,13 @@ namespace Stardust.Controllers.Servicios
             ReservaCheckOut res = pagoFacade.GetReserva(request.idReserva);
             System.Diagnostics.Debug.WriteLine("NOMBRE DEL CHECK OUT : " + res.nombre);
             return Json(res);
+        }
+
+        [HttpPost]
+        public JsonResult registrarCheckOut(RequestCheckOut request)
+        {
+            MensajeBean me = pagoFacade.RegistrarCheckOut(request.idReserva);
+            return Json(me);
         }
     }
 }
