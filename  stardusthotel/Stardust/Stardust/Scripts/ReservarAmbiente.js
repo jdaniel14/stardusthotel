@@ -48,7 +48,7 @@ function mostrarAmbientesDisponibles() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "rutaDondeQuieroRecibir",
+        url: "consultarAmbientesDisponibles",
         beforeSend: esperaAmbientes(),
         success: llegadaAmbientes
     });
