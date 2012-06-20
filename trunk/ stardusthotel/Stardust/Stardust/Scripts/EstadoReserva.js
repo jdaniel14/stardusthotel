@@ -9,7 +9,6 @@ function inicializarEventos() {
     $("#anular").hide();
 
     $("#buttonDatos").click(buscarReserva);
-
     
 }
 
