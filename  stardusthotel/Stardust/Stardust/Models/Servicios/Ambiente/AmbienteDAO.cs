@@ -162,8 +162,8 @@ namespace Stardust.Models
                             " FROM AmbienteXEvento aXe " + 
                             " WHERE idHotel = " + idHotel +
                             " AND aXe.estado < 3 "+
-                            " AND ((aXe.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (aXe.fechaIni between  convert(datetime,'" + fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +
-		                    " OR (aXe.fechaIni between  convert(datetime,'21-06-2012',103) and  convert(datetime,'23-06-2012',103))) ";
+                            " AND ((aXe.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (aXe.fechaIni between  convert(datetime,'" + fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) " +
+                            " ORDER BY idAmbiente";
             System.Diagnostics.Debug.WriteLine("query Ambiente : " + query);
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -171,7 +171,7 @@ namespace Stardust.Models
             while (dataReader.Read())
             {
                 AmbienteBean amb = new AmbienteBean();
-                amb.id = (int)dataReader["ïdAmbiente"];
+                amb.id = (int)dataReader["idAmbiente"];
                 listaNoDisp.Add(amb);
             }
 
