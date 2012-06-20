@@ -164,7 +164,7 @@ namespace Stardust.Models
                             " AND aXe.estado < 3 "+
                             " AND ((aXe.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (aXe.fechaIni between  convert(datetime,'" + fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +
 		                    " OR (aXe.fechaIni between  convert(datetime,'21-06-2012',103) and  convert(datetime,'23-06-2012',103))) ";
-
+            System.Diagnostics.Debug.WriteLine("query Ambiente : " + query);
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
