@@ -38,6 +38,15 @@ namespace Stardust.Models
         public ResAmbRequest ConsultarAmbientesDisponibles(int idHotel, String fechaIni, String fechaFin)
         {
             ResAmbRequest response = new ResAmbRequest();
+            DateTime fFin = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
+            DateTime fIni = DateTime.ParseExact(fechaIni, "dd-MM-yyyy", null);
+            TimeSpan ts = fFin - fIni;
+            response.cantDias = ts.Days;
+            if (response.cantDias < 0)
+            {
+                response.me = "Ingrese Fecha Correctas";
+                return response;
+            }
             List<AmbienteBean> listNoDisp = AmbienteDAO.listarNodisponibles(idHotel, fechaIni, fechaFin);
             List<AmbienteBean> listTot = AmbienteDAO.listarTodas(idHotel);
             int k = 0; int tamNoDisp = listNoDisp.Count;
@@ -69,10 +78,7 @@ namespace Stardust.Models
             }
 
             response.listaAmbientes = listaRespuesta;
-            DateTime fFin = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
-            DateTime fIni = DateTime.ParseExact(fechaIni, "dd-MM-yyyy", null);
-            TimeSpan ts = fFin - fIni;
-            response.cantDias = ts.Days;
+            response.me = "";
             return response;
         }
     }
