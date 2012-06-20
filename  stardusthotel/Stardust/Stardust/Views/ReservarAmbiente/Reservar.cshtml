@@ -1,0 +1,381 @@
+﻿@{
+    ViewBag.Title = "Reservar Ambiente";
+}
+
+<h2>Reservar Ambiente</h2>
+
+<script type="text/javascript" src="/Scripts/ReservarAmbiente.js"></script>
+<script type="text/javascript" src="/Scripts/DatosEvento.js"></script>
+<script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
+
+<html lang="es">
+
+    <head>
+        <title>Reservar Ambiente</title>
+
+        <style type="text/css">
+            #box-table-a
+        {
+	        font-family: Arial, Helvetica, sans-serif;	        
+	        font-size: 12px;
+	        margin: 45px;
+	        width: 90%;
+	        text-align: left;
+	        border-collapse: collapse;
+        }
+        #box-table-a th
+        {
+	        font-size: 13px;
+	        font-weight: bold;
+	        padding: 8px;
+	        background: #2A323E ;	        
+	        border-bottom: 1px solid #fff;
+	        color: white;
+	        text-align:center;
+        }
+        #box-table-a td
+        {
+	        padding: 8px;
+	        background:#F0F0F0 ; 
+	        border-bottom: 1px solid #F0F0F0 ;
+	        color: #696969;
+	        border-top: 1px solid transparent;
+	        text-align:center;
+        }
+        #box-table-a tr:hover td
+        {
+	        background: #DCDCDC;
+	        color: #111;
+        }
+        #Total
+        {
+            text-align:center;
+        }
+        #TotalLabel
+        {
+            text-align:right;
+        }
+            
+        </style>
+
+    </head>
+
+    <body>
+
+    
+    <div id="tabs">
+
+	    <ul>
+		    <li><a href="#Vambiente" id = "pestana1">Reserva de Ambiente</a></li>		
+            <li><a href="#Vevento" id = "pestana2">Creación del evento</a></li>
+            <li><a href="#Vcliente" id = "pestana3">Datos del Cliente</a></li>
+            <li><a href="#Vconfirmacion" id = "pestana4">Confirmación de Datos</a></li>
+	    </ul>
+
+        <div id="Vambiente">
+
+            <div class="widget">
+			    <div class="title">
+				    <h6>Buscar Ambientes Disponibles</h6>
+			    </div>
+
+			    <div class="formRow"><span>Fecha Inicio</span>                
+				    <div class = "formRight" >                                         
+					    <div class="demo">
+						    <input type="text" id="FechaInicio"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+                <div class="formRow"><span>Fecha Final</span>                
+				    <div class = "formRight" >                                         
+					    <div class="demo">
+						    <input type="text" id="FechaFin"/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input id = "buscame" type="submit" value="Buscar" class = "redB" />
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>  	    
+            </div>            
+
+            <div id = "listaAmbientes">
+            
+                <div class = "widget" id = "tipos">
+				    <div class="title"><h6>Tipos de habitacion del hotel</h6></div>
+				    <table cellpadding = "0" cellspacing = "0" width = "90%" id = "box-table-a" >
+
+					    <thead>
+                            <tr>
+                                <th>Seleccionar</th>
+							    <th>Ambiente</th>
+							    <th>Capacidad del Ambiente</th>
+							    <th>Precio unitario($)</th>                                
+                                <th>Subtotal($)</th>                                
+						    </tr>
+                        </thead>
+
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th id = "TotalLabel">Total</th>
+                                <th id = "Total"></th>
+                            
+                            </tr>
+                        </tfoot>
+
+                        <tbody id ="tablaTipos">
+                        </tbody>
+
+                    </table>
+                </div>
+            
+            </div>
+
+            <br />
+            <input id = "NextE" type="submit" value="Continue..." class = "redB" />
+
+
+        </div>
+
+        <div id="Vevento">
+
+             <div class="widget">
+
+			    <div class="title">
+				    <h6>Datos del Evento</h6>
+			    </div>
+
+                <div class="formRow"><span>Nombre del Evento</span>                
+				    <div class = "formRight" >                                         
+					    <div class="demo">
+						    <input type="text" id="nombreEvento"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+                <div class="formRow"><span>Num. de participantes</span>                
+				    <div class = "formRight" >                                         
+					    <div class="demo">
+						    <input type="text" id="nParticipantes"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+                <div class="formRow"><span>Descripción</span>                
+				    <div class = "formRight" >                                         
+					    <div class="demo">
+						    <input type="text" id="descEvento"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+            </div>
+
+            <br />
+            <input id = "NextC" type="submit" value="Continue..." class = "redB" />
+
+        </div>
+
+
+
+        <div id="Vcliente">
+
+        <div class="widget">
+
+            <div class="title">
+                <h6>Registrar Datos de la reserva</h6>
+            </div>
+
+            <div class="formRow"><span>Tipo de Documento</span>                
+               <div class = "formRight" > 
+                    <select id="ComboCliente">
+                        <option value = "0">Escoja un tipo de documento</option>
+                        <option value = "DNI">DNI</option>
+                        <option value = "RUC">RUC</option>
+                    </select>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Documento</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nDoc" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+             
+            <div id="juridica">
+                
+                <div class="formRow"><span>Razon Social</span>                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="razonDReserva" />
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Email</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="mail" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Teléfono</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="telef" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Tarjeta de credito</span>
+                
+                   <div class = "formRight" > 
+                        <select id = "tipoTarjetaJ">
+                            <option value = "Visa">Visa</option>
+                            <option value = "Mastercard">Mastercard</option>
+                        </select>
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Nro. de tarjeta</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="nTarjeta" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                @*<div class="formRow"><span>Fecha de caducidad</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <input type="text" id="FechaCaduca"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>*@
+
+                <div class="formRow"><span>Comentarios</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <textarea id = "comment"></textarea>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+
+            </div>
+
+            <div id="natural">
+                <div class="formRow"><span>Nombre</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="nombreDReserva" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+            
+
+                <div class="formRow"><span>Apellidos</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="ApellidoDReserva" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+            
+                <div class="formRow"><span>Email</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="mailNatural" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Teléfono</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="telefNatural" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Tarjeta de credito</span>
+                
+                   <div class = "formRight" > 
+                        <select id = "tipoTarjeta">
+                            <option value = "Visa">Visa</option>
+                            <option value = "Mastercard">Mastercard</option>
+                        </select>
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Nro. de tarjeta</span>
+                
+                   <div class = "formRight" > 
+                        <input type="text" value="" id="nTarjetaNatural" />
+                   </div>
+                
+                   <div class="clear"></div>
+                </div>
+
+                @*<div class="formRow"><span>Fecha de caducidad</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <input type="text" id="FechaCaducaNatural"/>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>*@
+
+                <div class="formRow"><span>Comentarios</span>                
+				    <div class = "formRight" > 
+					    <div class="demo">
+						    <textarea id = "commentN"></textarea>
+					    </div>
+				    </div>                
+				    <div class="clear"></div>
+			    </div>
+            </div>
+        </div>
+
+        <br />
+        <input id = "NextConf" type="submit" value="Continue..." class = "redB" />
+
+
+        </div>
+
+        <div id="Vconfirmacion">
+        </div>
+    </div>
+   
+
+
+
+
+
+
+
+    </body>
+
+</html>
