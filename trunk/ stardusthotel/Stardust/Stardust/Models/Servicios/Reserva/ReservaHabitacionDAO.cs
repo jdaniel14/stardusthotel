@@ -180,16 +180,25 @@ namespace Stardust.Models.Servicios
         #endregion
         
         #region REGISTRAR_RESERVA
-        public int registraCliente(ClienteReservaBean client){
 
-            UsuarioBean usuario = new UsuarioBean();
+        public UsuarioResBean registraCliente(ClienteReservaBean client){
+            
+            UsuarioResBean usuario = new UsuarioResBean();
+            
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+
+            try
+            {
+                sqlCon.Open();
+            }catch(Exception e){
+                usuario.me = "Error en conexion a base de datos";
+                return usuario;
+            }
 
             //cliente.estado2 = 1;
-
+            
             string commandString3 = "INSERT INTO Usuario VALUES (1," +
                      "''" + ", " +
                      "''" + ", " +
@@ -211,19 +220,34 @@ namespace Stardust.Models.Servicios
 
 
             SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
-            sqlCmd3.ExecuteNonQuery();
+            try
+            {
+                sqlCmd3.ExecuteNonQuery();
+            }catch(Exception e){
+                usuario.me = "Error al registrar el Usuario : " + e.Message;
+                return usuario;
+            }
 
+            
             string commandString2 = "SELECT IDENT_CURRENT('" + "Usuario" + "') as lastId";
             SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
-            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
+            SqlDataReader dataReader = new SqlDataReader();
+            try
+            {
+                dataReader = sqlCmd2.ExecuteReader();
+            }catch(Exception e){
+                usuario.me = "Error al encontrar al id del Usuario";
+                return usuario;
+            }
 
             int last_id = 0;
             if (dataReader.Read())
             {
                 //last_id = (int)dataReader["lastId"];
-                last_id = Int16.Parse(dataReader["lastId"].ToString()); 
+                last_id = Int16.Parse(dataReader["lastId"].ToString());
                 //listaClientes.Add(cliente);
             }
+            
             dataReader.Close(); 
             
             System.Diagnostics.Debug.WriteLine("ultimo id "+last_id);
@@ -236,16 +260,26 @@ namespace Stardust.Models.Servicios
                      ;
 
             SqlCommand sqlCmd1 = new SqlCommand(commandString1, sqlCon);
-            sqlCmd1.ExecuteNonQuery();
+            try
+            {
+                sqlCmd1.ExecuteNonQuery();
+            }catch(Exception e){
+                usuario.me = "Error al registrar el usuario : " + e.Message;
+                return usuario;
+            }
 
-            sqlCon.Close();            
+            sqlCon.Close();
 
-            return last_id ;
-        
-        
+            usuario.idUsuario = last_id;
+            usuario.tipoDocumento = client.tipDoc;
+
+            return usuario ;
         
         }
-        public int  resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
+
+        public ReservaResBean resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
+
+            ReservaResBean reserva = new ReservaResBean();
 
             System.Diagnostics.Debug.WriteLine("total a pagar : " + total);
             int reservaEstado = 1;//POR CONFIRMAR
@@ -253,11 +287,25 @@ namespace Stardust.Models.Servicios
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+            try
+            {
+                sqlCon.Open();
+            }catch(Exception e){
+                reserva.me = "Error en conexion a base de datos";
+                return reserva;     
+            }
 
             String query = "SELECT porcAdelanto FROM Politica";
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            SqlDataReader ReaderPorc = sqlCmd.ExecuteReader();
+
+            SqlDataReader ReaderPorc = new SqlDataReader();
+            try
+            {
+                ReaderPorc = sqlCmd.ExecuteReader();
+            }catch(Exception e){
+                reserva.me = "Error al consultar a la tabla Politica";
+                return reserva;
+            }
 
             int porc = 0;
             if (ReaderPorc.Read()) {
@@ -270,12 +318,27 @@ namespace Stardust.Models.Servicios
             String query1 = "INSERT INTO Reserva Values (convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ,NULL, "+reservaEstado+" , " + adelanto + ", " + total + ", 0, " + idHotel.ToString() + ", " + idUsuario + ", GETDATE() , "+reservaPago+")";
             System.Diagnostics.Debug.WriteLine("query de RESERVA : " + query1);
 
+            reserva.montoTotal = total;
+            reserva.pagoInicial = adelanto;
             SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
-            sqlCmd1.ExecuteNonQuery();
+            try
+            {
+                sqlCmd1.ExecuteNonQuery();
+            }catch(Exception e){
+                reserva.me = "Error al insertar la Reserva : " + e.Message;
+                return reserva;
+            }
 
             string query2 = "SELECT IDENT_CURRENT('" + "Reserva" + "') as lastId";
             SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
-            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
+            
+            SqlDataReader dataReader = new SqlDataReader();
+            try{
+                dataReader = sqlCmd2.ExecuteReader();
+            }catch (Exception e){
+                reserva.me = "Error al insertar a pedir el id de la Reserva";
+                return reserva;
+            }
 
             int last_id = 0;
             if (dataReader.Read())
@@ -284,11 +347,119 @@ namespace Stardust.Models.Servicios
             }
             dataReader.Close();
             sqlCon.Close();
-            
+
+            reserva.idHotel = idHotel;
+            reserva.idReserva = last_id;
+
 
             //String query_Factura = "INSERT INTO DocumentoPago VALUES("+idUsuario+")";
-            return last_id;
+            return reserva;
         }
+
+        public DocumentoPagoBean registrarDocumentoPago(UsuarioResBean  usuario, ReservaResBean reserva){
+
+            DocumentoPagoBean documento = new DocumentoPagoBean ();
+            Decimal igv  = reserva.montoTotal * 18/100;
+            Decimal montoTotal = reserva.montoTotal + igv;
+            String tipoDocPago = "";
+            bool result;
+            result = usuario.tipoDocumento.Equals("DNI");
+            if (result)
+            {
+                tipoDocPago = "Boleta";
+            }
+            else {
+                tipoDocPago = "Factura";
+            }
+
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                documento.me = "Error en conexion a base de datos";
+                return documento;
+            }
+
+            String queryIns =   "INSERT INTO DocumentoPago " +
+                                "VALUES("+usuario.idUsuario+" , " + montoTotal + " , " + montoTotal + " , GETDATE() , " + reserva.montoTotal + " , " + igv + " , NULL , NULL , NULL , '" + tipoDocPago + "' , 1 , " + reserva.idReserva + " , NULL )" ;
+
+            SqlCommand sqlCmd = new SqlCommand(queryIns , sqlCon);
+
+            try
+            {
+                sqlCmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                documento.me = "Error al registrar el Documento de Pago: " + e.Message;
+                return documento;
+            }
+
+            String queryLastId = "SELECT IDENT_CURRENT('" + "DocumentoPago" + "') as lastId";
+            SqlCommand sqlCmd2 = new SqlCommand(queryLastId, sqlCon);
+            SqlDataReader dataReader = new SqlDataReader();
+            try
+            {
+                dataReader = sqlCmd2.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                documento.me = "Error al encontrar al id del Documento de Pago";
+                return documento;
+            }
+
+            int last_id = 0;
+            if (dataReader.Read())
+            {
+                //last_id = (int)dataReader["lastId"];
+                last_id = Int16.Parse(dataReader["lastId"].ToString());
+                //listaClientes.Add(cliente);
+            }
+            documento.idDocPago = last_id;
+
+            return documento;
+        }
+
+        public String registrarDetalleFactura(int idDocPago, List<HabInsertBean> list) {
+            
+            String me = "";
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                me = "Error en conexion a base de datos";
+                return me;
+            }
+
+            for (int i = 0; i < list.Count; i++) {
+                HabInsertBean tipHab = list[i];
+                Decimal total = tipHab.cant*tipHab.precUnit;
+                String query = "ÏNSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    me = "Error al registrar el Detalle del Documento de Pago: " + e.Message;
+                    return me;
+                }                
+            }
+            return me;
+        }
+
         public String resgistrarHabitaciones(List<HabInsertBean> listTip, String fechaIni, String fechaFin, int idReserva) {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);

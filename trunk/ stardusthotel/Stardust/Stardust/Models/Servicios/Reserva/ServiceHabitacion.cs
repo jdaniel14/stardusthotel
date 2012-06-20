@@ -123,28 +123,47 @@ namespace Stardust.Models.Servicios
             return reservaHabitacionDAO.InsertClientesHabitacion(listClientHab);
         }
 
-        public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
+        public MensajeBean registrarReserva(ReservaRegistroBean reservaRequest) {
             MensajeBean mensaje = new MensajeBean();
             mensaje.me = "";
-            int usuario = reservaHabitacionDAO.registraCliente(reserva.client); // 0=> hubo error ; 1 => natural; 2 => juridico
-            //if (usuario == null) {
-            //    mensaje.me = "No se puedo Registrar los datos del Usuario";
-            //    return mensaje;
-            //}
+            bool result;
+
+            UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            result = usuarioRes.me.Equals("");
+            if (!result) {
+                mensaje.me = usuarioRes.me;
+                return mensaje;
+            }
             
-            int idReserva = reservaHabitacionDAO.resgitrarReserva(reserva.idHotel, usuario , reserva.fechaIni, reserva.fechaFin, reserva.total, reserva.coment);// !0 => Se registro bien la Reserva; 0=> hubo error
-            if (idReserva == 0) {
-                mensaje.me = "No se pudo registrar la Reserva";
+
+            ReservaResBean reservaRes = reservaHabitacionDAO.resgitrarReserva(reservaRequest.idHotel, usuarioRes.idUsuario, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRequest.total, reservaRequest.coment);
+            result = reservaRes.me.Equals("");
+            if (!result) {
+                mensaje.me = reservaRes.me;
                 return mensaje;
             }
 
-            //int docPago = reservaHabitacionDAO.registrarFactura(idUsuario, reserva.total, idReserva);
-            //int detDocPago = reservaHabitacionDAO.registrarDetalleFactura();
+            DocumentoPagoBean docPago = reservaHabitacionDAO.registrarDocumentoPago(usuarioRes, reservaRes);
+            result = docPago.me.Equals("");
+            if (!result)
+            {
+                mensaje.me = docPago.me;
+                return mensaje;
+            }
 
-            reservaHabitacionDAO.registrarXtipoHabitacion(idReserva, reserva.idHotel, reserva.listTip);
-            reservaHabitacionDAO.resgistrarHabitaciones(reserva.listTip, reserva.fechaIni, reserva.fechaFin, idReserva);
+            String mensajeDetalle = reservaHabitacionDAO.registrarDetalleFactura(docPago.idDocPago, reservaRequest.listTip);
+            result = mensajeDetalle.Equals("");
+            if (!result)
+            {
+                mensaje.me = mensajeDetalle;
+                return mensaje;
+            }
 
-            int resEmail = envioEmail(idReserva, reserva.client.nomb, reserva.client.email);
+
+            reservaHabitacionDAO.registrarXtipoHabitacion(reservaRes.idReserva, reservaRequest.idHotel, reservaRequest.listTip);
+            reservaHabitacionDAO.resgistrarHabitaciones(reservaRequest.listTip, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRes.idReserva);
+
+            int resEmail = envioEmail(reservaRes.idReserva, reservaRequest.client.nomb, reservaRequest.client.email);
             System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
             if (resEmail != 0) {
                 mensaje.me = "No se pudo enviar el email";
