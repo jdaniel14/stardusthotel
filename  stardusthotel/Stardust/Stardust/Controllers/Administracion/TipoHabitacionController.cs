@@ -27,7 +27,14 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            return View( tipoFac.getTipo( id ) );
+            try
+            {
+                return View(tipoFac.getTipo(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el tipo de habitación";
+                return View(new TipoHabitacionBean());
+            }
         }
 
         //
@@ -44,9 +51,16 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(TipoHabitacionBean tipohabitacion)
         {
-            tipoFac.registrarTipoHabitacion(tipohabitacion);
+            try
+            {
+                tipoFac.registrarTipoHabitacion(tipohabitacion);
 
-            return RedirectToAction("List");
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar crear el tipo de habitación";
+                return View(new TipoHabitacionBean());
+            }
         }
         
         //
@@ -54,7 +68,14 @@ namespace Stardust.Controllers
  
         public ActionResult Edit(int id)
         {
-            return View( tipoFac.getTipo( id ) );
+            try
+            {
+                return View(tipoFac.getTipo(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el tipo de habitación";
+                return View(new TipoHabitacionBean());
+            }
         }
 
         //
@@ -63,8 +84,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Edit(TipoHabitacionBean tipohabitacion)
         {
-            tipoFac.actualizarTipoHabitacion(tipohabitacion);
-            return RedirectToAction( "List" ) ;
+            try
+            {
+                tipoFac.actualizarTipoHabitacion(tipohabitacion);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar modificar el tipo de habitación";
+                return View(new TipoHabitacionBean());
+            }
         }
 
         //
@@ -72,7 +100,14 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View( tipoFac.getTipo( id ) );
+            try
+            {
+                return View(tipoFac.getTipo(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el tipo de habitación";
+                return View(new TipoHabitacionBean());
+            }
         }
 
         //
@@ -81,8 +116,15 @@ namespace Stardust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            tipoFac.eliminarTipoHabitacion(id);
-            return RedirectToAction("List");
+            try
+            {
+                tipoFac.eliminarTipoHabitacion(id);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar eliminar el tipo de habitación";
+                return View(new TipoHabitacionBean());
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -93,9 +135,15 @@ namespace Stardust.Controllers
 
         public ActionResult List()
         {
-
-            var model = tipoFac.listarTipoHabitacion();
-            return View(model);
+            try
+            {
+                var model = tipoFac.listarTipoHabitacion();
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar listar los tipo de habitación";
+                return View(new List<TipoHabitacionBean>());
+            }
         }
     }
 }

@@ -4,6 +4,12 @@
     ViewBag.Title = "Perfiles";
 }
 
+@if (!String.IsNullOrEmpty(ViewBag.results)) { 
+    <div class="nNote nWarning hideit">
+        <p><strong>AVISO: </strong>@ViewBag.results</p>
+    </div>
+}
+
 <h2>Perfiles</h2>
 
 <p>

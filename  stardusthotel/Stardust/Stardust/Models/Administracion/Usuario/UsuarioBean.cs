@@ -27,22 +27,27 @@ namespace Stardust.Models
 
         [Display(Name = "Usuario")]
         [Required(ErrorMessage = "Debe ingresar un nombre para la cuenta de usuario")]
+        [MaxLength( 50 , ErrorMessage = "El nombre de usuario no debe sobrepasar los 50 caracteres" ) ]
         public string user_account { get; set; }
 
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Debe ingresar una contraseña")]
+        [MaxLength(50, ErrorMessage = "La contraseña no debe sobrepasar los 50 caracteres")]
         public string pass { get; set; }
 
         [Display(Name = "Nombre")]
         [Required(ErrorMessage = "Debe ingresar su nombre")]
+        [MaxLength(50, ErrorMessage = "El nombre no debe sobrepasar los 50 caracteres")]
         public string nombres { get; set; }
 
         [Display(Name = "Apellido Paterno")]
         [Required(ErrorMessage = "Debe ingresar su apellido paterno")]
+        [MaxLength(50, ErrorMessage = "El apellido paterno no debe sobrepasar los 50 caracteres")]
         public string apPat { get; set; }
 
         [Display(Name = "Apellido Materno")]
         [Required(ErrorMessage = "Debe ingresar su apellido materno")]
+        [MaxLength(50, ErrorMessage = "El apellido materno no debe sobrepasar los 50 caracteres")]
         public string apMat { get; set; }
 
         [Display(Name = "E-mail")]
@@ -67,12 +72,14 @@ namespace Stardust.Models
 
         [Display(Name = "Razón Social")]
         [Required(ErrorMessage = "Debe ingresar una razón social")]
+        [MaxLength(50, ErrorMessage = "La razón social no debe sobrepasar los 50 caracteres")]
         public string razonSocial { get; set; }
 
         [Display(Name = "Estado")]
         public string estado { get; set; }
 
         [Display(Name = "Dirección")]
+        [MaxLength(100, ErrorMessage = "La dirección no debe sobrepasar los 100 caracteres")]
         [Required(ErrorMessage = "Debe ingresar dirección")]
         public string direccion { get; set; }
 

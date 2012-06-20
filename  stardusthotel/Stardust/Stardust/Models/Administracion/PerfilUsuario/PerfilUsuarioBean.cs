@@ -12,6 +12,7 @@ namespace Stardust.Models
         public int ID { get; set; }
 
         [Display(Name = "Nombre")]
+        [Required( ErrorMessage = "Debe ingresar un nombre para el perfil de usuario" ) ]
         public string nombre { get; set; }
 
         [Display(Name = "Descripción")]
