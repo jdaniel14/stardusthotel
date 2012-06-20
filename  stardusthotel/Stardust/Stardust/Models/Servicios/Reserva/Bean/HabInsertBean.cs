@@ -7,8 +7,10 @@ namespace Stardust.Models.Servicios
 {
     public class HabInsertBean
     {
-        public int tipo { get; set; }
+        public int tipo { get; set; }        
         public int cant { get; set; }
+        public String nombTipo { get; set;}
+        public Decimal precUnit { get; set; }
         public List<HabitacionReserva> list { get; set; }
     }
 }
