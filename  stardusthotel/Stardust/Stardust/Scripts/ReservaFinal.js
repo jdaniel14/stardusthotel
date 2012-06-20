@@ -215,9 +215,9 @@ function enviarDatos() {
     });
 }
 function finRes(data) {
-    //alert(data.me);
+    console.log(data.me);
     console.log("se hizo");
-    //$(location).attr('href', '../');
+    $(location).attr('href', '../');
     //alert('Se registro');
     //alert(data.mes.toString());
 }
