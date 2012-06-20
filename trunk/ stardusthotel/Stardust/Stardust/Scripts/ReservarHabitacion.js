@@ -14,12 +14,7 @@ function inicializarEventos() {
 
     $("#checkServices").click(function (event) {
         $("#TotalAjeno").text(
-        $("#Total").text()
-//        parseFloat($('#subtotal1').text()) +
-//        parseFloat($('#subtotal2').text()) +
-//        parseFloat($('#subtotal3').text()) +
-//        parseFloat($('#subtotal4').text()) +
-//        parseFloat($('#subtotal5').text())
+            $("#Total").text()
         );
         if ($(this).is(":checked")) {
             $("#checkServices:checkbox:not(:checked)").attr("checked", "checked");
@@ -54,23 +49,6 @@ function inicializarEventos() {
      }); 
 
     var x;
-//    var Hotel = {
-//        idHotel : "2"
-//    }
-//    var jsonData = JSON.stringify(Hotel);
-//    //alert('ant');
-//    console.log(jsonData);
-//    //alert('desp');
-//    $.ajax({
-//        type: "POST",
-//        data: jsonData,
-//        dataType:"json",
-//        contentType: "application/json; charset=utf-8",
-//        url: "ReservarHabitacion/infoReserva",
-//        beforeSend:inicioEnvioTipoHotel(),
-//        success: llegadaTipoHabitacion
-//    });
-    
 
     x = $("#FechaLlegada");
     x.focus(clickFechain);
@@ -78,63 +56,7 @@ function inicializarEventos() {
     x.focus(clickFechaout);
 }
 
-function AddAlmuerzo() {
-    if ($(this).is(":checked")) {
-        $("#checkAlmuerzo:checkbox:not(:checked)").attr("checked", "checked");
-        $("#Adicional").text(
-        parseFloat($('#Adicional').text()) + 10
-        );
-        
-    } else {
-        $("#checkAlmuerzo:checkbox:checked").removeAttr("checked");
-        $("#Adicional").text(
-        parseFloat($('#Adicional').text()) - 10
-        );
-    }
 
-    $("#TotalAjeno").text(
-        parseFloat($("#Adicional").text())+
-        parseFloat($("#Total").text())
-    );
-}
-
-function AddDesayuno() {
-    if ($(this).is(":checked")) {
-        $("#checkDesayuno:checkbox:not(:checked)").attr("checked", "checked");
-        $("#Adicional").text(
-        parseFloat($('#Adicional').text()) + 10
-        );
-
-    } else {
-        $("#checkDesayuno:checkbox:checked").removeAttr("checked");
-        $("#Adicional").text(
-        parseFloat($('#Adicional').text()) - 10
-        );
-    }
-    $("#TotalAjeno").text(
-        parseFloat($("#Adicional").text()) +
-        parseFloat($("#Total").text())
-    );
-}
-
-function AddCena() {
-    if ($(this).is(":checked")) {
-        $("#checkCena:checkbox:not(:checked)").attr("checked", "checked");
-        $("#Adicional").text(
-        parseFloat($('#Adicional').text()) + 10
-        );
-
-    } else {
-        $("#checkCena:checkbox:checked").removeAttr("checked");
-        $("#Adicional").text(
-        parseFloat($('#Adicional').text()) - 10
-        );
-    }
-    $("#TotalAjeno").text(
-        parseFloat($("#Adicional").text()) +
-        parseFloat($("#Total").text())
-    );
-}
 
 function mostrarBuscame() {
     $("#tipos").show("slow");
@@ -173,8 +95,7 @@ function inicioEnvioTipoHotel() {
 }
 
 function llegadaTipoHabitacion(data) {
-    //alert(data.fechaIni.toString());
-    //alert(data.fechaFin.toString());
+    
 
     console.log(data);
     var result = "";
@@ -218,15 +139,7 @@ function llegadaTipoHabitacion(data) {
     );
 
     $("#cantDias").text(cantDias);    
-    
-//    var func = "";
-//    var j;
-//    for (j = 1; j < cant + 1; j++) {
-//        id = "#numHabitSelect";
-//        id += j;
-//        arreglosId[j] = id;        
-//    }
-
+ 
     arreglosId.forEach(function (elemento) {
         $(elemento).change(function (event) {
             var cmd = "";
@@ -306,4 +219,61 @@ function continuar3() {
     $("#tabs").tabs('select', '#tabs-3');
 }
 
+function AddAlmuerzo() {
+    if ($(this).is(":checked")) {
+        $("#checkAlmuerzo:checkbox:not(:checked)").attr("checked", "checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) + 10
+        );
+
+    } else {
+        $("#checkAlmuerzo:checkbox:checked").removeAttr("checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) - 10
+        );
+    }
+
+    $("#TotalAjeno").text(
+        parseFloat($("#Adicional").text()) +
+        parseFloat($("#Total").text())
+    );
+}
+
+function AddDesayuno() {
+    if ($(this).is(":checked")) {
+        $("#checkDesayuno:checkbox:not(:checked)").attr("checked", "checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) + 10
+        );
+
+    } else {
+        $("#checkDesayuno:checkbox:checked").removeAttr("checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) - 10
+        );
+    }
+    $("#TotalAjeno").text(
+        parseFloat($("#Adicional").text()) +
+        parseFloat($("#Total").text())
+    );
+}
+
+function AddCena() {
+    if ($(this).is(":checked")) {
+        $("#checkCena:checkbox:not(:checked)").attr("checked", "checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) + 10
+        );
+
+    } else {
+        $("#checkCena:checkbox:checked").removeAttr("checked");
+        $("#Adicional").text(
+        parseFloat($('#Adicional').text()) - 10
+        );
+    }
+    $("#TotalAjeno").text(
+        parseFloat($("#Adicional").text()) +
+        parseFloat($("#Total").text())
+    );
+}
 
