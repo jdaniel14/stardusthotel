@@ -188,7 +188,7 @@ function llegadaTipoHabitacion(data) {
     $.each(lista, function (i, item) {
         cant = cant + 1;
 
-        result += '<tr><td> ' + item.nombreTipoHab + '</td>';
+        result += '<tr><td><span id ="nombre'+item.idTipoHab+'">' + item.nombreTipoHab + '</span></td>';
         result += '<td>' + '<select id= "numHabitSelect' + item.idTipoHab + '" class = "numHabitSelect">';
 
         for (j = 0; j <= item.nroHab; j++) {
