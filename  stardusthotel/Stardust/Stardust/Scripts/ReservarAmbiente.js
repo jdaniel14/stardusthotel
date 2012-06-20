@@ -61,85 +61,96 @@ function llegadaAmbientes(data) {
     console.log(data);
     console.log(data.me);
 
-    var lista = data.listaAmbientes;
+    if (data.me == "") {
 
-    result = "";
+        cantidadDeDias = data.cantDias;
 
-    var arregloChecks = new Array();
+        var lista = data.listaAmbientes;
 
-    $.each(lista, function (i, item) {
+        result = "";
 
+        var arregloChecks = new Array();
 
+        $.each(lista, function (i, item) {
 
-        result += '<tr>';
+            result += '<tr>';
 
-        result += '<td><input type="checkbox" id="check' + item.id + '"/>';
+            result += '<td><input type="checkbox" id="check' + item.id + '"/>';
 
-        result += '<td><span id = "nombre' + item.id + '">' + item.nombre + '</span></td>';
+            result += '<td><span id = "nombre' + item.id + '">' + item.nombre + '</span></td>';
 
-        result += '<td><span id = "capacidad' + item.id + '">' + item.cap_maxima + '</span></td>';
+            result += '<td><span id = "capacidad' + item.id + '">' + item.cap_maxima + '</span></td>';
 
-        result += '<td><span id = "precio' + item.id + '">' + item.precioXhora + '</span></td>';        
+            result += '<td><span id = "precio' + item.id + '">' + item.precioXhora + '</span></td>';
 
-        result += '<td><span id = "subTotal' + item.id + '">' + '</span></td>';
+            result += '<td><span id = "subTotal' + item.id + '">0' + '</span></td>';
 
-        id = "#check";
-        id += item.id;
-        arregloChecks.push(id);
+            id = "#check";
+            id += item.id;
+            arregloChecks.push(id);
 
-        result += '</tr>';
+            result += '</tr>';
 
-    });
-
-    $("#tablaTipos").html(result);
-
-    arregloChecks.forEach(function (elemento) {
-
-        $(elemento).click(function (event) {
-
-            var cmd = elemento;
-            var n = cmd.substring(5);
-            var precio = "#precio";
-            precio += n;
-            var subTotal = "#subTotal";
-            subTotal += n;
-
-            if ($(elemento).is(":checked")) {
-                $(subTotal).text(
-                    $("#precio").text()
-                );
-
-                arregloChecks.forEach(function (elemento) {
-                    var num = elemento.substring(5);
-                    var sumarle = "#precio";
-                    sumarle += num;
-
-                    $("#Total").text(
-                        parseFloat($("#Total").text()) +
-                        parseFloat($(sumarle).text())
-                    );
-
-                });
-
-            } else {
-                $("subTotal").text(0);
-
-                arregloChecks.forEach(function (elemento) {
-                    var num = elemento.substring(5);
-                    var sumarle = "#precio";
-                    sumarle += num;
-
-                    $("#Total").text(
-                        parseFloat($("#Total").text()) +
-                        parseFloat($(sumarle).text())
-                    );
-
-                });
-            }
         });
 
-    });
+        $("#tablaTipos").html(result);
 
+        $("#Cant").text(cantidadDeDias);
+
+        arregloChecks.forEach(function (elemento) {
+
+            $(elemento).click(function (event) {
+
+                var cmd = elemento;
+                var n = cmd.substring(6);
+
+                var precio = "#precio";
+                precio += n;
+                var subTotal = "#subTotal";
+                subTotal += n;
+
+                if ($(elemento).is(":checked")) {
+                    $(subTotal).text(
+                    $(precio).text() * cantidadDeDias
+                );
+
+                    $("#Total").text(0);
+
+                    arregloChecks.forEach(function (elemento) {
+                        var num = elemento.substring(6);
+                        var sumarle = "#subTotal";
+                        sumarle += num;
+
+                        $("#Total").text(
+                        parseFloat($("#Total").text()) +
+                        parseFloat($(sumarle).text())
+                    );
+
+                    });
+
+                } else {
+                    $(subTotal).text(0);
+                    $("#Total").text(0);
+
+                    arregloChecks.forEach(function (elemento) {
+                        var num = elemento.substring(6);
+                        var sumarle = "#subTotal";
+                        sumarle += num;
+
+                        $("#Total").text(
+                        parseFloat($("#Total").text()) +
+                        parseFloat($(sumarle).text())
+                    );
+
+                    });
+                }
+            });
+
+        });
+    }
+    else {
+        alert(data.me);
+    }
 
 }
 

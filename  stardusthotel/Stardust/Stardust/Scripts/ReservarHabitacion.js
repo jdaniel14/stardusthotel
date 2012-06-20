@@ -5,8 +5,10 @@ var x;
 x = $(document);
 x.ready(inicializarEventos);
 function inicializarEventos() {
-    
+
     $("#pestana3").hide();
+
+    $("#continuarP2").click(nextDatos);
 
     $("#tipos").hide();
     $("#tipos2").hide();
@@ -56,7 +58,9 @@ function inicializarEventos() {
     x.focus(clickFechaout);
 }
 
-
+function nextDatos() {
+    $("#tabs").tabs("select", "#tabs-2");
+}
 
 function mostrarBuscame() {
     $("#tipos").show("slow");
