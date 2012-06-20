@@ -158,7 +158,7 @@ namespace Stardust.Models.Servicios
             sqlCon.Open();
 
             String query1 = " UPDATE Reserva" +
-                            " SET estado='CANCELADO'" +
+                            " SET estado= 5 " +
                             " WHERE idReserva=" + idReserva.ToString();
             SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
             sqlCmd1.ExecuteNonQuery();
