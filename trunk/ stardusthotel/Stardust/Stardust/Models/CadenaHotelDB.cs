@@ -10,14 +10,14 @@ namespace Stardust.Models
 {
     public class CadenaHotelDB : DbContext
     {
-        public DbSet<ProductoBean> Producto { get; set; }
-        public DbSet<ProveedorBean> Proveedor { get; set; }
-        public DbSet<ClienteBean> Cliente { get;  set; }
+        //public DbSet<ProductoBean> Producto { get; set; }
+        //public DbSet<ProveedorBean> Proveedor { get; set; }
+        //public DbSet<ClienteBean> Cliente { get;  set; }
 
-        public DbSet<TipoHabitacionBean> TipoHabitacion { get; set; }
+        //public DbSet<TipoHabitacionBean> TipoHabitacion { get; set; }
 
 
-        public DbSet<PromocionBean> Promociones { get; set; }
+        //public DbSet<PromocionBean> Promociones { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
