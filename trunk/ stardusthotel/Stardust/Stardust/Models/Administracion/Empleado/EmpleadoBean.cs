@@ -17,6 +17,7 @@ namespace Stardust.Models
         
         [Display( Name = "Fecha de ingreso" ) ]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
+        [Required( ErrorMessage = "Ingrese una fecha de ingreso" ) ]
         public DateTime fechaIngreso { get; set; }
 
         [Display( Name = "Fecha de salida" ) ]

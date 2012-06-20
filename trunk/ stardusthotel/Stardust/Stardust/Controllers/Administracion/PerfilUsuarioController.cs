@@ -27,7 +27,13 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            return View( perfilFac.getPerfil( id ) );
+            try
+            {
+                return View(perfilFac.getPerfil(id));
+            }
+            catch {
+                return View( new PerfilUsuarioBean() );
+            }
         }
 
         //
@@ -44,8 +50,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(PerfilUsuarioBean perfilusuariobean)
         {
-            perfilFac.registrarPerfil(perfilusuariobean);
-            return RedirectToAction( "List" ) ;
+            try
+            {
+                perfilFac.registrarPerfil(perfilusuariobean);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar crear el perfil";
+                return View();
+            }
         }
         
         //
@@ -53,7 +66,14 @@ namespace Stardust.Controllers
  
         public ActionResult Edit(int id)
         {
-            return View(perfilFac.getPerfil(id));
+            try
+            {
+                return View(perfilFac.getPerfil(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el perfil";
+                return View(new PerfilUsuarioBean());
+            }
         }
 
         //
@@ -62,8 +82,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Edit(PerfilUsuarioBean perfilusuariobean)
         {
-            perfilFac.actualizarPerfil(perfilusuariobean);
-            return RedirectToAction("List");
+            try
+            {
+                perfilFac.actualizarPerfil(perfilusuariobean);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar modificar el perfil";
+                return View();
+            }
         }
 
         //
@@ -71,7 +98,14 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View( perfilFac.getPerfil( id ) );
+            try
+            {
+                return View(perfilFac.getPerfil(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el perfil";
+                return View(new PerfilUsuarioBean());
+            }
         }
 
         //
@@ -80,8 +114,15 @@ namespace Stardust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            perfilFac.eliminarPerfil(id);
-            return RedirectToAction("List");
+            try
+            {
+                perfilFac.eliminarPerfil(id);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar eliminar el perfil";
+                return View( new PerfilUsuarioBean() );
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -91,8 +132,15 @@ namespace Stardust.Controllers
         }
 
         public ActionResult List() {
-            var model = perfilFac.listarPerfiles();
-            return View( model );
+            try
+            {
+                var model = perfilFac.listarPerfiles();
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar listar los perfiles";
+                return View(new List<PerfilUsuarioBean>());
+            }
         }
     }
 }

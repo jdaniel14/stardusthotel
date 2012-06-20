@@ -28,7 +28,14 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            return View(empleadoFac.getEmpleado(id));
+            try
+            {
+                return View(empleadoFac.getEmpleado(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el empleado";
+                return View(new EmpleadoBean());
+            }
         }
 
         //
@@ -36,10 +43,17 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
-            UsuarioFacade usuarioFac = new UsuarioFacade();
-            ViewBag.empleados = usuarioFac.listarUsuarios();
+            try
+            {
+                UsuarioFacade usuarioFac = new UsuarioFacade();
+                ViewBag.empleados = usuarioFac.listarUsuarios();
 
-            return View();
+                return View();
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar la data";
+                return View();
+            }
         }
 
         //
@@ -48,8 +62,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(EmpleadoBean empleadobean)
         {
-            empleadoFac.registrarEmpleado(empleadobean);
-            return RedirectToAction("List");
+            try
+            {
+                empleadoFac.registrarEmpleado(empleadobean);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar crear el empleado";
+                return View(new EmpleadoBean());
+            }
         }
 
         //
@@ -57,12 +78,24 @@ namespace Stardust.Controllers
 
         public ActionResult Edit(int id)
         {
-            List<TipoDocumento> estados = new List<TipoDocumento>();
-            TipoDocumento d1 = new TipoDocumento("ACTIVO");
-            TipoDocumento d2 = new TipoDocumento("INACTIVO");
-            estados.Add(d1); estados.Add(d2);
-            ViewBag.estados = estados;
-            return View(empleadoFac.getEmpleado(id));
+            try
+            {
+                List<TipoDocumento> estados = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("ACTIVO");
+                TipoDocumento d2 = new TipoDocumento("INACTIVO");
+                estados.Add(d1); estados.Add(d2);
+                ViewBag.estados = estados;
+                return View(empleadoFac.getEmpleado(id));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el empleado";
+                List<TipoDocumento> estados = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("ACTIVO");
+                TipoDocumento d2 = new TipoDocumento("INACTIVO");
+                estados.Add(d1); estados.Add(d2);
+                ViewBag.estados = estados;
+                return View(new EmpleadoBean());
+            }
         }
 
         //
@@ -71,8 +104,15 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Edit(EmpleadoBean empleadobean)
         {
-            empleadoFac.modificarEmpleado(empleadobean);
-            return RedirectToAction("List");
+            try
+            {
+                empleadoFac.modificarEmpleado(empleadobean);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar modificar el empleado";
+                return View( new EmpleadoBean() );
+            }
         }
 
         //
@@ -80,7 +120,14 @@ namespace Stardust.Controllers
 
         public ActionResult Delete(int ID)
         {
-            return View(empleadoFac.getEmpleado(ID));
+            try
+            {
+                return View(empleadoFac.getEmpleado(ID));
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el empleado";
+                return View(new EmpleadoBean());
+            }
         }
 
         //
@@ -89,8 +136,15 @@ namespace Stardust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int ID)
         {
-            empleadoFac.eliminarEmpleado(ID);
-            return RedirectToAction("List");
+            try
+            {
+                empleadoFac.eliminarEmpleado(ID);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar eliminar el empleado";
+                return View(new EmpleadoBean());
+            }
         }
 
 
@@ -102,17 +156,31 @@ namespace Stardust.Controllers
 
         public ViewResult List()
         {
-            var model = empleadoFac.listarEmpleados();
-            return View(model);
+            try
+            {
+                var model = empleadoFac.listarEmpleados();
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar listar los empleados";
+                return View(new List<EmpleadoBean>());
+            }
         }
 
         public ViewResult Buscar(string nombre , string fechaInicio ) {
-            var model = empleadoFac.buscarEmpleado(nombre, fechaInicio);
-            if (model == null)
-                model = new List<EmpleadoBean>();
-            else
-                ViewBag.results = model.Count;
-            return View( model );
+            try
+            {
+                var model = empleadoFac.buscarEmpleado(nombre, fechaInicio);
+                if (model == null)
+                    model = new List<EmpleadoBean>();
+                else
+                    ViewBag.results = model.Count;
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar buscar empleados";
+                return View(new List<EmpleadoBean>());
+            }
         }
         #endregion
 

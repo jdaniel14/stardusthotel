@@ -90,76 +90,108 @@ namespace Stardust.Models
         }
 
         public void registrarTipoHabitacion(TipoHabitacionBean tipo) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
+
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
                 sql.Open();
 
-                String command = "Insert into TipoHabitacion ( nombre , descripcion ) values ('" +
-                                    tipo.nombre + "', '" +
-                                    tipo.descripcion + "')";
+                    String command = "Insert into TipoHabitacion ( nombre , descripcion ) values ('" +
+                                        tipo.nombre + "', '" +
+                                        tipo.descripcion + "')";
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    SqlCommand query = new SqlCommand(command, sql);
 
-                query.ExecuteNonQuery();
+                    query.ExecuteNonQuery();
 
-            sql.Close();
+                sql.Close();
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public void actualizarTipoHabitacion(TipoHabitacionBean tipo) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-                String command = "Update TipoHabitacion SET " +
-                                    "nombre = '" + tipo.nombre + "', " +
-                                    "descripcion = '" + tipo.descripcion + "' " +
-                                    "where idTipoHabitacion = " + tipo.ID;
-                SqlCommand query = new SqlCommand(command, sql);
+                sql.Open();
 
-                query.ExecuteNonQuery();
+                    String command = "Update TipoHabitacion SET " +
+                                        "nombre = '" + tipo.nombre + "', " +
+                                        "descripcion = '" + tipo.descripcion + "' " +
+                                        "where idTipoHabitacion = " + tipo.ID;
+                    SqlCommand query = new SqlCommand(command, sql);
 
-            sql.Close();
+                    query.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public void eliminarTipoHabitacion(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-                String command = "Delete from TipoHabitacion where idTipoHabitacion = " + id;
+                sql.Open();
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    String command = "Delete from TipoHabitacion where idTipoHabitacion = " + id;
 
-                query.ExecuteNonQuery();
+                    SqlCommand query = new SqlCommand(command, sql);
 
-            sql.Close();
+                    query.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public List<TipoHabitacionBean> listarTipoHabitacion() {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                sql.Open();
 
-                String command = "Select * from TipoHabitacion";
-                SqlCommand query = new SqlCommand(command, sql);
+                    String command = "Select * from TipoHabitacion";
+                    SqlCommand query = new SqlCommand(command, sql);
 
-                SqlDataReader data = query.ExecuteReader();
+                    SqlDataReader data = query.ExecuteReader();
 
-                List<TipoHabitacionBean> lista = new List<TipoHabitacionBean>();
-            
-                while (data.Read()) {
-                    TipoHabitacionBean tipo = new TipoHabitacionBean();
+                    List<TipoHabitacionBean> lista = new List<TipoHabitacionBean>();
 
-                    tipo.ID = (int)data.GetValue(0);
-                    tipo.nombre = (string)data.GetValue(1);
-                    tipo.descripcion = (string)data.GetValue(2);
+                    while (data.Read())
+                    {
+                        TipoHabitacionBean tipo = new TipoHabitacionBean();
 
-                    lista.Add(tipo);
-                }
+                        tipo.ID = (int)data.GetValue(0);
+                        tipo.nombre = (string)data.GetValue(1);
+                        tipo.descripcion = (string)data.GetValue(2);
 
-            sql.Close();
+                        lista.Add(tipo);
+                    }
 
-            return lista;
+                sql.Close();
+
+                return lista;
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
     }
 }

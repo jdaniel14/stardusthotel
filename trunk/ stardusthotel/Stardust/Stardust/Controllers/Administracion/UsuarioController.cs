@@ -27,8 +27,15 @@ namespace Stardust.Controllers
 
         public ViewResult Details(int id)
         {
-            var model = usuarioFac.getUsuario(id);
-            return View( model );
+            try
+            {
+                var model = usuarioFac.getUsuario(id);
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
+                return View(new UsuarioBean() ) ;
+            }
         }
 
         //
@@ -36,20 +43,27 @@ namespace Stardust.Controllers
 
         public ActionResult Create()
         {
-            PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade() ;
-            ViewBag.perfiles = perfilFac.listarPerfiles();
+            try
+            {
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
 
-            ViewBag.departamentos = Utils.listarDepartamentos();
+                ViewBag.departamentos = Utils.listarDepartamentos();
 
-            List<TipoDocumento> docs = new List<TipoDocumento>();
-            TipoDocumento d1 = new TipoDocumento("DNI");
-            TipoDocumento d2 = new TipoDocumento("RUC");
-            TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-            TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-            docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-            ViewBag.documentos = docs;
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
-            return View();
+                return View();
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar mostrar la interfaz";
+                return RedirectToAction( "List" );
+            }
         } 
 
         //
@@ -58,12 +72,33 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(UsuarioBean usuariobean)
         {
-            if (ModelState.IsValid)
+            try
             {
-                usuarioFac.registrarUsuario(usuariobean);
-                return RedirectToAction("List");
+                if (ModelState.IsValid)
+                {
+                    usuarioFac.registrarUsuario(usuariobean);
+                    return RedirectToAction("List");
+                }
+                return View(usuariobean);
             }
-            return View( usuariobean ) ;
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar crear el usuario";
+
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
+
+                ViewBag.departamentos = Utils.listarDepartamentos();
+
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
+
+                return View(new UsuarioBean());
+            }
         }
         
         //
@@ -71,25 +106,31 @@ namespace Stardust.Controllers
  
         public ActionResult Edit(int id)
         {
-            var model = usuarioFac.getUsuario(id);
-            //System.Diagnostics.Debug.WriteLine("Perfil del usuario = " + model.idPerfilUsuario);
+            try
+            {
+                var model = usuarioFac.getUsuario(id);
+                //System.Diagnostics.Debug.WriteLine("Perfil del usuario = " + model.idPerfilUsuario);
 
-            PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-            ViewBag.perfiles = perfilFac.listarPerfiles();
+                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+                ViewBag.perfiles = perfilFac.listarPerfiles();
 
-            List<TipoDocumento> docs = new List<TipoDocumento>();
-            TipoDocumento d1 = new TipoDocumento("DNI");
-            TipoDocumento d2 = new TipoDocumento("RUC");
-            TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-            TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-            docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-            ViewBag.documentos = docs;
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
 
-            ViewBag.departamentos = Utils.listarDepartamentos();
-            ViewBag.provincias = Utils.listarProvincias(model.idDepartamento);
-            ViewBag.distritos = Utils.listarDistritos(model.idDepartamento, model.idProvincia);
+                ViewBag.departamentos = Utils.listarDepartamentos();
+                ViewBag.provincias = Utils.listarProvincias(model.idDepartamento);
+                ViewBag.distritos = Utils.listarDistritos(model.idDepartamento, model.idProvincia);
 
-            return View( model );
+                return View(model);
+            }catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
+                return View(new UsuarioBean());
+            }
         }
 
         //
@@ -108,6 +149,7 @@ namespace Stardust.Controllers
             }
             catch(Exception e ) {
                 System.Diagnostics.Debug.WriteLine(e.Message);
+                ViewBag.results = "Ocurrió un error al intentar modificar el usuario";
                 return View(usuariobean);
             }
             //}
@@ -119,8 +161,15 @@ namespace Stardust.Controllers
  
         public ActionResult Delete(int id)
         {
-            var model = usuarioFac.getUsuario(id);
-            return View( model );
+            try
+            {
+                var model = usuarioFac.getUsuario(id);
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
+                return View( new UsuarioBean() );
+            }
         }
 
         //
@@ -129,8 +178,15 @@ namespace Stardust.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            usuarioFac.eliminarUsuario(id);
-            return RedirectToAction("List");
+            try
+            {
+                usuarioFac.eliminarUsuario(id);
+                return RedirectToAction("List");
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar eliminar el usuario";
+                return View();
+            }
         }
 
         //[HttpPost, ActionName("Delete")]
@@ -147,20 +203,34 @@ namespace Stardust.Controllers
         }
 
         public ViewResult List() {
-            var model = usuarioFac.listarUsuarios();
-            return View( model );
+            try
+            {
+                var model = usuarioFac.listarUsuarios();
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar listar los usuarios";
+                return View(new List<UsuarioBean>());
+            }
         }
 
         public ViewResult Buscar(string account , string nombre, string apPat, string apMat , string tipoDocumento , string nroDocumento ) {
-            var model = usuarioFac.buscarUsuario(account , nombre, apPat, apMat, tipoDocumento , nroDocumento);
-            List<TipoDocumento> docs = new List<TipoDocumento>();
-            TipoDocumento d1 = new TipoDocumento("DNI");
-            TipoDocumento d2 = new TipoDocumento("RUC");
-            TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-            TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-            docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-            ViewBag.documentos = docs;
-            return View( model ) ;
+            try
+            {
+                var model = usuarioFac.buscarUsuario(account, nombre, apPat, apMat, tipoDocumento, nroDocumento);
+                List<TipoDocumento> docs = new List<TipoDocumento>();
+                TipoDocumento d1 = new TipoDocumento("DNI");
+                TipoDocumento d2 = new TipoDocumento("RUC");
+                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
+                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+                ViewBag.documentos = docs;
+                return View(model);
+            }
+            catch {
+                ViewBag.results = "Ocurrió un error al intentar buscar usuarios";
+                return View( new List<UsuarioBean>() );
+            }
         }
     }
 }

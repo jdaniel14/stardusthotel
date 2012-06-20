@@ -4,6 +4,12 @@
     ViewBag.Title = "Eliminar Perfil";
 }
 
+@if (!String.IsNullOrEmpty(ViewBag.results)) { 
+    <div class="nNote nWarning hideit">
+        <p><strong>AVISO: </strong>@ViewBag.results</p>
+    </div>
+}
+
 <h2>Borrar perfil</h2>
 
 <h3>Seguro de querer eliminar este perfil?</h3>

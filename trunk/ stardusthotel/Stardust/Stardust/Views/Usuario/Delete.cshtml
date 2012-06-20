@@ -4,6 +4,12 @@
     ViewBag.Title = "Eliminar usuario";
 }
 
+@if (!String.IsNullOrEmpty(ViewBag.results)) { 
+    <div class="nNote nWarning hideit">
+        <p><strong>AVISO: </strong>@ViewBag.results</p>
+    </div>
+}
+
 <h3>Está seguro de querer eliminar este usuario?</h3>
 
 <fieldset>

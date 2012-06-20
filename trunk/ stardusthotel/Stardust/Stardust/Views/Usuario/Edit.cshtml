@@ -16,6 +16,12 @@
     });
 </script>
 
+@if (!String.IsNullOrEmpty(ViewBag.results)) { 
+    <div class="nNote nWarning hideit">
+        <p><strong>AVISO: </strong>@ViewBag.results</p>
+    </div>
+}
+
 @using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" } ))
 {
     @Html.ValidationSummary(true)

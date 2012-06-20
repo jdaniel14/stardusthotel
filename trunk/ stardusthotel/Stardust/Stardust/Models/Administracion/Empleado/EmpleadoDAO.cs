@@ -15,173 +15,222 @@ namespace Stardust.Models
         #region Empleado
 
         public EmpleadoBean getEmpleado(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-                String command = "Select * from Empleado where idEmpleado = " + id;
+                sql.Open();
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    String command = "Select * from Empleado where idEmpleado = " + id;
 
-                SqlDataReader data = query.ExecuteReader();
+                    SqlCommand query = new SqlCommand(command, sql);
 
-                data.Read();
+                    SqlDataReader data = query.ExecuteReader();
 
-                EmpleadoBean empleado = new EmpleadoBean();
-            
-                empleado.ID = (int)data.GetValue(0);
+                    data.Read();
 
-                UsuarioFacade usuario = new UsuarioFacade();
-                UsuarioBean usuar = usuario.getUsuario(empleado.ID);
-                empleado.nombreEmpleado = usuar.nombres+" " + usuar.apMat + " "+usuar.apPat;
+                    EmpleadoBean empleado = new EmpleadoBean();
 
-               
-                //UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
-                //empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
+                    empleado.ID = (int)data.GetValue(0);
 
-                //empleado.nombreEmpleado="EMPLEADO :)";
-                empleado.fechaIngreso = (DateTime)data.GetValue(1);
-                //empleado.fechaSalida = (DateTime)data.GetValue(2);
-                empleado.estado = Convert.ToString(data["estado"]);
+                    UsuarioFacade usuario = new UsuarioFacade();
+                    UsuarioBean usuar = usuario.getUsuario(empleado.ID);
+                    empleado.nombreEmpleado = usuar.nombres + " " + usuar.apMat + " " + usuar.apPat;
 
-            sql.Close();
 
-            return empleado;
+                    //UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
+                    //empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
+
+                    //empleado.nombreEmpleado="EMPLEADO :)";
+                    empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                    //empleado.fechaSalida = (DateTime)data.GetValue(2);
+                    empleado.estado = Convert.ToString(data["estado"]);
+
+                sql.Close();
+
+                return empleado;
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public void registrarEmpleado(EmpleadoBean empleado) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                sql.Open();
 
-            DateTime date = empleado.fechaIngreso;
+                    DateTime date = empleado.fechaIngreso;
 
-            String fechaIngreso = date.Date.ToShortDateString() ;
+                    String fechaIngreso = date.Date.ToShortDateString();
 
-            String command = "Insert into Empleado ( idEmpleado , fechaIngreso , estado) values ( "
-                                + empleado.ID + ", '"
-                                + fechaIngreso + "', "
-                                + "'ACTIVO' )";
+                    String command = "Insert into Empleado ( idEmpleado , fechaIngreso , estado) values ( "
+                                        + empleado.ID + ", '"
+                                        + fechaIngreso + "', "
+                                        + "'ACTIVO' )";
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    SqlCommand query = new SqlCommand(command, sql);
 
-                query.ExecuteNonQuery();
+                    query.ExecuteNonQuery();
 
-            sql.Close();
+                sql.Close();
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public void modificarEmpleado(EmpleadoBean empleado) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-                String fechaSalida = Utils.DateToString(empleado.fechaSalida);
+                sql.Open();
 
-                String command = "Update Empleado SET "
-                                    + "fechaSalida = '" + fechaSalida
-                                    + "', estado = '" + empleado.estado
-                                    + "' WHERE idEmpleado = " + empleado.ID;
+                    String fechaSalida = Utils.DateToString(empleado.fechaSalida);
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    String command = "Update Empleado SET "
+                                        + "fechaSalida = '" + fechaSalida
+                                        + "', estado = '" + empleado.estado
+                                        + "' WHERE idEmpleado = " + empleado.ID;
 
-                query.ExecuteNonQuery();
+                    SqlCommand query = new SqlCommand(command, sql);
 
-            sql.Close();
+                    query.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
 
         }
 
         public void eliminarEmpleado(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-                DateTime date = new DateTime();
+                sql.Open();
 
-                String fechaSalida = Utils.DateToString(date);
+                    DateTime date = new DateTime();
 
-                String command = "Update Empleado SET estado = 'INACTIVO' , fechaSalida = '" + fechaSalida + 
-                        "' WHERE idEmpleado = " + id;
+                    String fechaSalida = Utils.DateToString(date);
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    String command = "Update Empleado SET estado = 'INACTIVO' , fechaSalida = '" + fechaSalida +
+                            "' WHERE idEmpleado = " + id;
 
-                query.ExecuteNonQuery();
+                    SqlCommand query = new SqlCommand(command, sql);
 
-            sql.Close();
+                    query.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public List<EmpleadoBean> listarEmpleados() {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-                String command = "Select * from Empleado WHERE estado = 'ACTIVO' ORDER BY fechaIngreso";
+                sql.Open();
 
-                SqlCommand query = new SqlCommand(command, sql);
+                    String command = "Select * from Empleado WHERE estado = 'ACTIVO' ORDER BY fechaIngreso";
 
-                SqlDataReader data = query.ExecuteReader();
+                    SqlCommand query = new SqlCommand(command, sql);
 
-                List<EmpleadoBean> lista = new List<EmpleadoBean>();
+                    SqlDataReader data = query.ExecuteReader();
 
-                while (data.Read())
-                {
-                    EmpleadoBean empleado = new EmpleadoBean();
+                    List<EmpleadoBean> lista = new List<EmpleadoBean>();
 
-                    empleado.ID = (int)data.GetValue(0);
-                    UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
-                    empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
-                    empleado.fechaIngreso = (DateTime)data.GetValue(1);
-                    empleado.estado = (string)data.GetValue(3);
+                    while (data.Read())
+                    {
+                        EmpleadoBean empleado = new EmpleadoBean();
 
-                    lista.Add(empleado);
-                }
-            sql.Close();
+                        empleado.ID = (int)data.GetValue(0);
+                        UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
+                        empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+                        empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                        empleado.estado = (string)data.GetValue(3);
 
-            return lista;
+                        lista.Add(empleado);
+                    }
+
+                sql.Close();
+
+                return lista;
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public List<EmpleadoBean> buscarEmpleado(string nombre, string fechaInicio) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
-
-            String command = "Select * from Empleado";
-            String mount = "";
-            if (!fechaInicio.Equals(""))
+            try
             {
-                if (mount.Length > 0) mount += " and";
-                mount += " fechaIngreso >= '" + fechaInicio + "'";
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
+
+                    String command = "Select * from Empleado";
+                    String mount = "";
+                    if (!fechaInicio.Equals(""))
+                    {
+                        if (mount.Length > 0) mount += " and";
+                        mount += " fechaIngreso >= '" + fechaInicio + "'";
+                    }
+                    if (mount.Length > 0)
+                    {
+                        command += " where";
+                        command += mount;
+                    }
+
+                    SqlCommand query = new SqlCommand(command, sql);
+
+                    SqlDataReader data = query.ExecuteReader();
+
+                    List<EmpleadoBean> lista = new List<EmpleadoBean>();
+
+                    while (data.Read())
+                    {
+                        EmpleadoBean empleado = new EmpleadoBean();
+
+                        empleado.ID = Convert.ToInt32(data["idEmpleado"]);
+                        UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
+                        empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
+
+                        if (!empleado.nombreEmpleado.Contains(nombre)) continue;
+                        //empleado.nombreEmpleado="EMPLEADO :)";
+                        empleado.fechaIngreso = (DateTime)data["fechaIngreso"];
+                        //empleado.fechaSalida = (DateTime)data.GetValue(2);
+                        empleado.estado = Convert.ToString(data["estado"]);
+
+                        lista.Add(empleado);
+                    }
+
+                sql.Close();
+
+                return lista;
             }
-            if (mount.Length > 0)
-            {
-                command += " where";
-                command += mount;
+            finally {
+                if (sql != null) sql.Close();
             }
-
-            SqlCommand query = new SqlCommand(command, sql);
-
-            SqlDataReader data = query.ExecuteReader();
-
-            List<EmpleadoBean> lista = new List<EmpleadoBean>();
-            
-            while (data.Read()) {
-                EmpleadoBean empleado = new EmpleadoBean();
-
-                empleado.ID = Convert.ToInt32(data["idEmpleado"]);
-                UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
-                empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
-
-                if (!empleado.nombreEmpleado.Contains(nombre)) continue;
-                //empleado.nombreEmpleado="EMPLEADO :)";
-                empleado.fechaIngreso = (DateTime)data["fechaIngreso"];
-                //empleado.fechaSalida = (DateTime)data.GetValue(2);
-                empleado.estado = Convert.ToString(data["estado"]);
-
-                lista.Add(empleado);
-            }
-
-            sql.Close();
-
-            return lista;
         }
         #endregion
 
