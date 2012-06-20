@@ -51,7 +51,7 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();  
             DateTime fechaIni = new DateTime();
-            DateTime fechaHoy = new DateTime();
+            DateTime fechaHoy = DateTime.Now;
 
             if (dataReader.Read())
             {                
@@ -59,7 +59,6 @@ namespace Stardust.Models
                 fechaIni = (DateTime)dataReader["fechaLlegada"];
                 reserva.fechaIni  = fechaIni.ToString("dd-MM-yyyy");                
                 reserva.fechaFin = ((DateTime)dataReader["fechaSalida"]).ToString("dd-MM-yyyy");
-                fechaHoy = DateTime.Now;
                 reserva.fechaHoy = fechaHoy.ToString("dd-MM-yyyy");
                 int idU = (int)dataReader["idUsuario"];
                 UsuarioBean usuario = GetNombreUsuario(idU);
@@ -69,33 +68,36 @@ namespace Stardust.Models
 
             dataReader.Close();
 
-            commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
+            if (fechaIni < fechaHoy)
+            {
+                commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
 
-            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
-            TimeSpan dias = fechaHoy - fechaIni;
+                TimeSpan dias = fechaHoy - fechaIni;
 
-            int idDoc=0;
+                int idDoc = 0;
 
-            if (dataReader2.Read())
-            {               
-                reserva.faltante = (decimal)dataReader2["montoFaltante"];
-                reserva.idDocPago = (int)dataReader2["idDocPago"];                
-                idDoc = (int)dataReader2["idDocPago"];
+                if (dataReader2.Read())
+                {
+                    reserva.faltante = (decimal)dataReader2["montoFaltante"];
+                    reserva.idDocPago = (int)dataReader2["idDocPago"];
+                    idDoc = (int)dataReader2["idDocPago"];
+                }
+
+                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days);
+
+                for (int i = 0; i < reserva.listaDetalles.Count; i++)
+                    reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
+
+                reserva.IGV = reserva.subTotal * 18 / 100;
+                reserva.total = reserva.IGV + reserva.subTotal;
+
+                reserva.montPagado = reserva.total - reserva.faltante;
+
+                sqlCon.Close();
             }
-
-            reserva.listaDetalles = ListaDetalle(idDoc,dias.Days);
-
-            for (int i = 0; i < reserva.listaDetalles.Count; i++)
-                reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
-
-            reserva.IGV = reserva.subTotal * 18 / 100;
-            reserva.total = reserva.IGV + reserva.subTotal;
-
-            reserva.montPagado = reserva.total - reserva.faltante;
-
-            sqlCon.Close();
 
             return reserva;
         }
@@ -132,7 +134,9 @@ namespace Stardust.Models
                 SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
                 sqlCmd3.ExecuteNonQuery();
 
-                mensaje.me = ActualizarHabitacion(id);              
+                mensaje.me = ActualizarHabitacion(id);
+
+                mensaje.me = ActualizarPagoDetalle(reserva.listaDetalles);
                 
                 return mensaje;
             }
@@ -141,6 +145,31 @@ namespace Stardust.Models
                 mensaje.me = e.ToString();
                 return mensaje;
             }           
+        }
+
+        public string ActualizarPagoDetalle(List<TipoDetalle> listaDetalle)
+        {            
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                for (int i = 0; i < listaDetalle.Count; i++)
+                {
+                    string commandString = "UPDATE DocumentoPago_Detalle SET total = "+listaDetalle.ElementAt(i).totalDet+" WHERE idDocPagoDetalle = " + listaDetalle.ElementAt(i).idDetalle;
+
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                }
+
+                return "Se registro satisfactoriamente";
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
         }
 
         public string ActualizarHabitacion(int id)
@@ -293,6 +322,7 @@ namespace Stardust.Models
             {
                 TipoDetalle detalle = new TipoDetalle();
                 detalle.id = (int)dataReader["idDocPago"];
+                detalle.idDetalle = (int)dataReader["idDocPagoDetalle"];
                 detalle.detalle = (string)dataReader["detalle"];
                 detalle.cantidad = (int)dataReader["cantidad"];
                 detalle.pUnit = (decimal)dataReader["precioUnitario"];

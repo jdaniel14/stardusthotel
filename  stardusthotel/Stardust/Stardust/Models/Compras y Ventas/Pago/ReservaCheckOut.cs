@@ -33,6 +33,7 @@ namespace Stardust.Models
     public class TipoDetalle
     {
         public int id { get; set; }
+        public int idDetalle { get; set; }
         public string detalle { get; set; }
         public int cantidad { get; set; }
         public decimal pUnit { get; set; }
