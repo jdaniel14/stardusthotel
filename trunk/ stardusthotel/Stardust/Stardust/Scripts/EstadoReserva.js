@@ -15,9 +15,7 @@ function inicializarEventos() {
 
 function buscarReserva(){
 
-    $("#consulta").hide("slow");
-    $("#datos").show("slow");
-    $("#buttonDatos").hide("slow");
+    
 
 
     var num = $("#nroReserva").get(0).value;
@@ -51,6 +49,10 @@ function llegadaReservas(data) {
     console.log(data);
 
     if (data.me == "") {
+
+        $("#consulta").hide("slow");
+        $("#datos").show("slow");
+        $("#buttonDatos").hide("slow");
 
         $("#anular").show("slow");
 
