@@ -35,7 +35,7 @@ namespace Stardust.Models
             return AmbienteDAO.DeleteAmbiente(id);
         }
 
-        public ResAmbRequest ConsultarAmbientesDisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        public ResAmbRequest ConsultarAmbientesDisponibles(int idHotel, String fechaIni, String fechaFin)
         {
             ResAmbRequest response = new ResAmbRequest();
             List<AmbienteBean> listNoDisp = AmbienteDAO.listarNodisponibles(idHotel, fechaIni, fechaFin);

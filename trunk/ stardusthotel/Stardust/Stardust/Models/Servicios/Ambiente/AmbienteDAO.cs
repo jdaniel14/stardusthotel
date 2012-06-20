@@ -151,12 +151,14 @@ namespace Stardust.Models
             return me;
         }
 
-        public List<AmbienteBean> listarNodisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        public List<AmbienteBean> listarNodisponibles(int idHotel, String fechaIni, String fechaFin)
         {
             List<AmbienteBean> listaNoDisp = new List<AmbienteBean>();
-            String query =  " SELECT " + 
-                            " FROM " + 
-                            " WHERE ";
+            String query = " SELECT DISTINCT idAmbiente " +
+                            " FROM AmbienteXEvento aXe " + 
+                            " WHERE aXe.estado < 3 "+
+                            " AND ((aXe.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (rXh.fechaIni between  convert(datetime,'" + fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +                            
+		                    " OR (aXe.fechaIni between  convert(datetime,'21-06-2012',103) and  convert(datetime,'23-06-2012',103))) ";
             return listaNoDisp;
         }
 
