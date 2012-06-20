@@ -133,12 +133,27 @@ function enviarDatos() {
         //        arregloInterior[0] = id;
         //        arregloInterior[1] = cantHabit;
         //        arregloInterior[2] = habits;
-        var arregloInterior = {
-             tipo : id,
-             cant : cantHabit,
-             list : habits
-        };
 
+        cmd = "";
+        cmd = "#nombre";
+        cmd += id;
+
+        var nombreTipo = $(cmd).text();
+
+        cmd = "#precio";
+        cmd += i;
+        var precio = $(cmd).text();
+
+      
+
+        var arregloInterior = {
+            tipo: id,
+            cant: cantHabit,
+            nombTipo: nombreTipo,
+            precUnit: precio,
+            list: habits            
+        };
+        
         listaTipos[i] = arregloInterior;
 
         i++;
@@ -202,7 +217,7 @@ function enviarDatos() {
 function finRes(data) {
     //alert(data.me);
     console.log("se hizo");
-    $(location).attr('href', '../');
-    alert('Se registro');
+    //$(location).attr('href', '../');
+    //alert('Se registro');
     //alert(data.mes.toString());
 }
