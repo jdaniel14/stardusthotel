@@ -73,25 +73,27 @@ function llegadaAmbientes(data) {
 
         result += '<tr>';
 
-        result += '<td><input type="checkbox" id="check' + item.idAmbiente + '"/>';
+        result += '<td><input type="checkbox" id="check' + item.id + '"/>';
 
-        result += '<td><span id = "nombre' + item.idAmbiente + '">' + item.nombAmbiente + '</span></td>';
+        result += '<td><span id = "nombre' + item.id + '">' + item.nombre + '</span></td>';
 
-        result += '<td><span id = "capacidad' + item.idAmbiente + '">' + item.capAmbiente + '</span></td>';
+        result += '<td><span id = "capacidad' + item.id + '">' + item.cap_maxima + '</span></td>';
 
-        result += '<td><span id = "precio' + item.idAmbiente + '">' + item.precioAmb + '</span></td>';        
+        result += '<td><span id = "precio' + item.id + '">' + item.precioXhora + '</span></td>';        
 
-        result += '<td><span id = "subTotal' + item.idAmbiente + '">' + '</span></td>';
+        result += '<td><span id = "subTotal' + item.id + '">' + '</span></td>';
 
         id = "#check";
-        id += item.idAmbiente;
+        id += item.id;
         arregloChecks.push(id);
 
         result += '</tr>';
 
     });
 
-    arreglosChecks.forEach(function (elemento) {
+    $("#tablaTipos").html(result);
+
+    arregloChecks.forEach(function (elemento) {
 
         $(elemento).click(function (event) {
 
