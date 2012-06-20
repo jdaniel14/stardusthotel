@@ -154,17 +154,55 @@ namespace Stardust.Models
         public List<AmbienteBean> listarNodisponibles(int idHotel, String fechaIni, String fechaFin)
         {
             List<AmbienteBean> listaNoDisp = new List<AmbienteBean>();
-            String query = " SELECT DISTINCT idAmbiente " +
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            String query =  " SELECT DISTINCT idAmbiente " +
                             " FROM AmbienteXEvento aXe " + 
-                            " WHERE aXe.estado < 3 "+
-                            " AND ((aXe.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (rXh.fechaIni between  convert(datetime,'" + fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +                            
+                            " WHERE idHotel = " + idHotel +
+                            " AND aXe.estado < 3 "+
+                            " AND ((aXe.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (aXe.fechaIni between  convert(datetime,'" + fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +
 		                    " OR (aXe.fechaIni between  convert(datetime,'21-06-2012',103) and  convert(datetime,'23-06-2012',103))) ";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                AmbienteBean amb = new AmbienteBean();
+                amb.id = (int)dataReader["ïdAmbiente"];
+                listaNoDisp.Add(amb);
+            }
+
             return listaNoDisp;
         }
 
         public List<AmbienteBean> listarTodas(int idHotel)
         {
             List < AmbienteBean >  listTotal = new List<AmbienteBean>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            String query =  " SELECT idAmbiente, nombre, capacMaxima, precioXHora " + 
+                            " FROM Ambiente " + 
+                            " WHERE idHotel = " + idHotel + " AND estado='ACTIVO'";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                AmbienteBean amb = new AmbienteBean();
+                amb.id = (int)dataReader["idAmbiente"];
+                amb.nombre = (String)dataReader["nombre"];
+                amb.cap_maxima = (int)dataReader["capacMaxima"];
+                amb.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString());
+                listTotal.Add(amb);
+            }
 
             return listTotal;
         }
