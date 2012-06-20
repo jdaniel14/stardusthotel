@@ -435,7 +435,7 @@ namespace Stardust.Models.Servicios
             return documento;
         }
 
-        public String registrarDetalleFactura(int idDocPago, List<HabInsertBean> list, int difDays) {
+        public String registrarDetalleFactura(int idDocPago, List<HabInsertBean> list, int z) {
             
             String me = "";
 
@@ -453,7 +453,7 @@ namespace Stardust.Models.Servicios
 
             for (int i = 0; i < list.Count; i++) {
                 HabInsertBean tipHab = list[i];
-                Decimal total = tipHab.cant*tipHab.precUnit*difDays;
+                Decimal total = tipHab.cant*tipHab.precUnit;
                 String query = "INSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 try

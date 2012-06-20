@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Stardust.Models.Servicios;
 
 namespace Stardust.Models
 {
@@ -32,6 +33,42 @@ namespace Stardust.Models
         public String EliminarAmbiente(int id)
         {
             return AmbienteDAO.DeleteAmbiente(id);
+        }
+
+        public ResAmbRequest ConsultarAmbientesDisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        {
+            ResAmbRequest response = new ResAmbRequest();
+            List<AmbienteBean> listNoDisp = AmbienteDAO.listarNodisponibles(idHotel, fechaIni, fechaFin);
+            List<AmbienteBean> listTot = AmbienteDAO.listarTodas(idHotel);
+            int k = 0; int tamNoDisp = listNoDisp.Count;
+            int l = 0; int tamTot = listTot.Count;
+            bool [] disp = new bool [tamTot];
+            for (int i = 0; i < tamTot; i++) disp[i] = true;
+            while (k < tamNoDisp && l < tamTot)
+            {
+                if (listNoDisp[k].id == listTot[l].id)
+                {
+                    disp[l] = false;
+                    k++;
+                    l++;
+                }
+                else if (listNoDisp[k].id < listTot[l].id)
+                {
+                    k++;
+                }
+                else
+                {
+                    l++;
+                }
+            }
+            List<AmbienteBean> listaRespuesta = new List<AmbienteBean>();
+            for (int i = 0; i < tamTot; i++) {
+                if (disp[i]) {
+                    listaRespuesta.Add(listTot[i]);
+                }
+            }
+
+            return response;
         }
     }
 }

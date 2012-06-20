@@ -150,5 +150,21 @@ namespace Stardust.Models
 
             return me;
         }
+
+        public List<AmbienteBean> listarNodisponibles(int idHotel, DateTime fechaIni, DateTime fechaFin)
+        {
+            List<AmbienteBean> listaNoDisp = new List<AmbienteBean>();
+            String query =  " SELECT " + 
+                            " FROM " + 
+                            " WHERE ";
+            return listaNoDisp;
+        }
+
+        public List<AmbienteBean> listarTodas(int idHotel)
+        {
+            List < AmbienteBean >  listTotal = new List<AmbienteBean>();
+
+            return listTotal;
+        }
     }
 }
