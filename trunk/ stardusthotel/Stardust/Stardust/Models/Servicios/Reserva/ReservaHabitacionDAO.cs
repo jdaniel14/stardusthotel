@@ -182,8 +182,14 @@ namespace Stardust.Models.Servicios
         #region REGISTRAR_RESERVA
 
         public UsuarioResBean registraCliente(ClienteReservaBean client){
-            
+
+            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.tipoDoc);
+            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.email);
+            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.apell);
+            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.nomb);
+            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.nroDoc);
             UsuarioResBean usuario = new UsuarioResBean();
+            usuario.me = "";
             
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -199,6 +205,7 @@ namespace Stardust.Models.Servicios
 
             //cliente.estado2 = 1;
             
+
             string commandString3 = "INSERT INTO Usuario VALUES (1," +
                      "''" + ", " +
                      "''" + ", " +
@@ -207,7 +214,7 @@ namespace Stardust.Models.Servicios
                      "''" + ", " +
                      "'" + client.email+"', " +//email
                      "'" + client.telf+"', " +//celular
-                     "'" + client.tipDoc+ "'" + ", " +
+                     "'" + client.tipoDoc+ "'" + ", " +
                      "'" + client.nroDoc+ "'" + ", " +
                      "'" + client.razSoc+ "'" + ", " +
                      "'ACTIVO'" + ", " +//estado
@@ -231,7 +238,7 @@ namespace Stardust.Models.Servicios
             
             string commandString2 = "SELECT IDENT_CURRENT('" + "Usuario" + "') as lastId";
             SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
-            SqlDataReader dataReader = new SqlDataReader();
+            SqlDataReader dataReader ;
             try
             {
                 dataReader = sqlCmd2.ExecuteReader();
@@ -271,7 +278,7 @@ namespace Stardust.Models.Servicios
             sqlCon.Close();
 
             usuario.idUsuario = last_id;
-            usuario.tipoDocumento = client.tipDoc;
+            usuario.tipoDocumento = client.tipoDoc;
 
             return usuario ;
         
@@ -280,6 +287,7 @@ namespace Stardust.Models.Servicios
         public ReservaResBean resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
 
             ReservaResBean reserva = new ReservaResBean();
+            reserva.me = "";
 
             System.Diagnostics.Debug.WriteLine("total a pagar : " + total);
             int reservaEstado = 1;//POR CONFIRMAR
@@ -298,7 +306,7 @@ namespace Stardust.Models.Servicios
             String query = "SELECT porcAdelanto FROM Politica";
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
 
-            SqlDataReader ReaderPorc = new SqlDataReader();
+            SqlDataReader ReaderPorc;
             try
             {
                 ReaderPorc = sqlCmd.ExecuteReader();
@@ -332,7 +340,7 @@ namespace Stardust.Models.Servicios
             string query2 = "SELECT IDENT_CURRENT('" + "Reserva" + "') as lastId";
             SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
             
-            SqlDataReader dataReader = new SqlDataReader();
+            SqlDataReader dataReader;
             try{
                 dataReader = sqlCmd2.ExecuteReader();
             }catch (Exception e){
@@ -359,6 +367,7 @@ namespace Stardust.Models.Servicios
         public DocumentoPagoBean registrarDocumentoPago(UsuarioResBean  usuario, ReservaResBean reserva){
 
             DocumentoPagoBean documento = new DocumentoPagoBean ();
+            documento.me = "";
             Decimal igv  = reserva.montoTotal * 18/100;
             Decimal montoTotal = reserva.montoTotal + igv;
             String tipoDocPago = "";
@@ -387,7 +396,7 @@ namespace Stardust.Models.Servicios
             }
 
             String queryIns =   "INSERT INTO DocumentoPago " +
-                                "VALUES("+usuario.idUsuario+" , " + montoTotal + " , " + montoTotal + " , GETDATE() , " + reserva.montoTotal + " , " + igv + " , NULL , NULL , NULL , '" + tipoDocPago + "' , 1 , " + reserva.idReserva + " , NULL )" ;
+                                "VALUES("+usuario.idUsuario+" , " + montoTotal + " , " + montoTotal + " , GETDATE() , " + reserva.montoTotal + " , " + igv + " , NULL , NULL , '" + tipoDocPago + "' , 1 , " + reserva.idReserva + " , NULL )" ;
 
             SqlCommand sqlCmd = new SqlCommand(queryIns , sqlCon);
 
@@ -403,7 +412,7 @@ namespace Stardust.Models.Servicios
 
             String queryLastId = "SELECT IDENT_CURRENT('" + "DocumentoPago" + "') as lastId";
             SqlCommand sqlCmd2 = new SqlCommand(queryLastId, sqlCon);
-            SqlDataReader dataReader = new SqlDataReader();
+            SqlDataReader dataReader ;
             try
             {
                 dataReader = sqlCmd2.ExecuteReader();
@@ -426,7 +435,7 @@ namespace Stardust.Models.Servicios
             return documento;
         }
 
-        public String registrarDetalleFactura(int idDocPago, List<HabInsertBean> list) {
+        public String registrarDetalleFactura(int idDocPago, List<HabInsertBean> list, int difDays) {
             
             String me = "";
 
@@ -444,8 +453,8 @@ namespace Stardust.Models.Servicios
 
             for (int i = 0; i < list.Count; i++) {
                 HabInsertBean tipHab = list[i];
-                Decimal total = tipHab.cant*tipHab.precUnit;
-                String query = "ÏNSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
+                Decimal total = tipHab.cant*tipHab.precUnit*difDays;
+                String query = "INSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 try
                 {

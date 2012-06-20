@@ -7,7 +7,7 @@ namespace Stardust.Models.Servicios
 {
     public class ClienteReservaBean
     {
-        public String tipDoc{get; set;} 
+        public String tipoDoc{get; set;} 
         public String nroDoc{get; set;} 
         public String nomb{get; set;} 
         public String apell{get; set;}
