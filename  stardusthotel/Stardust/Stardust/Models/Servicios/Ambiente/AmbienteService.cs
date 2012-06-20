@@ -42,6 +42,7 @@ namespace Stardust.Models
             DateTime fIni = DateTime.ParseExact(fechaIni, "dd-MM-yyyy", null);
             TimeSpan ts = fFin - fIni;
             response.cantDias = ts.Days;
+            System.Diagnostics.Debug.WriteLine("Diferencia de Dias : " + response.cantDias);
             if (response.cantDias < 0)
             {
                 response.me = "Ingrese Fecha Correctas";
