@@ -68,6 +68,11 @@ namespace Stardust.Models
                 }
             }
 
+            response.listaAmbientes = listaRespuesta;
+            DateTime fFin = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
+            DateTime fIni = DateTime.ParseExact(fechaIni, "dd-MM-yyyy", null);
+            TimeSpan ts = fFin - fIni;
+            response.cantDias = ts.Days;
             return response;
         }
     }
