@@ -105,15 +105,15 @@ namespace Stardust.Models.Servicios
             DatosReservaBean reserva = reservaHabitacionDAO.SelectDatosCheckIn(idHotel, idReserva);
             bool result = reserva.me.Equals("");
 
-            //checkin.me = reserva.me;
-            //if (result)
-            //{
-            //    checkin.doc = reserva.doc;
-            //    checkin.nomb = reserva.nomb;
-            //    checkin.fechaLleg = reserva.fechaLlegada;
-            //    checkin.fechaReg = reserva.fechaRegistro;
-            //    checkin.lista = reservaHabitacionDAO.listarTipHabReserva(idReserva);
-            //}
+            checkin.me = reserva.me;
+            if (result)
+            {
+                checkin.doc = reserva.doc;
+                checkin.nomb = reserva.nomb;
+                checkin.fechaLleg = reserva.fechaLlegada;
+                checkin.fechaReg = reserva.fechaRegistro;
+                checkin.lista = reservaHabitacionDAO.listarTipHabReserva(idReserva);
+            }
 
             return checkin;
         }
@@ -143,6 +143,7 @@ namespace Stardust.Models.Servicios
                 return mensaje;
             }
 
+            System.Diagnostics.Debug.WriteLine("DOCUMENTO : " + usuarioRes.tipoDocumento);
             DocumentoPagoBean docPago = reservaHabitacionDAO.registrarDocumentoPago(usuarioRes, reservaRes);
             result = docPago.me.Equals("");
             if (!result)
@@ -151,18 +152,23 @@ namespace Stardust.Models.Servicios
                 return mensaje;
             }
 
-            String mensajeDetalle = reservaHabitacionDAO.registrarDetalleFactura(docPago.idDocPago, reservaRequest.listTip);
+
+            reservaHabitacionDAO.registrarXtipoHabitacion(reservaRes.idReserva, reservaRequest.idHotel, reservaRequest.listTip);
+            reservaHabitacionDAO.resgistrarHabitaciones(reservaRequest.listTip, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRes.idReserva);
+
+
+            DateTime fFin = DateTime.ParseExact(reservaRequest.fechaFin, "dd-MM-yyyy", null);
+            DateTime fIni = DateTime.ParseExact(reservaRequest.fechaIni, "dd-MM-yyyy", null);
+            TimeSpan ts = fFin - fIni;
+
+            String mensajeDetalle = reservaHabitacionDAO.registrarDetalleFactura(docPago.idDocPago, reservaRequest.listTip, ts.Days);
             result = mensajeDetalle.Equals("");
             if (!result)
             {
                 mensaje.me = mensajeDetalle;
                 return mensaje;
             }
-
-
-            reservaHabitacionDAO.registrarXtipoHabitacion(reservaRes.idReserva, reservaRequest.idHotel, reservaRequest.listTip);
-            reservaHabitacionDAO.resgistrarHabitaciones(reservaRequest.listTip, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRes.idReserva);
-
+            
             int resEmail = envioEmail(reservaRes.idReserva, reservaRequest.client.nomb, reservaRequest.client.email);
             System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
             if (resEmail != 0) {
