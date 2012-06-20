@@ -208,6 +208,7 @@ function esperaConfirmacion(){
 }
 
 function Confirma(data) {
+    console.log(data);    
     alert('OK');
 }
 
