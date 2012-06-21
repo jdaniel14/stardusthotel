@@ -152,7 +152,7 @@ function finDelChongo() {
             data: jsonData,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            url: "aDondeEnvio",
+            url: "ResgitrarEventoYAmbientes",
             success: graciasTotales
         });
     });
@@ -161,6 +161,7 @@ function finDelChongo() {
 
 function graciasTotales(data) {
 
+    console.log(data.me);
     if (data.me == "") {
         alert('OK');
         $(location).attr('href', '../../');
