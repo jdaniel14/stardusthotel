@@ -141,7 +141,7 @@ namespace Stardust.Models
             return proveedorService.GetNombreProducto(id);
         }
 
-        /*-----Registrar Datos de Factura-3------*/
+        /*-----------------------------*/
 
     }
 }
