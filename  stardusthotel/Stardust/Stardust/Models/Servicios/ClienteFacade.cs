@@ -49,5 +49,10 @@ namespace Stardust.Models.Servicios
         {
             return clienteService.EliminarCliente(id);
         }
+
+        public List<ClienteBean> getClientes()
+        {
+            return clienteService.getClientes();
+        }
     }   
 }
