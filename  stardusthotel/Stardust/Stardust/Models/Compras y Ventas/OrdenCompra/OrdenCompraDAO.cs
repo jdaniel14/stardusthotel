@@ -400,16 +400,30 @@ namespace Stardust.Models
             else{
                 
                 //falta sumar...la cantidad actual con la entrante
-                
+                ProductoDAO orden = new ProductoDAO();
+                ProductoXAlmacenBean productos = orden.obtenerlistaproductos(idalmacen);
+
+                List<int> cantidades= new List<int>();
+                for (int i = 0; i < nota.detallenotaentrada.Count; i++)
+                {
+                    for (int j = 0; j < productos.listProdalmacen.Count; j++)
+                    {
+                        if (nota.detallenotaentrada[i].ID == productos.listProdalmacen[j].ID)
+                        {
+                            int cant = nota.detallenotaentrada[i].cantidadentrante + productos.listProdalmacen[j].stockactual;
+                            cantidades.Add(cant);
+                        }
+                    }
+                }
+
                 String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-                         
+
                 for (int i = 0; i < nota.detallenotaentrada.Count; i++)
                 {
                     SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
                     sqlCon2.Open();
 
-                    string commandString2 = "UPDATE ProductoXAlmacen  SET stockActual = " + nota.detallenotaentrada[i].cantidadentrante + 
-                                               " WHERE idAlmacen = " + idalmacen;
+                    string commandString2 = "UPDATE ProductoXAlmacen  SET stockActual = " + cantidades[i] + " WHERE idAlmacen = " + idalmacen + " AND idProducto = "+ nota.detallenotaentrada[i].ID;
 
                     SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
                     sqlCmd2.ExecuteNonQuery();
