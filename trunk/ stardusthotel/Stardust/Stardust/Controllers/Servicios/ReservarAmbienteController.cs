@@ -34,7 +34,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public JsonResult ResgitrarEventoYAmbientes(RegAmbienteEventoBean registro) {
             MensajeBean mensaje = ambienteFacade.RegistrarEventoYAmbientes(registro);
-            return Json("");
+            return Json(mensaje);
         }
     }
 }
