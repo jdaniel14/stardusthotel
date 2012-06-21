@@ -122,6 +122,7 @@ function finDelChongo() {
 
         var nDoc = $("#nDoc").get(0).value;
         var total1 = $('#Total').text();
+        var passw = $("#password").get(0).value;
 
         var Hotel = "1";
         var clientexD = {
