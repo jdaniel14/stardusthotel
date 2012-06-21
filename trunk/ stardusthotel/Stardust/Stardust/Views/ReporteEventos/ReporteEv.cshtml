@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Stardust.Models.EventoBean>
+<br />
+        @*<div id="leftSide" >
+        <div class="logo">
+
+                <img src="C:\Users\TEMP\Desktop\ stardusthotel\Stardust\Stardust\Content\images\logo.png"/>
+
+        </div>*@
+
+<div align="center">
+    Reporte de Eventos
+</div>
+<div>    </div>
+<div>    </div>
+<div>    </div>
+
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+            <td width="10%" align="center">>Nombre</td>
+           <td width="10%" align="center">>Dni del Cliente</td>
+           <td width="10%" align="center">>Nombre del Hotel</td>
+           <td width="5%" align="center">>Estado de pago</td>
+           <td width="10%" align="center">>Descripcion</td>
+           <td width="10%" align="center">>Fecha Inicial </td>
+           <td width="10%" align="center">>Fecha Final</td>
+            <td width="5%" align="center">>Numero de participantes</td>
+            <td width="10%" align="center">>Pago Inicial</td>
+            <td width="10%" align="center">>Monto Total </td>
+            <td width="10%" align="center">>Fec de Registro</td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (var item in Model)
+    {
+        <tr border="1" bgcolor="@Odd">
+            <td>@item.nombre
+            </td>
+            <td>@item.nombreCliente
+            </td>
+            <td>@item.nombreHotel
+            </td>
+            <td>@item.estadoPago
+            </td>
+            <td>@item.descripcion
+            </td>
+            <td>@item.fechaIni
+            </td>
+            <td>@item.fechaFin
+            </td>
+            <td>@item.nroParticipantes
+            </td>
+             <td>@item.pagoInicial
+            </td>
+             <td>@item.montoTotal
+            </td>
+             <td>@item.fechaRegistro
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+</table>
