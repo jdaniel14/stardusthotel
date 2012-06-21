@@ -118,7 +118,7 @@ namespace Stardust.Models
             }
 
             //registro ambientes en el evento
-            String mens = AmbienteDAO.resgistrarAmbientes(registro.listAmbi, registro.fechaIni, registro.fechaFin, reservaRes.idEvento);
+            String mens = AmbienteDAO.resgistrarAmbientes(registro.listAmbi, registro.fechaIni, registro.fechaFin, reservaRes.idEvento, registro.idHotel);
             result = mens.Equals("");
             if (!result)
             {
