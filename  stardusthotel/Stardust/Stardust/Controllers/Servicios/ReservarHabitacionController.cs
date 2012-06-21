@@ -101,13 +101,14 @@ namespace Stardust.Controllers.Servicios
             return Json(check);
         }
 
-        //[HttpPost]
-        //public JsonResult ResgitrarClientesCheckIn(ListClienteBean listaClient) { 
-        //    MensajeBean mensaje = new MensajeBean ();
-        //    System.Diagnostics.Debug.WriteLine("total = " + listaClient.lista.Count);
-        //    mensaje.me = facadeReservas.RegistrarDatClientesCheckIn(listaClient.lista);
-        //    return Json(mensaje);
-        //}
+        [HttpPost]
+        public JsonResult ResgitrarClientesCheckIn(ListClienteBean listaClient) { 
+            MensajeBean mensaje = new MensajeBean ();
+            System.Diagnostics.Debug.WriteLine("total = " + listaClient.lista.Count);
+            mensaje.me = facadeReservas.RegistrarDatClientesCheckIn(listaClient.lista);
+            return Json(mensaje);
+        }
+
         [HttpPost]
         public JsonResult anularReserva(int idReserva) {
             MensajeBean res = facadeReservas.anularReserva(idReserva);

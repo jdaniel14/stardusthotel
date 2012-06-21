@@ -106,12 +106,13 @@ namespace Stardust.Models.Servicios
             bool result = reserva.me.Equals("");
 
             checkin.me = reserva.me;
-            if (result)
-            {
+            
                 checkin.doc = reserva.doc;
                 checkin.nomb = reserva.nomb;
                 checkin.fechaLleg = reserva.fechaLlegada;
                 checkin.fechaReg = reserva.fechaRegistro;
+            if (result)
+            {
                 checkin.lista = reservaHabitacionDAO.listarTipHabReserva(idReserva);
             }
 
