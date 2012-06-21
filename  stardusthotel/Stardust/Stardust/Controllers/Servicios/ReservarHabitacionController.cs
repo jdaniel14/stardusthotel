@@ -57,6 +57,11 @@ namespace Stardust.Controllers.Servicios
             smtp.Send(mail);*/
             return Json(rpta);
         }
+        [HttpPost]
+        public JsonResult Login(LoginBean log) {
+            MensajeBean mensaje = facadeReservas.login(log.mail, log.pass);
+            return Json(mensaje);
+        }
 
         public ActionResult EstadoReserva()
         {
