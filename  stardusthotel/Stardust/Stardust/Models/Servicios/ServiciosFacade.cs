@@ -32,5 +32,13 @@ namespace Stardust.Models
         public String EliminarServicio(int id) {
             return serviciosService.EliminarServicio(id);
         }
+
+        public ListaServiciosResponseBean listarServicios(int idHotel, String dni, int nroRes){
+            return serviciosService.listarServicios(idHotel, dni, nroRes);
+        }
+        
+        public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo){
+            return new MensajeBean();
+        }
     }
 }
