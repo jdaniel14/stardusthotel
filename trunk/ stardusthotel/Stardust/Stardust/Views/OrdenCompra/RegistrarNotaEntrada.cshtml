@@ -14,7 +14,7 @@
 @using (Html.BeginForm("RegistrarNotaEntrada", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
 {
    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.idordencompra) 
+    @Html.HiddenFor(model => model.idordencompra) @Html.HiddenFor(model => model.idhotel) 
     <fieldset>
         <div class="widget">
             <div class="title">
@@ -65,10 +65,10 @@
                         <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadsolicitada) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadsolicitada)</td>
                         <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadrecibida) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadrecibida)</td>
                         <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadfaltante) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadfaltante)</td>
-                            
+                            @Html.HiddenFor(model => model.detallenotaentrada[i].estado)
                             @if (Model.detallenotaentrada[i].estado)
                             {
-                                <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante) @ViewBag.error</td>
+                                <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadentrante)</td>
                             }
                             else
                             { 
