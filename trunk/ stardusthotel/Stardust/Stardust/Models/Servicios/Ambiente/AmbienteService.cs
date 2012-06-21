@@ -82,5 +82,102 @@ namespace Stardust.Models
             response.me = "";
             return response;
         }
+
+        public MensajeBean RegistrarEventoYAmbientes(RegAmbienteEventoBean registro)
+        {
+            MensajeBean mensaje = new MensajeBean();
+            //registrar Cliente
+            bool result;
+            ReservaHabitacionDAO reservaHabitacionDAO = new ReservaHabitacionDAO();
+
+            UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(registro.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            result = usuarioRes.me.Equals("");
+            if (!result)
+            {
+                mensaje.me = usuarioRes.me;
+                return mensaje;
+            }
+            
+            //registrar Evento
+
+            ReservaAmbBean reservaRes = AmbienteDAO.registrarEvento(registro.evento, registro.idHotel, usuarioRes.idUsuario, registro.fechaIni, registro.fechaFin, registro.total, registro.coment);
+            result = reservaRes.me.Equals("");
+            if (!result)
+            {
+                mensaje.me = reservaRes.me;
+                return mensaje;
+            }
+
+            //RegistrarAmbiente  documento de pago
+            DocumentoPagoBean docPago = AmbienteDAO.registrarDocumentoPago(usuarioRes, reservaRes);
+            result = docPago.me.Equals("");
+            if (!result)
+            {
+                mensaje.me = docPago.me;
+                return mensaje;
+            }
+
+            //registro ambientes en el evento
+            String mens = AmbienteDAO.resgistrarAmbientes(registro.listAmbi, registro.fechaIni, registro.fechaFin, reservaRes.idEvento);
+            result = mens.Equals("");
+            if (!result)
+            {
+                mensaje.me = mens;
+                return mensaje;
+            }
+
+            //registrar detalle factura
+            DateTime fFin = DateTime.ParseExact(registro.fechaFin, "dd-MM-yyyy", null);
+            DateTime fIni = DateTime.ParseExact(registro.fechaIni, "dd-MM-yyyy", null);
+            TimeSpan ts = fFin - fIni;
+
+            String mensajeDetalle = AmbienteDAO.registrarDetalleFactura(docPago.idDocPago, registro.listAmbi, ts.Days);
+            result = mensajeDetalle.Equals("");
+            if (!result)
+            {
+                mensaje.me = mensajeDetalle;
+                return mensaje;
+            }
+
+            int resEmail = envioEmail(reservaRes.idEvento, registro.client.nomb, registro.client.email);
+            System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
+            if (resEmail != 0)
+            {
+                mensaje.me = "No se pudo enviar el email";
+                return mensaje;
+            }
+            return mensaje;
+        }
+
+        public int envioEmail(int idEvento, String nombres, String email)
+        {
+            try
+            {
+                String message = "Estimado " + nombres + ", gracias por su reservacion de Ambientes, esperaremos que cancele para Confirmar sus Ambientes. Agradecemos su preferencia";
+                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+
+                System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
+
+                mail.To.Add(email);
+                mail.Subject = "Stardust Reservacion";
+
+                mail.From = new System.Net.Mail.MailAddress("stardusthotelperu@gmail.com");
+                mail.IsBodyHtml = true;
+                mail.Body = message;
+
+                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = cred;
+                smtp.Port = 587;
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return 1;
+            }
+            return 0;
+        }
     }
 }
