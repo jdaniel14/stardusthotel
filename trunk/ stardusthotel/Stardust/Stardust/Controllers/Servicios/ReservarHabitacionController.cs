@@ -59,8 +59,8 @@ namespace Stardust.Controllers.Servicios
         }
         [HttpPost]
         public JsonResult Login(LoginBean log) {
-            MensajeBean mensaje = facadeReservas.login(log.mail, log.pass);
-            return Json(mensaje);
+            UsuarioResBean usuario = facadeReservas.login(log.mail, log.pass);
+            return Json(usuario);
         }
 
         public ActionResult EstadoReserva()
