@@ -25,7 +25,6 @@ namespace Stardust.Controllers
         {
             PagoProveedorBean pagoProveedor = new PagoProveedorBean();
             return View(pagoProveedor);
-            //return View();
         }
 
         [HttpPost]
@@ -57,7 +56,6 @@ namespace Stardust.Controllers
 
         public ActionResult Lista(OrdenCompraBean orden)
         {
-
             return View(orden);
         }
 
@@ -117,9 +115,6 @@ namespace Stardust.Controllers
             prod.idhotel = idhotel;
             HotelBean hotel = hoteles.getHotel(idhotel);
             prod.nombrehotel = hotel.nombre;
-            
-            
-
             return View(prod);
         }
 
@@ -142,7 +137,7 @@ namespace Stardust.Controllers
             return RedirectToAction("Buscar");
         }
 
-        public ActionResult DetalleOrdenC(int id) 
+        public ActionResult DetalleOrdenC(int id) //id orden compra
         {
             OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id);
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
@@ -160,7 +155,24 @@ namespace Stardust.Controllers
                 {
                     if (ordencompra.detalle[i].ID == productos.listProdProv[j].ID)
                     {
-                        ordencompra.detalle[i].preciounitario =Convert.ToDecimal( productos.listProdProv[j].precio);
+                        ordencompra.detalle[i].preciounitario = productos.listProdProv[j].precio;
+                    }
+                }
+            }
+
+            List<NotaEntradaBean> notas = comprasFacade.listarnotasentrada(id);
+            for (int i = 0; i < notas.Count; i++)
+            {
+                int idguiaremision = notas[i].idguiaRemision;
+                List<Notaentrada> not2 = comprasFacade.obtenernotas(idguiaremision);
+                for (int j=0; j < not2.Count; j++)
+                {
+                    for (int k = 0; k < ordencompra.detalle.Count(); k++)
+                    {
+                        if (ordencompra.detalle[k].ID == not2[j].ID)
+                        {
+                            ordencompra.detalle[k].Cantidadentrante+=not2[j].cantidadrecibida;
+                        }
                     }
                 }
             }
@@ -186,7 +198,7 @@ namespace Stardust.Controllers
                 {
                     if (ordencompra.detalle[i].ID == productos.listProdProv[j].ID)
                     {
-                        ordencompra.detalle[i].preciounitario = Convert.ToDecimal( productos.listProdProv[j].precio);
+                        ordencompra.detalle[i].preciounitario =  productos.listProdProv[j].precio;
                     }
                 }
             }
@@ -196,9 +208,9 @@ namespace Stardust.Controllers
         }
 
 
-        public ActionResult GuardarestadoOrdenC(OrdenCompraBean orden)
+        public ActionResult GuardarestadoOrdenC(OrdenCompraBean orden) 
         {
-            //guardar estado de la orden de compra
+            // guarda el estado de la orden de compra a registrado o cancelado
             comprasFacade.modificarestadoordencompra(orden.idOrdenCompra, orden.estado);
             return RedirectToAction("Buscar");
         }
@@ -267,22 +279,37 @@ namespace Stardust.Controllers
                     {
                         if (notaentrada.detallenotaentrada[k].ID == detallenotaentrada[j].ID) 
                         {
-                            notaentrada.detallenotaentrada[k].cantidadfaltante += detallenotaentrada[j].cantidadrecibida;
+                            notaentrada.detallenotaentrada[k].cantidadrecibida += detallenotaentrada[j].cantidadrecibida;
                         }
 
                     }
                     
                 }
             }
+            for (int i = 0; i < notaentrada.detallenotaentrada.Count; i++)
+            {
+                notaentrada.detallenotaentrada[i].cantidadfaltante = notaentrada.detallenotaentrada[i].cantidadsolicitada - notaentrada.detallenotaentrada[i].cantidadrecibida;
+            }
 
            return View(notaentrada);
 
         }
 
-        public ActionResult guardarNotaentrad(NotaEntradaBean not) //nueva nota de entrada
+        [HttpPost]
+        public ActionResult RegistrarNotaEntrada(NotaEntradaBean not) //nueva nota de entrada
         {
-
-            comprasFacade.guardarnotaentrada(not);
+            for (int i = 0; i < not.detallenotaentrada.Count; i++)
+            {
+                if (not.detallenotaentrada[i].cantidadentrante > not.detallenotaentrada[i].cantidadfaltante)
+                {
+                    ViewBag.error = "la cantidad debe ser menor a la cantidad faltante";
+                    not.detallenotaentrada[i].cantidadentrante = 0;
+                    return View(not);
+                }
+            }
+            
+            string estado = "Parcialmente Atendido"; // verificar las cantidades
+            comprasFacade.guardarnotaentrada(not, estado);
             //.. cambiar stock de producto
             comprasFacade.actualizarstock(not);
             return RedirectToAction("ListarNotaEntrada/" + not.idordencompra, "OrdenCompra"); 

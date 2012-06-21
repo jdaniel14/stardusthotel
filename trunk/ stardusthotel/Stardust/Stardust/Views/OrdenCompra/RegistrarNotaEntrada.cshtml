@@ -8,29 +8,28 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+
 
     
-@using (Html.BeginForm("guardarNotaentrad", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
+@using (Html.BeginForm("RegistrarNotaEntrada", "OrdenCompra", FormMethod.Post, new { @class = "form" }))
 {
-   @Html.ValidationSummary(false)
+   @Html.ValidationSummary(true)
     @Html.HiddenFor(model => model.idordencompra) 
     <fieldset>
         <div class="widget">
             <div class="title">
                 <h6>Nota Entrada</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)<span class="req">*</span>
+            <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)<span class="req">*</span> @Html.HiddenFor(model => model.nombreproveedor) 
                 <div class=" formRight"> @Html.DisplayFor(model => model.nombreproveedor)  </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.fechaRegistradaOrdenCompra)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.fechaRegistradaOrdenCompra)<span class="req">*</span> @Html.HiddenFor(model => model.fechaRegistradaOrdenCompra) 
                 <div class="formRight"> @Html.DisplayFor(model => model.fechaRegistradaOrdenCompra) </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow">@Html.LabelFor(model => model.estado)<span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.estado)<span class="req">*</span> @Html.HiddenFor(model => model.estado) 
                 <div class="formRight"> @Html.DisplayFor(model => model.estado) </div>
                 <div class="clear"></div>
             </div>
@@ -51,6 +50,7 @@
                         <td>Producto</td>
                         <td>Cantidad Solicitada</td>
                         <td>Cantidad Recibida</td>
+                        <td>Cantidad Faltante</td>
                         <td>Cantidad Entrante</td>
                         
                     </tr>
@@ -63,8 +63,9 @@
                             @Html.HiddenFor(model => model.detallenotaentrada[i].ID) 
                         <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].nombre, new { @readonly = "readonly" }) </td>
                         <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadsolicitada, new { @readonly = "readonly" })</td>
+                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadrecibida, new { @readonly = "readonly" })</td>
                         <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadfaltante, new { @readonly = "readonly" })</td>
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadrecibida)</td>
+                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante) @ViewBag.error</td>
                        
                       
                     </tr>       
@@ -83,7 +84,7 @@
     
     <p>
        
-        @Html.ActionLink("Regresar", "../Home/Index")
+        @Html.ActionLink("Regresar", "ListarNotaEntrada/"+Model.idordencompra,"OrdenCompra")
     </p>
     
 }

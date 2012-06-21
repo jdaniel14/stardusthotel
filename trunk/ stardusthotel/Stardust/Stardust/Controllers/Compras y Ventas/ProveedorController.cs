@@ -211,7 +211,7 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult PagoContado(OrdenCompras OC)
         {           
-            if (Convert.ToDecimal(OC.pagado1) == 0)
+            if (OC.pagado == 0)
             {
                 ViewBag.error = "El monto a pagar debe ser mayor a 0";
                 OC.pagado = 0;

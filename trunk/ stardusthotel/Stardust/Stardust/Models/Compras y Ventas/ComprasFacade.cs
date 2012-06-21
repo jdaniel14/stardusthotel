@@ -71,9 +71,9 @@ namespace Stardust.Models
             return ordenCompraService.listarnotas(ordencompra);
         }
 
-        public void guardarnotaentrada(NotaEntradaBean nota)
+        public void guardarnotaentrada(NotaEntradaBean nota, string estado)
         {
-            ordenCompraService.guardarnotaentrada(nota);
+            ordenCompraService.guardarnotaentrada(nota, estado);
         }
 
         public List<Notaentrada> obtenernotas(int idgui){
@@ -91,7 +91,7 @@ namespace Stardust.Models
             return (produservice.actualizarStock(prod));
         }
 
-        /**----------- Reporte de compras 3------------*/
+       
 
     }
 }

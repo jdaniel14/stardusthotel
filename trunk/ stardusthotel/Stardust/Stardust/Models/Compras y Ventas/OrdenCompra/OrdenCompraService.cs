@@ -37,9 +37,9 @@ namespace Stardust.Models
         {
             return ordenCompraDAO.ListarNotasEntradas(idorden);
         }
-        public void guardarnotaentrada(NotaEntradaBean nota)
+        public void guardarnotaentrada(NotaEntradaBean nota, string estado)
         {
-            ordenCompraDAO.GuardarNotaEntrada(nota);
+            ordenCompraDAO.GuardarNotaEntrada(nota, estado);
             
         }
 
