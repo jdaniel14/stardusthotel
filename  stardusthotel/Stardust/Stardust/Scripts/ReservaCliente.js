@@ -5,6 +5,8 @@ var registrar;
 function cargarSegHoja() {
 
     $("#opcionR").hide();
+    $("#opcionT").hide();
+
     $("#obtenerPass").click(sacarMail);
     $("#pasear1").hide();
     $("#pasear2").hide();
@@ -67,7 +69,7 @@ function sacarMail() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "URL",
+        url: "../ReservarHabitacion/Login",
         success: recibeMails
     });
 
@@ -84,33 +86,42 @@ function recibeMails(data) {
 
     if (data.me == 0) {
         $("#opcionR").show("slow");
+
+        $("#opcionT").hide();
+
+        idUser = "";
     }
     else {
+
+        idUser = data.idUsuario;
+
+        $("#opcionT").show("slow");
+        $("#opcionR").hide();
         if (data.tipoDoc == "RUC") {
-            var miValue = data.tipoDoc
-            $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
-            $("#nDoc").attr("value", data.nroDoc);
-            $("#razonDReserva").attr("value".data.nomb);
-            $("#telef").attr("value", data.telf);
+//            var miValue = data.tipoDocumento
+//            $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
+            $("#nDoc").attr("value", data.nroDocumento);
+            $("#razonDReserva").attr("value",data.nombres);
+            $("#telef").attr("value", data.celular);
 
-            var miValue3 = data.tipoTarj;
-            $("#tipoTarjetaJ option[value=" + miValue3 + "]").attr("selected", true);
+//            var miValue3 = data.tipoTarj;
+//            $("#tipoTarjetaJ option[value=" + miValue3 + "]").attr("selected", true);
 
-            $("#nTarjeta").attr("value", data.nroTarj);
+            $("#nTarjeta").attr("value", data.nroTarjeta);
 
         }
         else {
-            var miValue2 = data.tipoDoc
-            $("#ComboCliente option[value=" + miValue2 + "]").attr("selected", true);
-            $("#nDoc").attr("value", data.nroDoc);
-            $("#nombreDReserva").attr("value".data.nomb);
-            $("#ApellidoDReserva").attr("value", data.apell);
-            $("#telefNatural").attr("value", data.telf);
+//            var miValue2 = data.tipoDocumento
+//            $("#ComboCliente option[value=" + miValue2 + "]").attr("selected", true);
+            $("#nDoc").attr("value", data.nroDocumento);
+            $("#nombreDReserva").attr("value",data.nombres);
+            //$("#ApellidoDReserva").attr("value", data.apell);
+            $("#telefNatural").attr("value", data.celular);
 
-            var miValue4 = data.tipoTarj;
-            $("#tipoTarjeta option[value=" + miValue4 + "]").attr("selected", true);
+//            var miValue4 = data.tipoTarj;
+//            $("#tipoTarjeta option[value=" + miValue4 + "]").attr("selected", true);
 
-            $("#nTarjetaNatural").attr("value", data.nroTarj);
+            $("#nTarjetaNatural").attr("value", data.nroTarjeta);
         }
         
     }

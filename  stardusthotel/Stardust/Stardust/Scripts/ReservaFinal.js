@@ -1,49 +1,80 @@
-﻿
+﻿var idUser;
+
+
 function inicializarMostreo() {
 
-    $("#retornar").click(regresar);
-    $("#pestana1").hide();
-    $("#pestana2").hide();
-    $("#pestana3").show();
-    $("#tabs").tabs('select', '#tabs-3'); // switch to third tab
-    $("#enviar").click(enviarDatos);
+    //inicio validacion
+    var continuarIngreso;
 
-    var result = "";
-    result = $("#FechaLlegada").get(0).value;
-    $('#mostrarFechaReserva').html(result);
-
-
-    result = "";
-    result = $("#FechaSalida").get(0).value;
-    $('#mostrarFechaSalida').html(result);
-
-    result = "";
     
-    result = $('#Total').text();
-    $('#mostrarTotal').html(result);
- 
+    if (
+            ($("#FechaLlegada").get(0).value != "") &&
+            ($("#FechaSalida").get(0).value != "") &&
+            (parseFloat($("#Total").text()) > 0) &&
+            ($("#mailNatural").get(0).value != "") &&
+            ($("#password").get(0).value != "") &&
+            ( ($("#razonDReserva").get(0).value != "") | (($("#nombreDReserva").get(0).value != "") && ($("#ApellidoDReserva").get(0).value != ""))) &&
+            ( ($("#telef").get(0).value != "") |  ($("#telefNatural").get(0).value != "") ) //&&
+            //( ($("#nTarjeta").get(0).value != "") | ($("#nTarjetaNatural").get(0).value != "") )
 
-    result = "";
-    result = $("#nDoc").get(0).value;
-    $('#mostrarNroDocumento').html(result);
-
-    result = "";
-    result = $("#ComboCliente").val();
-    $('#mostrarTipoDocumento').html(result);
-
-    var nombre = "";
-    var email = "";
-
-    if (result == "RUC") {
-        nombre = $("#razonDReserva").get(0).value;
-        email = $("#mail").get(0).value;
+        ) {
+        
+        continuarIngreso = 1;
     }
     else {
-        nombre = $("#nombreDReserva").get(0).value
-        email = $("#mailNatural").get(0).value;
+        
+        continuarIngreso = 0;
     }
-    $('#mostrarNombre').html(nombre);
-    $('#mostrarEmail').html(email);
+
+    if (continuarIngreso == 1) {
+
+        $("#retornar").click(regresar);
+        $("#pestana1").hide();
+        $("#pestana2").hide();
+        $("#pestana3").show();
+        $("#tabs").tabs('select', '#tabs-3'); // switch to third tab
+        $("#enviar").click(enviarDatos);
+
+        var result = "";
+        result = $("#FechaLlegada").get(0).value;
+        $('#mostrarFechaReserva').html(result);
+
+
+        result = "";
+        result = $("#FechaSalida").get(0).value;
+        $('#mostrarFechaSalida').html(result);
+
+        result = "";
+
+        result = $('#Total').text();
+        $('#mostrarTotal').html(result);
+
+
+        result = "";
+        result = $("#nDoc").get(0).value;
+        $('#mostrarNroDocumento').html(result);
+
+        result = "";
+        result = $("#ComboCliente").val();
+        $('#mostrarTipoDocumento').html(result);
+
+        var nombre = "";
+        var email = "";
+
+        if (result == "RUC") {
+            nombre = $("#razonDReserva").get(0).value;
+            email = $("#mail").get(0).value;
+        }
+        else {
+            nombre = $("#nombreDReserva").get(0).value
+            email = $("#mailNatural").get(0).value;
+        }
+        $('#mostrarNombre').html(nombre);
+        $('#mostrarEmail').html(email);
+    }
+    else {
+        alert('Faltan llenar Datos');
+    }
     
 }
 
@@ -201,7 +232,8 @@ function enviarDatos() {
         //]        
         total: suma,
         pass:passw,
-        tipoRegistro:registrar
+        tipoRegistro:registrar,
+        idUsuario:idUser
     };
     var jsonData = JSON.stringify(DatosReserva);
     
