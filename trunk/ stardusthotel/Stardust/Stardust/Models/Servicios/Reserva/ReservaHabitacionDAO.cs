@@ -534,8 +534,11 @@ namespace Stardust.Models.Servicios
             {
                 reserva.doc = (String)dataReader["doc"];
                 reserva.nomb = (String)dataReader["nomb"];
+                DateTime fechaLlegada = (DateTime)dataReader["fechaLleg"];
                 reserva.fechaRegistro = ((DateTime)dataReader["fechaReg"]).ToString("dd-MM-yyyy");
-                reserva.fechaLlegada = ((DateTime)dataReader["fechaLleg"]).ToString("dd-MM-yyyy");
+                reserva.fechaLlegada = fechaLlegada.ToString("dd-MM-yyyy");
+                if(fechaLlegada > DateTime.Now)
+                    reserva.me = "Aun no  se puede realizar el check in";
             }
             else
             {
@@ -622,13 +625,20 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            for (int i = 0; i < listClientHab.Count; i++) {
+            for (int i = 0; i < listClientHab.Count; i++)
+            {
                 ClienteHabBean cliente = listClientHab[i];
-                String query = "INSERT INTO ReservaXHabitacionXCliente VALUES ( " + cliente.idReserva + " , " + cliente.idHab + " , '" + cliente.nombresYAp + "' , '" + cliente.dni + "' )";
-                
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                sqlCmd.ExecuteNonQuery();
+
+                if (cliente.dni != null && cliente.nombresYAp != null)
+                {
+                    String query = "INSERT INTO ReservaXHabitacionXCliente VALUES ( " + cliente.idReserva + " , " + cliente.idHab + " , '" + cliente.nombresYAp + "' , '" + cliente.dni + "' )";
+
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+
+                    sqlCmd.ExecuteNonQuery();
+                }
             }
+            
             sqlCon.Close();
             return me;
         }
