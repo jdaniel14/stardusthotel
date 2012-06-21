@@ -20,12 +20,12 @@
                 <h6>Notas de Entrada</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.nombreproveedor, new { @readonly = "readonly" })  </div>
+                <div class=" formRight">  @Html.DisplayFor(model => model.nombreproveedor) @Html.HiddenFor(model => model.nombreproveedor) </div>
                 <div class="clear"></div>
             </div>
             
             <div class="formRow"> @Html.LabelFor(model => model.fecha)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.fecha, new { @readonly = "readonly" })  </div>
+                <div class=" formRight">  @Html.DisplayFor(model => model.fecha) @Html.HiddenFor(model => model.fecha)  </div>
                 <div class="clear"></div>
             </div>
             
@@ -57,8 +57,8 @@
         {
     <tr>       
                
-                <td> @Html.TextBoxFor(model => model.notasentrada[i].idguiaRemision, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.notasentrada[i].fechaemitida, new { @readonly = "readonly" })</td>
+                <td> @Html.DisplayFor(model => model.notasentrada[i].idguiaRemision)  @Html.HiddenFor(model => model.notasentrada[i].idguiaRemision)</td>
+                <td> @Html.DisplayFor(model => model.notasentrada[i].fechaemitida) @Html.HiddenFor(model => model.notasentrada[i].fechaemitida)</td>
                 <td><a href="@Url.Action("DetallenotaEntrada", new { id = Model.notasentrada[i].idguiaRemision, id2=Model.idOrdenCompra })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Detalle </a></td>
                
      </tr>

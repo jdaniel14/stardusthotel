@@ -61,10 +61,10 @@
                         {
                     <tr>       
                             @Html.HiddenFor(model => model.detallenotaentrada[i].ID) 
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].nombre, new { @readonly = "readonly" }) </td>
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadsolicitada, new { @readonly = "readonly" })</td>
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadrecibida, new { @readonly = "readonly" })</td>
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadfaltante, new { @readonly = "readonly" })</td>
+                        <td> @Html.DisplayFor(model => model.detallenotaentrada[i].nombre) @Html.HiddenFor(model => model.detallenotaentrada[i].nombre) </td>
+                        <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadsolicitada) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadsolicitada)</td>
+                        <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadrecibida) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadrecibida)</td>
+                        <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadfaltante) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadfaltante)</td>
                         <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante) @ViewBag.error</td>
                        
                       

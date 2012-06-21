@@ -43,8 +43,8 @@
                         {
                     <tr>       
                
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].nombre, new { @readonly = "readonly" }) </td>
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadrecibida, new { @readonly = "readonly" })</td>
+                        <td> @Html.DisplayFor(model => model.detallenotaentrada[i].nombre) @Html.HiddenFor(model => model.detallenotaentrada[i].nombre) </td>
+                        <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadrecibida) @Html.HiddenFor(model => model.detallenotaentrada[i].nombre) </td>
 
                       
                     </tr>       
