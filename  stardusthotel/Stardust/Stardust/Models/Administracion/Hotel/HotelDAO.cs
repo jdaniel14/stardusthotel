@@ -329,7 +329,7 @@ namespace Stardust.Models
                                 " VALUES (@idHotel, @idTipoHabitacion, @precio)";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacionXhotel.idHotel);
-                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacionXhotel.ID);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacionXhotel.idTipoHabitacion);
                 Utils.agregarParametro(objQuery, "@precio", tipoHabitacionXhotel.precio);
 
                 objQuery.ExecuteNonQuery();
@@ -367,7 +367,7 @@ namespace Stardust.Models
                     {
                         TipoHabitacion tipoHabitacion = new TipoHabitacion();
 
-                        tipoHabitacion.ID = Convert.ToInt32(objReader[0]);
+                        tipoHabitacion.idTipoHabitacion = Convert.ToInt32(objReader[0]);
                         tipoHabitacion.nombre = Convert.ToString(objReader[1]);
                         tipoHabitacion.descripcion = Convert.ToString(objReader[2]);
 
@@ -407,7 +407,7 @@ namespace Stardust.Models
                     {
                         TipoHabitacion tipoHabitacionAux = new TipoHabitacion();
 
-                        tipoHabitacionAux.ID = Convert.ToInt32(objReader[0]);
+                        tipoHabitacionAux.idTipoHabitacion = Convert.ToInt32(objReader[0]);
                         tipoHabitacionAux.nombre = Convert.ToString(objReader[1]);
                         tipoHabitacionAux.descripcion = Convert.ToString(objReader[2]);
 
@@ -707,7 +707,7 @@ namespace Stardust.Models
                     "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacion.idHotel);
-                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacion.ID);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacion.idTipoHabitacion);
 
                 SqlDataReader objReader = objQuery.ExecuteReader();
                 return objReader.HasRows;
