@@ -235,6 +235,7 @@ namespace Stardust.Controllers
 
             var model = ambienteFacade.ListarAmbiente(A, B, C);
             ViewBag.listaHoteles = new HotelFacade().getHoteles();
+            //ViewBag.listaClientes = new ClienteFacade().getClientes();
             return View(model);
 
         }
