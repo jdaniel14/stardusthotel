@@ -208,8 +208,15 @@ function esperaConfirmacion(){
 }
 
 function Confirma(data) {
-    console.log(data);    
-    alert('OK');
+    console.log(data)
+    if (data.me == "") {
+        alert('OK');
+        console.log("se hizo");
+        $(location).attr('href', '../../');
+    }
+    else {
+        alert(data.me);
+    }
 }
 
 
