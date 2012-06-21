@@ -96,7 +96,7 @@ namespace Stardust.Models
             bool result;
             ReservaHabitacionDAO reservaHabitacionDAO = new ReservaHabitacionDAO();
 
-            UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(registro.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(registro.client, registro.pass); // 0=> hubo error ; 1 => natural; 2 => juridico
             result = usuarioRes.me.Equals("");
             if (!result)
             {
