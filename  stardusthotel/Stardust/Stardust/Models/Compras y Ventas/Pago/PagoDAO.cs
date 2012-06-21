@@ -550,5 +550,41 @@ namespace Stardust.Models
 
             return pago;
         }
+
+        public List<ListaHabitacion> listaHabitacion(string fechaIni, string fechaFin)
+        {
+            List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
+
+            DateTime fechaI = new DateTime();
+            DateTime fechaF = new DateTime();
+
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+                sqlCon.Open();
+
+                fechaI = DateTime.ParseExact(fechaIni,"dd-MM-yyyy",null);
+                fechaF = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
+
+                string commandString = "SELECT * FROM ReservaXHabitacion WHERE fechaIni BETWEEN "+fechaI+" AND "+fechaF+" AND fechaFin BETWEEN "+fechaI+" AND "+fechaF +" ORDER BY idHabitacion";
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                        
+                }
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+            return listaHab;
+        }
     }
 }
