@@ -142,7 +142,7 @@ namespace Stardust.Models.Servicios
             UsuarioResBean usuarioRes = new UsuarioResBean ();
             if (reservaRequest.tipoRegistro == 0)
             {
-                usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client); // 0=> hubo error ; 1 => natural; 2 => juridico    
+                usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client, reservaRequest.pass); // 0=> hubo error ; 1 => natural; 2 => juridico    
                 result = usuarioRes.me.Equals("");
                 if (!result)
                 {
