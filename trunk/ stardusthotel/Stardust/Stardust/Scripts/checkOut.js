@@ -38,6 +38,8 @@ function esperaCheckOut() {
 function llegadaCheckOut(data) {
 
     console.log(data);
+
+    if (data.dni != null){
     var result = "";
 
     result += '<div class="widget"><div class="title"><h6>Datos del Cliente</h6></div>';
@@ -159,6 +161,11 @@ function llegadaCheckOut(data) {
 
     $("#cantPagando").change(actualizarVuelto);
     $("#regPago").click(enviarDatos);
+
+    }
+    else{
+        alert('No encontrado');
+    }
 }
 
 function actualizarVuelto() {
