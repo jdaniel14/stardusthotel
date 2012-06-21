@@ -28,6 +28,7 @@ namespace Stardust.Controllers
             return View(listaEvento);
         }
 
+        
         public ActionResult RegistrarEvento()
         {
             return View();
