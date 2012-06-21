@@ -37,7 +37,6 @@ namespace Stardust.Models
         public string nombre { get; set; }
 
         [Display(Name = "Descripcion")]
-        [Required(ErrorMessage = "Debe ingresar la descripción de la promoción")]
         public string descripcion { get; set; }
 
         [Display(Name = "Tipo de Descuento")]
@@ -55,9 +54,6 @@ namespace Stardust.Models
         public int razon { get; set; }
 
         [Display(Name = "Numero de Dias")]
-        [Required(ErrorMessage = "Debe ingresar el número de días")]
-        [StringLength(2)]
-        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número")]
         public int dias { get; set; }
 
         [Display(Name = "Porcentaje de Pago Adelantado")]
