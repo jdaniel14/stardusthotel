@@ -232,6 +232,7 @@ namespace Stardust.Controllers
         public ViewResult ListHorario(int id)
         {
             var model = empleadoFac.listarHorario(id);
+            ViewBag.idempleado = id;
             return View(model);
         }
 
@@ -265,9 +266,14 @@ namespace Stardust.Controllers
         #endregion
 
         /* ======== DETALLE HORARIO ======== */
+
+
         #region Detalle Horario
         public ActionResult IndiceDetalle(int id) {
             ViewBag.codigo=id;
+            EmpleadoFacade empleadoFac = new EmpleadoFacade();
+
+            ViewBag.idempleado = empleadoFac.getHorario(id).idEmpleado;
             return View();
         }
         
@@ -362,8 +368,7 @@ namespace Stardust.Controllers
         {
             
             var model = empleadoFac.listarDetalle(idhorario);
-            ViewBag.horario = idhorario;
-            
+            ViewBag.horario = idhorario;            
             return View(model);
         }
 
@@ -373,6 +378,7 @@ namespace Stardust.Controllers
             var model= empleadofac.gethorarioDetalle(id);
             return View(model);
         }
+
 
       
 
@@ -384,7 +390,7 @@ namespace Stardust.Controllers
             if (resp == -1)
             {
                 var model = horariodetallebeam;
-                ViewBag.error = "Este dia ya a sido asignado";
+                ViewBag.error = "La hora inicial debe ser menor a la hora final";
                 return View(model);
             }
             return RedirectToAction("ListDetalle", new { idhorario = horariodetallebeam.idHorario });
@@ -392,5 +398,32 @@ namespace Stardust.Controllers
         }
          
         #endregion
-    }
+    
+
+
+
+
+     public ActionResult CapturaAsistencia()
+        {
+            return View();           
+        }
+        
+        [HttpPost]
+        public ActionResult CapturaAsistencia(TomarAsistencia tomoasistencia)
+        {
+            EmpleadoFacade empleadoFac = new EmpleadoFacade();
+
+            int resp=empleadoFac.compruebaasistencia(tomoasistencia);
+            if (resp == -1) ViewBag.error = "Error al escribir Usuario o Contraseña";
+            if (resp == 0) ViewBag.error = "Error al registrar - Usted no es empleado - Contactar con administracion de ser erroneo ";
+            if (resp == 1) ViewBag.error = "Error al registrar - Es un empleado inactivo - Contactar con administracion de ser erroneo";
+            if (resp == 2) ViewBag.error = "Su contrato no es de esta fecha - Contactar con administracion ";
+            if (resp == 3) ViewBag.error = "Sus horarios asignados no son de esta fecha - Contactar con administracion de ser erroneo";
+            if (resp == 4) ViewBag.error = "No tiene este dia asignado en su Horario- Contactar con administracion de ser erroneo";
+            if (resp == 5) ViewBag.error = "Usted ya se registro 2 veces (su entrada y su salida)-Intente otro dia ";
+            if (resp == 6) ViewBag.error = "Su registro de Asistencia a sido procesado correctamente ";
+            return View();
+        }
+        
+  }
 }
