@@ -130,14 +130,16 @@
                         </ul>
                     </li>
 
-                    <li><a href="../Empleado/CapturaAsistencia" title="">Marcar Asistencia</a></li>
+                    <li>@Html.ActionLink("Marcar Asistencia","CapturaAsistencia","Empleado")</li>
+                    
                      <li class="dash"><a href="#" title="" class="exp"><span>Horario Personal<strong>2</strong></span></a>
                         <ul class="sub">
-                            <li><a href = "../Empleado/CrearHorario" title="">Asignar Horario del empleador</a></li>
-                            <li><a href = "../Empleado/indice" title="">Buscar Horario del empleado</a></li>
-                        </ul>
+                            <li>@Html.ActionLink("Asignar Horario del Empleado","CrearHorario","Empleado")</li>
+                            <li>@Html.ActionLink("Buscar Horario del Empleado","indice","Empleado")</li>
+                          </ul>
                     </li>
-                    <li><a href="../ReporteAsistencia/indice" title="">Reporte Asistencia</a></li>
+                   
+                    <li>@Html.ActionLink("Reporte Asistencia","indice","ReporteAsistencia")</li>
                     @*<li><a href="#" title="">Asignar horario</a></li>
                     <li><a href="#" title="">Pasar asistencia</a></li>*@
                 </ul>
