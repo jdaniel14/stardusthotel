@@ -18,8 +18,8 @@
             <div class = "title"><h6>Buscar Ambiente</h6></div> 
             
             <div class = "formRow" >
-                <label>Tipo de habitación</label>
-                <div class = "formRight" > @Html.DropDownList( "idHotel" , new SelectList( ViewBag.listaHoteles , "ID" , "nombre" ) , "Elije un Hotel..." ) </div>
+                <label>Hotel</label>
+                <div class = "formRight" > @Html.DropDownList( "idHotel" , new SelectList( ViewBag.listaHoteles , "ID" , "nombre" ) , "Elije un Hotel..." , new { onchange = "this.form.submit();" }) </div>
                 <div class = "clear" ></div>
             </div>          
 
@@ -27,7 +27,7 @@
                 <label>Nombre</label>
                 <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" /></div>
                 <div class = "clear" ></div>
-            </div>
+            </div>       
                         
 
         </div>
@@ -37,6 +37,12 @@
     </p>
 }
 
+@if (!String.IsNullOrEmpty(ViewBag.results + "" )) { 
+    <div class="nNote nInformation hideit">
+        <p><strong>Encontrados: </strong>@ViewBag.results ambiente(s)</p>
+    </div>
+}
+<p></p>
 
 <p></p><p></p>
 <div class="wrapper">
