@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace Stardust.Models
 {
     public class ClienteDAO
     {
+        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         public List<ClienteBean> ListarClientesNatural(String Nombre)
         {
 
@@ -43,6 +45,39 @@ namespace Stardust.Models
             return listaClientes;
         }
 
+        public List<ClienteBean> getClientes()
+        {
+            SqlConnection objDB = null;
+            
+                objDB = new SqlConnection(cadenaDB);
+                List<ClienteBean> listaClientes = new List<ClienteBean>();
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM Usuario WHERE estado = 'ACTIVO' AND tipoDocumento != 'RUC";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
+
+                if (objDataReader.HasRows)
+                {
+                    //listaHoteles = new List<HotelBean>();
+                    while (objDataReader.Read())
+                    {
+                                               
+                       ClienteBean cliente = new ClienteBean();
+                        cliente.ID = (int)objDataReader["idUsuario"];
+                        cliente.nombres = (string)objDataReader["nombres"];
+                        cliente.apPat = (string)objDataReader["apPat"];
+                        cliente.apMat = (string)objDataReader["apMat"];
+                        cliente.tipoDocumento = (string)objDataReader["tipoDocumento"];
+                        cliente.nroDocumento = (string)objDataReader["nroDocumento"];
+
+                        listaClientes.Add(cliente);
+                    }
+                }
+
+                return listaClientes;
+            }
         public List<ClienteBean> ListarClientesJuridica(String Nombre)
         {
 
