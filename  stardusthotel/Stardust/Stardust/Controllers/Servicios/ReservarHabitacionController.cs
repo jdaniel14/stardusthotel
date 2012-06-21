@@ -127,5 +127,11 @@ namespace Stardust.Controllers.Servicios
             ConsultaReservaBean consulta = facadeReservas.consultarReserva(request.idHotel, request.idReserva, request.documento);
             return Json(consulta);
         }
+
+        [HttpPost]
+        public JsonResult consultarUbicacionPersona(ConsultaUbicBean request) {
+            UbicacPersResponse response = facadeReservas.consultarHabitacionDeCliente(request.idHotel, request.nomb);
+            return Json(response);
+        }
     }
 }
