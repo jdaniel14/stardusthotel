@@ -9,9 +9,9 @@ namespace Stardust.Models
     public class AmbienteService
     {
         AmbienteDAO AmbienteDAO = new AmbienteDAO();
-        public List<AmbienteBean> ListarAmbiente(int idHotel, String Nombre, String estado, float precio_menor, float precio_mayor)
+        public List<AmbienteBean> ListarAmbiente(int idHotel, String Nombre, String estado)
         {
-            List<AmbienteBean> listaAmbiente = AmbienteDAO.ListarAmbiente(idHotel, Nombre, estado, precio_menor, precio_mayor);
+            List<AmbienteBean> listaAmbiente = AmbienteDAO.ListarAmbiente(idHotel, Nombre, estado);
             return listaAmbiente;
         }
 
