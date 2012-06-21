@@ -23,7 +23,7 @@
                 <h6>Hotel</h6>
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.Hotel)
-                <div class=" formRight">  @Html.TextBoxFor(model => model.Hotel, new { @readonly = "readonly" })  </div>
+                <div class=" formRight">  @Html.DisplayFor(model => model.Hotel) @Html.HiddenFor(model => model.Hotel)  </div> </div>
                 <div class="clear"></div>
             </div>
             
@@ -79,7 +79,7 @@
          
              <tr class="gradeA odd">       
                 
-                        <td class="sorting_1"> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
+                        <td class="sorting_1">@Html.DisplayFor(model => model.listProdalmacen[i].nombre) @Html.HiddenFor(model => model.listProdalmacen[i].nombre)</td>
                         <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockminimo)  @Html.ValidationMessageFor(model => model.listProdalmacen[i].stockminimo)        </td>
                         <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockactual)   @Html.ValidationMessageFor(model => model.listProdalmacen[i].stockactual)       </td>
                         <td class="center"> @Html.TextBoxFor(model => model.listProdalmacen[i].stockmaximo) @Html.ValidationMessageFor(model => model.listProdalmacen[i].stockmaximo)         </td>   
