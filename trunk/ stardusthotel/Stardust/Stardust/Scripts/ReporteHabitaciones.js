@@ -27,7 +27,7 @@ function iniciarFlujo() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "DIRECCIONURL",
+        url: "ListaHabitacion",
         beforeSend: esperaDatos(),
         success: llegadaDatos
     });
