@@ -212,6 +212,7 @@ namespace Stardust.Models
                 orden.fecha = String.Format("{0:d/M/yyyy}",date);
                 orden.preciototal = (decimal)dataReader["preciototal"];
                 orden.idproveedor=(int)dataReader["idProveedor"];
+                orden.idhotel = (int)dataReader["idhotel"];
             }
             sqlCon.Close();
 
@@ -376,7 +377,7 @@ namespace Stardust.Models
         {
             //****actualizar stock en almacen.. 
             int idordencompra = nota.idordencompra;
-            int idhotel = 0;
+            int idhotel = nota.idhotel;
             string error="";
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -397,9 +398,11 @@ namespace Stardust.Models
             int idalmacen = prod.obteneralmacen(idhotel);
             if (idalmacen == -1) { error = "falla"; }
             else{
+                
+                //falta sumar...la cantidad actual con la entrante
+                
                 String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            
+                         
                 for (int i = 0; i < nota.detallenotaentrada.Count; i++)
                 {
                     SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);

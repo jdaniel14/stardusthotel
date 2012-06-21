@@ -245,6 +245,7 @@ namespace Stardust.Controllers
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
             ordencompra.nombreproveedor = proveedor.razonSocial;
             
+            notaentrada.idhotel=ordencompra.idhotel;
             notaentrada.nombreproveedor = proveedor.razonSocial;
             notaentrada.idordencompra = id;
             notaentrada.idproveedor = ordencompra.idproveedor;
@@ -315,13 +316,19 @@ namespace Stardust.Controllers
                 }
             }
 
-            //int cantidadsolicitada = 0;
-            //int cantidadrecibida = 0;
-            //int cantidadfaltante = 0;
-            //int cantidadentrante = 0;
+            for (int i = 0; i < not.detallenotaentrada.Count; i++)
+            {
+                int cantidad = not.detallenotaentrada[i].cantidadentrante - not.detallenotaentrada[i].cantidadfaltante;
+                if (cantidad== 0)
+                {
+                    not.detallenotaentrada[i].estado = true;
+                }
+            }
+
             string estado = ""; // verificar las cantidades
-            Boolean estado2 = not.detallenotaentrada[0].estado;
-            for (int i = 1; i < not.detallenotaentrada.Count; i++)
+
+            Boolean estado2 = true;
+            for (int i = 0; i < not.detallenotaentrada.Count; i++)
             {
                 estado2 = not.detallenotaentrada[i].estado && estado2;
             }
