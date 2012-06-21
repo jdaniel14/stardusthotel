@@ -6,6 +6,7 @@
 
 <script type="text/javascript" src="/Scripts/ReservarAmbiente.js"></script>
 <script type="text/javascript" src="/Scripts/DatosEvento.js"></script>
+<script type="text/javascript" src="/Scripts/AmbientesFinal.js"></script>
 <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
 
 <html lang="es">
@@ -52,6 +53,14 @@
             text-align:center;
         }
         #TotalLabel
+        {
+            text-align:right;
+        }
+        #Cant
+        {
+            text-align:center;
+        }
+        #CantLabel
         {
             text-align:right;
         }
@@ -120,10 +129,10 @@
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th></th>
-                                <th></th>
+                                <th id = "CantLabel">Cantidad de días</th>
+                                <th id = "Cant"></th>
                                 <th id = "TotalLabel">Total</th>
-                                <th id = "Total"></th>
+                                <th id = "Total">0</th>
                             
                             </tr>
                         </tfoot>
@@ -171,7 +180,7 @@
                 <div class="formRow"><span>Descripción</span>                
 				    <div class = "formRight" >                                         
 					    <div class="demo">
-						    <input type="text" id="descEvento"/>
+						    <textarea id = "descEvento"></textarea>
 					    </div>
 				    </div>                
 				    <div class="clear"></div>
@@ -183,8 +192,6 @@
             <input id = "NextC" type="submit" value="Continue..." class = "redB" />
 
         </div>
-
-
 
         <div id="Vcliente">
 
@@ -366,10 +373,71 @@
         </div>
 
         <div id="Vconfirmacion">
-        </div>
-    </div>
-   
 
+            &nbsp;
+            &nbsp;
+            <p>
+		    <input id = "retornar" type="submit" value="Atras" class = "redB" />
+            </p>
+                 
+            <div class="widget">
+            
+                <div class="title">
+                    <h6>Confirmación reserva</h6>            
+                </div>
+
+                <div class="formRow"><span>Fecha de reserva</span>                
+                   <div class = "formRight" > 
+                        <span id = "mostrarFechaReserva"></span>
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Fecha Final</span>                
+                   <div class = "formRight" > 
+                        <span id = "mostrarFechaFinal"></span>
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Total</span>                
+                   <div class = "formRight" > 
+                        <span id = "mostrarTotal"></span>
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Nro. de Documento</span>                
+                   <div class = "formRight" > 
+                        <span id = "mostrarnDoc"></span>
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Nombre</span>                
+                   <div class = "formRight" > 
+                        <span id = "mostrarNombre"></span>
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>E-mail</span>                
+                   <div class = "formRight" > 
+                        <span id = "mostrarEmail"></span>
+                   </div>                
+                   <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <br />
+            <p>
+		    <input id = "registrar" type="submit" value="Confirmar Datos" class = "redB" />
+            </p>
+
+        </div>
+   
+   </div>
 
 
 
