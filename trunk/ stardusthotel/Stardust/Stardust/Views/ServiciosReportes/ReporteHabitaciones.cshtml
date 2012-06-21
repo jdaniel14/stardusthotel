@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Reporte de Habitaciones";
+}
+
+<h2>Reporte de Habitaciones</h2>
+
+<script type="text/javascript" src="/Scripts/ReporteHabitaciones.js"></script>
+
+<html lang="es">
+
+    <head>
+        <title>Reservar Habitacion</title>
+
+        <style type="text/css">
+        </style>
+
+    </head>
+    
+    <body>
+
+        <div class="widget">
+			<div class="title">
+				<h6>Buscar Habitaciones</h6>
+			</div>
+
+			<div class="formRow"><span>Fecha Inicio</span>                
+				<div class = "formRight" >                                         
+					<div class="demo">
+						<input type="text" id="FechaLlegada"/>
+					</div>
+				</div>                
+				<div class="clear"></div>
+			</div>
+
+			<div class="formRow"><span>Fecha Fin</span>                
+				<div class = "formRight" > 
+					<div class="demo">
+						<input type="text" id="FechaSalida"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id = "buscame" type="submit" value="Buscar" class = "redB" />
+					</div>
+				</div>                
+				<div class="clear"></div>
+			</div>
+        </div>
+
+        <div id = "resultados">
+        
+        
+        
+        
+        
+        </div>
+
+
+
+    </body>
+    
+</html>
