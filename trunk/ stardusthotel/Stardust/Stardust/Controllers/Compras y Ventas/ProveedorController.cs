@@ -220,9 +220,9 @@ namespace Stardust.Controllers
             else
             {                
                 proveedorFacade.RegistrarPagoContado(OC);
-                if (Convert.ToDecimal(OC.pagado1) > OC.total)
+                if (OC.pagado > OC.total)
                 {
-                    decimal saldo = OC.total - Convert.ToDecimal(OC.pagado1);
+                    decimal saldo = OC.total - OC.pagado;
                     return RedirectToAction("Pago", new { id = saldo});
                 }
                 return RedirectToAction("PagoProveedor");
@@ -257,7 +257,7 @@ namespace Stardust.Controllers
                 ViewBag.error2 = "El numero de cuotas debe ser mayor a 0";
                 est = true;
             }
-            if (Convert.ToDecimal(OC.pagado1) == 0)
+            if (Convert.ToDecimal(OC.pagado) == 0)
             {
                 ViewBag.error3 = "El monto a pagar debe ser mayor a 0";
                 est = true;
