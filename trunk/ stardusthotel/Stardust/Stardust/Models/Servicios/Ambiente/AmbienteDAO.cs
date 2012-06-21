@@ -4,12 +4,37 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 namespace Stardust.Models
 {
     public class AmbienteDAO
     {
-        public List<AmbienteBean> ListarAmbiente(String Nombre, String estado, float precio_menor, float precio_mayor)
+        public String getNombreHotel(int id)
+        {
+            String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select nombre from Hotel where idHotel = " + id;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            data.Read();
+
+            String hotel = (string)data.GetValue(0);
+
+            sql.Close();
+
+            return hotel;
+        }
+        
+        
+        
+        public List<AmbienteBean> ListarAmbiente(int idHotel,String Nombre, String estado, float precio_menor, float precio_mayor)
         {
 
             List<AmbienteBean> listaAmbientes = new List<AmbienteBean>();
@@ -26,13 +51,26 @@ namespace Stardust.Models
             //if (!result) 
             commandString = commandString + "WHERE estado = 'ACTIVO'";
 
+            if (idHotel != 0)
+            {
+                commandString += " AND idHotel = @idHotel ";
+            }
+
             result = Nombre.Equals("");
             if (!result) commandString = commandString + "AND  UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%' ";
 
             if (precio_menor > 0) commandString = commandString + " AND precioXhora  >= " + precio_menor;
             if (precio_mayor > 0) commandString = commandString + " AND precioXhora  <= " + precio_mayor;
 
+            commandString += "ORDER BY idHotel,Nombre ";
+
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+
+            if (idHotel != 0)
+            {
+                Utils.agregarParametro(sqlCmd, "idHotel", idHotel);
+            }
+
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
             while (dataReader.Read())
@@ -50,6 +88,7 @@ namespace Stardust.Models
                 ambiente.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString()); 
                 ambiente.piso = (int)dataReader["piso"];
                 ambiente.estado = (string)dataReader["estado"];
+                ambiente.nombreHotel = this.getNombreHotel(ambiente.idHotel);
                 listaAmbientes.Add(ambiente);
             }
             dataReader.Close();
@@ -110,7 +149,7 @@ namespace Stardust.Models
                                    "capacMaxima = @capacMaxima," +
                                    "largo = @largo," +
                                    "ancho = @ancho," +
-                                   "precioXhora = @precioXhora," +
+                                   "precioXHora = @precioXHora," +
                                    "piso = @piso," +
                                    "estado =@estado," +
                                    "idHotel = @idHotel," +                                   
@@ -122,7 +161,7 @@ namespace Stardust.Models
             DAO.agregarParametro(sqlCmd, "capacMaxima", ambiente.cap_maxima);
             DAO.agregarParametro(sqlCmd, "largo", ambiente.largo);
             DAO.agregarParametro(sqlCmd, "ancho", ambiente.ancho);
-            DAO.agregarParametro(sqlCmd, "precioXhora", ambiente.precioXhora);
+            DAO.agregarParametro(sqlCmd, "precioXHora", ambiente.precioXhora);
             DAO.agregarParametro(sqlCmd, "piso", ambiente.piso);
             DAO.agregarParametro(sqlCmd, "estado", ambiente.estado);
             DAO.agregarParametro(sqlCmd, "idHotel", ambiente.idHotel);
@@ -142,24 +181,40 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Ambiente WHERE idAmbiente = " + id.ToString();            
+            string commandString = "SELECT * FROM Ambiente WHERE  idAmbiente = @idAmbiente ";            
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            DAO.agregarParametro(sqlCmd, "idAmbiente", id);
+
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            if (dataReader.Read())
+            if (dataReader.HasRows)/*(dataReader.Read())*/
             {
-                ambiente.id = (int)dataReader["idAmbiente"];
-                ambiente.nombre = (string)dataReader["nombre"];
-                ambiente.descripcion = (string)dataReader["descripcion"];
-                ambiente.cap_maxima = (int)dataReader["capacMaxima"];
-                //ambiente.largo = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
-                //ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
-                ambiente.largo = decimal.Parse(dataReader["largo"].ToString());
-                ambiente.ancho = decimal.Parse(dataReader["ancho"].ToString());
-                //ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
-                ambiente.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString()); 
-                ambiente.piso = (int)dataReader["piso"];
-                ambiente.estado = (string)dataReader["estado"];
+                //ambiente.id = (int)dataReader["idAmbiente"];
+                //ambiente.nombre = (string)dataReader["nombre"];
+                //ambiente.descripcion = (string)dataReader["descripcion"];
+                //ambiente.cap_maxima = (int)dataReader["capacMaxima"];
+                ////ambiente.largo = (float)dataReader.GetDouble(dataReader.GetOrdinal("largo"));
+                ////ambiente.ancho = (float)dataReader.GetDouble(dataReader.GetOrdinal("ancho"));
+                //ambiente.largo = decimal.Parse(dataReader["largo"].ToString());
+                //ambiente.ancho = decimal.Parse(dataReader["ancho"].ToString());
+                ////ambiente.precioXhora = (decimal)dataReader.GetDouble(dataReader.GetOrdinal("precioXHora"));
+                //ambiente.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString()); 
+                //ambiente.piso = (int)dataReader["piso"];
+                //ambiente.estado = (string)dataReader["estado"];
+
+                dataReader.Read();
+
+                ambiente.id = (int)dataReader.GetValue(0);
+                ambiente.nombre = (string)dataReader.GetValue(1);
+                ambiente.descripcion = (string)dataReader.GetValue(2);
+                ambiente.cap_maxima = (int)dataReader.GetValue(3);
+                ambiente.largo = (decimal)dataReader.GetValue(4);
+                ambiente.ancho = (decimal)dataReader.GetValue(5);
+                ambiente.precioXhora = (decimal)dataReader.GetValue(6);
+                ambiente.piso = (int)dataReader.GetValue(7);
+                ambiente.estado = (string)dataReader.GetValue(8);
+                ambiente.idHotel = (int)dataReader.GetValue(9);
+                
             }
             dataReader.Close();
             sqlCon.Close();
