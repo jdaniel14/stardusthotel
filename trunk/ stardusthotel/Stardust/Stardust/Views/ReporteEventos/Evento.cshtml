@@ -1,0 +1,38 @@
+﻿@model Stardust.Models.EventoBean
+@{
+    ViewBag.Title = "Generar Reporte Evento";
+}
+
+<h2>Evento</h2>
+
+@using (Html.BeginForm("Evento", "ReporteEventos", FormMethod.Post, new { @class = "form", id="validate"}))
+{
+  
+    <fieldset>
+        <div class="widget">
+            <div class="title">
+                <h6>Generar Reporte de Eventos</h6>
+            </div>
+            <div class="formRow">
+                <label>Estado de Pago</label>               
+                    <div class="formRight searchDrop">
+                        <select data-placeholder="Selecciona Estado Pago..." class="chzn-select" style="width:350px;length:200px" tabindex="2" id = "estadoPago" name= "estadoPago">
+                            <option ></option>
+                            <option value = "1" >      No Pagado     </option>
+                            <option value = "2" >   Inicial   </option>
+                            <option value = "3" >        Parcialmente Pagado      </option>
+                            <option value = "4" >       Pagado        </option>
+
+                        </select>
+                    </div>
+                <div class = "clear" ></div>
+            </div>                   
+        </div>
+    </fieldset>
+    
+    <p>
+        <input type="submit" value="Buscar" class = "redB" />        
+        @Html.ActionLink("Regresar", "../Home/Index")
+    </p>
+}
+
