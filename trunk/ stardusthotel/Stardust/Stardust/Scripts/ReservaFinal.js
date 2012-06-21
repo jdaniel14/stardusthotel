@@ -232,8 +232,8 @@ function enviarDatos() {
         //]        
         total: suma,
         pass:passw,
-        tipoRegistro:registrar,
-        idUsuario:idUser
+        tipoRegistro:registrar
+        //idUsuario:idUser
     };
     var jsonData = JSON.stringify(DatosReserva);
     
