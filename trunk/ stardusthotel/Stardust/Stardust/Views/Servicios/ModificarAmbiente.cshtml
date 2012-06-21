@@ -5,11 +5,6 @@
 }
 
 
-
-<script type="text/javascript" src = "../../Scripts/ComboBoxProyector.js"> </script>
-
-
-
 <h2>ModificarAmbiente</h2>
 
 <p>
@@ -32,56 +27,82 @@
 
         <legend>Ambiente</legend>
         @Html.HiddenFor(model => model.id)
+
+        <div class = "formRow" >
+                @Html.LabelFor(model => model.idHotel )
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idHotel, new SelectList(ViewBag.listaHoteles, "ID", "nombre"), "..Elija un Hotel", new { onchange = "this.form.submit();" })
+                    @Html.ValidationMessageFor(model => model.idHotel)
+                </div>
+                <div class = "clear" ></div>
+            </div>
     
         <div class="formRow">
-            <label>Nombre</label>
+            @Html.LabelFor(model => model.nombre)
             <div class="formRight">
-                @Html.TextBoxFor(model => model.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30" })
+                @Html.TextBoxFor(model => model.nombre, new { maxlength = "50" })
+                 @Html.ValidationMessageFor(model => model.nombre)
+
             </div>
             <div class = "clear"></div>
         </div>
                 
         <div class="formRow">
-            <label>Descripcion</label>
+            @Html.LabelFor(model => model.descripcion)
             <div class="formRight">
                 @Html.TextAreaFor(model => model.descripcion, new { maxlength = "200" })
+                @Html.ValidationMessageFor(model => model.descripcion)
             </div>
             <div class = "clear"></div>
         </div>
 
-        <div class="formRow"><span>Capacidad Maxima</span><span class="req">*</span>
+        <div class="formRow">
+                @Html.LabelFor(model => model.cap_maxima)
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.cap_maxima, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "10", minlength = "1" }) 
+                @Html.TextBoxFor(model => model.cap_maxima, new { maxlength = "6", minlength = "1" }) 
+                @Html.ValidationMessageFor(model => model.cap_maxima)
                 </div>
                 <div class="clear"></div>
             </div>
            
-           <div class="formRow"><span>Largo</span>
+           <div class="formRow">@Html.LabelFor(model => model.largo)
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.largo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1"}) 
+                @Html.TextBoxFor(model => model.largo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1"}) 
+                @Html.ValidationMessageFor(model => model.largo)
                 </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow"><span>Ancho</span>
+            <div class="formRow">@Html.LabelFor(model => model.ancho)
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.ancho, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
+                @Html.TextBoxFor(model => model.ancho, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
+                @Html.ValidationMessageFor(model => model.ancho)
                 </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow"><span>Precio por hora</span><span class="req">*</span>
+            <div class="formRow">@Html.LabelFor(model => model.precioXhora)
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.precioXhora, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "9" }) 
+                @Html.TextBoxFor(model => model.precioXhora, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9" }) 
+                @Html.ValidationMessageFor(model => model.precioXhora)
                 </div>
                 <div class="clear"></div>
             </div>
 
-             <div class="formRow"><span>Piso</span><span class="req">*</span>
+             <div class="formRow">@Html.LabelFor(model => model.piso)
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.piso, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2"}) 
+                @Html.TextBoxFor(model => model.piso, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "2"}) 
+                @Html.ValidationMessageFor(model => model.piso)
                 </div>
                 <div class="clear"></div>
+            </div>
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.estado)
+                <div class = "formRight" > 
+                    @Html.TextBoxFor(model => model.estado)
+                    @Html.ValidationMessageFor(model => model.estado)
+                </div>
+                <div class = "clear" ></div>
             </div>
 
            
