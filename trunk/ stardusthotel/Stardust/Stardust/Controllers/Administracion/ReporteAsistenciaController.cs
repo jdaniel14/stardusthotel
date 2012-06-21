@@ -27,6 +27,7 @@ namespace Stardust.Controllers.Administracion
             Horarios horarioss = new Horarios();
             horarioss.horarios = empleadoFac.listarHorario(codigoempleado);
             var model = empleadoFac.listarHorario(codigoempleado);
+            ViewBag.empleado = empleadoFac.getEmpleado(codigoempleado).nombreEmpleado;
             return this.ViewPdf("", "ReporteAsistencia1",model );
         }
 
