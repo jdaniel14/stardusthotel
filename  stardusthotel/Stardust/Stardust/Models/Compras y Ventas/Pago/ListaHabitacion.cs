@@ -16,5 +16,9 @@ namespace Stardust.Models
     {
         public int idHabitacion { get; set; }
         public List<ListaHabitacionEstado> listaHab { get; set; }
+        public ListaHabitacion()
+        {
+            listaHab = new List<ListaHabitacionEstado>();
+        }
     }
 }

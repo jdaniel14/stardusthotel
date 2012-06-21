@@ -574,9 +574,44 @@ namespace Stardust.Models
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
+                List<ListaHabitacionEstado> listaDetalle = new List<ListaHabitacionEstado>();
+
                 while (dataReader.Read())
                 {
-                        
+                    int id = (int)dataReader["idHabitacion"];
+                    if (listaHab.Count == 0)
+                    {
+                        ListaHabitacion hab = new ListaHabitacion();
+                        hab.idHabitacion = id;
+                        listaHab.Add(hab);
+                    }
+                    else
+                    {
+                        if (id != listaHab.Last().idHabitacion)
+                        {
+                            ListaHabitacion hab = new ListaHabitacion();
+                            hab.idHabitacion = id;
+                            listaHab.Add(hab);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < listaHab.Count; i++)
+                {
+                    commandString = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = "+listaHab.ElementAt(i).idHabitacion+" fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF;
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                    while (dataReader2.Read())
+                    {
+                        ListaHabitacionEstado estado = new ListaHabitacionEstado();
+                        estado.idReserva = (int)dataReader2["idReserva"];
+                        estado.fechaIni = Convert.ToString(dataReader2["fechaIni"]);
+                        estado.fechaFin = Convert.ToString(dataReader2["fechaFin"]);
+                        estado.estado = (int)dataReader2["estado"];
+                        listaHab.ElementAt(i).listaHab.Add(estado);
+                    }
                 }
             }
             catch (Exception e)
