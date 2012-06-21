@@ -10,6 +10,7 @@ namespace Stardust.Models
         public string data { get; set; }
         public string doc { get; set; }
         public string nom { get; set; }
+        public int estado { get; set; }
         public decimal montoInicial { get; set; }
         public string mensaje { get; set; }
     }

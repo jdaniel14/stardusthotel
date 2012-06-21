@@ -513,6 +513,21 @@ namespace Stardust.Models
 
                 dataReader.Close();
 
+                commandString = "SELECT * FROM DocumentoPago WHERE idUsuario = "+id;
+
+                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader3 = sqlCmd3.ExecuteReader();
+
+                if (dataReader3.Read())
+                {
+                    decimal total = (decimal)dataReader3["montoTotal"];
+                    decimal faltante = (decimal)dataReader3["montoFaltante"];
+                    if (total == faltante)
+                        pago.estado = 1;
+                    else
+                        pago.estado = 2;
+                }           
+
                 if (request.flag == 1)
                 {
                     commandString = "SELECT * FROM Reserva WHERE estado = 1 AND idUsuario = " + id;
