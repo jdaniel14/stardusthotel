@@ -11,6 +11,7 @@
 <div align="center">
     Reporte de Proveedor
 </div>
+<div> @DateTime.Now </div>
 <div>Nombre del Proveedor: @Model.nombre</div>
 <div>    </div>
 <div>    </div>
@@ -19,10 +20,10 @@
 <table cellpadding="3" cellspacing="3">
     <tr border="1" bgcolor="#777777" color="#ffffff">
         <td width="20%" align="center">
-            Estado
+            Fecha
         </td>
         <td width="50%" align="center">
-            Fecha
+            Estado
         </td>
         <td width="30%" align="center">
             Precio
@@ -36,9 +37,9 @@
     @foreach (OrdenCompra proveedor in Model.listaOC)
     {
         <tr border="1" bgcolor="@Odd">
-            <td>@proveedor.estado
-            </td>
             <td>@proveedor.fecha
+            </td>
+            <td>@proveedor.estado
             </td>
             <td>@proveedor.precio
             </td>
