@@ -298,5 +298,234 @@ namespace Stardust.Models
 
             return listTotal;
         }
+
+        public ReservaAmbBean registrarEvento(EventoResBean evento, int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment)
+        {
+
+            ReservaAmbBean reserva = new ReservaAmbBean();
+            reserva.me = "";
+
+            System.Diagnostics.Debug.WriteLine("total a pagar : " + total);
+            int reservaEstado = 1;//POR CONFIRMAR
+            int reservaPago = 1;//CERO PAGO
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                reserva.me = "Error en conexion a base de datos";
+                return reserva;
+            }
+
+            String query = "SELECT porcAdelanto FROM Politica";
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+
+            SqlDataReader ReaderPorc;
+            try
+            {
+                ReaderPorc = sqlCmd.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                reserva.me = "Error al consultar a la tabla Politica";
+                return reserva;
+            }
+
+            int porc = 0;
+            if (ReaderPorc.Read())
+            {
+                porc = (int)ReaderPorc["porcAdelanto"];
+            }
+            ReaderPorc.Close();
+            System.Diagnostics.Debug.WriteLine("porcentaje : " + porc);
+
+            Decimal adelanto = (porc * total) / 100;
+            String query1 = "INSERT INTO Evento Values ('" + evento.nomb + "', '" + evento.descripcion + "' , convert(date,'" + fechaIni + "',103), convert(date,'" + fechaFin + "',103) ," + evento.nroParticipantes + " , " + idUsuario + " , NULL, NULL, " + reservaEstado + " , " + reservaPago + " , " + total + ", " + adelanto + " , " + idHotel.ToString() + ", GETDATE())";
+            System.Diagnostics.Debug.WriteLine("query de EVENTO : " + query1);
+
+            reserva.nombre = evento.nomb;
+            reserva.descripcion = evento.descripcion;
+            reserva.montoTotal = total;
+            reserva.pagoInicial = adelanto;
+            SqlCommand sqlCmd1 = new SqlCommand(query1, sqlCon);
+            try
+            {
+                sqlCmd1.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                reserva.me = "Error al insertar la Reserva : " + e.Message;
+                return reserva;
+            }
+
+            string query2 = "SELECT IDENT_CURRENT('" + "Evento" + "') as lastId";
+            SqlCommand sqlCmd2 = new SqlCommand(query2, sqlCon);
+
+            SqlDataReader dataReader;
+            try
+            {
+                dataReader = sqlCmd2.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                reserva.me = "Error al insertar a pedir el id de la Reserva";
+                return reserva;
+            }
+
+            int last_id = 0;
+            if (dataReader.Read())
+            {
+                last_id = Int16.Parse(dataReader["lastId"].ToString());
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            reserva.idHotel = idHotel;
+            reserva.idEvento= last_id;
+
+
+            //String query_Factura = "INSERT INTO DocumentoPago VALUES("+idUsuario+")";
+            return reserva;
+        }
+
+        public DocumentoPagoBean registrarDocumentoPago(UsuarioResBean usuario, ReservaAmbBean reserva)
+        {
+            DocumentoPagoBean documento = new DocumentoPagoBean();
+            documento.me = "";
+            Decimal igv = reserva.montoTotal * 18 / 100;
+            Decimal montoTotal = reserva.montoTotal + igv;
+            String tipoDocPago = "";
+            bool result;
+            result = usuario.tipoDocumento.Equals("DNI");
+            if (result)
+            {
+                tipoDocPago = "Boleta";
+            }
+            else
+            {
+                tipoDocPago = "Factura";
+            }
+
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                documento.me = "Error en conexion a base de datos";
+                return documento;
+            }
+
+            String queryIns = "INSERT INTO DocumentoPago " +
+                               "VALUES(" + usuario.idUsuario + " , " + montoTotal + " , " + montoTotal + " , GETDATE() , " + reserva.montoTotal + " , " + igv + " , NULL , NULL , '" + tipoDocPago + "' , 1 , NULL, " + reserva.idEvento + " )";
+            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+
+            try
+            {
+                sqlCmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                documento.me = "Error al registrar el Documento de Pago: " + e.Message;
+                return documento;
+            }
+
+            String queryLastId = "SELECT IDENT_CURRENT('" + "DocumentoPago" + "') as lastId";
+            SqlCommand sqlCmd2 = new SqlCommand(queryLastId, sqlCon);
+            SqlDataReader dataReader;
+            try
+            {
+                dataReader = sqlCmd2.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                documento.me = "Error al encontrar al id del Documento de Pago";
+                return documento;
+            }
+
+            int last_id = 0;
+            if (dataReader.Read())
+            {
+                last_id = Int16.Parse(dataReader["lastId"].ToString());
+            }
+            documento.idDocPago = last_id;
+
+            return documento;
+        }
+
+        public String resgistrarAmbientes(List<AmbienteBean> lista, String fechaIni, String fechaFin, int idEvento)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e) {
+                return "Error en conexion a Base de Datos";
+            }
+
+            System.Diagnostics.Debug.WriteLine("total : " + lista.Count);
+            int tam = lista.Count;
+            for (int i = 0; i < tam ; i++)
+            {
+                int amb = lista[i].id;
+                String query = "INSERT INTO AmbienteXEvento VALUES (" + idEvento + "," + amb + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),1)";
+                System.Diagnostics.Debug.WriteLine("query--> " + query);
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }catch(Exception e){
+                    return "Error en insertar Ambientes para el Evento : "+ e.Message;
+                }
+            }
+            sqlCon.Close();
+            return "";
+        }
+
+        public String registrarDetalleFactura(int idDocPago, List<AmbienteBean> list, int z)
+        {
+
+            String me = "";
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                me = "Error en conexion a base de datos";
+                return me;
+            }
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                AmbienteBean amb = list[i];
+                Decimal total = amb.precioXhora*z;
+                String query = "INSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + amb.nombre+ "' , 1 , " + amb.precioXhora + " , " + total + " , 0)";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    me = "Error al registrar el Detalle del Documento de Pago: " + e.Message;
+                    return me;
+                }
+            }
+            return me;
+        }
     }
 }
