@@ -551,7 +551,7 @@ namespace Stardust.Models
             return pago;
         }
 
-        public List<ListaHabitacion> listaHabitacion(string fechaIni, string fechaFin)
+        public List<ListaHabitacion> listaHabitacion(int idHotel,string fechaIni, string fechaFin)
         {
             List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
 
@@ -569,7 +569,7 @@ namespace Stardust.Models
                 fechaI = DateTime.ParseExact(fechaIni,"dd-MM-yyyy",null);
                 fechaF = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
 
-                string commandString = "SELECT * FROM ReservaXHabitacion WHERE fechaIni BETWEEN "+fechaI+" AND "+fechaF+" AND fechaFin BETWEEN "+fechaI+" AND "+fechaF +" ORDER BY idHabitacion";
+                string commandString = "SELECT * FROM Habitacion WHERE idHotel = " + idHotel + " ORDER BY idHabitacion";
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -578,27 +578,24 @@ namespace Stardust.Models
 
                 while (dataReader.Read())
                 {
-                    int id = (int)dataReader["idHabitacion"];
-                    if (listaHab.Count == 0)
-                    {
-                        ListaHabitacion hab = new ListaHabitacion();
-                        hab.idHabitacion = id;
-                        listaHab.Add(hab);
-                    }
-                    else
-                    {
-                        if (id != listaHab.Last().idHabitacion)
-                        {
-                            ListaHabitacion hab = new ListaHabitacion();
-                            hab.idHabitacion = id;
-                            listaHab.Add(hab);
-                        }
-                    }
+                    ListaHabitacion hab = new ListaHabitacion();
+                    hab.idHabit = (int)dataReader["idHabitacion"];
+                    int idTipo = (int)dataReader["idTipoHabitacion"];
+
+                    commandString = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = " + idTipo;
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                    if (dataReader2.Read())
+                        hab.nHabit = (string)dataReader2["nombre"];
+
+                    listaHab.Add(hab);
                 }
 
                 for (int i = 0; i < listaHab.Count; i++)
                 {
-                    commandString = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = "+listaHab.ElementAt(i).idHabitacion+" fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF;
+                    commandString = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = "+listaHab.ElementAt(i).idHabit+" fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF +" ORDER BY fechaIni";
 
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
@@ -609,8 +606,12 @@ namespace Stardust.Models
                         estado.idReserva = (int)dataReader2["idReserva"];
                         estado.fechaIni = Convert.ToString(dataReader2["fechaIni"]);
                         estado.fechaFin = Convert.ToString(dataReader2["fechaFin"]);
-                        estado.estado = (int)dataReader2["estado"];
-                        listaHab.ElementAt(i).listaHab.Add(estado);
+                        int est = (int)dataReader2["estado"];
+                        if (est == 4)
+                            estado.estado = 1;
+                        else
+                            estado.estado = 0;
+                        listaHab.ElementAt(i).listaFechas.Add(estado);
                     }
                 }
             }

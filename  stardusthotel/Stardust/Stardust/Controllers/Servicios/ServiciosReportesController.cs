@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Stardust.Models;
 
 namespace Stardust.Controllers.Servicios
 {
@@ -10,6 +11,8 @@ namespace Stardust.Controllers.Servicios
     {
         //
         // GET: /ServiciosReportes/
+
+        PagoFacade pagoFacade = new PagoFacade();
 
         public ActionResult Index()
         {
@@ -26,5 +29,9 @@ namespace Stardust.Controllers.Servicios
             return View();
         }
 
+        public ActionResult ListaHabitacion(int idHotel,string fechaIni,string fechaFin)
+        {
+            return View(pagoFacade.listaHabitacion(idHotel,fechaIni,fechaFin));
+        }
     }
 }
