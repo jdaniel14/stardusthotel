@@ -8,10 +8,10 @@ namespace Stardust.Models
     public class AmbienteFacade
     {
         AmbienteService AmbienteService = new AmbienteService();
-        public List<AmbienteBean> ListarAmbiente(String Nombre, String estado, float precio_menor, float precio_mayor)
+        public List<AmbienteBean> ListarAmbiente(int idHotel, String Nombre, String estado, float precio_menor, float precio_mayor)
         {
             if (Nombre == null) Nombre = "";
-            return AmbienteService.ListarAmbiente(Nombre, estado, precio_menor, precio_mayor);
+            return AmbienteService.ListarAmbiente(idHotel,Nombre, estado, precio_menor, precio_mayor);
         }
 
         public String RegistrarAmbiente(AmbienteBean ambiente)
