@@ -10,7 +10,10 @@ namespace Stardust.Models
     public class OrdenCompraDAO
     {
         /**********-------------Orden Compra---------***************/
-        
+        ProductoDAO prod= new ProductoDAO();
+
+
+
         public Producto GetProducto(int id)
         {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -373,7 +376,45 @@ namespace Stardust.Models
         {
             //****actualizar stock en almacen.. 
             int idordencompra = nota.idordencompra;
+            int idhotel = 0;
+            string error="";
 
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM OrdenCompra WHERE idOrdenCompra = " + idordencompra;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            while (dataReader.Read())
+            {
+                idhotel= (int)dataReader["idhotel"];
+            }
+
+            sqlCon.Close();
+            
+
+            int idalmacen = prod.obteneralmacen(idhotel);
+            if (idalmacen == -1) { error = "falla"; }
+            else{
+                String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            
+                for (int i = 0; i < nota.detallenotaentrada.Count; i++)
+                {
+                    SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+                    sqlCon2.Open();
+
+                    string commandString2 = "UPDATE ProductoXAlmacen  SET stockActual = " + nota.detallenotaentrada[i].cantidadentrante + 
+                                               " WHERE idAlmacen = " + idalmacen;
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+                    sqlCmd2.ExecuteNonQuery();
+                    sqlCon.Close();
+                }
+
+                sqlCon.Close();
+            }
 
         }
 
