@@ -365,7 +365,7 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendida' OR estado = 'Parcialmente Atendida' AND idProveedor = " + id;
+            string commandString = "SELECT * FROM OrdenCompra WHERE estado = 'Atendido' OR estado = 'Parcialmente Atendido' AND idProveedor = " + id;
             
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -418,7 +418,7 @@ namespace Stardust.Models
             dataReader.Close();
             sqlCon.Close();
 
-            if (OC.estado.Equals("Parcialmente Atendida"))
+            if (OC.estado.Equals("Parcialmente Atendido"))
             {
                 String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
                 SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
@@ -449,18 +449,14 @@ namespace Stardust.Models
                 OC.pagar = OC.total;
             }
 
-            OC.paga1 = Convert.ToString(OC.paga);
-            OC.pagar1 = Convert.ToString(OC.pagar);
-            OC.subtotal1 = Convert.ToString(OC.subtotal);
-            OC.igv1 = Convert.ToString(OC.igv);
-            OC.total1 = Convert.ToString(OC.total);
+           
 
             return OC;
         }
 
         public void RegistrarPagoContado(OrdenCompras OC)
         {
-            OC.pagado = Convert.ToDecimal(OC.pagado1);
+            OC.pagado = OC.pagado;
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -494,7 +490,7 @@ namespace Stardust.Models
 
         public void RegistrarPagoCredito(OrdenCompras OC)
         {
-            OC.pagado = Convert.ToDecimal(OC.pagado1);
+            OC.pagado = OC.pagado;
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
