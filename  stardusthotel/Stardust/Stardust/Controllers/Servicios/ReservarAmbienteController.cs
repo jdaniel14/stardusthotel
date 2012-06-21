@@ -30,5 +30,11 @@ namespace Stardust.Controllers.Servicios
             ResAmbRequest response = ambienteFacade.ConsultarAmbientesDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
             return Json(response);
         }
+
+        [HttpPost]
+        public JsonResult ResgitrarEventoYAmbientes(RegAmbienteEventoBean registro) {
+            MensajeBean mensaje = ambienteFacade.RegistrarEventoYAmbientes(registro);
+            return Json("");
+        }
     }
 }
