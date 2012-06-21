@@ -182,8 +182,8 @@ function finDelChongo() {
                 coment: comentario,
                 total: total1,
                 pass: passw,
-                tipoRegistro: registrar,
-                idUsuario:idUser
+                tipoRegistro: registrar
+                //idUsuario:idUser
             }
 
             var jsonData = JSON.stringify(TeLoPaso);
