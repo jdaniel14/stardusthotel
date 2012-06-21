@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Stardust.Models.Servicios;
 
 namespace Stardust.Models
 {
@@ -38,6 +39,10 @@ namespace Stardust.Models
         {
             return AmbienteService.ConsultarAmbientesDisponibles(idHotel, fechaIni, fechaFin);
         }
-        
+
+        public MensajeBean RegistrarEventoYAmbientes(RegAmbienteEventoBean registro)
+        {
+            return AmbienteService.RegistrarEventoYAmbientes(registro);
+        }
     }
 }
