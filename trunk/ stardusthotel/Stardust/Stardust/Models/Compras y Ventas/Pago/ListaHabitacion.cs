@@ -14,11 +14,12 @@ namespace Stardust.Models
     }
     public class ListaHabitacion
     {
-        public int idHabitacion { get; set; }
-        public List<ListaHabitacionEstado> listaHab { get; set; }
+        public int idHabit { get; set; }
+        public string nHabit { get; set; }
+        public List<ListaHabitacionEstado> listaFechas { get; set; }
         public ListaHabitacion()
         {
-            listaHab = new List<ListaHabitacionEstado>();
+            listaFechas = new List<ListaHabitacionEstado>();
         }
     }
 }

@@ -25,9 +25,9 @@ namespace Stardust.Models
             return pagoDAO.PagoAdelantado(request);
         }
 
-        public List<ListaHabitacion> listaHabitacion(string fechaIni, string fechaFin)
+        public List<ListaHabitacion> listaHabitacion(int idHotel,string fechaIni, string fechaFin)
         {
-            return pagoDAO.listaHabitacion(fechaIni, fechaFin);
+            return pagoDAO.listaHabitacion(idHotel,fechaIni, fechaFin);
         }
     }
 }
