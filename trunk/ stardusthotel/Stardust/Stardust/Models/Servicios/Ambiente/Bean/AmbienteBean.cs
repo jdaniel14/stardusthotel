@@ -8,6 +8,7 @@ namespace Stardust.Models
     public class AmbienteBean
     {
         public int id{ get; set; }
+        public int idHotel { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public int cap_maxima { get; set; }
