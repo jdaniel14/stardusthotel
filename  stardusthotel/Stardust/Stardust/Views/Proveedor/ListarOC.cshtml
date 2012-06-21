@@ -15,7 +15,7 @@
 
             <div class="formRow">
                 <label>Proveedor</label>
-                <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
+                <div class = "formRight" >@Html.DisplayFor(model => model.nombre) @Html.HiddenFor(model => model.nombre)</div>
                 <div class = "clear" ></div>
             </div>
 
@@ -62,9 +62,9 @@
         {
           <tr class="gradeA odd">       
                
-                    <td> @Html.TextBoxFor(model => model.listaOC[i].fecha, new { @readonly = "readonly" }) </td>
-                    <td> @Html.TextBoxFor(model => model.listaOC[i].estado, new { @readonly = "readonly" })  </td>
-                    <td> @Html.TextBoxFor(model => model.listaOC[i].precio, new { @readonly = "readonly" })   </td>
+                    <td> @Html.DisplayFor(model => model.listaOC[i].fecha) @Html.HiddenFor(model => model.listaOC[i].fecha)</td>
+                    <td> @Html.DisplayFor(model => model.listaOC[i].estado) @Html.HiddenFor(model => model.listaOC[i].estado) </td>
+                    <td> @Html.DisplayFor(model => model.listaOC[i].precio)  @Html.HiddenFor(model => model.listaOC[i].precio)  </td>
                     <td>
                         <a href="@Url.Action("PagoContado", new { id = Model.listaOC[i].id })"><img src="../../Content/images/icons/color/cash.png", alt="Cash" />Contado </a> |                    
                         <a href="@Url.Action("PagarCredito", new { id = Model.listaOC[i].id })"><img src="../../Content/images/icons/color/credit.png", alt="Credit" />Credito </a>
