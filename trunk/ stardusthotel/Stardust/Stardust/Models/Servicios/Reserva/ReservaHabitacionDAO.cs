@@ -695,7 +695,7 @@ namespace Stardust.Models.Servicios
                 return ubic;
             }
 
-            String query = " SELECT rXhXc.idReserva, h.numero, h.piso, rXhXc.nombrYApell, rXhXc.dni" +
+            String query = " SELECT rXhXc.idReserva, h.numero, h.piso, rXhXc.nombre_apellidos, rXhXc.dni" +
                             " FROM ReservaXHabitacionXCliente rXhXc, Reserva r, Habitacion h" +
                             " WHERE r.idHotel = " + idHotel  + " and r.estado = 3 and rXhXc.nombrYApell LIKE '%" + nombre + "%'  and rXhXc.idHabitacion = h.idHabitacion";
 
