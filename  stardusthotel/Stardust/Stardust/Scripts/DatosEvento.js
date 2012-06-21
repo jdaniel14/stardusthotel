@@ -33,10 +33,3 @@ function sgteCliente() {
     $("#tabs").tabs("select", "#Vcliente");
 }
 
-function sgteConfirma() {
-    $("#pestana1").hide();
-    $("#pestana2").hide();
-    $("#pestana3").hide();
-    $("#pestana4").show();
-    $("#tabs").tabs("select", "#Vconfirmacion");
-}
