@@ -10,6 +10,7 @@ namespace Stardust.Controllers
     public class HabitacionController : Controller
     {
         HabitacionFacade habitacionFac = new HabitacionFacade();
+        TipoHabitacionFacade tipoHabitacionFac = new TipoHabitacionFacade();
         
         //
         // GET: /Habitacion/
@@ -164,6 +165,14 @@ namespace Stardust.Controllers
             var model = habitacionFac.buscarHabitacion(A,B,C);
             ViewBag.listaTipoHabitacion = new TipoHabitacionFacade().listarTipoHabitacion();
             return View( model );
+        }
+
+        public ActionResult Buscar()
+        {
+            HabitacionViewModelSearch habitacionVMS = new HabitacionViewModelSearch();
+            habitacionVMS.TipoHabitaciones = tipoHabitacionFac.listarTipoHabitacion();
+
+            return View();
         }
     }
 }
