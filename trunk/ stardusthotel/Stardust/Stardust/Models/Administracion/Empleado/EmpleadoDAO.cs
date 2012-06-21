@@ -29,7 +29,7 @@ namespace Stardust.Models
 
                     SqlDataReader data = query.ExecuteReader();
 
-
+                /*
                 EmpleadoBean empleado = new EmpleadoBean();
             
                 empleado.ID = (int)data.GetValue(0);
@@ -46,22 +46,17 @@ namespace Stardust.Models
 
                     data.Read();
 
-
+                */
+                    data.Read();
                     EmpleadoBean empleado = new EmpleadoBean();
 
-                    empleado.ID = (int)data.GetValue(0);
-
+                   
                     UsuarioFacade usuario = new UsuarioFacade();
-                    UsuarioBean usuar = usuario.getUsuario(empleado.ID);
+                    UsuarioBean usuar = usuario.getUsuario(id);
                     empleado.nombreEmpleado = usuar.nombres + " " + usuar.apMat + " " + usuar.apPat;
-
-
-                    //UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
-                    //empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
-
-                    //empleado.nombreEmpleado="EMPLEADO :)";
+                    empleado.ID = (int)data.GetValue(0);
                     empleado.fechaIngreso = (DateTime)data.GetValue(1);
-                    //empleado.fechaSalida = (DateTime)data.GetValue(2);
+                    empleado.fechaSalida = (DateTime)data.GetValue(2);
                     empleado.estado = Convert.ToString(data["estado"]);
 
                 sql.Close();
