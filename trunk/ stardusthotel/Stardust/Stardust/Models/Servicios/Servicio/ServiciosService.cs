@@ -37,5 +37,9 @@ namespace Stardust.Models
         {
             return serviciosDAO.listarServicios(idHotel, dni, nroRes);
         }
+        public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo, int idHotel)
+        {
+            return serviciosDAO.asignarServicios(idSer, nroRes, dni, nRecib, monto, flagTipo, idHotel);
+        }
     }
 }
