@@ -697,7 +697,7 @@ namespace Stardust.Models.Servicios
 
             String query = " SELECT rXhXc.idReserva, h.numero, h.piso, rXhXc.nombre_apellidos, rXhXc.dni" +
                             " FROM ReservaXHabitacionXCliente rXhXc, Reserva r, Habitacion h" +
-                            " WHERE r.idHotel = " + idHotel  + " and r.estado = 3 and rXhXc.nombrYApell LIKE '%" + nombre + "%'  and rXhXc.idHabitacion = h.idHabitacion";
+                            " WHERE r.idHotel = " + idHotel + " and r.estado = 3 and rXhXc.nombre_apellidos LIKE '%" + nombre + "%'  and rXhXc.idHabitacion = h.idHabitacion";
 
             System.Diagnostics.Debug.WriteLine("Ubicacion " + query);
 
@@ -713,13 +713,13 @@ namespace Stardust.Models.Servicios
                     cliente.reserva = (int)dataReader["idReserva"];
                     cliente.nroHab = (String)dataReader["numero"];
                     cliente.piso = (int)dataReader["piso"];
-                    cliente.nomb = (String)dataReader["nombrYApell"];
+                    cliente.nomb = (String)dataReader["nombre_apellidos"];
                     cliente.dni = (String)dataReader["dni"];
                     listClientes.Add(cliente);
                 }
                 dataReader.Close();
             }catch(Exception e){
-                ubic.me = "Error al buscar al Cliente : " + e.Message;
+                ubic.me = "Error al buscar al Cliente xD (oo): " + e.Message;
                 return ubic;
             }
             
