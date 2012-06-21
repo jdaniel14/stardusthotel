@@ -12,6 +12,34 @@ namespace Stardust.Models
     {
 
         String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        public String getNombreCliente(int id)
+        {
+            string doccliente = "";
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select nroDocumento from Usuario where idUsuario = " + id;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+
+            if (data.Read())
+            {
+               doccliente = (string)data["nroDocumento"];
+
+                sql.Close();
+            }
+
+            else
+            {
+                doccliente = "vacio";
+            }
+
+            return doccliente;
+        }
+
         public String getNombreHotel(int id)
         {
             string hotel = "";
@@ -27,7 +55,7 @@ namespace Stardust.Models
 
             if (data.Read())
             {
-               hotel = (string)data["nombre"];
+                hotel = (string)data["nombre"];
 
                 sql.Close();
             }
@@ -39,8 +67,6 @@ namespace Stardust.Models
 
             return hotel;
         }
-        
-        
         
         public List<AmbienteBean> ListarAmbiente(int idHotel ,String Nombre, String estado)
         {
@@ -398,6 +424,60 @@ namespace Stardust.Models
 
             //String query_Factura = "INSERT INTO DocumentoPago VALUES("+idUsuario+")";
             return reserva;
+        }
+
+        public List<EventoBean> ListarEvento(int estadoPago )
+        {
+
+            List<EventoBean> listaEvento = new List<EventoBean>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Evento";
+            //bool result1 = String.IsNullOrEmpty(nombre);//Nombre.Equals("") ;  
+            //bool result2 = String.IsNullOrEmpty(fechaini);
+            //bool result3 = String.IsNullOrEmpty(fechafin);
+            bool result4 =(estadoPago<0);
+                                
+
+            //if (!result2 && !result3)
+            //    commandString = commandString + " AND CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime,' " + fechaini + " ',103) AND CONVERT(datetime,' " + fechafin + " ',103) ";
+
+            if (!result4)
+                commandString=commandString +" where estadoPago= " + estadoPago ;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+
+            while (dataReader.Read())
+            {
+                EventoBean evento = new EventoBean();
+
+                evento.ID = (int)dataReader["idEvento"];
+                evento.nombre = (string)dataReader["nombre"];
+                evento.descripcion = (string)dataReader["descripcion"];
+                evento.fechaIni = Convert.ToString(dataReader["fechaIni"]);
+                evento.fechaFin = Convert.ToString(dataReader["fechaFin"]);
+                evento.nroParticipantes = (int)dataReader["nroParticipantes"];
+                evento.idCliente = (int)dataReader["idCliente"];
+                evento.estadoPago= (int)dataReader["estadoPago"];
+                evento.montoTotal = Convert.ToDecimal(dataReader["montoTotal"]);
+                evento.pagoInicial = Convert.ToDecimal( dataReader["pagoInicial"]);
+                evento.idHotel = (int)dataReader["idHotel"];
+                evento.fechaRegistro = DateTime.Parse(dataReader["fechaRegistro"].ToString());
+                evento.nombreHotel = this.getNombreHotel(evento.idHotel);
+                evento.nombreCliente = this.getNombreCliente(evento.idCliente);                
+
+                listaEvento.Add(evento);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return listaEvento;
         }
 
         public DocumentoPagoBean registrarDocumentoPago(UsuarioResBean usuario, ReservaAmbBean reserva)
