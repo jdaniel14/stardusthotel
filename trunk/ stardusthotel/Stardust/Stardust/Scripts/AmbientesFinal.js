@@ -1,7 +1,7 @@
 ﻿
 var doc2 = $(document);
 doc2.ready(inicioFinal);
-var idUser;
+
 
 function inicioFinal() {
     $("#retornar").click(regresar);
