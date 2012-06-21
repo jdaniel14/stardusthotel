@@ -217,10 +217,26 @@ namespace Stardust.Controllers
         }
 
 
-        public ActionResult BuscarAmbiente(AmbienteBean item)
+        public ViewResult BuscarAmbiente(string idHotel, string nombre, string estado)
         {
+            int A;
+            string B, C;
             AmbienteFacade ambienteFacade = new AmbienteFacade();
-            return View();//ambienteFacade.ListarAmbiente(item.nombre,"ACTIVO",-1,-1));
+
+            if (!String.IsNullOrEmpty(idHotel)) A = Convert.ToInt32(idHotel);
+            else A = 0;
+
+            if (!String.IsNullOrEmpty(nombre)) B = Convert.ToString(nombre);
+            else B = "";
+
+            if (!String.IsNullOrEmpty(estado)) C = Convert.ToString(estado);
+            else C = "";
+
+
+            var model = ambienteFacade.ListarAmbiente(A, B, C);
+            ViewBag.listaHoteles = new HotelFacade().getHoteles();
+            return View(model);
+
         }
 
         public ActionResult MostrarAmbiente(AmbienteBean item)
