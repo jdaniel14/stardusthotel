@@ -31,6 +31,10 @@ namespace Stardust.Models.Servicios
             return mensaje;
         }
 
+        public MensajeBean login(String mail, String pass) {
+            return serviceHabitacion.login(mail, pass);
+        }
+
         public MensajeBean registrarReserva(ReservaRegistroBean reserva) {
             return serviceHabitacion.registrarReserva(reserva);
         }

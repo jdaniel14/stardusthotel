@@ -181,6 +181,34 @@ namespace Stardust.Models.Servicios
         
         #region REGISTRAR_RESERVA
 
+        public MensajeBean login(String mail, String pass) {
+            MensajeBean mensaje = new MensajeBean();
+            mensaje.me = "";
+            String query = "SELECT COUNT(*) as res FROM Usuario WHERE user_account = '"+mail+"' and pass='" + pass+ "'";
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            SqlDataReader dataReader;
+            try
+            {
+                sqlCon.Open();
+                SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);                
+                dataReader = sqlCmd2.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error en conexion a base de datos";
+                return mensaje;
+            }
+            int res = 0;
+            if (dataReader.Read()) {
+                res = (int)dataReader["res"];
+            }
+            mensaje.me = res.ToString();
+            return mensaje;
+        }
+
         public UsuarioResBean registraCliente(ClienteReservaBean client){
 
             System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.tipoDoc);
