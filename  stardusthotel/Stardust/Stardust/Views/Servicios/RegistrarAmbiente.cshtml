@@ -35,15 +35,26 @@
                 <h6>Registrar Ambiente</h6>
             </div>
 
-            <div class="formRow"><span>Nombre</span><span class="req">*</span>
+             <div class = "formRow" >
+                @Html.LabelFor(model => model.idHotel)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idHotel, new SelectList(ViewBag.listaHoteles, "ID", "nombre"), "..Elija un Hotel", new { onchange = "this.form.submit();" })
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idHotel)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class="formRow">@Html.LabelFor(model => model.nombre)
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.nombre, new { @class = "validate[required]", name = "", maxlength = "30", minlength = "3", placeholder = "nombre" }) 
+                @Html.TextBoxFor(m => m.nombre, new { @class = "validate[required]", name = "", maxlength = "50", minlength = "3", placeholder = "Nombre de máximo 50 caracteres" }) 
+                @Html.ValidationMessageFor(model => model.nombre)
                 </div>
                 <div class="clear"></div>
             </div>
 
 
-            <div class="formRow"><span>Descripcion</span>
+            <div class="formRow">@Html.LabelFor(model => model.descripcion)
                 <div class="formRight">
                 @Html.TextAreaFor(m => m.descripcion, new { maxlength = "200", placeholder = "Maximo 200 caracteres aqui" }) 
                 </div>
@@ -52,7 +63,8 @@
 
            <div class="formRow"><span>Capacidad Maxima</span><span class="req">*</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.cap_maxima, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "10" }) 
+                @Html.TextBoxFor(m => m.cap_maxima, new { maxlength = "6" }) 
+                @Html.ValidationMessageFor(model => model.cap_maxima)
                 </div>
                 <div class="clear"></div>
             </div>
@@ -80,7 +92,8 @@
 
            <div class="formRow"><span>Piso</span><span class="req">*</span>
                 <div class="formRight">
-                @Html.TextBoxFor(m => m.piso, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2" }) 
+                @Html.TextBoxFor(m => m.piso, new { maxlength = "2" }) 
+                @Html.ValidationMessageFor(model => model.piso)
                 </div>
                 <div class="clear"></div>
             </div>
