@@ -40,104 +40,111 @@ function esperaRecibirDatosCheckIn(){
 function llegadaDatosCheckIn(data) {
     console.log(data);
 
-    result = "";
+    if (data.me == "") {
 
-    result += '<div class = "widget"><div class="title"><h6>Datos de la reserva</h6></div>';
+        result = "";
 
-    result += '<div class="formRow"><span>Doc. de identidad</span>';
-    result += '<div class = "formRight" >';
-    result += '<span id = nroReserva>' + data.doc + '</span>';
-    result += '</div><div class="clear"></div></div>';
+        result += '<div class = "widget"><div class="title"><h6>Datos de la reserva</h6></div>';
 
-    result += '<div class="formRow"><span>Nombre</span>';
-    result += '<div class = "formRight" >';
-    result += '<span id = nroReserva>' + data.nomb + '</span>';
-    result += '</div><div class="clear"></div></div>';
-
-    result += '<div class="formRow"><span>Fecha de Registro</span>';
-    result += '<div class = "formRight" >';
-    result += '<span id = nroReserva>' + data.fechaReg + '</span>';
-    result += '</div><div class="clear"></div></div>';
-
-    result += '<div class="formRow"><span>Fecha de llegada</span>';
-    result += '<div class = "formRight" >';
-    result += '<span id = nroReserva>' + data.fechaLleg + '</span>';
-    result += '</div><div class="clear"></div></div>';
-
-    result += '</div>';
-
-    $("#imprimeDatos").html(result);
-
-    var lista = data.lista;
-
-    result = "";
-    var k = 0;
-    
-    $.each(lista, function (i, item) {
-
-        k++;
-        result += '<div class = "widget">';
-        result += '<div class = "title">';
-        result += '<img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" />';
-        result += '<h6>' + item.nombTipHab + '</h6></div>';
-
-
-        var numPersonas = item.nroPers;
-
-        result += '<div class="formRow"><span>Cantidad de personas a registrar</span>';
-        result += '<div class = "formRight">';
-        result += '<span id = "cantHabit' + k + '">' + item.nroPers + '</span>';
+        result += '<div class="formRow"><span>Doc. de identidad</span>';
+        result += '<div class = "formRight" >';
+        result += '<span id = nroReserva>' + data.doc + '</span>';
         result += '</div><div class="clear"></div></div>';
 
-        var listaHabitaciones = item.lista;
+        result += '<div class="formRow"><span>Nombre</span>';
+        result += '<div class = "formRight" >';
+        result += '<span id = nroReserva>' + data.nomb + '</span>';
+        result += '</div><div class="clear"></div></div>';
 
-        var m = 0;
+        result += '<div class="formRow"><span>Fecha de Registro</span>';
+        result += '<div class = "formRight" >';
+        result += '<span id = nroReserva>' + data.fechaReg + '</span>';
+        result += '</div><div class="clear"></div></div>';
 
-        $.each(listaHabitaciones, function (j, cosito) {
+        result += '<div class="formRow"><span>Fecha de llegada</span>';
+        result += '<div class = "formRight" >';
+        result += '<span id = nroReserva>' + data.fechaLleg + '</span>';
+        result += '</div><div class="clear"></div></div>';
 
-            var id = cosito.idHab;
+        result += '</div>';
 
-            habitaciones.push(id);
-            cantXHabit.push(numPersonas);
+        $("#imprimeDatos").html(result);
 
-            m++;
-            result += '<div class="widget"><div class = "title"><h6>:: Habitacion ' + cosito.numero + '</h6></div>'
+        var lista = data.lista;
 
-            result += '<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >';
+        result = "";
+        var k = 0;
 
-            result += '<thead><tr><td>Doc. de Identidad</td><td>Nombres</td></tr></thead>';
+        $.each(lista, function (i, item) {
 
-            result += '<tbody>';
+            k++;
+            result += '<div class = "widget">';
+            result += '<div class = "title">';
+            result += '<img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" />';
+            result += '<h6>' + item.nombTipHab + '</h6></div>';
 
-            var n = 0;
-            for (n = 0; n < numPersonas; n++) {
+
+            var numPersonas = item.nroPers;
+
+            result += '<div class="formRow"><span>Cantidad de personas a registrar</span>';
+            result += '<div class = "formRight">';
+            result += '<span id = "cantHabit' + k + '">' + item.nroPers + '</span>';
+            result += '</div><div class="clear"></div></div>';
+
+            var listaHabitaciones = item.lista;
+
+            var m = 0;
+
+            $.each(listaHabitaciones, function (j, cosito) {
+
+                var id = cosito.idHab;
+
+                habitaciones.push(id);
+                cantXHabit.push(numPersonas);
+
+                m++;
+                result += '<div class="widget"><div class = "title"><h6>:: Habitacion ' + cosito.numero + '</h6></div>'
+
+                result += '<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >';
+
+                result += '<thead><tr><td>Doc. de Identidad</td><td>Nombres</td></tr></thead>';
+
+                result += '<tbody>';
+
+                var n = 0;
+                for (n = 0; n < numPersonas; n++) {
 
 
-                result += '<tr><td align = "center">';
-                result += '<input type="text" class = "dnicampo" id="DNICliente' + cosito.idHab + '-' + n + '"/>';
-                result += '</td><td align = "center">';
+                    result += '<tr><td align = "center">';
+                    result += '<input type="text" class = "dnicampo" id="DNICliente' + cosito.idHab + '-' + n + '"/>';
+                    result += '</td><td align = "center">';
 
-                result += '<input type="text" class = "campo" id="nombCliente' + cosito.idHab + '-' + n + '"/>';
-                result += '</td></tr>';
-            }
+                    result += '<input type="text" class = "campo" id="nombCliente' + cosito.idHab + '-' + n + '"/>';
+                    result += '</td></tr>';
+                }
 
-            result += '</tbody></table>';
+                result += '</tbody></table>';
+                result += '</div>';
+
+            });
+
             result += '</div>';
 
         });
 
-        result += '</div>';
+        result += '<br /><input id = "registrarReserva" type="submit" value="Registrar" class = "redB" />';
+        console.log(result);
+        $("#accordion").html(result);
 
-    });
+        console.log(habitaciones);
+        console.log(cantXHabit);
 
-    result += '<br /><input id = "registrarReserva" type="submit" value="Registrar" class = "redB" />';
-    console.log(result);
-    $("#accordion").html(result);
+        $("#registrarReserva").click(enviarDatos);
 
-    console.log(habitaciones);
-    console.log(cantXHabit);
-
-    $("#registrarReserva").click(enviarDatos);
+    }
+    else {
+        alert(data.me);
+    }
 }
 
 function enviarDatos() {
