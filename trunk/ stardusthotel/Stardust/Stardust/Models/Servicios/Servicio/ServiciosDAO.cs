@@ -209,10 +209,10 @@ namespace Stardust.Models
             String query = "";
             if (flagTipo != 0)
             { //Evento
-                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + idSer + " , " + idHotel + " , " + nroRes + " , " + dni + " , " + monto + " , " + nRecib + " , SYSDATE() , 1 )";
+                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + idSer + " , " + idHotel + " , " + nroRes + " , " + dni + " , " + monto + " , " + nRecib + " , GETDATE() , 1 )";
             }
             else { //reserva
-                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + nroRes + " , " +idSer + " , "+idHotel + ", " + nRecib + " , " + monto + " , SYSDATE() )";
+                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + nroRes + " , " +idSer + " , "+idHotel + ", " + nRecib + " , " + monto + " , GETDATE() )";
             }
             System.Diagnostics.Debug.WriteLine("QUERY DE ASIGNAR : " + query);
 
@@ -229,7 +229,7 @@ namespace Stardust.Models
             }
             catch(Exception e )
             {
-                mensaje.me = "Error en conexion a BD";
+                mensaje.me = "Error en conexion a BD " + e.Message;
                 return mensaje;
             }
 
