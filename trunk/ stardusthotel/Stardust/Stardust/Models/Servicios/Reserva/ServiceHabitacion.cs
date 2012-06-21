@@ -124,6 +124,11 @@ namespace Stardust.Models.Servicios
             return reservaHabitacionDAO.InsertClientesHabitacion(listClientHab);
         }
 
+        public string ActualizarReserva(List<ClienteHabBean> listClientHab)
+        {
+            return reservaHabitacionDAO.ActualizarReserva(listClientHab);
+        }
+
         public MensajeBean registrarReserva(ReservaRegistroBean reservaRequest) {
             MensajeBean mensaje = new MensajeBean();
             mensaje.me = "";

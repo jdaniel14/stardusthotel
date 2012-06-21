@@ -45,6 +45,11 @@ namespace Stardust.Models.Servicios
             return serviceHabitacion.RegistrarDatClientesCheckIn(listClientHab);
         }
 
+        public string ActualizarReserva(List<ClienteHabBean> listClientHab)
+        {
+            return serviceHabitacion.ActualizarReserva(listClientHab);
+        }
+
         public ConsultaReservaBean consultarReserva(int idHotel, int idReserva, String documento) {
             return serviceHabitacion.consultarReserva(idHotel, idReserva, documento);
         }

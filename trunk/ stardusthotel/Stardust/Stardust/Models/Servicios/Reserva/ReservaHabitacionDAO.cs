@@ -66,8 +66,8 @@ namespace Stardust.Models.Servicios
                 HabitacionReserva hab = new HabitacionReserva();
                 hab.idHab= (int)dataReader["idHabitacion"];
                 hab.idTipoHabitacion = (int)dataReader["idTipoHabitacion"];
-                System.Diagnostics.Debug.WriteLine("numero : " + (string)dataReader["numero"]);
-                hab.numero = (string)dataReader["numero"];
+                System.Diagnostics.Debug.WriteLine("numero : " + Convert.ToString(dataReader["numero"]));
+                hab.numero = Convert.ToString(dataReader["numero"]);
                 hab.piso = (int)dataReader["piso"];
                 listaHab.Add(hab);
             }
@@ -550,7 +550,6 @@ namespace Stardust.Models.Servicios
             return reserva;
         }
 
-
         public List<TipHabCheckInBean> listarTipHabReserva(int idReserva)
         {
             List<TipHabCheckInBean> lista = new List<TipHabCheckInBean>();
@@ -641,6 +640,38 @@ namespace Stardust.Models.Servicios
             
             sqlCon.Close();
             return me;
+        }
+
+        public string ActualizarReserva(List<ClienteHabBean> listClientHab)
+        {
+            try
+            {
+                int idReserva = listClientHab.Last().idReserva;
+
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                string commandString = "UPDATE Reserva SET estado = 3 WHERE idReserva = " + idReserva;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                for (int i = 0; i < listClientHab.Count; i++)
+                {
+                    commandString = "UPDATE ReservaXHabitacion SET estado = 3 WHERE idReserva = "+listClientHab.ElementAt(i).idReserva+" AND idHabitacion = "+listClientHab.ElementAt(i).idHab;
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd2.ExecuteNonQuery();
+                }
+
+                return "Ok";
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
         }
 
         #endregion
