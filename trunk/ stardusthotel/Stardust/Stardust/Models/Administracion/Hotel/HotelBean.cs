@@ -27,11 +27,11 @@ namespace Stardust.Models
         public string tlf1 { get; set; }
 
         [Display(Name = "Teléfono Secundario")]
-        [Remote("ValidaFonoNoRequerido", "Hotel")]
+        [Remote("ValidaFonoNoRequerido", "Validation")]
         public string tlf2 { get; set; }
 
         [Display(Name = "E-mail")]
-        [Remote("ValidaEmail", "Hotel")]
+        [Remote("ValidaEmail", "Validation")]
         public string email { get; set; }
 
         [Display(Name = "Número de pisos")]
