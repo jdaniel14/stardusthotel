@@ -207,9 +207,9 @@ namespace Stardust.Models
             MensajeBean mensaje = new MensajeBean ();
             mensaje.me = "";
             String query = "";
-            if (flagTipo == 0)
+            if (flagTipo != 0)
             { //Evento
-                query = "INSERT INTO AmbienteXEventoXServicioTerc VALUES ( "+idSer+ " , " + idHotel + " , " + nroRes + " , " + dni + " , " + monto + " , " + nRecib + " , SYSDATE() , 1 )" ;
+                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + idSer + " , " + idHotel + " , " + nroRes + " , " + dni + " , " + monto + " , " + nRecib + " , SYSDATE() , 1 )";
             }
             else { //reserva
                 query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + nroRes + " , " +idSer + " , "+idHotel + ", " + nRecib + " , " + monto + " , SYSDATE() )";
