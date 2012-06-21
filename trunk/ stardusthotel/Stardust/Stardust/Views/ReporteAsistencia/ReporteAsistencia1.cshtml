@@ -1,0 +1,54 @@
+﻿@using Stardust.Models
+@model List<Horario>
+
+<br />
+        @*<div id="leftSide" >
+        <div class="logo">
+
+                <img src="C:\Users\TEMP\Desktop\ stardusthotel\Stardust\Stardust\Content\images\logo.png"/>
+
+        </div>*@
+
+<div align="center">
+    Reporte de Asistencia
+</div>
+<div>    </div>
+<div>    </div>
+<div>    </div>
+
+<table cellpadding="3" cellspacing="3">
+
+   <tr><td> Empleado</td></tr>
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="20%" align="center">
+            Nombre
+        </td>
+       
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (Horario horar in Model)
+    {
+        
+        <tr border="1" bgcolor="@Odd">
+            <td>@horar.nombreEmpleado
+            </td>
+            <td>@horar.fechaInicioHorario
+            </td>
+            <td>@horar.fechaFinHorario
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+</table>
