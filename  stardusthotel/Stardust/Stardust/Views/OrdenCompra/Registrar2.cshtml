@@ -20,7 +20,7 @@
                 <div class=" formRight">  @Html.DisplayFor(model => model.proveedor, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.nombrehotel)
+            <div class="formRow"> @Html.LabelFor(model => model.nombrehotel) @Html.HiddenFor(model => model.idhotel) 
                 <div class=" formRight">  @Html.DisplayFor(model => model.nombrehotel, new { @readonly = "readonly" })  </div>
                 <div class="clear"></div>
             </div>
