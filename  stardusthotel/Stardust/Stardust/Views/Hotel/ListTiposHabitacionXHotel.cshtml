@@ -7,7 +7,7 @@
 <h3>Hotel: @ViewBag.nombreHotel </h3>
 
 <p>
-    <a href="@Url.Action("AsignarTipoHabitacion", new { id = ViewBag.idHotel})">
+    <a href="@Url.Action("CreateTipoHabitacionXHotel", new { id = ViewBag.idHotel })">
         <img src="@Url.Content("~/Content/images/icons/color/plus.png")" alt="Edit" />
         Añadir tipo de habitación
     </a>
@@ -36,16 +36,15 @@
             @Html.DisplayFor(modelItem => item.descripcion)
         </td>
         <td>
-            <a href="@Url.Action("Edit", new { id = item.ID })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 
-            <a href="@Url.Action("Details", new { id = item.ID })"><img src="@Url.Content("~/Content/images/icons/color/edit-column.png")" alt="Details" />Detalles</a> | 
-            <a href="@Url.Action("Delete", new { id = item.ID })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar</a>
+            <a href="@Url.Action("EditTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 
+            @*<a href="@Url.Action("Delete", new { id = item.idTipoHabitacion })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar</a>*@
         </td>
     </tr>
 }
      </tbody>
 </table>
 
-<br/><br/><br/><br/><br/><br/><br/>
+<br/><br/>
 <div>
     @Html.ActionLink("Regresar", "List")
 </div>
