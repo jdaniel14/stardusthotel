@@ -113,9 +113,9 @@ function finDelChongo() {
             var precioDelA = $(cmdPA).text();
 
             var enviarAmbi = {
-                idAmb: idAmbi,
-                nombAmb: nombreDelA,
-                prec: precioDelA
+                id: idAmbi,
+                nombre: nombreDelA,
+                precioXhora: precioDelA
             }
 
             listaAmbientes.push(enviarAmbi);
