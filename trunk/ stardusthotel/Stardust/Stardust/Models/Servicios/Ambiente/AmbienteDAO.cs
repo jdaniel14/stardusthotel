@@ -83,7 +83,7 @@ namespace Stardust.Models
             DAO.agregarParametro(sqlCmd, "precioXhora", ambiente.precioXhora);
             DAO.agregarParametro(sqlCmd, "piso", ambiente.piso);
             DAO.agregarParametro(sqlCmd, "estado", "ACTIVO");
-            DAO.agregarParametro(sqlCmd, "idHotel", ambiente.idHotel);
+            DAO.agregarParametro(sqlCmd, "idHotel", ambiente.id);
             
             sqlCmd.ExecuteNonQuery();
 
