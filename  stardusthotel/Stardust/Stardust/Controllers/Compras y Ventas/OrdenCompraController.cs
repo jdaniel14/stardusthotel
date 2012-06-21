@@ -121,7 +121,7 @@ namespace Stardust.Controllers
         
         public ActionResult RegistrarOC(OrdenProducto producto)
         {
-            comprasFacade.GuardarOrdenCompra(producto);
+            
             for (int i = 0; i < producto.listaProducto.Count; i++)
             {
                 if (producto.listaProducto[i].cantidad > 0)
@@ -134,6 +134,8 @@ namespace Stardust.Controllers
                     producto.listaProducto[i].estadoguardar = false;
                 }
             }
+
+            comprasFacade.GuardarOrdenCompra(producto);
             return RedirectToAction("Buscar");
         }
 
@@ -231,6 +233,7 @@ namespace Stardust.Controllers
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
             ordencompra.nombreproveedor = proveedor.razonSocial;
 
+            
             return View(ordencompra);
         }
 
@@ -267,7 +270,7 @@ namespace Stardust.Controllers
 
             }
           
-            //falta cantidad faltante
+            
             List<NotaEntradaBean> notas2 = comprasFacade.listarnotasentrada(id); // lista de notas de entrada de uan orden de compra
 
             for (int i = 0; i < notas2.Count; i++)
@@ -289,6 +292,10 @@ namespace Stardust.Controllers
             for (int i = 0; i < notaentrada.detallenotaentrada.Count; i++)
             {
                 notaentrada.detallenotaentrada[i].cantidadfaltante = notaentrada.detallenotaentrada[i].cantidadsolicitada - notaentrada.detallenotaentrada[i].cantidadrecibida;
+                if (notaentrada.detallenotaentrada[i].cantidadfaltante == 0)
+                {
+                    notaentrada.detallenotaentrada[i].estado = true;
+                }
             }
 
            return View(notaentrada);
@@ -307,11 +314,22 @@ namespace Stardust.Controllers
                     return View(not);
                 }
             }
+
+            //int cantidadsolicitada = 0;
+            //int cantidadrecibida = 0;
+            //int cantidadfaltante = 0;
+            //int cantidadentrante = 0;
+            string estado = ""; // verificar las cantidades
+            Boolean estado2 = not.detallenotaentrada[0].estado;
+            for (int i = 1; i < not.detallenotaentrada.Count; i++)
+            {
+                estado2 = not.detallenotaentrada[i].estado && estado2;
+            }
+
+            if (estado2) estado = "Atendido"; else estado = "Parcialmente Atendido";
             
-            string estado = "Parcialmente Atendido"; // verificar las cantidades
             comprasFacade.guardarnotaentrada(not, estado);
-            //.. cambiar stock de producto
-            comprasFacade.actualizarstock(not);
+            comprasFacade.actualizarstock(not);//.. cambiar stock de producto
             return RedirectToAction("ListarNotaEntrada/" + not.idordencompra, "OrdenCompra"); 
         }
 
