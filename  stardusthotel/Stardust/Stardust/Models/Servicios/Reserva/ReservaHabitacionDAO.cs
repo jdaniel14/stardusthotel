@@ -237,8 +237,8 @@ namespace Stardust.Models.Servicios
             
 
             string commandString3 = "INSERT INTO Usuario VALUES (1," +
-                     "''" + client.email + ", " +
-                     "''" + pass + ", " +
+                     "'" + client.email + "', " +
+                     "'" + pass + "', " +
                      "'" + client.nomb+ "'" + ", " +
                      "'" + client.apell + "'" + ", " +
                      "''" + ", " +
