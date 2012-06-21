@@ -121,28 +121,71 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult RegistrarAmbiente(AmbienteBean item)
         {
-            AmbienteFacade ambienteFacade = new AmbienteFacade();                       
-            ambienteFacade.RegistrarAmbiente(item);
-            return RedirectToAction("BuscarAmbiente");
+            if (ModelState.IsValid)
+            {
+                AmbienteFacade ambienteFacade = new AmbienteFacade();
+                ambienteFacade.RegistrarAmbiente(item);
+                return RedirectToAction("BuscarAmbiente");
+            }
+            else if (item.idHotel != 0) {
+
+                     ViewBag.listaHoteles = new HotelFacade().getHoteles();                     
+                     return View();
+                 }
+
+            else
+            {
+                ViewBag.listaHoteles = new HotelFacade().getHoteles();               
+                return View();
+            }
+
+            
         }
 
         public ActionResult ModificarAmbiente(int id)
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
             AmbienteBean item = ambienteFacade.GetAmbiente(id);
+            ViewBag.listaHoteles = new HotelFacade().getHoteles();
             return View(item);
         }
 
         [HttpPost]
         public ActionResult ModificarAmbiente(AmbienteBean item)
         {
-            AmbienteFacade ambienteFacade = new AmbienteFacade();
-            ambienteFacade.ActualizarAmbiente(item);
-            return RedirectToAction("BuscarAmbiente");
+            if (ModelState.IsValid)
+            {
+                AmbienteFacade ambienteFacade = new AmbienteFacade();
+                ambienteFacade.ActualizarAmbiente(item);
+                return RedirectToAction("BuscarAmbiente");
+            }
+            else if (item.idHotel != 0)
+            {
+
+                ViewBag.listaHoteles = new HotelFacade().getHoteles();
+                return View();
+            }
+
+            else
+            {
+                ViewBag.listaHoteles = new HotelFacade().getHoteles();
+                return View();
+            }
         }
 
         public ActionResult Delete2(int ID)
         {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            AmbienteBean ambiente = ambienteFacade.GetAmbiente(ID);
+            if (ambiente !=null){
+            ViewBag.Hotel = new HotelFacade().getHotel(ambiente.idHotel).nombre;
+            
+            }
+            else
+            {
+                ViewBag.Hotel = "";                
+            }
+
             return View();
             //AmbienteFacade ambienteFacade = new AmbienteFacade();
             //ambienteFacade.EliminarAmbiente(id);
