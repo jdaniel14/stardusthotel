@@ -1,5 +1,146 @@
 ﻿@{
-    ViewBag.Title = "PagarInicial";
+    ViewBag.Title = "Pagar Inicial";
 }
 
-<h2>PagarInicial</h2>
+<h2>Pagar Inicial</h2>
+
+<script type="text/javascript" src="/Scripts/PagarInicial.js"></script>
+
+<html lang="es">
+
+    <head>
+
+        <title>Reservar Ambiente</title>
+
+        <style type="text/css">
+          
+        </style>
+
+    </head>
+
+    <body>
+
+    <div id = "busqueda">    
+        <div class = "widget">
+            <div class="title">
+                <h6>Buscar Reserva</h6>
+			</div>
+
+            <div class="formRow"><span>Tipo de Reserva</span>                
+               <div class = "formRight" > 
+                    <select id="ComboRes">                        
+                        <option value = "0">Ambiente</option>
+                        <option value = "1">Habitación</option>
+                    </select>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Reserva</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nReserva" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Documento</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nDoc" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input id = "buscame" type="submit" value="Buscar" class = "redB" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+        </div>   
+    </div>
+
+    <div id = "mostrarDatos">
+    
+        <div class = "widget">
+
+            <div class="title"><img src="../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" />
+                <h6>Datos</h6>
+			</div>
+        
+            <div class="formRow"><span>Reserva</span>                
+               <div class = "formRight" > 
+                    <span id = "nombReserva"></span>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Documento</span>                
+               <div class = "formRight" > 
+                    <span id = "nDocu"></span>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nombre</span>                
+               <div class = "formRight" > 
+                    <span id = "nombre"></span>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Monto a Cancelar</span>                
+                <div class = "formRight" > 
+                    <span id = "monto"></span>
+                </div>                
+                <div class="clear"></div>
+            </div> 
+
+            <div id = "aVeces1">                           
+
+                <div class="formRow"><span>Monto Cancelado</span>
+                    <div class = "formRight" >
+                        <input type="text" id="cantPagando"/>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="formRow"><span>Vuelto</span>
+                    <div class = "formRight" >
+                        <span id = "vuelto"></span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id = "pagar" type="submit" value="Registrar Pago" class = "redB" />
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                
+            </div>           
+   
+
+            <div id = "aVeces2">
+            
+                <div class="formRow"><span>Estado</span>                
+                    <div class = "formRight"> 
+                        <span id = "estado"></span>
+                    </div>                
+                    <div class="clear"></div>
+                </div>  
+            
+            </div>
+
+        
+        
+        
+        </div>
+    
+    
+    
+    </div>
+
+    </body>
+
+</html>
+
