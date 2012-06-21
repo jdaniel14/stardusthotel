@@ -34,8 +34,8 @@
                
                 <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].nombre, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].cantidad, new { @readonly = "readonly" }) </td>
-                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].precio1, new { @readonly = "readonly" }) </td>
-                @Html.HiddenFor(model => model.listaOCDetalle[i].precio)
+                <td> @Html.TextBoxFor(model => model.listaOCDetalle[i].precio, new { @readonly = "readonly" }) </td>
+                
             </tr>
 
     
@@ -46,22 +46,22 @@
     <tr>
         <td></td>
         <td>Total Sin IGV</td>
-        <td>@Html.TextBoxFor(model => model.subtotal1, new { @readonly = "readonly" })</td>
-        @Html.HiddenFor(model => model.subtotal)
+        <td>@Html.TextBoxFor(model => model.subtotal, new { @readonly = "readonly" })</td>
+     
     </tr> 
 
     <tr>
         <td></td>
         <td>IGV</td>
-        <td>@Html.TextBoxFor(model => model.igv1, new { @readonly = "readonly" })</td>
-        @Html.HiddenFor(model => model.igv)
+        <td>@Html.TextBoxFor(model => model.igv, new { @readonly = "readonly" })</td>
+        
     </tr>
     
     <tr>
         <td></td>
         <td>Total</td>
-        <td>@Html.TextBoxFor(model => model.total1, new { @readonly = "readonly" })</td>
-        @Html.HiddenFor(model => model.total)
+        <td>@Html.TextBoxFor(model => model.total, new { @readonly = "readonly" })</td>
+        
     </tr>
 
     </tbody>
@@ -88,22 +88,22 @@
 
     <div class="formRow">
                 @Html.LabelFor(model => model.paga)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.paga1, new { @readonly = "readonly" })</div>
-                @Html.HiddenFor(model => model.paga)
-                @*<div class = "formRight">@ViewBag.error2</div>*@
+                <div class = "formRight" >@Html.TextBoxFor(model => model.paga, new { @readonly = "readonly" })</div>
+                
+                <div class = "formRight">@ViewBag.error2</div>
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
                 @Html.LabelFor(model => model.pagar)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.pagar1, new { @readonly = "readonly" })</div>
-                @Html.HiddenFor(model => model.pagar)                 
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagar, new { @readonly = "readonly" })</div>
+                                
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
                 @Html.LabelFor(model => model.pagado)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado1, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "8", placeholder = "Solo numeros" })</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "8", placeholder = "Solo numeros" })</div>
                 <div class = "formRight">@ViewBag.error3</div>
                 <div class = "clear" ></div>
     </div>

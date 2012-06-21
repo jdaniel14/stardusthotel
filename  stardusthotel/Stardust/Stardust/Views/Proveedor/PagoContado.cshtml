@@ -5,13 +5,11 @@
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
 
 
 
- @using (Html.BeginForm("PagoContado", "Proveedor", FormMethod.Post, new { @class = "form", id = "validate"}))
-{
+ @using (Html.BeginForm("PagoContado", "Proveedor", FormMethod.Post, new { @class = "form" }))
+ {
     @Html.ValidationSummary(true);
     <div class="title"><h6>Listado de Orden de Compra</h6> </div>
      <p></p><p></p>
@@ -51,21 +49,21 @@
         <td></td>
         <td>Total Sin IGV</td>
         <td>@Html.TextBoxFor(model => model.subtotal1, new { @readonly = "readonly" })</td>
-        @Html.HiddenFor(model => model.subtotal)
+       
     </tr> 
 
     <tr>
         <td></td>
         <td>IGV</td>
-        <td>@Html.TextBoxFor(model => model.igv1, new { @readonly = "readonly" })</td>
-        @Html.HiddenFor(model => model.igv)
+        <td>@Html.TextBoxFor(model => model.igv, new { @readonly = "readonly" })</td>
+        
     </tr>
     
     <tr>
         <td></td>
         <td>Total</td>
-        <td>@Html.TextBoxFor(model => model.total1, new { @readonly = "readonly" })</td>
-        @Html.HiddenFor(model => model.total)
+        <td>@Html.TextBoxFor(model => model.total, new { @readonly = "readonly" })</td>
+        
     </tr>
 
     </tbody>
@@ -75,9 +73,8 @@
      <fieldset>
 
      <div class="formRow">
-                @Html.LabelFor(model => model.paga)
-                @*<div class = "formRight" >@Html.TextBoxFor(model => model.paga, new { @readonly = "readonly" })</div>*@                
-                <div class = "formRight" >@Html.TextBoxFor(model => model.paga1, new { @readonly = "readonly" })</div>
+                @Html.LabelFor(model => model.paga)             
+                <div class = "formRight" >@Html.TextBoxFor(model => model.paga, new { @readonly = "readonly" })</div>
                 @Html.HiddenFor(model => model.paga)
                 @*<div class = "formRight">@ViewBag.error2</div>*@
                 <div class = "clear" ></div>
@@ -85,14 +82,13 @@
 
     <div class="formRow">
                 @Html.LabelFor(model => model.pagar)
-                <div class = "formRight" >@Html.TextBoxFor(model => model.pagar1, new { @readonly = "readonly" })</div>
-                @Html.HiddenFor(model => model.pagar)                
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagar, new { @readonly = "readonly" })</div>        
                 <div class = "clear" ></div>
     </div>
 
     <div class="formRow">
                 @Html.LabelFor(model => model.pagado)<span class="req">*</span>
-                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado1, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "6", placeholder = "Solo numeros" })</div>
+                <div class = "formRight" >@Html.TextBoxFor(model => model.pagado)</div>
                 <div class = "formRight">@ViewBag.error</div>
                 <div class = "clear" ></div>
     </div>    
@@ -103,4 +99,4 @@
         <input type="submit" value="Contado" class = "redB"/>        
         @Html.ActionLink("Regresar", "PagoProveedor", "Proveedor")
     </p>
-}
+ }
