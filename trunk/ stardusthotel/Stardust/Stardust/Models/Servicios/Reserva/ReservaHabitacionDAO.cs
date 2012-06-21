@@ -192,12 +192,14 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             SqlDataReader dataReader;
             sqlCon.Open();
-            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);                
+            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
             dataReader = sqlCmd2.ExecuteReader();
             
             int res = 0;
             if (dataReader.Read()) {
+
                 res = 1;
+                usuario.idUsuario = (int)dataReader["idUsuario"];
                 usuario.tipoDocumento = (String)dataReader["tipoDocumento"];
                 usuario.nroDocumento = (String)dataReader["nroDocumento"];
                 usuario.nombres = (String)dataReader["razonSocial"] + (String)dataReader["nombres"] + (String)dataReader["apPat"];

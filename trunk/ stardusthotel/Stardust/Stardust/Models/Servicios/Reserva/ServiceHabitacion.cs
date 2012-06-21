@@ -139,17 +139,21 @@ namespace Stardust.Models.Servicios
             mensaje.me = "";
             bool result;
 
-            //if(reservaRequest.tipoRegistro==0)
-                UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client); // 0=> hubo error ; 1 => natural; 2 => juridico
-            //else {
-            
-            //}
-            result = usuarioRes.me.Equals("");
-            if (!result) {
-                mensaje.me = usuarioRes.me;
-                return mensaje;
+            UsuarioResBean usuarioRes = new UsuarioResBean ();
+            if (reservaRequest.tipoRegistro == 0)
+            {
+                usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client); // 0=> hubo error ; 1 => natural; 2 => juridico    
+                result = usuarioRes.me.Equals("");
+                if (!result)
+                {
+                    mensaje.me = usuarioRes.me;
+                    return mensaje;
+                }
             }
-            
+            else {
+                usuarioRes.idUsuario = reservaRequest.idUsuario;
+                usuarioRes.tipoDocumento = reservaRequest.client.tipoDoc;
+            }
 
             ReservaResBean reservaRes = reservaHabitacionDAO.resgitrarReserva(reservaRequest.idHotel, usuarioRes.idUsuario, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRequest.total, reservaRequest.coment);
             result = reservaRes.me.Equals("");
