@@ -54,6 +54,7 @@
             <div class="formRow">@Html.LabelFor(model => model.descripcion)
                 <div class="formRight">
                 @Html.TextAreaFor(m => m.descripcion, new { maxlength = "200", placeholder = "Maximo 200 caracteres aqui" }) 
+                @Html.ValidationMessageFor(model => model.descripcion)
                 </div>
                 <div class="clear"></div>
             </div>
@@ -69,6 +70,7 @@
            <div class="formRow">@Html.LabelFor(model => model.largo)
                 <div class="formRight">
                 @Html.TextBoxFor(m => m.largo, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
+                @Html.ValidationMessageFor(model => model.largo)
                 </div>
                 <div class="clear"></div>
             </div>
@@ -76,6 +78,7 @@
             <div class="formRow">@Html.LabelFor(model => model.ancho)
                 <div class="formRight">
                 @Html.TextBoxFor(m => m.ancho, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "1" }) 
+                @Html.ValidationMessageFor(model => model.ancho)
                 </div>
                 <div class="clear"></div>
             </div>
@@ -83,6 +86,7 @@
             <div class="formRow">@Html.LabelFor(model => model.precioXhora)
                 <div class="formRight">
                 @Html.TextBoxFor(m => m.precioXhora, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "9" }) 
+                @Html.ValidationMessageFor(model => model.precioXhora)
                 </div>
                 <div class="clear"></div>
             </div>
