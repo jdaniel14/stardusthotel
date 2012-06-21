@@ -185,7 +185,7 @@ namespace Stardust.Models.Servicios
         {
             UsuarioResBean usuario = new UsuarioResBean();
             usuario.me = "";
-            String query = "SELECT * as res FROM Usuario WHERE user_account = '"+mail+"' and pass='" + pass+ "'";
+            String query = "SELECT * FROM Usuario WHERE user_account = '"+mail+"' and pass='" + pass+ "'";
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
