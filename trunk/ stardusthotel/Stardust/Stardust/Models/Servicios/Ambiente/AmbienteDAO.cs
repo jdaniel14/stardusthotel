@@ -68,8 +68,8 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "INSERT INTO Ambiente" +
-                                    "( nombre , descripcion , cap_maxima , largo , ancho , precioXhora , piso , estado , idHotel ) " +
-                                    "VALUES (@nombre, @descripcion, @cap_maxima, @largo, @ancho, @precioXhora, @piso, @estado,  @idHotel )";
+                                    "( nombre , descripcion , capacMaxima, largo , ancho , precioXHora , piso , estado , idHotel ) " +
+                                    "VALUES (@nombre, @descripcion, @capacMaxima, @largo, @ancho, @precioXHora, @piso, @estado,  @idHotel )";
 
                      
            // VALUES ('" + ambiente.nombre + "', '" + ambiente.descripcion + "', " + ambiente.cap_maxima + ", " + ambiente.largo + ", " + ambiente.ancho + ", " + ambiente.precioXhora + ", " + ambiente.piso + ", 'ACTIVO', 1)";
@@ -77,10 +77,10 @@ namespace Stardust.Models
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             DAO.agregarParametro(sqlCmd, "nombre", ambiente.nombre);
             DAO.agregarParametro(sqlCmd, "descripcion", ambiente.descripcion);
-            DAO.agregarParametro(sqlCmd, "cap_maxima", ambiente.cap_maxima);
+            DAO.agregarParametro(sqlCmd, "capacMaxima", ambiente.cap_maxima);
             DAO.agregarParametro(sqlCmd, "largo", ambiente.largo);
             DAO.agregarParametro(sqlCmd, "ancho", ambiente.ancho);
-            DAO.agregarParametro(sqlCmd, "precioXhora", ambiente.precioXhora);
+            DAO.agregarParametro(sqlCmd, "precioXHora", ambiente.precioXhora);
             DAO.agregarParametro(sqlCmd, "piso", ambiente.piso);
             DAO.agregarParametro(sqlCmd, "estado", "ACTIVO");
             DAO.agregarParametro(sqlCmd, "idHotel", ambiente.id);
