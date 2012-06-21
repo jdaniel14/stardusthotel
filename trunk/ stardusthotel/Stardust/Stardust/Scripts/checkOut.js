@@ -201,7 +201,16 @@ function esperaConfirmacion(){
 }
 
 function confirma(data) {
-    alert(data.me);
+    console.log(data.me);
+
+    if (data.me == "") {
+        alert('OK');
+        console.log("se hizo");
+        $(location).attr('href', '../../');
+    }
+    else {
+        alert(data.me);
+    }
 }
 
 
