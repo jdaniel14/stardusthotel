@@ -1,0 +1,80 @@
+﻿@model Stardust.Models.AmbienteBean
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles dek Ambiente</h2>
+
+
+<fieldset>
+    <div class = "widget" >
+        <div class = "title" ><h6>@ViewBag.Title</h6></div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.id)
+            <div class = "formRight" > @ViewBag.Hotel </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.nombreHotel ) 
+            <div class = "formRight" > @Html.DisplayFor(model => model.nombreHotel) </div>           
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.nombre )
+            <div class = "formRight" > @Html.DisplayFor(model => model.nombre) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.descripcion)
+            <div class = "formRight" > @Html.DisplayFor(model => model.descripcion) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.cap_maxima )
+            <div class = "formRight" > @Html.DisplayFor(model => model.cap_maxima) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.largo)
+            <div class = "formRight" > @Html.DisplayFor(model => model.largo) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.ancho )
+            <div class = "formRight" > @Html.DisplayFor(model => model.ancho) </div>
+            <div class = "clear" ></div>
+        </div>
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.precioXhora )
+            <div class = "formRight" > @Html.DisplayFor(model => model.precioXhora) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.piso)
+            <div class = "formRight" > @Html.DisplayFor(model => model.piso) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class = "formRow" >
+            @Html.LabelFor(model => model.estado )
+            <div class = "formRight" > @Html.DisplayFor(model => model.estado) </div>
+            <div class = "clear" ></div>
+        </div>
+
+        
+    </div>
+</fieldset>
+
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+    @Html.ActionLink("Regresar", "BuscarAmbiente")
+</p>
