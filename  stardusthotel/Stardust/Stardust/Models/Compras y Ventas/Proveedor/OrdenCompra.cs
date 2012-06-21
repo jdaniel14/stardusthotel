@@ -42,14 +42,14 @@ namespace Stardust.Models
         [Display(Name = "Monto a Pagar")]
         public decimal pagar { get; set; }
         public string estado { get; set; }
-        public string pagado1 { get; set; }
-        public string paga1 { get; set; }
-        public string pagar1 { get; set; }
-        public string subtotal1 { get; set; }
-        public string igv1 { get; set; }
-        public string total1 { get; set; }
-        public string interes1 { get; set; }
-        public string numCuotas1 { get; set; }
+        //public string pagado1 { get; set; }
+        //public string paga1 { get; set; }
+        //public string pagar1 { get; set; }
+        //public string subtotal1 { get; set; }
+        //public string igv1 { get; set; }
+        //public string total1 { get; set; }
+        //public string interes1 { get; set; }
+        //public string numCuotas1 { get; set; }
         public List<OrdenCompra> listaOC { get; set; }
         public List<OrdenCompraDetalle> listaOCDetalle { get; set; }
 
