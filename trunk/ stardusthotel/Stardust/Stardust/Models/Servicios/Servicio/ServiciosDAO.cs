@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Data;
+using System.Data.Entity;
 
 namespace Stardust.Models
 {
@@ -12,7 +14,8 @@ namespace Stardust.Models
         public List<ServiciosBean> ListarServicios( String Nombre) {
 
             List<ServiciosBean> listaServicios = new List<ServiciosBean>();
-
+            try
+            {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -36,42 +39,65 @@ namespace Stardust.Models
             dataReader.Close();
             sqlCon.Close();
 
+            }
+            catch
+            {
+
+            }
+
             return listaServicios;
         }
 
         public String insertarServicio(ServiciosBean servicio) {
             String me = "";
-            
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+            try
+            {
 
-            string commandString = "INSERT INTO Servicio VALUES ('" + servicio.nombre + "', '" + servicio.descripcion + "', 'ACTIVO')";
-            
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            sqlCmd.ExecuteNonQuery();
-         
-            sqlCon.Close();
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                string commandString = "INSERT INTO Servicio VALUES ('" + servicio.nombre + "', '" + servicio.descripcion + "', 'ACTIVO')";
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                sqlCon.Close();
+                servicio.conexion = "Bien";
+            }
+            catch {
+                servicio.conexion = "Falla en la conexión";
+           
+            }
+
             return me;
         }
         public String ActualizarServicio(ServiciosBean servicio){
             String me = "";
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+                string commandString = "UPDATE Servicio " +
+                                        "SET nombre = '" + servicio.nombre + "', descripcion = '" + servicio.descripcion + "' " +
+                                        "WHERE idServicio = " + servicio.id;
 
-            string commandString =  "UPDATE Servicio " +
-                                    "SET nombre = '" + servicio.nombre + "', descripcion = '" + servicio.descripcion + "' "+
-                                    "WHERE idServicio = " + servicio.id;                               
-
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            sqlCmd.ExecuteNonQuery();
-
-            sqlCon.Close();
-            return me;        
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+                sqlCon.Close();
+                servicio.conexion = "Bien";
+            }
+            catch {
+                servicio.conexion = "Error en conexion";
+            
+            }
+            return me
+;        
         }
 
         public ServiciosBean SeleccionarServicio(int id){
@@ -98,24 +124,30 @@ namespace Stardust.Models
 
             return servicio;
         }
+       
 
         public String DeleteServicio(int id){
             String me = "";
+            try
+            {
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
 
-            string commandString =  "UPDATE Servicio " +
-                                    "SET estado = 'INACTIVO' " + 
-                                    "WHERE idServicio = " + id.ToString();
+                string commandString = "UPDATE Servicio " +
+                                        "SET estado = 'INACTIVO' " +
+                                        "WHERE idServicio = " + id.ToString();
 
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            sqlCmd.ExecuteNonQuery();
-
-            sqlCon.Close();
-
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+                sqlCon.Close();
+                
+            }
+            catch { 
+            
+            }
             return me;
         }
     }
