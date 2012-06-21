@@ -31,7 +31,8 @@
             <div class="formRow"><span>Nombre</span>
                 
                <div class = "formRight" > 
-               @Html.TextBoxFor(m => m.nombre, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid", maxlength = "30", placeholder = "Maximo 30 caracteres aqui" })
+               @Html.TextBoxFor(m => m.nombre, new { maxlength = "40", placeholder = "Maximo 40 caracteres aqui" })
+               @Html.ValidationMessageFor(model => model.nombre)
                </div>
                 
                <div class="clear"></div>
