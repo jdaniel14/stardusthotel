@@ -154,17 +154,51 @@ namespace Stardust.Models
         public ListaServiciosResponseBean listarServicios(int idHotel, String dni, int nroRes) {
             ListaServiciosResponseBean response = new ListaServiciosResponseBean();
             response.me = "";
-            String query =  " SELECT COUNT(*) " +
-                            " FROM ReservaXHabitacionXCliente " +
-                            " WHERE idReserva = " + nroRes + " AND dni = '"+ nroRes +"'";
-            int res = 0;
-            if (res == 0)
-            {
-                response.me = "No se encontro a dicho cliente";
-            }
-            else {
-                query = "SELECT * FROM ";
             
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            try
+            {
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                String query = " SELECT COUNT(*) as res" +
+                                " FROM ReservaXHabitacionXCliente " +
+                                " WHERE idReserva = " + nroRes + " AND dni = '" + nroRes + "'";
+
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+                int res = 0;
+                if (dataReader.Read())
+                {
+                    res = (int)dataReader["res"];
+                }
+                dataReader.Close();
+
+
+                if (res == 0)
+                {
+                    response.me = "No se encontro a dicho cliente";
+                    return response;
+                }
+                else
+                {
+                    List<ServiciosBean> lista = new List<ServiciosBean>();
+                    query = "SELECT idServicio, nombre FROM Servicio WHERE idHotel = " + idHotel;
+                    SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon);
+                    SqlDataReader dataReaderServ = sqlCmd1.ExecuteReader();
+                    while (dataReaderServ.Read())
+                    {
+                        ServiciosBean serv = new ServiciosBean();
+                        serv.id = (int)dataReader["idServicio"];
+                        serv.nombre = (String)dataReader["nombre"];
+                        lista.Add(serv);
+                    }
+                    response.lista = lista;
+                }
+            }catch(Exception e){
+                response.me = "Error en BD";
+                return response;
             }
             return response;
         }
