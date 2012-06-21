@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Asignar Servicio Tercerizado";
+}
+
+<h2>Asignar Servicio Tercerizado</h2>
+
+<script type="text/javascript" src="/Scripts/AsignarServicio.js"></script>
+
+<html lang="es">
+
+    <head>
+
+        <title>Check Out</title>
+
+        <style type="text/css">        
+        
+        </style>
+
+    </head>
+
+    <body>
+
+    <div id = "busqueda">
+    
+        <div class="widget">
+			<div class="title">
+				<h6>Asignar Servicio</h6>
+			</div>
+
+            <div class="formRow"><span>Servicio</span>                
+               <div class = "formRight" > 
+                    <select id="ComboServicio">
+                        @*meto los datos con el js*@
+                    </select>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Documento</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nDoc" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Tipo de Reserva</span>                
+               <div class = "formRight" > 
+                    <select id="ComboRes">                        
+                        <option value = "0">Evento</option>
+                        <option value = "1">Habitación</option>
+                    </select>
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Nro. de Reserva</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nReserva" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="widget">
+			<div class="title">
+				<h6>Datos del Servicio</h6>
+			</div>
+
+            <div class="formRow"><span>Nro. de Recibo</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="nRecibo" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+
+            <div class="formRow"><span>Monto Total</span>                
+               <div class = "formRight" > 
+                    <input type="text" value="" id="monto" />
+               </div>                
+               <div class="clear"></div>
+            </div>
+        </div>
+        
+        <br />
+        <input id = "registra" type="submit" value="Registrar" class = "redB" />          
+    
+    </div>
+
+    </body>
+
+</html>
