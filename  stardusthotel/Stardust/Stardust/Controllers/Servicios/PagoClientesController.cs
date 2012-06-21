@@ -36,5 +36,17 @@ namespace Stardust.Controllers.Servicios
             MensajeBean me = pagoFacade.RegistrarCheckOut(request.idReserva);
             return Json(me);
         }
+    
+        [HttpPost]
+        public JsonResult PagoAdelantado(RequestPagoAde request)
+        {
+            PagoAdelantadoBean res = new PagoAdelantadoBean();
+            return Json(res);
+        }
+
+        public ActionResult PagarInicial()
+        {
+            return View();
+        }
     }
 }
