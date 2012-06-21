@@ -214,7 +214,7 @@ namespace Stardust.Models
             else { //reserva
                 query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + nroRes + " , " +idSer + " , "+idHotel + ", " + nRecib + " , " + monto + " , SYSDATE() )";
             }
-
+            System.Diagnostics.Debug.WriteLine("QUERY DE ASIGNAR : " + query);
 
             try
             {
@@ -230,7 +230,7 @@ namespace Stardust.Models
             catch(Exception e )
             {
                 mensaje.me = "Error en conexion a BD";
-
+                return mensaje;
             }
 
             return mensaje;
