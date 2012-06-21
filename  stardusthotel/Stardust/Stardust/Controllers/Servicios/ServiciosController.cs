@@ -108,8 +108,8 @@ namespace Stardust.Controllers
         public ViewResult IndexAmbientes()
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
-            List<AmbienteBean> listaAmbiente = ambienteFacade.ListarAmbiente("","",-1,-1);
-            return View(listaAmbiente);
+            //List<AmbienteBean> listaAmbiente = ambienteFacade.ListarAmbiente("","",-1,-1);
+            return View();//listaAmbiente);
         }
 
         public ActionResult RegistrarAmbiente()
@@ -220,15 +220,15 @@ namespace Stardust.Controllers
         public ActionResult BuscarAmbiente(AmbienteBean item)
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
-            return View(ambienteFacade.ListarAmbiente(item.nombre,"ACTIVO",-1,-1));
+            return View();//ambienteFacade.ListarAmbiente(item.nombre,"ACTIVO",-1,-1));
         }
 
         public ActionResult MostrarAmbiente(AmbienteBean item)
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
-            List<AmbienteBean> listaAmbientes = ambienteFacade.ListarAmbiente(item.nombre, "ACTIVO", -1, -1);
+            //List<AmbienteBean> listaAmbientes = ambienteFacade.ListarAmbiente(item.nombre, "ACTIVO", -1, -1);
             //pido la lista que cumpla con el nombre y la paso al view
-            return View(listaAmbientes);
+            return View();//listaAmbientes);
         }
 
         ///////////////////////ASIGNACION DE SERVICIOS

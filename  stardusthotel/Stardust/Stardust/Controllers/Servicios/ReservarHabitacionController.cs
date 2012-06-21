@@ -106,6 +106,7 @@ namespace Stardust.Controllers.Servicios
             MensajeBean mensaje = new MensajeBean ();
             System.Diagnostics.Debug.WriteLine("total = " + listaClient.lista.Count);
             mensaje.me = facadeReservas.RegistrarDatClientesCheckIn(listaClient.lista);
+            mensaje.me = facadeReservas.ActualizarReserva(listaClient.lista);
             return Json(mensaje);
         }
 
