@@ -469,7 +469,7 @@ namespace Stardust.Models
             return documento;
         }
 
-        public String resgistrarAmbientes(List<AmbienteBean> lista, String fechaIni, String fechaFin, int idEvento)
+        public String resgistrarAmbientes(List<AmbienteBean> lista, String fechaIni, String fechaFin, int idEvento, int idHotel)
         {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -486,7 +486,7 @@ namespace Stardust.Models
             for (int i = 0; i < tam ; i++)
             {
                 int amb = lista[i].id;
-                String query = "INSERT INTO AmbienteXEvento VALUES (" + idEvento + "," + amb + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),1)";
+                String query = "INSERT INTO AmbienteXEvento VALUES (" + idEvento + "," + amb + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),1, "+ idHotel+")";
                 System.Diagnostics.Debug.WriteLine("query--> " + query);
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 try
