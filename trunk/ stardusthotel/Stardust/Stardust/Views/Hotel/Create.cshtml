@@ -24,7 +24,10 @@
     
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>@ViewBag.Title</h6></div>
+            <div class = "title">
+                <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">
+                <h6>@ViewBag.Title</h6>
+            </div>
 
             <div class="formRow">
                 @Html.LabelFor(model => model.nombre)
