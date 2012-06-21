@@ -1,4 +1,4 @@
-﻿
+﻿var idUser;
 var doc = $(document);
 doc.ready(asignarListeners);
 
