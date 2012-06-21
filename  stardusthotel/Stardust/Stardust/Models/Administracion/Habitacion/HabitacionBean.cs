@@ -6,6 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Stardust.Models
 {
+    public class HabitacionViewModelSearch
+    {
+        public string idTipoHabitacion { get; set; }
+        public int piso { get; set; }
+        public int nroCamas { get; set; }
+        public bool aptoFumador { get; set; }
+
+        public List<TipoHabitacionBean> TipoHabitaciones { get; set; }
+    }
+
     public class HabitacionBean
     {
         [Key]
