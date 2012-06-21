@@ -10,9 +10,11 @@ namespace Stardust.Models
 {
     public class AmbienteDAO
     {
+
+        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         public String getNombreHotel(int id)
         {
-            String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            string hotel = "";
             SqlConnection sql = new SqlConnection(cadenaDB);
 
             sql.Open();
@@ -23,18 +25,24 @@ namespace Stardust.Models
 
             SqlDataReader data = query.ExecuteReader();
 
-            data.Read();
+            if (data.Read())
+            {
+               hotel = (string)data["nombre"];
 
-            String hotel = (string)data.GetValue(0);
+                sql.Close();
+            }
 
-            sql.Close();
+            else
+            {
+                hotel = "vacio";
+            }
 
             return hotel;
         }
         
         
         
-        public List<AmbienteBean> ListarAmbiente(int idHotel,String Nombre, String estado, float precio_menor, float precio_mayor)
+        public List<AmbienteBean> ListarAmbiente(int idHotel ,String Nombre, String estado)
         {
 
             List<AmbienteBean> listaAmbientes = new List<AmbienteBean>();
@@ -59,9 +67,8 @@ namespace Stardust.Models
             result = Nombre.Equals("");
             if (!result) commandString = commandString + "AND  UPPER(nombre) LIKE '%" + Nombre.ToUpper() + "%' ";
 
-            if (precio_menor > 0) commandString = commandString + " AND precioXhora  >= " + precio_menor;
-            if (precio_mayor > 0) commandString = commandString + " AND precioXhora  <= " + precio_mayor;
-
+           // if (precio_menor > 0) commandString = commandString + " AND precioXhora  >= " + precio_menor;
+           
             commandString += "ORDER BY idHotel,Nombre ";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -88,6 +95,7 @@ namespace Stardust.Models
                 ambiente.precioXhora = decimal.Parse(dataReader["precioXHora"].ToString()); 
                 ambiente.piso = (int)dataReader["piso"];
                 ambiente.estado = (string)dataReader["estado"];
+                ambiente.idHotel = (int)dataReader["idHotel"];
                 ambiente.nombreHotel = this.getNombreHotel(ambiente.idHotel);
                 listaAmbientes.Add(ambiente);
             }
@@ -122,7 +130,7 @@ namespace Stardust.Models
             DAO.agregarParametro(sqlCmd, "precioXHora", ambiente.precioXhora);
             DAO.agregarParametro(sqlCmd, "piso", ambiente.piso);
             DAO.agregarParametro(sqlCmd, "estado", "ACTIVO");
-            DAO.agregarParametro(sqlCmd, "idHotel", ambiente.id);
+            DAO.agregarParametro(sqlCmd, "idHotel", ambiente.idHotel);
             
             sqlCmd.ExecuteNonQuery();
 
@@ -152,8 +160,8 @@ namespace Stardust.Models
                                    "precioXHora = @precioXHora," +
                                    "piso = @piso," +
                                    "estado =@estado," +
-                                   "idHotel = @idHotel," +                                   
-                                   "WHERE idAmbiente = @idAmbiente";
+                                   "idHotel = @idHotel " +                                   
+                                   " WHERE idAmbiente = @idAmbiente";
           
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             DAO.agregarParametro(sqlCmd, "nombre", ambiente.nombre);
