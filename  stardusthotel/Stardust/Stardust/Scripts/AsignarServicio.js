@@ -99,7 +99,7 @@ function enviar() {
             data: jsonData,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            url: "URL",
+            url: "../Servicios/AsignarServicioReserva",
             beforeSend: esperaConfirma(),
             success: confirma
         });
