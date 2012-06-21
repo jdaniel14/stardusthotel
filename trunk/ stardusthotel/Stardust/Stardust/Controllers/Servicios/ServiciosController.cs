@@ -114,6 +114,7 @@ namespace Stardust.Controllers
 
         public ActionResult RegistrarAmbiente()
         {
+            ViewBag.listaHoteles = new HotelFacade().getHotelesActivos();
             return View();
         }
 
