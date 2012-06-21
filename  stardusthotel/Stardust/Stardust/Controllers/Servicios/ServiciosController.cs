@@ -18,7 +18,7 @@ namespace Stardust.Controllers
 
         //
         // GET: /Servicios/
-
+        
         public ViewResult Index()
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
@@ -230,5 +230,21 @@ namespace Stardust.Controllers
             //pido la lista que cumpla con el nombre y la paso al view
             return View(listaAmbientes);
         }
+
+        ///////////////////////ASIGNACION DE SERVICIOS
+        [HttpPost]
+        public JsonResult ConsultarServicio(ServicioRequest request) {
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            ListaServiciosResponseBean response = servicioFacade.listarServicios(request.idHotel, request.dni, request.nroRes);
+            return Json(response);
         }
+
+        [HttpPost]
+        public JsonResult AsignarServicioReserva(ServicioAsignBean request)
+        {
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            MensajeBean mensaje = servicioFacade.asignarServicios(request.idSer, request.nroRes, request.dni, request.nRecib, request.monto, request.flagTipo);
+            return Json(mensaje);
+        }
+    }
 }
