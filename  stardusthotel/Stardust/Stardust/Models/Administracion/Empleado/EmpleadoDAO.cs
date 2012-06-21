@@ -29,7 +29,23 @@ namespace Stardust.Models
 
                     SqlDataReader data = query.ExecuteReader();
 
+
+                EmpleadoBean empleado = new EmpleadoBean();
+            
+                empleado.ID = (int)data.GetValue(0);
+                //UsuarioFacade usuario = new UsuarioFacade();
+                //UsuarioBean usuar = usuario.getUsuario(empleado.ID);
+                //empleado.nombreEmpleado = usuar.nombres+" " + usuar.apMat + " "+usuar.apPat;
+               
+                UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
+                empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;   
+                //empleado.nombreEmpleado="EMPLEADO :)";
+                empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                empleado.fechaSalida = (DateTime)data.GetValue(2);
+                empleado.estado = Convert.ToString(data["estado"]);
+
                     data.Read();
+
 
                     EmpleadoBean empleado = new EmpleadoBean();
 
@@ -407,7 +423,7 @@ namespace Stardust.Models
             sql.Close();
             return 1;
         }
-
+        
 
         public List<HorarioDetalle> listarDetalle(int id)
         {
@@ -416,7 +432,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-            String command = "Select * from HorarioDetalle WHERE idHorario=" + id ;
+            String command = "Select * from HorarioDetalle WHERE idHorario=" + id;
 
             SqlCommand query = new SqlCommand(command, sql);
 
@@ -445,10 +461,8 @@ namespace Stardust.Models
 
             return lista;
 
-
-
         }
-
+        
         public HorarioDetalle gethorarioDetalle(int id)
         {
             SqlConnection sql = new SqlConnection(cadenaDB);
@@ -495,13 +509,13 @@ namespace Stardust.Models
             // String fechaini = h.fechainiciohorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechainiciohorario.Day;
             //  String fechafin = h.fechafinhorario.Year + "-" + h.fechafinhorario.Month + "-" + h.fechafinhorario.Day;
             // String a = h.fechainiciohorario;
-            System.Diagnostics.Debug.WriteLine(" DAOhorariodetalles =" + hd.horariodetalles);
-            System.Diagnostics.Debug.WriteLine(" DAO =" + hd.horaEntrada);
-            System.Diagnostics.Debug.WriteLine(" DAO =" + hd.horaSalida);
-            System.Diagnostics.Debug.WriteLine(" DAOiddetalles..este es =" + hd.idHorarioDetalle);
-            System.Diagnostics.Debug.WriteLine(" DAOhorario =" + hd.idHorario);
+           // System.Diagnostics.Debug.WriteLine(" DAOhorariodetalles =" + hd.horariodetalles);
+           // System.Diagnostics.Debug.WriteLine(" DAO =" + hd.horaEntrada);
+           // System.Diagnostics.Debug.WriteLine(" DAO =" + hd.horaSalida);
+           // System.Diagnostics.Debug.WriteLine(" DAOiddetalles..este es =" + hd.idHorarioDetalle);
+           // System.Diagnostics.Debug.WriteLine(" DAOhorario =" + hd.idHorario);
 
-            if (this.comparadetalles(hd)) return -1;
+            if (this.comparahoras(hd)) return -1;
             String command = "Update HorarioDetalle SET "
                                 + "horaEntrada = '" + hd.horaEntrada
                                 + "', horaSalida = '" + hd.horaSalida
@@ -564,5 +578,312 @@ namespace Stardust.Models
 
         }
         #endregion
+
+        #region Asistencia
+
+        public int compruebaasistencia(TomarAsistencia TA) { 
+        
+             int  idusuario=0;
+             Horario horario=null;
+             int iddetalle=0;
+               if (this.ES_USUARIO(TA,ref idusuario)){  //verifica si es un usuario valido
+                        // UsuarioBean usuario = new UsuarioFacade().getUsuario(idusuario);
+
+                      if (this.ES_EMPLEADO(idusuario)){  //si es un empelado activo
+                               EmpleadoFacade empleadofacade=new EmpleadoFacade();
+                               EmpleadoBean empleado=empleadofacade.getEmpleado(idusuario);
+                                
+                                if (this.Es_EMPLEADOINACTIVO(empleado)){
+                             
+                                        if (this.Es_Contratoalafecha(empleado)){
+
+                                             if (this.Es_Horarioalafecha(empleado,ref horario)){
+                                                      
+                                                    if (this.Es_Detallealafecha(horario,ref iddetalle)){
+                                                           int valor= this.registraasistencia(iddetalle);                              
+                                                               return valor;
+                                                    }
+                                                     else return 4;
+                                              }
+                                              else return 3;
+                                            }
+                                            else return 2;
+                                    }
+                                    else return 1;
+                      
+                      }
+                      else return 0; 
+               
+               } 
+               else return -1;
+        
+        
+        }
+
+        public bool ES_USUARIO(TomarAsistencia posibleusuario,ref int idusuario){
+
+            SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from Usuario WHERE user_account = '" + posibleusuario.usuario+ "'AND pass='"+posibleusuario.pasword+"'";
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+            data.Read();
+                
+           
+            if (data.HasRows==true) {
+
+                idusuario = (int)data.GetValue(0);
+
+
+                sql.Close();
+                return true;
+            }
+           // EmpleadoBean empleado = new EmpleadoBean();
+
+
+            sql.Close();
+            return false;
+
+            
+        }
+
+         public bool ES_EMPLEADO(int idusuario){
+         
+                SqlConnection sql = new SqlConnection(cadenaDB);
+
+            sql.Open();
+
+            String command = "Select * from Empleado WHERE idEmpleado = " + idusuario ;
+
+            SqlCommand query = new SqlCommand(command, sql);
+
+            SqlDataReader data = query.ExecuteReader();
+            data.Read();
+                
+           
+            if (data.HasRows==true) {
+
+                idusuario = (int)data.GetValue(0);
+
+
+                sql.Close();
+                return true;
+            }
+           // EmpleadoBean empleado = new EmpleadoBean();
+
+
+            sql.Close();
+            return false;
+         }
+
+
+         public bool Es_EMPLEADOINACTIVO(EmpleadoBean empleado) {
+
+
+             if (empleado.estado == "ACTIVO") return true;
+             else return false;
+         
+         
+         }
+         public bool Es_Contratoalafecha(EmpleadoBean empleado) { 
+         
+               DateTime dtsistema= DateTime.Now;
+               if ((empleado.fechaIngreso <= dtsistema) && (dtsistema <= empleado.fechaSalida))
+               {
+
+                   return true;
+
+               }
+               else return false;
+         }
+
+
+         public bool Es_Horarioalafecha(EmpleadoBean empleado,ref Horario horario)
+         {
+         
+              // List<Horario> listarHorario=
+                 List<Horario> listHorarios = this.listarHorario( empleado.ID ) ;
+            //System.Diagnostics.Debug.WriteLine("FechaINI = " + Utils.DateToString( fechaIni ) ) ;
+            //System.Diagnostics.Debug.WriteLine("FechaFIN = " + Utils.DateToString( fechaFin ) ) ;
+                 for (int i = 0; i < listHorarios.Count; i++)
+                 {
+                     Horario horarioaux = listHorarios.ElementAt(i);
+
+                    // if (horarioaux.ID == empleado.ID) continue;
+
+                     DateTime ini = horarioaux.fechaInicioHorario;
+                     DateTime fin = horarioaux.fechaFinHorario;
+
+                     DateTime dtsistema = DateTime.Now;
+                     if ((ini <= dtsistema) && (dtsistema <= fin))
+                     {
+                         horario = horarioaux;
+                         return true;
+                     }
+                 }
+                 return false;
+         }
+
+         public bool Es_Detallealafecha(Horario horario,ref int iddetalle) {
+             string dia="";
+             List<HorarioDetalle> listDetalle = this.listarDetalle(horario.ID);
+
+             for (int i = 0; i < listDetalle.Count; i++)
+             {
+               
+                 HorarioDetalle horariodetalle = listDetalle.ElementAt(i);
+
+                // if (horariodetalle.idHorario == horario.ID) continue;
+                    
+                    DateTime dt=DateTime.Now;
+
+                    if (DayOfWeek.Monday == dt.DayOfWeek) dia = "Lunes";
+                    if (DayOfWeek.Tuesday == dt.DayOfWeek) dia = "Martes";
+                    if (DayOfWeek.Wednesday == dt.DayOfWeek) dia = "Miercoles";
+                    if (DayOfWeek.Thursday == dt.DayOfWeek) dia = "Jueves";
+                    if (DayOfWeek.Friday == dt.DayOfWeek) dia = "Viernes";
+                    if (DayOfWeek.Saturday == dt.DayOfWeek) dia = "Sabado";
+                    if (DayOfWeek.Sunday == dt.DayOfWeek) dia = "Domingo";
+
+                    if (dia==horariodetalle.diaSemana) {
+                        iddetalle = horariodetalle.idHorarioDetalle;
+                        return true;
+                    }
+                   
+             }
+             return false;
+         }
+
+         public int registraasistencia(int iddetalle) {
+             EmpleadoFacade EF=new EmpleadoFacade();
+             HorarioDetalle hd = EF.gethorarioDetalle(iddetalle);
+             Asistencia asistencia=new Asistencia();
+
+             if (marcoasistenciaunavez(iddetalle) == 0) asistencia.TipoES = 'E';
+             else if (marcoasistenciaunavez(iddetalle) == 1) asistencia.TipoES = 'S';
+               else return 5;
+
+             if (llegotarde(iddetalle, ref asistencia)) ;
+
+
+
+             SqlConnection sql = new SqlConnection(cadenaDB);
+
+             sql.Open();
+
+         
+             String command = "Insert into Asistencia ( horaMarcada , tipoES , estado, idHorarioDetalle) values ( '"
+                                + asistencia.horaasistencia + "', '"
+                                + asistencia.TipoES + "',  '"
+                                 + asistencia.estado + "', "
+                                  + asistencia.idHorarioDetalle + ")";
+
+
+
+
+             SqlCommand query = new SqlCommand(command, sql);
+
+             query.ExecuteNonQuery();
+
+             sql.Close();
+             return 6;
+         }
+
+
+         public int marcoasistenciaunavez(int iddetalle) {
+              List<Asistencia>asistencias;
+              int contador = 0;
+             asistencias= this.ListarAsistenciasdeunidDetalle(iddetalle);
+             for (int i = 0; i < asistencias.Count; i++)
+             {
+
+                 Asistencia a = asistencias.ElementAt(i);
+
+                 if (a.horaasistencia.Day == DateTime.Now.Day) contador++ ;
+                
+             }
+
+             return contador;
+         }
+
+       
+         public List<Asistencia> ListarAsistenciasdeunidDetalle(int iddetalle) {
+
+
+
+             SqlConnection sql = new SqlConnection(cadenaDB);
+
+             sql.Open();
+
+             String command = "Select * from Asistencia WHERE idHorarioDetalle=" + iddetalle;
+
+             SqlCommand query = new SqlCommand(command, sql);
+
+             SqlDataReader data = query.ExecuteReader();
+
+             List<Asistencia> lista = new List<Asistencia>();
+
+             while (data.Read())
+             {
+                 Asistencia asistencia = new Asistencia();
+
+                 asistencia.idasistencia = (int)data.GetValue(0);
+
+
+                 asistencia.horaasistencia = (DateTime)data.GetValue(1);
+                 asistencia.stringtipoES = data.GetValue(2).ToString();
+                 asistencia.estado = (String)data.GetValue(3);
+                 asistencia.idHorarioDetalle = (int)data.GetValue(4);
+                 asistencia.TipoES = Convert.ToChar(asistencia.stringtipoES);
+                 lista.Add(asistencia);
+
+                 
+             }
+
+             sql.Close();
+
+             return lista;
+
+
+         }
+
+        public bool llegotarde(int iddetalle,ref Asistencia asistencia){
+
+            DateTime horaactual = DateTime.Now;
+            string hora = this.sacarhoradatetime(horaactual);
+            EmpleadoFacade empleadofac=new EmpleadoFacade();
+            HorarioDetalle hd=empleadofac.gethorarioDetalle(iddetalle);
+            asistencia.idHorarioDetalle = iddetalle;
+            asistencia.horaasistencia = DateTime.Now;
+            if (asistencia.TipoES == 'E')
+            {
+
+                if ((hd.horaEntrada.CompareTo(hora)) < 0){ asistencia.estado="DESHORA"; return true;}
+                else {asistencia.estado="ALAHORA"; return false;}
+            }
+            else {
+
+                if ((hd.horaSalida.CompareTo(hora)) >= 0) { asistencia.estado = "ALAHORA"; return true; }
+                else { asistencia.estado = "DESHORA"; return false; }
+            
+            
+            }
+        
+        }
+
+        string sacarhoradatetime(DateTime fecha) {
+            string cadena = fecha.ToShortTimeString();
+            char[] hora = new char[5];
+            cadena.CopyTo(0, hora, 0, 5);
+            string retorno = new string(hora);
+            return retorno;
+        }
+        #endregion
+
+
     }
 }

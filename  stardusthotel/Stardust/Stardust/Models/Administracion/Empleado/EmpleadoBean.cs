@@ -89,9 +89,33 @@ namespace Stardust.Models
 
     #endregion
 
-
-    public class HorarioAsistencia
+  #region Asistencia
+    public class Asistencia
     {
 
+        public int idasistencia {set; get;}
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
+        public DateTime horaasistencia { set; get; }
+        public char TipoES { set; get; }
+        public  string estado { set; get; }
+        public int idHorarioDetalle { set; get; }
+        public string stringtipoES { set; get; }
     }
+
+
+
+    public class TomarAsistencia
+    {
+        public int id { set; get; }
+
+        [Display(Name = "Nombre de la cuenta de usuario")]
+        public string usuario { set; get; }
+        [Display(Name = "Pasword de la cuenta de usuario")]
+        public string pasword { set; get; }
+
+    }
+
+  #endregion
+
 }
