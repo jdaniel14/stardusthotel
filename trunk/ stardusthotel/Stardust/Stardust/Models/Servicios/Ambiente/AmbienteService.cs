@@ -86,6 +86,7 @@ namespace Stardust.Models
         public MensajeBean RegistrarEventoYAmbientes(RegAmbienteEventoBean registro)
         {
             MensajeBean mensaje = new MensajeBean();
+            mensaje.me = "";
             //registrar Cliente
             bool result;
             ReservaHabitacionDAO reservaHabitacionDAO = new ReservaHabitacionDAO();
