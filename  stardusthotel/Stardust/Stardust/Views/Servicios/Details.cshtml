@@ -12,14 +12,8 @@
         <div class = "title" ><h6>@ViewBag.Title</h6></div>
 
         <div class = "formRow" >
-            @Html.LabelFor(model => model.id)
-            <div class = "formRight" > @ViewBag.Hotel </div>
-            <div class = "clear" ></div>
-        </div>
-
-        <div class = "formRow" >
             @Html.LabelFor(model => model.nombreHotel ) 
-            <div class = "formRight" > @Html.DisplayFor(model => model.nombreHotel) </div>           
+            <div class = "formRight" >@ViewBag.Hotel </div>           
             <div class = "clear" ></div>
         </div>
 
@@ -75,6 +69,6 @@
 </fieldset>
 
 <p>
-    <a href="@Url.Action("Edit", new { id = Model.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+    <a href="@Url.Action("ModificarAmbiente", new { id = Model.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
     @Html.ActionLink("Regresar", "BuscarAmbiente")
 </p>
