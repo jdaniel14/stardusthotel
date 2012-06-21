@@ -33,9 +33,9 @@
       <div class="title">
       <h6>Lista de Productos</h6>
       </div>
-      <div class="dataTables_wrapper">
+      <div class="">
 
-        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "display dTable">
+        <table cellpadding = "0" cellspacing = "0" border="0" width = "100%" class = "">
         <thead>
         <tr>
             <th class="ui-state-default" rowspan="1" colspan="1" style="width:160px;">
@@ -75,7 +75,7 @@
          
      <tr class="gradeA odd">       
                 
-                <td class="sorting_1"> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
+                <td> @Html.TextBoxFor(model => model.listProdalmacen[i].nombre, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockminimo)  @Html.ValidationMessageFor(model => model.listProdalmacen[i].stockminimo)      </td>
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockactual)  @Html.ValidationMessageFor(model => model.listProdalmacen[i].stockactual)       </td>
                 <td> @Html.TextBoxFor(model => model.listProdalmacen[i].stockmaximo)  @Html.ValidationMessageFor(model => model.listProdalmacen[i].stockmaximo)     </td>   

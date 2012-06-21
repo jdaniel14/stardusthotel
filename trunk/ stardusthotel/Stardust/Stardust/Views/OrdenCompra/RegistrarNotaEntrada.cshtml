@@ -65,8 +65,16 @@
                         <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadsolicitada) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadsolicitada)</td>
                         <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadrecibida) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadrecibida)</td>
                         <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadfaltante) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadfaltante)</td>
-                        <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante) @ViewBag.error</td>
-                       
+                            
+                            @if (Model.detallenotaentrada[i].estado)
+                            {
+                                <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante) @ViewBag.error</td>
+                            }
+                            else
+                            { 
+                            
+                               <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante) @ViewBag.error</td>
+                            }
                       
                     </tr>       
                         }
@@ -84,7 +92,7 @@
     
     <p>
        
-        @Html.ActionLink("Regresar", "ListarNotaEntrada/"+Model.idordencompra,"OrdenCompra")
+        @Html.ActionLink("Regresar", "ListarNotaEntrada/" + Model.idordencompra, "OrdenCompra")
     </p>
     
 }
