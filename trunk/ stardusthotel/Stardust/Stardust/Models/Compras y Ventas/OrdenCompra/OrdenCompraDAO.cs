@@ -44,7 +44,7 @@ namespace Stardust.Models
 
         public void GuardarOrdenCompra(OrdenProducto producto)
         {
-
+            
             int cantidad = 0;
             for (int i = 0; i<producto.listaProducto.Count; i++)
             {
@@ -71,7 +71,7 @@ namespace Stardust.Models
                         }
                     }
 
-                    string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'En Tramite' , " + total + " , " + producto.id + " )";//idproveedor
+                    string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id +","+producto.idhotel+ " )";//idproveedor
 
                     SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                     sqlCmd.ExecuteNonQuery();
@@ -372,6 +372,9 @@ namespace Stardust.Models
         public void actualizarstock(NotaEntradaBean nota)
         {
             //****actualizar stock en almacen.. 
+            int idordencompra = nota.idordencompra;
+
+
         }
 
 

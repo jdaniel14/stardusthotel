@@ -14,5 +14,7 @@ namespace Stardust.Models
         
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado es incorrecto")]
         public int cantidadentrante { get; set; }
+
+        public Boolean estado { get; set; }
     }
 }
