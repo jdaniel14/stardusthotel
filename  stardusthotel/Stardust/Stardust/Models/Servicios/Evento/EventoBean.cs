@@ -35,9 +35,20 @@ namespace Stardust.Models
         [Display(Name = "NumeroParticipantes")]
         public int nroParticipantes { get; set; }
 
-        public string tiempo { get; set; }
+        public int idCliente { get; set; }
+        public string nombreCliente { get; set; }
 
 
+        public int idHotel { get; set; }
+        public string nombreHotel { get; set; }
+        public int estadoPago { get; set; }
 
-    }
+        public decimal montoTotal { get; set; }
+        public decimal pagoInicial { get; set; }
+        public DateTime fechaRegistro { get; set; }
+         
+
+        }
+
+
 }
