@@ -56,7 +56,7 @@ namespace Stardust.Models
                     empleado.nombreEmpleado = usuar.nombres + " " + usuar.apMat + " " + usuar.apPat;
                     empleado.ID = (int)data.GetValue(0);
                     empleado.fechaIngreso = (DateTime)data.GetValue(1);
-                    empleado.fechaSalida = (DateTime)data.GetValue(2);
+                    //empleado.fechaSalida = (DateTime)data.GetValue(2);
                     empleado.estado = Convert.ToString(data["estado"]);
 
                 sql.Close();
@@ -687,7 +687,7 @@ namespace Stardust.Models
          public bool Es_Contratoalafecha(EmpleadoBean empleado) { 
          
                DateTime dtsistema= DateTime.Now;
-               if ((empleado.fechaIngreso <= dtsistema) && (dtsistema <= empleado.fechaSalida))
+               if ((empleado.fechaIngreso <= dtsistema) )
                {
 
                    return true;

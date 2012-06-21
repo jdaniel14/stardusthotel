@@ -87,6 +87,18 @@ namespace Stardust.Models
         }
     }
 
+    public class Horarios {
+
+       public List<Horario>horarios { get; set; }
+
+         public Horarios(){
+        horarios = new List<Horario>();
+       }
+
+   }
+
+   
+
     #endregion
 
   #region Asistencia
