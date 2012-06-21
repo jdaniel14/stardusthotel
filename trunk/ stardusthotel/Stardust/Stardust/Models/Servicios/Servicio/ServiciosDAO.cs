@@ -150,5 +150,23 @@ namespace Stardust.Models
             }
             return me;
         }
+
+        public ListaServiciosResponseBean listarServicios(int idHotel, String dni, int nroRes) {
+            ListaServiciosResponseBean response = new ListaServiciosResponseBean();
+            response.me = "";
+            String query =  " SELECT COUNT(*) " +
+                            " FROM ReservaXHabitacionXCliente " +
+                            " WHERE idReserva = " + nroRes + " AND dni = '"+ nroRes +"'";
+            int res = 0;
+            if (res == 0)
+            {
+                response.me = "No se encontro a dicho cliente";
+            }
+            else {
+                query = "SELECT * FROM ";
+            
+            }
+            return response;
+        }
     }
 }
