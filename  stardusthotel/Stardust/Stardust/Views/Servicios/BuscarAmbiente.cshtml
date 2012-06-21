@@ -15,7 +15,13 @@
 
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>Buscar Ambiente</h6></div>           
+            <div class = "title"><h6>Buscar Ambiente</h6></div> 
+            
+            <div class = "formRow" >
+                <label>Tipo de habitación</label>
+                <div class = "formRight" > @Html.DropDownList( "idHotel" , new SelectList( ViewBag.listaHoteles , "ID" , "nombre" ) , "Elije un Hotel..." ) </div>
+                <div class = "clear" ></div>
+            </div>          
 
             <div class="formRow">
                 <label>Nombre</label>
@@ -45,7 +51,7 @@
         <tr>
             <th class="ui-state-default" rowspan="1" colspan="1" style="width:40px;" >
                 <div class="DataTables_sort_wrapper">
-                ID
+                Nombre Hotel
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                 </div>
              </th>
@@ -81,7 +87,7 @@
     @foreach (var item in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.id)
+                    @Html.DisplayFor(modelItem => item.nombreHotel)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.nombre)
@@ -93,7 +99,8 @@
                     @Html.DisplayFor(modelItem => item.precioXhora)
                 </td>                   
                 <td>
-                   <a href="@Url.Action("ModificarAmbiente", new { id = item.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Modificar</a>  |     
+                   <a href="@Url.Action("ModificarAmbiente", new { id = item.id })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a>  | 
+                   <a href="@Url.Action("Details", new { id = item.id })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> |     
                    
                    <a  id = @item.id class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>                 
                 @*<a href="@Url.Action("EliminarAmbiente", new { id = item.id })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Eliminar</a>                        *@
