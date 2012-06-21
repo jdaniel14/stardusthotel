@@ -1,4 +1,4 @@
-﻿
+﻿var arregloChecks = new Array();
 var x;
 
 x = $(document);
@@ -69,7 +69,7 @@ function llegadaAmbientes(data) {
 
         result = "";
 
-        var arregloChecks = new Array();
+        
 
         $.each(lista, function (i, item) {
 
