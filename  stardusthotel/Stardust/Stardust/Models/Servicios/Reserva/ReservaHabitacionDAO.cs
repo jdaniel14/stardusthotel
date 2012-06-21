@@ -453,7 +453,7 @@ namespace Stardust.Models.Servicios
 
             for (int i = 0; i < list.Count; i++) {
                 HabInsertBean tipHab = list[i];
-                Decimal total = tipHab.cant*tipHab.precUnit;
+                Decimal total = tipHab.cant*tipHab.precUnit*z;
                 String query = "INSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 try
@@ -646,38 +646,56 @@ namespace Stardust.Models.Servicios
         #endregion
 
         #region BUSCARPERSONA
-        public List<UbicacionClienteBean> ubicarPersona(String nombre)
+        public UbicacPersResponse ubicarPersona(int idHotel, String nombre)
         {
-            List<UbicacionClienteBean> listClientes = new List<UbicacionClienteBean>();
+            UbicacPersResponse ubic = new UbicacPersResponse();
+            ubic.me = "";
+            List<UbicacionPersonaBean> listClientes = new List<UbicacionPersonaBean>();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e) {
+                ubic.me = "Error en conexion a Base de Datos";
+                return ubic;
+            }
 
             String query = " SELECT rXhXc.idReserva, h.numero, h.piso, rXhXc.nombrYApell, rXhXc.dni" +
                             " FROM ReservaXHabitacionXCliente rXhXc, Reserva r, Habitacion h" +
-                            " WHERE r.estado = 'EN CURSO' and rXhXc.nombrYApell LIKE '%" + nombre + "%'  and rXhXc.idHabitacion = h.idHabitacion";
+                            " WHERE r.idHotel = " + idHotel  + " and r.estado = 3 and rXhXc.nombrYApell LIKE '%" + nombre + "%'  and rXhXc.idHabitacion = h.idHabitacion";
 
             System.Diagnostics.Debug.WriteLine("Ubicacion " + query);
 
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            SqlDataReader dataReader;
 
-            while (dataReader.Read())
+            try
             {
-                UbicacionClienteBean cliente = new UbicacionClienteBean();
-                cliente.idReserva = (int)dataReader["idReserva"];
-                cliente.numero = (String)dataReader["numero"];
-                cliente.piso = (int)dataReader["piso"];
-                cliente.nombYApell = (String)dataReader["nombrYApell"];
-                cliente.dni = (String)dataReader["dni"];
-                listClientes.Add(cliente);
+                dataReader = sqlCmd.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    UbicacionPersonaBean cliente = new UbicacionPersonaBean();
+                    cliente.reserva = (int)dataReader["idReserva"];
+                    cliente.nroHab = (String)dataReader["numero"];
+                    cliente.piso = (int)dataReader["piso"];
+                    cliente.nomb = (String)dataReader["nombrYApell"];
+                    cliente.dni = (String)dataReader["dni"];
+                    listClientes.Add(cliente);
+                }
+                dataReader.Close();
+            }catch(Exception e){
+                ubic.me = "Error al buscar al Cliente : " + e.Message;
+                return ubic;
             }
-            dataReader.Close();
+            
             sqlCon.Close();
 
-            return listClientes;
+            ubic.lista =  listClientes;
+            return ubic;
         }
         #endregion
     }

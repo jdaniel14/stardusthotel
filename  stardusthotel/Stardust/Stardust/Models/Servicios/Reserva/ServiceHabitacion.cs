@@ -90,10 +90,10 @@ namespace Stardust.Models.Servicios
             return response;
         }
 
-        public List<UbicacionClienteBean> consutarHabitacionDeCliente(String nombre)
+        /*public List<UbicacionClienteBean> consutarHabitacionDeCliente(String nombre)
         {
             return reservaHabitacionDAO.ubicarPersona(nombre);
-        }
+        }*/
 
         public String anularReserva(int idReserva) {
             return reservaHabitacionDAO.deleteReserva(idReserva);
@@ -176,9 +176,7 @@ namespace Stardust.Models.Servicios
                 mensaje.me = "No se pudo enviar el email";
                 return mensaje;
             }
-            //if(reserva.rec==1)
-            //    reservaHabitacionDAO.registrarServicio(reserva.datRec);
-            //mensaje.me = "";
+            
             return mensaje;
         }
 
@@ -226,6 +224,11 @@ namespace Stardust.Models.Servicios
                 consulta.listaHab = reservaHabitacionDAO.listarTipHabReserva(idReserva);
             }
             return consulta;
+        }
+
+        public UbicacPersResponse consultarHabitacionDeCliente(int idHotel, String nombre)
+        {
+            return reservaHabitacionDAO.ubicarPersona(idHotel, nombre);
         }
     }
 }
