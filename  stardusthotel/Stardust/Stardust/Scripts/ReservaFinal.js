@@ -95,7 +95,7 @@ function enviarDatos() {
     if (result == "RUC") {
         tipoDocu = "RUC";
         nombreEnvio = $("#razonDReserva").get(0).value;
-        email2 = $("#mail").get(0).value;
+        email2 = $("#mailNatural").get(0).value;
         telefono = $("#telef").get(0).value;
         tipoDeTarjeta = $("#tipoTarjetaJ").val();
         numTarjeta = $("#nTarjeta").get(0).value;
@@ -160,6 +160,7 @@ function enviarDatos() {
     });
 
    var suma = $("#Total").text();
+   var passw = $("#password").get(0).value;
 
    var Hotel = "1";
    var clientexD = {
@@ -198,7 +199,9 @@ function enviarDatos() {
             vuel:numVuelo,
             nroPer:numPersonas,
         //]        
-        total: suma
+        total: suma,
+        pass:passw,
+        tipoRegistro:registrar
     };
     var jsonData = JSON.stringify(DatosReserva);
     
@@ -214,6 +217,7 @@ function enviarDatos() {
         success: finRes
     });
 }
+
 function finRes(data) {
 
     console.log(data.me);

@@ -140,7 +140,9 @@ function finDelChongo() {
             fechaIni:fechaLlegada, 
             fechaFin: fechaSalida,
             coment:comentario,
-            total:total1
+            total:total1,
+            pass: passw,
+            tipoRegistro: registrar
         }
 
         var jsonData = JSON.stringify(TeLoPaso);
