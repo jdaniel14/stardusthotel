@@ -19,7 +19,7 @@ function inicializarEventos() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "URL",
+        url: "../Servicios/ConsultarServicio",
         beforeSend: esperaDatos(),
         success: llegadaDatos
     });
@@ -31,13 +31,15 @@ function esperaDatos(){
 function llegadaDatos(data){
 
     console.log(data);
+    var lista = data.lista;
 
     var result = "";
+      
+    result += '<option value= "' + 'NN' + '">'  + '</option>';
+ 
 
-    result += '<option value="NN" selected="selected">Escoja el Servicio</option>';
-
-    $.each(data, function (i, item) {
-        result += '<option value= "' + item.idSer + '">' + item.nomb + '</option>';
+    $.each(lista, function (i, item) {
+        result += '<option value= "' + item.id + '">' + item.nombre + '</option>';
     });
 
     $("#ComboServicio").html(result);
@@ -47,40 +49,64 @@ function llegadaDatos(data){
 
 function enviar() {
 
-    var idService = $("#ComboServicio").val();
+    var puedeEnviar;
 
-    var numeroDocu = $("#nDoc").get(0).value;
-
-    var numReser = $("#nReserva").get(0).value;
-
-    var numRecibito = $("#nRecibo").get(0).value;
-
-    var canti = $("#monto").get(0).value;
-
-    var tipoS = $("#ComboRes").get(0).value;
-
-    var enviar = {
-        idSer: idService,
-        nroRes: numReser,
-        dni:numeroDocu,
-        nRecib:numRecibito,
-        monto:canti,
-        flagTipo:tipoS
+    if (    ($("#ComboServicio").val() != "NN") &&
+            ($("#nDoc").get(0).value != "") &&
+            ($("#nReserva").get(0).value != "") &&
+            ($("#nRecibo").get(0).value != "") &&
+            ($("#monto").get(0).value != "")
+        ) {
+        puedeEnviar = 1;
+    }
+    else {
+        puedeEnviar = 0;
     }
 
-    jsonData = JSON.stringify(enviar);
-    console.log(jsonData);
 
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "URL",
-        beforeSend: esperaConfirma(),
-        success: confirma
-    });
+    if (puedeEnviar == 1) {
 
+
+
+        var telo = "1";
+        var idService = $("#ComboServicio").val();
+
+        var numeroDocu = $("#nDoc").get(0).value;
+
+        var numReser = $("#nReserva").get(0).value;
+
+        var numRecibito = $("#nRecibo").get(0).value;
+
+        var canti = $("#monto").get(0).value;
+
+        var tipoS = $("#ComboRes").get(0).value;
+
+        var enviar = {
+            idHotel: telo,
+            idSer: idService,
+            nroRes: numReser,
+            dni: numeroDocu,
+            nRecib: numRecibito,
+            monto: canti,
+            flagTipo: tipoS
+        }
+
+        jsonData = JSON.stringify(enviar);
+        console.log(jsonData);
+
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "URL",
+            beforeSend: esperaConfirma(),
+            success: confirma
+        });
+    }
+    else {
+        alert('Falta ingresar datos');
+    }
 }
 
 function esperaConfirma() {
