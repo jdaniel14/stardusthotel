@@ -22,6 +22,7 @@ namespace Stardust.Models
         public int idHotel { get; set; }
         public string nombre { get; set; }
         public string dni { get; set; }
+        public string tipoDoc { get; set; }
         public int idUsuario { get; set; }
         public List<TipoDetalle> listaDetalles { get; set; }
         public ReservaCheckOut()
