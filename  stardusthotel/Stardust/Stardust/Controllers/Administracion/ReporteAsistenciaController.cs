@@ -24,7 +24,10 @@ namespace Stardust.Controllers.Administracion
             int codigoempleado = empleado.ID;
             // empleadoFac.listarHorario(codigoempleado);
            // return RedirectToAction("Lista", new { id = codigoempleado });
-            return this.ViewPdf("", "Reporte", empleadoFac.listarHorario(codigoempleado));
+            Horarios horarioss = new Horarios();
+            horarioss.horarios = empleadoFac.listarHorario(codigoempleado);
+            var model = empleadoFac.listarHorario(codigoempleado);
+            return this.ViewPdf("", "ReporteAsistencia1",model );
         }
 
     }
