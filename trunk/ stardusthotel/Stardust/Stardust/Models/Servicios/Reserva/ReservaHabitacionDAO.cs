@@ -211,7 +211,7 @@ namespace Stardust.Models.Servicios
             return usuario;
         }
 
-        public UsuarioResBean registraCliente(ClienteReservaBean client){
+        public UsuarioResBean registraCliente(ClienteReservaBean client, String pass){
 
             System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.tipoDoc);
             System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.email);
@@ -237,8 +237,8 @@ namespace Stardust.Models.Servicios
             
 
             string commandString3 = "INSERT INTO Usuario VALUES (1," +
-                     "''" + ", " +
-                     "''" + ", " +
+                     "''" + client.email + ", " +
+                     "''" + pass + ", " +
                      "'" + client.nomb+ "'" + ", " +
                      "'" + client.apell + "'" + ", " +
                      "''" + ", " +
