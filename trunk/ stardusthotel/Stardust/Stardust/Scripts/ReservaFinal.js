@@ -215,9 +215,16 @@ function enviarDatos() {
     });
 }
 function finRes(data) {
+
     console.log(data.me);
-    console.log("se hizo");
-    $(location).attr('href', '../');
-    //alert('Se registro');
-    //alert(data.mes.toString());
+
+    if (data.me == "") {
+        alert('OK');
+        console.log("se hizo");
+        $(location).attr('href', '../');
+    }
+    else {
+        alert(data.me);
+    }
+    
 }

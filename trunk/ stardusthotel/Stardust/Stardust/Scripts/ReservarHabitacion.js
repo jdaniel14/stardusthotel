@@ -110,6 +110,7 @@ function llegadaTipoHabitacion(data) {
     var lista = data.listaXTipo;
     var cantDias = data.cantDias;
 
+
     $.each(lista, function (i, item) {
         cant = cant + 1;
 

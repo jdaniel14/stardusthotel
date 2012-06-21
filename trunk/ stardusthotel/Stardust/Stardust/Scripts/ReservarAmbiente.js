@@ -9,15 +9,16 @@ function inicializarEventos() {
     $("#FechaInicio").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaFin").datepicker({ dateFormat: 'dd-mm-yy' });
    
-    x = $("#FechaInicio");
-    x.focus(clickFechain);
-    x = $("#FechaFin");
-    x.focus(clickFechaout);
+//    x = $("#FechaInicio");
+//    x.focus(clickFechain);
+//    x = $("#FechaFin");
+//    x.focus(clickFechaout);
 
     $("#NextE").click(sgteEvento);
 
     $("#pestana4").hide();
-    
+
+    $("#listaAmbientes").hide();
 
     $("#buscame").click(mostrarAmbientesDisponibles);
 
@@ -28,7 +29,7 @@ function sgteEvento() {
 }
 
 function mostrarAmbientesDisponibles() {
-    $("#listaAmbientes").show("slow");
+    
 
     var fechaInicio = $("#FechaInicio").attr("value");
     var fechaFinal = $("#FechaFin").attr("value");
@@ -62,6 +63,8 @@ function llegadaAmbientes(data) {
     console.log(data.me);
 
     if (data.me == "") {
+
+        $("#listaAmbientes").show("slow");
 
         cantidadDeDias = data.cantDias;
 
@@ -153,16 +156,6 @@ function llegadaAmbientes(data) {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
