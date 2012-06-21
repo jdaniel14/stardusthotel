@@ -18,8 +18,9 @@ namespace Stardust.Models.Servicios
             return serviceHabitacion.consultarHabitacionDisponibles(idHotel, fechaIni, fechaFin);
         }
 
-        public List<UbicacionClienteBean> consutarHabitacionDeCliente(String nombre) {
-            return serviceHabitacion.consutarHabitacionDeCliente(nombre);
+        public UbicacPersResponse consultarHabitacionDeCliente(int idHotel, String nombre)
+        {
+            return serviceHabitacion.consultarHabitacionDeCliente(idHotel, nombre);
         }
 
 
