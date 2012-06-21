@@ -129,12 +129,20 @@ namespace Stardust.Models.Servicios
             return reservaHabitacionDAO.ActualizarReserva(listClientHab);
         }
 
+        public MensajeBean login(String mail, String pass) {
+            return reservaHabitacionDAO.login(mail, pass);
+        }
+
         public MensajeBean registrarReserva(ReservaRegistroBean reservaRequest) {
             MensajeBean mensaje = new MensajeBean();
             mensaje.me = "";
             bool result;
 
-            UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            //if(reservaRequest.tipoRegistro==0)
+                UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client); // 0=> hubo error ; 1 => natural; 2 => juridico
+            //else {
+            
+            //}
             result = usuarioRes.me.Equals("");
             if (!result) {
                 mensaje.me = usuarioRes.me;

@@ -16,5 +16,7 @@ namespace Stardust.Models.Servicios
         public Object datRec { get; set; }
         public String coment { get; set; }
         public Decimal total { get; set; }
+        public String pass { get; set; }
+        public int tipoRegistro { get; set; }
     }
 }
