@@ -174,7 +174,10 @@
     <Compile Include="Models\Servicios\Ambiente\AmbienteDAO.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteService.cs" />
     <Compile Include="Models\Servicios\Ambiente\Bean\AmbienteBean.cs" />
+    <Compile Include="Models\Servicios\Ambiente\Bean\EventoResBean.cs" />
+    <Compile Include="Models\Servicios\Ambiente\Bean\Request\RegAmbienteEventoBean.cs" />
     <Compile Include="Models\Servicios\Ambiente\Bean\Request\ResAmbRequest.cs" />
+    <Compile Include="Models\Servicios\Ambiente\Bean\ReservaAmbBean.cs" />
     <Compile Include="Models\Servicios\ClienteFacade.cs" />
     <Compile Include="Models\Servicios\Cliente\ClienteBean.cs" />
     <Compile Include="Models\Servicios\Cliente\ClienteDAO.cs" />
@@ -200,6 +203,7 @@
     </Compile>
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ClienteHabBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaReserva.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaUbicBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ListClienteBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\RequestResHab.cs">
       <SubType>Code</SubType>
@@ -234,6 +238,7 @@
     <Compile Include="Models\Servicios\Reserva\Bean\Response\TipoHabDisp.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\UbicacPersResponse.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\TipHabCheckInBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\TipoHabCant.cs">
       <SubType>Code</SubType>
@@ -244,6 +249,7 @@
     <Compile Include="Models\Servicios\Reserva\Bean\UbicacionClienteBean.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\UbicacionPersonaBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\UsuarioResBean.cs" />
     <Compile Include="Models\Servicios\Reserva\FacadeReservas.cs">
       <SubType>Code</SubType>
@@ -255,6 +261,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Servicios\ServiciosFacade.cs" />
+    <Compile Include="Models\Servicios\Servicio\Bean\request\ServicioAsignBean.cs" />
+    <Compile Include="Models\Servicios\Servicio\Bean\request\ServicioRequest.cs" />
+    <Compile Include="Models\Servicios\Servicio\Bean\response\ListaServiciosResponseBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosService.cs" />
