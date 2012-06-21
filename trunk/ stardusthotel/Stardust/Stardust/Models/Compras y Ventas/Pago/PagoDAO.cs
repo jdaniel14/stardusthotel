@@ -62,13 +62,14 @@ namespace Stardust.Models
                 reserva.fechaHoy = fechaHoy.ToString("dd-MM-yyyy");
                 int idU = (int)dataReader["idUsuario"];
                 UsuarioBean usuario = GetNombreUsuario(idU);
+                reserva.tipoDoc = usuario.tipoDocumento;
                 reserva.dni = usuario.nroDocumento;
                 reserva.nombre = usuario.nombres;                
             }
 
             dataReader.Close();
 
-            if (fechaIni < fechaHoy)
+            if (fechaIni <= fechaHoy)
             {
                 commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
 
@@ -123,8 +124,13 @@ namespace Stardust.Models
                 sqlCmd.ExecuteNonQuery();
 
                 if (reserva.faltante > 0)
-                {
-                    commandString = "INSERT INTO Pagos VALUES ( " + reserva.faltante + " , NULL , GETDATE() , " + reserva.idDocPago + " )";
+                {                    
+                    commandString = "INSERT INTO Pagos VALUES ( " + reserva.faltante + " , NULL , GETDATE() , " + reserva.idDocPago;
+
+                    if (reserva.tipoDoc.Equals("DNI"))
+                        commandString += " , 'Boleta' )";
+                    else
+                        commandString += " , 'Factura' )";
 
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     sqlCmd2.ExecuteNonQuery();
@@ -479,5 +485,70 @@ namespace Stardust.Models
 
     //        return conexion;
     //    }
+
+        public PagoAdelantadoBean PagoAdelantado(RequestPagoAde request)
+        {
+            PagoAdelantadoBean pago = new PagoAdelantadoBean();
+
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+                sqlCon.Open();
+
+                string commandString = "SELECT * FROM Usuario WHERE nroDocumento = " + request.doc;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();    
+
+                int id=0;
+
+                if (dataReader.Read())
+                {
+                    id = (int)dataReader["idUsuario"];
+                    pago.nom = (string)dataReader["nombres"];
+                }
+
+                dataReader.Close();
+
+                if (request.flag == 1)
+                {
+                    commandString = "SELECT * FROM Reserva WHERE estado = 1 AND idUsuario = " + id;
+                    
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                    if (dataReader2.Read())
+                    {
+                        pago.data = Convert.ToString(dataReader2["idUsuario"]);
+                        pago.doc = request.doc;
+                        pago.montoInicial = (decimal)dataReader2["pagoInicial"];                        
+                    }
+                }
+                else
+                {
+                    commandString = "SELECT * FROM Evento WHERE estado = 1 AND idCliente = " + id;
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                    if (dataReader2.Read())
+                    {
+                        pago.data = Convert.ToString(dataReader2["nombre"]);
+                        pago.doc = request.doc;
+                        pago.montoInicial = (decimal)dataReader2["pagoInicial"];
+                    }
+                }
+
+                pago.mensaje = "";
+            }
+            catch (Exception e)
+            {
+                pago.mensaje = e.ToString();
+            }
+
+            return pago;
+        }
     }
 }

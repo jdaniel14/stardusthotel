@@ -21,5 +21,10 @@ namespace Stardust.Models
         {
             return pagoService.RegistrarCheckOut(id);
         }
+
+        public PagoAdelantadoBean PagoAdelantado(RequestPagoAde request)
+        {
+            return pagoService.PagoAdelantado(request);
+        }
     }
 }
