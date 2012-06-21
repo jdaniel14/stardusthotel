@@ -202,5 +202,38 @@ namespace Stardust.Models
             }
             return response;
         }
+        public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo, int idHotel)
+        {
+            MensajeBean mensaje = new MensajeBean ();
+            mensaje.me = "";
+            String query = "";
+            if (flagTipo == 0)
+            { //Evento
+                query = "INSERT INTO AmbienteXEventoXServicioTerc VALUES ( "+idSer+ " , " + idHotel + " , " + nroRes + " , " + dni + " , " + monto + " , " + nRecib + " , SYSDATE() , 1 )" ;
+            }
+            else { //reserva
+                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + nroRes + " , " +idSer + " , "+idHotel + ", " + nRecib + " , " + monto + " , SYSDATE() )";
+            }
+
+
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+                sqlCon.Close();                
+            }
+            catch(Exception e )
+            {
+                mensaje.me = "Error en conexion a BD";
+
+            }
+
+            return mensaje;
+        }
     }
 }
