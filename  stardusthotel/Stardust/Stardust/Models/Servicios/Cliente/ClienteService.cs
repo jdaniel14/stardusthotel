@@ -43,5 +43,9 @@ namespace Stardust.Models
         {
             return clienteDAO.DeleteCliente(id);
         }
+        public List<ClienteBean> getClientes()
+        {
+            return clienteDAO.getClientes();
+        }
     }
 }
