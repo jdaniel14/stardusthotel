@@ -29,9 +29,12 @@ namespace Stardust.Controllers.Servicios
             return View();
         }
 
-        public ActionResult ListaHabitacion(int idHotel,string fechaIni,string fechaFin)
+        [HttpPost]
+        public JsonResult ListaHabitacion(int idHotel,string fechaIni,string fechaFin)
         {
-            return View(pagoFacade.listaHabitacion(idHotel,fechaIni,fechaFin));
+            List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
+            listaHab = pagoFacade.listaHabitacion(idHotel, fechaIni, fechaFin);
+            return Json(listaHab);
         }
     }
 }
