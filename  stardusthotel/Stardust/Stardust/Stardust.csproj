@@ -170,6 +170,8 @@
     <Compile Include="Models\Servicios\Ambiente\AmbienteBean.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteDAO.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteService.cs" />
+    <Compile Include="Models\Servicios\Ambiente\Bean\AmbienteBean.cs" />
+    <Compile Include="Models\Servicios\Ambiente\Bean\Request\ResAmbRequest.cs" />
     <Compile Include="Models\Servicios\ClienteFacade.cs" />
     <Compile Include="Models\Servicios\Cliente\ClienteBean.cs" />
     <Compile Include="Models\Servicios\Cliente\ClienteDAO.cs" />
