@@ -142,6 +142,21 @@ namespace Stardust.Controllers
             
         }
 
+        public ActionResult Details(int id)
+        {
+            AmbienteFacade ambienteFacade = new AmbienteFacade();
+            AmbienteBean ambiente = ambienteFacade.GetAmbiente(id);
+            if (ambiente != null)
+            {
+                ViewBag.Hotel = new HotelFacade().getHotel(ambiente.idHotel).nombre;                
+            }
+            else
+            {
+                ViewBag.Hotel = "";               
+            }
+            return View(ambiente);
+        }
+
         public ActionResult ModificarAmbiente(int id)
         {
             AmbienteFacade ambienteFacade = new AmbienteFacade();
