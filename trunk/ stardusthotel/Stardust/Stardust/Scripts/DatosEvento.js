@@ -1,4 +1,5 @@
-﻿var idUser;
+﻿var registrar;
+var idUser;
 var doc = $(document);
 doc.ready(asignarListeners);
 
@@ -74,7 +75,7 @@ function sacarMail() {
 
 function recibeMails(data) {
     console.log(data);
-    var registrar = data.me;
+    registrar = data.me;
 
     $("#pasear1").show("slow");
     $("#pasear2").show("slow");
