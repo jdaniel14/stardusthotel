@@ -67,7 +67,7 @@ function llegadaDatos(data) {
         result += '<td>N° Habitacion</td>';
 
         for (j = 0; j < cant; j++){
-            result += '<td></td>';
+            result += '<td>Dia ' + j + '</td>';
         }
 
         result += '</tr></thead>';        
@@ -86,7 +86,7 @@ function llegadaDatos(data) {
 
                 result += '<td>';
 
-                if (led.estado == 0){
+                if (led.ss == 0){
                     
                    result += ':(';
                 }

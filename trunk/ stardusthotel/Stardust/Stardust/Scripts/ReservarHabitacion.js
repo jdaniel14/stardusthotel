@@ -63,7 +63,7 @@ function nextDatos() {
 }
 
 function mostrarBuscame() {
-    $("#tipos").show("slow");
+    
     
     var fechaInicio = $("#FechaLlegada").attr("value");
     var fechaFinal = $("#FechaSalida").attr("value");
@@ -99,103 +99,110 @@ function inicioEnvioTipoHotel() {
 }
 
 function llegadaTipoHabitacion(data) {
-    
+
 
     console.log(data);
-    var result = "";
-    var i = 0;
-    var cant = 0;
-    
-    var id = "";
-    var lista = data.listaXTipo;
-    var cantDias = data.cantDias;
+
+    if (data.cantDias < 0) {
+        alert('Error: Fecha fin debe ser mayor a Fecha Inicio');
+    }
+    else {
+        $("#tipos").show("slow");
+        var result = "";
+        var i = 0;
+        var cant = 0;
+
+        var id = "";
+        var lista = data.listaXTipo;
+        var cantDias = data.cantDias;
 
 
-    $.each(lista, function (i, item) {
-        cant = cant + 1;
+        $.each(lista, function (i, item) {
+            cant = cant + 1;
 
-        result += '<tr><td><span id ="nombre'+item.idTipoHab+'">' + item.nombreTipoHab + '</span></td>';
-        result += '<td>' + '<select id= "numHabitSelect' + item.idTipoHab + '" class = "numHabitSelect">';
+            result += '<tr><td><span id ="nombre' + item.idTipoHab + '">' + item.nombreTipoHab + '</span></td>';
+            result += '<td>' + '<select id= "numHabitSelect' + item.idTipoHab + '" class = "numHabitSelect">';
 
-        for (j = 0; j <= item.nroHab; j++) {
-            result += '<option value = "' + j + '" id = "idTipoHab' + j + item.idTipoHab + '">' + j + '</option>';
+            for (j = 0; j <= item.nroHab; j++) {
+                result += '<option value = "' + j + '" id = "idTipoHab' + j + item.idTipoHab + '">' + j + '</option>';
+            }
+            result += '<td><span id = "precio' + i + '">' + item.precioTipoHab + '</span></td>';
+            result += '</select></td><td><span id = "subtotal' + item.idTipoHab + '">' + 0 + '</span></td></tr>';
+
+            id = "#numHabitSelect";
+            id += item.idTipoHab;
+            arreglosId[item.idTipoHab] = id;
+            arreglosHabit[item.idTipoHab] = item.listaDisp;
+        });
+        $('#tablaTipos').html(result);
+
+
+        if (parseInt($("#Total").text()) > 0) {
+            $("#tipos2").show("slow");
         }
-        result += '<td><span id = "precio' + i + '">' + item.precioTipoHab + '</span></td>';
-        result += '</select></td><td><span id = "subtotal' + item.idTipoHab + '">' + 0 + '</span></td></tr>';
+        else if (parseInt($("#Total").text()) < 1) {
+            $("#tipos2").hide("slow");
+        }
 
-        id = "#numHabitSelect";
-        id += item.idTipoHab;
-        arreglosId[item.idTipoHab] = id;
-        arreglosHabit[item.idTipoHab] = item.listaDisp;
-    });
-    $('#tablaTipos').html(result);
-
-
-    if (parseInt($("#Total").text()) > 0) {
-        $("#tipos2").show("slow");
-    }
-    else if (parseInt($("#Total").text()) < 1) {
-        $("#tipos2").hide("slow");
-    }
-
-    $("#TotalAjeno").text(
+        $("#TotalAjeno").text(
     parseFloat($("#Adicional").text()) +
     parseFloat($("#Total").text())
     );
 
-    $("#cantDias").text(cantDias);    
- 
-    arreglosId.forEach(function (elemento) {
-        $(elemento).change(function (event) {
-            var cmd = "";
-            var cambiar = 0;
-            cmd += elemento + ".numHabitSelect option:selected";
+        $("#cantDias").text(cantDias);
 
-            var x = $(cmd).attr("value");
-            var n = elemento.substring(15);
+        arreglosId.forEach(function (elemento) {
+            $(elemento).change(function (event) {
+                var cmd = "";
+                var cambiar = 0;
+                cmd += elemento + ".numHabitSelect option:selected";
 
-            var subtotal = "#subtotal";
-            var precio = "#precio";
-            subtotal += n;
-            n = n - 1;
-            precio += n;
-            var y = $(precio).text();
+                var x = $(cmd).attr("value");
+                var n = elemento.substring(15);
 
-            $(subtotal).text(x * y* cantDias);
+                var subtotal = "#subtotal";
+                var precio = "#precio";
+                subtotal += n;
+                n = n - 1;
+                precio += n;
+                var y = $(precio).text();
 
-            if (parseInt($("#Total").text()) > 0) {
-                cambiar = 0;
-            }
-            else {
-                cambiar = 1;
-            }
-            $("#Total").text(0);
-            arreglosId.forEach(function (elemento) {
+                $(subtotal).text(x * y * cantDias);
 
-                var num = elemento.substring(15);
-                var sub = "#subtotal";
+                if (parseInt($("#Total").text()) > 0) {
+                    cambiar = 0;
+                }
+                else {
+                    cambiar = 1;
+                }
+                $("#Total").text(0);
+                arreglosId.forEach(function (elemento) {
 
-                sub += num;
+                    var num = elemento.substring(15);
+                    var sub = "#subtotal";
 
-                $("#Total").text(
+                    sub += num;
+
+                    $("#Total").text(
                     parseFloat($("#Total").text()) +
                     parseFloat($(sub).text())
                 );
 
-                $("#TotalAjeno").text(
+                    $("#TotalAjeno").text(
                 parseFloat($("#Adicional").text()) +
                 parseFloat($("#Total").text())
                 );
-            });
-            if (parseInt($("#Total").text()) > 0) {
-                $("#tipos2").show("slow");
-            }
-            else if (parseInt($("#Total").text()) < 1) {
-                $("#tipos2").hide("slow");
-            }
+                });
+                if (parseInt($("#Total").text()) > 0) {
+                    $("#tipos2").show("slow");
+                }
+                else if (parseInt($("#Total").text()) < 1) {
+                    $("#tipos2").hide("slow");
+                }
 
+            });
         });
-    });
+    }
 }
 
 function clickFechain() {
