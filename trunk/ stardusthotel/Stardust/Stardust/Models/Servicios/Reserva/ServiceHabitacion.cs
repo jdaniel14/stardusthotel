@@ -129,7 +129,8 @@ namespace Stardust.Models.Servicios
             return reservaHabitacionDAO.ActualizarReserva(listClientHab);
         }
 
-        public MensajeBean login(String mail, String pass) {
+        public UsuarioResBean login(String mail, String pass)
+        {
             return reservaHabitacionDAO.login(mail, pass);
         }
 

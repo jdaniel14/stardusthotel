@@ -181,32 +181,32 @@ namespace Stardust.Models.Servicios
         
         #region REGISTRAR_RESERVA
 
-        public MensajeBean login(String mail, String pass) {
-            MensajeBean mensaje = new MensajeBean();
-            mensaje.me = "";
-            String query = "SELECT COUNT(*) as res FROM Usuario WHERE user_account = '"+mail+"' and pass='" + pass+ "'";
+        public UsuarioResBean login(String mail, String pass)
+        {
+            UsuarioResBean usuario = new UsuarioResBean();
+            usuario.me = "";
+            String query = "SELECT * as res FROM Usuario WHERE user_account = '"+mail+"' and pass='" + pass+ "'";
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             SqlDataReader dataReader;
-            try
-            {
-                sqlCon.Open();
-                SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);                
-                dataReader = sqlCmd2.ExecuteReader();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error en conexion a base de datos";
-                return mensaje;
-            }
+            sqlCon.Open();
+            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);                
+            dataReader = sqlCmd2.ExecuteReader();
+            
             int res = 0;
             if (dataReader.Read()) {
-                res = (int)dataReader["res"];
+                res = 1;
+                usuario.tipoDocumento = (String)dataReader["tipoDocumento"];
+                usuario.nroDocumento = (String)dataReader["nroDocumento"];
+                usuario.nombres = (String)dataReader["razonSocial"] + (String)dataReader["nombres"] + (String)dataReader["apPat"];
+                usuario.email = (String)dataReader["email"];
+                usuario.celular = (String)dataReader["celular"];
+                usuario.nroTarjeta = "1234567890";  
             }
-            mensaje.me = res.ToString();
-            return mensaje;
+            usuario.me = res.ToString();
+            return usuario;
         }
 
         public UsuarioResBean registraCliente(ClienteReservaBean client){

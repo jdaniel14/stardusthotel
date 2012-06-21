@@ -9,7 +9,7 @@ namespace Stardust.Models
     {   
         public int idUsuario {get; set;}
         public int idPerfilUsuario {get; set;}
-        public String uset_account {get; set;}
+        public String user_account {get; set;}
         public String pass {get; set;}
         public String nombres {get; set;}
         public String apPat {get; set;}
@@ -24,6 +24,8 @@ namespace Stardust.Models
         public int idDistrito {get; set;}
         public int idProvincia {get; set;}
         public int idDepartamento {get; set;}
+        public String nroTarjeta { get; set; }
         public String me { get; set; }
+
     }
 }
