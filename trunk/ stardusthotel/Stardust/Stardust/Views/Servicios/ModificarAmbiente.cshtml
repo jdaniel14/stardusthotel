@@ -28,15 +28,18 @@
         <legend>Ambiente</legend>
         @Html.HiddenFor(model => model.id)
 
-        <div class = "formRow" >
+
+@*        <div class = "formRow" >
                 @Html.LabelFor(model => model.idHotel )
                 <div class = "formRight" > 
                     @Html.DropDownListFor(model => model.idHotel, new SelectList(ViewBag.listaHoteles, "ID", "nombre"), "..Elija un Hotel", new { onchange = "this.form.submit();" })
                     @Html.ValidationMessageFor(model => model.idHotel)
                 </div>
                 <div class = "clear" ></div>
-            </div>
-    
+            </div>*@
+
+
+    @Html.HiddenFor(model => model.idHotel)
         <div class="formRow">
             @Html.LabelFor(model => model.nombre)
             <div class="formRight">
@@ -91,18 +94,18 @@
 
              <div class="formRow">@Html.LabelFor(model => model.piso)
                 <div class="formRight">
-                @Html.TextBoxFor(model => model.piso, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "2"}) 
-                @Html.ValidationMessageFor(model => model.piso)
+                @Html.DisplayFor(model => model.piso) @Html.HiddenFor(model => model.piso) 
+              
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class = "formRow" >
-                @Html.LabelFor(model => model.estado)
-                <div class = "formRight" > 
-                    @Html.TextBoxFor(model => model.estado)
-                    @Html.ValidationMessageFor(model => model.estado)
-                </div>
-                <div class = "clear" ></div>
+            <div class="formRow">@Html.LabelFor(model => model.estado)
+                <div class="formRight"> 
+                                     @Html.RadioButtonFor(model => model.estado, "ACTIVO", true) ACTIVO <br />
+                                     @Html.RadioButtonFor(model => model.estado, "INACTIVO", false) INACTIVO    
+                                                                                                            
+                </div> 
+                <div class="clear"></div>
             </div>
 
            
