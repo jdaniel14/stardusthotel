@@ -3,7 +3,7 @@ var x;
 x = $(document);
 x.ready(inicializarEventos);
 
-function incializarEventos() {
+function inicializarEventos() {
     $("#buscame").click(despierta);
 }
 
@@ -28,7 +28,7 @@ function despierta() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "URL",
+        url: "../ReservarHabitacion/consultarUbicacionPersona",
         beforeSend: esperaDatos(),
         success: llegadaDatos
     });
@@ -40,7 +40,7 @@ function esperaDatos() {
 function llegadaDatos(data) {
     console.log(data);
 
-    if (data.me = "") {
+    if (data.me == "") {
 
         var lista = data.lista;
 
