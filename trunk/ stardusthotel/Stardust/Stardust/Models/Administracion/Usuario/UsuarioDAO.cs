@@ -11,6 +11,49 @@ namespace Stardust.Models
     {
         String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
+        public String getLogin(string user, string pass) {
+            SqlConnection sql = null;
+
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
+
+                String command = "Select * from Usuario where user_account = @user_account AND pass = @pass";
+
+                SqlCommand query = new SqlCommand(command, sql);
+
+                Utils.agregarParametro(query, "user_account", user);
+                Utils.agregarParametro(query, "pass", pass);
+
+                SqlDataReader data = query.ExecuteReader();
+
+                int idPerfil = 1;
+
+                if (data.HasRows)
+                {
+                    data.Read();
+                    idPerfil = Convert.ToInt32(data["idPerfilUsuario"]);
+                    UsuarioBean u = new UsuarioBean();
+                    return Convert.ToString(data["idUsuario"]); // <------------- comentar ... =)
+                }
+
+                sql.Close();
+
+                String permisosPerfil = new PerfilUsuarioFacade().getPerfil(idPerfil).token;
+
+                return permisosPerfil;
+            }
+            catch {
+                return null;
+            }
+            finally
+            {
+                if (sql != null) sql.Close();
+            }
+        }
+        
         public UsuarioBean getUsuario(int id)
         {
             SqlConnection sql = null;

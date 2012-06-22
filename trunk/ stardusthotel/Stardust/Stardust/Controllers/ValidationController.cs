@@ -51,7 +51,7 @@ namespace Stardust.Controllers
             {
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return Json(String.Format("El valor ingresado debe tener la sintaxis de un telefóno", tlf2), JsonRequestBehavior.AllowGet);
+            return Json(String.Format("El valor ingresado {0} debe tener la sintaxis de un telefóno" , tlf2 ), JsonRequestBehavior.AllowGet);
         }
     }
 }
