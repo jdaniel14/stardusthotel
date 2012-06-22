@@ -81,6 +81,12 @@
     <Compile Include="Controllers\Administracion\TipoHabitacionxHotelController.cs" />
     <Compile Include="Controllers\Administracion\UsuarioController.cs" />
     <Compile Include="Controllers\Administracion\VariablesController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\OrdenCompraController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\PagoController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\ProductoController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\PromocionesController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\ProveedorController.cs" />
+    <Compile Include="Controllers\Compras y Ventas\ReporteController.cs" />
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -170,6 +176,7 @@
     <Compile Include="Models\Compras y Ventas\ProveedorFacade.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorList.cs" />
     <Compile Include="Models\Compras y Ventas\Proveedor\ProveedorService.cs" />
+    <Compile Include="Models\Reservas\DisponibleBean.cs" />
     <Compile Include="Models\Servicios\AmbienteFacade.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteDAO.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteService.cs" />
@@ -205,6 +212,7 @@
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaReserva.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ConsultaUbicBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\ListClienteBean.cs" />
+    <Compile Include="Models\Servicios\Reserva\Bean\Request\LoginBean.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Request\RequestResHab.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1552,8 +1560,10 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\login_stardust.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\navegacion.js" />
     <Content Include="Scripts\ReservaCliente.js" />
     <Content Include="Scripts\ReservaFinal.js" />
     <Content Include="Scripts\ReservarAmbiente.js" />
@@ -1766,6 +1776,7 @@
     <Folder Include="Content\js\plugins\wizard\.svn\tmp\prop-base\" />
     <Folder Include="Content\js\plugins\wizard\.svn\tmp\props\" />
     <Folder Include="Content\js\plugins\wizard\.svn\tmp\text-base\" />
+    <Folder Include="Views\ReporteEvento\ReporteAsistencia\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -4486,6 +4497,7 @@
     <Content Include="Views\ReservarAmbiente\Reservar.cshtml" />
     <Content Include="Views\Hotel\ListTiposHabitacionXHotel.cshtml" />
     <Content Include="Views\Hotel\CreateTipoHabitacionXHotel.cshtml" />
+    <Content Include="Views\ReporteAsistencia\indice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">

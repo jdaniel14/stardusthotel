@@ -17,5 +17,7 @@ namespace Stardust.Models
 
         [Display(Name = "Descripción")]
         public string descripcion { get; set; }
+
+        public string token { get; set; }
     }
 }

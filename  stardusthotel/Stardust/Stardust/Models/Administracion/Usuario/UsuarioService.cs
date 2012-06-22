@@ -9,6 +9,10 @@ namespace Stardust.Models
     {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
+        public String getLogin(string user, string pass) {
+            return usuarioDAO.getLogin(user, pass);
+        }
+
         public UsuarioBean getUsuario(int id)
         {
             return usuarioDAO.getUsuario(id);

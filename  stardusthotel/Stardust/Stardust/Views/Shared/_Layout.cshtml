@@ -7,6 +7,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
 
+    <script src="@Url.Content("~/Scripts/navegacion.js")" type="text/javascript"></script>
 
     <script type="text/javascript" src="@Url.Content( "~/Content/js/plugins/spinner/ui.spinner.js" )" ></script>
     <script type="text/javascript" src="@Url.Content( "~/Content/js/plugins/spinner/jquery.mousewheel.js" )" ></script>
@@ -85,13 +86,13 @@
 
         <!-- Left navigation -->
         <ul id="menu" class="nav">
-            <li class="dash"><a href="#" title="" class="exp"><span>Configuración</span><strong>1</strong></a>
+            <li class="dash" id = "menu1" ><a href="#" title="" class="exp"><span>Configuración</span><strong>1</strong></a>
                 <ul class="sub">
                     <li class="last">@Html.ActionLink("Variables del Sistena", "Index", "Variables")</li>
                 </ul>
             </li>
             
-            <li class="dash"><a href="#" title="" class="exp"><span>Sucursal</span><strong>3</strong></a>
+            <li class="dash" id = "menu2"><a href="#" title="" class="exp"><span>Sucursal</span><strong>3</strong></a>
                 <ul class="sub">
                     <li class="dash"><a href="#" title="" class="exp"><span>Hotel<strong>3</strong></span></a>
                         <ul class="sub">
@@ -119,7 +120,7 @@
                 </ul>
             </li>
 
-            <li class="ui"><a href="#" title="" class="exp"><span>Personal</span><strong>5</strong></a>
+            <li class="ui" id = "menu3"><a href="#" title="" class="exp"><span>Personal</span><strong>5</strong></a>
                 <ul class="sub">
 
                     <li class="dash"><a href="#" title="" class="exp"><span>Empleado<strong>3</strong></span></a>
@@ -145,7 +146,7 @@
                 </ul>
             </li>
 
-            <li class="ui"><a href="#" title="" class="exp"><span>Usuarios</span><strong>3</strong></a>
+            <li class="ui" id = "menu4"><a href="#" title="" class="exp"><span>Usuarios</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Registrar Usuario","Create","Usuario")</li>
                     <li>@Html.ActionLink("Listar Usuario","List","Usuario")</li>
@@ -166,7 +167,7 @@
                 </ul>
             </li>*@
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Clientes</span><strong>3</strong></a>
+            <li class="forms" id = "menu5"><a href="#" title="" class="exp"><span>Clientes</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Clientes Naturales", "Index", "Cliente")</li>
                     <li>@Html.ActionLink("Listar Clientes Juridicos", "IndexJuridicas", "Cliente")</li>
@@ -176,7 +177,7 @@
                 </ul>
             </li>
 
-                 <li class="forms"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
+            <li class="forms" id = "menu6"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Servicios", "Index", "Servicios")</li>
                     <li>@Html.ActionLink("Buscar Servicio", "BuscarServicio", "Servicios")</li>                  
@@ -184,7 +185,7 @@
                 </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Reserva</span><strong>3</strong></a>
+            <li class="forms" id = "menu7"><a href="#" title="" class="exp"><span>Reserva</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Reservar Habitacion", "Index", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Ver Estado de Reserva de Habitación", "EstadoReserva", "ReservarHabitacion")</li>                    
@@ -195,7 +196,7 @@
                 </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Check</span><strong>3</strong></a>
+            <li class="forms" id = "menu8"><a href="#" title="" class="exp"><span>Check</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Check In", "CheckIn", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Check Out", "checkOut", "PagoClientes")</li>                    
@@ -209,7 +210,7 @@
                 </ul>
             </li>*@
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Ambientes</span><strong>3</strong></a>
+            <li class="forms" id = "menu9" ><a href="#" title="" class="exp"><span>Ambientes</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Registrar Ambientes", "RegistrarAmbiente", "Servicios")</li>
                     <li>@Html.ActionLink("Buscar Ambiente", "BuscarAmbiente", "Servicios")</li>                                    
@@ -223,7 +224,7 @@
                     </ul>
             </li>*@
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Producto</span><strong>2</strong></a>
+            <li class="forms" id = "menu10"><a href="#" title="" class="exp"><span>Producto</span><strong>2</strong></a>
                         <ul class="sub">
                             <li>@Html.ActionLink("Registrar", "Create", "Producto")</li>
                             @*<li><a href="../Producto/Create" title="">Registrar</a></li>*@
@@ -233,7 +234,7 @@
                         </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Proveedor</span><strong>2</strong></a>
+            <li class="forms" id = "menu11"><a href="#" title="" class="exp"><span>Proveedor</span><strong>2</strong></a>
                         <ul class="sub">
                             <li>@Html.ActionLink("Registrar", "RegistrarProveedor", "Proveedor")</li>
                             <li>@Html.ActionLink("Buscar", "Buscar", "Proveedor")</li>
@@ -243,7 +244,7 @@
                         </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Orden de Compra</span><strong>2</strong></a>
+            <li class="forms" id = "menu12"><a href="#" title="" class="exp"><span>Orden de Compra</span><strong>2</strong></a>
                         <ul class="sub">
                             <li>@Html.ActionLink("Registrar", "Index", "OrdenCompra")</li>
                             <li>@Html.ActionLink("Buscar", "Buscar", "OrdenCompra")</li>
@@ -260,7 +261,7 @@
                 </ul>
             </li>*@
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Promociones</span><strong>2</strong></a>
+            <li class="forms" id = "menu13"><a href="#" title="" class="exp"><span>Promociones</span><strong>2</strong></a>
                         <ul class="sub">
                         <li>@Html.ActionLink("Registrar", "Registrar", "Promociones")</li>
                             <li>@Html.ActionLink("Buscar", "Buscar", "Promociones")</li>
@@ -269,7 +270,7 @@
                         </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Reporte</span><strong>2</strong></a>
+            <li class="forms" id = "menu14"><a href="#" title="" class="exp"><span>Reporte</span><strong>2</strong></a>
                         <ul class="sub">
                         <li>@Html.ActionLink("Proveedor", "Proveedor", "Reporte")</li>
                             @*<li><a href="../Promociones/Registrar" title="">Registrar</a></li>
@@ -277,7 +278,7 @@
                         </ul>
             </li>
 
-            <li class="forms"><a href="#" title="" class="exp"><span>Reporte de Eventos</span><strong>2</strong></a>
+            <li class="forms" id = "menu15"><a href="#" title="" class="exp"><span>Reporte de Eventos</span><strong>2</strong></a>
                         <ul class="sub">
                         <li>@Html.ActionLink("Reporte", "Evento", "ReporteEventos")</li>
                             @*<li><a href="../Promociones/Registrar" title="">Registrar</a></li>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using System.Web.Security;
 
 namespace Stardust.Controllers
 { 
@@ -232,5 +233,21 @@ namespace Stardust.Controllers
                 return View( new List<UsuarioBean>() );
             }
         }
+
+        //public JsonResult LoginResult()
+        //{
+        //    var usuario = usuarioFac.getUsuario(58);
+        //    return new JsonResult() { Data = usuario , JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //}
+
+        [HttpPost]
+        public JsonResult LoginResult(String user, String password)
+        {
+            var usuario = usuarioFac.getLogin(user, password);
+            if( usuario != null ) FormsAuthentication.SetAuthCookie(user, false);
+            return new JsonResult() { Data = usuario };
+        }
+
+      
     }
 }

@@ -51,7 +51,7 @@ namespace Stardust.Models
         public string apMat { get; set; }
 
         [Display(Name = "E-mail")]
-        [Remote("ValidaEmail", "Validation")]
+        [Remote("ValidaEmail", "Validation" )]
         public string email { get; set; }
 
         [Display(Name = "Teléfono")]
