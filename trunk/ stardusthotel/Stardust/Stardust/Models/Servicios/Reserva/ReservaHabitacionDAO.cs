@@ -243,6 +243,7 @@ namespace Stardust.Models.Servicios
                     HotelBean hotel = new HotelBean();
                     hotel.ID = (int)dataReader["idHotel"];
                     hotel.nombre = (String)dataReader["nombre"];
+                    System.Diagnostics.Debug.WriteLine("Hotel :  " + hotel.nombre);
                     list.Add(hotel);
                 }
                 dataReader.Close();
