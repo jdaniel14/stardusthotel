@@ -20,10 +20,10 @@
         @Html.ValidationSummary(true)
         <div id = "control" ></div>
 
-        @*@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form"}))
+      @*  @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form"}))
         {*@
             <fieldset>
-                <div class="formRow">
+                <div class="form formRow">
                     @Html.LabelFor(m => m.Usuario)
                     <div class="loginInput">
                         @Html.TextBoxFor(m => m.Usuario, new { @class = "logueo" } )
@@ -32,7 +32,7 @@
                     <div class="clear"></div>
                 </div>
                 
-                <div class="formRow">
+                <div class="form formRow">
                     @Html.LabelFor(m => m.Contrasenia)
                     <div class="loginInput">
                         @Html.PasswordFor(m => m.Contrasenia , new { @class = "logueo" } )
@@ -51,7 +51,7 @@
                     <div class="clear"></div>
                 </div>
             </fieldset>
-        @*}*@
+       @* }*@
     </div>
 
 </div>

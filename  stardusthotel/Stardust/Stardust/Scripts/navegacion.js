@@ -12,9 +12,9 @@ $(document).ready(function () {
 
     // Setear menus que puedes ver según tu perfil
     if (token == null) {
-        alert("No tienes Acceso");
+        arma_menu("000000000000000000000000");
     } else if (token == "") {
-        alert("No tienes Acceso");
+        arma_menu("000000000000000000000000");
     } else {
         arma_menu(token);
     }

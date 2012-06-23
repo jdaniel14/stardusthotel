@@ -1,6 +1,5 @@
 $(document).ready(function () {
     localStorage.clear();
-    //    localStorage.setItem("token", "1111100000000000");
 
     $(".logueo").keyup(function (event) {
         if (event.keyCode == 13) {
@@ -9,7 +8,6 @@ $(document).ready(function () {
     });
 
     $('#loginButton').click(function () {
-        //        alert("soy negro");
         var u = $("#Usuario").val();
         var p = $("#Contrasenia").val();
         var jsonLogin = {
@@ -30,6 +28,7 @@ $(document).ready(function () {
                     $("#control").html("Usuario o Clave incorrecto");
                     $("#Usuario").val("");
                     $("#Contrasenia").val("");
+                    $("#Usuario").focus();
                 } else {
 
                     var idUsuario = data.ID;
