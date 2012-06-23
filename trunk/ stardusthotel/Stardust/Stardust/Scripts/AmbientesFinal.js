@@ -71,21 +71,14 @@ function sgteConfirma() {
         $('#mostrarNombre').html(nombre);
         $('#mostrarEmail').html(email);
 
-        $("#registrar").click(finDelChongo);
+        finDelChongo();
     }
     else {
-        alert('Faltan Datos');
+        mostrarError('Faltan Datos');        
     }
 }
 
 function finDelChongo() {
-
-    
-
-    
-
-
-
         var result = "";
         result = $("#ComboCliente").val();
 
@@ -196,23 +189,27 @@ function finDelChongo() {
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 url: "ResgitrarEventoYAmbientes",
+                beforeSend:esperaTotales,
                 success: graciasTotales
             });
         });
 
-    
 
 }
 
-function graciasTotales(data) {
+function esperaTotales() {
+    mostrarEspera();
+}
 
+function graciasTotales(data) {
+    $("#espera").dialog("destroy");
     console.log(data.me);
     if (data.me == "") {
-        alert('OK');
+        mostrarError('OK');
         $(location).attr('href', '../../');
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
     }
 }
 

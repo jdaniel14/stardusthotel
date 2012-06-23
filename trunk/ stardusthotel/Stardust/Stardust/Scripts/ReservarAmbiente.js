@@ -56,11 +56,14 @@ function mostrarAmbientesDisponibles() {
 }
 
 function esperaAmbientes() {
+    mostrarEspera();
 }
 
 function llegadaAmbientes(data) {
+    $("#espera").dialog("destroy");
     console.log(data);
     console.log(data.me);
+    
 
     if (data.me == "") {
 
@@ -152,7 +155,9 @@ function llegadaAmbientes(data) {
         });
     }
     else {
-        alert(data.me);
+        $("#FechaInicio").attr("value", "");
+        $("#FechaFin").attr("value", "");
+        mostrarError(data.me);
     }
 
 }
