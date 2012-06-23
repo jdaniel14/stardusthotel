@@ -24,6 +24,7 @@ namespace Stardust.Models
         public int idHotel { get; set; }
         public int idTipoHabitacion { get; set; }
         public decimal precio { get; set; }
+        public int nroPersonas { get; set; }
     }
 
     public class TipoHabitacionXHotelViewModelCreate
@@ -37,9 +38,13 @@ namespace Stardust.Models
         [Required(ErrorMessage="Seleccion un Tipo de Habitacion")]
         public int idTipoHabitacion { get; set; }
         
-        [Display(Name = "Precio")]
+        [Display(Name = "Precio S/.")]
         [Required(ErrorMessage="Ingrese el precio")]
         public decimal? precio { get; set; }
+
+        [Display(Name = "Número de Personas")]
+        [Required(ErrorMessage = "Ingrese el número de Personas")]
+        public int? nroPersonas { get; set; }
 
         public List<HotelBean> Hoteles { get; set; }
         public List<TipoHabitacion> TipoHabitaciones { get; set; }
@@ -57,9 +62,13 @@ namespace Stardust.Models
         [Required(ErrorMessage = "Seleccion un Tipo de Habitacion")]
         public int idTipoHabitacion { get; set; }
 
-        [Display(Name = "Precio")]
+        [Display(Name = "Precio S/.")]
         [Required(ErrorMessage = "Ingrese el precio")]
         public decimal precio { get; set; }
+
+        [Display(Name = "Número de Personas")]
+        [Required(ErrorMessage = "Ingrese el número de Personas")]
+        public int nroPersonas { get; set; }
 
         public List<HotelBean> Hoteles { get; set; }
         public List<TipoHabitacion> TipoHabitaciones { get; set; }
@@ -76,6 +85,7 @@ namespace Stardust.Models
 
         //public string nombreHotel { get; set; }
         public decimal precio { get; set; }
+        public int nroPersonas { get; set; }
     }
 
 }
