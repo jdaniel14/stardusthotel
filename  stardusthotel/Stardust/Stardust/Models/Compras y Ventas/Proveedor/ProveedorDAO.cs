@@ -110,7 +110,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             proveedor.estado = 1;
-            string commandString = "INSERT INTO Proveedor VALUES ('" + 
+            string commandString = "INSERT INTO Proveedor (razonSocial, contacto, emailContacto, ruc,web,telefono,direccion,observaciones,estado,telefonocontacto) VALUES ('" + 
 			       proveedor.razonSocial + "', '" + 
 				   proveedor.contacto + "', '" + 
 				   proveedor.emailContacto + "', '" + 
@@ -269,7 +269,7 @@ namespace Stardust.Models
             {
                 if (prod.listProdProv[i].precio>0)
                 {
-                   string commandString = "INSERT INTO ProductoXProveedor VALUES ('" +
+                   string commandString = "INSERT INTO ProductoXProveedor(idProveedor,idProducto,precio,cantPedidoMax) VALUES ('" +
                    idproveedor + "', '" +
                    prod.listProdProv[i].ID + "', '" +
                    prod.listProdProv[i].precio + "', '" +
