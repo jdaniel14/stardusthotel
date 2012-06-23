@@ -90,6 +90,9 @@ function sacarMail() {
 function recibeMails(data) {
     console.log(data);
     var registrar = data.me;
+    var defecto = 0;
+    $("#ComboCliente option[value=" + defecto + "]").attr("selected", true);
+    $("#ComboCliente").trigger('change');
 
     $("#nDoc").attr("value", "");
     $("#nombreDReserva").attr("value", "");

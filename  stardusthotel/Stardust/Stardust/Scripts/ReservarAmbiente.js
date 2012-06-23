@@ -6,6 +6,18 @@ x.ready(inicializarEventos);
 
 function inicializarEventos() {
 
+
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "/ReservarHabitacion/listarHoteles",
+        beforeSend: esperarHoteles(),
+        success: llegadaHoteles
+    });
+
+
     $("#FechaInicio").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaFin").datepicker({ dateFormat: 'dd-mm-yy' });
    
@@ -23,6 +35,26 @@ function inicializarEventos() {
     $("#buscame").click(mostrarAmbientesDisponibles);
 
 }
+
+function esperarHoteles() {
+}
+
+function llegadaHoteles(data) {
+    var escritor = "";
+    console.log(data);
+    if (data.me == "") {
+
+        $.each(data.lista, function (i, item) {
+            escritor += '<option value = "' + item.ID + '">' + item.nombre + '</option>';
+        });
+
+        $("#ComboHoteles").html(escritor);
+    }
+    else {
+        mostrarError(data.me);
+    }
+}
+
 
 function sgteEvento() {
     $("#tabs").tabs("select", "#Vevento");

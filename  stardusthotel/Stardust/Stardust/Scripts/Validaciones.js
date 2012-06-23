@@ -12,6 +12,7 @@ function iniciarValidaciones() {
     //Habitacion
     $("#FechaLlegada").change(validarFecha);
     $("#FechaSalida").change(validarFecha);
+    
 
     $("#nDoc").change(validarSoloNumeros14);
 //    $("#nombreDReserva").change(validarSoloTexto45);
@@ -36,7 +37,8 @@ function iniciarValidaciones() {
     //Ubicacion del cliente
 //    $("#nombre").change(validarSoloTexto45);
 
-    //Check IN
+    //Pago Inicial
+    $("#nReserva").change(validarSoloNumeros14);
     
 
 
@@ -108,7 +110,13 @@ function iniciarValidaciones() {
 //    if ($("#nombre").length > 0) {
 //        input = document.getElementById("nombre");
 //        input.placeholder = "Sólo texto";
-//    }
+    //    }
+
+    //Pago Inicial
+    if ($("#nReserva").length > 0) {
+        input = document.getElementById("nReserva");
+        input.placeholder = "Sólo números";
+    }
     
 
 }
@@ -166,8 +174,13 @@ function validarSoloNumeros14() {
         mostrarDialogo();
         $(this).attr("value", "");
     }
-    
 
+
+}
+
+function errorAJAX() {
+    mostrarError("Error inesperado, intentelo mas tarde :)");
+    $("#espera").dialog("destroy");
 }
 
 //Funcion dialogo

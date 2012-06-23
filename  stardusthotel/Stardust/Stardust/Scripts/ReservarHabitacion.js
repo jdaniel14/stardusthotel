@@ -1,10 +1,22 @@
 ﻿var arreglosId = new Array();
 var arreglosHabit = new Array();
-
+var SendHotel;
 var x;
 x = $(document);
 x.ready(inicializarEventos);
 function inicializarEventos() {
+
+    
+
+    $.ajax({
+        type: "POST",       
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "/ReservarHabitacion/listarHoteles",
+        beforeSend: esperarHoteles(),
+        success: llegadaHoteles
+    });
+
 
     $("#pestana3").hide();
 
@@ -58,6 +70,32 @@ function inicializarEventos() {
     x.focus(clickFechaout);
 }
 
+
+function esperarHoteles() {
+}
+
+function llegadaHoteles(data) {
+    var escritor = "";
+    console.log(data);
+    if (data.me == "") {
+
+        escritor += '<option value = "NN" selected = "selected">Escoja un hotel</option>';
+
+        $.each(data.lista, function (i, item) {
+            escritor += '<option value = "' + item.ID + '">' + item.nombre + '</option>';
+        });
+
+        $("#ComboHoteles").html(escritor);
+
+        var miValue2 = "NN";
+        $("#ComboHoteles option[value=" + miValue2 + "]").attr("selected", true);
+        $("#ComboHoteles").trigger('change');
+    }
+    else {
+        mostrarError(data.me);
+    }
+}
+
 function nextDatos() {
     $("#tabs").tabs("select", "#tabs-2");
 }
@@ -67,30 +105,38 @@ function mostrarBuscame() {
     
     var fechaInicio = $("#FechaLlegada").attr("value");
     var fechaFinal = $("#FechaSalida").attr("value");
-    
+    SendHotel = $("#ComboHoteles").val();
 
-    //alert(fechaFinal);
-    var Hotel = {
-        idHotel: "1",
-        fechaIni: fechaInicio,
-        fechaFin: fechaFinal
+    if ((fechaInicio != "") &&
+        (fechaFinal != "") &&
+        (SendHotel != "NN")) {
+
+        //alert(fechaFinal);
+        var Hotel = {
+            idHotel: SendHotel,
+            fechaIni: fechaInicio,
+            fechaFin: fechaFinal
+        }
+        var jsonData = JSON.stringify(Hotel);
+        //alert'ant');
+        console.log(jsonData);
+        //alert('desp');
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "ReservarHabitacion/consultarDisponibles",
+            beforeSend: inicioEnvioTipoHotel(),
+            success: llegadaTipoHabitacion
+            
+        });
+
+        $('#Total').text(0);
     }
-    var jsonData = JSON.stringify(Hotel);
-    //alert'ant');
-    //console.log(jsonData);
-    //alert('desp');
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "ReservarHabitacion/consultarDisponibles",
-        beforeSend: inicioEnvioTipoHotel(),
-        success: llegadaTipoHabitacion
-    });
-
-    $('#Total').text(0);
-
+    else {
+        mostrarError("Faltan llenar Datos");
+    }
 }
 
 function inicioEnvioTipoHotel() {   
