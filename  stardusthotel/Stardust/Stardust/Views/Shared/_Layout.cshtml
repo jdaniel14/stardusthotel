@@ -74,13 +74,13 @@
             </a>
         </div>
     
-        <div class="sidebarSep mt0"></div>
+        @*<div class="sidebarSep mt0"></div>*@
     
         <!-- Search widget -->
-        <form action="" class="sidebarSearch">
+        @*<form action="" class="sidebarSearch">
             <input type="text" name="search" placeholder="Buscar..." id="ac" />
             <input type="submit" value="" />
-        </form>
+        </form>*@
     
         <div class="sidebarSep"></div>
 
@@ -301,10 +301,11 @@
         <!-- Top fixed navigation -->
         <div class="topNav">
             <div class="wrapper">
-                <div class="welcome"><a href="#" title=""><img src="@Url.Content("~/Content/images/userPic.png")" alt="" /></a><span>------</span></div>
+                <div class="welcome" ><a href="#" title=""><img src="@Url.Content("~/Content/images/userPic.png")" alt="" /></a><span id = "nombreUsuario"></span></div>
+                @*<div class="welcome" id = "nombreUsuario"><a href="#" title=""><img src="@Url.Content("~/Content/images/userPic.png")" alt="" /></a></div>*@
                 <div class="userNav">
                     <ul>
-                        <li><a href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/profile.png" )" alt="" /><span>Perfil</span></a></li>
+                        <li><a id = "verUsuario" href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/profile.png" )" alt="" /><span>Perfil</span></a></li>
                         <li><a href="@Url.Action("Index","Logout")" title=""><img src="@Url.Content("~/Content/images/icons/topnav/logout.png" )" alt="" /><span>Cerrar Sesión</span></a></li>
                     </ul>
                 </div>

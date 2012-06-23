@@ -11,7 +11,7 @@ namespace Stardust.Models
     {
         String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-        public String getLogin(string user, string pass) {
+        public UsuarioBean getLogin(string user, string pass) {
             SqlConnection sql = null;
 
             try
@@ -30,20 +30,24 @@ namespace Stardust.Models
                 SqlDataReader data = query.ExecuteReader();
 
                 int idPerfil = 1;
+                UsuarioBean usuario = null;
 
                 if (data.HasRows)
                 {
                     data.Read();
                     idPerfil = Convert.ToInt32(data["idPerfilUsuario"]);
-                    UsuarioBean u = new UsuarioBean();
-                    return Convert.ToString(data["idUsuario"]); // <------------- comentar ... =)
+                    int idUsuario = Convert.ToInt32(data["idUsuario"]);
+                    usuario = this.getUsuario(idUsuario);
+                    //return Convert.ToString(data["idUsuario"]); // <------------- comentar ... =)
                 }
 
                 sql.Close();
 
                 String permisosPerfil = new PerfilUsuarioFacade().getPerfil(idPerfil).token;
 
-                return permisosPerfil;
+                usuario.estado = permisosPerfil;
+
+                return usuario ;
             }
             catch {
                 return null;

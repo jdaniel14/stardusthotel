@@ -1573,6 +1573,7 @@
     <Content Include="Libraries\log4net.dll" />
     <Content Include="Libraries\log4net.xml" />
     <Content Include="Scripts\AmbientesFinal.js" />
+    <Content Include="Scripts\AsignarServicio.js" />
     <Content Include="Scripts\CheckIn.js" />
     <Content Include="Scripts\checkOut.js" />
     <Content Include="Scripts\DatosEvento.js" />
@@ -1585,8 +1586,10 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\login_stardust.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\navegacion.js" />
     <Content Include="Scripts\ReservaCliente.js" />
     <Content Include="Scripts\ReservaFinal.js" />
     <Content Include="Scripts\ReservarAmbiente.js" />
