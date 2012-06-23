@@ -13,7 +13,7 @@ namespace Stardust.Models
 
         public int idproducto { get; set; }
 
-        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado es incorrecto")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número")]
         public int cantidad { get; set; }
         
         public int stockActual { get; set; }
