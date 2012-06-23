@@ -23,15 +23,15 @@ namespace Stardust.Models
             
             sqlCon.Open();
             
-            string commandString = "SELECT * FROM Proveedor WHERE estado=1";
+            string commandString = "SELECT * FROM Proveedor ";
             bool result1 = String.IsNullOrEmpty(razonSocial);//Nombre.Equals("") ;
             bool result2 = String.IsNullOrEmpty(contacto);// Contacto.Equals("");
 
             if (!result1)
-                commandString = commandString + " AND UPPER(razonSocial) LIKE '%" + razonSocial.ToUpper() + "%'";
+                commandString = commandString + " WHERE UPPER(razonSocial) LIKE '%" + razonSocial.ToUpper() + "%'";
 
             if (!result2)
-                commandString = commandString + " AND UPPER(contacto) LIKE '%" + contacto.ToUpper() + "%'";
+                commandString = commandString + " WHERE UPPER(contacto) LIKE '%" + contacto.ToUpper() + "%'";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -52,7 +52,7 @@ namespace Stardust.Models
                 proveedor.direccion = (string)dataReader["direccion"];
                 proveedor.observaciones = (string)dataReader["observaciones"];
                 proveedor.telefonocontacto = (string)dataReader["telefonocontacto"];
-                proveedor.estado = 1;
+                proveedor.estado = Convert.ToInt32(dataReader["estado"]);
                 listaProveedor.Add(proveedor);
             }
             dataReader.Close();

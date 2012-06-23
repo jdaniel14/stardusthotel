@@ -20,6 +20,12 @@ namespace Stardust.Controllers
         public ViewResult Index()
         {            
             List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor("","");
+            for (int i = 0; i < listaProveedor.Count; i++)
+            {
+                if (listaProveedor[i].estado == 1) listaProveedor[i].estado2 = "Activo";
+                else listaProveedor[i].estado2 = "Inactivo";
+
+            }
             return View(listaProveedor);
         }
 
@@ -90,12 +96,30 @@ namespace Stardust.Controllers
             return Json(new { me = "" });
         }
         
-        public ActionResult Buscar(string razonsocial, string contacto)
-        {            
-            return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
+        public ActionResult Buscar()
+        {
+            List<ProveedorBean> prov = new List<ProveedorBean>();
+            ViewBag.estado = 0;
+            return View(prov);
             
         }
 
+        [HttpPost]
+        public ActionResult Buscar(string razonsocial, string contacto)
+        {
+
+            List<ProveedorBean> listaProveedor = proveedorFacade.ListarProveedor(razonsocial, contacto);
+            for (int i = 0; i < listaProveedor.Count; i++)
+            {
+                if (listaProveedor[i].estado == 1) listaProveedor[i].estado2 = "Activo";
+                else listaProveedor[i].estado2 = "Inactivo";
+
+            }
+            ViewBag.estado = 1;
+            return View(listaProveedor);
+
+        }
+       
         public ActionResult MostrarProveedor(ProveedorBean prov)
         {            
             List<ProveedorBean> listaprov = proveedorFacade.ListarProveedor(prov.razonSocial, prov.contacto);
