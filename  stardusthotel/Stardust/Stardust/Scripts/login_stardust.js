@@ -1,6 +1,12 @@
 $(document).ready(function () {
     localStorage.clear();
-    localStorage.setItem("token", "1111100000000000");
+//    localStorage.setItem("token", "1111100000000000");
+
+    $(".logueo").keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#loginButton").click();
+        }
+    });
 
     $('#loginButton').click(function () {
         //        alert("soy negro");
