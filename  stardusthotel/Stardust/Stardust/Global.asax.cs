@@ -7,6 +7,7 @@ using System.Web.Routing;
 
 using AutoMapper;
 using Stardust.Models;
+using log4net;
 
 namespace Stardust
 {
@@ -15,6 +16,8 @@ namespace Stardust
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static ILog log = LogManager.GetLogger(typeof(MvcApplication));
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -38,6 +41,9 @@ namespace Stardust
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            
+            log4net.Config.XmlConfigurator.Configure();
+            log.Info("Inicio de la aplicación Stardust");
 
             Mapper.CreateMap<HotelViewModelCreate, HotelBean>();
             Mapper.CreateMap<HotelBean, HotelViewModelDetails>();
