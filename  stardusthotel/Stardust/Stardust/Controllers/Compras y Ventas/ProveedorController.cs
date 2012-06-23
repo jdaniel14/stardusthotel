@@ -67,22 +67,30 @@ namespace Stardust.Controllers
         public ActionResult ModificarProveedor(int ID)
         {            
             ProveedorBean item = proveedorFacade.GetProveedor(ID);
+            if (item.estado ==1 ) item.estado2="Activo";
+            else item.estado2="Inactivo";
+            
             return View(item);
         }
 
         [HttpPost]
         public ActionResult ModificarProveedor(ProveedorBean item)
-        {            
-            //falta el estado-----------------
-            
+        {
+
+            if (item.estado2 == "Activo") item.estado = 1;
+            else item.estado = 0;
+
             proveedorFacade.ActualizarProveedor(item);
             return RedirectToAction("DetallesProveedor/" + item.ID, "Proveedor"); 
         }
-        //public ActionResult DetallesProveedor(int ID)
-        //{            
-        //    ProveedorBean item = proveedorFacade.GetProveedor(ID);
-        //    return View(item);
-        //}
+        public ActionResult DetallesProveedor(int ID)
+        {
+            ProveedorBean item = proveedorFacade.GetProveedor(ID);
+            if (item.estado == 1) item.estado2 = "Activo";
+            else item.estado2 = "Inactivo";
+
+            return View(item);
+        }
 
         public ActionResult Delete(int ID)
         {
