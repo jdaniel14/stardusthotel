@@ -45,7 +45,7 @@
             <div class="formRow">
                 @Html.LabelFor(model => model.idhotel)<span class="req">*</span>
                 <div class = "formRight" >
-                <div class = "selector">@Html.DropDownListFor(model => model.ID, Model.hotelList)</div></div>
+                <div class = "selector">@Html.DropDownListFor(model => model.idhotel,new SelectList(ViewBag.Hotel,"ID","nombre"))</div>
                 <div class = "clear" ></div>
             </div>         
             
@@ -87,6 +87,7 @@
             <div class="formRow">                
                 @Html.LabelFor(model => model.dias)<span class="req">*</span>                
                 <div class = "formRight"> @Html.TextBoxFor(model => model.dias, new {@class = "validate[required,custom[onlyNumberSp]]", name = "numsValid", maxlength = "2", placeholder = "Solo numeros" }) </div>
+                <div class = "formRight"> @ViewBag.Error</div>
                 <div class = "clear" ></div>
             </div>  
             
@@ -99,7 +100,7 @@
             <div class="formRow">
                 @Html.LabelFor(model => model.idhotel)<span class="req">*</span>
                 <div class = "formRight" >
-                <div class = "selector">@Html.DropDownListFor(model => model.ID, Model.hotelList)</div></div>
+                <div class = "selector">@Html.DropDownListFor(model => model.idhotel, new SelectList(ViewBag.Hotel,"ID","nombre"))</div></div>
                 <div class = "clear" ></div>
             </div>         
             
