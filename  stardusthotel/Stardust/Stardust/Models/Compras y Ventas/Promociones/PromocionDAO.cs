@@ -20,7 +20,7 @@ namespace Stardust.Models
 
             promocion.estado = 1;
 
-            string commandString = "INSERT INTO Promocion VALUES ('" + promocion.descripcion + "', " + promocion.razon + " ," + promocion.porcDescontar + ", " + promocion.estado + " , " + promocion.tipoDescuento + " ," + promocion.idhotel + ")";
+            string commandString = "INSERT INTO Promocion (descripcion, razon, procDescontar,estado,tipo,idHotel) VALUES ('" + promocion.descripcion + "', " + promocion.razon + " ," + promocion.porcDescontar + ", " + promocion.estado + " , " + promocion.tipoDescuento + " ," + promocion.idhotel + ")";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
