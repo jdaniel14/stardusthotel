@@ -573,8 +573,9 @@ namespace Stardust.Models.Servicios
                 System.Diagnostics.Debug.WriteLine("--> " + listTip[i].cant);
                 for (int j = 0; j < listTip[i].cant; j++) {
                     int hab = listTip[i].list[j].idHab;
+
                     String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),"+idHotel+")";
-                    System.Diagnostics.Debug.WriteLine("query--> " + query);
+                   System.Diagnostics.Debug.WriteLine("query--> " + query);
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.ExecuteNonQuery();
 
