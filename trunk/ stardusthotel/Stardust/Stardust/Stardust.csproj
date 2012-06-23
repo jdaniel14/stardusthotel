@@ -40,14 +40,27 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Json">
       <HintPath>..\packages\System.Json.4.0.20126.16343\lib\net40\System.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -57,6 +70,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -77,6 +96,7 @@
     <Compile Include="Controllers\Administracion\LoginController.cs" />
     <Compile Include="Controllers\Administracion\LogoutController.cs" />
     <Compile Include="Controllers\Administracion\PerfilUsuarioController.cs" />
+    <Compile Include="Controllers\Administracion\ReporteAsistenciaController.cs" />
     <Compile Include="Controllers\Administracion\TipoHabitacionController.cs" />
     <Compile Include="Controllers\Administracion\TipoHabitacionxHotelController.cs" />
     <Compile Include="Controllers\Administracion\UsuarioController.cs" />
@@ -90,14 +110,17 @@
     <Compile Include="Controllers\HomeController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Servicios\AsignarServiciosController.cs" />
     <Compile Include="Controllers\Servicios\ClienteController.cs" />
     <Compile Include="Controllers\Servicios\EventoController.cs" />
     <Compile Include="Controllers\Servicios\PagoClientesController.cs" />
+    <Compile Include="Controllers\Servicios\ReporteEventosController.cs" />
     <Compile Include="Controllers\Servicios\ReservarAmbienteController.cs" />
     <Compile Include="Controllers\Servicios\ReservarHabitacionController.cs" />
     <Compile Include="Controllers\Servicios\ServiciosController.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\Servicios\ServiciosReportesController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1547,6 +1570,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Libraries\AutoMapper.dll" />
+    <Content Include="Libraries\log4net.dll" />
+    <Content Include="Libraries\log4net.xml" />
     <Content Include="Scripts\AmbientesFinal.js" />
     <Content Include="Scripts\CheckIn.js" />
     <Content Include="Scripts\checkOut.js" />
@@ -1560,10 +1585,8 @@
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\login_stardust.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Scripts\navegacion.js" />
     <Content Include="Scripts\ReservaCliente.js" />
     <Content Include="Scripts\ReservaFinal.js" />
     <Content Include="Scripts\ReservarAmbiente.js" />
@@ -1776,7 +1799,6 @@
     <Folder Include="Content\js\plugins\wizard\.svn\tmp\prop-base\" />
     <Folder Include="Content\js\plugins\wizard\.svn\tmp\props\" />
     <Folder Include="Content\js\plugins\wizard\.svn\tmp\text-base\" />
-    <Folder Include="Views\ReporteEvento\ReporteAsistencia\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -4469,7 +4491,6 @@
     <Content Include="Views\Evento\ModificarEvento.cshtml" />
     <Content Include="Views\Evento\RegistrarEvento.cshtml" />
     <Content Include="Views\ReservarHabitacion\AddServicio.cshtml" />
-    <Content Include="Views\ReservarHabitacion\datosReserva.cshtml" />
     <Content Include="Views\Reporte\Proveedor.cshtml" />
     <Content Include="Views\Empleado\ListHorario.cshtml">
       <SubType>Code</SubType>
@@ -4497,7 +4518,26 @@
     <Content Include="Views\ReservarAmbiente\Reservar.cshtml" />
     <Content Include="Views\Hotel\ListTiposHabitacionXHotel.cshtml" />
     <Content Include="Views\Hotel\CreateTipoHabitacionXHotel.cshtml" />
+    <Content Include="Views\AsignarServicios\AsignarService.cshtml" />
+    <Content Include="Views\Empleado\CapturaAsistencia.cshtml" />
+    <Content Include="Views\Empleado\Creardetalle.cshtml" />
+    <Content Include="Views\Empleado\Detalles.cshtml" />
+    <Content Include="Views\Empleado\EditarDetalle.cshtml" />
+    <Content Include="Views\Empleado\ListDetalle.cshtml" />
+    <Content Include="Views\PagoClientes\PagarInicial.cshtml" />
+    <Content Include="Views\Producto\actualizarStock.cshtml" />
+    <Content Include="Views\Producto\actualizarstock2.cshtml" />
+    <Content Include="Views\Producto\Error.cshtml" />
+    <Content Include="Views\Proveedor\Reporte.cshtml" />
     <Content Include="Views\ReporteAsistencia\indice.cshtml" />
+    <Content Include="Views\ReporteAsistencia\ReporteAsistencia1.cshtml" />
+    <Content Include="Views\ReporteEventos\Evento.cshtml" />
+    <Content Include="Views\ReporteEventos\ListaEvento.cshtml" />
+    <Content Include="Views\ReporteEventos\ReporteEv.cshtml" />
+    <Content Include="Views\ReporteEvento\Evento.cshtml" />
+    <Content Include="Views\Servicios\Details.cshtml" />
+    <Content Include="Views\ServiciosReportes\ReporteCliente.cshtml" />
+    <Content Include="Views\ServiciosReportes\ReporteHabitaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
