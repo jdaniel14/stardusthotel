@@ -13,14 +13,14 @@ namespace Stardust.Models
 {
     public class Hoteles
     {
-        public string ID {get; set;}
+        public int ID {get; set;}
         public string Nombre {get; set;}
     }
     public class Tipo
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Nombre { get; set; }
-        public Tipo(string ID, string Nombre)
+        public Tipo(int ID, string Nombre)
         {
             this.ID = ID;
             this.Nombre = Nombre;
@@ -30,7 +30,7 @@ namespace Stardust.Models
     public class PromocionBean
     {
 
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         public int idPromocion { get; set; }
         
@@ -42,7 +42,7 @@ namespace Stardust.Models
         [Display(Name = "Tipo de Descuento")]
         public int tipoDescuento { get; set; }
 
-        public string tipo { get; set; }
+        public int tipo { get; set; }
 
         [Display(Name = "Tipo de Descuento")]
         public string descuento { get; set; }
@@ -68,78 +68,6 @@ namespace Stardust.Models
         [Display(Name = "Hotel")]
         public int idhotel { get; set; }
 
-        public int estado { get; set; }
-
-        public IEnumerable<Tipo> getTipo(int i)
-        {
-            List<Tipo> listaTipo = new List<Tipo>();
-
-            if (i == 1)
-            {
-                Tipo tipo = new Tipo("1", "Todo");
-                listaTipo.Add(tipo);
-            }
-
-            Tipo tipo1 = new Tipo("2", "Dias de Reserva");
-            Tipo tipo2 = new Tipo("3", "Pago Adelantado");
-            
-            listaTipo.Add(tipo1);
-            listaTipo.Add(tipo2);
-
-            return listaTipo;
-        }
-
-        public IEnumerable<Hoteles> getHoteles(int i)
-        {
-            List<Hoteles> listaHotel = new List<Hoteles>();
-
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-            sqlCon.Open();
-
-            string commandString = "SELECT * FROM Hotel";
-
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-            if (i == 1)
-            {
-                Hoteles hoteles = new Hoteles();
-                hoteles.ID = "1";
-                hoteles.Nombre = "Todo";
-                listaHotel.Add(hoteles);
-            }                    
-
-            while (dataReader.Read())
-            {
-                Hoteles hotel = new Hoteles();
-                hotel.ID = Convert.ToString(dataReader["idHotel"]);
-                hotel.Nombre = (string)dataReader["nombre"];
-
-                listaHotel.Add(hotel);
-            }
-            return listaHotel;
-        }
-        public SelectList hotelList { get; set; }
-        public SelectList tipoList { get; set; }
-
-        public PromocionBean()
-        {
-        }
-
-        public PromocionBean(int i)
-        {
-            if (i == 1)
-            {
-                hotelList = new SelectList(getHoteles(1), "ID", "Nombre");
-                tipoList = new SelectList(getTipo(1), "ID", "Nombre");
-            }
-            else
-            {
-                hotelList = new SelectList(getHoteles(2), "ID", "Nombre");
-                tipoList = new SelectList(getTipo(2), "ID", "Nombre");
-            }
-        }
+        public int estado { get; set; }        
     }
 }
