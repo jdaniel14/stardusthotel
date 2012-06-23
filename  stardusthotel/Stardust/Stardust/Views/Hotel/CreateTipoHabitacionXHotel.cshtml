@@ -34,6 +34,12 @@
                 <div class = "formRight" > @Html.TextBoxFor(model => model.precio)</div>
                 <div class = "clear" ></div>
             </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nroPersonas)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.nroPersonas)</div>
+                <div class = "clear" ></div>
+            </div>
         </div>
         <p>
             <input class = "redB" type="submit" value="Asignar" />
@@ -42,5 +48,5 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar", "List")
+    @Html.ActionLink("Regresar", "ListTiposHabitacionXHotel", new { id = Model.idHotel })
 </div>
