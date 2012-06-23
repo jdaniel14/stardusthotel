@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using log4net;
 
 namespace Stardust.Controllers
 {
@@ -12,7 +13,8 @@ namespace Stardust.Controllers
         ComprasFacade comprasFacade = new ComprasFacade();
         ProveedorFacade proveedorFacade = new ProveedorFacade();
         HotelFacade hoteles = new HotelFacade();
-        
+        private static ILog log = LogManager.GetLogger(typeof(OrdenCompraController));
+
         /*--------Orden de Compra----------*/
 
         public ActionResult Index()

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ReportManagement;
 using Stardust.Models;
+using log4net;
 
 namespace Stardust.Controllers.Compras_y_Ventas
 {
@@ -14,6 +15,7 @@ namespace Stardust.Controllers.Compras_y_Ventas
         // GET: /Reporte/
 
         ProveedorFacade proveedorFacade = new ProveedorFacade();
+        private static ILog log = LogManager.GetLogger(typeof(ReporteController));
 
         public ActionResult Proveedor()
         {

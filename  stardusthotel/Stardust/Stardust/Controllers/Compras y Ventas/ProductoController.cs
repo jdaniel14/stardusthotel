@@ -9,6 +9,8 @@ using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
 using Stardust.Controllers;
+using log4net;
+
 
 namespace Stardust.Controllers
 {
@@ -21,7 +23,7 @@ namespace Stardust.Controllers
         ProveedorFacade produc = new ProveedorFacade();
         HotelFacade hotelFac = new HotelFacade();
         ComprasFacade productosfacade = new ComprasFacade();
-
+        private static ILog log = LogManager.GetLogger(typeof(ProductoController));
 
         public ViewResult Error(string error)
         {

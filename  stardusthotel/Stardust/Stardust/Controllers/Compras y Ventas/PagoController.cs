@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using log4net;
 
 namespace Stardust.Controllers
 {
@@ -13,7 +14,7 @@ namespace Stardust.Controllers
         /*---------Pago de Servicios, Evento y ambientes------*/
 
         PagoFacade pagoFacade = new PagoFacade();
-
+        private static ILog log = LogManager.GetLogger(typeof(PagoController));
         public ActionResult Buscar()
         {
             return View();
