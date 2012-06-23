@@ -211,13 +211,51 @@ namespace Stardust.Models.Servicios
             return usuario;
         }
 
+        public HotelResponse listarHoteles()
+        {
+            HotelResponse response = new HotelResponse();
+            response.me = "";
+
+            List<HotelBean> list = new List<HotelBean>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            String query = "SELECT idHotel, nombre FROM Hotel WHERE estado = 1";
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            SqlDataReader dataReader;
+
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e) {
+                response.me = "Error en conexion a Base de Datos";
+                return response;
+            }
+
+            SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
+
+            try
+            {
+                dataReader = sqlCmd2.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    HotelBean hotel = new HotelBean();
+                    hotel.ID = (int)dataReader["idHotel"];
+                    hotel.nombre = (String)dataReader["nombre"];
+                    list.Add(hotel);
+                }
+                dataReader.Close();
+            }
+            catch (Exception e) {
+                response.me = "Error al ejecutar query : " + e.Message;
+            }
+           
+            return response;
+        }
+
         public UsuarioResBean registraCliente(ClienteReservaBean client, String pass){
 
-            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.tipoDoc);
-            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.email);
-            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.apell);
-            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.nomb);
-            System.Diagnostics.Debug.WriteLine("TIPO DOC " + client.nroDoc);
             UsuarioResBean usuario = new UsuarioResBean();
             usuario.me = "";
             
@@ -233,20 +271,34 @@ namespace Stardust.Models.Servicios
                 return usuario;
             }
 
-            //cliente.estado2 = 1;
-            
 
-            string commandString3 = "INSERT INTO Usuario VALUES (1," +
+            String consultaUser = "SELECT COUNT(*) as res FROM Usuario WHERE user_account = '"+ client.email +"' OR  nroDocumento = '" + client.nroDoc + "'";
+
+            SqlCommand sqlCmdUser = new SqlCommand(consultaUser, sqlCon);
+            SqlDataReader dataReaderUser;
+            try
+            {
+                dataReaderUser = sqlCmdUser.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                usuario.me = "Error en BD";
+                return usuario;
+            }
+            if (dataReaderUser.Read()) {
+                int count = (int)dataReaderUser["res"];
+                if (count == 0) {
+                    string commandString3 = "INSERT INTO Usuario VALUES (1," +
                      "'" + client.email + "', " +
                      "'" + pass + "', " +
-                     "'" + client.nomb+ "'" + ", " +
+                     "'" + client.nomb + "'" + ", " +
                      "'" + client.apell + "'" + ", " +
                      "''" + ", " +
-                     "'" + client.email+"', " +//email
-                     "'" + client.telf+"', " +//celular
-                     "'" + client.tipoDoc+ "'" + ", " +
-                     "'" + client.nroDoc+ "'" + ", " +
-                     "'" + client.razSoc+ "'" + ", " +
+                     "'" + client.email + "', " +//email
+                     "'" + client.telf + "', " +//celular
+                     "'" + client.tipoDoc + "'" + ", " +
+                     "'" + client.nroDoc + "'" + ", " +
+                     "'" + client.razSoc + "'" + ", " +
                      "'ACTIVO'" + ", " +//estado
                      "1" + ", " +//Distrito
                      "''" + ", " +//Direccion
@@ -256,62 +308,72 @@ namespace Stardust.Models.Servicios
                      ;
 
 
-            SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
-            try
-            {
-                sqlCmd3.ExecuteNonQuery();
-            }catch(Exception e){
-                usuario.me = "Error al registrar el Usuario : " + e.Message;
-                return usuario;
+                    SqlCommand sqlCmd3 = new SqlCommand(commandString3, sqlCon);
+                    try
+                    {
+                        sqlCmd3.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        usuario.me = "Error al registrar el Usuario : " + e.Message;
+                        return usuario;
+                    }
+
+
+                    string commandString2 = "SELECT IDENT_CURRENT('" + "Usuario" + "') as lastId";
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
+                    SqlDataReader dataReader;
+                    try
+                    {
+                        dataReader = sqlCmd2.ExecuteReader();
+                    }
+                    catch (Exception e)
+                    {
+                        usuario.me = "Error al encontrar al id del Usuario";
+                        return usuario;
+                    }
+
+                    int last_id = 0;
+                    if (dataReader.Read())
+                    {
+                        //last_id = (int)dataReader["lastId"];
+                        last_id = Int16.Parse(dataReader["lastId"].ToString());
+                        //listaClientes.Add(cliente);
+                    }
+
+                    dataReader.Close();
+
+                    System.Diagnostics.Debug.WriteLine("ultimo id " + last_id);
+
+                    string commandString1 = "INSERT INTO Cliente VALUES (" + last_id.ToString() +
+                             ", GETDATE()" + ", " +
+                             "'ACTIVO'" + ", " +
+                             "'" + client.tipoTarj + "'" + ", " +
+                             "'" + client.nroTarj + "'" + ")"
+                             ;
+
+                    SqlCommand sqlCmd1 = new SqlCommand(commandString1, sqlCon);
+                    try
+                    {
+                        sqlCmd1.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        usuario.me = "Error al registrar el usuario : " + e.Message;
+                        return usuario;
+                    }
+
+                    sqlCon.Close();
+
+                    usuario.idUsuario = last_id;
+                    usuario.tipoDocumento = client.tipoDoc;                    
+                }
+                else {
+                    usuario.me = "El correo ya se encuentra registrado.";                    
+                }
+                usuario.me = "Error en Lectura";
             }
-
-            
-            string commandString2 = "SELECT IDENT_CURRENT('" + "Usuario" + "') as lastId";
-            SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon);
-            SqlDataReader dataReader ;
-            try
-            {
-                dataReader = sqlCmd2.ExecuteReader();
-            }catch(Exception e){
-                usuario.me = "Error al encontrar al id del Usuario";
-                return usuario;
-            }
-
-            int last_id = 0;
-            if (dataReader.Read())
-            {
-                //last_id = (int)dataReader["lastId"];
-                last_id = Int16.Parse(dataReader["lastId"].ToString());
-                //listaClientes.Add(cliente);
-            }
-            
-            dataReader.Close(); 
-            
-            System.Diagnostics.Debug.WriteLine("ultimo id "+last_id);
-
-            string commandString1 = "INSERT INTO Cliente VALUES (" + last_id.ToString() + 
-                     ", GETDATE()" + ", " +
-                     "'ACTIVO'" + ", " +
-                     "'" + client.tipoTarj+ "'" + ", " +
-                     "'" + client.nroTarj + "'" + ")"
-                     ;
-
-            SqlCommand sqlCmd1 = new SqlCommand(commandString1, sqlCon);
-            try
-            {
-                sqlCmd1.ExecuteNonQuery();
-            }catch(Exception e){
-                usuario.me = "Error al registrar el usuario : " + e.Message;
-                return usuario;
-            }
-
-            sqlCon.Close();
-
-            usuario.idUsuario = last_id;
-            usuario.tipoDocumento = client.tipoDoc;
-
-            return usuario ;
-        
+            return usuario;
         }
 
         public ReservaResBean resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
