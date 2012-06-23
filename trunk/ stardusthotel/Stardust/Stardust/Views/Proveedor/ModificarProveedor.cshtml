@@ -21,56 +21,76 @@
     <fieldset>
         <div class="widget">
             <div class="title">
-                <h6>Modificar Proveedor</h6>
+                <h6>Registrar Proveedor</h6>
             </div>
-            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)
-                <div class=" formRight"> @Html.EditorFor(model => model.razonSocial, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
+            <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
+                <div class="formRight">
+                    @Html.TextBoxFor(model => model.razonSocial, new { @readonly = "readonly" })
+                     
+                </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.ruc)
-                <div class="formRight"> @Html.DisplayFor(model => model.ruc, new { @class = "validate[required,custom[onlyNumberSp]]", name = "numsValid" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.ruc, new { @readonly = "readonly" }) </div>
                 <div class="clear"></div>
             </div>
 
-            <div class="formRow">@Html.LabelFor(model => model.direccion)
-                <div class="formRight"> @Html.TextBoxFor(model => model.direccion, new { @class = "validate[required]", name = "", maxlength = "40", placeholder = "" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.direccion)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.direccion) 
+                 @Html.ValidationMessageFor(model => model.direccion)</div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefono)
-                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8" }) </div>
+                 
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefono, new { maxlength = "9" }) 
+                @Html.ValidationMessageFor(model => model.telefono)</div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.web)
-                <div class="formRight"> @Html.TextBoxFor(model => model.web, new { @class = "validate[required]", name = "urlField", maxlength = "30", placeholder = "" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.web)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.web)
+                </div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.contacto)
-                <div class="formRight"> @Html.TextBoxFor(model => model.contacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.contacto)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.contacto) 
+                 @Html.ValidationMessageFor(model => model.contacto)</div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.cargoContacto)
-                <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto, new { @class = "validate[required,custom[onlyLetterSp]]", name = "lettersValid" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.cargoContacto)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.cargoContacto)
+                 @Html.ValidationMessageFor(model => model.cargoContacto) </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefonocontacto)
-                <div class="formRight"> @Html.TextBoxFor(model => model.telefonocontacto, new { @class = "validate[custom[onlyNumberSp]]", name = "numsValid", maxlength = "9", minlength = "8", placeholder = "celular" }) </div>
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefonocontacto, new { maxlength = "9" }) 
+                 @Html.ValidationMessageFor(model => model.telefonocontacto)</div>
                 <div class="clear"></div>
             </div>
-            <div class="formRow">@Html.LabelFor(model => model.emailContacto)
-                <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto, new { @class = "validate[required,custom[email]]", name = "emailValid" }) </div>
+            <div class="formRow">@Html.LabelFor(model => model.emailContacto)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.emailContacto)</div>
                 <div class="clear"></div>
             </div>
+            
             <div class="formRow">@Html.LabelFor(model => model.observaciones)
-                <div class="formRight"> @Html.TextAreaFor(model => model.observaciones) </div>
+                <div class="formRight"> @Html.TextAreaFor(model => model.observaciones, new { maxlength = "45" }) </div>
                 <div class="clear"></div>
-            </div>            
+            </div>   
+            
+            <div class="formRow">@Html.LabelFor(model => model.estado2)
+                <div class="formRight"> 
+                                     @Html.RadioButtonFor(model => model.estado2, "Activo", true) Activo <br />
+                                     @Html.RadioButtonFor(model => model.estado2, "Inactivo", false) Inactivo    
+                                                                                                            
+                </div> 
+                <div class="clear"></div>
+            </div>         
             
         </div>
     </fieldset>
 
         <p>
         <input type="submit" value="Guardar" class = "redB" />
-        @Html.ActionLink("Regresar", "Buscar","Proveedor")
+        @Html.ActionLink("Regresar", "Buscar", "Proveedor")
     </p>
 }
        
