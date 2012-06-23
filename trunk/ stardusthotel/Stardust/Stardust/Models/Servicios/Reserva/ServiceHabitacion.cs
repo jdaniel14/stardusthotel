@@ -173,7 +173,7 @@ namespace Stardust.Models.Servicios
 
 
             reservaHabitacionDAO.registrarXtipoHabitacion(reservaRes.idReserva, reservaRequest.idHotel, reservaRequest.listTip);
-            reservaHabitacionDAO.resgistrarHabitaciones(reservaRequest.listTip, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRes.idReserva);
+            reservaHabitacionDAO.resgistrarHabitaciones(reservaRequest.idHotel, reservaRequest.listTip, reservaRequest.fechaIni, reservaRequest.fechaFin, reservaRes.idReserva);
 
 
             DateTime fFin = DateTime.ParseExact(reservaRequest.fechaFin, "dd-MM-yyyy", null);
