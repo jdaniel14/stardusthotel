@@ -193,7 +193,7 @@ function enviarDatos() {
    var suma = $("#Total").text();
    var passw = $("#password").get(0).value;
 
-   var Hotel = "1";
+   var Hotel = SendHotel;
    var clientexD = {
             tipoDoc:tipoDocu,
             nroDoc:nDoc,

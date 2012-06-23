@@ -164,7 +164,7 @@ function llegadaCheckOut(data) {
 
     }
     else{
-        alert('No encontrado');
+        mostrarError('No encontrado');
     }
 }
 
@@ -179,7 +179,7 @@ function actualizarVuelto() {
 function enviarDatos() {
 
     if (parseFloat($("#vuelto").text()) < 0) {
-        alert("Cantidad insuficiente");
+        mostrarError("Cantidad insuficiente");
     }
     else {
         var documento = $("#nroReserva").get(0).value;
@@ -211,12 +211,12 @@ function confirma(data) {
     console.log(data.me);
 
     if (data.me == "") {
-        alert('OK');
+        mostrarError('OK');
         console.log("se hizo");
         $(location).attr('href', '../../');
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
     }
 }
 
