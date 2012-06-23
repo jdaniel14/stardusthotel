@@ -287,9 +287,11 @@ namespace Stardust.Models.Servicios
                 usuario.me = "Error en BD";
                 return usuario;
             }
-            if (dataReaderUser.Read()) {
+            if (dataReaderUser.Read())
+            {
                 int count = (int)dataReaderUser["res"];
-                if (count == 0) {
+                if (count == 0)
+                {
                     string commandString3 = "INSERT INTO Usuario VALUES (1," +
                      "'" + client.email + "', " +
                      "'" + pass + "', " +
@@ -368,11 +370,14 @@ namespace Stardust.Models.Servicios
                     sqlCon.Close();
 
                     usuario.idUsuario = last_id;
-                    usuario.tipoDocumento = client.tipoDoc;                    
+                    usuario.tipoDocumento = client.tipoDoc;
                 }
-                else {
-                    usuario.me = "El correo ya se encuentra registrado.";                    
+                else
+                {
+                    usuario.me = "El correo ya se encuentra registrado.";
                 }
+            }
+            else {
                 usuario.me = "Error en Lectura";
             }
             return usuario;
