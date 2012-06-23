@@ -19,7 +19,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             promocion.estado = 1;
-            promocion.idhotel = Convert.ToInt32(promocion.ID);
+
             string commandString = "INSERT INTO Promocion VALUES ('" + promocion.descripcion + "', " + promocion.razon + " ," + promocion.porcDescontar + ", " + promocion.estado + " , " + promocion.tipoDescuento + " ," + promocion.idhotel + ")";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -41,7 +41,7 @@ namespace Stardust.Models
 
             commandString = "SELECT * FROM Promocion WHERE estado = 1";
 
-            if (hotel>1)
+            if (hotel>=1)
                 commandString += " AND idHotel = "+ hotel;
             if (id > 1)
             {
@@ -54,7 +54,7 @@ namespace Stardust.Models
 
             while (dataReader.Read())
             {
-                PromocionBean promociones = new PromocionBean(2);
+                PromocionBean promociones = new PromocionBean();
 
                 promociones.idPromocion = (int)dataReader["idPromocion"];
                 promociones.descripcion = (string)dataReader["descripcion"];
@@ -74,7 +74,7 @@ namespace Stardust.Models
 
         public PromocionBean GetPromocion(int id)
         {
-            PromocionBean promocion = new PromocionBean(2);
+            PromocionBean promocion = new PromocionBean();
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
@@ -92,18 +92,18 @@ namespace Stardust.Models
             promocion.descripcion = (string)dataReader["descripcion"];
             promocion.razon = (int)dataReader["razon"];
             promocion.porcDescontar = (int)dataReader["porcDescontar"];
-            promocion.tipoDescuento = (int)dataReader["tipo"];
+            promocion.tipo = (int)dataReader["tipo"];
             promocion.idhotel = (int)dataReader["idHotel"];
             //promocion.ID = Convert.ToString(promocion.idhotel);
             //promocion.tipoDescuento++;
             //promocion.tipo = Convert.ToString(promocion.tipoDescuento);
 
-            if (promocion.tipoDescuento == 1)
+            if (promocion.tipo == 1)
                 promocion.descuento = "Numero de Dias de Reserva";            
             else
                 promocion.descuento = "Porcentaje Pago de Adelanto";
 
-            IEnumerable<Hoteles> pro = promocion.getHoteles(2);
+            List<Hoteles> pro = getHoteles(2);
 
             for (int i = 0; i < pro.Count(); i++)
             {
@@ -134,7 +134,7 @@ namespace Stardust.Models
                 commandString += " , tipo = " + promocion.tipoDescuento;
             }
 
-            if(promocion.idhotel > 1)
+            if(promocion.idhotel >= 1)
                 commandString += " , idHotel = " + promocion.idhotel;
 
             commandString += " WHERE idPromocion = " + promocion.idPromocion;
@@ -160,6 +160,58 @@ namespace Stardust.Models
 
             sqlCon.Close();
 
+        }
+
+        public List<Tipo> getTipo(int i)
+        {
+            List<Tipo> listaTipo = new List<Tipo>();
+
+            if (i == 1)
+            {
+                Tipo tipo = new Tipo(1, "Todo");
+                listaTipo.Add(tipo);
+            }
+
+            Tipo tipo1 = new Tipo(2, "Dias de Reserva");
+            Tipo tipo2 = new Tipo(3, "Pago Adelantado");
+
+            listaTipo.Add(tipo1);
+            listaTipo.Add(tipo2);
+
+            return listaTipo;
+        }
+
+        public List<Hoteles> getHoteles(int i)
+        {
+            List<Hoteles> listaHotel = new List<Hoteles>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Hotel";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (i == 1)
+            {
+                Hoteles hoteles = new Hoteles();
+                hoteles.ID = 0;
+                hoteles.Nombre = "Todo";
+                listaHotel.Add(hoteles);
+            }
+
+            while (dataReader.Read())
+            {
+                Hoteles hotel = new Hoteles();
+                hotel.ID = (int)dataReader["idHotel"];
+                hotel.Nombre = (string)dataReader["nombre"];
+
+                listaHotel.Add(hotel);
+            }
+            return listaHotel;
         }
     }
 }

@@ -45,6 +45,16 @@ namespace Stardust.Models
             promocionService.EliminarPromocion(id);
         }
 
+        public List<Tipo> GetTipo(int i)
+        {
+            return promocionService.GetTipo(i);
+        }
+
+        public List<Hoteles> GetHoteles(int i)
+        {
+            return promocionService.GetHoteles(i);
+        }
+
         /*-----Registrar Pago de Evento-2-------*/
 
 

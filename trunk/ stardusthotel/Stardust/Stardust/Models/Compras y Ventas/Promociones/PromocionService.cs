@@ -14,9 +14,9 @@ namespace Stardust.Models
             promocionDAO.RegistrarPromocion(promocion);
         }
 
-        public List<PromocionBean> ListarPromocion(int id,int hotel)
+        public List<PromocionBean> ListarPromocion(int id, int hotel)
         {
-            return promocionDAO.ListarPromocion(id,hotel);
+            return promocionDAO.ListarPromocion(id, hotel);
         }
 
         public PromocionBean GetPromocion(int id)
@@ -32,6 +32,16 @@ namespace Stardust.Models
         public void EliminarPromocion(int id)
         {
             promocionDAO.EliminarPromocion(id);
+        }
+
+        public List<Tipo> GetTipo(int i)
+        {
+            return promocionDAO.getTipo(i);
+        }
+
+        public List<Hoteles> GetHoteles(int i)
+        {
+            return promocionDAO.getHoteles(i);
         }
     }
 }
