@@ -8,12 +8,14 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Text.RegularExpressions;
 using AutoMapper;
+using log4net;
 
 namespace Stardust.Controllers
 { 
     public class HotelController : Controller
     {
         HotelFacade hotelFac = new HotelFacade();
+        private static ILog log = LogManager.GetLogger(typeof(HotelController));
 
         // GET: /Hotel/
         public ViewResult Index()
@@ -200,6 +202,7 @@ namespace Stardust.Controllers
             }
             catch (Exception ex)
             {
+                log.Error("CreateTipoHabitacionXHotel - GET (EXCEPTION): ", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(tipoHabitacionXhotelVMC);
             }
@@ -228,6 +231,7 @@ namespace Stardust.Controllers
             }
             catch (Exception ex)
             {
+                log.Error("CreateTipoHabitacionXHotel - POST (EXCEPTION): ", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(tipoHabitacionXHotelVMC);
             }
@@ -239,25 +243,25 @@ namespace Stardust.Controllers
         //public ActionResult VerTiposHabitacion(int id)
         public ActionResult ListTiposHabitacionXHotel(int id)
         {
-            List<TipoHabitacion> lstTipoHabitacionXHotel = hotelFac.getTipoHabitacionXHotel(id);
-            List<TipoHabitacionXHotelViewModelList> tipoHabitacionXHotelVML =  new List<TipoHabitacionXHotelViewModelList>();
-            //string nombreHotel = hotelFac.getHotel(idHotel).nombre; // uno puede asegurar que todos los tipos de habitacion vienen del mismo hotel
-
-            foreach (TipoHabitacion tipoHXH in lstTipoHabitacionXHotel)
+            var lstTipoHabitacionXHotelVML = new List<TipoHabitacionXHotelViewModelList>();
+            try
             {
-                TipoHabitacionXHotelViewModelList tipoHabitacionAux = Mapper.Map<TipoHabitacion, TipoHabitacionXHotelViewModelList>(tipoHXH);
+                lstTipoHabitacionXHotelVML = hotelFac.getTipoHabitacionXHotel(id);
 
-                //tipoHabitacionAux.nombreHotel = nombreHotel;
-                tipoHabitacionAux.precio = hotelFac.getPrecioTipoHabitacionXHotel(id, tipoHabitacionAux.idTipoHabitacion);
-                tipoHabitacionXHotelVML.Add(tipoHabitacionAux);
+                ViewBag.nombreHotel = hotelFac.getHotel(id).nombre;
+                ViewBag.idHotel = id;
+                return View(lstTipoHabitacionXHotelVML);
             }
-
-            ViewBag.nombreHotel = hotelFac.getHotel(id).nombre;
-            ViewBag.idHotel = id;
-            return View(tipoHabitacionXHotelVML);
+            catch (Exception ex)
+            {
+                log.Error("ListTiposHabitacionXHotel - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex);
+                return View(lstTipoHabitacionXHotelVML);
+            }
         }
         #endregion
 
+        #region EditTipoHabitacionXHotel
         //Falta edit post y delete get y post
         //para esto falta el TipoHabitacionXHotelViewEdit y TipoHabitacionXHotelViewDelete
         public ActionResult EditTipoHabitacionXHotel(int idTipoHabitacion, int idHotel)//
@@ -265,16 +269,46 @@ namespace Stardust.Controllers
             var tipoHabitacionXhotelVME = new TipoHabitacionXHotelViewModelEdit();
             try
             {
-                tipoHabitacionXhotelVME.idHotel = 0;//cambiar
-                //tipoHabitacionXhotelVME.idTipoHabitacion = id;
+                tipoHabitacionXhotelVME = hotelFac.getTipoHabitacionXHotel(idHotel, idTipoHabitacion);
+                tipoHabitacionXhotelVME.Hoteles = hotelFac.getHotelesActivos();
+                tipoHabitacionXhotelVME.TipoHabitaciones = hotelFac.getTipoHabitaciones();
                 return View(tipoHabitacionXhotelVME);
             }
             catch (Exception ex)
             {
+                log.Error("EditTipoHabitacionXHotel - GET(EXCEPTION): ", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(tipoHabitacionXhotelVME);
             }
         }
+
+        [HttpPost]
+        public ActionResult EditTipoHabitacionXHotel(TipoHabitacionXHotelViewModelEdit tipoHabitacionXHotelVME)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var tipoHabitacionXHotel = Mapper.Map<TipoHabitacionXHotelViewModelEdit, TipoHabitacionXHotel>(tipoHabitacionXHotelVME);
+                    hotelFac.actualizarTipoHabitacion(tipoHabitacionXHotel);
+                    return RedirectToAction("ListTiposHabitacionXHotel", new { id = tipoHabitacionXHotel.idHotel });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "El Tipo de Habitacion y el Hotel ya han sido asignados");
+                    return View(tipoHabitacionXHotelVME);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("EditTipoHabitacionXHotel - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(tipoHabitacionXHotelVME);
+            }
+        }
+        #endregion
+
+        
 
         public ActionResult ValidaEmail(string email)
         {
