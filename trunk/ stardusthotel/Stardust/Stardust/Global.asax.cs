@@ -43,8 +43,9 @@ namespace Stardust
             RegisterRoutes(RouteTable.Routes);
             
             log4net.Config.XmlConfigurator.Configure();
-            log.Info("Inicio de la aplicación Stardust");
+            log.Debug("--- Iniciando el Sitio Web Stardust -----");
 
+            log.Debug("Cargando los mapeos dentro del sistema");
             Mapper.CreateMap<HotelViewModelCreate, HotelBean>();
             Mapper.CreateMap<HotelBean, HotelViewModelDetails>();
             Mapper.CreateMap<HotelBean, HotelViewModelEdit>();
@@ -53,7 +54,8 @@ namespace Stardust
             Mapper.CreateMap<HotelBean, HotelViewModelDelete>();
             Mapper.CreateMap<TipoHabitacion, TipoHabitacionXHotelViewModelList>();
             Mapper.CreateMap<TipoHabitacionXHotelViewModelCreate, TipoHabitacionXHotel>();
-            
+            Mapper.CreateMap<TipoHabitacionXHotelViewModelEdit, TipoHabitacionXHotel>();
+            log.Debug("Termino de cargar los mapeos del sistema");
                 //.ForMember(dest => dest.nombre, opt => opt.MapFrom(src => src.nombre))
                 //.ForMember(dest => dest.razonSocial, opt => opt.MapFrom(src => src.razonSocial))
                 //.ForMember(dest => dest.direccion, opt => opt.MapFrom(src => src.direccion))
