@@ -121,11 +121,23 @@ namespace Stardust.Controllers
                 tipoFac.eliminarTipoHabitacion(id);
                 return RedirectToAction("List");
             }
-            catch {
+            catch
+            {
                 ViewBag.results = "Ocurrió un error al intentar eliminar el tipo de habitación";
                 return View(new TipoHabitacionBean());
             }
         }
+
+        //[HttpPost, ActionName("Delete")]
+        //public JsonResult DeleteConfirmed(int id) {
+        //    try
+        //    {
+        //        tipoFac.eliminarTipoHabitacion(id);
+        //        return Json(new { me = "" });
+        //    }catch{
+        //        return Json(new { me = "GG!" });
+        //    }
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -93,92 +93,85 @@
                 </ul>
             </li>
             
-            <li class="dash" id = "menu2"><a href="#" title="" class="exp"><span>Sucursal</span><strong>3</strong></a>
+            <li class="dash" id = "menu2"><a href="#" title="" class="exp"><span>Hotel</span><strong>3</strong></a>
                 <ul class="sub">
-                    <li class="dash"><a href="#" title="" class="exp"><span>Hotel<strong>3</strong></span></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar Hotel","Create","Hotel")</li>
-                            <li>@Html.ActionLink("Listar Hoteles","List","Hotel")</li>
-                            @*<li>@Html.ActionLink("Buscar Hotel","Search","Hotel")</li>*@
-                            <li class="last">@Html.ActionLink("Asignar Precios por Tipo de Habitación", "CreateTipoHabitacionXHotel", "Hotel")</li>
-                        </ul>
-                    </li>
-
-                    <li class="dash"><a href="#" title="" class="exp"><span>Tipos de Habitacion<strong>2</strong></span></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar Tipo de Habitación","Create","TipoHabitacion")</li>
-                            <li class="last">@Html.ActionLink("Listar Tipos de Habitaciones","List","TipoHabitacion")</li>
-                        </ul>
-                    </li>
-                    
-                    <li class="dash"><a href="#" title="" class="exp"><span>Habitaciones<strong>3</strong></span></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar Habitación","Create","Habitacion")</li>
-                            <li>@Html.ActionLink("Listar Habitaciones","List","Habitacion")</li>
-                            <li class="last">@Html.ActionLink( "Buscar habitación","Buscar","Habitacion")</li>
-                        </ul>
-                    </li>
+                    <li>@Html.ActionLink("Registrar Hotel","Create","Hotel")</li>
+                    <li>@Html.ActionLink("Listar Hoteles","List","Hotel")</li>
+                    <li class="last">@Html.ActionLink("Asignar Precios por Tipo de Habitación", "CreateTipoHabitacionXHotel", "Hotel")</li>
                 </ul>
             </li>
 
-            <li class="ui" id = "menu3"><a href="#" title="" class="exp"><span>Personal</span><strong>5</strong></a>
+            <li class="dash" id = "menu3" ><a href="#" title="" class="exp"><span>Tipos de Habitacion<strong>2</strong></span></a>
                 <ul class="sub">
+                    <li>@Html.ActionLink("Registrar Tipo de Habitación","Create","TipoHabitacion")</li>
+                    <li class="last">@Html.ActionLink("Listar Tipos de Habitaciones","List","TipoHabitacion")</li>
+                </ul>
+            </li>
 
-                    <li class="dash"><a href="#" title="" class="exp"><span>Empleado<strong>3</strong></span></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar Empleado","Create","Empleado")</li>
-                            <li>@Html.ActionLink("Listar Empleado","List","Empleado")</li>
-                            <li class="last">@Html.ActionLink("Buscar Empleado","Buscar","Empleado")</li>
-                        </ul>
-                    </li>
+            <li class="dash" id = "menu4" ><a href="#" title="" class="exp"><span>Habitaciones<strong>3</strong></span></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Registrar Habitación","Create","Habitacion")</li>
+                    <li>@Html.ActionLink("Listar Habitaciones","List","Habitacion")</li>
+                    <li class="last">@Html.ActionLink( "Buscar habitación","Buscar","Habitacion")</li>
+                </ul>
+            </li>
 
+            <!-- FALTA CAMBIAR LA NUMERACION DE LOS MENUS - ESTE SE ACABA DE AGREGAR -->
+            <li class="dash" id = "menu5" ><a href="#" title="" class="exp"><span>Habitaciones<strong>3</strong></span></a>
+                <ul class="sub">
+                    <li class="last">@Html.ActionLink( "Buscar habitación","Buscar","Habitacion")</li>
+                </ul>
+            </li>
+            <!-- FIN MENU NUEVO -->
+
+            <li class="dash" id = "menu6" ><a href="#" title="" class="exp"><span>Empleado<strong>3</strong></span></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Registrar Empleado","Create","Empleado")</li>
+                    <li>@Html.ActionLink("Listar Empleado","List","Empleado")</li>
+                    <li class="last">@Html.ActionLink("Buscar Empleado","Buscar","Empleado")</li>
+                </ul>
+            </li>
+
+            <li class="dash" id = "menu7" ><a href="#" title="" class="exp"><span>Horario Personal<strong>2</strong></span></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Asignar Horario del Empleado","CrearHorario","Empleado")</li>
+                    <li class = "last" >@Html.ActionLink("Buscar Horario del Empleado","indice","Empleado")</li>
+                </ul>
+            </li>
+
+             <li class="dash" id = "menu8" ><a href="#" title="" class="exp"><span>Asistencia<strong>2</strong></span></a>
+                <ul class="sub">
                     <li>@Html.ActionLink("Marcar Asistencia","CapturaAsistencia","Empleado")</li>
-                    
-                     <li class="dash"><a href="#" title="" class="exp"><span>Horario Personal<strong>2</strong></span></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Asignar Horario del Empleado","CrearHorario","Empleado")</li>
-                            <li>@Html.ActionLink("Buscar Horario del Empleado","indice","Empleado")</li>
-                          </ul>
-                    </li>
-                   
-                    <li>@Html.ActionLink("Reporte Asistencia","indice","ReporteAsistencia")</li>
-                    @*<li><a href="#" title="">Asignar horario</a></li>
-                    <li><a href="#" title="">Pasar asistencia</a></li>*@
+                    <li class = "last" >@Html.ActionLink("Reporte Asistencia","indice","ReporteAsistencia")</li>
                 </ul>
             </li>
 
-            <li class="ui" id = "menu4"><a href="#" title="" class="exp"><span>Usuarios</span><strong>3</strong></a>
+            <!-- FALTA CAMBIAR LA NUMERACION DE LOS MENUS - ESTE SE ACABA DE AGREGAR -->
+            <li class="dash" id = "menu9" ><a href="#" title="" class="exp"><span>Asistencia<strong>2</strong></span></a>
+                <ul class="sub">
+                    <li class = "last" >@Html.ActionLink("Marcar Asistencia","CapturaAsistencia","Empleado")</li>
+                </ul>
+            </li>
+            <!-- FIN MENU NUEVO -->
+
+            <li class="ui" id = "menu10"><a href="#" title="" class="exp"><span>Usuarios</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Registrar Usuario","Create","Usuario")</li>
                     <li>@Html.ActionLink("Listar Usuario","List","Usuario")</li>
                     <li class="last">@Html.ActionLink("Buscar Usuario", "Buscar", "Usuario")</li>
-                    
-                    @*<li><a href = "../PerfilUsuario/Index" title="">Administrar Perfiles de usuario</a></li>*@
                 </ul>
             </li>
 
-            @*<div class="sidebarSep"></div>*@
-
-            
-
-           @* <li class="forms"><a href="#" title="" class="exp"><span>Empleados</span><strong>3</strong></a>
-                <ul class="sub">
-                    <li>@Html.ActionLink("Listar Empleados", "Index", "Servicios")</li>
-                    <li>@Html.ActionLink("Buscar Empleado", "BuscarEmpleado", "Servicios")</li>                  
-                </ul>
-            </li>*@
-
-            <li class="forms" id = "menu5"><a href="#" title="" class="exp"><span>Clientes</span><strong>3</strong></a>
+            <li class="forms" id = "menu11"><a href="#" title="" class="exp"><span>Clientes</span><strong>5</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Clientes Naturales", "Index", "Cliente")</li>
                     <li>@Html.ActionLink("Listar Clientes Juridicos", "IndexJuridicas", "Cliente")</li>
                     <li>@Html.ActionLink("Buscar Ciente Natural", "BuscarClienteNatural", "Cliente")</li>
-                    <li>@Html.ActionLink("Buscar Ciente Juridico", "BuscarClienteJuridico", "Cliente")</li>
-                    <li>@Html.ActionLink("Buscar", "BuscarCliente", "Cliente")</li>
+                    <li class = "last" >@Html.ActionLink("Buscar Ciente Juridico", "BuscarClienteJuridico", "Cliente")</li>
                 </ul>
             </li>
 
-            <li class="forms" id = "menu6"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
+            <li class="forms" id = "menu12"><a href="#" title="" class="exp"><span>Servicios</span><strong>3</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Listar Servicios", "Index", "Servicios")</li>
                     <li>@Html.ActionLink("Buscar Servicio", "BuscarServicio", "Servicios")</li>                  
@@ -186,111 +179,103 @@
                 </ul>
             </li>
 
-            <li class="forms" id = "menu7"><a href="#" title="" class="exp"><span>Reserva</span><strong>3</strong></a>
+            <!-- FALTA CAMBIAR LA NUMERACION DE LOS MENUS - ESTE SE ACABA DE AGREGAR -->
+            <li class="forms" id = "menu13"><a href="#" title="" class="exp"><span>Reserva</span><strong>6</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Reservar Habitacion", "Index", "ReservarHabitacion")</li>                    
+                    <li>@Html.ActionLink("Ver Estado de Reserva de Habitación", "EstadoReserva", "ReservarHabitacion")</li>                    
+                    <li>@Html.ActionLink("Reserva Ambiente", "Reservar", "ReservarAmbiente")</li>                    
+                    <li class = "last" >@Html.ActionLink("Realizar Pago Inicial", "PagarInicial", "PagoClientes")</li>                    
+                </ul>
+            </li>
+            <!-- FIN MENU NUEVO -->
+
+            <li class="forms" id = "menu14"><a href="#" title="" class="exp"><span>Reserva</span><strong>6</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Reservar Habitacion", "Index", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Ver Estado de Reserva de Habitación", "EstadoReserva", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Reserva Ambiente", "Reservar", "ReservarAmbiente")</li>                    
                     <li>@Html.ActionLink("Realizar Pago Inicial", "PagarInicial", "PagoClientes")</li>                    
                     <li>@Html.ActionLink("Reporte Habitaciones Disponibles", "ReporteHabitaciones", "ServiciosReportes")</li> 
-                    <li>@Html.ActionLink("Reporte Ubicación del Cliente", "ReporteCliente", "ServiciosReportes")</li> 
+                    <li class = "last" >@Html.ActionLink("Reporte Ubicación del Cliente", "ReporteCliente", "ServiciosReportes")</li> 
                 </ul>
             </li>
 
-            <li class="forms" id = "menu8"><a href="#" title="" class="exp"><span>Check</span><strong>3</strong></a>
+            <li class="forms" id = "menu15"><a href="#" title="" class="exp"><span>Check</span><strong>2</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Check In", "CheckIn", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Check Out", "checkOut", "PagoClientes")</li>                    
                 </ul>
             </li>
 
-                      @*  <li class="forms"><a href="#" title="" class="exp"><span>Eventos</span><strong>3</strong></a>
-                <ul class="sub">
-                    <li>@Html.ActionLink("Registrar", "RegistrarEvento", "Evento")</li>
-                    <li>@Html.ActionLink("Buscar", "Buscar", "Evento")</li>                                    
-                </ul>
-            </li>*@
-
-            <li class="forms" id = "menu9" ><a href="#" title="" class="exp"><span>Ambientes</span><strong>3</strong></a>
+            <li class="forms" id = "menu16" ><a href="#" title="" class="exp"><span>Ambientes</span><strong>2</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Registrar Ambientes", "RegistrarAmbiente", "Servicios")</li>
-                    <li>@Html.ActionLink("Buscar Ambiente", "BuscarAmbiente", "Servicios")</li>                                    
+                    <li class = "last" >@Html.ActionLink("Buscar Ambiente", "BuscarAmbiente", "Servicios")</li>                                    
                 </ul>
             </li>
 
-           @* <li class="forms"><a href="#" title="" class="exp"><span>Reserva</span><strong>3</strong></a>
+            <!-- FALTA CAMBIAR LA NUMERACION DE LOS MENUS - ESTE SE ACABA DE AGREGAR -->
+            <li class="forms" id = "menu17" ><a href="#" title="" class="exp"><span>Ambientes</span><strong>2</strong></a>
                 <ul class="sub">
-                    <li><a href="#" title="">Realizar reserva</a></li>
-                    <li><a href="#" title="">Cancelar reserva</a></li>
-                    </ul>
-            </li>*@
+                    <li class = "last" >@Html.ActionLink("Buscar Ambiente", "BuscarAmbiente", "Servicios")</li>                                    
+                </ul>
+            </li>
+            <!-- FIN MENU NUEVO -->
 
-            <li class="forms" id = "menu10"><a href="#" title="" class="exp"><span>Producto</span><strong>2</strong></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar", "Create", "Producto")</li>
-                            @*<li><a href="../Producto/Create" title="">Registrar</a></li>*@
-                            <li>@Html.ActionLink("Buscar", "Buscar", "Producto")</li>
-                            <li>@Html.ActionLink("Asignar a Almacen", "ListadeHoteles", "Producto")</li>
-                            <li>@Html.ActionLink("Actualizar stock", "actualizarStock", "Producto")</li>
-                        </ul>
+            <li class="forms" id = "menu18"><a href="#" title="" class="exp"><span>Producto</span><strong>4</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Registrar", "Create", "Producto")</li>
+                    <li>@Html.ActionLink("Buscar", "Buscar", "Producto")</li>
+                    <li>@Html.ActionLink("Asignar a Almacen", "ListadeHoteles", "Producto")</li>
+                    <li class = "last" >@Html.ActionLink("Actualizar stock", "actualizarStock", "Producto")</li>
+                </ul>
             </li>
 
-            <li class="forms" id = "menu11"><a href="#" title="" class="exp"><span>Proveedor</span><strong>2</strong></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar", "RegistrarProveedor", "Proveedor")</li>
-                            <li>@Html.ActionLink("Buscar", "Buscar", "Proveedor")</li>
-                            <li>@Html.ActionLink("Pago a Proveedor", "PagoProveedor", "Proveedor")</li>
-                            @*<li><a href="../Proveedor/RegistrarProveedor" title="">Registrar</a></li>
-                            <li><a href="../Proveedor/Buscar" title="">Buscar</a></li>*@
-                        </ul>
+            <!-- FALTA CAMBIAR LA NUMERACION DE LOS MENUS - ESTE SE ACABA DE AGREGAR -->
+            <li class="forms" id = "menu19"><a href="#" title="" class="exp"><span>Producto</span><strong>4</strong></a>
+                <ul class="sub">
+                    <li class = "last" >@Html.ActionLink("Buscar", "Buscar", "Producto")</li>
+                </ul>
+            </li>
+            <!-- FIN MENU NUEVO -->
+
+            <li class="forms" id = "menu20"><a href="#" title="" class="exp"><span>Proveedor</span><strong>4</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Registrar", "RegistrarProveedor", "Proveedor")</li>
+                    <li>@Html.ActionLink("Buscar", "Buscar", "Proveedor")</li>
+                    <li>@Html.ActionLink("Proveedor", "Proveedor", "Reporte")</li>
+                    <li class = "last">@Html.ActionLink("Pago a Proveedor", "PagoProveedor", "Proveedor")</li>
+                </ul>
             </li>
 
-            <li class="forms" id = "menu12"><a href="#" title="" class="exp"><span>Orden de Compra</span><strong>2</strong></a>
-                        <ul class="sub">
-                            <li>@Html.ActionLink("Registrar", "Index", "OrdenCompra")</li>
-                            <li>@Html.ActionLink("Buscar", "Buscar", "OrdenCompra")</li>
-                            @*<li><a href="../Proveedor/RegistrarProveedor" title="">Registrar</a></li>
-                            <li><a href="../Proveedor/Buscar" title="">Buscar</a></li>*@
-                        </ul>
+            <!-- FALTA CAMBIAR LA NUMERACION DE LOS MENUS - ESTE SE ACABA DE AGREGAR -->
+            <li class="forms" id = "menu21"><a href="#" title="" class="exp"><span>Proveedor</span><strong>4</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Registrar", "RegistrarProveedor", "Proveedor")</li>
+                    <li>@Html.ActionLink("Buscar", "Buscar", "Proveedor")</li>
+                    <li class = "last" >@Html.ActionLink("Proveedor", "Proveedor", "Reporte")</li>
+                </ul>
+            </li>
+            <!-- FIN MENU NUEVO -->
+
+            <li class="forms" id = "menu22"><a href="#" title="" class="exp"><span>Orden de Compra</span><strong>2</strong></a>
+                <ul class="sub">
+                    <li>@Html.ActionLink("Registrar", "Index", "OrdenCompra")</li>
+                    <li class = "last">@Html.ActionLink("Buscar", "Buscar", "OrdenCompra")</li>
+                </ul>
             </li> 
 
-            @*<li class="forms"><a href="#" title="" class="exp"><span>Compra</span><strong>3</strong></a>
+            <li class="forms" id = "menu23"><a href="#" title="" class="exp"><span>Promociones</span><strong>2</strong></a>
                 <ul class="sub">
-                    
-                    
-                                      
+                    <li>@Html.ActionLink("Registrar", "Registrar", "Promociones")</li>
+                    <li class = "last" >@Html.ActionLink("Buscar", "Buscar", "Promociones")</li>
                 </ul>
-            </li>*@
-
-            <li class="forms" id = "menu13"><a href="#" title="" class="exp"><span>Promociones</span><strong>2</strong></a>
-                        <ul class="sub">
-                        <li>@Html.ActionLink("Registrar", "Registrar", "Promociones")</li>
-                            <li>@Html.ActionLink("Buscar", "Buscar", "Promociones")</li>
-                            @*<li><a href="../Promociones/Registrar" title="">Registrar</a></li>
-                            <li><a href="../Promociones/Buscar" title="">Buscar</a></li*@>
-                        </ul>
             </li>
 
-            <li class="forms" id = "menu14"><a href="#" title="" class="exp"><span>Reporte</span><strong>2</strong></a>
-                        <ul class="sub">
-                        <li>@Html.ActionLink("Proveedor", "Proveedor", "Reporte")</li>
-                            @*<li><a href="../Promociones/Registrar" title="">Registrar</a></li>
-                            <li><a href="../Promociones/Buscar" title="">Buscar</a></li*@>
-                        </ul>
-            </li>
-
-            <li class="forms" id = "menu15"><a href="#" title="" class="exp"><span>Reporte de Eventos</span><strong>2</strong></a>
-                        <ul class="sub">
-                        <li>@Html.ActionLink("Reporte", "Evento", "ReporteEventos")</li>
-                            @*<li><a href="../Promociones/Registrar" title="">Registrar</a></li>
-                            <li><a href="../Promociones/Buscar" title="">Buscar</a></li*@>
-                        </ul>
-            </li>
-
-            @*<li class="forms"><a href="#" title="" class="exp"><span>Venta</span><strong>1</strong></a>
+            @*<li class="forms" id = "menu18"><a href="#" title="" class="exp"><span>Reporte de Eventos</span><strong>2</strong></a>
                 <ul class="sub">
-                    
-
+                    <li class = "last" >@Html.ActionLink("Reporte", "Evento", "ReporteEventos")</li>
                 </ul>
             </li>*@
         </ul>
