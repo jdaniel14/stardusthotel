@@ -10,8 +10,8 @@ function asignarListeners() {
     $("#opcionR").hide();
     $("#opcionT").hide();
     $("#obtenerPass").click(sacarMail);
-    $("#pasear1").hide();
-    $("#pasear2").hide();
+//    $("#pasear1").hide();
+//    $("#pasear2").hide();
 
 
 
@@ -92,6 +92,9 @@ function recibeMails(data) {
         $("#opcionT").show("slow");
         $("#opcionR").hide();
         if (data.tipoDoc == "RUC") {
+            var miValue = data.tipoDocumento
+            $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
+            $("#ComboCliente").trigger('change');
             //            var miValue = data.tipoDocumento
             //            $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
             $("#nDoc").attr("value", data.nroDocumento);
@@ -105,6 +108,9 @@ function recibeMails(data) {
 
         }
         else {
+            var miValue = data.tipoDocumento
+            $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
+            $("#ComboCliente").trigger('change');       
             //            var miValue2 = data.tipoDocumento
             //            $("#ComboCliente option[value=" + miValue2 + "]").attr("selected", true);
             $("#nDoc").attr("value", data.nroDocumento);

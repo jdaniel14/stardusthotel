@@ -10,8 +10,8 @@ function cargarSegHoja() {
     $("#opcionT").hide();
 
     $("#obtenerPass").click(sacarMail);
-    $("#pasear1").hide();
-    $("#pasear2").hide();
+//    $("#pasear1").hide();
+//    $("#pasear2").hide();
 
     
 
@@ -53,8 +53,8 @@ function cargarSegHoja() {
 
 function sacarMail() {
 
-    $("#pasear1").hide("slow");
-    $("#pasear2").hide("slow");
+//    $("#pasear1").hide("slow");
+//    $("#pasear2").hide("slow");
 
     var correo = $("#mailNatural").get(0).value;
     var contra = $("#password").get(0).value;
