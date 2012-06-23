@@ -17,6 +17,7 @@
     <script type="text/javascript" src="http://gmap.nurtext.de/js/jquery.gmap-1.1.0-min.js"></script>
 	@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>*@
     <script type="text/javascript" src="http://trentrichardson.com/examples/timepicker/js/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="/Scripts/Validaciones.js"></script>
     
     <style type="text/css">        
         #maps
@@ -272,7 +273,7 @@
                    <div class="clear"></div>
             </div>
 
-            <div class="formRow"><span>Email</span>                
+            <div class="formRow"><span>Email o Usuario</span>                
                    <div class = "formRight" > 
                         <input type="text" value="" id="mailNatural" />
                    </div>                
@@ -301,12 +302,15 @@
 
             <div class="formRow" id = "pasear1"><span>Tipo de Documento</span>
                 
-               <div class = "formRight" > 
+               <div class = "formRight"> 
+                    
                     <select id="ComboCliente">
+                        
                         <option value = "0">Escoja un tipo de documento</option>
                         <option value = "DNI">DNI</option>
                         <option value = "RUC">RUC</option>
                     </select>
+                    
                </div>
                 
                <div class="clear"></div>
@@ -560,10 +564,27 @@
     </div>
 
 
+
 </div>
 
-     
+
+<div id="dialog-modal" title="Datos incorrectos">
+	<p>Por favor, ingrese datos correctos</p>
+</div>
+<div id="espera" title="Espere... ingresando datos">
+	<p>...zzZZzz...</p>
+</div>
+<div id="faltanDatos" title="Faltan Datos">
+	<p>Verifique que estén llenos todos los campos solicitados</p>
+</div>
+<div id="error" title="">
+	<p id = "msjError">...Ooops!</p>
+</div>
+
 
 </body>
+
+
+
 </html>
 
