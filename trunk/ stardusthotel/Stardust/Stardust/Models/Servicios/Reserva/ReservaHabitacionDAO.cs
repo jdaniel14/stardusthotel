@@ -20,7 +20,7 @@ namespace Stardust.Models.Servicios
 
             String query =  " SELECT DISTINCT rxh.idHabitacion " +
                             " FROM ReservaXHabitacion rXh, Habitacion h " +
-                            " WHERE rXh.estado<3 and " +
+                            " WHERE rXh.idHotel = " + idHotel + " and  rXh.estado<3 and " +
                             " ((rXh.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (rXh.fechaIni between  convert(datetime,'" +  fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +
                             " ORDER BY idHabitacion";
             System.Diagnostics.Debug.WriteLine("NO DISPONIBLES : " + query);
@@ -88,7 +88,7 @@ namespace Stardust.Models.Servicios
 
             String query =  " SELECT thXh.idTipoHabitacion, th.nombre, thXh.precioBaseXDia,  th.descripcion " +
                             " FROM TipoHabitacionXHotel thXh, TipoHabitacion th " + 
-                            " WHERE thXh.idHotel = 1 and th.idTipoHabitacion = thXh.idTipoHabitacion";
+                            " WHERE thXh.idHotel = "+ idHotel +" and th.idTipoHabitacion = thXh.idTipoHabitacion";
             
             System.Diagnostics.Debug.WriteLine("TIPO HABITACION " + query);
 
@@ -563,7 +563,7 @@ namespace Stardust.Models.Servicios
             return me;
         }
 
-        public String resgistrarHabitaciones(List<HabInsertBean> listTip, String fechaIni, String fechaFin, int idReserva) {
+        public String resgistrarHabitaciones(int idHotel, List<HabInsertBean> listTip, String fechaIni, String fechaFin, int idReserva) {
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
@@ -573,7 +573,7 @@ namespace Stardust.Models.Servicios
                 System.Diagnostics.Debug.WriteLine("--> " + listTip[i].cant);
                 for (int j = 0; j < listTip[i].cant; j++) {
                     int hab = listTip[i].list[j].idHab;
-                    String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),2)";
+                    String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),"+idHotel+")";
                     System.Diagnostics.Debug.WriteLine("query--> " + query);
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.ExecuteNonQuery();
