@@ -18,13 +18,13 @@
             </div>
             <div class="formRow"> @Html.LabelFor(model => model.razonSocial)<span class="req">*</span>
                 <div class="formRight">
-                    @Html.TextBoxFor(model => model.razonSocial)
-                    @Html.ValidationMessageFor(model => model.razonSocial)
+                    @Html.TextBoxFor(model => model.razonSocial)@ViewBag.error1
+                    @Html.ValidationMessageFor(model => model.razonSocial) 
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.ruc)<span class="req">*</span>
-                <div class="formRight"> @Html.TextBoxFor(model => model.ruc, new { maxlength = "11" })
+                <div class="formRight"> @Html.TextBoxFor(model => model.ruc, new { maxlength = "11" })@ViewBag.error2
                 @Html.ValidationMessageFor(model => model.ruc) </div>
                 <div class="clear"></div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="clear"></div>
             </div>
             <div class="formRow">@Html.LabelFor(model => model.telefonocontacto)
-                <div class="formRight"> @Html.TextBoxFor(model => model.telefonocontacto,new { maxlength = "9" }) 
+                <div class="formRight"> @Html.TextBoxFor(model => model.telefonocontacto, new { maxlength = "9" }) 
                  @Html.ValidationMessageFor(model => model.telefonocontacto)</div>
                 <div class="clear"></div>
             </div>

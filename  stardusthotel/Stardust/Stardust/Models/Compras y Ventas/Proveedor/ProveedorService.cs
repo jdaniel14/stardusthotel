@@ -39,6 +39,16 @@ namespace Stardust.Models
             return proveedorDAO.DeleteProveedor(idProveedor);
         }
 
+        public Boolean existeproveedor(string razonsocial)
+        {
+            return proveedorDAO.existeproveedor(razonsocial);
+        }
+
+        public Boolean existeproveedor2(string ruc)
+        {
+            return proveedorDAO.existeproveedor2(ruc);
+        }
+
         /*productos a proveedor*/
         public void AsignarProductosxProveedor(int idprove, ProductoxProveedorBean prod)
         {

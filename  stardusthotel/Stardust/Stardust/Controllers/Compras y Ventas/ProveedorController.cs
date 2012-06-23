@@ -36,9 +36,25 @@ namespace Stardust.Controllers
 
         [HttpPost]
         public ActionResult RegistrarProveedor(ProveedorBean proveedor)
-        {            
-            proveedorFacade.RegistrarProveedor(proveedor);
-            return RedirectToAction("Index");
+        {
+            if (proveedorFacade.existeproveedor(proveedor.razonSocial))
+            {
+                ViewBag.error1 = "El nombre proveedor ya existe";
+                return View(proveedor);
+            }
+            else
+            {
+                if (proveedorFacade.existeproveedor(proveedor.ruc))
+                {
+                    ViewBag.error2 = "El Ruc ya existe";
+                    return View(proveedor);
+                }
+                else
+                {
+                    proveedorFacade.RegistrarProveedor(proveedor);
+                    return RedirectToAction("Index");
+                }
+            }
 
         }
 
@@ -77,7 +93,7 @@ namespace Stardust.Controllers
         public ActionResult Buscar(string razonsocial, string contacto)
         {            
             return View(proveedorFacade.ListarProveedor(razonsocial, contacto));
-          
+            
         }
 
         public ActionResult MostrarProveedor(ProveedorBean prov)
