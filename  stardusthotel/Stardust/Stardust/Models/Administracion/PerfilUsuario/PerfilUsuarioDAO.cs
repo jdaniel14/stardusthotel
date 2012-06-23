@@ -42,7 +42,7 @@ namespace Stardust.Models
                 perfil.ID = Convert.ToInt32(data["idPerfilUsuario"]);
                 perfil.nombre = Convert.ToString(data["nombre"]);
                 perfil.descripcion = Convert.ToString(data["descripcion"]);
-//                perfil.token = Convert.ToString(data["token"]); // <------------ falta agregar el campo "token"
+                perfil.token = Convert.ToString(data["token"]);
 
             sql.Close();
 

@@ -3,11 +3,12 @@ $(document).ready(function () {
 
     // Setear nombre arriba del layout
     var nombre = localStorage.getItem("nombre");
-    $("#nombreUsuario").html(nombre);
+    $("#nombreUsuario").html("Bienvenido " + nombre + "!");
 
     // Crear link para redirigir a tu detalle de usuario
     var idUsuario = localStorage.getItem("idUsuario");
-    $("#verUsuario").attr("href", "/Usuario/Details/" + idUsuario);
+    if (idUsuario != null)
+        $("#verUsuario").attr("href", "/Usuario/Details/" + idUsuario);
 
     // Setear menus que puedes ver según tu perfil
     if (token == null) {
@@ -21,11 +22,10 @@ $(document).ready(function () {
     function arma_menu(token) {
         var t = localStorage.getItem("token");
 
-        //alert(t); //<-------------------------- entro :D
         for (var i = 0; i < t.length; i++) {
             if (t[i] == '0') {
-                $('#menu' + (i + 1)).attr("style", "display:none;");
-                //                $('#menu' + (i + 1)).remove();
+                var menu = $('#menu' + (i + 1));
+                $(menu).attr("style", "display:none;");
             }
         }
     }
