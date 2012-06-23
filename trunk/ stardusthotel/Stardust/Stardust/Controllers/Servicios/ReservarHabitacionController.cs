@@ -77,6 +77,12 @@ namespace Stardust.Controllers.Servicios
         }
 
         [HttpPost]
+        public JsonResult listarHoteles() { 
+            ReservaHabitacionDAO reservaDAO = new ReservaHabitacionDAO();
+            HotelResponse resp = reservaDAO.listarHoteles();
+            return Json(resp);
+        }
+        [HttpPost]
         public JsonResult consultarDisponibles(ReservaRequest request)
         {
             //DateTime fechaIni = DateTime.ParseExact("11-06-2012", "dd-MM-yyyy", null);
