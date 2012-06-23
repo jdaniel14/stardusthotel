@@ -50,7 +50,16 @@ namespace Stardust.Models
         {
             return proveedorService.EliminarProveedor(idProveedor);
         }
-        
+
+        public Boolean existeproveedor(string razonsocial)
+        {
+            return proveedorService.existeproveedor(razonsocial);
+        }
+
+        public Boolean existeproveedor2(string ruc)
+        {
+            return proveedorService.existeproveedor2(ruc);
+        }
 
         /*--------Administrar Producto-1------------*/
 

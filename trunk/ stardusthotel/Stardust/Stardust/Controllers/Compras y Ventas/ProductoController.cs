@@ -41,18 +41,31 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Create(ProductoBean producto)
         {
-            
-             string estadoconexion= produc.Registrarproducto(producto);
-             
-             if (estadoconexion == "Bien")
-             {
-                 return RedirectToAction("Buscar");
-             }
-             else
-             {
-                 return RedirectToAction("Error/"+estadoconexion);
-             }
-         }
+
+            List<ProductoBean> prod = new List<ProductoBean>();
+            prod = produc.ListarProducto(producto.nombre);
+
+            if (prod.Count > 0)
+            {
+                ViewBag.error = "El producto ya existe";
+
+                return View(producto);
+            }
+            else
+            {
+                string estadoconexion = produc.Registrarproducto(producto);
+
+                if (estadoconexion == "Bien")
+                {
+                    return RedirectToAction("Buscar");
+                }
+                else
+                {
+                    return RedirectToAction("Error/" + estadoconexion);
+                }
+            }
+
+        }
 
         public ActionResult Edit(int ID)
         {

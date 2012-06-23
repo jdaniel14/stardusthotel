@@ -157,6 +157,52 @@ namespace Stardust.Models
             return me;        
         }
 
+        public Boolean existeproveedor(string razonsocial)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1 AND UPPER(razonSocial) LIKE '%" + razonsocial.ToUpper() + "%'";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {
+                ProveedorBean proveedor = new ProveedorBean();
+                proveedor.razonSocial = (string)dataReader["razonSocial"];
+                proveedor.ruc = (string)dataReader["ruc"];
+                return true;
+
+            }
+            else { return false; }
+
+
+            
+        }
+
+        public Boolean existeproveedor2(string ruc)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1 AND UPPER(razonSocial) LIKE '%" + ruc.ToUpper() + "%'";
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            if (dataReader.Read())
+            {
+                ProveedorBean proveedor = new ProveedorBean();
+                proveedor.razonSocial = (string)dataReader["razonSocial"];
+                proveedor.ruc = (string)dataReader["ruc"];
+                return true;
+
+            }
+            else { return false; }
+
+        }
+
         public ProveedorBean SeleccionarProveedor(int idProveedor){
             ProveedorBean proveedor = new ProveedorBean();
 
@@ -166,7 +212,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             string commandString = "SELECT * FROM Proveedor WHERE  idProveedor = " + idProveedor;
-            //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
+            
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
