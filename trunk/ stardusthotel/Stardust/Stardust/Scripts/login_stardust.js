@@ -1,6 +1,6 @@
 $(document).ready(function () {
     localStorage.clear();
-//    localStorage.setItem("token", "1111100000000000");
+    //    localStorage.setItem("token", "1111100000000000");
 
     $(".logueo").keyup(function (event) {
         if (event.keyCode == 13) {
@@ -26,8 +26,10 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             url: "/Usuario/LoginResult",
             success: function (data) {
-                if (data.length == 0) {
+                if (data == null) {
                     $("#control").html("Usuario o Clave incorrecto");
+                    $("#Usuario").val("");
+                    $("#Contrasenia").val("");
                 } else {
 
                     var idUsuario = data.ID;
@@ -36,16 +38,16 @@ $(document).ready(function () {
                     if (idUsuario)
                         localStorage.setItem("idUsuario", idUsuario);
                     else
-                        localStorage.setItem("idUsuario", "noooooo u.u");
+                        localStorage.setItem("idUsuario", "Vale loguearse");
 
                     if (token)
                         localStorage.setItem("token", token);
                     else
-                        localStorage.setItem("token", "0000000000000000");
+                        localStorage.setItem("token", "00000000000000000000");
 
                     var nombre = data.nombres + ' ' + data.apPat + ' ' + data.apMat;
                     localStorage.setItem("nombre", nombre);
-                    
+
                     var url = "/Home/Index";
                     window.location.href = url;
                 }
