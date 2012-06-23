@@ -202,10 +202,10 @@ namespace Stardust.Models.Servicios
                 usuario.idUsuario = (int)dataReader["idUsuario"];
                 usuario.tipoDocumento = (String)dataReader["tipoDocumento"];
                 usuario.nroDocumento = (String)dataReader["nroDocumento"];
-                usuario.nombres = (String)dataReader["razonSocial"] + (String)dataReader["nombres"] + (String)dataReader["apPat"];
+                usuario.nombres = (String)dataReader["razonSocial"] + (String)dataReader["nombres"] + " " + (String)dataReader["apPat"];
                 usuario.email = (String)dataReader["email"];
                 usuario.celular = (String)dataReader["celular"];
-                usuario.nroTarjeta = "1234567890";  
+                usuario.nroTarjeta = (String)dataReader["nroDocumento"];  
             }
             usuario.me = res.ToString();
             return usuario;
