@@ -113,14 +113,21 @@ function llegadaDatosCheckIn(data) {
 
                 var n = 0;
                 for (n = 0; n < numPersonas; n++) {
+                    var Valdni = "DNICliente";
+                    var Valnomb = "nombCliente";
 
+                    Valdni += cosito.idHab + '-' + n;
+                    Valnomb += cosito.idHab + '-' + n;
 
                     result += '<tr><td align = "center">';
-                    result += '<input type="text" class = "dnicampo" id="DNICliente' + cosito.idHab + '-' + n + '"/>';
+                    result += '<input type="text" placeholder = "Sólo números" class = "dnicampo" id="DNICliente' + cosito.idHab + '-' + n + '"/>';
                     result += '</td><td align = "center">';
 
-                    result += '<input type="text" class = "campo" id="nombCliente' + cosito.idHab + '-' + n + '"/>';
+                    result += '<input type="text" placeholder = "Sólo Texto" class = "campo" id="nombCliente' + cosito.idHab + '-' + n + '"/>';
                     result += '</td></tr>';
+
+                    
+                    $(Valdni).change(validarSoloNumeros14);
                 }
 
                 result += '</tbody></table>';
@@ -143,7 +150,7 @@ function llegadaDatosCheckIn(data) {
 
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
     }
 }
 
@@ -155,8 +162,6 @@ function enviarDatos() {
     var listaDev = new Array();
 
     habitaciones.forEach(function (elemento) {
-
-
 
         var y = 0;
         for (y = 0; y < cantXHabit[n]; y++) {
@@ -217,12 +222,12 @@ function esperaConfirmacion(){
 function Confirma(data) {
     console.log(data)
     if (data.me == "") {
-        alert('OK');
+        mostrarError('OK');
         console.log("se hizo");
         $(location).attr('href', '../../');
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
     }
 }
 

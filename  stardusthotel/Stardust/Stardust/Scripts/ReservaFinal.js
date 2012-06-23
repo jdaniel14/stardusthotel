@@ -73,7 +73,7 @@ function inicializarMostreo() {
         $('#mostrarEmail').html(email);
     }
     else {
-        alert('Faltan llenar Datos');
+        mostrarError('Faltan llenar Datos');
     }
     
 }
@@ -245,22 +245,27 @@ function enviarDatos() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "ReservarHabitacion/cerrarReserva",        
+        url: "ReservarHabitacion/cerrarReserva",
+        beforeSend: esperarFinal,        
         success: finRes
     });
 }
 
-function finRes(data) {
+function esperarFinal() {
+    mostrarEspera();
+}
 
+function finRes(data) {
+    $("#espera").dialog("destroy");
     console.log(data.me);
 
     if (data.me == "") {
-        alert('OK');
+        mostrarError('OK');
         console.log("se hizo");
         $(location).attr('href', '../');
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
     }
     
 }

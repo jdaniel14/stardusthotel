@@ -35,9 +35,11 @@ function despierta() {
 }
 
 function esperaDatos() {
+    mostrarEspera();
 }
 
 function llegadaDatos(data) {
+    $("#espera").dialog("destroy");
     console.log(data);
 
     if (data.me == "") {

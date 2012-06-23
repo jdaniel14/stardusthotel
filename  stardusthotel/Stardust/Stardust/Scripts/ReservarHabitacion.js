@@ -96,15 +96,20 @@ function mostrarBuscame() {
 function inicioEnvioTipoHotel() {   
     var x = $("#tablaTipos");
     x.html('<img src="http://www.coliseogym.com/Gym/Iconos/cargando.gif">');
+    mostrarEspera();
 }
 
 function llegadaTipoHabitacion(data) {
 
-
+    $("#espera").dialog("destroy");
+    
+ 
     console.log(data);
 
     if (data.cantDias < 0) {
-        alert('Error: Fecha fin debe ser mayor a Fecha Inicio');
+        mostrarError('Error: Fecha fin debe ser mayor a Fecha Inicio');
+        $("#FechaInicio").attr("value", "");
+        $("#FechaFin").attr("value", "");
     }
     else {
         $("#tipos").show("slow");
