@@ -21,7 +21,7 @@
             </div>
             <div class="formRow">@Html.LabelFor(model => model.descuento)<span class="req">*</span>
                 <div class = "formRight" >
-                <div class = "selector">@Html.DropDownListFor(model => model.tipo,Model.tipoList)</div></div>
+                <div class = "selector">@Html.DropDownListFor(model => model.tipo, new SelectList(ViewBag.Tipo, "ID", "nombre", new { ID = Model.tipo}))</div></div>
                 <div class="clear"></div>
             </div>
 
@@ -35,7 +35,7 @@
             </div>
             <div class="formRow">@Html.LabelFor(model => model.hotel)<span class="req">*</span>
                 <div class = "formRight" >
-                <div class = "selector">@Html.DropDownListFor(model => model.ID, Model.hotelList)</div></div>
+                <div class = "selector">@Html.DropDownListFor(model => model.idhotel, new SelectList(ViewBag.Hotel, "ID", "nombre", new { ID = Model.idhotel}))</div></div>
                 <div class="clear"></div>
             </div> 
             
