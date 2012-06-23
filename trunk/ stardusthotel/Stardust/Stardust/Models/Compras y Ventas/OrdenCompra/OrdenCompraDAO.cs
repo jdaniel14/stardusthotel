@@ -74,7 +74,7 @@ namespace Stardust.Models
                         }
                     }
 
-                    string commandString = "INSERT INTO OrdenCompra VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id +","+producto.idhotel+ " )";//idproveedor
+                    string commandString = "INSERT INTO OrdenCompra (fechaPedido, estado, precioTotal, idProveedor, idhotel) VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id +","+producto.idhotel+ " )";//idproveedor
 
                     SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                     sqlCmd.ExecuteNonQuery();
@@ -105,7 +105,7 @@ namespace Stardust.Models
                             decimal precio = 0; // decimal
                             Producto prod = producto.listaProducto.ElementAt(i);
                             precio = (prod.precio * prod.cantidad);
-                            commandString = "INSERT INTO OrdenCompraDetalle VALUES ( " + prod.idproducto + " , " + id + " , " + prod.cantidad + " , " + precio + " )";
+                            commandString = "INSERT INTO OrdenCompraDetalle (idProducto,idOrdenCompra,cantidad,precio) VALUES ( " + prod.idproducto + " , " + id + " , " + prod.cantidad + " , " + precio + " )";
                             SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon2);
                             sqlCmd3.ExecuteNonQuery();
                         }
@@ -302,7 +302,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "INSERT INTO GuiaRemision VALUES  (GETDATE(), " + nota.idordencompra+" )";
+            string commandString = "INSERT INTO GuiaRemision (fechaEntrega, idOrdenCompra) VALUES  (GETDATE(), " + nota.idordencompra+" )";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             sqlCmd.ExecuteNonQuery();
@@ -327,7 +327,7 @@ namespace Stardust.Models
                 SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
                 sqlCon2.Open();
 
-                string commandString2 = "INSERT INTO GuiaRemisionDetalle VALUES  ( " + nota.detallenotaentrada[i].ID + "," 
+                string commandString2 = "INSERT INTO GuiaRemisionDetalle (idProducto, idGuiaRemision, cantidadRecibida) VALUES  ( " + nota.detallenotaentrada[i].ID + "," 
                                          + nota.idguiaRemision + "," +
                                          nota.detallenotaentrada[i].cantidadentrante+" )";
                 
