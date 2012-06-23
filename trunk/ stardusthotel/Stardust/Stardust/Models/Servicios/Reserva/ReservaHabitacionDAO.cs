@@ -247,6 +247,7 @@ namespace Stardust.Models.Servicios
                     list.Add(hotel);
                 }
                 dataReader.Close();
+                response.lista = list;
             }
             catch (Exception e) {
                 response.me = "Error al ejecutar query : " + e.Message;
