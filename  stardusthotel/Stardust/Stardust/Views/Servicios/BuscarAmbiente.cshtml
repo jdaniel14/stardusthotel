@@ -45,6 +45,9 @@
 <p></p>
 
 <p></p><p></p>
+
+@if (ViewBag.estado != 0)
+{ 
 <div class="wrapper">
     <div class="widget">
       <div class="title">
@@ -90,8 +93,9 @@
     </thead>
     <tbody>
 
-    @foreach (var item in Model) {
-            <tr>
+    @foreach (var item in Model)
+    {
+            <tr class="gradeA odd">
                 <td>
                     @Html.DisplayFor(modelItem => item.nombreHotel)
                 </td>
@@ -126,7 +130,7 @@
         
     </div>
 </div>
-
+}
 
 <script type = "text/javascript">
     var idEliminar = 0;
