@@ -11,13 +11,13 @@
 
             <div class="formRow">
                 <label>Tipo Promocion</label>
-                <div class = "formRight" >@Html.DropDownListFor(model => model.tipo,Model.tipoList)</div>
+                <div class = "formRight" >@Html.DropDownListFor(model => model.tipo,new SelectList(ViewBag.Tipo,"ID","nombre"))</div>
                 <div class = "clear" ></div>
             </div>
 
             <div class="formRow">
                 <label>Hotel</label>
-                <div class = "formRight" >@Html.DropDownListFor(model => model.ID,Model.hotelList)</div>
+                <div class = "formRight" >@Html.DropDownListFor(model => model.idhotel,new SelectList(ViewBag.Hotel,"ID","nombre"))</div>
                 <div class = "clear" ></div>
             </div>
         </div>
