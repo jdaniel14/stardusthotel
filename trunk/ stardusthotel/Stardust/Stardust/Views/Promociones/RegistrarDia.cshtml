@@ -1,4 +1,4 @@
-﻿@*@model Stardust.Models.PromocionBean
+﻿@model Stardust.Models.PromocionBean
 
 <h2>Registrar Promoción Numero de Días de Reserva </h2>
 
@@ -7,7 +7,7 @@
 
 @using (Html.BeginForm("RegistrarDia", "Promociones", FormMethod.Post, new { @class = "form" }))
 {
-    @Html.ValidationSummary(false)
+    @Html.ValidationSummary(true)
 
     <fieldset>
             <div class="widget">
@@ -37,7 +37,7 @@
                 @Html.LabelFor(model => model.porcDescontar)<span class="req">*</span>                
                 <div class = "formRight">
                     @Html.TextBoxFor(model => model.porcDescontar2, new { @class = "maskPct", placeholder = "Ejemplo: 15%" })
-                    
+                    @Html.ValidationMessageFor(model => model.porcDescontar2)
                 </div>
                 <div class = "clear" ></div>
             </div>
@@ -57,8 +57,8 @@
            @Html.ActionLink("Regresar", "Registrar")
     </div>
 }
-*@
 
+@*
 @model Stardust.Models.PromocionBean
 
 <h2>Registrar Promoción Numero de Días de Reserva </h2>
@@ -81,7 +81,7 @@
             <div class="formRow">
                 @Html.LabelFor(model => model.descripcion)<span class="req">*</span>
                 <div class = "formRight" >@Html.TextBoxFor(model => model.descripcion, new { @class = "validate[required]", maxlength = "100", placeholder = "Maximo 100 caracteres" })</div>
-                 <div class = "clear" ></div>
+                <div class = "clear" ></div>
             </div>
             
             <div class="formRow">                
@@ -110,4 +110,4 @@
            <input type="submit" value="Crear" class = "redB" />
            @Html.ActionLink("Regresar", "Registrar")
     </div>
-}
+}*@
