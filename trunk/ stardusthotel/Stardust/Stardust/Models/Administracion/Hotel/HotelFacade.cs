@@ -36,24 +36,7 @@ namespace Stardust.Models
             hotelServ.desactivarHotel(id);
         }
 
-        public void registrarTipoHabitacion(TipoHabitacionXHotel tipo) {
-            hotelServ.registrarTipoHabitacion(tipo);
-        }
-
-        public List<TipoHabitacion> getTipoHabitacionXHotel(int id)
-        {
-            return hotelServ.getTipoHabitacionXHotel(id);
-        }
-
-        public List<TipoHabitacion> getTipoHabitaciones()
-        {
-            return hotelServ.getTipoHabitaciones();
-        }
-
-        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
-        {
-            return hotelServ.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
-        }
+        
 
         //Parte para dar información antes de desactivar un Hotel
         //--------------------------------------------------------
@@ -91,6 +74,36 @@ namespace Stardust.Models
         public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacion)
         {
             return hotelServ.existeTipoHabitacion_Hotel(tipoHabitacion);
+        }
+
+        public void registrarTipoHabitacion(TipoHabitacionXHotel tipo)
+        {
+            hotelServ.registrarTipoHabitacion(tipo);
+        }
+
+        public void actualizarTipoHabitacion(TipoHabitacionXHotel tipoHabitacionXhotel)
+        {
+            hotelServ.actualizarTipoHabitacion(tipoHabitacionXhotel);
+        }
+
+        public List<TipoHabitacionXHotelViewModelList> getTipoHabitacionXHotel(int id)
+        {
+            return hotelServ.getTipoHabitacionXHotel(id);
+        }
+
+        public TipoHabitacionXHotelViewModelEdit getTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            return hotelServ.getTipoHabitacionXHotel(idHotel, idTipoHabitacion);
+        }
+
+        public List<TipoHabitacion> getTipoHabitaciones()
+        {
+            return hotelServ.getTipoHabitaciones();
+        }
+
+        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            return hotelServ.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
         }
     }
 }

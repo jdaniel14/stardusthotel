@@ -36,25 +36,7 @@ namespace Stardust.Models
             hotelDAO.desactivarHotel(id);
         }
 
-        public void registrarTipoHabitacion(TipoHabitacionXHotel tipo)
-        {
-            hotelDAO.registrarTipoHabitacion(tipo);
-        }
-
-        public List<TipoHabitacion> getTipoHabitacionXHotel(int id)
-        {
-            return hotelDAO.getTipoHabitacionXHotel(id);
-        }
-
-        public List<TipoHabitacion> getTipoHabitaciones()
-        {
-            return hotelDAO.getTipoHabitaciones();
-        }
-
-        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
-        {
-            return hotelDAO.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
-        }
+        
 
         //Parte para dar información antes de desactivar un Hotel
         //--------------------------------------------------------
@@ -92,6 +74,36 @@ namespace Stardust.Models
         public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacion)
         {
             return hotelDAO.existeTipoHabitacion_Hotel(tipoHabitacion);
+        }
+
+        public void registrarTipoHabitacion(TipoHabitacionXHotel tipo)
+        {
+            hotelDAO.registrarTipoHabitacion(tipo);
+        }
+
+        public void actualizarTipoHabitacion(TipoHabitacionXHotel tipoHabitacionXhotel)
+        {
+            hotelDAO.actualizarTipoHabitacion(tipoHabitacionXhotel);
+        }
+
+        public List<TipoHabitacionXHotelViewModelList> getTipoHabitacionXHotel(int id)
+        {
+            return hotelDAO.getTipoHabitacionXHotel(id);
+        }
+
+        public TipoHabitacionXHotelViewModelEdit getTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            return hotelDAO.getTipoHabitacionXHotel(idHotel, idTipoHabitacion);
+        }
+
+        public List<TipoHabitacion> getTipoHabitaciones()
+        {
+            return hotelDAO.getTipoHabitaciones();
+        }
+
+        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            return hotelDAO.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
         }
     }
 }

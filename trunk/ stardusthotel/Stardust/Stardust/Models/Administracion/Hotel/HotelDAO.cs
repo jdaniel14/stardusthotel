@@ -7,13 +7,15 @@ using System.Data.SqlClient;
 using System.Web.Configuration;
 
 using System.Data;
+using log4net;
 
 namespace Stardust.Models
 {
     public class HotelDAO
     {
         String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-        
+        private static ILog log = LogManager.GetLogger(typeof(HotelDAO));
+
         public HotelBean getHotel(int id) {
             SqlConnection objDB = null;
             try
@@ -46,6 +48,11 @@ namespace Stardust.Models
                     hotel.estado = Convert.ToBoolean(objDataReader["estado"]);
                 }
                 return hotel;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getHotel(EXCEPTION): ", ex);
+                throw ex;
             }
             finally
             {
@@ -318,147 +325,6 @@ namespace Stardust.Models
 
 
 
-        public void registrarTipoHabitacion(TipoHabitacionXHotel tipoHabitacionXhotel) {
-            SqlConnection objDB = new SqlConnection(cadenaDB);
-
-            try
-            {
-                objDB.Open();
-
-                String strQuery = "INSERT INTO TipoHabitacionXHotel (idHotel ,idTipoHabitacion ,precioBaseXDia)" +
-                                " VALUES (@idHotel, @idTipoHabitacion, @precio)";
-                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacionXhotel.idHotel);
-                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacionXhotel.idTipoHabitacion);
-                Utils.agregarParametro(objQuery, "@precio", tipoHabitacionXhotel.precio);
-
-                objQuery.ExecuteNonQuery();
-            }
-            finally
-            {
-                if (objDB != null)
-                {
-                    objDB.Close();
-
-                }
-            }
-        }
-
-        
-        public List<TipoHabitacion> getTipoHabitacionXHotel(int idHotel) {
-            SqlConnection objDB = null;
-
-            try
-            {
-                objDB = new SqlConnection(cadenaDB);
-                //lista de Tipos de Habitacion por Hotel
-                List<TipoHabitacion> lstTHXH = new List<TipoHabitacion>();
-
-                objDB.Open();
-                String strQuery = "SELECT B.* FROM TipoHabitacionXHotel A, TipoHabitacion B " +
-                                "WHERE A.idHotel = @idHotel and A.idTipoHabitacion = B.idTipoHabitacion";
-                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
-                
-                SqlDataReader objReader = objQuery.ExecuteReader();
-                if (objReader.HasRows)
-                {
-                    while (objReader.Read())
-                    {
-                        TipoHabitacion tipoHabitacion = new TipoHabitacion();
-
-                        tipoHabitacion.idTipoHabitacion = Convert.ToInt32(objReader[0]);
-                        tipoHabitacion.nombre = Convert.ToString(objReader[1]);
-                        tipoHabitacion.descripcion = Convert.ToString(objReader[2]);
-
-                        lstTHXH.Add(tipoHabitacion);
-                    }
-                }
-
-                return lstTHXH;
-            }
-            finally
-            {
-                if (objDB != null)
-                {
-                    objDB.Close();
-                }
-            }
-
-        }
-
-        public List<TipoHabitacion> getTipoHabitaciones()
-        {
-            SqlConnection objDB = null;
-            try
-            {
-                objDB = new SqlConnection(cadenaDB);
-                List<TipoHabitacion> lstTipoHabitacion = new List<TipoHabitacion>();
-                
-                objDB.Open();
-                String strQuery = "SELECT * FROM TipoHabitacion";
-                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-
-                SqlDataReader objReader = objQuery.ExecuteReader();
-
-                if (objReader.HasRows)
-                {
-                    while (objReader.Read())
-                    {
-                        TipoHabitacion tipoHabitacionAux = new TipoHabitacion();
-
-                        tipoHabitacionAux.idTipoHabitacion = Convert.ToInt32(objReader[0]);
-                        tipoHabitacionAux.nombre = Convert.ToString(objReader[1]);
-                        tipoHabitacionAux.descripcion = Convert.ToString(objReader[2]);
-
-                        lstTipoHabitacion.Add(tipoHabitacionAux);
-                    }
-                }
-                return lstTipoHabitacion;
-            }
-            finally
-            {
-                if (objDB != null)
-                {
-                    objDB.Close();
-                }
-            }
-        }
-
-        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
-        {
-            SqlConnection objDB = null;
-
-            try
-            {
-                objDB = new SqlConnection(cadenaDB);
-
-                objDB.Open();
-                String strQuery = "SELECT precioBaseXDia FROM TipoHabitacionXHotel " +
-                                "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
-                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
-                Utils.agregarParametro(objQuery, "@idTipoHabitacion", idTipoHabitacion);
-
-                SqlDataReader objReader = objQuery.ExecuteReader();
-
-                if (objReader.HasRows)
-                {
-                    objReader.Read();
-                    return Convert.ToDecimal(objReader[0]);
-                }
-                return -1;//en caso no encuentre el precio del tipo de habitacion del hotel que estoy buscando
-
-            }
-            finally
-            {
-                if (objDB != null)
-                {
-                    objDB.Close();
-                }
-            }
-        }
-
         public void registrarAlmacen(int idHotel, AlmacenBean almacen) {
             SqlConnection objDB = null;
             try
@@ -711,6 +577,243 @@ namespace Stardust.Models
 
                 SqlDataReader objReader = objQuery.ExecuteReader();
                 return objReader.HasRows;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public void registrarTipoHabitacion(TipoHabitacionXHotel tipoHabitacionXhotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "INSERT INTO TipoHabitacionXHotel (idHotel, idTipoHabitacion, precioBaseXDia, nroPersonas)" +
+                                " VALUES (@idHotel, @idTipoHabitacion, @precio, @nroPersonas)";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacionXhotel.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacionXhotel.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@precio", tipoHabitacionXhotel.precio);
+                Utils.agregarParametro(objQuery, "@nroPersonas", tipoHabitacionXhotel.nroPersonas);
+
+                objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("registrarTipoHabitacion(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+
+                }
+            }
+        }
+
+        public void actualizarTipoHabitacion(TipoHabitacionXHotel tipoHabitacionXhotel)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "UPDATE TipoHabitacionXHotel SET precioBaseXDia = @precio, nroPersonas = @nroPersonas " +
+                                    "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacionXhotel.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacionXhotel.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@precio", tipoHabitacionXhotel.precio);
+                Utils.agregarParametro(objQuery, "@nroPersonas", tipoHabitacionXhotel.nroPersonas);
+
+                objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("actualizarTipoHabitacion(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public List<TipoHabitacionXHotelViewModelList> getTipoHabitacionXHotel(int idHotel)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                //lista de Tipos de Habitacion por Hotel
+                List<TipoHabitacionXHotelViewModelList> lstTHXH_VML = new List<TipoHabitacionXHotelViewModelList>();
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacionXHotel A, TipoHabitacion B " +
+                                "WHERE A.idHotel = @idHotel and A.idTipoHabitacion = B.idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        TipoHabitacionXHotelViewModelList tipoHabitacion = new TipoHabitacionXHotelViewModelList();
+
+                        tipoHabitacion.idTipoHabitacion = Convert.ToInt32(objReader["idTipoHabitacion"]);
+                        tipoHabitacion.nombre = Convert.ToString(objReader["nombre"]);
+                        tipoHabitacion.descripcion = Convert.ToString(objReader["descripcion"]);
+                        tipoHabitacion.precio = Convert.ToDecimal(objReader["precioBaseXDia"]);
+                        tipoHabitacion.nroPersonas = Convert.ToInt32(objReader["nroPersonas"]);
+
+                        lstTHXH_VML.Add(tipoHabitacion);
+                    }
+                }
+
+                return lstTHXH_VML;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTipoHabitacionXHotel(EXCEPTION)", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+
+        }
+
+        public TipoHabitacionXHotelViewModelEdit getTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                TipoHabitacionXHotelViewModelEdit objReturn = null;
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacionXHotel A, TipoHabitacion B " +
+                                "WHERE A.idTipoHabitacion = B.idTipoHabitacion AND " +
+                                "A.idHotel = @idHotel AND B.idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", idTipoHabitacion);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    objReturn = new TipoHabitacionXHotelViewModelEdit();
+                    objReader.Read();
+
+                    objReturn.idTipoHabitacion = idTipoHabitacion;
+                    objReturn.idHotel = idHotel;
+                    objReturn.nroPersonas = Convert.ToInt32(objReader["nroPersonas"]);
+                    objReturn.precio = Convert.ToDecimal(objReader["precioBaseXDia"]);
+                }
+
+                return objReturn;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTipoHabitacionXHotel(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public List<TipoHabitacion> getTipoHabitaciones()
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<TipoHabitacion> lstTipoHabitacion = new List<TipoHabitacion>();
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        TipoHabitacion tipoHabitacionAux = new TipoHabitacion();
+
+                        tipoHabitacionAux.idTipoHabitacion = Convert.ToInt32(objReader[0]);
+                        tipoHabitacionAux.nombre = Convert.ToString(objReader[1]);
+                        tipoHabitacionAux.descripcion = Convert.ToString(objReader[2]);
+
+                        lstTipoHabitacion.Add(tipoHabitacionAux);
+                    }
+                }
+                return lstTipoHabitacion;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTipoHabitaciones(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT precioBaseXDia FROM TipoHabitacionXHotel " +
+                                "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", idTipoHabitacion);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                if (objReader.HasRows)
+                {
+                    objReader.Read();
+                    return Convert.ToDecimal(objReader[0]);
+                }
+                return -1;//en caso no encuentre el precio del tipo de habitacion del hotel que estoy buscando
+
             }
             finally
             {
