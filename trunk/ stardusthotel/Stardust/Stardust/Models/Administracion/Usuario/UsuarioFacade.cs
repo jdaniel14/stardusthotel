@@ -9,7 +9,7 @@ namespace Stardust.Models
     {
         UsuarioService usuarioServ = new UsuarioService();
 
-        public String getLogin(string user, string pass) {
+        public UsuarioBean getLogin(string user, string pass) {
             return usuarioServ.getLogin(user, pass);
         }
 
