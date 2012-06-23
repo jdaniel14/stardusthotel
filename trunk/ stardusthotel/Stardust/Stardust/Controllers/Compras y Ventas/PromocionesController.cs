@@ -24,10 +24,11 @@ namespace Stardust.Controllers
 
         public ActionResult Buscar()
         {
-            PromocionBean promociones = new PromocionBean(1);
+            ViewBag.Hotel = promocionFacade.GetHoteles(1);
+            ViewBag.Tipo = promocionFacade.GetTipo(1);
             //ViewData["Tipo"] = promociones.getTipo();
             //ViewData["Hotel"] = promociones.getHoteles();
-            return View(promociones);
+            return View();
 
         }
 
@@ -35,7 +36,7 @@ namespace Stardust.Controllers
         public ActionResult Buscar(PromocionBean promocion)
         {
 
-            int ID = Convert.ToInt32(promocion.tipo + promocion.ID);//(hotel*10)+id;
+            int ID = promocion.tipo + promocion.idhotel;//(hotel*10)+id;
             return RedirectToAction("Detalle",new{id = ID});
         }
 
@@ -57,8 +58,7 @@ namespace Stardust.Controllers
 
         public ActionResult Registrar()
         {
-            PromocionBean promocion = new PromocionBean(2);
-            return View(promocion);
+            return View();
         }
 
         [HttpPost]
@@ -73,8 +73,8 @@ namespace Stardust.Controllers
 
         public ActionResult RegistrarDia()
         {
-            PromocionBean promocion = new PromocionBean(2);
-            return View(promocion);
+            ViewBag.Hotel = promocionFacade.GetHoteles(2);
+            return View();
         }
 
         [HttpPost]
@@ -87,14 +87,22 @@ namespace Stardust.Controllers
             
 
             promocion.razon = promocion.dias;
+
+            if (promocion.dias == 0)
+            {
+                ViewBag.Hotel = promocionFacade.GetHoteles(2);
+                ViewBag.Error = "El numero de dias debe ser mayor a 0";
+                return View(promocion);
+            }
+
             promocionFacade.RegistrarPromocion(promocion);
             return RedirectToAction("Buscar");
         }
 
         public ActionResult RegistrarAdelanto()
         {
-            PromocionBean promocion = new PromocionBean(2);
-            return View(promocion);
+            ViewBag.Hotel = promocionFacade.GetHoteles(2);
+            return View();
         }
 
         [HttpPost]
@@ -107,12 +115,15 @@ namespace Stardust.Controllers
             promocion.porcDescontar = Convert.ToInt32(b);
             promocion.adelanto = Convert.ToInt32(a);
             promocion.razon = promocion.adelanto;
+
             promocionFacade.RegistrarPromocion(promocion);
             return RedirectToAction("Buscar");
         }
  
         public ActionResult Edit(int id)
         {
+            ViewBag.Hotel = promocionFacade.GetHoteles(2);
+            ViewBag.Tipo = promocionFacade.GetTipo(2);
             return View(promocionFacade.GetPromocion(id));
         }
 
