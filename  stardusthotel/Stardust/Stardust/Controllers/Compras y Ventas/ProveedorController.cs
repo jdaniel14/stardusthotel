@@ -73,15 +73,16 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult ModificarProveedor(ProveedorBean item)
         {            
+            //falta el estado-----------------
+            
             proveedorFacade.ActualizarProveedor(item);
-            //return RedirectToAction("Index");
             return RedirectToAction("DetallesProveedor/" + item.ID, "Proveedor"); 
         }
-        public ActionResult DetallesProveedor(int ID)
-        {            
-            ProveedorBean item = proveedorFacade.GetProveedor(ID);
-            return View(item);
-        }
+        //public ActionResult DetallesProveedor(int ID)
+        //{            
+        //    ProveedorBean item = proveedorFacade.GetProveedor(ID);
+        //    return View(item);
+        //}
 
         public ActionResult Delete(int ID)
         {
