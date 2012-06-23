@@ -147,7 +147,8 @@ namespace Stardust.Models
 									"', telefono = '" + proveedor.telefono + 
 									"', direccion = '" + proveedor.direccion + 
 									"', observaciones = '" + proveedor.observaciones +
-                                    "', telefonocontacto = '" + proveedor.telefonocontacto + 
+                                    "', telefonocontacto = '" + proveedor.telefonocontacto +
+                                    "', estado = '" + proveedor.estado + 
                                     "' WHERE idProveedor = " + proveedor.ID;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
