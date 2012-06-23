@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using log4net;
 
 namespace Stardust.Controllers
 {
@@ -15,7 +16,7 @@ namespace Stardust.Controllers
         // GET: /Proveedores/
         private CadenaHotelDB db = new CadenaHotelDB();
         ProveedorFacade proveedorFacade = new ProveedorFacade();
-        
+        private static ILog log = LogManager.GetLogger(typeof(ProveedorController));
         
         public ViewResult Index()
         {            

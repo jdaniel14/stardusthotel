@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using log4net;
 
 namespace Stardust.Controllers
 { 
@@ -14,6 +15,8 @@ namespace Stardust.Controllers
         private CadenaHotelDB db = new CadenaHotelDB();
         public PromocionFacade promocionFacade = new PromocionFacade();
         List<string> param = new List<string>();
+        private static ILog log = LogManager.GetLogger(typeof(PromocionesController));
+        
 
         /*-----Promociones---------*/
 
