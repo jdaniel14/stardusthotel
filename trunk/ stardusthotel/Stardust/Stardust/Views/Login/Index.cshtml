@@ -26,7 +26,7 @@
                 <div class="formRow">
                     @Html.LabelFor(m => m.Usuario)
                     <div class="loginInput">
-                        @Html.TextBoxFor(m => m.Usuario)
+                        @Html.TextBoxFor(m => m.Usuario, new { @class = "logueo" } )
                         @Html.ValidationMessageFor(m => m.Usuario)
                     </div>
                     <div class="clear"></div>
@@ -35,7 +35,7 @@
                 <div class="formRow">
                     @Html.LabelFor(m => m.Contrasenia)
                     <div class="loginInput">
-                        @Html.PasswordFor(m => m.Contrasenia)
+                        @Html.PasswordFor(m => m.Contrasenia , new { @class = "logueo" } )
                         @Html.ValidationMessageFor(m => m.Contrasenia)
                     </div>
                     <div class="clear"></div>
