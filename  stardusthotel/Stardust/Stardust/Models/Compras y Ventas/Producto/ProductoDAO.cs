@@ -67,7 +67,7 @@ namespace Stardust.Models
                 sqlCon.Open();
 
                 producto.estado = 1;
-                string commandString = "INSERT INTO Producto VALUES ('" + producto.nombre + "', '" + producto.descripcion + "', '" + producto.estado + "')";
+                string commandString = "INSERT INTO Producto (idProducto, nombre, descripcion, estado) VALUES ('" + producto.nombre + "', '" + producto.descripcion + "', '" + producto.estado + "')";
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
@@ -215,7 +215,7 @@ namespace Stardust.Models
                 {
                     if (!(prod.listProdalmacen[i].stockminimo == 0 && prod.listProdalmacen[i].stockactual == 0 && prod.listProdalmacen[i].stockmaximo == 0))
                     {
-                        string commandString = "INSERT INTO ProductoXAlmacen VALUES ('" +
+                        string commandString = "INSERT INTO ProductoXAlmacen (idAlmacen,idProducto,stockMinimo,stockMaximo,stockActual) VALUES ('" +
                         prod.idalmacen + "', '" +
                         prod.listProdalmacen[i].ID + "', '" +
                         prod.listProdalmacen[i].stockminimo + "', '" +
