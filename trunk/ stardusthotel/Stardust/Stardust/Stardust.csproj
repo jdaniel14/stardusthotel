@@ -257,6 +257,7 @@
     <Compile Include="Models\Servicios\Reserva\Bean\Response\ConsultaReservaBean.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Servicios\Reserva\Bean\Response\HotelResponse.cs" />
     <Compile Include="Models\Servicios\Reserva\Bean\Response\MensajeBean.cs">
       <SubType>Code</SubType>
     </Compile>
