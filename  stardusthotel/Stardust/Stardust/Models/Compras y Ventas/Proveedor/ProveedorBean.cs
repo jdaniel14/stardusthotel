@@ -72,5 +72,7 @@ namespace Stardust.Models
         public string observaciones { get; set; }
 
         public int estado { get; set; }
+        [Display(Name = "Estado")]
+        public string estado2 { get; set; }
     }
 }

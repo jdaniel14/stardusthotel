@@ -1,34 +1,9 @@
 ﻿@model IEnumerable<Stardust.Models.ProductoBean>
 
-<h2>Buscar Producto</h2>
-
-@using (Html.BeginForm("Buscar", "Producto", FormMethod.Post, new { @class = "form" }))
-{
-    @Html.ValidationSummary(false)
-    <fieldset>
-        <div class = "widget" >
-            <div class = "title"><h6>Buscar Producto</h6></div>
-
-            <div class="formRow">
-                <label>Nombre</label>
-                <div class = "formRight" ><input type = "text" id = "nombre" name = "nombre" class="validate[required,custom[onlyLetterSp]]" ,name="lettersValid", maxlength = "50", placeholder = "Maximo 50 caracteres aqui" /></div>
-                <div class = "clear" ></div>
-            </div>
-        </div>
-    </fieldset>
-    <p>
-        <input type="submit" value="Buscar" class = "redB" />
-        <p></p><p></p>
-        @Html.ActionLink("Regresar", "Buscar") | @Html.ActionLink("Lista Productos", "Index", "Producto")
-    </p>
-}
-
-
+<h2>Lista de Producto</h2>
 
 <p></p><p></p>
 
-@if (ViewBag.estado != 0)
-{    
 <div class="wrapper">
     <div class="widget">
       <div class="title"><h6>Lista de Productos</h6></div>
@@ -83,7 +58,7 @@
     </div>
     </div>
 
-}
+
 <script type = "text/javascript">
     var idEliminar = 0;
     $(".eliminar").click(function () {

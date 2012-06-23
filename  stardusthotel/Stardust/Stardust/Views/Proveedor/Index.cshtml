@@ -24,6 +24,7 @@
             <td>RUC</td>
             <td>Direccion</td>       
             <td>Contacto</td>
+            <td>Estado</td>
             <td></td>            
         </tr>
     </thead>
@@ -36,6 +37,7 @@
                 <td> @Html.DisplayFor(modelItem => item.ruc)         </td>
                 <td> @Html.DisplayFor(modelItem => item.direccion)   </td>
                 <td> @Html.DisplayFor(modelItem => item.contacto)    </td>
+                <td> @Html.DisplayFor(modelItem => item.estado2)    </td>
                 <td>
                 <a href="@Url.Action("ModificarProveedor", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
                 <a href="@Url.Action("DetallesProveedor", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 

@@ -30,7 +30,15 @@ namespace Stardust.Controllers
         }
         public ViewResult Index()
         {
-            return View();
+            List<ProductoBean> prod = produc.ListarProducto("");
+            
+            return View(prod);
+        }
+
+        [HttpPost]
+        public ViewResult Index(List<ProductoBean> prov)
+        {
+            return View(prov);
         }
 
         public ActionResult Create()
@@ -129,8 +137,17 @@ namespace Stardust.Controllers
 
         }
         
+        public ActionResult Buscar()
+        {
+            List<ProductoBean> prod = new List<ProductoBean>();
+            ViewBag.estado = 0;
+            return View(prod);
+        }
+
+        [HttpPost]
         public ActionResult Buscar(string nombre)
         {
+            ViewBag.estado = 1;
             return View(produc.ListarProducto(nombre));
         }
 
