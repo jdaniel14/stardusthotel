@@ -1,55 +1,103 @@
 ﻿@using Stardust.Models
-@model List<Horario>
+@model ReporteEmpleado
 
-<br />
         @*<div id="leftSide" >
         <div class="logo">
 
                 <img src="C:\Users\TEMP\Desktop\ stardusthotel\Stardust\Stardust\Content\images\logo.png"/>
 
         </div>*@
-
-<div align="center">
+<div>  </div>
+<table>
+<tr>
+   <td align="left"> Stardust  </td>
+   <td align="right"> Fecha y Hora Actual:  </td>
+</tr>
+<tr><td></td><td align="right"> @DateTime.Now  </td></tr>
+ </table>
+ <div>  </div>
+ <div>    </div>
+<div>    </div>
+<div  align="center"><h1>
     Reporte de Asistencia
-</div>
+</h1></div>
 <div>    </div>
 <div>    </div>
-<div>Fecha y Hora: @DateTime.Now   </div>
+
+<div align="center">Codigo: EMP-@Model.empleado.ID  </div>
+<div align="center">Nombre del empleado: @Model.empleado.nombreEmpleado   </div>
+<div align="center">Fecha de Ingreso: @Model.empleado.fechaIngreso.ToShortDateString()   </div>
+<div align="center">Estado: @Model.empleado.estado  </div>
 <div>    </div>
-<div> @ViewBag.empleado   </div>
-<table cellpadding="3" cellspacing="3">
-   
+<div>    </div>
+<div>    </div>
+<div>    </div>
+<table >
+   @*
    <tr><td> @ViewBag.empleado</td></tr>
-    <tr border="1" bgcolor="#777777" color="#ffffff">
+    <tr border="0" bgcolor="#777777" color="#ffffff">
         <td width="20%" align="center">
              Horarios Asignados
         </td>
        
     </tr>
+    
     @{
         var OddColor = "#DDEEEE";
         var evenColor = "#EEFFFF";
         var Odd = OddColor;
     }
-    @foreach (Horario horar in Model)
+    *@
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    <tr><td></td></tr>
+    @foreach (Horario horar in Model.horarios)
     {
+        <tr><td></td></tr>
+        <tr>
+        <td><h3><b>
+        HORARIO: - Del @horar.fechaInicioHorario.Date.ToShortDateString() hasta @horar.fechaFinHorario.ToShortDateString()
+        </b></h3></td>
+         
+         
+             
+        </tr >
+        <tr><td></td></tr>
         
-        <tr border="1" bgcolor="@Odd">
-            <td>@horar.nombreEmpleado
-            </td>
-            <td>@horar.fechaInicioHorario
-            </td>
-            <td>@horar.fechaFinHorario
-            </td>
-        </tr>
-        if (Odd == OddColor)
+        for (int i = 0; i < horar.horariodetalles.Count; i++)
         {
-            Odd = evenColor;
-        }
-        else
-        {
-            Odd = OddColor;
-        }
+            HorarioDetalle detalleaux = horar.horariodetalles.ElementAt(i);
+                <tr  bgcolor="">
+                
+                <td align="left" ><b> Detalle del dia: @detalleaux.diaSemana     -Entrada: @detalleaux.horaEntrada    - Salida: @detalleaux.horaSalida </b> </td>  
+                           
+               </tr>
+        
+               <tr><td></td></tr>
+          
+               <tr><td align="left"> <b>Asistencia :</b> </td>
+               
+               </tr>
+        
+            for (int j = 0; j < detalleaux.asistencias.Count; j++)
+            {
 
+                Asistencia asistencia = detalleaux.asistencias.ElementAt(j);
+                 
+                 <tr>
+                 
+                 <td align="right">  Fecha y HoraMarcada :@asistencia.horaasistencia Tipo(E/S): @asistencia.TipoES Estado:: @asistencia.estado</td>
+                         
+                
+                </tr>
+             
+            }
+           <tr><td></td></tr>
+        <tr><td></td></tr>
+        }
+        
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
     }
 </table>
