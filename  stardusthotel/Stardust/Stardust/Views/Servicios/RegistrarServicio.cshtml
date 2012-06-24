@@ -45,6 +45,16 @@
                 <div class="clear"></div>
             </div>
 
+            <div class="formRow">@Html.LabelFor(model => model.estado2)
+                <div class="formRight"> 
+                                     @Html.RadioButtonFor(model => model.estado2, "Evento", true) Evento <br />
+                                     @Html.RadioButtonFor(model => model.estado2, "Habitación", false) Habitación  <br />
+                                     @Html.RadioButtonFor(model => model.estado2, "Otros", false) Otros
+                                                                                                            
+                </div> 
+                <div class="clear"></div>
+            </div>
+
         </div>
     </fieldset>
 
