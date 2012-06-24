@@ -11,10 +11,16 @@ namespace Stardust.Models
     public class PagoFacade
     {
         PagoService pagoService = new PagoService();
+        PagoDAO pagoDAO = new PagoDAO();
 
         public ReservaCheckOut GetReserva(int id)
         {
             return pagoService.GetReserva(id);
+        }
+
+        public ReservaCheckOut GetReserva2(int id)
+        {
+            return pagoDAO.GetReserva2(id);
         }
 
         public MensajeBean RegistrarCheckOut(int id)
