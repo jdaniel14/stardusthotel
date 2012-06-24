@@ -79,29 +79,30 @@ namespace Stardust.Models
         }
         public String ActualizarServicio(ServiciosBean servicio){
             String me = "";
-            try
-            {
+            //try
+            //{
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
                 sqlCon.Open();
 
                 string commandString = "UPDATE Servicio " +
-                                        "SET nombre = '" + servicio.nombre + "', descripcion = '" + servicio.descripcion + "' " +
-                                        "', flag_res_eve = '" + servicio.estado1 + 
-                                        "WHERE idServicio = " + servicio.id;
+                                        "SET nombre = '" + servicio.nombre + 
+                                        "', descripcion = '" + servicio.descripcion +
+                                        "', estado = '" + servicio.estado +
+                                        "', flag_res_eve = '" + servicio.estado1 +
+                                        "' WHERE idServicio = " + servicio.id;
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
                 sqlCon.Close();
                 servicio.conexion = "Bien";
-            }
-            catch {
-                servicio.conexion = "Error en conexion";
+            //}
+            //catch {
+            //    servicio.conexion = "Error en conexion";
             
-            }
-            return me
-;        
+            //}
+            return me ;        
         }
 
         public ServiciosBean SeleccionarServicio(int id){
@@ -112,7 +113,7 @@ namespace Stardust.Models
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Servicio WHERE idServicio = " + id.ToString();
+            string commandString = "SELECT * FROM Servicio WHERE idServicio = " + id;
             //if (!Nombre.Equals(""))  commandString = commandString + "LIKE %"+Nombre+"%";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
