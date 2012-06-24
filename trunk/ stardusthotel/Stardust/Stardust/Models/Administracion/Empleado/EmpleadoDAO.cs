@@ -57,7 +57,8 @@ namespace Stardust.Models
                 empleado.nombreEmpleado = usuar.nombres + " " + usuar.apMat + " " + usuar.apPat;
                 empleado.ID = (int)data.GetValue(0);
                 empleado.fechaIngreso = (DateTime)data.GetValue(1);
-                if (data.GetValue(2) != null) empleado.fechaSalida = (DateTime)data.GetValue(2);
+                string estado = Convert.ToString(data.GetValue(2));
+                if ( !String.IsNullOrEmpty(estado)) empleado.fechaSalida = (DateTime)data.GetValue(2);
                 
                 //empleado.fechaSalida = (DateTime)data.GetValue(2);
                 empleado.estado = Convert.ToString(data["estado"]);
@@ -187,6 +188,9 @@ namespace Stardust.Models
                     UsuarioBean usuario = new UsuarioFacade().getUsuario(empleado.ID);
                     empleado.nombreEmpleado = usuario.nombres + " " + usuario.apPat + " " + usuario.apMat;
                     empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                    string estado = Convert.ToString(data.GetValue(2));
+                    if (!String.IsNullOrEmpty(estado)) empleado.fechaSalida = (DateTime)data.GetValue(2);
+                
                     empleado.estado = (string)data.GetValue(3);
 
                     lista.Add(empleado);
