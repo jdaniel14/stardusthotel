@@ -52,7 +52,7 @@ namespace Stardust.Controllers.Servicios
 
         public ActionResult GenerarDocumento(int id)
         {
-            ReservaCheckOut reserva = pagoFacade.GetReserva(id);
+            ReservaCheckOut reserva = pagoFacade.GetReserva2(id);
 
             if(reserva.tipoDoc.Equals("DNI"))
                 return this.ViewPdf("Boleta", "Documento", reserva);
