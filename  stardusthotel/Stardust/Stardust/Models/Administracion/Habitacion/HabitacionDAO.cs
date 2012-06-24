@@ -200,6 +200,7 @@ namespace Stardust.Models
             }
             catch (Exception e) {
                 log.Error("listarHabitaciones(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {
