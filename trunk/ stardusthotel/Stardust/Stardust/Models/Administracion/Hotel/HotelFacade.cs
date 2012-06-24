@@ -8,6 +8,7 @@ namespace Stardust.Models
     public class HotelFacade
     {
         HotelService hotelServ = new HotelService();
+        ServiciosService servicioServ = new ServiciosService();
         
         public HotelBean getHotel(int id) {
             return hotelServ.getHotel( id );
@@ -18,11 +19,24 @@ namespace Stardust.Models
             return hotelServ.getHoteles();
         }
 
+        public ServicioXHotelBean obtenerlista(int id)
+        {
+            return hotelServ.obtenerlista(id);
+        }
+
         public List<HotelBean> getHotelesActivos()
         {
             return hotelServ.getHotelesActivos();
         }
+        public List<HotelBean> ListarHotel(String nombre)
+        {
+            return hotelServ.ListarHotel(nombre);
+        }
 
+        public ServiciosBean Getservicio(int idServicio)
+        {
+            return servicioServ.GetServicio(idServicio);
+        }
         public void registrarHotel(HotelBean hotel) {
             hotelServ.registrarHotel(hotel);
         }
@@ -36,6 +50,14 @@ namespace Stardust.Models
             hotelServ.desactivarHotel(id);
         }
 
+        public List<ServiciosBean> ListarServicio(String nombre)
+        {
+            return servicioServ.ListarServicios(nombre);
+        }
+        public void RegistrarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelServ.AsignarServiciosXHotel(idhotel, serv);
+        }
         
 
         //Parte para dar información antes de desactivar un Hotel
