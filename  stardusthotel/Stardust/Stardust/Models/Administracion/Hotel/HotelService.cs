@@ -18,18 +18,9 @@ namespace Stardust.Models
             return hotelDAO.getHoteles();
         }
 
-        public ServicioXHotelBean obtenerlista(int idhotel)
-        {
-            return hotelDAO.obtenerlistaservicios(idhotel);
-        }
-
         public List<HotelBean> getHotelesActivos()
         {
             return hotelDAO.getHotelesActivos();
-        }
-        public void AsignarServiciosXHotel(int idhotel, ServicioXHotelBean serv)
-        {
-            hotelDAO.InsertarHotelxServicio(idhotel, serv);
         }
 
         public void registrarHotel(HotelBean hotel){
@@ -45,10 +36,27 @@ namespace Stardust.Models
             hotelDAO.desactivarHotel(id);
         }
 
+        #region DaianaXServicios
         public List<HotelBean> ListarHotel(String Nombre)
         {
             return hotelDAO.ListarHotel(Nombre);
         }
+
+        public ServicioXHotelBean obtenerlista(int idhotel)
+        {
+            return hotelDAO.obtenerlistaservicios(idhotel);
+        }
+
+        public void AsignarServiciosXHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelDAO.InsertarHotelxServicio(idhotel, serv);
+        }
+        public void ModificarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelDAO.ActualizarserviciosxHotel(idhotel, serv);
+        }
+        #endregion
+
 
         //Parte para dar información antes de desactivar un Hotel
         //--------------------------------------------------------
@@ -80,11 +88,6 @@ namespace Stardust.Models
         public int getNAlmacenesXHotel(int idHotel)
         {
             return hotelDAO.getNAlmacenesXHotel(idHotel);
-        }
-
-        public void ModificarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
-        {
-            hotelDAO.ActualizarserviciosxHotel(idhotel, serv);
         }
         //--------------------------------------------------------
 

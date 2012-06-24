@@ -8,7 +8,6 @@ namespace Stardust.Models
     public class HotelFacade
     {
         HotelService hotelServ = new HotelService();
-        ServiciosService servicioServ = new ServiciosService();
         
         public HotelBean getHotel(int id) {
             return hotelServ.getHotel( id );
@@ -19,24 +18,11 @@ namespace Stardust.Models
             return hotelServ.getHoteles();
         }
 
-        public ServicioXHotelBean obtenerlista(int id)
-        {
-            return hotelServ.obtenerlista(id);
-        }
-
         public List<HotelBean> getHotelesActivos()
         {
             return hotelServ.getHotelesActivos();
         }
-        public List<HotelBean> ListarHotel(String nombre)
-        {
-            return hotelServ.ListarHotel(nombre);
-        }
-
-        public ServiciosBean Getservicio(int idServicio)
-        {
-            return servicioServ.GetServicio(idServicio);
-        }
+        
         public void registrarHotel(HotelBean hotel) {
             hotelServ.registrarHotel(hotel);
         }
@@ -50,6 +36,9 @@ namespace Stardust.Models
             hotelServ.desactivarHotel(id);
         }
 
+        #region DaianaXServicios
+        ServiciosService servicioServ = new ServiciosService();
+
         public List<ServiciosBean> ListarServicio(String nombre)
         {
             return servicioServ.ListarServicios(nombre);
@@ -58,7 +47,24 @@ namespace Stardust.Models
         {
             hotelServ.AsignarServiciosXHotel(idhotel, serv);
         }
-        
+        public ServicioXHotelBean obtenerlista(int id)
+        {
+            return hotelServ.obtenerlista(id);
+        }
+        public List<HotelBean> ListarHotel(String nombre)
+        {
+            return hotelServ.ListarHotel(nombre);
+        }
+
+        public ServiciosBean Getservicio(int idServicio)
+        {
+            return servicioServ.GetServicio(idServicio);
+        }
+        public void ModificarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelServ.ModificarserviciosxHotel(idhotel, serv);
+        }
+        #endregion
 
         //Parte para dar información antes de desactivar un Hotel
         //--------------------------------------------------------
@@ -108,11 +114,6 @@ namespace Stardust.Models
             hotelServ.actualizarTipoHabitacion(tipoHabitacionXhotel);
         }
 
-
-        public void ModificarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
-        {
-            hotelServ.ModificarserviciosxHotel(idhotel, serv);
-        }
         public List<TipoHabitacionXHotelViewModelList> getTipoHabitacionXHotel(int id)
         {
             return hotelServ.getTipoHabitacionXHotel(id);
