@@ -1,4 +1,21 @@
-﻿var iniciandoTodosLosProcesos = $(document);
+﻿//Fecha Actual
+
+var mydate = new Date();
+var year = mydate.getYear();
+if (year < 1000)
+    year += 1900;
+var day = mydate.getDay();
+var month = mydate.getMonth() + 1;
+var daym = mydate.getDate();
+if (daym < 10)
+    daym = "0" + daym;
+//console.log(year);
+//console.log(daym);
+//console.log(month);
+
+
+
+var iniciandoTodosLosProcesos = $(document);
 iniciandoTodosLosProcesos.ready(iniciarValidaciones);
 
 function iniciarValidaciones() {
