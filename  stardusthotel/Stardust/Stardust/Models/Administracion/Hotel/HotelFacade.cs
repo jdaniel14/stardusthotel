@@ -153,5 +153,30 @@ namespace Stardust.Models
         {
             return hotelServ.getNroTemporadasAsignadas(idHotel, idTipoHabitacion);
         }
+
+		
+		
+		
+		
+		
+		public List<TipoHabitacionXHotelXTemporadaViewModelList> getTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
+        {
+            return hotelServ.getTipoHabitacionXHotelXTemporada(idHotel, idTipoHabitacion);
+        }
+
+        public List<TemporadaBean> getTemporadas()
+        {
+            return hotelServ.getTemporadas();
+        }
+
+        public bool existeTipoHabitacion_Hotel_Temporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            return hotelServ.existeTipoHabitacion_Hotel_Temporada(thXhXtemporada);
+        }
+
+        public void registrarTipoHabitacion_Hotel_Temporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            hotelServ.registrarTipoHabitacion_Hotel_Temporada(thXhXtemporada);
+        }
     }
 }
