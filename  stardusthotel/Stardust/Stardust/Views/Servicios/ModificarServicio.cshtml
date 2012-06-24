@@ -27,23 +27,27 @@
         <legend>Servicio</legend>
         @Html.HiddenFor(model => model.id)
     
-        <div class="formRow">
-            <label>Nombre</label>
-            <div class="formRight">
-                @Html.TextBoxFor(model => model.nombre, new { @class = "validate[required]", maxlength = "40" })
-                @Html.ValidationMessageFor(model => model.nombre)</div>
+            <div class="formRow">@Html.LabelFor(model => model.nombre)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.nombre) 
+                 @Html.ValidationMessageFor(model => model.nombre)</div>
+                <div class="clear"></div>
+            </div>
 
+            <div class="formRow">@Html.LabelFor(model => model.descripcion)<span class="req">*</span>
+                <div class="formRight"> @Html.TextBoxFor(model => model.descripcion) 
+                 @Html.ValidationMessageFor(model => model.descripcion)</div>
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
-                
-        <div class="formRow">
-            <label>Descripcion</label>
-            <div class="formRight">
-                @Html.TextAreaFor(model => model.descripcion, new { maxlength = "200" })
+
+            <div class="formRow">@Html.LabelFor(model => model.estado)
+                <div class="formRight"> 
+                                     @Html.RadioButtonFor(model => model.estado, "ACTIVO", true) ACTIVO <br />
+                                     @Html.RadioButtonFor(model => model.estado, "INACTIVO", false) INACTIVO    
+                                                                                                            
+                </div> 
+                <div class="clear"></div>
             </div>
-            <div class = "clear"></div>
-        </div>
+        
     
     <div class="formRow">@Html.LabelFor(model => model.estado2)
                 <div class="formRight"> 
