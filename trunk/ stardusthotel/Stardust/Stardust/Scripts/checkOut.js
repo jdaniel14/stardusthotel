@@ -211,9 +211,13 @@ function confirma(data) {
     console.log(data.me);
 
     if (data.me == "") {
-        mostrarError('OK');
+        mostrarConfirmacionFinal('Okis >)');
         console.log("se hizo");
-        $(location).attr('href', '../PagoClientes/GenerarDocumento/'+data.id,'_blank');
+
+        //$(location).attr('target', '_blank');
+        
+        window.open('../PagoClientes/GenerarDocumento/' + data.id);
+        
     }
     else {
         mostrarError(data.me);
