@@ -63,6 +63,108 @@ namespace Stardust.Models
             }
         }
 
+        public List<HotelBean> ListarHotel(string nombre){
+
+        List<HotelBean> listaHotel = new List<HotelBean>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            
+            sqlCon.Open();
+            
+            string commandString = "SELECT * FROM Hotel ";
+            bool result1 = String.IsNullOrEmpty(nombre);//Nombre.Equals("") ;
+            
+
+            if (!result1);
+                commandString = commandString + " WHERE UPPER(nombre) LIKE '%" + nombre.ToUpper() + "%'"; 
+                        
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+                        
+            while (dataReader.Read())
+            {
+                HotelBean hotel = new HotelBean();
+
+                hotel.ID = Convert.ToInt32(dataReader[0]);//muy importante llenar este campo
+                hotel.nombre = Convert.ToString(dataReader[1]);
+                hotel.razonSocial = Convert.ToString(dataReader[2]);
+                hotel.direccion = Convert.ToString(dataReader[3]);
+                hotel.tlf1 = Convert.ToString(dataReader[4]);
+                hotel.tlf2 = Convert.ToString(dataReader[5]);
+                hotel.email = Convert.ToString(dataReader[6]);
+                hotel.nroPisos = Convert.ToInt32(dataReader[7]);
+                hotel.idDistrito = Convert.ToInt32(dataReader["idDistrito"]);
+                hotel.idProvincia = Convert.ToInt32(dataReader["idProvincia"]);
+                hotel.idDepartamento = Convert.ToInt32(dataReader["idDepartamento"]);
+                hotel.estado = Convert.ToBoolean(dataReader["estado"]);
+                listaHotel.Add(hotel);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+
+            return listaHotel;
+        }
+
+
+        /*--------Asignar Servicios por Hotel----*/
+
+        public void InsertarHotelxServicio(int idhotel, ServicioXHotelBean serv)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            int i;
+            for (i = 0; i < serv.listServHot.Count; i++)
+            {
+                if (serv.listServHot[i].precio > 0)
+                {
+                    string commandString = "INSERT INTO ServicioXHotel(idServicio,idHotel,precioBase) VALUES ('" +
+                    serv.listServHot[i].id + "', '" +
+                    idhotel+ "', '" +                    
+                    serv.listServHot[i].precio + "')";
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                }
+            }
+
+            sqlCon.Close();
+        }
+        public ServicioXHotelBean obtenerlistaservicios(int idhotel)
+        {
+            ServicioXHotelBean serv = new ServicioXHotelBean();
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            int i = 0;
+            int idhot;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+            string commandString = "SELECT * FROM ServicioXHotel  WHERE idHotel=" + idhotel;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            serv.listServHot = new List<ServicioHotel>();
+            while (dataReader.Read())
+            {
+                ServicioHotel servHotel = new ServicioHotel();
+                idhot = (int)dataReader["idHotel"];
+                servHotel.id = (int)dataReader["idServicio"];
+                servHotel.precio = (Decimal)dataReader["precioBase"];                ;
+                i++;
+                serv.listServHot.Add(servHotel);
+            }
+            dataReader.Close();
+            sqlCon.Close();
+            HotelBean hotel = getHotel(idhotel);
+
+            serv.hotel = hotel.nombre;
+
+            return serv;
+        }
+
         public List<HotelBean> getHoteles()
         {
             SqlConnection objDB = null;
