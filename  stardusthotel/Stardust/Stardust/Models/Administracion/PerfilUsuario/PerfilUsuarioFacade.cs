@@ -29,5 +29,9 @@ namespace Stardust.Models
             perfilServ.eliminarPerfil( id );
         }
 
+        public int getPerfilID(string nombre) {
+            return perfilServ.getPerfilID(nombre);
+        }
+
     }
 }
