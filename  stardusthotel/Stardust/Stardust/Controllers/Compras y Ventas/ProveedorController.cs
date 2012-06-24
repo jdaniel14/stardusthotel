@@ -51,7 +51,7 @@ namespace Stardust.Controllers
             }
             else
             {
-                if (proveedorFacade.existeproveedor(proveedor.ruc))
+                if (proveedorFacade.existeproveedor2(proveedor.ruc))
                 {
                     ViewBag.error2 = "El Ruc ya existe";
                     return View(proveedor);
