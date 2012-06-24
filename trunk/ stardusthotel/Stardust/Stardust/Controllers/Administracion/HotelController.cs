@@ -174,7 +174,6 @@ namespace Stardust.Controllers
         #endregion
 
         #region List
-		
         public ActionResult List() 
         {
             List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
@@ -320,6 +319,7 @@ namespace Stardust.Controllers
         }
         #endregion
 
+        #region DeleteTipoHabitacionXHotel
         public ActionResult DeleteTipoHabitacionXHotel(int idTipoHabitacion, int idHotel)
         {
             var tipoHabitacionXhotelVMD = new TipoHabitacionXHotelViewModelDelete();
@@ -365,6 +365,12 @@ namespace Stardust.Controllers
                 return View(tipohabitacionXhotelVMD);
             }
         }
+        #endregion
+
+        //public ActionResult ListTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
+        //{
+
+        //}
 
         public ActionResult ValidaEmail(string email)
         {

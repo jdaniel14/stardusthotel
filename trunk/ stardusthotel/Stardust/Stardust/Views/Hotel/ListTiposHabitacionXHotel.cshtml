@@ -70,7 +70,8 @@
                         <td>@Html.DisplayFor(modelItem => item.nroPersonas)</td>
                         <td>
                             <a href="@Url.Action("EditTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 
-                            <a href="@Url.Action("DeleteTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar </a>
+                            <a href="@Url.Action("DeleteTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar </a> |
+                            <a href="@Url.Action("ListTipoHabitacionXHotelXTemporada", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/bank.png")" alt="Edit" />Descuentos </a>
                         </td>
                     </tr>
                 }
