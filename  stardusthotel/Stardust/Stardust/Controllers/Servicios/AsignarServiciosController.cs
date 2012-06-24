@@ -88,10 +88,31 @@ namespace Stardust.Controllers
 
         public ActionResult ModificarServicios(ServicioXHotelBean serv)
         {
+            //List<HotelBean> hotel = hotelFac.ListarHotel(serv.hotel);
+            //int idhotel = hotel[0].ID;
+
+            //return View(serv);
             List<HotelBean> hotel = hotelFac.ListarHotel(serv.hotel);
             int idhotel = hotel[0].ID;
 
+            ServicioXHotelBean servicio = hotelFac.obtenerlista(idhotel);
+            for (int i = 0; i < servicio.listServHot.Count(); i++)
+            {
+                for (int j = 0; j < serv.listServHot.Count; j++)
+                {
+                    if (serv.listServHot[j].id == servicio.listServHot[i].id)
+                    {
+                        serv.listServHot[j].precio = servicio.listServHot[i].precio;
+
+                    }
+
+                }
+
+            }
+
+            //prod.listProdProv = producto.listProdProv;
             return View(serv);
+
         }
 
 
@@ -99,10 +120,10 @@ namespace Stardust.Controllers
         {
             List<HotelBean> hotel = hotelFac.ListarHotel(serv.hotel);
             int idhotel = hotel[0].ID;
-            for (int i = 0; i < serv.listServHot.Count; i++)
-            {
-                serv.listServHot[i].precio = Convert.ToDecimal(serv.listServHot[i].precio2) / 100;
-            }
+            //for (int i = 0; i < serv.listServHot.Count; i++)
+            //{
+            //    serv.listServHot[i].precio = Convert.ToDecimal(serv.listServHot[i].precio2) / 100;
+            //}
             hotelFac.ModificarserviciosxHotel(idhotel, serv);
             return RedirectToAction("ListarServicios/" + idhotel, "AsignarServicios");
         }
