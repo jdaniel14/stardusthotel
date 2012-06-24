@@ -97,7 +97,7 @@ function recibeMails(data) {
     $("#nDoc").attr("value", "");
     $("#nombreDReserva").attr("value", "");
     $("#razonDReserva").attr("value", "");
-    $("#ApellidoDReserva").attr("value", "");
+    //$("#ApellidoDReserva").attr("value", "");
     $("#telefNatural").attr("value", "");
     $("#telef").attr("value", "");
     $("#nTarjetaNatural").attr("value", "");

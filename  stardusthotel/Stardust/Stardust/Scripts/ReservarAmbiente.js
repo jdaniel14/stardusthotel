@@ -1,5 +1,6 @@
 ﻿var arregloChecks = new Array();
 var x;
+var SendHotel;
 
 x = $(document);
 x.ready(inicializarEventos);
@@ -12,6 +13,12 @@ function inicializarEventos() {
         type: "POST",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
+        statusCode: {
+            500: function () {
+                $("#espera").dialog("destroy");
+                mostrarError("Error inesperado... intentelo mas tarde :)");                
+            }
+        },
         url: "/ReservarHabitacion/listarHoteles",
         beforeSend: esperarHoteles(),
         success: llegadaHoteles
@@ -37,9 +44,11 @@ function inicializarEventos() {
 }
 
 function esperarHoteles() {
+    mostrarEspera();
 }
 
 function llegadaHoteles(data) {
+    $("#espera").dialog("destroy");
     var escritor = "";
     console.log(data);
     if (data.me == "") {
@@ -65,10 +74,11 @@ function mostrarAmbientesDisponibles() {
 
     var fechaInicio = $("#FechaInicio").attr("value");
     var fechaFinal = $("#FechaFin").attr("value");
+    SendHotel = $("#ComboHoteles").val();
     
 
     var Hotel = {
-        idHotel: "1",
+        idHotel: SendHotel,
         fechaIni: fechaInicio,
         fechaFin: fechaFinal
     }
@@ -80,6 +90,12 @@ function mostrarAmbientesDisponibles() {
         type: "POST",
         data: jsonData,
         dataType: "json",
+        statusCode: {
+            500: function () {
+                $("#espera").dialog("destroy");
+                mostrarError("Error inesperado... intentelo mas tarde :)");
+            }
+        },
         contentType: "application/json; charset=utf-8",
         url: "consultarAmbientesDisponibles",
         beforeSend: esperaAmbientes(),

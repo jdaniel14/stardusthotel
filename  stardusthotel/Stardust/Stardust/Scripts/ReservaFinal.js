@@ -13,7 +13,7 @@ function inicializarMostreo() {
             (parseFloat($("#Total").text()) > 0) &&
             ($("#mailNatural").get(0).value != "") &&
             ($("#password").get(0).value != "") &&
-            ( ($("#razonDReserva").get(0).value != "") | (($("#nombreDReserva").get(0).value != "") && ($("#ApellidoDReserva").get(0).value != ""))) &&
+            ( ($("#razonDReserva").get(0).value != "") | ($("#nombreDReserva").get(0).value != "") ) &&
             ( ($("#telef").get(0).value != "") |  ($("#telefNatural").get(0).value != "") ) //&&
             //( ($("#nTarjeta").get(0).value != "") | ($("#nTarjetaNatural").get(0).value != "") )
 
@@ -97,7 +97,7 @@ function enviarDatos() {
     var nombreEnvio = "";
     var email2 = "";
     var tipoDocu = "";
-    var apellido = "";
+    //var apellido = "";
     var telefono = "";
     var tipoDeTarjeta = "";
     var numTarjeta = "";
@@ -135,7 +135,7 @@ function enviarDatos() {
     else {
         tipoDocu = "DNI";
         nombreEnvio = $("#nombreDReserva").get(0).value;
-        apellido = $("#ApellidoDReserva").get(0).value;
+        //apellido = $("#ApellidoDReserva").get(0).value;
         email2 = $("#mailNatural").get(0).value;
         telefono = $("#telefNatural").get(0).value;
         tipoDeTarjeta = $("#tipoTarjeta").val();
@@ -198,7 +198,7 @@ function enviarDatos() {
             tipoDoc:tipoDocu,
             nroDoc:nDoc,
             nomb:nombreEnvio,
-            apell:apellido,
+            //apell:apellido,
             email:email2,
             telf:telefono,
             tipoTarj:tipoDeTarjeta,
@@ -206,6 +206,7 @@ function enviarDatos() {
     }
 
     var DatosReserva = {
+        tipoRegistro: registrar,
         idHotel: Hotel,
         client:clientexD
 //         [
@@ -231,8 +232,7 @@ function enviarDatos() {
             nroPer:numPersonas,
         //]        
         total: suma,
-        pass:passw,
-        tipoRegistro:registrar,
+        pass:passw,        
         idUsuario:idUser
     };
     var jsonData = JSON.stringify(DatosReserva);
@@ -266,6 +266,9 @@ function finRes(data) {
     }
     else {
         mostrarError(data.me);
+        if (datam.me == "No se pudo enviar el email") {
+            $(location).attr('href', '../');
+        }
     }
     
 }
