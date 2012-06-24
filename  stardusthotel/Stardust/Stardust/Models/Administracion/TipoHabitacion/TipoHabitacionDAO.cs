@@ -4,21 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using log4net;
 
 namespace Stardust.Models
 {
     public class TipoHabitacionDAO
     {
         String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-        
-        public TipoHabitacionBean getTipo(int id) {
+        private static ILog log = LogManager.GetLogger(typeof(TipoHabitacionDAO));
+
+        public TipoHabitacionBean getTipoHabitacion(int id) {
             SqlConnection objDB = null;
 
             try
             {
                 objDB = new SqlConnection(cadenaDB);
                 TipoHabitacionBean tipoHabitacion = null;
-                
+
                 objDB.Open();
                 String strQuery = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = @idTipoHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
@@ -30,13 +32,18 @@ namespace Stardust.Models
                 {
                     objDataReader.Read();
                     tipoHabitacion = new TipoHabitacionBean();
-                    
-                    tipoHabitacion.ID = (int)objDataReader.GetValue(0);
-                    tipoHabitacion.nombre = (string)objDataReader.GetValue(1);
-                    tipoHabitacion.descripcion = (string)objDataReader.GetValue(2);
+
+                    tipoHabitacion.ID = Convert.ToInt32(objDataReader["idTipoHabitacion"]);
+                    tipoHabitacion.nombre = Convert.ToString(objDataReader["nombre"]);
+                    tipoHabitacion.descripcion = Convert.ToString(objDataReader["descripcion"]);
                 }
 
                 return tipoHabitacion;
+            }
+            catch (Exception ex)
+            {
+                log.Error("", ex);
+                throw ex;
             }
             finally
             {

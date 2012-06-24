@@ -27,6 +27,11 @@ namespace Stardust.Models
             hotelDAO.registrarHotel(hotel);
         }
 
+        public int buscarHotel(HotelBean hotel)
+        {
+            return hotelDAO.buscarHotel(hotel);
+        }
+
         public void actualizarHotel(HotelBean hotel){
             hotelDAO.actualizarHotel(hotel);
         }
@@ -57,6 +62,10 @@ namespace Stardust.Models
         }
         #endregion
 
+        public void registrarAlmacen(int idHotel, AlmacenBean almacen)
+        {
+            hotelDAO.registrarAlmacen(idHotel, almacen);
+        }
 
         //Parte para dar información antes de desactivar un Hotel
         //--------------------------------------------------------
@@ -124,6 +133,16 @@ namespace Stardust.Models
         public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
         {
             return hotelDAO.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
+        }
+
+        public void eliminarTipoHabitacionXHotel(TipoHabitacionXHotel tipohabitacionXhotel)
+        {
+            hotelDAO.eliminarTipoHabitacionXHotel(tipohabitacionXhotel);
+        }
+
+        public int getNroTemporadasAsignadas(int idHotel, int idTipoHabitacion)
+        {
+            return hotelDAO.getNroTemporadasAsignadas(idHotel, idTipoHabitacion);
         }
     }
 }

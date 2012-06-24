@@ -9,8 +9,8 @@ namespace Stardust.Models
     {
         TipoHabitacionService tipoServ = new TipoHabitacionService();
         
-        public TipoHabitacionBean getTipo(int id) {
-            return tipoServ.getTipo(id);
+        public TipoHabitacionBean getTipoHabitacion(int id) {
+            return tipoServ.getTipoHabitacion(id);
         }
 
         public IEnumerable<TipoHabitacionBean> getTipoHabitacionXHotel(int idHotel)

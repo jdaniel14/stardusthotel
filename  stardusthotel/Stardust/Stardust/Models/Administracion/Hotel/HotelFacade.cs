@@ -27,6 +27,11 @@ namespace Stardust.Models
             hotelServ.registrarHotel(hotel);
         }
 
+        public int buscarHotel(HotelBean hotel)
+        {
+            return hotelServ.buscarHotel(hotel);
+        }
+
         public void actualizarHotel(HotelBean hotel) {
             hotelServ.actualizarHotel(hotel);
         }
@@ -34,6 +39,11 @@ namespace Stardust.Models
         public void desactivarHotel(int id)
         {
             hotelServ.desactivarHotel(id);
+        }
+
+        public void registrarAlmacen(int idHotel, AlmacenBean almacen)
+        {
+            hotelServ.registrarAlmacen(idHotel, almacen);
         }
 
         #region DaianaXServicios
@@ -132,6 +142,16 @@ namespace Stardust.Models
         public decimal getPrecioTipoHabitacionXHotel(int idHotel, int idTipoHabitacion)
         {
             return hotelServ.getPrecioTipoHabitacionXHotel(idHotel, idTipoHabitacion);
+        }
+
+        public void eliminarTipoHabitacionXHotel(TipoHabitacionXHotel tipohabitacionXhotel)
+        {
+            hotelServ.eliminarTipoHabitacionXHotel(tipohabitacionXhotel);
+        }
+
+        public int getNroTemporadasAsignadas(int idHotel, int idTipoHabitacion)
+        {
+            return hotelServ.getNroTemporadasAsignadas(idHotel, idTipoHabitacion);
         }
     }
 }

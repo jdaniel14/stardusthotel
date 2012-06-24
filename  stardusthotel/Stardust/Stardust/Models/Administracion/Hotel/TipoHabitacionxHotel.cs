@@ -75,6 +75,28 @@ namespace Stardust.Models
 
     }
 
+    public class TipoHabitacionXHotelViewModelDelete
+    {
+        [Display(Name = "Hotel")]
+        public string nombreHotel { get; set; }
+
+        [Display(Name = "Tipo de Habitacion")]
+        public string nombreTipoHabitacion { get; set; }
+
+        public int idHotel { get; set; }
+        
+        public int idTipoHabitacion { get; set; }
+
+        [Display(Name = "Precio S/.")]
+        public decimal precio { get; set; }
+
+        [Display(Name = "Número de Personas")]
+        public int nroPersonas { get; set; }
+
+        [Display(Name= "Temporadas asignadas")]
+        public int nroTemporadasAsignadas { get; set; }
+    }
+
     public class TipoHabitacionXHotelViewModelList
     {
         
