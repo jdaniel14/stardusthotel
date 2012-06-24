@@ -130,9 +130,9 @@ namespace Stardust.Models
     {
         public int id { set; get; }
 
-        [Display(Name = "Nombre de la cuenta de usuario")]
+        [Display(Name = "Usser Acount")]
         public string usuario { set; get; }
-        [Display(Name = "Pasword de la cuenta de usuario")]
+        [Display(Name = "Password ")]
         public string pasword { set; get; }
 
     }
