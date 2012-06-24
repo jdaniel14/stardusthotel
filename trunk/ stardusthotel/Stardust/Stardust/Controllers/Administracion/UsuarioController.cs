@@ -244,10 +244,12 @@ namespace Stardust.Controllers
         public JsonResult LoginResult(String user, String password)
         {
             var usuario = usuarioFac.getLogin(user, password);
-            if( usuario != null ) FormsAuthentication.SetAuthCookie(user, false);
+            if (usuario != null && !usuario.estado.Equals( "ONLINE" ) )
+            {
+                FormsAuthentication.SetAuthCookie(user, false);
+                usuarioFac.marcarOnline(usuario.ID);
+            }
             return new JsonResult() { Data = usuario };
         }
-
-      
     }
 }

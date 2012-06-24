@@ -1,3 +1,7 @@
+$("#logout").click(function () {
+    localStorage.clear();
+});
+
 $(document).ready(function () {
     var token = localStorage.getItem("token");
 
@@ -5,13 +9,18 @@ $(document).ready(function () {
     var nombre = localStorage.getItem("nombre");
     $("#nombreUsuario").html("Bienvenido " + nombre + "!");
 
-    // Crear link para redirigir a tu detalle de usuario
+
     var idUsuario = localStorage.getItem("idUsuario");
-    if (idUsuario != null)
+    if (idUsuario != null) {
+        // Crear link para redirigir a tu detalle de usuario
         $("#verUsuario").attr("href", "/Usuario/Details/" + idUsuario);
+        // Crear el link para el logout
+        $("#logout").attr("href", "/Logout/Index/" + idUsuario);
+    }
 
     // Setear menus que puedes ver según tu perfil
     if (token == null) {
+        alert("No tienes permiso de entrar aquí");
         arma_menu("000000000000000000000000");
     } else if (token == "") {
         arma_menu("000000000000000000000000");
