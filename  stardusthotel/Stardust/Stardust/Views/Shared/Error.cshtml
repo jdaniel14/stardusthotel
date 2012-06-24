@@ -15,6 +15,7 @@
     <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
     <script type="text/javascript" src="@Url.Content( "~/Content/js/custom.js" )"></script>
+    <script src="@Url.Content("~/Scripts/navegacion.js")" type="text/javascript"></script>
 </head>
 
 <body class="nobg errorPage">
@@ -28,13 +29,11 @@
                     <a href="#" title="">
                         <img src="@Url.Content("~/Content/images/userPic.png")" alt="" />
                     </a>
-                    <span>
-                        @FormsAuthentication.FormsCookieName
-                    </span>
+                    <span id = "nombreUsuario" ></span>
                 </div>
                 <div class="userNav">
                     <ul>
-                        <li><a href="#" title=""><img src="@Url.Content("~/Content/images/icons/topnav/profile.png" )" alt="" /><span>Perfil</span></a></li>
+                        <li><a id = "verUsuario" href="" title=""><img src="@Url.Content("~/Content/images/icons/topnav/profile.png" )" alt="" /><span>Perfil</span></a></li>
                         <li><a href="@Url.Action("Index","Logout")" title=""><img src="@Url.Content("~/Content/images/icons/topnav/logout.png" )" alt="" /><span>Cerrar Sesión</span></a></li>
                     </ul>
                 </div>
@@ -50,7 +49,12 @@
             @*<span class="errorNum">403</span>*@
             <span class="errorDesc">Oops! Un error grave ocurrio aquí</span>
             <a href="@Url.Action("Index","Home")" title="" class="button dredB"><span>Back to dashboard</span></a>
-            <p><span>@Model.ControllerName////@Model.ActionName</span></p>
+            <p>
+                <span class = "errorDesc" >Controlador</span>
+                @Model.ControllerName
+                <span class = "errorDesc" >Acción</span>
+                @Model.ActionName
+            </p>
         </div> 
     
         <!-- Footer line -->

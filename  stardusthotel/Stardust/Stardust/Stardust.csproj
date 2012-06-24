@@ -296,9 +296,11 @@
     <Compile Include="Models\Servicios\Servicio\Bean\request\ServicioAsignBean.cs" />
     <Compile Include="Models\Servicios\Servicio\Bean\request\ServicioRequest.cs" />
     <Compile Include="Models\Servicios\Servicio\Bean\response\ListaServiciosResponseBean.cs" />
+    <Compile Include="Models\Servicios\Servicio\ServicioHotel.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosBean.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosDAO.cs" />
     <Compile Include="Models\Servicios\Servicio\ServiciosService.cs" />
+    <Compile Include="Models\Servicios\Servicio\ServicioXHotelBean.cs" />
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
