@@ -1,0 +1,82 @@
+﻿@model Stardust.Models.HotelViewModelDetails
+
+@{
+    ViewBag.Title = "Detalles del hotel";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@* No hay validaciones, no tienen porque estar estos scripts incluidos xD
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+*@
+<fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>@ViewBag.Title</h6></div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombre)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombre)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.razonSocial)
+            <div class = "formRight" >@Html.DisplayFor(model => model.razonSocial)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.direccion)
+            <div class = "formRight" >@Html.DisplayFor(model => model.direccion)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.tlf1)
+            <div class = "formRight" >@Html.DisplayFor(model => model.tlf1)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.tlf2)
+            <div class = "formRight" >@Html.DisplayFor(model => model.tlf2)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.email)
+            <div class = "formRight" >@Html.DisplayFor(model => model.email)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nroPisos)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nroPisos)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreDepartamento)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDepartamento)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreProvincia)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreProvincia)</div>
+            <div class = "clear" ></div>
+        </div>
+
+        <div class="formRow">
+            @Html.LabelFor(model => model.nombreDistrito)
+            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDistrito)</div>
+            <div class = "clear" ></div>
+        </div>
+
+    </div>
+</fieldset>
+
+<p> 
+        @Html.ActionLink("Regresar", "Listar")
+</p>
