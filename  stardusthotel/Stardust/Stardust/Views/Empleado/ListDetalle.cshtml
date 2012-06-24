@@ -7,7 +7,11 @@
 
 <h2>Lista de  Detalles </h2>
 
-
+@if ( !String.IsNullOrEmpty(ViewBag.error)) { 
+    <div class="nNote nWarning hideit">
+        <p><strong>AVISO: </strong>@ViewBag.error</p>
+    </div>
+}
  <a href="@Url.Action("Creardetalle", new { id = ViewBag.horario })"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Nuevo Detalle </a>
 
 <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
