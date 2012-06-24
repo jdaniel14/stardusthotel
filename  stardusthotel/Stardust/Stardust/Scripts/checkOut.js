@@ -213,7 +213,7 @@ function confirma(data) {
     if (data.me == "") {
         mostrarError('OK');
         console.log("se hizo");
-        $(location).attr('href', '../../');
+        $(location).attr('href', '../PagoClientes/GenerarDocumento/'+data.id,'_blank');
     }
     else {
         mostrarError(data.me);
