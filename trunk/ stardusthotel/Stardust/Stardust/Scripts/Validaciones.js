@@ -56,6 +56,8 @@ function iniciarValidaciones() {
 
     //Pago Inicial
     $("#nReserva").change(validarSoloNumeros14);
+
+    $("#idEvento").change(validarSoloNumeros14);
     
 
 
@@ -131,6 +133,11 @@ function iniciarValidaciones() {
 
     //Pago Inicial
     if ($("#nReserva").length > 0) {
+        input = document.getElementById("nReserva");
+        input.placeholder = "Sólo números";
+    }
+
+    if ($("#idEvento").length > 0) {
         input = document.getElementById("nReserva");
         input.placeholder = "Sólo números";
     }

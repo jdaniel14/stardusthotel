@@ -169,7 +169,7 @@ function enviarDatos() {
         cmd = "#nombre";
         cmd += id;
 
-        var nombreTipo = $(cmd).text();
+        var nombreTipo = $(cm   ||||||||||||||||||||||||||||||||||||||||||||||||||||d).text();
 
         cmd = "#precio";
         cmd += i;

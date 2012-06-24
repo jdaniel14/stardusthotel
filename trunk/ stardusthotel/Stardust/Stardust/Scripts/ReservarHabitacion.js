@@ -45,6 +45,7 @@ function inicializarEventos() {
 
     });
     $("#ServiciosAdicionales").hide();
+    $("#OfertaEvento").hide();
     $("#continuarP3").click(inicializarMostreo);
     $("#FechaLlegada").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaSalida").datepicker({ dateFormat: 'dd-mm-yy' });
@@ -55,6 +56,9 @@ function inicializarEventos() {
     $("#FechaSalida").datepicker("option", "minDate", new Date(year, (month - 1), daym + 1  ) );
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
+    $("#EventoCorrecto").hide();
+    $("#EventoIncorrecto").hide();
+    $("#ValidarEvento").click(IniciarValidacionEvento);
     
     $('#HoraLlegada').timepicker({});
 
@@ -67,7 +71,18 @@ function inicializarEventos() {
             $("#checkAerop:checkbox:checked").removeAttr("checked");
             $("#fieldAeropuerto").hide("slow");
         }
-     }); 
+    });
+
+    $("#checkEvento").click(function (event) {
+
+        if ($(this).is(":checked")) {
+            $("#checkEvento:checkbox:not(:checked)").attr("checked", "checked");
+            $("#OfertaEvento").show("slow");
+        } else {
+            $("#checkEvento:checkbox:checked").removeAttr("checked");
+            $("#OfertaEvento").hide("slow");
+        }
+    }); 
 
     var x;
 
@@ -75,6 +90,14 @@ function inicializarEventos() {
     x.focus(clickFechain);
     x = $("#FechaSalida");
     x.focus(clickFechaout);
+}
+
+function IniciarValidacionEvento() {
+    if ($("#idEvento").get(0).value != "") {
+    }
+    else {
+        mostrarError("Campo no puede ser nulo");
+    }
 }
 
 
@@ -191,7 +214,7 @@ function llegadaTipoHabitacion(data) {
             for (j = 0; j <= item.nroHab; j++) {
                 result += '<option value = "' + j + '" id = "idTipoHab' + j + item.idTipoHab + '">' + j + '</option>';
             }
-            result += '<td><span id = "precio' + i + '">' + item.precioTipoHab + '</span></td>';
+            result += '<td><span id = "precio' + item.idTipoHab + '">' + item.precioTipoHab + '</span></td>';
             result += '</select></td><td><span id = "subtotal' + item.idTipoHab + '">' + 0 + '</span></td></tr>';
 
             id = "#numHabitSelect";
@@ -216,6 +239,8 @@ function llegadaTipoHabitacion(data) {
 
         $("#cantDias").text(cantDias);
 
+        console.log(arreglosId);
+
         arreglosId.forEach(function (elemento) {
             $(elemento).change(function (event) {
                 var cmd = "";
@@ -228,8 +253,9 @@ function llegadaTipoHabitacion(data) {
                 var subtotal = "#subtotal";
                 var precio = "#precio";
                 subtotal += n;
-                n = n - 1;
                 precio += n;
+//                n = n - 1;
+                
                 var y = $(precio).text();
 
                 $(subtotal).text(x * y * cantDias);
