@@ -1086,5 +1086,166 @@ namespace Stardust.Models
             }
         }
 
+        public List<TipoHabitacionXHotelXTemporadaViewModelList> getTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                //lista de Tipos de Habitacion por Hotel por Temporada
+                List<TipoHabitacionXHotelXTemporadaViewModelList> lstTHXHXT_VML = new List<TipoHabitacionXHotelXTemporadaViewModelList>();
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacionXHotelXTemporada A, Temporada B " +
+                                    " WHERE A.idTemporada = B.idTemporada AND A.idHotel = @idHotel AND A.idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", idTipoHabitacion);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        TipoHabitacionXHotelXTemporadaViewModelList temporada_tipoHabitacion = new TipoHabitacionXHotelXTemporadaViewModelList();
+
+                        temporada_tipoHabitacion.idTemporada = Convert.ToInt32(objReader["idTemporada"]);
+                        temporada_tipoHabitacion.nombre = Convert.ToString(objReader["nombre"]);
+                        temporada_tipoHabitacion.descripcion = Convert.ToString(objReader["descripcion"]);
+                        temporada_tipoHabitacion.fechaIni = Convert.ToDateTime(objReader["fechaIni"]);
+                        temporada_tipoHabitacion.fechaFin = Convert.ToDateTime(objReader["fechaFin"]);
+                        temporada_tipoHabitacion.porcDescuento = Convert.ToInt32(objReader["porcDescuento"]);
+
+                        lstTHXHXT_VML.Add(temporada_tipoHabitacion);
+                    }
+                }
+
+                return lstTHXHXT_VML;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTipoHabitacionXHotelXTemporada(EXCEPTION)", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public List<TemporadaBean> getTemporadas()
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                List<TemporadaBean> lstTemporada = new List<TemporadaBean>();
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM Temporada";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        TemporadaBean tipoHabitacionAux = new TemporadaBean();
+
+                        tipoHabitacionAux.idTemporada = Convert.ToInt32(objReader["idTemporada"]);
+                        tipoHabitacionAux.nombre = Convert.ToString(objReader["nombre"]);
+                        tipoHabitacionAux.descripcion = Convert.ToString(objReader["descripcion"]);
+                        tipoHabitacionAux.fechaIni = Convert.ToDateTime(objReader["fechaIni"]);
+                        tipoHabitacionAux.fechaFin = Convert.ToDateTime(objReader["fechaFin"]);
+
+                        lstTemporada.Add(tipoHabitacionAux);
+                    }
+                }
+                return lstTemporada;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTemporadas(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public bool existeTipoHabitacion_Hotel_Temporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacionXHotelXTemporada " +
+                    "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion AND idTemporada = @idTemporada";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", thXhXtemporada.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", thXhXtemporada.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@idTemporada", thXhXtemporada.idTemporada);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                return objReader.HasRows;
+            }
+            catch (Exception ex)
+            {
+                log.Error("existeTipoHabitacion_Hotel_Temporada(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public void registrarTipoHabitacion_Hotel_Temporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "INSERT INTO TipoHabitacionXHotelXTemporada (idHotel, idTipoHabitacion, idTemporada, porcDescuento)" +
+                                " VALUES (@idHotel, @idTipoHabitacion, @idTemporada, @porcDescuento)";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", thXhXtemporada.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", thXhXtemporada.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@idTemporada", thXhXtemporada.idTemporada);
+                Utils.agregarParametro(objQuery, "@porcDescuento", thXhXtemporada.porcDescuento);
+
+                objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("registrarTipoHabitacion_Hotel_Temporada(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+
+                }
+            }
+        }
     }
 }
