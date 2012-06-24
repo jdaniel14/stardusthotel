@@ -174,8 +174,8 @@ namespace Stardust.Models
 
             for (int i = 0; i < serv.listServHot.Count; i++)
             {
-
-                string commandString = "UPDATE ServicioXHotel SET precio = " + serv.listServHot[i].precio +
+               
+                string commandString = "UPDATE ServicioXHotel SET precioBase = " + serv.listServHot[i].precio +
                                 " WHERE idHotel = " + idhotel + "AND idServicio = " + serv.listServHot[i].id;
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
