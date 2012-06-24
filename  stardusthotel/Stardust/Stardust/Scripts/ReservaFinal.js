@@ -193,6 +193,10 @@ function enviarDatos() {
    var suma = $("#Total").text();
    var passw = $("#password").get(0).value;
 
+   if (siloEs == 1) {
+       registrar = 3;
+   }
+
    var Hotel = SendHotel;
    var clientexD = {
             tipoDoc:tipoDocu,
@@ -205,36 +209,23 @@ function enviarDatos() {
             nroTarj:numTarjeta
     }
 
-    var DatosReserva = {
-        tipoRegistro: registrar,
+    var DatosReserva = {        
         idHotel: Hotel,
-        client:clientexD
-//         [
-//            tipoDoc:tipoDocu,
-//            nroDoc:nDoc,
-//            nomb:nombreEnvio,
-//            apell:apellido,
-//            email:email2,
-//            telf:telefono,
-//            tipoTarj:tipoDeTarjeta,
-//            nroTarj:numTarjeta
-//        ]
-        ,
+        client:clientexD,
         listTip:listaTipos,
         fechaIni:fechaLlegada,
         fechaFin:fechaSalida,
         coment:comentario,
         rec:checkeado,
-        //datRec:[
-            hrLleg:horaLlegada,
-            aero:aerop,
-            vuel:numVuelo,
-            nroPer:numPersonas,
-        //]        
+        hrLleg:horaLlegada,
+        aero:aerop,
+        vuel:numVuelo,
+        nroPer:numPersonas,       
         total: suma,
         pass:passw,        
-        idUsuario:idUser
-    };
+        idUsuario:idUser,
+        tipoRegistro : registrar
+    }
     var jsonData = JSON.stringify(DatosReserva);
     
     
@@ -260,9 +251,9 @@ function finRes(data) {
     console.log(data.me);
 
     if (data.me == "") {
-        mostrarError('OK');
+        
         console.log("se hizo");
-        $(location).attr('href', '../');
+        mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
     else {
         mostrarError(data.me);

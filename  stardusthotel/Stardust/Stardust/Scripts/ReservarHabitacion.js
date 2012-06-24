@@ -1,4 +1,4 @@
-﻿
+﻿var siloEs;
 
 var arreglosId = new Array();
 var arreglosHabit = new Array();
@@ -94,11 +94,70 @@ function inicializarEventos() {
 
 function IniciarValidacionEvento() {
     if ($("#idEvento").get(0).value != "") {
+
+        var enviarInvit = $("#idEvento").get(0).value;
+        var enviarsela = {
+            idInvitado: enviarInvit            
+        }
+        var jsonData = JSON.stringify(enviarsela);
+        //alert'ant');
+        console.log(jsonData);
+        //alert('desp');
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            statusCode: {
+                500: function () {
+                    $("#espera").dialog("destroy");
+                    mostrarError("Error inesperado... intentelo mas tarde :)");
+                    $("#idEvento").attr("value", "");
+                    $("#EventoIncorrecto").hide("slow");
+                    $("#EventoCorrecto").hide("slow");
+                }
+            },
+            contentType: "application/json; charset=utf-8",
+            url: "ReservarHabitacion/consultarDisponibles",
+            beforeSend: esperaValidacion(),
+            success: llegadaValidacion
+
+        });
+        
+
+
+
     }
     else {
         mostrarError("Campo no puede ser nulo");
     }
 }
+
+function esperaValidacion() {
+}
+
+function llegadaValidacion(data) {
+    if (data.me = "") {
+        $("#EventoIncorrecto").hide("slow");
+        $("#EventoCorrecto").show("slow");
+        var miValue = data.tipoDocumento
+        $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
+        $("#ComboCliente").trigger('change');
+        $("#nDoc").attr("value", data.nroDocumento);
+        $("#nombreDReserva").attr("value", data.nombres);
+        $("#ComboCliente").hide();
+        $("#obtenerPass").hide();
+        $("#nDoc").attr("readonly", "readonly");
+        $("#nombreDReserva").attr("readonly", "readonly");
+        soloEs = 1;
+    }
+    else {
+        mostrarError(data.me);
+        $("#EventoIncorrecto").show("slow");
+        $("#EventoCorrecto").hide("slow");
+        siloEs = 0;
+    }
+}
+
 
 
 function esperarHoteles() {
