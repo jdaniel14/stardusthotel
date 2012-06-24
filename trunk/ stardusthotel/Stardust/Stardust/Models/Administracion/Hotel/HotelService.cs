@@ -18,9 +18,18 @@ namespace Stardust.Models
             return hotelDAO.getHoteles();
         }
 
+        public ServicioXHotelBean obtenerlista(int idhotel)
+        {
+            return hotelDAO.obtenerlistaservicios(idhotel);
+        }
+
         public List<HotelBean> getHotelesActivos()
         {
             return hotelDAO.getHotelesActivos();
+        }
+        public void AsignarServiciosXHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelDAO.InsertarHotelxServicio(idhotel, serv);
         }
 
         public void registrarHotel(HotelBean hotel){
@@ -36,7 +45,10 @@ namespace Stardust.Models
             hotelDAO.desactivarHotel(id);
         }
 
-        
+        public List<HotelBean> ListarHotel(String Nombre)
+        {
+            return hotelDAO.ListarHotel(Nombre);
+        }
 
         //Parte para dar información antes de desactivar un Hotel
         //--------------------------------------------------------
