@@ -53,9 +53,13 @@ namespace Stardust.Controllers
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
             ServiciosBean item = servicioFacade.GetServicio(id);
+            
+
             if (item.estado1 == 1) item.estado2 = "Evento";
             else if (item.estado1 == 2) item.estado2 = "Habitación";
             else if(item.estado1 == 3) item.estado2 = "Otros";
+            if (item.estado3 ==0 ) item.estado="ACTIVO";
+            else if (item.estado3 == 1) item.estado = "INACTIVO";
             return View(item);
         }
 
@@ -63,12 +67,29 @@ namespace Stardust.Controllers
         public ActionResult ModificarServicio(ServiciosBean item)
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
+            if (item.estado == "ACTIVO") item.estado3 = 0;
+            else  if (item.estado == "INACTIVO") item.estado3 = 1;
 
             if (item.estado2 == "Evento") item.estado1 = 1;
             else if (item.estado2 == "Habitación") item.estado1 = 2;
             else if (item.estado2=="Otros") item.estado1 = 3;
             servicioFacade.ActualizarServicio(item);
-            return RedirectToAction("BuscarServicio");
+            if (item.estado == "ACTIVO")
+                return RedirectToAction("DetallesServicio/" + item.id, "Servicios");
+            else return RedirectToAction("BuscarServicio", "Servicios");
+            
+        }
+
+        public ActionResult DetallesServicio(int ID)
+        {
+            ServiciosFacade servicioFacade = new ServiciosFacade();
+            ServiciosBean item = servicioFacade.GetServicio(ID);
+            if (item.estado1 == 1) item.estado2 = "Evento";
+            else if (item.estado1 == 2) item.estado2 = "Habitación";
+            else if (item.estado1 == 3) item.estado2 = "Otros";
+
+
+            return View(item);
         }
 
         //public ActionResult EliminarServicio(int id)
@@ -95,11 +116,33 @@ namespace Stardust.Controllers
             //return RedirectToAction("Buscar");
             return Json(new { me = "" });
         }
+        public ActionResult BuscarServicio()
+        {
+            List<ServiciosBean> serv = new List<ServiciosBean>();
+            ViewBag.estado = 0;
+            return View(serv);
 
+        }
+
+        [HttpPost]
         public ActionResult BuscarServicio(String nombre)
         {            
             ServiciosFacade serviciosFacade = new ServiciosFacade();
-            return View( serviciosFacade.ListarServicios(nombre));
+            
+                
+            List<ServiciosBean> listaServicios = serviciosFacade.ListarServicio(nombre);
+            for (int i = 0; i < listaServicios.Count; i++)
+            {
+                if (listaServicios[i].estado1 == 1) listaServicios[i].estado2 = "Evento";
+                else if (listaServicios[i].estado1 == 2) listaServicios[i].estado2 = "Habitación";
+                else if (listaServicios[i].estado1 == 3) listaServicios[i].estado2 = "Otros";
+
+
+            }
+            ViewBag.estado = 1;
+
+
+            return View(listaServicios);
         }
 
                 
