@@ -140,7 +140,7 @@ function enviarDatos() {
         telefono = $("#telefNatural").get(0).value;
         tipoDeTarjeta = $("#tipoTarjeta").val();
         numTarjeta = $("#nTarjetaNatural").get(0).value;
-        comentario = $("#commentN").get(0).value;
+        comentario = $("#comment").get(0).value;
     }
 
     var nDoc = $("#nDoc").get(0).value;    
