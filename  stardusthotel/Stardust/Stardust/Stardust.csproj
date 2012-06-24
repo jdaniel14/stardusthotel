@@ -4544,6 +4544,7 @@
     <Content Include="Views\Servicios\Details.cshtml" />
     <Content Include="Views\ServiciosReportes\ReporteCliente.cshtml" />
     <Content Include="Views\ServiciosReportes\ReporteHabitaciones.cshtml" />
+    <Content Include="Views\PagoClientes\Documento.cshtml" />
     <Content Include="Views\Hotel\EditTipoHabitacionXHotel.cshtml" />
   </ItemGroup>
   <ItemGroup>
