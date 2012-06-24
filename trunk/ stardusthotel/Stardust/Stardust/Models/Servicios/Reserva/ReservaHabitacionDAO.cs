@@ -289,7 +289,9 @@ namespace Stardust.Models.Servicios
             }
             if (dataReaderUser.Read())
             {
+                
                 int count = (int)dataReaderUser["res"];
+                dataReaderUser.Close();
                 if (count == 0)
                 {
                     string commandString3 = "INSERT INTO Usuario VALUES (1," +
@@ -376,10 +378,11 @@ namespace Stardust.Models.Servicios
                 {
                     usuario.me = "El correo ya se encuentra registrado.";
                 }
+                
             }
             else {
                 usuario.me = "Error en Lectura";
-            }
+            }            
             return usuario;
         }
 
@@ -579,8 +582,8 @@ namespace Stardust.Models.Servicios
                 for (int j = 0; j < listTip[i].cant; j++) {
                     int hab = listTip[i].list[j].idHab;
 
-                    String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),"+idHotel+")";
-                   System.Diagnostics.Debug.WriteLine("query--> " + query);
+                    String query = "INSERT INTO ReservaXHabitacion VALUES (" + idReserva + "," + hab + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103), 1,"+idHotel+")";
+                    System.Diagnostics.Debug.WriteLine("query--> " + query);
                     SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                     sqlCmd.ExecuteNonQuery();
 
