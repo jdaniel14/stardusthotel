@@ -165,6 +165,27 @@ namespace Stardust.Models
             return serv;
         }
 
+        public void ActualizarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            sqlCon.Open();
+
+            for (int i = 0; i < serv.listServHot.Count; i++)
+            {
+
+                string commandString = "UPDATE ServicioXHotel SET precio = " + serv.listServHot[i].precio +
+                                " WHERE idHotel = " + idhotel + "AND idServicio = " + serv.listServHot[i].id;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+            }
+
+            sqlCon.Close();
+        }
+
         public List<HotelBean> getHoteles()
         {
             SqlConnection objDB = null;
