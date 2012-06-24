@@ -271,14 +271,14 @@ namespace Stardust.Controllers
             {
                 Horario horario = empleadoFac.getHorario(id);
                 var model = horario;
-                ViewBag.idhorario = horario.ID;
+               
                 return View(model);
             }
             
             catch{
-                Horario horario = empleadoFac.getHorario(id);
+                
                 ViewBag.error = "Error al intentar cargar la data";
-                ViewBag.idhorario = horario.ID;
+               
                return View();
             }
         }
@@ -293,6 +293,7 @@ namespace Stardust.Controllers
             DateTime fin = horario.fechaFinHorario;
             try
             {
+
                 if (ini <= fin)
                 {
                     int resp = empleadoFac.modificarHorario(horario);
@@ -463,9 +464,8 @@ namespace Stardust.Controllers
             catch {
 
                 ViewBag.error = "Error al intentar cargar la data";
-                EmpleadoFacade empleadofac = new EmpleadoFacade();
-                var model = empleadofac.gethorarioDetalle(id);
-                return View(model);
+                
+                return View();
               
             }
         }
