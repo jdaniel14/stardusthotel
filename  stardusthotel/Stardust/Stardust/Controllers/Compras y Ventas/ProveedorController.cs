@@ -198,10 +198,10 @@ namespace Stardust.Controllers
                 List<ProductoBean> productos = proveedorFacade.ListarProducto(prod.listProdProv[i].nombre);
                 prod.listProdProv[i].ID = productos[0].ID;
             }
-            for (int i = 0; i < prod.listProdProv.Count; i++)
-            {
-                prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) ;
-            }
+            //for (int i = 0; i < prod.listProdProv.Count; i++)
+            //{
+            //    prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2);
+            //}
             proveedorFacade.RegistrarproductosxProveedor(idproveedor, prod);
 
             return RedirectToAction("ListarProductos/"+idproveedor, "Proveedor"); 
@@ -211,17 +211,33 @@ namespace Stardust.Controllers
         {
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
-            
+
+            ProductoxProveedorBean producto = proveedorFacade.obtenerlista(idproveedor);
+            for (int i = 0; i < producto.listProdProv.Count(); i++)
+            {
+                for (int j = 0; j < prod.listProdProv.Count; j++)
+                {
+                    if (prod.listProdProv[j].ID == producto.listProdProv[i].ID)
+                    {
+                        prod.listProdProv[j].precio = producto.listProdProv[i].precio;
+
+                    }
+
+                }
+
+            }
+
+            //prod.listProdProv = producto.listProdProv;
             return View(prod);
         }
         public ActionResult Guardarproductos2(ProductoxProveedorBean prod)
         {
             List<ProveedorBean> proveedor = proveedorFacade.ListarProveedor(prod.Proveedor, "");
             int idproveedor = proveedor[0].ID;
-            for (int i = 0; i < prod.listProdProv.Count; i++)
-            {
-                prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) / 100;
-            }
+            //for (int i = 0; i < prod.listProdProv.Count; i++)
+            //{
+            //    prod.listProdProv[i].precio = Convert.ToDecimal(prod.listProdProv[i].precio2) ;
+            //}
             proveedorFacade.ModificarproductosxProveedor(idproveedor, prod);
             return RedirectToAction("ListarProductos/" + idproveedor, "Proveedor"); 
         }
