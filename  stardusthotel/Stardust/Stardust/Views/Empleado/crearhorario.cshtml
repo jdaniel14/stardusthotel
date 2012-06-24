@@ -15,12 +15,12 @@
     </div>
 }
 
-@using (Html.BeginForm("crearhorario", "Empleado", FormMethod.Post, new { @class = "form", id = "validate" }))
+@using (Html.BeginForm("CrearHorario", "Empleado", FormMethod.Post, new { @class = "form" }))
 {
     @Html.ValidationSummary(false)
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6>Crear Horario</h6></div>
+            <div class = "title" ><h6>Crear Nuevo Horario</h6></div>
 
             @*<div class = "formRow" >
                 @Html.LabelFor( model => model.nombreEmpleado )
@@ -28,10 +28,10 @@
                 <div class = "clear" ></div>
             </div>*@
 
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.nombreEmpleado )
+            <div class = "formRow" style= " display:none">
+                @Html.LabelFor( model => model.idEmpleado )
                  
-                <div class = "formRight" > @Html.DropDownListFor(model => model.idEmpleado, new SelectList(ViewBag.empleados, "ID", "nombreEmpleado"), "Elija un empleado... ") </div>
+                <div class = "formRight" > @Html.TextBoxFor(model => model.idEmpleado) </div>
                 <div class = "clear" ></div>
             </div>
 
@@ -50,16 +50,11 @@
 
         </div>
         <p>
-            <input class = "redB" type="submit" value=" Siguiente " />
+            <input class = "redB" type="submit" value="Crear" />
         </p>
     </fieldset>
 }
+<p></p><p></p>
+<a href="@Url.Action("ListHorario", new { id = ViewBag.idhorario })"><img src="../../Content/images/icons/dark/pin.png", alt="Edit" />Regresar </a>
+<p></p><p></p><p></p><p></p><p></p>
 
-<div>
-    @Html.ActionLink("Regresar", "List")
-</div>
-<p></p><p></p><p></p><p></p><p></p><p></p><p></p>
-
-<div>
-    @Html.ActionLink("Regresar", "List")
-</div>

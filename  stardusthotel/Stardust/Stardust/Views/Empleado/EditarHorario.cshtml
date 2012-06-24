@@ -53,6 +53,5 @@
     </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Regresar", "List" )
-</div>
+
+<a href="@Url.Action("ListHorario", new { id = ViewBag.idhorario })"><img src="../../Content/images/icons/dark/pin.png", alt="Edit" />Regresar </a>
