@@ -29,7 +29,7 @@ namespace Stardust.Controllers
         {
             try
             {
-                return View(tipoFac.getTipo(id));
+                return View(tipoFac.getTipoHabitacion(id));
             }
             catch {
                 ViewBag.results = "Ocurrió un error al intentar cargar el tipo de habitación";
@@ -70,7 +70,7 @@ namespace Stardust.Controllers
         {
             try
             {
-                return View(tipoFac.getTipo(id));
+                return View(tipoFac.getTipoHabitacion(id));
             }
             catch {
                 ViewBag.results = "Ocurrió un error al intentar cargar el tipo de habitación";
@@ -102,7 +102,7 @@ namespace Stardust.Controllers
         {
             try
             {
-                return View(tipoFac.getTipo(id));
+                return View(tipoFac.getTipoHabitacion(id));
             }
             catch {
                 ViewBag.results = "Ocurrió un error al intentar cargar el tipo de habitación";
