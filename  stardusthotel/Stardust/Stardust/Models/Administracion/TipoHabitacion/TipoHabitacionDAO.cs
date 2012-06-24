@@ -40,10 +40,10 @@ namespace Stardust.Models
 
                 return tipoHabitacion;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                log.Error("", ex);
-                throw ex;
+                log.Error("getTipoHabitacion(EXCEPTION): " + e);
+                throw e;
             }
             finally
             {
@@ -64,7 +64,7 @@ namespace Stardust.Models
                 List<TipoHabitacionBean> listaTipoHabitacion = new List<TipoHabitacionBean>();
 
                 objDB.Open();
-                String strQuery =   "SELECT A.* " +
+                String strQuery = "SELECT A.* " +
                                     "FROM TipoHabitacion A, TipoHabitacionXHotel B " +
                                     "WHERE A.idTipoHabitacion = B.idTipoHabitacion and B.idHotel = @idHotel";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
@@ -87,6 +87,10 @@ namespace Stardust.Models
                 // en caso de no leer tipos de habitaciones, devolverla una lista vacia
                 return listaTipoHabitacion;
             }
+            catch (Exception e) {
+                log.Error("getTipoHabitacionXHotel(EXCEPTION): " + e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -105,15 +109,18 @@ namespace Stardust.Models
 
                 sql.Open();
 
-                    String command = "Insert into TipoHabitacion ( nombre , descripcion ) values ('" +
-                                        tipo.nombre + "', '" +
-                                        tipo.descripcion + "')";
+                String command = "Insert into TipoHabitacion ( nombre , descripcion ) values ('" +
+                                    tipo.nombre + "', '" +
+                                    tipo.descripcion + "')";
 
-                    SqlCommand query = new SqlCommand(command, sql);
+                SqlCommand query = new SqlCommand(command, sql);
 
-                    query.ExecuteNonQuery();
+                query.ExecuteNonQuery();
 
                 sql.Close();
+            }
+            catch (Exception e) {
+                log.Error("registrarTipoHabitacion(EXCEPTION): " + e);
             }
             finally {
                 if (sql != null) sql.Close();
@@ -129,15 +136,18 @@ namespace Stardust.Models
 
                 sql.Open();
 
-                    String command = "Update TipoHabitacion SET " +
-                                        "nombre = '" + tipo.nombre + "', " +
-                                        "descripcion = '" + tipo.descripcion + "' " +
-                                        "where idTipoHabitacion = " + tipo.ID;
-                    SqlCommand query = new SqlCommand(command, sql);
+                String command = "Update TipoHabitacion SET " +
+                                    "nombre = '" + tipo.nombre + "', " +
+                                    "descripcion = '" + tipo.descripcion + "' " +
+                                    "where idTipoHabitacion = " + tipo.ID;
+                SqlCommand query = new SqlCommand(command, sql);
 
-                    query.ExecuteNonQuery();
+                query.ExecuteNonQuery();
 
                 sql.Close();
+            }
+            catch (Exception e) {
+                log.Error("actualizarTipoHabitacion(EXCEPTION): " + e);               
             }
             finally {
                 if (sql != null) sql.Close();
@@ -153,13 +163,16 @@ namespace Stardust.Models
 
                 sql.Open();
 
-                    String command = "Delete from TipoHabitacion where idTipoHabitacion = " + id;
+                String command = "Delete from TipoHabitacion where idTipoHabitacion = " + id;
 
-                    SqlCommand query = new SqlCommand(command, sql);
+                SqlCommand query = new SqlCommand(command, sql);
 
-                    query.ExecuteNonQuery();
+                query.ExecuteNonQuery();
 
                 sql.Close();
+            }
+            catch (Exception e) {
+                log.Error("eliminarTipoHabitacion(EXCEPTION): " + e);
             }
             finally {
                 if (sql != null) sql.Close();
@@ -174,27 +187,31 @@ namespace Stardust.Models
 
                 sql.Open();
 
-                    String command = "Select * from TipoHabitacion";
-                    SqlCommand query = new SqlCommand(command, sql);
+                String command = "Select * from TipoHabitacion";
+                SqlCommand query = new SqlCommand(command, sql);
 
-                    SqlDataReader data = query.ExecuteReader();
+                SqlDataReader data = query.ExecuteReader();
 
-                    List<TipoHabitacionBean> lista = new List<TipoHabitacionBean>();
+                List<TipoHabitacionBean> lista = new List<TipoHabitacionBean>();
 
-                    while (data.Read())
-                    {
-                        TipoHabitacionBean tipo = new TipoHabitacionBean();
+                while (data.Read())
+                {
+                    TipoHabitacionBean tipo = new TipoHabitacionBean();
 
-                        tipo.ID = (int)data.GetValue(0);
-                        tipo.nombre = (string)data.GetValue(1);
-                        tipo.descripcion = (string)data.GetValue(2);
+                    tipo.ID = (int)data.GetValue(0);
+                    tipo.nombre = (string)data.GetValue(1);
+                    tipo.descripcion = (string)data.GetValue(2);
 
-                        lista.Add(tipo);
-                    }
+                    lista.Add(tipo);
+                }
 
                 sql.Close();
 
                 return lista;
+            }
+            catch (Exception e) {
+                log.Error("listarTipoHabitacion(EXCEPTION): " + e);
+                throw (e);
             }
             finally {
                 if (sql != null) sql.Close();

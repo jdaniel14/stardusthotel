@@ -5,12 +5,14 @@ using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using log4net ;
 
 namespace Stardust.Models
 {
     public class HabitacionDAO
     {
         String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        private static ILog log = LogManager.GetLogger(typeof(HabitacionDAO));
         
         public HabitacionBean getHabitacion(int id) {
             SqlConnection objDB = null;
@@ -41,11 +43,11 @@ namespace Stardust.Models
                 }
                 return habitacion;
             }
-            //catch (Exception ex)
-            //{
-            //    log.Error("Errror getHabitacion, ex");
-            //    de ser necesario throw ex;
-            //}
+            catch (Exception e)
+            {
+                log.Error("getHabitacion(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -78,6 +80,9 @@ namespace Stardust.Models
                 objQuery.ExecuteNonQuery();
                 objDB.Close();
             }
+            catch (Exception e) {
+                log.Error("registrarHabitacion(EXCEPTION): ", e);
+            }
             finally
             {
                 if (objDB != null)
@@ -93,9 +98,7 @@ namespace Stardust.Models
             {
                 objDB = new SqlConnection(cadenaDB);
                 objDB.Open();
-
                 
-
                 String strQuery = "UPDATE Habitacion SET " +
                                     "piso = @piso," +
                                     "estado = @estado," +
@@ -116,6 +119,9 @@ namespace Stardust.Models
                 DAO.agregarParametro(objQuery, "idHabitacion", habitacion.ID);
 
                 objQuery.ExecuteNonQuery();
+            }
+            catch (Exception e) {
+                log.Error("actualizarHabitacion(EXCEPTION): ", e);
             }
             finally
             {
@@ -140,6 +146,9 @@ namespace Stardust.Models
 
                 objQuery.ExecuteNonQuery();
             }
+            catch (Exception e) {
+                log.Error("eliminarHabitacion(EXCEPTION): ", e);
+            }
             finally
             {
                 if (objDB != null)
@@ -157,8 +166,8 @@ namespace Stardust.Models
                 List<HabitacionBean> lstHabitaciones = null;
 
                 objDB.Open();
-                String strQuery =   "SELECT A.*, B.nombre, C.nombre " +
-                                    "FROM Habitacion A, Hotel B, TipoHabitacion C " + 
+                String strQuery = "SELECT A.*, B.nombre, C.nombre " +
+                                    "FROM Habitacion A, Hotel B, TipoHabitacion C " +
                                     "WHERE A.idHotel = B.idHotel and A.idTipoHabitacion = C.idTipoHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
 
@@ -182,12 +191,15 @@ namespace Stardust.Models
                         habitacion.idTipoHabitacion = (int)objDataReader.GetValue(7);
                         habitacion.nombreHotel = this.getNombreHotel(habitacion.idHotel);
                         habitacion.nombreTipoHabitacion = this.getTipoHabitacion(habitacion.idTipoHabitacion);
-                        
+
                         lstHabitaciones.Add(habitacion);
                     }
                 }
 
                 return lstHabitaciones;
+            }
+            catch (Exception e) {
+                log.Error("listarHabitaciones(EXCEPTION): ", e);
             }
             finally
             {
@@ -199,14 +211,17 @@ namespace Stardust.Models
         }
 
         public List<HabitacionBean> buscarHabitacion(int idTipoHabitacion, int nroCamas , int piso) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null ;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                sql.Open();
 
                 String command = "Select * from Habitacion WHERE nroCamas >= @nroCamas AND piso >= @piso";
-                
 
-                
+
+
                 if (idTipoHabitacion != 0)
                 {
                     command += " AND idTipoHabitacion = @idTipoHabitacion ";
@@ -224,10 +239,11 @@ namespace Stardust.Models
                 }
 
                 SqlDataReader data = query.ExecuteReader();
-            
+
                 List<HabitacionBean> lista = new List<HabitacionBean>();
 
-                while (data.Read()) {
+                while (data.Read())
+                {
                     HabitacionBean habitacion = new HabitacionBean();
 
                     habitacion.ID = Convert.ToInt32(data["idHabitacion"]);
@@ -244,16 +260,28 @@ namespace Stardust.Models
                     lista.Add(habitacion);
                 }
 
-            sql.Close();
+                sql.Close();
 
-            return lista;
+                return lista;
+            }
+            catch (Exception e)
+            {
+                log.Error("eliminarAlmacen(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public String getNombreHotel(int id)
         {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null ;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                sql.Open();
 
                 String command = "Select nombre from Hotel where idHotel = " + id;
 
@@ -265,17 +293,28 @@ namespace Stardust.Models
 
                 String hotel = (string)data.GetValue(0);
 
-            sql.Close();
+                sql.Close();
 
-            return hotel;
+                return hotel;
+            }
+            catch (Exception e)
+            {
+                log.Error("getNombreHotel(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public String getTipoHabitacion(int id)
         {
+            SqlConnection sql = null;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            SqlConnection sql = new SqlConnection(cadenaDB);
-
-            sql.Open();
+                sql.Open();
 
                 String command = "Select nombre from TipoHabitacion where idTipoHabitacion = " + id;
 
@@ -287,50 +326,18 @@ namespace Stardust.Models
 
                 String tipoHabitacion = (string)data.GetValue(0);
 
-            sql.Close();
+                sql.Close();
 
-            return tipoHabitacion;
+                return tipoHabitacion;
+            }
+            catch (Exception e)
+            {
+                log.Error("getTipoHabitacion(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
-
-        //public int getIdHotel(String nombre) {
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
-
-        //    sql.Open();
-
-        //        String command = "Select idHotel from Hotel where nombre = '" + nombre  + "'" ;
-
-        //        SqlCommand query = new SqlCommand(command, sql);
-
-        //        SqlDataReader data = query.ExecuteReader();
-
-        //        data.Read();
-
-        //        int idHotel = (int)data.GetValue(0);
-
-        //    sql.Close();
-
-        //    return idHotel;
-        //}
-
-        //public int getIdTipoHabitacion(String nombre)
-        //{
-        //    SqlConnection sql = new SqlConnection(cadenaDB);
-
-        //    sql.Open();
-
-        //        String command = "Select idTipoHabitacion from TipoHabitacion where nombre = '" + nombre + "'" ;
-
-        //        SqlCommand query = new SqlCommand(command, sql);
-
-        //        SqlDataReader data = query.ExecuteReader();
-
-        //        data.Read();
-
-        //        int idTipoHabitacion = (int)data.GetValue(0);
-
-        //    sql.Close();
-
-        //    return idTipoHabitacion;
-        //}
     }
 }
