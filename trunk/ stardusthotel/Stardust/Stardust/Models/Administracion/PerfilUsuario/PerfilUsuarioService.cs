@@ -28,5 +28,9 @@ namespace Stardust.Models
         public void eliminarPerfil(int id) {
             perfilDAO.eliminarPerfil(id);
         }
+
+        public int getPerfilID(string nombre) {
+            return perfilDAO.getPerfilID(nombre);
+        }
     }
 }

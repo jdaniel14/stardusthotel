@@ -166,5 +166,32 @@ namespace Stardust.Models
                 if (sql != null) sql.Close();
             }
         }
+
+        public int getPerfilID( string nombre ){
+            SqlConnection sql = null ;
+
+            try{
+                sql = new SqlConnection( cadenaDB ) ;
+
+                String command = "Select * from PerfilUsuario WHERE nombre = @nombre" ;
+
+                SqlCommand query = new SqlCommand( command , sql ) ;
+
+                Utils.agregarParametro( query , "nombre" , nombre ) ;
+
+                SqlDataReader data =  query.ExecuteReader() ;
+
+                if( data.HasRows ){
+                    data.Read() ;
+                    return Convert.ToInt32( data[ "idPerfilUsuario" ] ) ;
+                }
+                return -1 ;
+            }catch( Exception e ){
+                log.Error( "getPerfilID(EXCEPTION): " , e ) ;
+                throw (e);
+            }finally{
+                if( sql != null ) sql.Close() ;
+            }
+        }
     }
 }
