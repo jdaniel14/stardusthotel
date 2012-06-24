@@ -36,6 +36,73 @@ namespace Stardust.Models
             return id;
         }
 
+        public ReservaCheckOut GetReserva2(int id)
+        {
+            ReservaCheckOut reserva = new ReservaCheckOut();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Reserva WHERE estado = 4 AND idReserva = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            DateTime fechaIni = new DateTime();
+            DateTime fechaHoy = DateTime.Now;
+
+            if (dataReader.Read())
+            {
+                reserva.id = (int)dataReader["idReserva"];
+                fechaIni = (DateTime)dataReader["fechaLlegada"];
+                reserva.fechaIni = fechaIni.ToString("dd-MM-yyyy");
+                reserva.fechaFin = ((DateTime)dataReader["fechaSalida"]).ToString("dd-MM-yyyy");
+                reserva.fechaHoy = fechaHoy.ToString("dd-MM-yyyy");
+                int idU = (int)dataReader["idUsuario"];
+                UsuarioBean usuario = GetNombreUsuario(idU);
+                reserva.tipoDoc = usuario.tipoDocumento;
+                reserva.dni = usuario.nroDocumento;
+                reserva.nombre = usuario.nombres;
+            }
+
+            dataReader.Close();
+
+            if (fechaIni <= fechaHoy)
+            {
+                commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + id;
+
+                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                TimeSpan dias = fechaHoy - fechaIni;
+
+                int idDoc = 0;
+
+                if (dataReader2.Read())
+                {
+                    reserva.faltante = (decimal)dataReader2["montoFaltante"];
+                    reserva.idDocPago = (int)dataReader2["idDocPago"];
+                    idDoc = (int)dataReader2["idDocPago"];
+                }
+
+                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days);
+
+                for (int i = 0; i < reserva.listaDetalles.Count; i++)
+                    reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
+
+                reserva.IGV = reserva.subTotal * 18 / 100;
+                reserva.total = reserva.IGV + reserva.subTotal;
+
+                reserva.montPagado = reserva.total - reserva.faltante;
+
+                sqlCon.Close();
+            }
+
+            return reserva;
+        }
+
         public ReservaCheckOut GetReserva(int id)
         {
             ReservaCheckOut reserva = new ReservaCheckOut();
@@ -143,6 +210,8 @@ namespace Stardust.Models
                 mensaje.me = ActualizarHabitacion(id);
 
                 mensaje.me = ActualizarPagoDetalle(reserva.listaDetalles);
+
+                mensaje.id = id;
                 
                 return mensaje;
             }
@@ -170,7 +239,7 @@ namespace Stardust.Models
                     sqlCmd.ExecuteNonQuery();
                 }
 
-                return "Se registro satisfactoriamente";
+                return "";
             }
             catch (Exception e)
             {
@@ -194,7 +263,7 @@ namespace Stardust.Models
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
 
-                return mensaje = "Se registro satsfactoriamente";
+                return mensaje = "";
             }
             catch(Exception e)
             {
@@ -588,6 +657,10 @@ namespace Stardust.Models
                 fechaI = DateTime.ParseExact(fechaIni,"dd-MM-yyyy",null);
                 fechaF = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
 
+                TimeSpan dif = fechaF - fechaI;
+
+                int dias = dif.Days;
+
                 string commandString = "SELECT * FROM Habitacion WHERE idHotel = " + idHotel + " ORDER BY idHabitacion";
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -595,22 +668,30 @@ namespace Stardust.Models
 
                 List<ListaHabitacionEstado> listaDetalle = new List<ListaHabitacionEstado>();
 
-                while (dataReader.Read())
+                for (int i = 0; i < dias; i++)
                 {
-                    ListaHabitacion hab = new ListaHabitacion();
-                    hab.idHabit = (int)dataReader["idHabitacion"];
-                    int idTipo = (int)dataReader["idTipoHabitacion"];
-
-                    commandString = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = " + idTipo;
-
-                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-                    SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
-
-                    if (dataReader2.Read())
-                        hab.nHabit = (string)dataReader2["nombre"];
-
-                    listaHab.Add(hab);
+                    ListaHabitacionEstado estado = new ListaHabitacionEstado();
+                    estado.idReserva = 0;
+                    estado.estado = "Libre";
+                    listaDetalle.Add(estado);
                 }
+
+                    while (dataReader.Read())
+                    {
+                        ListaHabitacion hab = new ListaHabitacion();
+                        hab.idHabit = (int)dataReader["idHabitacion"];
+                        int idTipo = (int)dataReader["idTipoHabitacion"];
+
+                        commandString = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = " + idTipo;
+
+                        SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                        SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                        if (dataReader2.Read())
+                            hab.nHabit = (string)dataReader2["nombre"];
+
+                        listaHab.Add(hab);
+                    }
 
                 for (int i = 0; i < listaHab.Count; i++)
                 {
@@ -620,17 +701,29 @@ namespace Stardust.Models
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
                     while (dataReader2.Read())
-                    {
-                        ListaHabitacionEstado estado = new ListaHabitacionEstado();
-                        estado.idReserva = (int)dataReader2["idReserva"];
-                        estado.fechaIni = Convert.ToString(dataReader2["fechaIni"]);
-                        estado.fechaFin = Convert.ToString(dataReader2["fechaFin"]);
-                        int est = (int)dataReader2["estado"];
-                        if (est == 4)
-                            estado.estado = 1;
-                        else
-                            estado.estado = 0;
-                        listaHab.ElementAt(i).listaFechas.Add(estado);
+                    {                   
+                        DateTime fechaInicio = (DateTime)dataReader2["fechaIni"];
+                        DateTime fechaFinal = (DateTime)dataReader2["fechaFin"];
+                        TimeSpan dife = fechaI - fechaInicio;
+                        int a = dife.Days;
+                        dife = fechaI - fechaFinal;
+                        int b = dife.Days;
+                        for (int j = a; j <= b; j++)
+                        {
+                            listaHab.ElementAt(i).listaFechas.ElementAt(j).idReserva = (int)dataReader["idReserva"];
+                            int est = (int)dataReader2["estado"];
+                            switch (est)
+                            {
+                                case 1: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Por Confirmar";
+                                        break;
+                                case 2: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Confirmado";
+                                        break;
+                                case 3: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "En Curso";
+                                        break;
+                                case 4: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Libre";
+                                        break;
+                            }
+                        }                      
                     }
                 }
             }

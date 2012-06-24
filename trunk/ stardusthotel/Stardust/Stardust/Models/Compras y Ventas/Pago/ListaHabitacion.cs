@@ -7,10 +7,8 @@ namespace Stardust.Models
 {
     public class ListaHabitacionEstado
     {
-        public string fechaIni { get; set; }
-        public string fechaFin { get; set; }
         public int idReserva { get; set; }
-        public int estado { get; set; }
+        public string estado { get; set; }
     }
     public class ListaHabitacion
     {
