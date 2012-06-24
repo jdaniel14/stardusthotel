@@ -22,46 +22,51 @@ namespace Stardust.Controllers.Administracion
         [HttpPost]
         public ActionResult indice(EmpleadoBean emp)
         {
-            /*
-            try
-            {
-                
-                if (emp.Value==true)
+
+          //  try
+          //  {
+                ViewBag.empleados = empleadoFac.listarEmpleados();
+                if (emp.Value == true)
                 {
-                 
+
                     ReporteAllEmpleados reporte = new ReporteAllEmpleados();
-                      
-                       reporte.allempleados=empleadoFac.listartodoempleado();
-                       var model = reporte;
+
+                    reporte.allempleados = empleadoFac.listartodoempleado();
+                    var model = reporte;
                     return this.ViewPdf("", "ReporteAsistencia", model);
-               
+
                 }
-                else{
-                 */
-                int codigoempleado = emp.ID;
-                EmpleadoBean empleado = empleadoFac.getEmpleado(codigoempleado);
-                ReporteEmpleado RE = new ReporteEmpleado();
-                RE.empleado = empleado;
+                else
+                {
 
-                RE.horarios = empleadoFac.listarReporte(codigoempleado);
-                // var model = empleadoFac.guardartodo(codigoempleado);
+                    int codigoempleado = emp.ID;
+                    EmpleadoBean empleado = empleadoFac.getEmpleado(codigoempleado);
+                    ReporteEmpleado RE = new ReporteEmpleado();
+                    RE.empleado = empleado;
+
+                    RE.horarios = empleadoFac.listarReporte(codigoempleado);
+                    // var model = empleadoFac.guardartodo(codigoempleado);
 
 
 
-                var model = RE;
+                    var model = RE;
 
-                return this.ViewPdf("", "ReporteAsistencia1", model);
+                    return this.ViewPdf("", "ReporteAsistencia1", model);
 
-          }
-                /*
+                }
+            /*
             }
-            catch {
+            catch
+            {
+                ViewBag.empleados = empleadoFac.listarEmpleados();
                 ViewBag.error = "Error al tratar de generar el reporte -intetarlo en otro momento";
-                return View(); }
-                 */
+                return View();
+            }
+            */
         }
 
-   
+
 
 
     }
+}
