@@ -266,7 +266,7 @@ function finRes(data) {
     }
     else {
         mostrarError(data.me);
-        if (datam.me == "No se pudo enviar el email") {
+        if (data.me == "No se pudo enviar el email") {
             $(location).attr('href', '../');
         }
     }
