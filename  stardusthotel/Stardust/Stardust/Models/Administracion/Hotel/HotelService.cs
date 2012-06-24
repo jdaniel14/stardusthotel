@@ -81,6 +81,11 @@ namespace Stardust.Models
         {
             return hotelDAO.getNAlmacenesXHotel(idHotel);
         }
+
+        public void ModificarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelDAO.ActualizarserviciosxHotel(idhotel, serv);
+        }
         //--------------------------------------------------------
 
         public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacion)
