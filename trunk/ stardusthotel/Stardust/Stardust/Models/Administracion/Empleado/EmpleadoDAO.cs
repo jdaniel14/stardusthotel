@@ -444,7 +444,7 @@ namespace Stardust.Models
 
             sql.Open();
 
-            String command = "Select * from HorarioDetalle WHERE idHorario=" + id + " ORDER BY diaSemana";
+            String command = "Select * from HorarioDetalle WHERE idHorario=" + id ;
 
             SqlCommand query = new SqlCommand(command, sql);
 
