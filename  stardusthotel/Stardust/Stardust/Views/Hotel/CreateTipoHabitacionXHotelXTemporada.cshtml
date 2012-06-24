@@ -1,0 +1,53 @@
+﻿@model Stardust.Models.TipoHabitacionXHotelXTemporadaViewModelCreate
+
+@{
+    ViewBag.Title = "Asignar temporada y porcentaje de Descuento";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ValidationSummary(true)
+
+@using (@Html.BeginForm("CreateTipoHabitacionXHotelXTemporada", "Hotel", FormMethod.Post, new { @class = "form" }))
+{ 
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title" ><h6>@ViewBag.Title</h6></div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idHotel)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idHotel, new SelectList(Model.Hoteles, "ID", "nombre", Model.idHotel), "Elija un hotel...")
+                </div>
+
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idTipoHabitacion)
+                <div class = "formRight" >@Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(Model.TipoHabitaciones, "idTipoHabitacion", "nombre", Model.idTipoHabitacion), "Elija un tipo de habitación...")</div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idTemporada)
+                <div class = "formRight" >@Html.DropDownListFor(model => model.idTemporada, new SelectList(Model.Temporadas, "idTemporada", "nombre", Model.idTemporada), "Elija una temporada...")</div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.porcDescuento)
+                <div class = "formRight" > @Html.TextBoxFor(model => model.porcDescuento)</div>
+                <div class = "clear" ></div>
+            </div>
+
+        </div>
+        <p>
+            <input class = "redB" type="submit" value="Asignar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "ListTiposHabitacionXHotel", new { id = Model.idHotel })
+</div>

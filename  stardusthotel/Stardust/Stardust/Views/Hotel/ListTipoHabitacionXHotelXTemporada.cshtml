@@ -1,58 +1,59 @@
-﻿@model IEnumerable<Stardust.Models.TipoHabitacionXHotelViewModelList>
+﻿@model IEnumerable<Stardust.Models.TipoHabitacionXHotelXTemporadaViewModelList>
 
 @{
-    ViewBag.Title = "Ver tipos de habitacion";
+    ViewBag.Title = "Ver porcentajes de descuento por temporada al tipo de habitacion de un hotel";
 }
 
 <h3>Hotel: @ViewBag.nombreHotel </h3>
+<h3>Tipo de Habitacion: @ViewBag.nombreTipoHabitacion </h3>
 
 <p>
-    <a href="@Url.Action("CreateTipoHabitacionXHotel", new { id = ViewBag.idHotel })">
-        <img src="@Url.Content("~/Content/images/icons/color/plus.png")" alt="Edit" />
-        Añadir tipo de habitación
+    <a href="@Url.Action("CreateTipoHabitacionXHotelXTemporada", new { idHotel = ViewBag.idHotel, idTipoHabitacion = ViewBag.idTipoHabitacion })">
+        <img src="@Url.Content("~/Content/images/icons/color/plus.png")" alt="Create" />
+        Añadir un porcentaje de descuento por Temporada
     </a>
 </p>
 
 <div class="wrapper">
     <div class="widget">
-        <div class="title"><h6>Lista de Tipos de Habitacion</h6></div>
+        <div class="title"><h6>Lista de Descuentos por Temporada</h6></div>
         <div class="dataTables_wrapper">
             <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
                 <thead>
                     <tr>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            Nombre del Tipo de Habitacion
+                            Nombre de la Temporada
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
                         </th>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            Precio Base (S/.)
+                            Descripcion
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
                         </th>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            Descripción
+                            Fecha Inicio
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
                         </th>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            Precio
+                            Fecha Fin
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
                         </th>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            Número de Personas
+                            Porcentaje de la Temporada (%)
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
                         </th>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            &nbsp
+                            Opciones
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
                         </th>
@@ -64,14 +65,13 @@
                 {
                     <tr class="gradeA odd">
                         <td>@Html.DisplayFor(modelItem => item.nombre)</td>
-                        <td>@Html.DisplayFor(modelItem => item.precio)</td>
                         <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.precio)</td>
-                        <td>@Html.DisplayFor(modelItem => item.nroPersonas)</td>
+                        <td>@Html.DisplayFor(modelItem => item.fechaIni)</td>
+                        <td>@Html.DisplayFor(modelItem => item.fechaFin)</td>
+                        <td>@Html.DisplayFor(modelItem => item.porcDescuento)</td>
                         <td>
-                            <a href="@Url.Action("EditTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 
-                            <a href="@Url.Action("DeleteTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar </a> |
-                            <a href="@Url.Action("ListTipoHabitacionXHotelXTemporada", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/currency.png")" alt="Edit" />Descuentos </a>
+                            <a href="@Url.Action("EditTipoHabitacionXHotelXTemporada", new { idTemporada = item.idTemporada, idTipoHabitacion = ViewBag.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 
+                            <a href="@Url.Action("DeleteTipoHabitacionXHotelXTemporada", new { idTemporada = item.idTemporada, idTipoHabitacion = ViewBag.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar </a>
                         </td>
                     </tr>
                 }
@@ -83,5 +83,5 @@
 
 <br/><br/>
 <div>
-    @Html.ActionLink("Regresar", "List")
+    @Html.ActionLink("Regresar", "ListTiposHabitacionXHotel", new { id = ViewBag.idHotel })
 </div>
