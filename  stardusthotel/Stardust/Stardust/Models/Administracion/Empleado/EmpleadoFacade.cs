@@ -87,5 +87,8 @@ namespace Stardust.Models
         {
             return empleadoServ.listarReporte(codigoempleado);
         }
+        public List<EmpleadoBean> listartodoempleado() {
+            return empleadoServ.listartodoempleado();
+        } 
     }
 }
