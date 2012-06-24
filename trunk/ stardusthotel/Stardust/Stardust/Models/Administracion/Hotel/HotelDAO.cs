@@ -228,6 +228,10 @@ namespace Stardust.Models
 
                 return listaHoteles;
             }
+            catch (Exception e) {
+                log.Error("getHoteles(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -278,6 +282,10 @@ namespace Stardust.Models
 
                 return listaHoteles;
             }
+            catch (Exception e) {
+                log.Error("getHotelesActivos(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -312,6 +320,9 @@ namespace Stardust.Models
 
                 objQuery.ExecuteNonQuery();
             }
+            catch (Exception e) {
+                log.Error("registrarHotel(EXCEPTION): ", e);
+            }
             finally
             {
                 if (objDB != null)
@@ -344,10 +355,11 @@ namespace Stardust.Models
                 }
                 return -1; // en caso no encuentre el hotel que esta buscando con las caracteristicas pasadas por parametro
             }
-            //catch (Exception ex)
-            //{
-
-            //}
+            catch (Exception e)
+            {
+                log.Error("buscarHotel(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -363,7 +375,7 @@ namespace Stardust.Models
             try
             {
                 objDB = new SqlConnection(cadenaDB);
-                
+
                 objDB.Open();
                 String strQuery = "UPDATE Hotel SET nombre = @nombre, razonSocial = @razonSocial, direccion = @direccion, " +
                                     "tlf1 = @tlf1, tlf2 = @tlf2, email = @email, nroPisos = @nroPisos, " +
@@ -385,6 +397,9 @@ namespace Stardust.Models
 
                 objQuery.ExecuteNonQuery();
 
+            }
+            catch (Exception e) {
+                log.Error("actualizarHotel(EXCEPTION): ", e);
             }
             finally
             {
@@ -413,6 +428,8 @@ namespace Stardust.Models
                 Utils.agregarParametro(objQuery, "@idHotel", idHotel);
 
                 objQuery.ExecuteNonQuery();
+            }catch( Exception e ){
+                log.Error("desactivarHotel(EXCEPTION): ", e);
             }
             finally
             {
@@ -439,6 +456,9 @@ namespace Stardust.Models
                 objQuery.ExecuteNonQuery();
 
             }
+            catch (Exception e) {
+                log.Error("activarHotel(EXCEPTION): ", e);
+            }
             finally
             {
                 if (objDB != null)
@@ -447,8 +467,6 @@ namespace Stardust.Models
                 }
             }
         }
-
-
 
         public void registrarAlmacen(int idHotel, AlmacenBean almacen) 
         {
@@ -467,9 +485,9 @@ namespace Stardust.Models
 
                 objQuery.ExecuteNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                log.Error("registrarAlmacen(EXCEPTION): ", ex);
+                log.Error("registrarAlmacen(EXCEPTION): ", e);
             }
             finally
             {
@@ -482,36 +500,56 @@ namespace Stardust.Models
 
         //
         public void eliminarAlmacen(int idHotel) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
 
                 String command = "Delete from Almacen where idHotel = " + idHotel;
                 SqlCommand query = new SqlCommand(command, sql);
 
                 query.ExecuteNonQuery();
 
-            sql.Close();
+                sql.Close();
+            }
+            catch (Exception e) {
+                log.Error("eliminarAlmacen(EXCEPTION): ", e);
+            }
         }
 
         //
         public int getAlmacen(int idHotel) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                sql.Open();
 
-            String command = "Select idAlmacen from Almacen where idHotel = " + idHotel;
-            SqlCommand query = new SqlCommand(command, sql);
+                String command = "Select idAlmacen from Almacen where idHotel = " + idHotel;
+                SqlCommand query = new SqlCommand(command, sql);
 
-            SqlDataReader data = query.ExecuteReader();
+                SqlDataReader data = query.ExecuteReader();
 
-            data.Read();
+                data.Read();
 
-            int resp = (int)data.GetValue(0);
+                int resp = (int)data.GetValue(0);
 
-            sql.Close();
+                sql.Close();
 
-            return resp;
+                return resp;
+            }
+            catch (Exception e)
+            {
+                log.Error("getAlmacen(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         //Parte para dar información antes de desactivar un Hotel
@@ -525,7 +563,7 @@ namespace Stardust.Models
                 objDB = new SqlConnection(cadenaDB);
 
                 objDB.Open();
-                String strQuery = "SELECT COUNT(*) " + 
+                String strQuery = "SELECT COUNT(*) " +
                                 "FROM Hotel A, TipoHabitacionXHotel B, Habitacion C " +
                                 "WHERE A.idHotel = @idHotel and A.idHotel = B.idHotel and " +
                                 "B.idHotel = C.idHotel and B.idTipoHabitacion = C.idTipoHabitacion";
@@ -536,6 +574,10 @@ namespace Stardust.Models
 
                 objReader.Read();
                 return Convert.ToInt32(objReader[0]);
+            }
+            catch (Exception e) {
+                log.Error("getNHabitacionesXHotel(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {
@@ -569,6 +611,10 @@ namespace Stardust.Models
                 objReader.Read();
                 return Convert.ToInt32(objReader[0]);
             }
+            catch (Exception e) {
+                log.Error("getNTipoHabitacionesXHotel(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -596,6 +642,10 @@ namespace Stardust.Models
 
                 objReader.Read();
                 return Convert.ToInt32(objReader[0]);
+            }
+            catch (Exception e) {
+                log.Error("getNAmbientesXHotel(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {
@@ -625,6 +675,10 @@ namespace Stardust.Models
                 objReader.Read();
                 return Convert.ToInt32(objReader[0]);
             }
+            catch (Exception e) {
+                log.Error("getNServiciosXHotel(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -652,6 +706,10 @@ namespace Stardust.Models
 
                 objReader.Read();
                 return Convert.ToInt32(objReader[0]);
+            }
+            catch (Exception e) {
+                log.Error("getNPromocionesXHotel(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {
@@ -681,6 +739,10 @@ namespace Stardust.Models
                 objReader.Read();
                 return Convert.ToInt32(objReader[0]);
             }
+            catch (Exception e) {
+                log.Error("getNAlmacenesXHotel(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -707,6 +769,10 @@ namespace Stardust.Models
 
                 SqlDataReader objReader = objQuery.ExecuteReader();
                 return objReader.HasRows;
+            }
+            catch (Exception e) {
+                log.Error("existeTipoHabitacion_Hotel(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {
@@ -944,6 +1010,10 @@ namespace Stardust.Models
                 }
                 return -1;//en caso no encuentre el precio del tipo de habitacion del hotel que estoy buscando
 
+            }
+            catch (Exception e) {
+                log.Error("getPrecioTipoHabitacionXHotel(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {

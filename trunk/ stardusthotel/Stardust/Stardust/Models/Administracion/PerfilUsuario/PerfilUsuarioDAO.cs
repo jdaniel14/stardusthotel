@@ -4,32 +4,49 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
+using log4net;
 
 namespace Stardust.Models
 {
     public class PerfilUsuarioDAO
     {
         String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        private static ILog log = LogManager.GetLogger(typeof(PerfilUsuarioDAO));
         
         public void registrarPerfil(PerfilUsuarioBean perfil) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+            SqlConnection sql = null;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
 
                 String command = "Insert into PerfilUsuario ( nombre , descripcion ) values ('" +
                                 perfil.nombre + "', '" +
                                 perfil.descripcion + "')";
 
-                SqlCommand query = new SqlCommand( command , sql ) ;
+                SqlCommand query = new SqlCommand(command, sql);
                 query.ExecuteNonQuery();
-            
-            sql.Close();
+
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+                log.Error("registrarPerfil(EXCEPTION): ", e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public PerfilUsuarioBean getPerfil( int id ){
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
 
-            sql.Open();
+                sql.Open();
 
                 String command = "Select * from PerfilUsuario where idPerfilUsuario = " + id;
 
@@ -44,15 +61,28 @@ namespace Stardust.Models
                 perfil.descripcion = Convert.ToString(data["descripcion"]);
                 perfil.token = Convert.ToString(data["token"]);
 
-            sql.Close();
+                sql.Close();
 
-            return perfil;
+                return perfil;
+            }
+            catch (Exception e)
+            {
+                log.Error("getPerfil(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public List<PerfilUsuarioBean> listarPerfiles(){
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
 
                 String command = "Select * from PerfilUsuario";
 
@@ -61,25 +91,39 @@ namespace Stardust.Models
 
                 List<PerfilUsuarioBean> lista = new List<PerfilUsuarioBean>();
 
-                while (data.Read()) {
+                while (data.Read())
+                {
                     PerfilUsuarioBean perfil = new PerfilUsuarioBean();
 
-                    perfil.ID = Convert.ToInt32( data[ "idPerfilUsuario" ] ) ;
+                    perfil.ID = Convert.ToInt32(data["idPerfilUsuario"]);
                     perfil.nombre = Convert.ToString(data["nombre"]);
                     perfil.descripcion = Convert.ToString(data["descripcion"]);
 
                     lista.Add(perfil);
                 }
 
-            sql.Close();
+                sql.Close();
 
-            return lista;
+                return lista;
+            }
+            catch (Exception e)
+            {
+                log.Error("listarPerfiles(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public void actualizarPerfil(PerfilUsuarioBean perfil) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
 
                 String command = "Update PerfilUsuario SET nombre = '" + perfil.nombre + "', " +
                                  "descripcion = '" + perfil.descripcion + "' where idPerfilUsuario = " + perfil.ID;
@@ -87,20 +131,40 @@ namespace Stardust.Models
 
                 query.ExecuteNonQuery();
 
-            sql.Close();
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+                log.Error("actualizarPerfil(EXCEPTION): ", e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
 
         public void eliminarPerfil(int id) {
-            SqlConnection sql = new SqlConnection(cadenaDB);
+            SqlConnection sql = null;
 
-            sql.Open();
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
 
                 String command = "Delete from PerfilUsuario where idPerfilUsuario = " + id;
                 SqlCommand query = new SqlCommand(command, sql);
 
                 query.ExecuteNonQuery();
 
-            sql.Close();
+                sql.Close();
+            }
+            catch (Exception e)
+            {
+                log.Error("eliminarPerfil(EXCEPTION): ", e);
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
         }
     }
 }

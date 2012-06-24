@@ -5,6 +5,7 @@ using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using log4net;
 
 namespace Stardust.Models
 {
@@ -12,6 +13,7 @@ namespace Stardust.Models
     {
         //String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        private static ILog log = LogManager.GetLogger(typeof(VariablesDAO));
 
         public VariablesBean getVariables() {
             SqlConnection objDB = null;
@@ -39,11 +41,11 @@ namespace Stardust.Models
                 return variables;
                 
             }
-            //catch (Exception ex)
-            //{
-            //    log.Error("Errror getVariables, ex");
-            //    de ser necesario throw ex;
-            //}
+            catch (Exception e)
+            {
+                log.Error("getVariables(EXCEPTION): ", e);
+                throw (e);
+            }
             finally
             {
                 if (objDB != null)
@@ -76,11 +78,10 @@ namespace Stardust.Models
 
                 objQuery.ExecuteNonQuery();                
             }
-            //catch (Exception ex)
-            //{
-            //    log.Error("Errror getVariables, ex");
-            //    de ser necesario throw ex;
-            //}
+            catch (Exception e)
+            {
+                log.Error("actualizarVariables(EXCEPTION): ", e);
+            }
             finally
             {
                 if (objDB != null)
