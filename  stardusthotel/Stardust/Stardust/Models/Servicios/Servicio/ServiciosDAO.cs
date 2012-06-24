@@ -33,6 +33,8 @@ namespace Stardust.Models
                 servicio.id = (int)dataReader["idServicio"];
                 servicio.nombre = (string)dataReader["nombre"];
                 servicio.descripcion = (string)dataReader["descripcion"];
+                servicio.estado = (string)dataReader["estado"];
+                servicio.estado1=Convert.ToInt32(dataReader["flag_res_eve"]);
             
                 listaServicios.Add(servicio);
             }
@@ -51,26 +53,27 @@ namespace Stardust.Models
         public String insertarServicio(ServiciosBean servicio) {
             String me = "";
 
-            try
-            {
+            //try
+            //{
 
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
                 sqlCon.Open();
+                servicio.estado = "ACTIVO";
 
-                string commandString = "INSERT INTO Servicio VALUES ('" + servicio.nombre + "', '" + servicio.descripcion + "', 'ACTIVO')";
-
+                string commandString = "INSERT INTO Servicio VALUES ('" + servicio.nombre + "', '" + servicio.descripcion + "', '" + servicio.estado + "', '" + servicio.estado1 + "')";
+                    
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 sqlCmd.ExecuteNonQuery();
 
                 sqlCon.Close();
                 servicio.conexion = "Bien";
-            }
-            catch {
-                servicio.conexion = "Falla en la conexión";
+            //}
+            //catch {
+            //    servicio.conexion = "Falla en la conexión";
            
-            }
+            //}
 
             return me;
         }
@@ -85,6 +88,7 @@ namespace Stardust.Models
 
                 string commandString = "UPDATE Servicio " +
                                         "SET nombre = '" + servicio.nombre + "', descripcion = '" + servicio.descripcion + "' " +
+                                        "', flag_res_eve = '" + servicio.estado1 + 
                                         "WHERE idServicio = " + servicio.id;
 
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -117,7 +121,9 @@ namespace Stardust.Models
             {                
                 servicio.id = (int)dataReader["idServicio"];
                 servicio.nombre = (string)dataReader["nombre"];
-                servicio.descripcion = (string)dataReader["descripcion"];             
+                servicio.descripcion = (string)dataReader["descripcion"];
+                servicio.estado = (string)dataReader["estado"];
+                servicio.estado1=Convert.ToInt32(dataReader["flag_res_eve"]);
             }
             dataReader.Close();
             sqlCon.Close();
