@@ -42,7 +42,15 @@ namespace Stardust.Controllers.Servicios
         public JsonResult PagoAdelantado(RequestPagoAde request)
         {
             PagoAdelantadoBean res = new PagoAdelantadoBean();
+            res = pagoFacade.PagoAdelantado(request);
             return Json(res);
+        }
+
+        [HttpPost]
+        public JsonResult RegistrarPagoAdelantado(RequestRegPago request)
+        {
+            MensajeBean mensaje = pagoFacade.RegistrarPagoAdelantado(request);
+            return Json(mensaje);
         }
 
         public ActionResult PagarInicial()

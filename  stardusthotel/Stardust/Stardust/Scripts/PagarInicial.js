@@ -88,12 +88,16 @@ function alcohol() {
         var documento = $("#nDoc").get(0).value;
         var idReserva = $("#nReserva").get(0).value;
         var tipo = $("#ComboRes").val();
-        var lili = $("cantPagando").get(0).value;;
-
+        var lili = $("#cantPagando").get(0).value;
+        var total = $("#montoTotal").text();
+        var inicial = $("#monto").text();
+        alert(total);
         var enviar = {
             flag: tipo,
             id: idReserva,
-            monto: lili
+            monto: lili,
+            montoTotal: total,
+            pagoInicial: inicial
         }
 
         jsonData = JSON.stringify(enviar);
@@ -117,7 +121,7 @@ function casiConfirma() {
 }
 
 function Comunion(data) {
-
+    //alert("se envio");
     console.log(data.me);
 
     if (data.me == "") {
