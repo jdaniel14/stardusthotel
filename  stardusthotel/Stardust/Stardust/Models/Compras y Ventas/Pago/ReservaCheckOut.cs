@@ -38,6 +38,7 @@ namespace Stardust.Models
         public string detalle { get; set; }
         public int cantidad { get; set; }
         public decimal pUnit { get; set; }
-        public decimal totalDet { get; set; }        
+        public decimal totalDet { get; set; }
+        public int estado { get; set; }
     }
 }
