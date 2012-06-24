@@ -21,7 +21,7 @@ function tonooo() {
     var tipo = $("#ComboRes").val();
 
     var enviar = {
-        flagTipo: tipo,
+        flag: tipo,
         id: idReserva,
         doc: documento
     }
