@@ -25,6 +25,8 @@ namespace Stardust.Models
 
         [Display( Name = "Estado" ) ]
         public string estado { get; set; }
+
+        public List<Horario> horarios { get; set; }
     }
     #endregion
 
@@ -47,6 +49,10 @@ namespace Stardust.Models
 
         [Display(Name = "Codigo del Empleado")]
         public int idEmpleado { get; set; }
+
+        public List<HorarioDetalle> horariodetalles { get; set; }
+
+       
     }
     #endregion
 
@@ -75,6 +81,8 @@ namespace Stardust.Models
 
          [Display(Name = "Horario ")]
          public int idHorario { get; set; }
+
+         public List<Asistencia> asistencias { get; set; }
     }
     
 
@@ -113,6 +121,7 @@ namespace Stardust.Models
         public  string estado { set; get; }
         public int idHorarioDetalle { set; get; }
         public string stringtipoES { set; get; }
+
     }
 
 
@@ -129,5 +138,21 @@ namespace Stardust.Models
     }
 
   #endregion
+
+    #region Reporte
+
+    public class ReporteEmpleado
+    {
+
+        public EmpleadoBean empleado { get; set; }
+        public List<Horario> horarios { get; set; }
+
+
+         public ReporteEmpleado(){
+        horarios = new List<Horario>();
+        empleado = new EmpleadoBean();
+       }
+    }
+    #endregion
 
 }
