@@ -183,7 +183,29 @@ function errorAJAX() {
     $("#espera").dialog("destroy");
 }
 
-//Funcion dialogo
+//Funcion dialogo\
+
+function mostrarConfirmacionFinal(mensaje) {
+    // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+    $("#error:ui-dialog").dialog("destroy");
+
+    $("#error").dialog({
+        height: 120,
+        title: "Stardust says...",
+        modal: true,
+
+        buttons: {
+            Ok: function () {
+                $(this).dialog("close");
+                $(location).attr('href', '../../');
+            }
+        }
+    });
+
+    $("#msjError").html(mensaje);
+
+}
+
 function mostrarDialogo() {
     // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
     $("#dialog:ui-dialog").dialog("destroy");
