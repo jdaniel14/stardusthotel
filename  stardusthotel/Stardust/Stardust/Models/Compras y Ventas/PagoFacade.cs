@@ -18,6 +18,16 @@ namespace Stardust.Models
             return pagoService.GetReserva(id);
         }
 
+        public MensajeBean RegistrarPagoAdelantado(RequestResHab request)
+        {
+            return pagoDAO.RegistrarPagoAdelantado(request);
+        }
+
+        public PagoAdelantadoBean PagoAdelantado(RequestPagoAde request)
+        {
+            return pagoDAO.PagoAdelantado(request);
+        }
+
         public ReservaCheckOut GetReserva2(int id)
         {
             return pagoDAO.GetReserva2(id);
@@ -26,11 +36,6 @@ namespace Stardust.Models
         public MensajeBean RegistrarCheckOut(int id)
         {
             return pagoService.RegistrarCheckOut(id);
-        }
-
-        public PagoAdelantadoBean PagoAdelantado(RequestPagoAde request)
-        {
-            return pagoService.PagoAdelantado(request);
         }
 
         public List<ListaHabitacion> listaHabitacion(int idHotel,string fechaIni, string fechaFin)

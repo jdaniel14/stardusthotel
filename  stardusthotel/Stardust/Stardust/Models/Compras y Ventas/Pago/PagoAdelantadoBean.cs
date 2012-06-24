@@ -13,5 +13,6 @@ namespace Stardust.Models
         public int estado { get; set; }
         public decimal montoInicial { get; set; }
         public string mensaje { get; set; }
+        public decimal montoTotal { get; set; }
     }
 }
