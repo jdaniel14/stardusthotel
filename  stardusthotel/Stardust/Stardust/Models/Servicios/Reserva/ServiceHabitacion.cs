@@ -140,6 +140,7 @@ namespace Stardust.Models.Servicios
             bool result;
 
             UsuarioResBean usuarioRes = new UsuarioResBean ();
+            System.Diagnostics.Debug.WriteLine("FLAG : " + reservaRequest.tipoRegistro);
             if (reservaRequest.tipoRegistro == 0)
             {
                 usuarioRes = reservaHabitacionDAO.registraCliente(reservaRequest.client, reservaRequest.pass); // 0=> hubo error ; 1 => natural; 2 => juridico    
