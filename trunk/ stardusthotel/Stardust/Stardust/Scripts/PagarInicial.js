@@ -53,13 +53,16 @@ function llegadaDatos(data) {
         $("#nDocu").text(data.doc);
         $("#nombre").text(data.nom);
         $("#monto").text(data.montoInicial);
+        $("#montoTotal").text(data.montoTotal);
         $("#mostrarDatos").show("slow");
 
         if (data.estado == 1) {
-            $("#aVeces2").hide()
+            $("#aVeces2").hide();
+            $("#aVeces1").show("slow");
         }
         else {
             $("#aVeces1").hide();
+            $("#aVeces2").show("slow")
             $("#estado").text("Cancelado");
         }
 
@@ -85,11 +88,12 @@ function alcohol() {
         var documento = $("#nDoc").get(0).value;
         var idReserva = $("#nReserva").get(0).value;
         var tipo = $("#ComboRes").val();
+        var lili = $("cantPagando").get(0).value;;
 
         var enviar = {
-            flagTipo: tipo,
+            flag: tipo,
             id: idReserva,
-            doc: documento
+            monto: lili
         }
 
         jsonData = JSON.stringify(enviar);
@@ -100,7 +104,7 @@ function alcohol() {
             data: jsonData,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            url: "DireccionURL",
+            url: "RegistrarPagoAdelantado",
             beforeSend: casiConfirma(),
             success: Comunion
         });

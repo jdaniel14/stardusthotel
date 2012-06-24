@@ -185,10 +185,10 @@ namespace Stardust.Models
 
                 decimal faltante = 0;
 
-                string commandString = "UPDATE DocumentoPago SET montoTotal = " + reserva.total + " , montoFaltante = " + faltante + " , subTotal = " + reserva.subTotal + " , igv = " + reserva.IGV + " , estado = 3 WHERE idDocPago = " + reserva.idDocPago;
+                string commandString; //= "UPDATE DocumentoPago SET montoTotal = " + reserva.total + " , montoFaltante = " + faltante + " , subTotal = " + reserva.subTotal + " , igv = " + reserva.IGV + " , estado = 3 WHERE idDocPago = " + reserva.idDocPago;
 
-                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                sqlCmd.ExecuteNonQuery();
+                //SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                //sqlCmd.ExecuteNonQuery();
 
                 if (reserva.faltante > 0)
                 {                    
@@ -231,13 +231,13 @@ namespace Stardust.Models
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
                 sqlCon.Open();
 
-                for (int i = 0; i < listaDetalle.Count; i++)
-                {
-                    string commandString = "UPDATE DocumentoPago_Detalle SET total = "+listaDetalle.ElementAt(i).totalDet+" WHERE idDocPagoDetalle = " + listaDetalle.ElementAt(i).idDetalle;
+                //for (int i = 0; i < listaDetalle.Count; i++)
+                //{
+                //    string commandString = "UPDATE DocumentoPago_Detalle SET total = "+listaDetalle.ElementAt(i).totalDet+" WHERE idDocPagoDetalle = " + listaDetalle.ElementAt(i).idDetalle;
 
-                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                    sqlCmd.ExecuteNonQuery();
-                }
+                //    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                //    sqlCmd.ExecuteNonQuery();
+                //}
 
                 return "";
             }
@@ -388,7 +388,21 @@ namespace Stardust.Models
 
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = " + id + " ORDER BY es_habitacion";
+            string commandString = "SELECT * FROM Promocion WHERE tipo = 1 AND razon <= " + dias + " ORDER BY razon DESC";
+
+            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+            int porc = 0;
+
+            if (dataReader2.Read())
+            {
+                porc = 100 - (int)dataReader2["porcDescontar"];
+            }
+
+            dataReader2.Close();
+
+            commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = " + id + " ORDER BY es_habitacion";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -403,7 +417,13 @@ namespace Stardust.Models
                 detalle.pUnit = (decimal)dataReader["precioUnitario"];
                 detalle.estado = (int)dataReader["es_habitacion"];
                 if (detalle.estado == 1)
-                    detalle.totalDet = detalle.cantidad * detalle.pUnit * dias;
+                {
+                    if (porc > 0 && porc < 100)
+                        detalle.totalDet = detalle.cantidad * detalle.pUnit * dias * porc / 100;
+                    else
+                        detalle.totalDet = detalle.cantidad * detalle.pUnit * dias;
+                    
+                }
                 else
                     detalle.totalDet = (decimal)dataReader["total"];
                 listaDetalle.Add(detalle);
@@ -415,209 +435,47 @@ namespace Stardust.Models
             return listaDetalle;
         }
 
-        //public ReservaBean ObtenerReserva(int id)
-        //{
-        //    ReservaBean reserva = new ReservaBean();
-
-        //    String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-        //    SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-
-        //    sqlCon.Open();
-
-        //    string commandString = "SELECT * FROM Reserva WHERE idReserva = " + id;
-
-        //    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-        //    SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-        //    while (dataReader.Read())
-        //    {
-        //        reserva.id = (int)dataReader["idReserva"];
-        //        reserva.pagoIni = (decimal)dataReader["pagoInicial"];
-        //        reserva.subTotal = (decimal)dataReader["montoTotal"]; //Sin IGV :S
-        //        reserva.idHotel = (int)dataReader["idHotel"];
-        //        reserva.idUsuario = (int)dataReader["idUsuario"];
-        //        reserva.estado = (int)dataReader["estado"];
-        //        reserva.estadoPago = (int)dataReader["estadoPago"];
-        //        reserva.fechaLlegada = (DateTime)dataReader["fechaLlegada"];
-        //        reserva.fechaSalida = (DateTime)dataReader["fechaSalida"];
-        //    }
-
-        //    dataReader.Close();
-
-        //    if (reserva.estadoPago == 2 || reserva.estadoPago == 3)
-        //    {
-        //        commandString = "SELECT * FROM DocumentoPago WHERE idReserva = "+reserva.id;
-        //        SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-        //        SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
-        //        if (dataReader2.Read())
-        //        {
-        //            reserva.pago = (int)dataReader2["montoTotal"];
-        //        }
-        //    }
-                        
-        //    decimal total=0;
-
-        //    int dia = reserva.fechaSalida.Day - reserva.fechaLlegada.Day;
-
-        //    reserva.listaHab = ListaHab(reserva.id);
-        //    for (int i = 0; i < reserva.listaHab.Count; i++)
-        //    {
-        //        TipoHab hab = reserva.listaHab.ElementAt(i);
-
-        //    }
-
-        //    decimal subtotal = reserva.subTotal;
-        //    decimal igv = subtotal * 18 / 100;
-
-        //    reserva.igv = igv;
-        //    reserva.total = total;
-        //    reserva.hotel = GetNombreHotel(reserva.idHotel);
-        //    UsuarioBean usuario = GetNombreUsuario(reserva.idUsuario);
-        //    reserva.usuario = usuario.nombres;
-        //    reserva.numDoc = usuario.nroDocumento;
-        //    reserva.tipoDoc = usuario.tipoDocumento;
-        //    reserva.apagar = reserva.total - reserva.pago;
-            
-        //    sqlCon.Close();
-
-        //    return reserva;
-        //}
-
-    //    public string RegistrarPagoContado(Reserva reserva)
-    //    {
-    //        string conexion = null;
-    //        try
-    //        {   
-    //            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-    //            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-    //            sqlCon.Open();
-
-    //            string commandString = null;
-
-    //            if (reserva.tipoDoc.Equals("RUC"))
-    //            {
-    //                commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Factura' , "+reserva.id+" , NULL)";
-    //            }
-    //            else
-    //            {
-    //                commandString = "INSERT INTO DocumentoPago VALUES ('" + reserva.numDoc + "', " + reserva.pagado + " , GETDATE() , NULL , " + reserva.igv + " , NULL , " + reserva.subTotal + " , 'Contado' , '" + reserva.tipoDoc + "' , 'Boleta' , "+reserva.id+" , NULL)";
-    //            }
-
-    //            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-    //            sqlCmd.ExecuteNonQuery();
-
-    //            commandString = "SELECT * FROM DocumentoPago WHERE idReserva = " + reserva.id; Registrar el detalle del pago :S
-
-    //            SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-    //            SqlDataReader dataReader = sqlCmd2.ExecuteReader();
-
-    //            int id = 0;
-
-    //            if (dataReader.Read())
-    //                id = (int)dataReader["idDocumentoPago"];
-
-    //            commandString = "INSERT INTO DocumentoPago_Detalle VALUES ( "++" )"
-
-    //            if (reserva.estadoPago == 1) //Pago cero
-    //            {
-    //                if (reserva.pagado < reserva.total)
-    //                    commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 2 WHERE idReserva = " + reserva.id;
-    //                else
-    //                    commandString = "UPDATE Reserva SET estado = 2 , estadoPago = 4 WHERE idReserva = " + reserva.id;
-    //            }
-    //            else
-    //            {
-    //                if (reserva.estadoPago == 2) //Inicial
-    //                {
-    //                    if (reserva.pagado < reserva.total)
-    //                        commandString = "UPDATE Reserva SET estadoPago = 3 WHERE idReserva = " + reserva.id;
-    //                    else
-    //                        commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
-    //                }
-    //                else
-    //                {
-    //                    if (reserva.estadoPago == 3) //Parcial Pagado
-    //                    {
-    //                        if (reserva.pagado == reserva.total)
-    //                            commandString = "UPDATE Reserva SET estadoPago = 4 WHERE idReserva = " + reserva.id;
-    //                    }
-    //                }
-    //            }
-
-    //            SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
-    //            sqlCmd3.ExecuteNonQuery();
-
-    //            sqlCon.Close();        
-    //        }
-    //        catch
-    //        {
-    //            conexion = "Falla en Conexión";
-    //        }
-
-    //        return conexion;
-    //    }
-
         public PagoAdelantadoBean PagoAdelantado(RequestPagoAde request)
         {
             PagoAdelantadoBean pago = new PagoAdelantadoBean();
 
             try
-            {
+            {            
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
                 sqlCon.Open();
 
-                string commandString = "SELECT * FROM Usuario WHERE nroDocumento = " + request.doc;
+                string commandString;
 
-                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                SqlDataReader dataReader = sqlCmd.ExecuteReader();    
-
-                int id=0;
-
-                if (dataReader.Read())
+                if (request.flag == 0)
                 {
-                    id = (int)dataReader["idUsuario"];
-                    pago.nom = (string)dataReader["nombres"];
-                }
-
-                dataReader.Close();
-
-                commandString = "SELECT * FROM DocumentoPago WHERE idUsuario = "+id;
-
-                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
-                SqlDataReader dataReader3 = sqlCmd3.ExecuteReader();
-
-                if (dataReader3.Read())
-                {
-                    decimal total = (decimal)dataReader3["montoTotal"];
-                    decimal faltante = (decimal)dataReader3["montoFaltante"];
-                    if (total == faltante)
-                        pago.estado = 1;
-                    else
-                        pago.estado = 2;
-                }           
-
-                if (request.flag == 1)
-                {
-                    commandString = "SELECT * FROM Reserva WHERE estado = 1 AND idUsuario = " + id;
+                    commandString = "SELECT u.nombres as nombre , u.idUsuario as id , p.montoFaltante as montoFaltante , p.montoTotal as montoTotal , r.pagoInicial as pagoInicial  FROM Usuario u , Reserva r , DocumentoPago p WHERE u.nroDocumento = " + request.doc +" AND r.idReserva = "+ request.id +" AND u.idUsuario = p.idUsuario";
                     
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
+                    if (!dataReader2.HasRows)
+                    {
+                        pago.mensaje = "No se encuentra los datos registrados";
+                        return pago;
+                    }
+
                     if (dataReader2.Read())
                     {
-                        pago.data = Convert.ToString(dataReader2["idUsuario"]);
+                        pago.data = Convert.ToString(dataReader2["id"]);
                         pago.doc = request.doc;
-                        pago.montoInicial = (decimal)dataReader2["pagoInicial"];                        
+                        pago.mensaje = "";
+                        pago.estado = 1;
+                        pago.nom = (string)dataReader2["nombre"];
+                        pago.montoInicial = (decimal)dataReader2["pagoInicial"];
+                        pago.montoTotal = (decimal)dataReader2["montoTotal"];
                     }
                 }
                 else
                 {
-                    commandString = "SELECT * FROM Evento WHERE estado = 1 AND idCliente = " + id;
+                    commandString = "SELECT * FROM Evento WHERE estado = 1 AND idCliente = ";// + id;
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
@@ -733,6 +591,13 @@ namespace Stardust.Models
             }
 
             return listaHab;
+        }
+
+        public MensajeBean RegistrarPagoAdelantado(RequestResHab request)
+        {
+            MensajeBean mensaje = new MensajeBean();
+
+            return mensaje;
         }
     }
 }
