@@ -19,17 +19,30 @@ namespace Stardust.Controllers.Administracion
         }
 
         [HttpPost]
-        public ActionResult indice(EmpleadoBean empleado)
+        public ActionResult indice(EmpleadoBean emp)
         {
-            int codigoempleado = empleado.ID;
-            // empleadoFac.listarHorario(codigoempleado);
-           // return RedirectToAction("Lista", new { id = codigoempleado });
-            Horarios horarioss = new Horarios();
-            horarioss.horarios = empleadoFac.listarHorario(codigoempleado);
-            var model = empleadoFac.listarHorario(codigoempleado);
-            ViewBag.empleado = empleadoFac.getEmpleado(codigoempleado).nombreEmpleado;
-            return this.ViewPdf("", "ReporteAsistencia1",model );
+            try
+            {
+                int codigoempleado = emp.ID;
+                EmpleadoBean empleado = empleadoFac.getEmpleado(codigoempleado);
+                ReporteEmpleado RE = new ReporteEmpleado();
+                RE.empleado = empleado;
+
+                RE.horarios = empleadoFac.listarReporte(codigoempleado);
+                // var model = empleadoFac.guardartodo(codigoempleado);
+
+
+
+                var model = RE;
+
+                return this.ViewPdf("", "ReporteAsistencia1", model);
+
+            }
+            catch { return View(); }
         }
+
+
+
 
     }
 }
