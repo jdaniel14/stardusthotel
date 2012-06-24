@@ -449,10 +449,13 @@ namespace Stardust.Models
 
                 string commandString;
 
-                if (request.flag == 0)
+                if (request.flag == 1)
                 {
-                    commandString = "SELECT u.nombres as nombre , u.idUsuario as id , p.montoFaltante as montoFaltante , p.montoTotal as montoTotal , r.pagoInicial as pagoInicial  FROM Usuario u , Reserva r , DocumentoPago p WHERE u.nroDocumento = " + request.doc +" AND r.idReserva = "+ request.id +" AND u.idUsuario = p.idUsuario";
-                    
+                    commandString = " SELECT u.nombres as nombre , u.idUsuario as id , p.montoFaltante as montoFaltante , p.montoTotal as montoTotal , r.pagoInicial as pagoInicial  " + 
+                                    " FROM Usuario u , Reserva r , DocumentoPago p " +
+                                    " WHERE u.nroDocumento = " + request.doc +" AND r.estado = 1 AND r.idReserva = "+ request.id +" AND u.idUsuario = p.idUsuario AND r.idReserva = p.idReserva";
+
+                    System.Diagnostics.Debug.WriteLine(" query de pago Inicial : " + commandString);
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
@@ -593,11 +596,56 @@ namespace Stardust.Models
             return listaHab;
         }
 
-        public MensajeBean RegistrarPagoAdelantado(RequestResHab request)
+        public MensajeBean RegistrarPagoAdelantado(RequestRegPago request)
         {
             MensajeBean mensaje = new MensajeBean();
 
-            return mensaje;
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                decimal total = request.montoTotal;
+                decimal monto = request.monto;
+                System.Diagnostics.Debug.WriteLine(" total : " + total + " ; monto : " + monto);
+                decimal diff = total - monto;
+                int estado = 3;
+
+                if (diff <= 0)
+                {
+                    diff = 0;
+                    estado = 4;
+                }
+                else if (monto == request.pagoInicial) {
+                    estado = 2;
+                }
+               
+                string commandString = "UPDATE DocumentoPago SET montoFaltante = "+ diff +" , estado = " + estado +" WHERE idReserva = " + request.id;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                commandString = "UPDATE ReservaXHabitacion SET estado = 2 WHERE idReserva = " + request.id;
+
+                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                sqlCmd2.ExecuteNonQuery();
+
+                commandString = "UPDATE Reserva SET estado = 2 , estadoPago = "+estado+" WHERE idReserva = " + request.id;
+
+                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                sqlCmd3.ExecuteNonQuery();
+
+                mensaje.me = "";
+
+                return mensaje;
+            }
+            catch (Exception e)
+            {
+                mensaje.me = e.ToString();
+                return mensaje;
+            }
         }
     }
 }

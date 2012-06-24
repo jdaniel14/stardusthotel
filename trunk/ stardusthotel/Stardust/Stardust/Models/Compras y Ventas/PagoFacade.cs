@@ -18,7 +18,7 @@ namespace Stardust.Models
             return pagoService.GetReserva(id);
         }
 
-        public MensajeBean RegistrarPagoAdelantado(RequestResHab request)
+        public MensajeBean RegistrarPagoAdelantado(RequestRegPago request)
         {
             return pagoDAO.RegistrarPagoAdelantado(request);
         }

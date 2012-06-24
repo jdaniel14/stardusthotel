@@ -16,7 +16,7 @@ function comienzaElChongo() {
     reserva = $("#nroReserva").get(0).value;
 
     var Envio = {
-        idHotel: "1",
+        idHotel: "2",
         idReserva: reserva
     }
 

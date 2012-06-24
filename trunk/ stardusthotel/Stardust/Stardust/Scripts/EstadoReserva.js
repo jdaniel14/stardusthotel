@@ -19,7 +19,7 @@ function buscarReserva(){
 
     var num = $("#nroReserva").get(0).value;
     var num2 = $("#nroDocumento").get(0).value;
-    var telo = "1";
+    var telo = "2";
 
     var datosEnviar = {
         idReserva: num,
