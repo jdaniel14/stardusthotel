@@ -138,7 +138,7 @@ function iniciarValidaciones() {
     }
 
     if ($("#idEvento").length > 0) {
-        input = document.getElementById("nReserva");
+        input = document.getElementById("idEvento");
         input.placeholder = "Sólo números";
     }
     
