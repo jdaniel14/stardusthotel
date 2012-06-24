@@ -25,7 +25,8 @@ namespace Stardust.Models
         public String estado { get; set; }
 
         public int estado1 { get; set; }
-        [Display(Name = "Estado")]
+        public int estado3 { get; set; }
+        [Display(Name = "Uso")]
         public string estado2 { get; set; }
 
         public string conexion { get; set; }
