@@ -46,7 +46,7 @@ namespace Stardust.Models
 
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM Reserva WHERE idReserva = "+id;
+            string commandString = "SELECT * FROM Reserva WHERE estado = 3 AND idReserva = "+id;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();  
@@ -319,7 +319,7 @@ namespace Stardust.Models
 
             sqlCon.Open();
 
-            string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = " + id;
+            string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = " + id + " ORDER BY es_habitacion";
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -332,7 +332,11 @@ namespace Stardust.Models
                 detalle.detalle = (string)dataReader["detalle"];
                 detalle.cantidad = (int)dataReader["cantidad"];
                 detalle.pUnit = (decimal)dataReader["precioUnitario"];
-                detalle.totalDet = detalle.cantidad * detalle.pUnit * dias;
+                detalle.estado = (int)dataReader["es_habitacion"];
+                if (detalle.estado == 1)
+                    detalle.totalDet = detalle.cantidad * detalle.pUnit * dias;
+                else
+                    detalle.totalDet = (decimal)dataReader["total"];
                 listaDetalle.Add(detalle);
             }
 
