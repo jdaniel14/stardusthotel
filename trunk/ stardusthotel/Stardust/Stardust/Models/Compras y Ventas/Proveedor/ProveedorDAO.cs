@@ -110,7 +110,7 @@ namespace Stardust.Models
             sqlCon.Open();
 
             proveedor.estado = 1;
-            string commandString = "INSERT INTO Proveedor (razonSocial, contacto, emailContacto, ruc,web,telefono,direccion,observaciones,estado,telefonocontacto) VALUES ('" + 
+            string commandString = "INSERT INTO Proveedor (razonSocial, contacto, emailContacto,cargoContacto,ruc,web,telefono,direccion,observaciones,estado,telefonocontacto) VALUES ('" + 
 			       proveedor.razonSocial + "', '" + 
 				   proveedor.contacto + "', '" + 
 				   proveedor.emailContacto + "', '" + 
@@ -188,7 +188,7 @@ namespace Stardust.Models
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
-            string commandString = "SELECT * FROM Proveedor WHERE estado=1 AND UPPER(razonSocial) LIKE '%" + ruc.ToUpper() + "%'";
+            string commandString = "SELECT * FROM Proveedor WHERE estado=1 AND UPPER(ruc) LIKE '%" + ruc.ToUpper() + "%'";
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
