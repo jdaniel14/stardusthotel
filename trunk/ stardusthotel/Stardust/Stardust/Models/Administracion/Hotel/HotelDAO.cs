@@ -450,14 +450,15 @@ namespace Stardust.Models
 
 
 
-        public void registrarAlmacen(int idHotel, AlmacenBean almacen) {
+        public void registrarAlmacen(int idHotel, AlmacenBean almacen) 
+        {
             SqlConnection objDB = null;
             try
             {
                 objDB = new SqlConnection(cadenaDB);
-                
+
                 objDB.Open();
-                String strQuery = "INSERT INTO Almacen ( descripcion , capacidad , idHotel ) " + 
+                String strQuery = "INSERT INTO Almacen ( descripcion , capacidad , idHotel ) " +
                                     "values ( @descripcion , @capacidad , @idHotel )";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 DAO.agregarParametro(objQuery, "@descripcion", almacen.descripcion);
@@ -465,6 +466,10 @@ namespace Stardust.Models
                 DAO.agregarParametro(objQuery, "@idHotel", idHotel);
 
                 objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("registrarAlmacen(EXCEPTION): ", ex);
             }
             finally
             {
@@ -686,7 +691,7 @@ namespace Stardust.Models
         }
         //--------------------------------------------------------
 
-        public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacion)
+        public bool existeTipoHabitacion_Hotel(TipoHabitacionXHotel tipoHabitacionXHotel)
         {
             SqlConnection objDB = null;
             try
@@ -697,8 +702,8 @@ namespace Stardust.Models
                 String strQuery = "SELECT * FROM TipoHabitacionXHotel " +
                     "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacion.idHotel);
-                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacion.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@idHotel", tipoHabitacionXHotel.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipoHabitacionXHotel.idTipoHabitacion);
 
                 SqlDataReader objReader = objQuery.ExecuteReader();
                 return objReader.HasRows;
@@ -948,5 +953,68 @@ namespace Stardust.Models
                 }
             }
         }
+
+        public void eliminarTipoHabitacionXHotel(TipoHabitacionXHotel tipohabitacionXhotel)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                
+                objDB.Open();
+                String strQuery = "DELETE FROM TipoHabitacionXHotel " +
+                                    "WHERE idTipoHabitacion = @idTipoHabitacion AND idHotel = @idHotel";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", tipohabitacionXhotel.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", tipohabitacionXhotel.idTipoHabitacion);
+
+                objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("eliminarTipoHabitacionXHotel(EXCEPTION): ", ex);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public int getNroTemporadasAsignadas(int idHotel, int idTipoHabitacion)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT COUNT(*) FROM TipoHabitacionXHotelXTemporada " +
+                                    "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", idTipoHabitacion);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                objReader.Read();
+
+                return Convert.ToInt32(objReader[0]);
+            }
+            catch (Exception ex)
+            {
+                log.Error("getNroTemporadasAsignadas(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
     }
 }
