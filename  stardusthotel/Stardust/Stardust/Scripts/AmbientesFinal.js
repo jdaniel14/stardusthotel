@@ -20,7 +20,7 @@ function sgteConfirma() {
             (parseFloat($("#Total").text()) > 0) &&
             ($("#mailNatural").get(0).value != "") &&
             ($("#password").get(0).value != "") &&
-            (($("#razonDReserva").get(0).value != "") | (($("#nombreDReserva").get(0).value != "") && ($("#ApellidoDReserva").get(0).value != ""))) &&
+            (($("#razonDReserva").get(0).value != "") | ($("#nombreDReserva").get(0).value != "") ) &&
             (($("#telef").get(0).value != "") | ($("#telefNatural").get(0).value != "")) &&
     //( ($("#nTarjeta").get(0).value != "") | ($("#nTarjetaNatural").get(0).value != "") )
             ($("#nombreEvento").get(0).value != "") &&
@@ -85,7 +85,7 @@ function finDelChongo() {
         var nombreEnvio = "";
         var email2 = "";
         var tipoDocu = "";
-        var apellido = "";
+        //var apellido = "";
         var telefono = "";
         var tipoDeTarjeta = "";
         var numTarjeta = "";
@@ -105,12 +105,12 @@ function finDelChongo() {
         else {
             tipoDocu = "DNI";
             nombreEnvio = $("#nombreDReserva").get(0).value;
-            apellido = $("#ApellidoDReserva").get(0).value;
+            //apellido = $("#ApellidoDReserva").get(0).value;
             email2 = $("#mailNatural").get(0).value;
             telefono = $("#telefNatural").get(0).value;
             tipoDeTarjeta = $("#tipoTarjeta").val();
             numTarjeta = $("#nTarjetaNatural").get(0).value;
-            comentario = $("#commentN").get(0).value;
+            comentario = $("#comment").get(0).value;
         }
 
         var nDoc = $("#nDoc").get(0).value;
@@ -122,7 +122,7 @@ function finDelChongo() {
             tipoDoc: tipoDocu,
             nroDoc: nDoc,
             nomb: nombreEnvio,
-            apell: apellido,
+            //apell: apellido,
             email: email2,
             telf: telefono,
             tipoTarj: tipoDeTarjeta,
