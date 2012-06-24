@@ -47,7 +47,7 @@ namespace Stardust.Models
         public string telefono { get; set; }
 
         [Display(Name = "Pagina Web")]
-        //[RegularExpression("/[\w-\.]{3,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
+        //[RegularExpression("@/[\w-\.]{3,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
         public string web { get; set; }
 
         [Display(Name = "Contacto")]
@@ -59,8 +59,9 @@ namespace Stardust.Models
         [RegularExpression("^[a-zA-Z áéíóúAÉÍÓÚÑñ]+$", ErrorMessage = "El nombre ingresado no es válido")]
         public string cargoContacto { get; set; }
 
-        [Display(Name = "Correo electrónico")]
-        [Required(ErrorMessage = "Debe ingresar el correo del contacto")]
+        [Display(Name = "E-mail")]
+        [Required(ErrorMessage = "Debe ingresar el e-mail  del contacto")]
+        [RegularExpression(@"([a-z0-9!#$%&'*+/=?^_`B|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum|pe)\b){0,1}", ErrorMessage = "El email ingresado es incorrecto")]
         public string emailContacto { get; set; }
 
         [Display(Name = "Teléfono Contacto")]
