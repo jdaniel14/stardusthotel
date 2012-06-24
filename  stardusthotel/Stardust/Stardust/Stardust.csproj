@@ -142,6 +142,7 @@
     <Compile Include="Models\Administracion\Hotel\HotelFacade.cs" />
     <Compile Include="Models\Administracion\Hotel\HotelService.cs" />
     <Compile Include="Models\Administracion\Hotel\TipoHabitacionxHotel.cs" />
+    <Compile Include="Models\Administracion\Hotel\TipoHabitacionXHotelXTemporada.cs" />
     <Compile Include="Models\Administracion\LoginModel.cs" />
     <Compile Include="Models\Administracion\Ubigeo\Departamento.cs" />
     <Compile Include="Models\Administracion\Ubigeo\Distrito.cs" />
@@ -4547,6 +4548,8 @@
     <Content Include="Views\PagoClientes\Documento.cshtml" />
     <Content Include="Views\Hotel\EditTipoHabitacionXHotel.cshtml" />
     <Content Include="Views\Hotel\DeleteTipoHabitacionXHotel.cshtml" />
+    <Content Include="Views\Hotel\ListTipoHabitacionXHotelXTemporada.cshtml" />
+    <Content Include="Views\Hotel\CreateTipoHabitacionXHotelXTemporada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
