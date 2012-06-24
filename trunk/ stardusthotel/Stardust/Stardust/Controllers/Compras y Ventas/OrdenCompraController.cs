@@ -120,16 +120,17 @@ namespace Stardust.Controllers
             return View(prod);
         }
 
-        
-        public ActionResult RegistrarOC(OrdenProducto producto)
+        [HttpPost]    
+        public ActionResult Registrar2(OrdenProducto producto)
         {
             
+
             for (int i = 0; i < producto.listaProducto.Count; i++)
             {
                 if (producto.listaProducto[i].cantidad > 0)
                 {
                     producto.listaProducto[i].estadoguardar = true;
-                    
+                   
                 }
                 else
                 {
