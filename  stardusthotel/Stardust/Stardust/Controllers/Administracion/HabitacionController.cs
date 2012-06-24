@@ -29,7 +29,7 @@ namespace Stardust.Controllers
             if (habitacion != null)
             {
                 ViewBag.Hotel = new HotelFacade().getHotel(habitacion.idHotel).nombre;
-                ViewBag.TipoHabitacion = new TipoHabitacionFacade().getTipo(habitacion.idTipoHabitacion).nombre;
+                ViewBag.TipoHabitacion = new TipoHabitacionFacade().getTipoHabitacion(habitacion.idTipoHabitacion).nombre;
             }
             else
             {
@@ -120,7 +120,7 @@ namespace Stardust.Controllers
             if (habitacion != null)
             {
                 ViewBag.Hotel = new HotelFacade().getHotel(habitacion.idHotel).nombre;
-                ViewBag.TipoHabitacion = new TipoHabitacionFacade().getTipo(habitacion.idTipoHabitacion).nombre;
+                ViewBag.TipoHabitacion = new TipoHabitacionFacade().getTipoHabitacion(habitacion.idTipoHabitacion).nombre;
             }
             else
             {

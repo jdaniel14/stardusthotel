@@ -15,6 +15,7 @@ namespace Stardust.Controllers
     public class HotelController : Controller
     {
         HotelFacade hotelFac = new HotelFacade();
+        TipoHabitacionFacade tipoHabitacionFac = new TipoHabitacionFacade();
         private static ILog log = LogManager.GetLogger(typeof(HotelController));
 
         // GET: /Hotel/
@@ -41,9 +42,17 @@ namespace Stardust.Controllers
         // GET: /Hotel/Create
         public ActionResult Create()
         {
-            var hotelVWC = new HotelViewModelCreate();
-            hotelVWC.Departamentos = Utils.listarDepartamentos();
-            return View(hotelVWC);
+            try
+            {
+                var hotelVWC = new HotelViewModelCreate();
+                hotelVWC.Departamentos = Utils.listarDepartamentos();
+                return View(hotelVWC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Create - GET(EXCEPTION):", ex);
+                throw ex;
+            }
         }
 
         // POST: /Hotel/Create
@@ -57,12 +66,15 @@ namespace Stardust.Controllers
                     var hotel = Mapper.Map<HotelViewModelCreate, HotelBean>(hotelVWC);
                     hotel.estado = true;
                     hotelFac.registrarHotel(hotel);
+                    int idHotelAux = hotelFac.buscarHotel(hotel);
+                    hotelFac.registrarAlmacen(idHotelAux, hotel.Almacen);
                     return RedirectToAction("List"); //despues de crear a donde quieres que vaya???
                 }
                 return View(hotelVWC);
             }
             catch (Exception ex)
             {
+                log.Error("Create - POST(EXCEPTION):", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(hotelVWC);
             }
@@ -308,7 +320,51 @@ namespace Stardust.Controllers
         }
         #endregion
 
-        
+        public ActionResult DeleteTipoHabitacionXHotel(int idTipoHabitacion, int idHotel)
+        {
+            var tipoHabitacionXhotelVMD = new TipoHabitacionXHotelViewModelDelete();
+            try
+            {
+                var tipoHabitacionXhotelVME = hotelFac.getTipoHabitacionXHotel(idHotel, idTipoHabitacion);
+                tipoHabitacionXhotelVMD = Mapper.Map<TipoHabitacionXHotelViewModelEdit, TipoHabitacionXHotelViewModelDelete>(tipoHabitacionXhotelVME);
+                //corregir el metodo ya que bota resultado peropara edit
+                tipoHabitacionXhotelVMD.nombreHotel = hotelFac.getHotel(idHotel).nombre;
+                tipoHabitacionXhotelVMD.nombreTipoHabitacion = tipoHabitacionFac.getTipoHabitacion(idTipoHabitacion).nombre;
+                tipoHabitacionXhotelVMD.nroTemporadasAsignadas = hotelFac.getNroTemporadasAsignadas(idHotel, idTipoHabitacion);
+                return View(tipoHabitacionXhotelVMD);
+            }
+            catch (Exception ex)
+            {
+                log.Error("DeleteTipoHabitacionXHotel - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(tipoHabitacionXhotelVMD);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTipoHabitacionXHotel(TipoHabitacionXHotelViewModelDelete tipohabitacionXhotelVMD)
+        {
+            try
+            {
+                if (tipohabitacionXhotelVMD.nroTemporadasAsignadas == 0)
+                {
+                    var tipoHabitacionXHotel = Mapper.Map<TipoHabitacionXHotelViewModelDelete, TipoHabitacionXHotel>(tipohabitacionXhotelVMD);
+                    hotelFac.eliminarTipoHabitacionXHotel(tipoHabitacionXHotel);
+                    return RedirectToAction("ListTiposHabitacionXHotel", new { id = tipoHabitacionXHotel.idHotel });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Operacion Inválida: No se debe eliminar el tipo habitacion asignado la hotel");
+                    return View(tipohabitacionXhotelVMD);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("DeleteTipoHabitacionXHotel - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(tipohabitacionXhotelVMD);
+            }
+        }
 
         public ActionResult ValidaEmail(string email)
         {
