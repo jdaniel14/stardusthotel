@@ -63,6 +63,7 @@ namespace Stardust.Models
             }
         }
 
+        #region DaianaXServicios
         public List<HotelBean> ListarHotel(string nombre){
 
         List<HotelBean> listaHotel = new List<HotelBean>();
@@ -107,7 +108,6 @@ namespace Stardust.Models
 
             return listaHotel;
         }
-
 
         /*--------Asignar Servicios por Hotel----*/
 
@@ -185,6 +185,8 @@ namespace Stardust.Models
 
             sqlCon.Close();
         }
+
+        #endregion
 
         public List<HotelBean> getHoteles()
         {
