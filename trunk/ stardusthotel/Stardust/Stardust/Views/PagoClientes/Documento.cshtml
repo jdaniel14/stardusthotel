@@ -1,0 +1,108 @@
+﻿@using Stardust.Models
+@model ReservaCheckOut
+<br />
+        @*<div id="leftSide" >
+        <div class="logo">
+
+                <img src="C:\Users\TEMP\Desktop\ stardusthotel\Stardust\Stardust\Content\images\logo.png"/>
+
+        </div>*@
+
+@*<div align="center">
+</div>*@
+<div>Fecha y Hora Actual: @DateTime.Now </div>
+<div>Nombre del Cliente : @Model.nombre</div>
+<div>@Model.tipoDoc     : @Model.dni</div>
+<div>    </div>
+<div>    </div>
+<div>    </div>
+
+<table cellpadding="3" cellspacing="3">
+    <tr border="1" bgcolor="#777777" color="#ffffff">
+        <td width="20%" align="center">
+            Detalle
+        </td>
+        <td width="50%" align="center">
+            Cantidad
+        </td>
+        <td width="30%" align="center">
+            Total
+        </td>
+    </tr>
+    @{
+        var OddColor = "#DDEEEE";
+        var evenColor = "#EEFFFF";
+        var Odd = OddColor;
+    }
+    @foreach (TipoDetalle detalle in Model.listaDetalles)
+    {
+        <tr border="1" bgcolor="@Odd">
+            <td>@detalle.detalle
+            </td>
+            <td>@detalle.cantidad
+            </td>
+            <td>@detalle.totalDet
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    }
+
+    <tr border="1" bgcolor="@Odd">
+            <td>
+            </td>
+            <td>SubTotal
+            </td>
+            <td>@Model.subTotal
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+
+    <tr border="1" bgcolor="@Odd">
+            <td>
+            </td>
+            <td>IGV
+            </td>
+            <td>@Model.IGV
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+    <tr border="1" bgcolor="@Odd">
+            <td>
+            </td>
+            <td>SubTotal
+            </td>
+            <td>@Model.subTotal
+            </td>
+        </tr>
+        if (Odd == OddColor)
+        {
+            Odd = evenColor;
+        }
+        else
+        {
+            Odd = OddColor;
+        }
+</table>
+
