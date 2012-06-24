@@ -34,7 +34,7 @@ function tonooo() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "DireccionURL",
+        url: "PagoAdelantado",
         beforeSend: esperaDatos(),
         success: llegadaDatos
     });
@@ -46,8 +46,8 @@ function esperaDatos() {
 }
 
 function llegadaDatos(data) {
-
-    if (data.me == "") {
+    console.log(data);
+    if (data.mensaje == "") {
 
         $("#nombReserva").text(data.dato);
         $("#nDocu").text(data.doc);
@@ -70,7 +70,7 @@ function llegadaDatos(data) {
         $("#pagar").click(alcohol);
     }
     else {
-        alert(data.me);
+        alert(data.mensaje);
     }
 }
 
