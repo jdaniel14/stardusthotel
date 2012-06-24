@@ -62,17 +62,23 @@ namespace Stardust.Models
         }
 
         public int modificarHorarioDetalle(HorarioDetalle hd) {
-
             return  empleadoDAO.modificarHorarioDetalle(hd);
         }
 
         public bool comparahoras(HorarioDetalle horariod) {
-
             return empleadoDAO.comparahoras(horariod);
         }
+
+
         public int compruebaasistencia(TomarAsistencia TA) {
             return empleadoDAO.compruebaasistencia(TA);
         
         }
+
+        public List<Horario> listarReporte(int codigoempleado){
+            return empleadoDAO.listarReporte(codigoempleado);
+        }
+
+
     }
 }

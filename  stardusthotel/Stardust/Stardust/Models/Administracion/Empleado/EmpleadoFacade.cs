@@ -82,5 +82,10 @@ namespace Stardust.Models
             return empleadoServ.compruebaasistencia(TA);
 
         }
+
+        public List<Horario> listarReporte(int codigoempleado)
+        {
+            return empleadoServ.listarReporte(codigoempleado);
+        }
     }
 }
