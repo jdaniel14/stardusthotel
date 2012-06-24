@@ -270,8 +270,16 @@ namespace Stardust.Controllers
             return Json(new { me = "" });
         }
 
+        public ActionResult BuscarAmbiente()
+        {
+            ViewBag.listaHoteles = new HotelFacade().getHoteles();
+            ViewBag.estado = 0;
+            return View();
 
-        public ViewResult BuscarAmbiente(string idHotel, string nombre, string estado)
+        }
+
+        [HttpPost]
+        public ActionResult BuscarAmbiente(string idHotel, string nombre, string estado)
         {
             int A;
             string B, C;
