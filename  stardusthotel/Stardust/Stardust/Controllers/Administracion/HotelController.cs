@@ -367,10 +367,87 @@ namespace Stardust.Controllers
         }
         #endregion
 
-        //public ActionResult ListTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
-        //{
+        #region ListTipoHabitacionXHotelXTemporada
+        public ActionResult ListTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
+        {
+            var lstTipoHabitacionXHotelXTemporadaVML = new List<TipoHabitacionXHotelXTemporadaViewModelList>();
+            try
+            {
+                lstTipoHabitacionXHotelXTemporadaVML = hotelFac.getTipoHabitacionXHotelXTemporada(idHotel, idTipoHabitacion);
 
-        //}
+                ViewBag.nombreHotel = hotelFac.getHotel(idHotel).nombre;
+                ViewBag.nombreTipoHabitacion = tipoHabitacionFac.getTipoHabitacion(idTipoHabitacion).nombre;
+
+                ViewBag.idHotel = idHotel;
+                ViewBag.idTipoHabitacion = idTipoHabitacion;
+
+                return View(lstTipoHabitacionXHotelXTemporadaVML);
+            }
+            catch (Exception ex)
+            {
+                log.Error("ListTipoHabitacionXHotelXTemporada - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex);
+                return View(lstTipoHabitacionXHotelXTemporadaVML);
+            }
+        }
+        #endregion
+
+        #region CreateTipoHabitacionXHotelXTemporada
+        public ActionResult CreateTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
+        {
+            var tipoHabitacionXhotelVMC = new TipoHabitacionXHotelXTemporadaViewModelCreate();
+            try
+            {
+                tipoHabitacionXhotelVMC.idHotel = idHotel;
+                tipoHabitacionXhotelVMC.idTipoHabitacion = idTipoHabitacion;
+                tipoHabitacionXhotelVMC.idTemporada = 0;
+
+                tipoHabitacionXhotelVMC.Hoteles = hotelFac.getHotelesActivos();
+                tipoHabitacionXhotelVMC.TipoHabitaciones = hotelFac.getTipoHabitaciones();
+                tipoHabitacionXhotelVMC.Temporadas = hotelFac.getTemporadas();
+                return View(tipoHabitacionXhotelVMC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("CreateTipoHabitacionXHotel - GET (EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(tipoHabitacionXhotelVMC);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporadaViewModelCreate tipoHabitacionXhotelXtemporadaVMC)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var thXhXtemporada = Mapper.Map<TipoHabitacionXHotelXTemporadaViewModelCreate, TipoHabitacionXHotelXTemporada>(tipoHabitacionXhotelXtemporadaVMC);
+                    if (!hotelFac.existeTipoHabitacion_Hotel_Temporada(thXhXtemporada))
+                    {
+                        hotelFac.registrarTipoHabitacion_Hotel_Temporada(thXhXtemporada);
+                        return RedirectToAction("ListTipoHabitacionXHotelXTemporada", new { idHotel = thXhXtemporada.idHotel, idTipoHabitacion = thXhXtemporada.idTipoHabitacion});
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "La temporada, el tipo de habitacion y el hotel ya han sido asignados");
+                        return View(tipoHabitacionXhotelXtemporadaVMC);
+                    }
+                }
+                return View(tipoHabitacionXhotelXtemporadaVMC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("CreateTipoHabitacionXHotelXTemporada - POST (EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(tipoHabitacionXhotelXtemporadaVMC);
+            }
+        }
+        #endregion
+
+        
+        //public ActionResult 
+
 
         public ActionResult ValidaEmail(string email)
         {
