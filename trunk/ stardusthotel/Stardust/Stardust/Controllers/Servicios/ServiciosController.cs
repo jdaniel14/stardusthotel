@@ -41,6 +41,10 @@ namespace Stardust.Controllers
         public ActionResult RegistrarServicio(ServiciosBean model)
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
+            if (model.estado2 == "Evento") model.estado1 = 1;
+            else if (model.estado2 == "Habitación") model.estado1 = 2;
+            else if (model.estado2 == "Otros") model.estado1 = 3;
+
             servicioFacade.RegistrarServicio(model);
             return RedirectToAction("BuscarServicio");
         }
@@ -49,6 +53,9 @@ namespace Stardust.Controllers
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
             ServiciosBean item = servicioFacade.GetServicio(id);
+            if (item.estado1 == 1) item.estado2 = "Evento";
+            else if (item.estado1 == 2) item.estado2 = "Habitación";
+            else if(item.estado1 == 3) item.estado2 = "Otros";
             return View(item);
         }
 
@@ -56,6 +63,10 @@ namespace Stardust.Controllers
         public ActionResult ModificarServicio(ServiciosBean item)
         {
             ServiciosFacade servicioFacade = new ServiciosFacade();
+
+            if (item.estado2 == "Evento") item.estado1 = 1;
+            else if (item.estado2 == "Habitación") item.estado1 = 2;
+            else if (item.estado2=="Otros") item.estado1 = 3;
             servicioFacade.ActualizarServicio(item);
             return RedirectToAction("BuscarServicio");
         }
