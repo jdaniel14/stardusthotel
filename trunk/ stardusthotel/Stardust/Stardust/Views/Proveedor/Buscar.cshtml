@@ -64,12 +64,7 @@
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                 </div>
              </th>
-               <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
-                <div class="DataTables_sort_wrapper">
-                Contacto
-                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
-                </div>
-             </th>
+               
              <th class="ui-state-default" rowspan="1" colspan="1" style="width:120px;" >
                 <div class="DataTables_sort_wrapper">
                 Estado
@@ -89,7 +84,7 @@
             <td>@Html.DisplayFor(modelItem => item.razonSocial)</td>
             <td>@Html.DisplayFor(modelItem => item.direccion)</td>
             <td>@Html.DisplayFor(modelItem => item.telefono)</td>
-            <td>@Html.DisplayFor(modelItem => item.contacto)</td>
+            
             <td>@Html.DisplayFor(modelItem => item.estado2)</td>
             <td>
                 <a href="@Url.Action("ModificarProveedor", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
