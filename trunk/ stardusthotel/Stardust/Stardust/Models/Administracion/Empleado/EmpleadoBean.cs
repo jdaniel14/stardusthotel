@@ -26,7 +26,12 @@ namespace Stardust.Models
         [Display( Name = "Estado" ) ]
         public string estado { get; set; }
 
+
+        #region usadoenreportenomodificar
         public List<Horario> horarios { get; set; }
+
+        public bool Value { get; set; }
+        #endregion
     }
     #endregion
 
@@ -151,6 +156,16 @@ namespace Stardust.Models
          public ReporteEmpleado(){
         horarios = new List<Horario>();
         empleado = new EmpleadoBean();
+       }
+    }
+
+    public class ReporteAllEmpleados {
+
+        public List<EmpleadoBean> allempleados { get; set; }
+        public ReporteAllEmpleados(){
+
+        allempleados = new List<EmpleadoBean>();
+        
        }
     }
     #endregion

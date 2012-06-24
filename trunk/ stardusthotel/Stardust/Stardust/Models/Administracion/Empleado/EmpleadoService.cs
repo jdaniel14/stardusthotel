@@ -79,6 +79,9 @@ namespace Stardust.Models
             return empleadoDAO.listarReporte(codigoempleado);
         }
 
-
+        public List<EmpleadoBean> listartodoempleado()
+        {
+            return empleadoDAO.listartodoempleado();
+        } 
     }
 }
