@@ -211,7 +211,7 @@ namespace Stardust.Models
 
                 mensaje.me = ActualizarPagoDetalle(reserva.listaDetalles);
 
-                mensaje.id = id;
+                //mensaje.id = id;
                 
                 return mensaje;
             }

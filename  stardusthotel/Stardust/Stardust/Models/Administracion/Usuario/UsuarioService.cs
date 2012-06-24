@@ -13,6 +13,14 @@ namespace Stardust.Models
             return usuarioDAO.getLogin(user, pass);
         }
 
+        public void marcarOnline(int id) {
+            usuarioDAO.marcarOnline(id);
+        }
+
+        public void logout(int id) {
+            usuarioDAO.logout(id);
+        }
+
         public UsuarioBean getUsuario(int id)
         {
             return usuarioDAO.getUsuario(id);

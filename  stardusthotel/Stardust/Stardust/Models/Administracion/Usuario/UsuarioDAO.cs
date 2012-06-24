@@ -20,12 +20,13 @@ namespace Stardust.Models
 
                 sql.Open();
 
-                String command = "Select * from Usuario where user_account = @user_account AND pass = @pass";
+                String command = "Select * from Usuario where user_account = @user_account AND pass = @pass AND estado = @estado";
 
                 SqlCommand query = new SqlCommand(command, sql);
 
                 Utils.agregarParametro(query, "user_account", user);
                 Utils.agregarParametro(query, "pass", pass);
+                Utils.agregarParametro(query, "estado", "ACTIVO");
 
                 SqlDataReader data = query.ExecuteReader();
 
@@ -51,6 +52,65 @@ namespace Stardust.Models
             }
             catch {
                 return null;
+            }
+            finally
+            {
+                if (sql != null) sql.Close();
+            }
+        }
+
+        public void marcarOnline(int id) {
+            SqlConnection sql = null;
+
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
+
+                    String command = "Update Usuario SET estado = @estado " +
+                                        "WHERE idUsuario = @idUsuario";
+                    SqlCommand query = new SqlCommand(command, sql);
+
+                    Utils.agregarParametro(query, "estado", "ONLINE");
+                    Utils.agregarParametro(query, "idUsuario", id);
+
+                    query.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            catch
+            {
+
+            }
+            finally {
+                if (sql != null) sql.Close();
+            }
+        }
+
+        public void logout(int id) {
+            SqlConnection sql = null;
+
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
+
+                    String command = "Update Usuario SET estado = @estado " +
+                                        "WHERE idUsuario = @idUsuario";
+                    SqlCommand query = new SqlCommand(command, sql);
+
+                    Utils.agregarParametro(query, "estado", "ACTIVO");
+                    Utils.agregarParametro(query, "idUsuario", id);
+
+                    query.ExecuteNonQuery();
+
+                sql.Close();
+            }
+            catch
+            {
+
             }
             finally
             {
