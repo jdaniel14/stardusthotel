@@ -108,6 +108,11 @@ namespace Stardust.Models
             hotelServ.actualizarTipoHabitacion(tipoHabitacionXhotel);
         }
 
+
+        public void ModificarserviciosxHotel(int idhotel, ServicioXHotelBean serv)
+        {
+            hotelServ.ModificarserviciosxHotel(idhotel, serv);
+        }
         public List<TipoHabitacionXHotelViewModelList> getTipoHabitacionXHotel(int id)
         {
             return hotelServ.getTipoHabitacionXHotel(id);
