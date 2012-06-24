@@ -23,8 +23,8 @@ namespace Stardust.Controllers.Administracion
         public ActionResult indice(EmpleadoBean emp)
         {
 
-          //  try
-          //  {
+            try
+           {
                 ViewBag.empleados = empleadoFac.listarEmpleados();
                 if (emp.Value == true)
                 {
@@ -54,7 +54,7 @@ namespace Stardust.Controllers.Administracion
                     return this.ViewPdf("", "ReporteAsistencia1", model);
 
                 }
-            /*
+            
             }
             catch
             {
@@ -62,7 +62,7 @@ namespace Stardust.Controllers.Administracion
                 ViewBag.error = "Error al tratar de generar el reporte -intetarlo en otro momento";
                 return View();
             }
-            */
+            
         }
 
 
