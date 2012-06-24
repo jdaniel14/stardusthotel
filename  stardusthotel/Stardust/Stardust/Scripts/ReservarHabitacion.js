@@ -1,4 +1,6 @@
-﻿var arreglosId = new Array();
+﻿
+
+var arreglosId = new Array();
 var arreglosHabit = new Array();
 var SendHotel;
 var x;
@@ -46,6 +48,11 @@ function inicializarEventos() {
     $("#continuarP3").click(inicializarMostreo);
     $("#FechaLlegada").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaSalida").datepicker({ dateFormat: 'dd-mm-yy' });
+    //getter
+    var minDate = $("#FechaLlegada").datepicker("option", "minDate");
+    //setter
+    $("#FechaLlegada").datepicker("option", "minDate", new Date(year, (month - 1), daym ));
+    $("#FechaSalida").datepicker("option", "minDate", new Date(year, (month - 1), daym + 1  ) );
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
     
