@@ -10,6 +10,7 @@ namespace Stardust.Controllers.Administracion
 {
     public class ReporteAsistenciaController : PdfViewController
     {
+
         EmpleadoFacade empleadoFac = new EmpleadoFacade();
 
         public ActionResult indice()
@@ -21,8 +22,22 @@ namespace Stardust.Controllers.Administracion
         [HttpPost]
         public ActionResult indice(EmpleadoBean emp)
         {
+            /*
             try
             {
+                
+                if (emp.Value==true)
+                {
+                 
+                    ReporteAllEmpleados reporte = new ReporteAllEmpleados();
+                      
+                       reporte.allempleados=empleadoFac.listartodoempleado();
+                       var model = reporte;
+                    return this.ViewPdf("", "ReporteAsistencia", model);
+               
+                }
+                else{
+                 */
                 int codigoempleado = emp.ID;
                 EmpleadoBean empleado = empleadoFac.getEmpleado(codigoempleado);
                 ReporteEmpleado RE = new ReporteEmpleado();
@@ -37,12 +52,16 @@ namespace Stardust.Controllers.Administracion
 
                 return this.ViewPdf("", "ReporteAsistencia1", model);
 
+          }
+                /*
             }
-            catch { return View(); }
+            catch {
+                ViewBag.error = "Error al tratar de generar el reporte -intetarlo en otro momento";
+                return View(); }
+                 */
         }
 
-
+   
 
 
     }
-}
