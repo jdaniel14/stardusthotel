@@ -20,5 +20,7 @@ namespace Stardust.Models
 
         [Display(Name = "Hotel")]
         public string nombrehotel { get; set; }
+
+        public Boolean estado2 { get; set; }
     }
 }
