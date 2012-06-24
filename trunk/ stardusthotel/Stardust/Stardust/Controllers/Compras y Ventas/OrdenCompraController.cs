@@ -81,8 +81,8 @@ namespace Stardust.Controllers
         {
             OrdenProducto prod = new OrdenProducto();
             ProveedorBean prov = proveedorFacade.GetProveedor(id);
-            
 
+            int cantidad = 0;
             ProductoxProveedorBean productosprov = proveedorFacade.obtenerlista(id); // de la tabla productoxpreoveedor
             int idalmacen = comprasFacade.obteneralmacen(idhotel);
             ProductoXAlmacenBean productosalmacen = comprasFacade.obtenerlistadAlmacen(idalmacen); // de la tabla productoxalmacen
@@ -103,7 +103,7 @@ namespace Stardust.Controllers
                         produc.stockActual = productosalmacen.listProdalmacen[i].stockactual;
                         produc.stockMinimo = productosalmacen.listProdalmacen[i].stockminimo;
                         produc.stockMaximo = productosalmacen.listProdalmacen[i].stockmaximo;
-                        if (produc.stockActual <= produc.stockMinimo) { produc.estado = true; }
+                        if (produc.stockActual <= produc.stockMinimo) { produc.estado = true; cantidad++; }
                         else { produc.estado = false; }
                         produ.Add(produc);
                     }
@@ -117,6 +117,9 @@ namespace Stardust.Controllers
             prod.idhotel = idhotel;
             HotelBean hotel = hoteles.getHotel(idhotel);
             prod.nombrehotel = hotel.nombre;
+
+            //Boolean est = prod.listaProducto[0].estado;
+            if (cantidad > 0) prod.estado2 = true; else prod.estado2 = false;
             return View(prod);
         }
 
