@@ -4,13 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Data.SqlClient;
+using log4net;
 
 namespace Stardust.Models
 {
     public class Utils
     {
         public static String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-        
+        private static ILog log = LogManager.GetLogger(typeof(Utils));
+
         public static List<Departamento> listarDepartamentos() {
             SqlConnection objDB = null;
             try
@@ -39,6 +41,11 @@ namespace Stardust.Models
                     return lstDepartamento;
                 }
                 return null;
+            }
+            catch (Exception ex)
+            {
+                log.Error("listarDepartamentos(EXCEPTION): ", ex);
+                throw ex;
             }
             finally
             {
@@ -79,6 +86,11 @@ namespace Stardust.Models
                 }
                 return null;
             }
+            catch (Exception ex)
+            {
+                log.Error("listarProvincias(EXCEPTION): ", ex);
+                throw ex;
+            }
             finally
             {
                 if (objDB != null)
@@ -94,9 +106,9 @@ namespace Stardust.Models
             {
                 objDB = new SqlConnection(cadenaDB);
                 List<Distrito> lstDistrito = null;
-                
+
                 objDB.Open();
-                String strQuery = "SELECT idDistrito, nombre FROM Distrito " + 
+                String strQuery = "SELECT idDistrito, nombre FROM Distrito " +
                                     "WHERE idDepartamento = @idDepartamento AND idProvincia = @idProvincia";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 agregarParametro(objQuery, "@idDepartamento", idDepartamento);
@@ -119,6 +131,11 @@ namespace Stardust.Models
                     return lstDistrito;
                 }
                 return null;
+            }
+            catch (Exception ex)
+            {
+                log.Error("listarDistritos(EXCEPTION): ", ex);
+                throw ex;
             }
             finally
             {
@@ -150,6 +167,11 @@ namespace Stardust.Models
                 return null;
                 //return String.Empty; <-- podria ser, tal vez depende de lo que se quiera
             }
+            catch (Exception ex)
+            {
+                log.Error("getNombreDepartamento(EXCEPTION): ", ex);
+                throw ex;
+            }
             finally
             {
                 if (objDB != null)
@@ -180,6 +202,11 @@ namespace Stardust.Models
                 }
                 return null;
                 //return String.Empty; <-- podria ser, tal vez depende de lo que se quiera
+            }
+            catch (Exception ex)
+            {
+                log.Error("getNombreProvincia(EXCEPTION): ", ex);
+                throw ex;
             }
             finally
             {
@@ -214,6 +241,11 @@ namespace Stardust.Models
                 return null;
                 //return String.Empty; <-- podria ser, tal vez depende de lo que se quiera
             }
+            catch (Exception ex)
+            {
+                log.Error("getNombreDistrito(EXCEPTION): ", ex);
+                throw ex;
+            }
             finally
             {
                 if (objDB != null)
@@ -225,10 +257,17 @@ namespace Stardust.Models
 
         public static void agregarParametro(SqlCommand objQuery, String nombreParametro, object valorParametro)
         {
-            SqlParameter objParametro = new SqlParameter();
-            objParametro.ParameterName = nombreParametro;
-            objParametro.Value = valorParametro ?? DBNull.Value;
-            objQuery.Parameters.Add(objParametro);
+            try
+            {
+                SqlParameter objParametro = new SqlParameter();
+                objParametro.ParameterName = nombreParametro;
+                objParametro.Value = valorParametro ?? DBNull.Value;
+                objQuery.Parameters.Add(objParametro);
+            }
+            catch (Exception ex)
+            {
+                log.Error("agregarParametro(EXCEPTION): ", ex);
+            }
         }
 
         public static String DateToString(DateTime date) { 
@@ -252,6 +291,11 @@ namespace Stardust.Models
 
                 SqlDataReader objReader = objQuery.ExecuteReader();
                 return objReader.HasRows;
+            }
+            catch (Exception ex)
+            {
+                log.Error("comprobarLogin(EXCEPTION): ", ex);
+                throw ex;
             }
             finally
             {
