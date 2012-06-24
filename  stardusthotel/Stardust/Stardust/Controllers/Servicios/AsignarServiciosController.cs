@@ -94,6 +94,18 @@ namespace Stardust.Controllers
             return View(serv);
         }
 
+
+        public ActionResult Guardarservicios2(ServicioXHotelBean serv)
+        {
+            List<HotelBean> hotel = hotelFac.ListarHotel(serv.hotel);
+            int idhotel = hotel[0].ID;
+            for (int i = 0; i < serv.listServHot.Count; i++)
+            {
+                serv.listServHot[i].precio = Convert.ToDecimal(serv.listServHot[i].precio2) / 100;
+            }
+            hotelFac.ModificarserviciosxHotel(idhotel, serv);
+            return RedirectToAction("ListarServicios/" + idhotel, "AsignarServicios");
+        }
         public ViewResult AsignarServicio(string nombre)
         {
             ServicioXHotelBean serv = new ServicioXHotelBean();
