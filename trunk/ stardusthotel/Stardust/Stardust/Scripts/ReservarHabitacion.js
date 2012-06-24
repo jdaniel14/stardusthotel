@@ -125,11 +125,18 @@ function mostrarBuscame() {
             type: "POST",
             data: jsonData,
             dataType: "json",
+            statusCode: {
+                500: function () {
+                    $("#espera").dialog("destroy");
+                    mostrarError("Error inesperado... intentelo mas tarde :)");
+                    $("#tipos").hide("slow");
+                }
+            },
             contentType: "application/json; charset=utf-8",
             url: "ReservarHabitacion/consultarDisponibles",
             beforeSend: inicioEnvioTipoHotel(),
             success: llegadaTipoHabitacion
-            
+
         });
 
         $('#Total').text(0);

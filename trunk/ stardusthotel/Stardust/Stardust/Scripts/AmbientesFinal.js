@@ -166,7 +166,7 @@ function finDelChongo() {
 
 
             var TeLoPaso = {
-                idHotel: Hotel,
+                idHotel: SendHotel,
                 client: clientexD,
                 evento: enviarEvento,
                 listAmbi: listaAmbientes,
