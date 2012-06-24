@@ -5,10 +5,11 @@ using System.Web;
 using Stardust.Models;
 using Stardust.Models.Servicios;
 using System.Web.Mvc;
+using ReportManagement;
 
 namespace Stardust.Controllers.Servicios
 {
-    public class PagoClientesController : Controller
+    public class PagoClientesController : PdfViewController
     {
         PagoFacade pagoFacade = new PagoFacade();
 
@@ -47,6 +48,16 @@ namespace Stardust.Controllers.Servicios
         public ActionResult PagarInicial()
         {
             return View();
+        }
+
+        public ActionResult GenerarDocumento(int id)
+        {
+            ReservaCheckOut reserva = pagoFacade.GetReserva(id);
+
+            if(reserva.tipoDoc.Equals("DNI"))
+                return this.ViewPdf("Boleta", "Documento", reserva);
+            else
+                return this.ViewPdf("Factura", "Documento", reserva);
         }
     }
 }
