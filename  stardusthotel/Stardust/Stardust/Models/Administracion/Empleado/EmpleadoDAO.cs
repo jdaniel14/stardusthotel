@@ -57,6 +57,8 @@ namespace Stardust.Models
                 empleado.nombreEmpleado = usuar.nombres + " " + usuar.apMat + " " + usuar.apPat;
                 empleado.ID = (int)data.GetValue(0);
                 empleado.fechaIngreso = (DateTime)data.GetValue(1);
+                if (data.GetValue(2) != null) empleado.fechaSalida = (DateTime)data.GetValue(2);
+                
                 //empleado.fechaSalida = (DateTime)data.GetValue(2);
                 empleado.estado = Convert.ToString(data["estado"]);
 
@@ -718,13 +720,29 @@ namespace Stardust.Models
         {
 
             DateTime dtsistema = DateTime.Now;
-            if ((empleado.fechaIngreso <= dtsistema))
+
+            if (empleado.fechaSalida == null)
             {
+                if ((empleado.fechaIngreso <= dtsistema))
+                {
 
-                return true;
+                    return true;
 
+                }
+                else return false;
             }
-            else return false;
+            else
+            {
+                
+                    if ((empleado.fechaIngreso <= dtsistema) && (dtsistema<=empleado.fechaSalida))
+                    {
+
+                        return true;
+
+                    }
+                    else return false;
+                
+            }
         }
 
 
