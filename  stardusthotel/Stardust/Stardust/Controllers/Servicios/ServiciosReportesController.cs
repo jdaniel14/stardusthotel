@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using log4net;
 
 namespace Stardust.Controllers.Servicios
 {
     public class ServiciosReportesController : Controller
     {
         //
+        private static ILog log = LogManager.GetLogger(typeof(ServiciosReportesController));
         // GET: /ServiciosReportes/
 
         PagoFacade pagoFacade = new PagoFacade();
