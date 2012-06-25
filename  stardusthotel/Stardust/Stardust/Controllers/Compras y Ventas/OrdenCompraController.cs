@@ -51,8 +51,10 @@ namespace Stardust.Controllers
             {
                 if (orden[i].estado == "Tramite" || orden[i].estado == "Cancelado") orden[i].estado2 = true;
                 else orden[i].estado2 = false;
-
+                HotelBean hot = hoteles.getHotel(orden[i].idhotel);
+                orden[i].nombrehotel = hot.nombre;
             }
+
             return View(orden);
         }
 
@@ -184,7 +186,9 @@ namespace Stardust.Controllers
                     }
                 }
             }
-
+            
+            HotelBean hot= hoteles.getHotel(ordencompra.idhotel);
+            ordencompra.nombrehotel = hot.nombre;
             return View(ordencompra);
         }
 
@@ -210,7 +214,8 @@ namespace Stardust.Controllers
                     }
                 }
             }
-
+            HotelBean hot = hoteles.getHotel(ordencompra.idhotel);
+            ordencompra.nombrehotel = hot.nombre;
             return View(ordencompra);
 
         }
@@ -238,8 +243,8 @@ namespace Stardust.Controllers
             
             ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
             ordencompra.nombreproveedor = proveedor.razonSocial;
-
-            
+            HotelBean hot= hoteles.getHotel(ordencompra.idhotel);
+            ordencompra.nombrehotel = hot.nombre;
             return View(ordencompra);
         }
 
@@ -252,6 +257,8 @@ namespace Stardust.Controllers
             ordencompra.nombreproveedor = proveedor.razonSocial;
             
             notaentrada.idhotel=ordencompra.idhotel;
+            HotelBean hot= hoteles.getHotel(notaentrada.idhotel);
+            notaentrada.nombrehotel=hot.nombre;
             notaentrada.nombreproveedor = proveedor.razonSocial;
             notaentrada.idordencompra = id;
             notaentrada.idproveedor = ordencompra.idproveedor;
@@ -353,6 +360,21 @@ namespace Stardust.Controllers
             nota.idguiaRemision = id;
             nota.idordencompra = id2;
 
+            /************************/
+
+            OrdenCompraBean ordencompra = comprasFacade.buscarOrdenes(id2);
+            //ProveedorBean proveedor = proveedorFacade.GetProveedor(ordencompra.idproveedor);
+            //ordencompra.nombreproveedor = proveedor.razonSocial;
+
+            nota.idhotel = ordencompra.idhotel;
+            HotelBean hot = hoteles.getHotel(nota.idhotel);
+            nota.nombrehotel = hot.nombre;
+
+
+
+            /*********************/
+
+
             List<NotaEntradaBean> notas = comprasFacade.listarnotasentrada(id2);
 
             for (int i = 0; i < notas.Count; i++)
@@ -375,6 +397,7 @@ namespace Stardust.Controllers
                 ProductoBean producto = proveedorFacade.Getproducto(nota.detallenotaentrada[i].ID);
                 nota.detallenotaentrada[i].nombre = producto.nombre;
             }
+
             return View(nota);
 
         }
