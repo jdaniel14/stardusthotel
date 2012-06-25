@@ -174,7 +174,23 @@ namespace Stardust.Models.Servicios
             }
 
             System.Diagnostics.Debug.WriteLine("DOCUMENTO : " + usuarioRes.tipoDocumento);
+
+            if (reservaRequest.rec == 1)
+            {
+                String detalle = "Recojo Aeropuerto";
+                RecAero aerop = reservaRequest.datRec;
+                ServBean serv = reservaHabitacionDAO.buscaServicio(detalle, reservaRequest.idHotel);
+                result = serv.me.Equals("");
+                if (!result)
+                {
+                    mensaje.me = serv.me;
+                    return mensaje;
+                }
+                reservaRes.montoTotal = reservaRes.montoTotal + serv.precioBase * aerop.nroPer;
+            }
+
             DocumentoPagoBean docPago = reservaHabitacionDAO.registrarDocumentoPago(usuarioRes, reservaRes);
+
             result = docPago.me.Equals("");
             if (!result)
             {
@@ -201,17 +217,40 @@ namespace Stardust.Models.Servicios
 
             System.Diagnostics.Debug.WriteLine("Tipo : " + reservaRequest.rec);
             String mensajeServicio = "";
-            /*if(reservaRequest.rec==1){
-                String descripcionServicio = reservaRequest.datRec
-                mensajeServicio = reservaHabitacionDAO.registrarServicio(reservaRequest.datRec);
-            }*/
-            result = mensajeServicio.Equals("");
-            if (!result)
-            {
-                mensaje.me = mensajeServicio;
-                return mensaje;
-            }
+            if(reservaRequest.rec==1){
+                String detalle = "Recojo Aeropuerto";
+                RecAero aerop = reservaRequest.datRec;
+                ServBean serv = reservaHabitacionDAO.buscaServicio(detalle, reservaRequest.idHotel);
 
+                result = serv.me.Equals("");
+                if (!result)
+                {
+                    mensaje.me = serv.me;
+                    return mensaje;
+                }
+                System.Diagnostics.Debug.WriteLine("aerolinea : " + aerop.aero);
+                System.Diagnostics.Debug.WriteLine("Hora : " + aerop.hrLleg);
+                System.Diagnostics.Debug.WriteLine("pers : " + aerop.nroPer);
+                System.Diagnostics.Debug.WriteLine("vuelo : " + aerop.vuel);
+                Decimal montoTotal = aerop.nroPer * serv.precioBase;
+                String descripcion = "Vuelo : " + aerop.vuel + " , hora de Llegada : " + aerop.hrLleg + " , nroPersona : " + aerop.nroPer;                
+                mensajeServicio = reservaHabitacionDAO.registrarServ(serv.idServicio, reservaRequest.idHotel, reservaRes.idReserva, reservaRequest.client.nroDoc, montoTotal, descripcion);
+
+                result = mensajeServicio.Equals("");
+                if (!result)
+                {
+                    mensaje.me = mensajeServicio;
+                    return mensaje;
+                }
+                mensajeServicio = reservaHabitacionDAO.registrarDetalleFacturaServ(docPago.idDocPago, detalle, aerop.nroPer, serv.precioBase,montoTotal, 1);
+
+                result = mensajeServicio.Equals("");
+                if (!result)
+                {
+                    mensaje.me = mensajeServicio;
+                    return mensaje;
+                }
+            }
 
             int resEmail = envioEmail(reservaRes.idReserva, reservaRequest.client.nomb, reservaRequest.client.email);
             System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
