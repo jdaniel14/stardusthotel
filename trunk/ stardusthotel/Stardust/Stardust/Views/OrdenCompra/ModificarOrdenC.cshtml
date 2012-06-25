@@ -18,6 +18,10 @@
             <div class="title">
                 <h6>Detalle de La Orden Compra</h6>
             </div>
+             <div class="formRow"> @Html.LabelFor(model => model.nombrehotel)
+                <div class=" formRight"> @Html.DisplayFor(model => model.nombrehotel)  </div>
+                <div class="clear"></div>
+            </div>
             <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)
                 <div class=" formRight"> @Html.DisplayFor(model => model.nombreproveedor)  </div>
                 <div class="clear"></div>
@@ -42,10 +46,21 @@
     </fieldset>
     
     
-    <div class="widget">
-          <div class="title"><img src= "../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Lista de Productos</h6></div>
-            <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
-                <thead>                    <tr>                        <td>Producto</td>                        <td>Cantidad</td>                        <td>Precio Unitario</td>                        <td>Precio Total</td>                    </tr>                </thead>
+    <div class="widget">
+
+          <div class="title"><img src= "../../Content/images/icons/dark/frames.png" alt="" class="titleIcon" /><h6>Lista de Productos</h6></div>
+
+            <table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+
+                <thead>
+                    <tr>
+                        <td>Producto</td>
+                        <td>Cantidad</td>
+                        <td>Precio Unitario</td>
+                        <td>Precio Total</td>
+                    </tr>
+                </thead>
+
                 <tbody>
                         @for (int i = 0; i < Model.detalle.Count; i++)
                         {
@@ -65,9 +80,12 @@
                         <td>Monto Total</td>
                         <td > @Html.DisplayFor(model => model.preciototal, new { @readonly = "readonly" })</td>
                     </tr>
-                </tbody>
-            </table>
-      </div>    
+                </tbody>
+
+            </table>
+
+      </div>
+    
      <p>
         <input type="submit" value="Guardar" class = "redB" />
     </p>
