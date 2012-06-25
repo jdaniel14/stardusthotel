@@ -1,20 +1,24 @@
-﻿@model Stardust.Models.UsuarioBean
+﻿@model Stardust.Models.UsuarioViewModelDetails
 
 @{
     ViewBag.Title = "Detalles del usuario";
 }
 
-@if (!String.IsNullOrEmpty(ViewBag.results)) { 
-    <div class="nNote nWarning hideit">
-        <p><strong>AVISO: </strong>@ViewBag.results</p>
-    </div>
+@if (Html.ValidationSummary() != null)
+{
+<div class="nNote nWarning hideit">
+    <p>@Html.ValidationSummary()</p>
+</div>
 }
 
-<h2>Detalles del usuario</h2>
+<h2>@ViewBag.Title</h2>
 
 <fieldset>
     <div class = "widget" >
-        <div class = "title"><h6>Detalles del usuario</h6></div>
+        <div class = "title">
+            <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">
+            <h6>@ViewBag.Title</h6>
+        </div>
 
         <div class="formRow">
             @Html.LabelFor(model => model.user_account)
@@ -30,7 +34,10 @@
 
         <div class="formRow">
             @Html.LabelFor(model => model.nombrePerfilUsuario )
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombrePerfilUsuario)</div>
+            <div class = "formRight" >
+                @Html.DisplayFor(model => model.nombrePerfilUsuario)
+                @Html.HiddenFor(model => model.idPerfilUsuario)
+            </div>
             <div class = "clear" ></div>
         </div>
 
@@ -95,29 +102,36 @@
         </div>
 
         <div class="formRow">
-            @Html.LabelFor(model => model.nombreDistrito)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDistrito)</div>
+            @Html.LabelFor(model => model.nombreDepartamento)
+            <div class = "formRight" >
+                @Html.DisplayFor(model => model.nombreDepartamento)
+                @Html.HiddenFor(model => model.idDepartamento)
+            </div>
             <div class = "clear" ></div>
         </div>
 
         <div class="formRow">
             @Html.LabelFor(model => model.nombreProvincia)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombreProvincia)</div>
+            <div class = "formRight" >
+                @Html.DisplayFor(model => model.nombreProvincia)
+                @Html.HiddenFor(model => model.idProvincia)
+            </div>
             <div class = "clear" ></div>
         </div>
 
         <div class="formRow">
-            @Html.LabelFor(model => model.nombreDepartamento)
-            <div class = "formRight" >@Html.DisplayFor(model => model.nombreDepartamento)</div>
+            @Html.LabelFor(model => model.nombreDistrito)
+            <div class = "formRight" >
+                @Html.DisplayFor(model => model.nombreDistrito)
+                @Html.HiddenFor(model => model.idDistrito)
+            </div>
             <div class = "clear" ></div>
         </div>
+        
     </div>
 </fieldset>
 
-@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" }))
-{
-    <p>
-        <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
-        @Html.ActionLink("Regresar", "List")
-    </p>
-}
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar</a> | 
+    @Html.ActionLink("Regresar", "List")
+</p>
