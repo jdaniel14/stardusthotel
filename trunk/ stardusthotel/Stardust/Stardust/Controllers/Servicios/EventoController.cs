@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Globalization;
 using Stardust.Models.Servicios;
+using log4net;
 
 namespace Stardust.Controllers
 {
@@ -15,6 +16,7 @@ namespace Stardust.Controllers
     {
         private CadenaHotelDB db = new CadenaHotelDB();
         EventoFacade eventoFacade = new EventoFacade();
+        private static ILog log = LogManager.GetLogger(typeof(EventoController));
 
         public ViewResult Index()
         {
