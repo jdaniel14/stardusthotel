@@ -1,4 +1,5 @@
 ﻿var reserva;
+var SendHotel;
 var x;
 var habitaciones = new Array();
 var cantXHabit = new Array();
@@ -6,32 +7,77 @@ x = $(document);
 x.ready(inicializarEventos);
 
 function inicializarEventos() {
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "/ReservarHabitacion/listarHoteles",
+        beforeSend: esperarHoteles(),
+        success: llegadaHoteles
+    });
+
+
     $("#footer").hide();
 
     $("#buscarReserva").click(comienzaElChongo);    
 }
 
+function esperarHoteles() {
+}
+
+function llegadaHoteles(data) {
+    var escritor = "";
+    console.log(data);
+    if (data.me == "") {
+
+        escritor += '<option value = "NN" selected = "selected">Escoja un hotel</option>';
+
+        $.each(data.lista, function (i, item) {
+            escritor += '<option value = "' + item.ID + '">' + item.nombre + '</option>';
+        });
+
+        $("#ComboHoteles").html(escritor);
+
+        var miValue2 = "NN";
+        $("#ComboHoteles option[value=" + miValue2 + "]").attr("selected", true);
+        $("#ComboHoteles").trigger('change');
+    }
+    else {
+        mostrarError(data.me);
+    }
+}
+
+
 function comienzaElChongo() {
 
     reserva = $("#nroReserva").get(0).value;
+    SendHotel = $("#ComboHoteles").val();
 
-    var Envio = {
-        idHotel: "2",
-        idReserva: reserva
+    if ((reserva != "") &&
+        (SendHotel != "NN")) {
+
+        var Envio = {
+            idHotel: "2",
+            idReserva: reserva
+        }
+
+        jsonData = JSON.stringify(Envio);
+        console.log(jsonData);
+
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "CheckIn",
+            beforeSend: esperaRecibirDatosCheckIn(),
+            success: llegadaDatosCheckIn
+        });
     }
-
-    jsonData = JSON.stringify(Envio);
-    console.log(jsonData);
-
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "CheckIn",
-        beforeSend: esperaRecibirDatosCheckIn(),
-        success: llegadaDatosCheckIn
-    });
+    else {
+        mostrarError("Faltan llenar Datos");
+    }
 }
 
 function esperaRecibirDatosCheckIn(){
@@ -220,14 +266,19 @@ function esperaConfirmacion(){
 }
 
 function Confirma(data) {
-    console.log(data)
+    $("#espera").dialog("destroy");
+    console.log(data.me);
+
     if (data.me == "") {
-        mostrarError('OK');
+
         console.log("se hizo");
-        $(location).attr('href', '../../');
+        mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
     else {
         mostrarError(data.me);
+        if (data.me == "No se pudo enviar el email") {
+            $(location).attr('href', '../');
+        }
     }
 }
 

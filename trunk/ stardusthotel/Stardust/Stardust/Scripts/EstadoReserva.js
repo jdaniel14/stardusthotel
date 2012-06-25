@@ -233,7 +233,19 @@ function waitEliminar() {
 }
 
 function eliminadoReserva(data) {
-    alert(data.me.toString());
-    $(location).attr('href', '../../');
+    $("#espera").dialog("destroy");
+    console.log(data.me);
+
+    if (data.me == "") {
+
+        console.log("se hizo");
+        mostrarConfirmacionFinal('Reservar realizada ^_^!');
+    }
+    else {
+        mostrarError(data.me);
+        if (data.me == "No se pudo enviar el email") {
+            $(location).attr('href', '../');
+        }
+    }
     
 }
