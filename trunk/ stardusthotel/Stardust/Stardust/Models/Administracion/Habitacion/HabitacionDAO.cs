@@ -40,6 +40,7 @@ namespace Stardust.Models
                     habitacion.nroCamas = (int)data.GetValue(5);
                     habitacion.idHotel = (int)data.GetValue(6);
                     habitacion.idTipoHabitacion = (int)data.GetValue(7);
+                    habitacion.numero = (string)data.GetValue(8);
                 }
                 return habitacion;
             }
@@ -66,8 +67,8 @@ namespace Stardust.Models
                 objDB.Open();
 
                 String strQuery = "INSERT INTO Habitacion " +
-                                    "( piso , estado , nroBanos , aptoFumador , nroCamas , idHotel , idTipoHabitacion ) " +
-                                    "VALUES (@piso, @estado, @nroBanos, @aptoFumador, @nroCamas, @idHotel, @idTipoHabitacion)";
+                                    "( piso , estado , nroBanos , aptoFumador , nroCamas , idHotel , idTipoHabitacion , numero) " +
+                                    "VALUES (@piso, @estado, @nroBanos, @aptoFumador, @nroCamas, @idHotel, @idTipoHabitacion, @numero)";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 DAO.agregarParametro(objQuery, "piso", habitacion.piso);
                 DAO.agregarParametro(objQuery, "estado", habitacion.estado);
@@ -76,7 +77,7 @@ namespace Stardust.Models
                 DAO.agregarParametro(objQuery, "nroCamas", habitacion.nroCamas);
                 DAO.agregarParametro(objQuery, "idHotel", habitacion.idHotel);
                 DAO.agregarParametro(objQuery, "idTipoHabitacion", habitacion.idTipoHabitacion);
-
+                DAO.agregarParametro(objQuery, "numero", habitacion.numero);
                 objQuery.ExecuteNonQuery();
                 objDB.Close();
             }
@@ -107,6 +108,7 @@ namespace Stardust.Models
                                     "aptoFumador = @aptoFumador," +
                                     "idHotel = @idHotel," +
                                     "idTipoHabitacion = @idTipoHabitacion " +
+                                    "numero = @numero " +
                                     "WHERE idHabitacion = @idHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
                 DAO.agregarParametro(objQuery, "piso", habitacion.piso);
@@ -116,7 +118,9 @@ namespace Stardust.Models
                 DAO.agregarParametro(objQuery, "aptoFumador", (habitacion.aptoFumador ? 1 : 0));
                 DAO.agregarParametro(objQuery, "idHotel", habitacion.idHotel);
                 DAO.agregarParametro(objQuery, "idTipoHabitacion", habitacion.idTipoHabitacion);
+                DAO.agregarParametro(objQuery, "numero", habitacion.numero);
                 DAO.agregarParametro(objQuery, "idHabitacion", habitacion.ID);
+
 
                 objQuery.ExecuteNonQuery();
             }
@@ -189,6 +193,7 @@ namespace Stardust.Models
                         habitacion.nroCamas = (int)objDataReader.GetValue(5);
                         habitacion.idHotel = (int)objDataReader.GetValue(6);
                         habitacion.idTipoHabitacion = (int)objDataReader.GetValue(7);
+                        habitacion.numero = (string)objDataReader.GetValue(8);
                         habitacion.nombreHotel = this.getNombreHotel(habitacion.idHotel);
                         habitacion.nombreTipoHabitacion = this.getTipoHabitacion(habitacion.idTipoHabitacion);
 
@@ -255,6 +260,7 @@ namespace Stardust.Models
                     habitacion.nroCamas = Convert.ToInt32(data["nroCamas"]);
                     habitacion.idHotel = Convert.ToInt32(data["idHotel"]);
                     habitacion.idTipoHabitacion = Convert.ToInt32(data["idTipoHabitacion"]);
+                    habitacion.numero= (string)data["numero"];
                     habitacion.nombreHotel = this.getNombreHotel(habitacion.idHotel);
                     habitacion.nombreTipoHabitacion = this.getTipoHabitacion(habitacion.idTipoHabitacion);
 

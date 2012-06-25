@@ -51,6 +51,7 @@ namespace Stardust.Models
         public int idTipoHabitacion { get; set; }
 
         public string nombreHotel { get; set; }
+        public string numero { get; set; }
 
         public string nombreTipoHabitacion { get; set; }
     }
