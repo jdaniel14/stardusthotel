@@ -136,7 +136,7 @@ function esperaValidacion() {
 }
 
 function llegadaValidacion(data) {
-    if (data.me = "") {
+    if (data.me == "") {
         $("#EventoIncorrecto").hide("slow");
         $("#EventoCorrecto").show("slow");
         var miValue = data.tipoDocumento

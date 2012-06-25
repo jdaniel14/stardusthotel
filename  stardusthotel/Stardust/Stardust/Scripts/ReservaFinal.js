@@ -1,5 +1,5 @@
 ﻿var idUser;
-
+var enviarReservita;
 
 function inicializarMostreo() {
 
@@ -172,16 +172,17 @@ function enviarDatos() {
         var nombreTipo = $(cmd).text();
 
         cmd = "#precio";
-        cmd += i;
-        var precio = $(cmd).text();
-
+        cmd += id;
+        var precio2 = $(cmd).text();
+//        alert(cmd);
+//        alert(precio2);
       
 
         var arregloInterior = {
             tipo: id,
             cant: cantHabit,
             nombTipo: nombreTipo,
-            precUnit: precio,
+            precUnit: precio2,
             list: habits            
         };
         
@@ -260,10 +261,9 @@ function finRes(data) {
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
     else {
-        mostrarError(data.me);
-        if (data.me == "No se pudo enviar el email") {
-            $(location).attr('href', '../');
-        }
+        mostrarError(data.me);       
+        mostrarConfirmacionFinal('Gracias');
+        
     }
     
 }
