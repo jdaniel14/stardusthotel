@@ -1,9 +1,18 @@
-﻿
+﻿var SendHotel;
 var x;
 x = $(document);
 x.ready(inicializarEventos);
 
 function inicializarEventos() {
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: "/ReservarHabitacion/listarHoteles",
+        beforeSend: esperarHoteles(),
+        success: llegadaHoteles
+    });
 
     $("#datos").hide();
     $("#anular").hide();
@@ -12,32 +21,64 @@ function inicializarEventos() {
     
 }
 
+
+function esperarHoteles() {
+}
+
+function llegadaHoteles(data) {
+    var escritor = "";
+    console.log(data);
+    if (data.me == "") {
+
+        escritor += '<option value = "NN" selected = "selected">Escoja un hotel</option>';
+
+        $.each(data.lista, function (i, item) {
+            escritor += '<option value = "' + item.ID + '">' + item.nombre + '</option>';
+        });
+
+        $("#ComboHoteles").html(escritor);
+
+        var miValue2 = "NN";
+        $("#ComboHoteles option[value=" + miValue2 + "]").attr("selected", true);
+        $("#ComboHoteles").trigger('change');
+    }
+    else {
+        mostrarError(data.me);
+    }
+}
+
 function buscarReserva(){
 
     
 
-
+    SendHotel = $("#ComboHoteles").val();
     var num = $("#nroReserva").get(0).value;
     var num2 = $("#nroDocumento").get(0).value;
-    var telo = "2";
 
-    var datosEnviar = {
-        idReserva: num,
-        documento: num2,
-        idHotel: telo
+    if ((nroReserva != "") &&
+        (nroDocumento != "") &&
+        (SendHotel != "NN")) {
+
+        var datosEnviar = {
+            idHotel: SendHotel,
+            idReserva: num,
+            documento: num2
+        }
+        var jsonData = JSON.stringify(datosEnviar);
+        console.log(jsonData);
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "consultarReserva",
+            beforeSend: inicioEnvioReservas(),
+            success: llegadaReservas
+        });
     }
-    var jsonData = JSON.stringify(datosEnviar);    
-    console.log(jsonData);    
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "consultarReserva",
-        beforeSend: inicioEnvioReservas(),
-        success: llegadaReservas
-    });
-
+    else {
+        mostrarError("Faltan llenar Datos");
+    }
 }
 
 function inicioEnvioReservas() {
@@ -168,7 +209,8 @@ function cancelarReserva() {
         var res = $("#nroReserva").get(0).value;
 
         var ReservaEliminar = {
-           idReserva: res
+           idReserva: res,
+           idHotel:SendHotel
        }
 
         var jsonData = JSON.stringify(ReservaEliminar);
