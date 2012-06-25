@@ -47,7 +47,7 @@ namespace Stardust.Models.Servicios
 
             Dictionary<int, int> dictTipoHab = new Dictionary<int, int>();
 
-            System.Diagnostics.Debug.WriteLine(totTipHab);
+            System.Diagnostics.Debug.WriteLine("TOTAL TIPO HABITACION : " + totTipHab);
 
             for (int i = 0; i < totTipHab; i++) {
                 //System.Diagnostics.Debug.WriteLine("-> "+i);
@@ -60,7 +60,7 @@ namespace Stardust.Models.Servicios
                 tipoHabDisp.listaDisp = new List<ReservaHabitacionBean>();
                 listaRespuesta.Add(tipoHabDisp);
                 int numTip = listaRespuesta[i].idTipoHab;
-                System.Diagnostics.Debug.WriteLine("-> " + numTip);
+                System.Diagnostics.Debug.WriteLine(i + " -> " + numTip);
                 dictTipoHab[numTip] = i;
 
             }
@@ -188,14 +188,28 @@ namespace Stardust.Models.Servicios
                 mensaje.me = mensajeDetalle;
                 return mensaje;
             }
-            
+
+            System.Diagnostics.Debug.WriteLine("Tipo : " + reservaRequest.rec);
+            String mensajeServicio = "";
+            /*if(reservaRequest.rec==1){
+                String descripcionServicio = reservaRequest.datRec
+                mensajeServicio = reservaHabitacionDAO.registrarServicio(reservaRequest.datRec);
+            }*/
+            result = mensajeServicio.Equals("");
+            if (!result)
+            {
+                mensaje.me = mensajeServicio;
+                return mensaje;
+            }
+
+
             int resEmail = envioEmail(reservaRes.idReserva, reservaRequest.client.nomb, reservaRequest.client.email);
             System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
             if (resEmail != 0) {
                 mensaje.me = "No se pudo enviar el email";
                 return mensaje;
             }
-            
+
             return mensaje;
         }
 
