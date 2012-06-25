@@ -209,7 +209,7 @@
 				    </div>				    
 			        </div>
 
-                    <div id = "ServiciosAdicionales">
+                    @*<div id = "ServiciosAdicionales">
                         
                         <div class="formRow"><span>Desayuno</span>
 				            <div class = "formRight" > 
@@ -251,11 +251,53 @@
 			            </div>
 
                 
+                    </div>*@
+
+
+                     <div class="widget" id = "tipos4">
+
+			            <div class="title">
+				            <h6>Invitado de Evento</h6>
+			            </div>
+
+                        <div class="formRow"><span>Es usted invitado de algun evento?</span>
+				        <div class = "formRight" > 
+					        <div class="demo">
+						        <input type="checkbox" id="checkEvento" value="one" /><br />                            
+					        </div>
+				        </div>				    
+			            </div>
+
+                        <div id = "OfertaEvento">  
+                            <div class="formRow">
+				                <span>Id. del Evento</span>
+				                <div class = "formRight" > 
+					                <input type="text" value="" id="idEvento" />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input id = "ValidarEvento" type="submit" value="Validar" class = "redB" />
+				                </div>                
+				                <div class="clear"></div>
+			                </div>   
+                            
+                            <div class="formRow" id = "EventoIncorrecto"><span><font color="#FF0000">* Id. Evento Incorrecto</font></span>                                                
+                                   <div class="clear"></div>
+                            </div>
+
+                            <div class="formRow" id = "EventoCorrecto"><span><font color="#008000">* Id. Evento Correcto</font></span>                                                
+                                   <div class="clear"></div>
+                            </div>
+                            
+                                                 
+                        </div>
+
                     </div>
+
+
                 </div>
 
                 <br />
-		<input id = "continuarP2" type="submit" value="Continuar" class = "redB" />
+		        <input id = "continuarP2" type="submit" value="Continuar" class = "redB" />
 
 		    </div>	        
         
