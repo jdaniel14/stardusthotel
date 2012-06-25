@@ -549,7 +549,12 @@ namespace Stardust.Models
                         String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
                         SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
                         sqlCon2.Open();
-                        string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab.ElementAt(i).idHabit + " AND fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF + " ORDER BY fechaIni";
+                        //string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab.ElementAt(i).idHabit + " AND fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF + " ORDER BY fechaIni";
+                        string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab.ElementAt(i).idHabit +
+                                        " AND CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103)" +
+                                        " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103) " +
+                                        " ORDER BY fechaIni";
+                        
                         SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
                         SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
@@ -559,11 +564,11 @@ namespace Stardust.Models
                             DateTime fechaFinal = (DateTime)dataReader2["fechaFin"];
                             TimeSpan dife = fechaI - fechaInicio;
                             int a = dife.Days;
-                            dife = fechaI - fechaFinal;
+                            dife =  fechaFinal - fechaI;
                             int b = dife.Days;
                             for (int j = a; j <= b; j++)
                             {
-                                listaHab.ElementAt(i).listaFechas.ElementAt(j).idReserva = (int)dataReader["idReserva"];
+                                //listaHab.ElementAt(i).listaFechas.ElementAt(j).idReserva = (int)dataReader["idReserva"];
                                 int est = (int)dataReader2["estado"];
                                 switch (est)
                                 {
@@ -586,7 +591,7 @@ namespace Stardust.Models
             }
             catch (Exception e)
             {
-                return null;
+                
             }
 
             return listaHab;
