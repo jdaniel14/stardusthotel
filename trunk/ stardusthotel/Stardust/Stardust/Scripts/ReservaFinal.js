@@ -207,6 +207,13 @@ function enviarDatos() {
             telf:telefono,
             tipoTarj:tipoDeTarjeta,
             nroTarj:numTarjeta
+        }
+
+    var recojoAero = {
+        hrLleg:horaLlegada,
+        aero:aerop,
+        vuel:numVuelo,
+        nroPer:numPersonas,       
     }
 
     var DatosReserva = {        
@@ -217,10 +224,7 @@ function enviarDatos() {
         fechaFin:fechaSalida,
         coment:comentario,
         rec:checkeado,
-        hrLleg:horaLlegada,
-        aero:aerop,
-        vuel:numVuelo,
-        nroPer:numPersonas,       
+        datRec:recojoAero,
         total: suma,
         pass:passw,        
         idUsuario:idUser,
