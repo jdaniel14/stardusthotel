@@ -26,6 +26,13 @@ namespace Stardust.Models
             return usuarioDAO.getUsuario(id);
         }
 
+
+        public String getNombrePerfilUsuario(int idPerfilUsuario)
+        {
+            return usuarioDAO.getNombrePerfilUsuario(idPerfilUsuario);
+        }
+
+
         public void registrarUsuario(UsuarioBean usuario)
         {
             usuarioDAO.registrarUsuario(usuario);
@@ -48,6 +55,11 @@ namespace Stardust.Models
 
         public List<UsuarioBean> buscarUsuario(string account ,string nombre, string apPat, string apMat,string tipoDocumento,string nroDocumento) {
             return usuarioDAO.buscarUsuario(account , nombre, apPat, apMat,tipoDocumento,nroDocumento);
+        }
+
+        public bool yaExisteUsuario(string user_account)
+        {
+            return usuarioDAO.yaExisteUsuario(user_account);
         }
     }
 }

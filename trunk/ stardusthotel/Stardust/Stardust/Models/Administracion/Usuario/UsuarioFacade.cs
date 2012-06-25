@@ -26,6 +26,13 @@ namespace Stardust.Models
             return usuarioServ.getUsuario(id);
         }
 
+
+        public String getNombrePerfilUsuario(int idPerfilUsuario)
+        {
+            return usuarioServ.getNombrePerfilUsuario(idPerfilUsuario);
+        }
+
+
         public void registrarUsuario(UsuarioBean usuario)
         {
             usuarioServ.registrarUsuario(usuario);
@@ -55,6 +62,11 @@ namespace Stardust.Models
             if (nroDocumento == null) nroDocumento = "";
             if (account.Equals( nombre ) && nombre.Equals(apPat) && apPat.Equals(apMat) && apMat.Equals("") &&tipoDocumento.Equals(apMat) &&nroDocumento.Equals(nombre)) return new List<UsuarioBean>();
             return usuarioServ.buscarUsuario(account , nombre, apPat, apMat,tipoDocumento,nroDocumento);
+        }
+
+        public bool yaExisteUsuario(string user_account)
+        {
+            return usuarioServ.yaExisteUsuario(user_account);
         }
     }
 }
