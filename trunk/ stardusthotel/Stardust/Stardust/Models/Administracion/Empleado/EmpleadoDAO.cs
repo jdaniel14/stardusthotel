@@ -996,7 +996,7 @@ namespace Stardust.Models
             for (int i = 0; i < reporteempleados.Count; i++) { 
             
                   EmpleadoBean empleados = reporteempleados.ElementAt(i);
-                   empleados.horarios=this.listarHorario(empleados.ID);
+                   empleados.horarios=this.listarReporte(empleados.ID);
             }
 
             return reporteempleados;
