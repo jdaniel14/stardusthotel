@@ -18,6 +18,7 @@ namespace Stardust.Controllers
         // GET: /AsignarServicios/
         HotelFacade hotelFac = new HotelFacade();
         ServiciosFacade servFac = new ServiciosFacade();
+        private static ILog log = LogManager.GetLogger(typeof(AsignarServiciosController));
         
 
         public ActionResult Index()
