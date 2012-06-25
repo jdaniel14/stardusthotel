@@ -8,103 +8,103 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Web.Security;
 
+using AutoMapper;
+using log4net;
+
 namespace Stardust.Controllers
 { 
     public class UsuarioController : Controller
     {
-        private CadenaHotelDB db = new CadenaHotelDB();
         UsuarioFacade usuarioFac = new UsuarioFacade();
+        private static ILog log = LogManager.GetLogger(typeof(UsuarioController));
 
-        //
         // GET: /Usuario/
-
-        public ViewResult Index()
+        public ActionResult Index()
         {
             return View();
         }
 
-        //
+        #region Details
         // GET: /Usuario/Details/5
-
         public ViewResult Details(int id)
         {
+            var usuarioVMD = new UsuarioViewModelDetails();
             try
             {
-                var model = usuarioFac.getUsuario(id);
-                return View(model);
+                var usuario = usuarioFac.getUsuario(id);
+                usuarioVMD = Mapper.Map<UsuarioBean, UsuarioViewModelDetails>(usuario);
+
+                usuarioVMD.nombrePerfilUsuario = usuarioFac.getNombrePerfilUsuario(usuarioVMD.idPerfilUsuario);
+                usuarioVMD.nombreDepartamento = Utils.getNombreDepartamento(usuarioVMD.idDepartamento);
+                usuarioVMD.nombreProvincia = Utils.getNombreProvincia(usuarioVMD.idDepartamento, usuarioVMD.idProvincia);
+                usuarioVMD.nombreDistrito = Utils.getNombreDistrito(usuarioVMD.idDepartamento, usuarioVMD.idProvincia, usuarioVMD.idDistrito);
+
+                return View(usuarioVMD);
             }
-            catch {
-                ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
-                return View(new UsuarioBean() ) ;
+            catch (Exception ex)
+            {
+                log.Error("Details - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMD);
             }
         }
+        #endregion
 
-        //
+
         // GET: /Usuario/Create
-
         public ActionResult Create()
         {
+            var usuarioVMC = new UsuarioViewModelCreate();
             try
             {
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                return View();
+                usuarioVMC.Departamentos = Utils.listarDepartamentos();
+                usuarioVMC.Documentos = new List<TipoDocumento>();
+                usuarioVMC.Documentos.Add(new TipoDocumento("DNI"));
+                usuarioVMC.Documentos.Add(new TipoDocumento("RUC"));
+                usuarioVMC.Documentos.Add(new TipoDocumento("PASAPORTE"));
+                usuarioVMC.Documentos.Add(new TipoDocumento("CARNET DE EXTRANJERIA"));
+                usuarioVMC.PerfilesUsuario = new PerfilUsuarioFacade().listarPerfiles();
+                return View(usuarioVMC);
             }
-            catch {
-                ViewBag.results = "Ocurrió un error al intentar mostrar la interfaz";
-                return RedirectToAction( "List" );
+            catch(Exception ex){
+                log.Error("Create - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
             }
         } 
 
-        //
         // POST: /Usuario/Create
-
         [HttpPost]
-        public ActionResult Create(UsuarioBean usuariobean)
+        public ActionResult Create(UsuarioViewModelCreate usuarioVMC)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    usuarioFac.registrarUsuario(usuariobean);
-                    return RedirectToAction("List");
+                    if (usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
+                    {
+                        var usuario = Mapper.Map<UsuarioViewModelCreate, UsuarioBean>(usuarioVMC);
+                        usuario.estado = "ACTIVO";
+                        usuarioFac.registrarUsuario(usuario);
+                        return RedirectToAction("List");
+                    }
+                    else
+                    {
+                        log.Warn("El nombre de usuario:\"" + usuarioVMC.user_account + "\" ya ha sido creado");
+                        ModelState.AddModelError("", "El nombre del Usuario ya ha sido asignado");
+                        return View(usuarioVMC);
+                    }
                 }
-                return View(usuariobean);
+                return View(usuarioVMC);
             }
-            catch {
-                ViewBag.results = "Ocurrió un error al intentar crear el usuario";
-
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                return View(new UsuarioBean());
+            catch(Exception ex){
+                log.Error("Create - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
             }
         }
         
-        //
         // GET: /Usuario/Edit/5
- 
         public ActionResult Edit(int id)
         {
             try
@@ -134,9 +134,7 @@ namespace Stardust.Controllers
             }
         }
 
-        //
         // POST: /Usuario/Edit/5
-
         [HttpPost]
         public ActionResult Edit(UsuarioBean usuariobean)
         {
@@ -157,9 +155,7 @@ namespace Stardust.Controllers
             //return View();
         }
 
-        //
         // GET: /Usuario/Delete/5
- 
         public ActionResult Delete(int id)
         {
             try
@@ -173,9 +169,7 @@ namespace Stardust.Controllers
             }
         }
 
-        //
         // POST: /Usuario/Delete/5
-
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -197,23 +191,30 @@ namespace Stardust.Controllers
         //    //return RedirectToAction("../Home/Index");
         //    return Json(new { me = "" });
         //}
-        protected override void Dispose(bool disposing)
-        {
-            db.Dispose();
-            base.Dispose(disposing);
-        }
 
-        public ViewResult List() {
+        #region List
+        public ActionResult List()
+        {
+            var lstUsuarioVML = new List<UsuarioViewModelList>();
             try
             {
-                var model = usuarioFac.listarUsuarios();
-                return View(model);
+                var usuarios = usuarioFac.listarUsuarios();
+                foreach (UsuarioBean usuario in usuarios)
+                {
+                    var usuarioVML = Mapper.Map<UsuarioBean, UsuarioViewModelList>(usuario);
+                    usuarioVML.nombrePerfilUsuario = usuarioFac.getNombrePerfilUsuario(usuarioVML.idPerfilUsuario);
+                    lstUsuarioVML.Add(usuarioVML);
+                }
+                return View(lstUsuarioVML);
             }
-            catch {
-                ViewBag.results = "Ocurrió un error al intentar listar los usuarios";
-                return View(new List<UsuarioBean>());
+            catch (Exception ex)
+            {
+                log.Error("List - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(lstUsuarioVML);
             }
         }
+        #endregion
 
         public ViewResult Buscar(string account , string nombre, string apPat, string apMat , string tipoDocumento , string nroDocumento ) {
             try
