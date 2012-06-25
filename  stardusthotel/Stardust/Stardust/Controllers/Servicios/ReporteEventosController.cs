@@ -22,28 +22,28 @@ namespace Stardust.Controllers.Servicios
         }
 
         [HttpPost]
-        public ActionResult Evento(string idHotel, string estadoPago)
+        public ActionResult Evento( string estadoPago)
         {
 
-            int A;            
-            if (!String.IsNullOrEmpty(idHotel)) A = Convert.ToInt32(idHotel);
-            else A = 0;
+            //int A;            
+            //if (!String.IsNullOrEmpty(idHotel)) A = Convert.ToInt32(idHotel);
+            //else A = 0;
             int idpago = Convert.ToInt32(estadoPago);
 
-            return RedirectToAction("ListaEvento",new {id=idpago,idHotel=idHotel});
+            return RedirectToAction("ListaEvento",new {id=idpago});
         }
 
-        public ActionResult ListaEvento(int id, int idHotel)
+        public ActionResult ListaEvento(int id)
         {
-            ViewBag.listaHoteles = new HotelFacade().getHoteles();
+           // ViewBag.listaHoteles = new HotelFacade().getHoteles();
             //ViewBag.listaClientes= new ClienteFacade().
-            return View(eventoFacade.ListarEvento(idHotel,id));
+            return View(eventoFacade.ListarEvento(id));
             //return RedirectToAction("ListarOC");
         }
 
-        public ActionResult Nada(int idhotel,int id)
+        public ActionResult Nada(int id)
         {
-            return this.ViewPdf("", "ReporteEventos", eventoFacade.ListarEvento(idhotel,id));
+            return this.ViewPdf("", "ReporteEventos", eventoFacade.ListarEvento(id));
         }
     }
 }
