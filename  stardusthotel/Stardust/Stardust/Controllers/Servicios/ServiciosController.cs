@@ -6,13 +6,14 @@ using System.Web.Mvc;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using log4net;
 
 namespace Stardust.Controllers
 {
     public class ServiciosController : Controller
     {
 
-        
+        private static ILog log = LogManager.GetLogger(typeof(ServiciosController));
 
         //*************SERVICIOS!!!!*************************
 
