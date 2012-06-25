@@ -1608,6 +1608,7 @@
     <Content Include="Scripts\Validaciones.js" />
     <Content Include="Scripts\validacionnotaentrada.js" />
     <Content Include="Scripts\ValidacionOrdenDeCompra.js" />
+    <Content Include="Stardust.Publish.xml" />
     <Content Include="Views\OrdenCompra\Registrar.cshtml" />
     <Content Include="Views\OrdenCompra\Registrar2.cshtml">
       <SubType>Code</SubType>
@@ -4550,7 +4551,6 @@
     <Content Include="Views\ReporteEventos\Evento.cshtml" />
     <Content Include="Views\ReporteEventos\ListaEvento.cshtml" />
     <Content Include="Views\ReporteEventos\ReporteEv.cshtml" />
-    <Content Include="Views\ReporteEvento\Evento.cshtml" />
     <Content Include="Views\Servicios\Details.cshtml" />
     <Content Include="Views\ServiciosReportes\ReporteCliente.cshtml" />
     <Content Include="Views\ServiciosReportes\ReporteHabitaciones.cshtml" />
@@ -4565,6 +4565,12 @@
     <Content Include="Views\Servicios\DetallesServicio.cshtml" />
     <Content Include="Views\Usuario\Registrar.cshtml" />
     <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\AsignarServicios\AsignarServicio.cshtml" />
+    <Content Include="Views\AsignarServicios\Detalles.cshtml" />
+    <Content Include="Views\AsignarServicios\Listar.cshtml" />
+    <Content Include="Views\AsignarServicios\ListarServicios.cshtml" />
+    <Content Include="Views\AsignarServicios\ModificarServicios.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
