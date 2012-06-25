@@ -20,6 +20,10 @@
             <div class="title">
                 <h6>Nota Entrada</h6>
             </div>
+             <div class="formRow"> @Html.LabelFor(model => model.nombrehotel)<span class="req">*</span> @Html.HiddenFor(model => model.nombrehotel) 
+                <div class=" formRight"> @Html.DisplayFor(model => model.nombrehotel)  </div>
+                <div class="clear"></div>
+            </div>
             <div class="formRow"> @Html.LabelFor(model => model.nombreproveedor)<span class="req">*</span> @Html.HiddenFor(model => model.nombreproveedor) 
                 <div class=" formRight"> @Html.DisplayFor(model => model.nombreproveedor)  </div>
                 <div class="clear"></div>
