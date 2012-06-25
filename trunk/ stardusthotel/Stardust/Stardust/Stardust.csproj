@@ -181,6 +181,7 @@
     <Compile Include="Models\Compras y Ventas\Pago\PagoService.cs" />
     <Compile Include="Models\Compras y Ventas\Pago\Request\RequestCheckOut.cs" />
     <Compile Include="Models\Compras y Ventas\Pago\Request\RequestPagoAde.cs" />
+    <Compile Include="Models\Compras y Ventas\Pago\Request\RequestRegPago.cs" />
     <Compile Include="Models\Compras y Ventas\Pago\ReservaCheckOut.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoAlmacen.cs" />
     <Compile Include="Models\Compras y Ventas\Producto\ProductoXAlmacenBean.cs" />
@@ -4550,6 +4551,7 @@
     <Content Include="Views\Hotel\DeleteTipoHabitacionXHotel.cshtml" />
     <Content Include="Views\Hotel\ListTipoHabitacionXHotelXTemporada.cshtml" />
     <Content Include="Views\Hotel\CreateTipoHabitacionXHotelXTemporada.cshtml" />
+    <Content Include="Views\ReporteAsistencia\ReporteAsistencia.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">

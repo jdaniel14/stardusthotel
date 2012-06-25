@@ -523,9 +523,10 @@ namespace Stardust.Controllers
                 if (resp == 6) ViewBag.error = "Su registro de Asistencia a sido procesado correctamente ";
                 return View();
             }
-            catch {
-                ViewBag.error = "Se produjo un error - intentarlo denuevo";
-                return View(); }
+            finally { }
+            //catch {
+            //    ViewBag.error = "Se produjo un error - intentarlo denuevo";
+            //    return View(); }
         }
         #endregion 
 

@@ -26,9 +26,10 @@ namespace Stardust.Controllers.Administracion
             try
            {
                 ViewBag.empleados = empleadoFac.listarEmpleados();
-                if (emp.Value == true)
+                //if (emp.Value == true)
+                if( emp.ID == 0 )
                 {
-
+                    System.Diagnostics.Debug.WriteLine("NOOOOOOOOOOOOOOOOOOOOOOOOOO u.u");
                     ReporteAllEmpleados reporte = new ReporteAllEmpleados();
 
                     reporte.allempleados = empleadoFac.listartodoempleado();
