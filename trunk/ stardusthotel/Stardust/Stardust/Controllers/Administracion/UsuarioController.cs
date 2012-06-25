@@ -287,10 +287,11 @@ namespace Stardust.Controllers
                     if (!usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
                     {
                         var usuario = Mapper.Map<UsuarioViewModelCreate, UsuarioBean>(usuarioVMC);
+                        usuario.idPerfilUsuario = new PerfilUsuarioDAO().getPerfilID("Cliente");
                         usuario.estado = "ACTIVO";
                         //usuario.idPerfilUsuario = new PerfilUsuarioFacade();
                         usuarioFac.registrarUsuario(usuario);
-                        return RedirectToAction("Index" , "Home" );
+                        return RedirectToAction("Index" , "Home");
                     }
                     else
                     {
