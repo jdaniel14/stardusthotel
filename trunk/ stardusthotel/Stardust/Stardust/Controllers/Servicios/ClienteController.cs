@@ -7,13 +7,14 @@ using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
 using Stardust.Models.Servicios;
+using log4net;
 
 
 namespace Stardust.Controllers.Servicios
 {
     public class ClienteController: Controller
     {
-
+        private static ILog log = LogManager.GetLogger(typeof(ClienteController));
         public ViewResult Index()
         {
             ClienteFacade clienteFacade = new ClienteFacade();
