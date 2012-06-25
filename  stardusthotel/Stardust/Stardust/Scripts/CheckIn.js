@@ -58,7 +58,7 @@ function comienzaElChongo() {
         (SendHotel != "NN")) {
 
         var Envio = {
-            idHotel: "2",
+            idHotel: SendHotel,
             idReserva: reserva
         }
 
