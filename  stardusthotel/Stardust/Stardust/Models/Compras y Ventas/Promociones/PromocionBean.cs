@@ -56,7 +56,7 @@ namespace Stardust.Models
 
         [Display(Name = "Numero de Dias")]
         [Range(1, 99, ErrorMessage = "El número mínimo de días es 1")]
-        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número positivo")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Sólo números")]
         [Required(ErrorMessage = "Es necesario ingresar un número de días")]
         public int dias { get; set; }
 
