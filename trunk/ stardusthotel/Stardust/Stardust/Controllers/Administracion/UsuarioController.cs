@@ -247,7 +247,7 @@ namespace Stardust.Controllers
             if (usuario != null && !usuario.estado.Equals( "ONLINE" ) )
             {
                 FormsAuthentication.SetAuthCookie(user, false);
-                //usuarioFac.marcarOnline(usuario.ID);
+                usuarioFac.marcarOnline(usuario.ID);
             }
             return new JsonResult() { Data = usuario };
         }

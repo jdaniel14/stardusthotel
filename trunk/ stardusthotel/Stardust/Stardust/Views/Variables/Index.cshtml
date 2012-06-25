@@ -36,5 +36,24 @@
 
 <p>
     <a href="@Url.Action("Edit")"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")", alt="Edit" />Editar</a> | 
-    <a href="@Url.Action("Index","Home")">Regresar</a>
+    <a href="@Url.Action("Index", "Home")">Regresar</a>
 </p>
+
+@using (Html.BeginForm("UploadLogo", "Variables", FormMethod.Post, new { @class = "form", enctype= "multipart/form-data" }))
+{ 
+    <fieldset>
+    <div class = "widget" >
+        <div class = "title"><h6>Logo</h6></div>
+
+        <div class="formRow">
+            <label>Logo de la cadena</label>
+            <div class = "formRight" ><input type = "file" name = "img" /></div>
+            <div class = "clear" ></div>
+        </div>
+    </div>
+
+    <p>
+        <input class = "redB" type="submit" value="Guardar" />
+    </p>
+</fieldset>
+}
