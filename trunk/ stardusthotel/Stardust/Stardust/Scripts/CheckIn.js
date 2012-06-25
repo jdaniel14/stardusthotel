@@ -273,6 +273,7 @@ function Confirma(data) {
 
         console.log("se hizo");
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
+        $(location).attr('href', '../');
     }
     else {
         mostrarError(data.me);
