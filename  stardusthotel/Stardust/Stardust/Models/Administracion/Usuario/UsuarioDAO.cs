@@ -327,8 +327,8 @@ namespace Stardust.Models
                                     usuario.celular + "', '" +
                                     usuario.tipoDocumento + "', '" +
                                     usuario.nroDocumento + "', '" +
-                                    usuario.razonSocial + "', " +
-                                    "'ACTIVO' , '" +
+                                    usuario.razonSocial + "', '" +
+                                    usuario.estado + "', '" +
                                     usuario.direccion + "', " +
                                     usuario.idDistrito + ", " +
                                     usuario.idProvincia + ", " +
@@ -590,9 +590,12 @@ namespace Stardust.Models
                 objDB = new SqlConnection(cadenaDB);
 
                 objDB.Open();
-                String strQuery = "";
+                String strQuery = "SELECT * FROM Usuario WHERE user_account = @user_account";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                return false;
+                Utils.agregarParametro(objQuery, "@user_account", user_account);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                return objReader.HasRows;
             }
             catch (Exception ex)
             {

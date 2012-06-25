@@ -59,10 +59,10 @@ namespace Stardust.Controllers
             {
                 usuarioVMC.Departamentos = Utils.listarDepartamentos();
                 usuarioVMC.Documentos = new List<TipoDocumento>();
-                usuarioVMC.Documentos.Add(new TipoDocumento("DNI"));
-                usuarioVMC.Documentos.Add(new TipoDocumento("RUC"));
-                usuarioVMC.Documentos.Add(new TipoDocumento("PASAPORTE"));
-                usuarioVMC.Documentos.Add(new TipoDocumento("CARNET DE EXTRANJERIA"));
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "DNI" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "RUC" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "PASAPORTE" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "CARNET DE EXTRANJERIA" });
                 usuarioVMC.PerfilesUsuario = new PerfilUsuarioFacade().listarPerfiles();
                 return View(usuarioVMC);
             }
@@ -81,7 +81,7 @@ namespace Stardust.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
+                    if (!usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
                     {
                         var usuario = Mapper.Map<UsuarioViewModelCreate, UsuarioBean>(usuarioVMC);
                         usuario.estado = "ACTIVO";
@@ -116,10 +116,10 @@ namespace Stardust.Controllers
                 ViewBag.perfiles = perfilFac.listarPerfiles();
 
                 List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                TipoDocumento d1 = new TipoDocumento() { nombre = "DNI" };
+                TipoDocumento d2 = new TipoDocumento() { nombre = "RUC" };
+                TipoDocumento d3 = new TipoDocumento() { nombre = "PASAPORTE" };
+                TipoDocumento d4 = new TipoDocumento() { nombre = "CARNE DE EXTRANJERIA" };
                 docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
                 ViewBag.documentos = docs;
 
@@ -221,10 +221,10 @@ namespace Stardust.Controllers
             {
                 var model = usuarioFac.buscarUsuario(account, nombre, apPat, apMat, tipoDocumento, nroDocumento);
                 List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("DNI");
-                TipoDocumento d2 = new TipoDocumento("RUC");
-                TipoDocumento d3 = new TipoDocumento("PASAPORTE");
-                TipoDocumento d4 = new TipoDocumento("CARNE DE EXTRANJERIA");
+                TipoDocumento d1 = new TipoDocumento() { nombre = "DNI" };
+                TipoDocumento d2 = new TipoDocumento() { nombre = "RUC" };
+                TipoDocumento d3 = new TipoDocumento() { nombre = "PASAPORTE" };
+                TipoDocumento d4 = new TipoDocumento() { nombre = "CARNE DE EXTRANJERIA" };
                 docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
                 ViewBag.documentos = docs;
                 return View(model);
