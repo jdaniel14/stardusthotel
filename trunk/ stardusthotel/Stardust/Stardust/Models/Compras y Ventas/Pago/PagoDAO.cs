@@ -6,11 +6,13 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Data.SqlClient;
 using Stardust.Models.Servicios;
+using log4net;
 
 namespace Stardust.Models
 {
     public class PagoDAO
     {
+        private static ILog log = LogManager.GetLogger(typeof (PagoDAO));
         public int GetID(string doc)
         {
             int id=0;
@@ -454,7 +456,7 @@ namespace Stardust.Models
                     commandString = " SELECT u.nombres as nombre , u.idUsuario as id , p.montoFaltante as montoFaltante , p.montoTotal as montoTotal , r.pagoInicial as pagoInicial  " + 
                                     " FROM Usuario u , Reserva r , DocumentoPago p " +
                                     " WHERE u.nroDocumento = " + request.doc +" AND r.estado = 1 AND r.idReserva = "+ request.id +" AND u.idUsuario = p.idUsuario AND r.idReserva = p.idReserva";
-
+                    log.Debug("Query en Pagos Adelantados : " + commandString);
                     System.Diagnostics.Debug.WriteLine(" query de pago Inicial : " + commandString);
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();

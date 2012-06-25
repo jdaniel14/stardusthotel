@@ -20,7 +20,7 @@ namespace Stardust.Models.Servicios
 
             String query =  " SELECT DISTINCT rxh.idHabitacion " +
                             " FROM ReservaXHabitacion rXh, Habitacion h " +
-                            " WHERE rXh.idHotel = " + idHotel + " and  rXh.estado<3 and " +
+                            " WHERE rXh.idHotel = " + idHotel + " and h.idHotel = rXh.idHotel and  rXh.estado<3 and " +
                             " ((rXh.fechaFin between convert(datetime,'" + fechaIni + "',103)" + " and  convert(datetime,'" + fechaFin + "',103)" + ")  OR (rXh.fechaIni between  convert(datetime,'" +  fechaIni + "',103) and  convert(datetime,'" + fechaFin + "',103))) AND rxH.idHabitacion = h.idHabitacion" +
                             " ORDER BY idHabitacion";
             System.Diagnostics.Debug.WriteLine("NO DISPONIBLES : " + query);
@@ -53,7 +53,7 @@ namespace Stardust.Models.Servicios
 
             String query =  " SELECT h.idHabitacion, h.idTipoHabitacion, h.numero, h.piso " +
                             " FROM Habitacion h, TipoHabitacionXHotel tXh " +
-                            " WHERE estado = 'ACTIVO' and tXh.idTipoHabitacion = h.idTipoHabitacion and tXh.idHotel = " + idHotel + " " + 
+                            " WHERE estado = 'ACTIVO' and tXh.idTipoHabitacion = h.idTipoHabitacion and tXh.idHotel = " + idHotel + " and tXh.idHotel = h.idHotel " + 
                             " ORDER BY idHabitacion";
 
             System.Diagnostics.Debug.WriteLine("TOTAL : "+ query);
@@ -194,7 +194,8 @@ namespace Stardust.Models.Servicios
             sqlCon.Open();
             SqlCommand sqlCmd2 = new SqlCommand(query, sqlCon);
             dataReader = sqlCmd2.ExecuteReader();
-            
+                       
+
             int res = 0;
             if (dataReader.Read()) {
 
@@ -205,7 +206,22 @@ namespace Stardust.Models.Servicios
                 usuario.nombres = (String)dataReader["razonSocial"] + (String)dataReader["nombres"] + "___" + (String)dataReader["apPat"];
                 usuario.email = (String)dataReader["email"];
                 usuario.celular = (String)dataReader["celular"];
-                usuario.nroTarjeta = (String)dataReader["nroDocumento"];  
+                dataReader.Close();
+
+                String queryTarj = "SELECT nroTarjeta FROM Cliente WHERE idCliente = " + usuario.idUsuario;
+                
+                sqlCmd2 = new SqlCommand(queryTarj, sqlCon);
+                try
+                {
+                    dataReader = sqlCmd2.ExecuteReader();
+                    if (dataReader.Read())
+                    {
+                        usuario.nroTarjeta = (String)dataReader["nroTarjeta"];
+                    }
+                }
+                catch (Exception e) {
+                    usuario.nroTarjeta = e.Message;
+                }
             }
             usuario.me = res.ToString();
             return usuario;
@@ -616,16 +632,17 @@ namespace Stardust.Models.Servicios
         public DatosReservaBean SelectDatosCheckIn(int idHotel, int idReserva)
         {
             DatosReservaBean reserva = new DatosReservaBean();
-            int estado_confirmado = 1;
+            int estado_confirmado = 2;
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query =  " SELECT u.nroDocumento as doc , (u.razonSocial + u.nombres + ' ' + u.apPat) as nomb, r.fechaRegistro as fechaReg, r.fechaLlegada as fechaLleg " +
+            String query =  " SELECT u.nroDocumento as doc , (u.razonSocial + u.nombres + ' ' + u.apPat) as nomb, r.fechaRegistro as fechaReg, r.fechaLlegada as fechaLleg, r.estado " +
                             " FROM Reserva r, Usuario u " +
-                            " WHERE r.estado = "+ estado_confirmado + " and  r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario ";
+                            " WHERE r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario ";
+                            //" WHERE r.estado = "+ estado_confirmado + " and  r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario ";
 
             System.Diagnostics.Debug.WriteLine("Query Check IN " + query);
 
@@ -633,6 +650,7 @@ namespace Stardust.Models.Servicios
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
             reserva.me = "";
+            int estadoReserva = 0;
             if (dataReader.Read())
             {
                 reserva.doc = (String)dataReader["doc"];
@@ -640,8 +658,20 @@ namespace Stardust.Models.Servicios
                 DateTime fechaLlegada = (DateTime)dataReader["fechaLleg"];
                 reserva.fechaRegistro = ((DateTime)dataReader["fechaReg"]).ToString("dd-MM-yyyy");
                 reserva.fechaLlegada = fechaLlegada.ToString("dd-MM-yyyy");
-                if(fechaLlegada > DateTime.Now)
-                    reserva.me = "Aun no  se puede realizar el check in";
+                estadoReserva = (int)dataReader["estado"];
+
+                if (estadoReserva == 1)
+                    reserva.me = "Aun no se ha pagado la cuota inicial de la Reserva";
+                else if (estadoReserva == 2)
+                {
+                    if (fechaLlegada > DateTime.Now)
+                    {
+                        reserva.me = "Aun no  se puede realizar el check in su Reserva se hara efectiva a partir del : " + fechaLlegada;
+                    }
+                }
+                else {
+                    reserva.me = "Reserva fuera de alcance";
+                }
             }
             else
             {
