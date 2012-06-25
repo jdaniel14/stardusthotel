@@ -505,30 +505,22 @@ namespace Stardust.Models
         public List<ListaHabitacion> listaHabitacion(int idHotel,string fechaIni, string fechaFin)
         {
             List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
-
+            idHotel = 2;
             DateTime fechaI = new DateTime();
             DateTime fechaF = new DateTime();
 
             try
             {
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-
                 sqlCon.Open();
-
                 fechaI = DateTime.ParseExact(fechaIni,"dd-MM-yyyy",null);
                 fechaF = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
-
                 TimeSpan dif = fechaF - fechaI;
-
                 int dias = dif.Days;
-
                 string commandString = "SELECT * FROM Habitacion WHERE idHotel = " + idHotel + " ORDER BY idHabitacion";
-
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
                 List<ListaHabitacionEstado> listaDetalle = new List<ListaHabitacionEstado>();
 
                 for (int i = 0; i < dias; i++)
@@ -538,57 +530,59 @@ namespace Stardust.Models
                     estado.estado = "Libre";
                     listaDetalle.Add(estado);
                 }
-
-                    while (dataReader.Read())
-                    {
-                        ListaHabitacion hab = new ListaHabitacion();
-                        hab.idHabit = (int)dataReader["idHabitacion"];
-                        int idTipo = (int)dataReader["idTipoHabitacion"];
-
-                        commandString = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = " + idTipo;
-
-                        SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-                        SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
-
-                        if (dataReader2.Read())
-                            hab.nHabit = (string)dataReader2["nombre"];
-
-                        listaHab.Add(hab);
-                    }
-
+                while (dataReader.Read())
+                {
+                    ListaHabitacion hab = new ListaHabitacion();
+                    hab.idHabit = (int)dataReader["idHabitacion"];
+                    int idTipo = (int)dataReader["idTipoHabitacion"];
+                    hab.nHabit = this.retornarnumhabitacion(idTipo);
+                    hab.listaFechas = listaDetalle;
+                    listaHab.Add(hab);
+                }
+                sqlCon.Close();
                 for (int i = 0; i < listaHab.Count; i++)
                 {
-                    commandString = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = "+listaHab.ElementAt(i).idHabit+" fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF +" ORDER BY fechaIni";
+                    if (hayconexion(listaHab.ElementAt(i).idHabit, fechaIni, fechaFin))
+                    {
 
-                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-                    SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
-                    while (dataReader2.Read())
-                    {                   
-                        DateTime fechaInicio = (DateTime)dataReader2["fechaIni"];
-                        DateTime fechaFinal = (DateTime)dataReader2["fechaFin"];
-                        TimeSpan dife = fechaI - fechaInicio;
-                        int a = dife.Days;
-                        dife = fechaI - fechaFinal;
-                        int b = dife.Days;
-                        for (int j = a; j <= b; j++)
+                        String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                        SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+                        sqlCon2.Open();
+                        string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab.ElementAt(i).idHabit + " AND fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF + " ORDER BY fechaIni";
+                        SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+                        SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                        while (dataReader2.Read())
                         {
-                            listaHab.ElementAt(i).listaFechas.ElementAt(j).idReserva = (int)dataReader["idReserva"];
-                            int est = (int)dataReader2["estado"];
-                            switch (est)
+                            DateTime fechaInicio = (DateTime)dataReader2["fechaIni"];
+                            DateTime fechaFinal = (DateTime)dataReader2["fechaFin"];
+                            TimeSpan dife = fechaI - fechaInicio;
+                            int a = dife.Days;
+                            dife = fechaI - fechaFinal;
+                            int b = dife.Days;
+                            for (int j = a; j <= b; j++)
                             {
-                                case 1: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Por Confirmar";
+                                listaHab.ElementAt(i).listaFechas.ElementAt(j).idReserva = (int)dataReader["idReserva"];
+                                int est = (int)dataReader2["estado"];
+                                switch (est)
+                                {
+                                    case 1: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Por Confirmar";
                                         break;
-                                case 2: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Confirmado";
+                                    case 2: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Confirmado";
                                         break;
-                                case 3: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "En Curso";
+                                    case 3: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "En Curso";
                                         break;
-                                case 4: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Libre";
+                                    case 4: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Libre";
                                         break;
+                                }
                             }
-                        }                      
+                        }
+                        sqlCon2.Close();
                     }
+
                 }
+
             }
             catch (Exception e)
             {
@@ -648,6 +642,56 @@ namespace Stardust.Models
                 mensaje.me = e.ToString();
                 return mensaje;
             }
+        }
+
+        public string retornarnumhabitacion(int idtipo)
+        {
+            string numhab="";
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+                sqlCon.Open();
+                string commandString = "SELECT * FROM TipoHabitacion WHERE idTipoHabitacion = " + idtipo;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+                if (dataReader.Read())
+                    numhab= (string)dataReader["nombre"];
+                sqlCon.Close();
+            }
+            catch
+            {
+                numhab = "error";
+            }
+            
+            return numhab;
+        }
+        //fechaFin BETWEEN " + fechaI + " AND " + fechaF + 
+        public Boolean hayconexion(int idhabitacion, string fechaI, string fechaF)
+        {
+            try
+            {
+                String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
+                sqlCon2.Open();
+                string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + idhabitacion +
+                                        " AND CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaI + "',103) AND CONVERT(datetime, '" + fechaF + "',103)" +
+                                        " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaI + "',103) AND CONVERT(datetime, '" + fechaF + "',103) " +
+                                        " ORDER BY fechaIni";
+
+                SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
+                SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
     }
 }
