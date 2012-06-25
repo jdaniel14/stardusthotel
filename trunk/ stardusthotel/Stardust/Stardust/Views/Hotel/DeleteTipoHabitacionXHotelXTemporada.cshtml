@@ -1,0 +1,63 @@
+﻿@model Stardust.Models.TipoHabitacionXHotelXTemporadaViewModelDelete
+
+@{
+    ViewBag.Title = "Eliminar el porcentaje asignado a la temporada por hotel y por tipo de habitación";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Está seguro que desea eliminar el porcentaje por temporada asignado al hotel y al tipo de habitacion</h3>
+
+@Html.ValidationSummary(true)
+
+@using (@Html.BeginForm("DeleteTipoHabitacionXHotelXTemporada", "Hotel", FormMethod.Post, new { @class = "form" }))
+{ 
+    <fieldset>
+        <div class = "widget" >
+            <div class = "title" ><h6>@ViewBag.Title</h6></div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nombreHotel)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nombreHotel, new { @readonly="readonly"})
+                    @Html.HiddenFor(model => model.idHotel)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nombreTipoHabitacion)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nombreTipoHabitacion, new { @readonly = "readonly" })
+                    @Html.HiddenFor(model => model.idTipoHabitacion)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nombreTemporada)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nombreTemporada, new { @readonly = "readonly" })
+                    @Html.HiddenFor(model => model.idTemporada)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.porcDescuento)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.porcDescuento, new { @readonly = "readonly" })
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+        </div>
+        <p>
+            <input class = "redB" type="submit" value="Borrar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "ListTipoHabitacionXHotelXTemporada", new { idHotel = Model.idHotel, idTipoHabitacion = Model.idTipoHabitacion })
+</div>
