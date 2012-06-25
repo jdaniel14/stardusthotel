@@ -91,13 +91,15 @@ function alcohol() {
         var lili = $("#cantPagando").get(0).value;
         var total = $("#montoTotal").text();
         var inicial = $("#monto").text();
-        alert(total);
+        var documento = $("#nDoc").get(0).value;
+        //alert(total);
         var enviar = {
             flag: tipo,
             id: idReserva,
             monto: lili,
             montoTotal: total,
-            pagoInicial: inicial
+            pagoInicial: inicial,
+            doc : documento
         }
 
         jsonData = JSON.stringify(enviar);

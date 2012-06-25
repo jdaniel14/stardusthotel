@@ -187,10 +187,10 @@ namespace Stardust.Models
 
                 decimal faltante = 0;
 
-                string commandString; //= "UPDATE DocumentoPago SET montoTotal = " + reserva.total + " , montoFaltante = " + faltante + " , subTotal = " + reserva.subTotal + " , igv = " + reserva.IGV + " , estado = 3 WHERE idDocPago = " + reserva.idDocPago;
+                string commandString = "UPDATE DocumentoPago SET montoTotal = " + reserva.total + " , montoFaltante = " + faltante + " , subTotal = " + reserva.subTotal + " , igv = " + reserva.IGV + " , estado = 3 WHERE idDocPago = " + reserva.idDocPago;
 
-                //SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                //sqlCmd.ExecuteNonQuery();
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
 
                 if (reserva.faltante > 0)
                 {                    
@@ -213,7 +213,7 @@ namespace Stardust.Models
 
                 mensaje.me = ActualizarPagoDetalle(reserva.listaDetalles);
 
-                //mensaje.id = id;
+                mensaje.id = id;
                 
                 return mensaje;
             }
@@ -222,6 +222,121 @@ namespace Stardust.Models
                 mensaje.me = e.ToString();
                 return mensaje;
             }           
+        }
+
+        public ReservaCheckOut GetEvento(int id)
+        {
+            ReservaCheckOut reserva = new ReservaCheckOut();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM Evento WHERE estado = 3 AND idEvento = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            DateTime fechaIni = new DateTime();
+            DateTime fechaHoy = DateTime.Now;
+
+            if (dataReader.Read())
+            {
+                reserva.id = (int)dataReader["idEvento"];
+                fechaIni = (DateTime)dataReader["fechaIni"];
+                reserva.fechaIni = fechaIni.ToString("dd-MM-yyyy");
+                reserva.fechaFin = ((DateTime)dataReader["fechaFin"]).ToString("dd-MM-yyyy");
+                reserva.fechaHoy = fechaHoy.ToString("dd-MM-yyyy");
+                int idU = (int)dataReader["idCliente"];
+                UsuarioBean usuario = GetNombreUsuario(idU);
+                reserva.tipoDoc = usuario.tipoDocumento;
+                reserva.dni = usuario.nroDocumento;
+                reserva.nombre = usuario.nombres;
+            }
+
+            dataReader.Close();
+
+            if (fechaIni <= fechaHoy)
+            {
+                commandString = "SELECT * FROM DocumentoPago WHERE idEvento = " + id;
+
+                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
+
+                TimeSpan dias = fechaHoy - fechaIni;
+
+                int idDoc = 0;
+
+                if (dataReader2.Read())
+                {
+                    reserva.faltante = (decimal)dataReader2["montoFaltante"];
+                    reserva.idDocPago = (int)dataReader2["idDocPago"];
+                    idDoc = (int)dataReader2["idDocPago"];
+                }
+
+                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days);
+
+                for (int i = 0; i < reserva.listaDetalles.Count; i++)
+                    reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
+
+                reserva.IGV = reserva.subTotal * 18 / 100;
+                reserva.total = reserva.IGV + reserva.subTotal;
+
+                reserva.montPagado = reserva.total - reserva.faltante;
+
+                sqlCon.Close();
+            }
+
+            return reserva;
+        }
+
+        public MensajeBean RegistrarPagoEvento(int id)
+        {
+            MensajeBean mensaje = new MensajeBean();
+
+            try
+            {
+                ReservaCheckOut reserva = GetReserva(id);
+
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                decimal faltante = 0;
+
+                string commandString = "UPDATE DocumentoPago SET montoTotal = " + reserva.total + " , montoFaltante = " + faltante + " , subTotal = " + reserva.subTotal + " , igv = " + reserva.IGV + " , estado = 3 WHERE idDocPago = " + reserva.idDocPago;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+
+                if (reserva.faltante > 0)
+                {
+                    commandString = "INSERT INTO Pagos VALUES ( " + reserva.faltante + " , NULL , GETDATE() , " + reserva.idDocPago;
+
+                    if (reserva.tipoDoc.Equals("DNI"))
+                        commandString += " , 'Boleta' )";
+                    else
+                        commandString += " , 'Factura' )";
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd2.ExecuteNonQuery();
+                }
+
+                commandString = "UPDATE Evento SET estado = 4 WHERE idEvento = " + reserva.id;
+                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                sqlCmd3.ExecuteNonQuery();                
+
+                mensaje.id = id;
+
+                return mensaje;
+            }
+            catch (Exception e)
+            {
+                mensaje.me = e.ToString();
+                return mensaje;
+            }
         }
 
         public string ActualizarPagoDetalle(List<TipoDetalle> listaDetalle)
@@ -233,13 +348,13 @@ namespace Stardust.Models
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
                 sqlCon.Open();
 
-                //for (int i = 0; i < listaDetalle.Count; i++)
-                //{
-                //    string commandString = "UPDATE DocumentoPago_Detalle SET total = "+listaDetalle.ElementAt(i).totalDet+" WHERE idDocPagoDetalle = " + listaDetalle.ElementAt(i).idDetalle;
+                for (int i = 0; i < listaDetalle.Count; i++)
+                {
+                    string commandString = "UPDATE DocumentoPago_Detalle SET total = "+listaDetalle.ElementAt(i).totalDet+" WHERE idDocPagoDetalle = " + listaDetalle.ElementAt(i).idDetalle;
 
-                //    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                //    sqlCmd.ExecuteNonQuery();
-                //}
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+                }
 
                 return "";
             }
@@ -480,15 +595,27 @@ namespace Stardust.Models
                 }
                 else
                 {
-                    commandString = "SELECT * FROM Evento WHERE estado = 1 AND idCliente = ";// + id;
+                    commandString = " SELECT u.nombres as nombre , u.idUsuario as id , p.montoFaltante as montoFaltante , p.montoTotal as montoTotal , e.pagoInicial as pagoInicial  " +
+                                    " FROM Usuario u , Evento e , DocumentoPago p " +
+                                    " WHERE u.nroDocumento = " + request.doc + " AND e.estado = 1 AND e.idEvento = " + request.id + " AND u.idUsuario = p.idUsuario AND e.idEvento = p.idEvento";
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
+                    if (!dataReader2.HasRows)
+                    {
+                        pago.mensaje = "No se encuentra los datos registrados";
+                        return pago;
+                    }
+
                     if (dataReader2.Read())
                     {
-                        pago.data = Convert.ToString(dataReader2["nombre"]);
+                        pago.data = Convert.ToString(dataReader2["id"]);
                         pago.doc = request.doc;
+                        pago.mensaje = "";
+                        pago.estado = 1;
+                        pago.nom = (string)dataReader2["nombre"];
                         pago.montoInicial = (decimal)dataReader2["pagoInicial"];
+                        pago.montoTotal = (decimal)dataReader2["montoTotal"];
                     }
                 }
 
@@ -620,21 +747,110 @@ namespace Stardust.Models
                 else if (monto == request.pagoInicial) {
                     estado = 2;
                 }
-               
-                string commandString = "UPDATE DocumentoPago SET montoFaltante = "+ diff +" , estado = " + estado +" WHERE idReserva = " + request.id;
 
-                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-                sqlCmd.ExecuteNonQuery();
+                string commandString;
 
-                commandString = "UPDATE ReservaXHabitacion SET estado = 2 WHERE idReserva = " + request.id;
+                if (request.flag == 1)
+                {
+                    commandString = "SELECT u.tipoDocumento as tipoDocumento , p.idDocPago as idDocPago FROM Usuario u , Reserva r , DocumentoPago p WHERE u.nroDocumento = "+request.doc+" AND u.idUsuario = r.idUsuario AND r.idReserva = "+request.id+" AND r.idReserva = p.idReserva";
 
-                SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
-                sqlCmd2.ExecuteNonQuery();
+                    SqlCommand sqlCmd5 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader = sqlCmd5.ExecuteReader();
 
-                commandString = "UPDATE Reserva SET estado = 2 , estadoPago = "+estado+" WHERE idReserva = " + request.id;
+                    string tipo = "";
+                    int idPago = 0;
 
-                SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
-                sqlCmd3.ExecuteNonQuery();
+                    if(dataReader.Read())
+                    {
+                        tipo = (string)dataReader["tipoDocumento"];
+                        idPago = (int)dataReader["idDocPago"];
+                    }
+
+                    int dif = Convert.ToInt32((request.monto / request.montoTotal) * 100);
+
+                    commandString = "SELECT * FROM Promocion WHERE razon <= " + dif + " AND tipo = 2 ORDER BY porcDescontar DESC";
+
+                    SqlCommand sqlCmd4 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader2 = sqlCmd4.ExecuteReader();
+
+                    int porc = 0;
+
+                    if (dataReader2.Read())
+                        porc = 100 - (int)dataReader["porcDescontar"];
+
+                    decimal igv = 0;
+                    decimal sTotal = 0;
+
+                    if (porc > 0)
+                    {
+                        total = total * porc / 100;
+                        igv = total * 18 / 100;
+                        sTotal = total + igv;
+                        if ((monto - total) < 0)
+                            mensaje.me = "Usted obtuvo un descuento de " + porc + "% y tuvo un cambio de " + (monto - total);
+                    }
+
+                    if (igv > 0)
+                        commandString = "UPDATE DocumentoPago SET montoFaltante = " + diff + " , montoTotal = " + sTotal + " , igv = " + igv + " , subTotal = " + total + " , estado = " + estado + " WHERE idReserva = " + request.id;
+                    else
+                        commandString = "UPDATE DocumentoPago SET montoFaltante = " + diff + " , estado = " + estado + " WHERE idReserva = " + request.id;
+
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+
+                    commandString = "UPDATE ReservaXHabitacion SET estado = 2 WHERE idReserva = " + request.id;
+
+                    SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd2.ExecuteNonQuery();
+
+                    commandString = "UPDATE Reserva SET montoTotal = " + total + " , estado = 2 , estadoPago = " + estado + " WHERE idReserva = " + request.id;
+
+                    SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd3.ExecuteNonQuery();
+
+                    if (tipo.Equals("DNI"))
+                        commandString = "INSERT INTO Pagos VALUES( "+monto+" , NULL , GETDATE() , "+idPago+" , 'Boleta' )";
+                    else
+                        commandString = "INSERT INTO Pagos VALUES( " + monto + " , NULL , GETDATE() , " + idPago + " , 'Factura' )";
+
+                    SqlCommand sqlCmd6 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd6.ExecuteNonQuery();
+                }
+
+                else
+                {
+                    commandString = "SELECT u.tipoDocumento as tipoDocumento , p.idDocPago as idDocPago FROM Usuario u , Evento e , DocumentoPago p WHERE u.nroDocumento = "+request.doc+" AND e.idCliente = r.idUsuario AND e.idEvento = "+request.id+" AND r.idEvento = p.idEvento";
+
+                    SqlCommand sqlCmd5 = new SqlCommand(commandString, sqlCon);
+                    SqlDataReader dataReader = sqlCmd5.ExecuteReader();
+
+                    string tipo = "";
+                    int idPago = 0;
+
+                    if(dataReader.Read())
+                    {
+                        tipo = (string)dataReader["tipoDocumento"];
+                        idPago = (int)dataReader["idDocPago"];
+                    }
+
+                    commandString = "UPDATE DocumentoPago SET montoFaltante = " + diff + " , estado = " + estado + " WHERE idEvento = " + request.id;
+
+                    SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                    sqlCmd.ExecuteNonQuery();
+
+                    commandString = "UPDATE Evento SET montoTotal = " + total + " , estado = 2 , estadoPago = " + estado + " WHERE idEvento = " + request.id;
+
+                    SqlCommand sqlCmd3 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd3.ExecuteNonQuery();
+
+                    if (tipo.Equals("DNI"))
+                        commandString = "INSERT INTO Pagos VALUES( " + monto + " , NULL , GETDATE() , " + idPago + " , 'Boleta' )";
+                    else
+                        commandString = "INSERT INTO Pagos VALUES( " + monto + " , NULL , GETDATE() , " + idPago + " , 'Factura' )";
+
+                    SqlCommand sqlCmd6 = new SqlCommand(commandString, sqlCon);
+                    sqlCmd6.ExecuteNonQuery();
+                }
 
                 mensaje.me = "";
 
