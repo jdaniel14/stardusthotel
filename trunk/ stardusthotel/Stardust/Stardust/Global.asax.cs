@@ -58,6 +58,9 @@ namespace Stardust
             Mapper.CreateMap<TipoHabitacionXHotelViewModelEdit, TipoHabitacionXHotelViewModelDelete>();
             Mapper.CreateMap<TipoHabitacionXHotelViewModelDelete, TipoHabitacionXHotel>();
             Mapper.CreateMap<TipoHabitacionXHotelXTemporadaViewModelCreate, TipoHabitacionXHotelXTemporada>();
+            Mapper.CreateMap<TipoHabitacionXHotelXTemporadaViewModelEdit, TipoHabitacionXHotelXTemporada>();
+            Mapper.CreateMap<TipoHabitacionXHotelXTemporadaViewModelEdit, TipoHabitacionXHotelXTemporadaViewModelDelete>();
+            Mapper.CreateMap<TipoHabitacionXHotelXTemporadaViewModelDelete, TipoHabitacionXHotelXTemporada>();
             log.Debug("Termino de cargar los mapeos del sistema");
                 //.ForMember(dest => dest.nombre, opt => opt.MapFrom(src => src.nombre))
                 //.ForMember(dest => dest.razonSocial, opt => opt.MapFrom(src => src.razonSocial))
