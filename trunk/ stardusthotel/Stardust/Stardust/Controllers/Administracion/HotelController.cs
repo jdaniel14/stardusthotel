@@ -445,9 +445,94 @@ namespace Stardust.Controllers
             }
         }
         #endregion
+		
+		#region EditTipoHabitacionXHotelXTemporada
+        public ActionResult EditTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion, int idTemporada)
+        {
+            var thXhXtemporadaVME = new TipoHabitacionXHotelXTemporadaViewModelEdit();
+            try
+            {
+                thXhXtemporadaVME = hotelFac.getTipoHabitacionXHotelXTemporada(idHotel, idTipoHabitacion, idTemporada);
+                
+                thXhXtemporadaVME.Hoteles = hotelFac.getHotelesActivos();
+                thXhXtemporadaVME.TipoHabitaciones = hotelFac.getTipoHabitaciones();
+                thXhXtemporadaVME.Temporadas = hotelFac.getTemporadas();
+                return View(thXhXtemporadaVME);
+            }
+            catch (Exception ex)
+            {
+                log.Error("EditTipoHabitacionXHotelXTemporada - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(thXhXtemporadaVME);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporadaViewModelEdit thXhXtemporadaVME)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var thXhXtemporada = Mapper.Map<TipoHabitacionXHotelXTemporadaViewModelEdit, TipoHabitacionXHotelXTemporada>(thXhXtemporadaVME);
+                    hotelFac.actualizarTipoHabitacionXHotelXTemporada(thXhXtemporada);
+                    return RedirectToAction("ListTipoHabitacionXHotelXTemporada", new { idHotel = thXhXtemporada.idHotel, idTipoHabitacion = thXhXtemporada.idTipoHabitacion });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "El Tipo de Habitacion y el Hotel ya han sido asignados");
+                    return View(thXhXtemporadaVME);
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("EditTipoHabitacionXHotelXTemporada - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(thXhXtemporadaVME);
+            }
+        }
+        #endregion
+
+        public ActionResult DeleteTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion, int idTemporada)
+        {
+            var thXhXtemporadaVMD = new TipoHabitacionXHotelXTemporadaViewModelDelete();
+            try
+            {
+                var thXhXtemporadaVME = hotelFac.getTipoHabitacionXHotelXTemporada(idHotel, idTipoHabitacion, idTemporada);
+                thXhXtemporadaVMD = Mapper.Map<TipoHabitacionXHotelXTemporadaViewModelEdit, TipoHabitacionXHotelXTemporadaViewModelDelete>(thXhXtemporadaVME);
+                //corregir el metodo ya que bota resultado peropara edit
+                thXhXtemporadaVMD.nombreHotel = hotelFac.getHotel(idHotel).nombre;
+                thXhXtemporadaVMD.nombreTipoHabitacion = tipoHabitacionFac.getTipoHabitacion(idTipoHabitacion).nombre;
+                thXhXtemporadaVMD.nombreTemporada = hotelFac.getTemporada(idTemporada).nombre;//esto esta mal pero no queda de otra xD!
+                return View(thXhXtemporadaVMD);
+            }
+            catch (Exception ex)
+            {
+                log.Error("DeleteTipoHabitacionXHotelXTemporada - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(thXhXtemporadaVMD);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporadaViewModelDelete thXhXtemporadaVMD)
+        {
+            try
+            {
+                var thXhXtemporada = Mapper.Map<TipoHabitacionXHotelXTemporadaViewModelDelete, TipoHabitacionXHotelXTemporada>(thXhXtemporadaVMD);
+                hotelFac.eliminarTipoHabitacionXHotelXTemporada(thXhXtemporada);
+                return RedirectToAction("ListTipoHabitacionXHotelXTemporada", new { idHotel = thXhXtemporada.idHotel, idTipoHabitacion = thXhXtemporada.idTipoHabitacion });
+            }
+            catch (Exception ex)
+            {
+                log.Error("DeleteTipoHabitacionXHotelXTemporada - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(thXhXtemporadaVMD);
+            }
+        }
 
         
-                public ActionResult ValidaEmail(string email)
+		public ActionResult ValidaEmail(string email)
         {
             if (String.IsNullOrEmpty(email) ||
                 Regex.IsMatch(email, @"[a-z0-9!#$%&'*+/=?^_`B|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum|pe)\b"))
