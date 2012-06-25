@@ -10,9 +10,9 @@ namespace Stardust.Models
     {
         AmbienteService AmbienteService = new AmbienteService();
 
-        public List<EventoBean> ListarEvento(int idHotel,int estadoPago)        {
+        public List<EventoBean> ListarEvento(int estadoPago)        {
             
-            return AmbienteService.ListarEvento(idHotel, estadoPago);
+            return AmbienteService.ListarEvento( estadoPago);
         }
         public List<AmbienteBean> ListarAmbiente(int idHotel, String Nombre, String estado)
         {
