@@ -8,7 +8,9 @@ namespace Stardust.Models{
 
     public class ProductoProveedor : ProductoBean
     {
-        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado es incorrecto")]
+
+        
+        //[RegularExpression("/^[\-\+]?(([0-9]+)([\.,]([0-9]+))?|([\.,]([0-9]+))?)$/", ErrorMessage = "El valor ingresado es incorrecto")]
         public decimal precio { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado es incorrecto")]
         public int cantMaxima { get; set; }
