@@ -509,14 +509,14 @@ namespace Stardust.Models
             DateTime fechaI = new DateTime();
             DateTime fechaF = new DateTime();
 
-            try
-            {
+            //try
+            //{
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
                 SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
                 sqlCon.Open();
                 fechaI = DateTime.ParseExact(fechaIni,"dd-MM-yyyy",null);
                 fechaF = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
-                TimeSpan dif = fechaF - fechaI;
+                TimeSpan dif =  fechaF - fechaI;
                 int dias = dif.Days;
                 string commandString = "SELECT * FROM Habitacion WHERE idHotel = " + idHotel + " ORDER BY idHabitacion";
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
@@ -563,7 +563,7 @@ namespace Stardust.Models
                             DateTime fechaInicio = (DateTime)dataReader2["fechaIni"];
                             DateTime fechaFinal = (DateTime)dataReader2["fechaFin"];
                             TimeSpan dife = fechaI - fechaInicio;
-                            int a = dife.Days;
+                            int a = Math.Abs(dife.Days);
                             dife =  fechaFinal - fechaI;
                             int b = dife.Days;
                             for (int j = a; j <= b; j++)
@@ -588,11 +588,11 @@ namespace Stardust.Models
 
                 }
 
-            }
-            catch (Exception e)
-            {
-                
-            }
+            //}
+            //catch (Exception e)
+            //{
+
+            //}
 
             return listaHab;
         }
