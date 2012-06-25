@@ -508,7 +508,7 @@ namespace Stardust.Models
             idHotel = 2;
             DateTime fechaI = new DateTime();
             DateTime fechaF = new DateTime();
-
+            int k = 0;
             //try
             //{
                 String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
@@ -540,19 +540,17 @@ namespace Stardust.Models
                     listaHab.Add(hab);
                 }
                 sqlCon.Close();
-                for (int i = 0; i < listaHab.Count; i++)
+                 while(k<listaHab.Count)
                 {
-                    if (hayconexion(listaHab.ElementAt(i).idHabit, fechaIni, fechaFin))
+                    if (hayconexion(listaHab.ElementAt(k).idHabit, fechaIni, fechaFin))
                     {
-
-
                         String cadenaConfiguracion2 = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
                         SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
                         sqlCon2.Open();
-                        //string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab.ElementAt(i).idHabit + " AND fechaIni BETWEEN " + fechaI + " AND " + fechaF + " AND fechaFin BETWEEN " + fechaI + " AND " + fechaF + " ORDER BY fechaIni";
-                        string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab.ElementAt(i).idHabit +
-                                        " AND CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103)" +
-                                        " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103) " +
+                        
+                        string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab[k].idHabit +
+                                        " AND (CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103)" +
+                                        " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103) )" +
                                         " ORDER BY fechaIni";
                         
                         SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
@@ -568,24 +566,24 @@ namespace Stardust.Models
                             int b = dife.Days;
                             for (int j = a; j <= b; j++)
                             {
-                                //listaHab.ElementAt(i).listaFechas.ElementAt(j).idReserva = (int)dataReader["idReserva"];
+                                listaHab[k].listaFechas[j].idReserva = (int)dataReader2["idReserva"];
                                 int est = (int)dataReader2["estado"];
                                 switch (est)
                                 {
-                                    case 1: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Por Confirmar";
+                                    case 1: listaHab[k].listaFechas[j].estado = "Por Confirmar";
                                         break;
-                                    case 2: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Confirmado";
+                                    case 2: listaHab[k].listaFechas[j].estado = "Confirmado";
                                         break;
-                                    case 3: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "En Curso";
+                                    case 3: listaHab[k].listaFechas[j].estado = "En Curso";
                                         break;
-                                    case 4: listaHab.ElementAt(i).listaFechas.ElementAt(j).estado = "Libre";
+                                    case 4: listaHab[k].listaFechas[j].estado = "Libre";
                                         break;
                                 }
                             }
                         }
                         sqlCon2.Close();
                     }
-
+                    k++;
                 }
 
             //}
@@ -684,8 +682,8 @@ namespace Stardust.Models
                 SqlConnection sqlCon2 = new SqlConnection(cadenaConfiguracion2);
                 sqlCon2.Open();
                 string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + idhabitacion +
-                                        " AND CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaI + "',103) AND CONVERT(datetime, '" + fechaF + "',103)" +
-                                        " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaI + "',103) AND CONVERT(datetime, '" + fechaF + "',103) " +
+                                        " AND (CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaI + "',103) AND CONVERT(datetime, '" + fechaF + "',103)" +
+                                        " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaI + "',103) AND CONVERT(datetime, '" + fechaF + "',103) )" +
                                         " ORDER BY fechaIni";
 
                 SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
