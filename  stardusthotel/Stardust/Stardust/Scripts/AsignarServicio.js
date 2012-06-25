@@ -49,7 +49,7 @@ function llegadaHoteles(data) {
 
 
 function pedirServicio() {
-
+    SendHotel = $("#ComboHoteles").val();
     if (SendHotel != "NN") {
 
         var enviar = {
