@@ -33,7 +33,7 @@
                 <h6>@ViewBag.Title</h6>
             </div>
             
-            <div class = "formRow" >
+            <div class = "formRow" style="display:none">
                 @Html.LabelFor( model => model.idPerfilUsuario )
                 <div class = "formRight" >
                     @Html.DropDownListFor( model => model.idPerfilUsuario , new SelectList( Model.PerfilesUsuario, "ID" , "nombre" ) , "Elije un perfil..." )
