@@ -7,12 +7,29 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validationEngine-en.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validationEngine.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 
 
  @using (Html.BeginForm("ListaEvento", "ReporteEventos", FormMethod.Post, new { @class = "form" }))
-{
+ {
+     @Html.ValidationSummary(false)
+
+     <div>  </div>
+
+     
     <div class="title"><h6>Eventos</h6> </div>
+     <table>
+<tr>
+   <td align="left"> Stardust  </td>
+   <td align="right"> Fecha y Hora Actual:  </td>
+</tr>
+<tr><td></td><td align="right"> @DateTime.Now  </td></tr>
+ </table>
+ <div>  </div>
+ <div>    </div>
+<div>    </div>
      <p></p><p></p>
 
         <table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >
@@ -22,14 +39,12 @@
            <td>Nombre</td>
            <td>Dni del Cliente</td>
            <td>Nombre del Hotel</td>
-           <td>Estado de pago</td>
-           <td>Descripcion</td>
            <td>Fecha Inicial </td>
            <td>Fecha Final</td>
             <td>Numero de participantes</td>
             <td>Pago Inicial</td>
             <td>Monto Total </td>
-            <td>Fec de Registro</td>
+
            <td></td>
            
         </tr>
@@ -44,19 +59,17 @@
                      @Html.HiddenFor(modelItem => item.ID)
                 <td> @Html.TextBoxFor(modelItem => item.nombre, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(modelItem => item.nombreCliente, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(modelItem => item.nombreHotel, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(modelItem => item.estadoPago, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(modelItem => item.descripcion, new { @readonly = "readonly" })  </td>
+                <td> @Html.TextBoxFor(modelItem => item.nombreHotel, new { @readonly = "readonly" })   </td>                
                 <td> @Html.TextBoxFor(modelItem => item.fechaIni, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(modelItem => item.fechaFin, new { @readonly = "readonly" }) </td>
                 <td> @Html.TextBoxFor(modelItem => item.nroParticipantes, new { @readonly = "readonly" })  </td>
                 <td> @Html.TextBoxFor(modelItem => item.pagoInicial, new { @readonly = "readonly" })   </td>
                 <td> @Html.TextBoxFor(modelItem => item.montoTotal, new { @readonly = "readonly" })   </td>
-                <td> @Html.TextBoxFor(modelItem => item.fechaRegistro, new { @readonly = "readonly" })   </td>
+
 
             </tr>   
         
-@*         @Html.ActionLink("Imprimir", "Nada", new { id =item.estadoPago, new { target = "_blank" })*@
+        @* @Html.ActionLink("Imprimir", "Nada", new { id =item.estadoPago /* new { target = "_blank"*/ })*@
     }
            
     </tbody>
@@ -65,6 +78,6 @@
     <p></p><p></p><p></p><p></p>
     <p>
         @*@Html.ActionLink("Imprimir", "Nada", new { id =item new { target = "_blank" }) |*@
-        @Html.ActionLink("Regresar", "Proveedor", "Reporte")
+        @Html.ActionLink("Regresar", "Evento", "ReporteEventos")
     </p>
-    }
+ }
