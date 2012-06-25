@@ -311,7 +311,8 @@ namespace Stardust.Models.Servicios
                 dataReaderUser.Close();
                 if (count == 0)
                 {
-                    string commandString3 = "INSERT INTO Usuario VALUES (1," +
+                    int perfil = getPerfil("cliente");
+                    string commandString3 = "INSERT INTO Usuario VALUES ("+ perfil +" ," +
                      "'" + client.email + "', " +
                      "'" + pass + "', " +
                      "'" + client.nomb + "'" + ", " +
@@ -403,6 +404,41 @@ namespace Stardust.Models.Servicios
             return usuario;
         }
 
+        public int getPerfil(String perf) {
+            int res = 0;
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+
+            String query = "SELECT idPerfilUsuario FROM PerfilUsuario WHERE nombre = '"+perf+"'";
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+
+            SqlDataReader ReaderPorc;
+            try
+            {
+                ReaderPorc = sqlCmd.ExecuteReader();
+                if (ReaderPorc.Read()) {
+                    res = (int)ReaderPorc["idPerfilUsuario"];
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+
+
+            return res;
+        }
         public ReservaResBean resgitrarReserva(int idHotel, int idUsuario, String fechaIni, String fechaFin, Decimal total, String coment){
 
             ReservaResBean reserva = new ReservaResBean();
@@ -572,18 +608,25 @@ namespace Stardust.Models.Servicios
 
             for (int i = 0; i < list.Count; i++) {
                 HabInsertBean tipHab = list[i];
-                Decimal total = tipHab.cant*tipHab.precUnit*z;
-                String query = "INSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
-                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
-                try
-                {
-                    sqlCmd.ExecuteNonQuery();
+                if(tipHab.cant>0){
+                    Decimal total = tipHab.cant*tipHab.precUnit*z;
+                    System.Diagnostics.Debug.WriteLine("NOMBRE : " + tipHab.nombTipo);
+                    System.Diagnostics.Debug.WriteLine("CANTIDAD : " + tipHab.cant);
+                    System.Diagnostics.Debug.WriteLine("UNITA : " + tipHab.precUnit);
+                    System.Diagnostics.Debug.WriteLine("DIAS : " + z);
+
+                    String query = "INSERT INTO DocumentoPago_Detalle VALUES ( " + idDocPago + " , '" + tipHab.nombTipo + "' , " + tipHab.cant + " , " + tipHab.precUnit + " , " + total + " , 1)";
+                    SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                    try
+                    {
+                        sqlCmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        me = "Error al registrar el Detalle del Documento de Pago: " + e.Message;
+                        return me;
+                    }                
                 }
-                catch (Exception e)
-                {
-                    me = "Error al registrar el Detalle del Documento de Pago: " + e.Message;
-                    return me;
-                }                
             }
             return me;
         }
@@ -867,5 +910,90 @@ namespace Stardust.Models.Servicios
             return ubic;
         }
         #endregion
+        public ServBean buscaServicio(String detalle, int idHotel)
+        {
+            ServBean res = new ServBean ();
+            res.me = "";
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                res.me = "Error en conexion a Base de Datos";
+                return res;
+            }
+
+            String query =  " SELECT s.idServicio, h.precioBase " +
+                            " FROM Servicio s, ServicioXHotel h " +
+                            " WHERE s.nombre='" + detalle + "' and s.idServicio = h.idServicio and idHotel = " + idHotel;
+
+            SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+            SqlDataReader dataReader;
+
+            try
+            {
+                dataReader = sqlCmd.ExecuteReader();
+                if(dataReader.Read())
+                {                    
+                    res.idServicio = (int)dataReader["idServicio"];
+                    res.precioBase = decimal.Parse(dataReader["precioBase"].ToString());                    
+                }
+                dataReader.Close();
+            }
+            catch (Exception e)
+            {
+                res.me = "Error al buscar al Cliente xD (oo): " + e.Message;
+                return res;
+            }
+
+            sqlCon.Close();
+            return res;
+        }
+
+        public String registrarServ(int idServicio, int idHotel, int idReserva, String nroDoc, Decimal montoTotal, String descripcion){
+            String me = "";
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            try
+            {
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                String query = "INSERT INTO ReservaXServicio (idServicio, idHotel, idReserva, documento, montoTotal, fecha, descripcion) VALUES (" + idServicio + ", " + idHotel + " , " + idReserva + " , '" + nroDoc + "', " + montoTotal + ", GETDATE(), '" + descripcion + "')";
+
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+            }catch(Exception e){
+                me = "Error en BD";
+            }
+            return me;
+        }
+        public String registrarDetalleFacturaServ(int idDocPago, String detalle, int nroPer, decimal precio, decimal montoTotal, int flag){
+            String me= "";
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            try
+            {
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                sqlCon.Open();
+
+                String query = "INSERT INTO DocumentoPago_Detalle (idDocPago, detalle, cantidad, precioUnitario, total, es_habitacion) VALUES (" + idDocPago+ ",'" + detalle + "', " + nroPer + "," + precio + ", "+ montoTotal+"," + flag+")";
+
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                me = "Error en BD";
+            }
+            return me;
+        }
+        
+
+
     }
 }

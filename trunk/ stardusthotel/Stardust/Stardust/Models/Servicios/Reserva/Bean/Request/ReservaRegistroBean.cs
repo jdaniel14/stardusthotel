@@ -13,7 +13,7 @@ namespace Stardust.Models.Servicios
         public String fechaIni { get; set; }
         public String fechaFin { get; set; }
         public int rec { get; set; }
-        public Object datRec { get; set; }
+        public RecAero datRec { get; set; }
         public String coment { get; set; }
         public Decimal total { get; set; }
         public String pass { get; set; }
