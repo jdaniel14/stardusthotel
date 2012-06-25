@@ -226,7 +226,10 @@ namespace Stardust.Controllers
             {
                 AmbienteFacade ambienteFacade = new AmbienteFacade();
                 ambienteFacade.ActualizarAmbiente(item);
-                return RedirectToAction("BuscarAmbiente");
+                if (item.estado == "ACTIVO")
+                    return RedirectToAction("Details/" + item.id, "Servicios");
+                else return RedirectToAction("BuscarcarAmbiente", "Servicios");
+            
             }
             else if (item.idHotel != 0)
             {
