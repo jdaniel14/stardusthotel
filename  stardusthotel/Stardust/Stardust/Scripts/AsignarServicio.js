@@ -1,28 +1,76 @@
-﻿
+﻿var SendHotel;
 var x;
 x = $(document);
 x.ready(inicializarEventos);
 
 function inicializarEventos() {
 
-    var idH = "1";
-
-    var enviar = {
-        idHotel : idH
-    }
-
-    jsonData = JSON.stringify(enviar);
-    console.log(jsonData);
-
     $.ajax({
         type: "POST",
-        data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "../Servicios/ConsultarServicio",
-        beforeSend: esperaDatos(),
-        success: llegadaDatos
+        url: "/ReservarHabitacion/listarHoteles",
+        beforeSend: esperarHoteles(),
+        success: llegadaHoteles
     });
+
+
+    
+
+}
+
+
+function esperarHoteles() {
+}
+
+function llegadaHoteles(data) {
+    var escritor = "";
+    console.log(data);
+    if (data.me == "") {
+
+        escritor += '<option value = "NN" selected = "selected">Escoja un hotel</option>';
+
+        $.each(data.lista, function (i, item) {
+            escritor += '<option value = "' + item.ID + '">' + item.nombre + '</option>';
+        });
+
+        $("#ComboHoteles").html(escritor);
+
+        var miValue2 = "NN";
+        $("#ComboHoteles option[value=" + miValue2 + "]").attr("selected", true);
+        $("#ComboHoteles").trigger('change');
+
+        $("#ComboHoteles").change(pedirServicio);
+    }
+    else {
+        mostrarError(data.me);
+    }
+}
+
+
+function pedirServicio() {
+
+    if (SendHotel != "NN") {
+
+        var enviar = {
+            idHotel: SendHotel
+        }
+
+        jsonData = JSON.stringify(enviar);
+        console.log(jsonData);
+
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "../Servicios/ConsultarServicio",
+            beforeSend: esperaDatos(),
+            success: llegadaDatos
+        });
+    }
+
+
 }
 
 function esperaDatos(){
@@ -82,7 +130,7 @@ function enviar() {
         var tipoS = $("#ComboRes").get(0).value;
 
         var enviar = {
-            idHotel: telo,
+            idHotel: SendHotel,
             idSer: idService,
             nroRes: numReser,
             dni: numeroDocu,
@@ -115,15 +163,19 @@ function esperaConfirma() {
 }
 
 function confirma(data) {
+    $("#espera").dialog("destroy");
     console.log(data.me);
 
     if (data.me == "") {
-        alert('OK');
+
         console.log("se hizo");
-        $(location).attr('href', '../../');
+        mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
+        if (data.me == "No se pudo enviar el email") {
+            $(location).attr('href', '../');
+        }
     }
 
 }
