@@ -4554,6 +4554,7 @@
     <Content Include="Views\ReporteAsistencia\ReporteAsistencia.cshtml" />
     <Content Include="Views\Hotel\DeleteTipoHabitacionXHotelXTemporada.cshtml" />
     <Content Include="Views\Hotel\EditTipoHabitacionXHotelXTemporada.cshtml" />
+    <Content Include="Views\Servicios\DetallesServicio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
