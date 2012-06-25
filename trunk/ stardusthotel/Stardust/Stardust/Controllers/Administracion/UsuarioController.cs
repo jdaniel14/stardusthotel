@@ -144,7 +144,7 @@ namespace Stardust.Controllers
                 //if (ModelState.IsValid)
                 //{
                 usuarioFac.actualizarUsuario(usuariobean);
-                return RedirectToAction("List");
+                return RedirectToAction("Details", new { id = usuariobean.ID } );
             }
             catch(Exception e ) {
                 System.Diagnostics.Debug.WriteLine(e.Message);
@@ -252,5 +252,61 @@ namespace Stardust.Controllers
             }
             return new JsonResult() { Data = usuario };
         }
+
+        // GET: /Usuario/Create
+        public ActionResult Registrar()
+        {
+            var usuarioVMC = new UsuarioViewModelCreate();
+            try
+            {
+                usuarioVMC.Departamentos = Utils.listarDepartamentos();
+                usuarioVMC.Documentos = new List<TipoDocumento>();
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "DNI" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "RUC" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "PASAPORTE" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "CARNET DE EXTRANJERIA" });
+                usuarioVMC.PerfilesUsuario = new PerfilUsuarioFacade().listarPerfiles();
+                return View(usuarioVMC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Create - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
+            }
+        }
+
+        // POST: /Usuario/Create
+        [HttpPost]
+        public ActionResult Registrar(UsuarioViewModelCreate usuarioVMC)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (!usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
+                    {
+                        var usuario = Mapper.Map<UsuarioViewModelCreate, UsuarioBean>(usuarioVMC);
+                        usuario.estado = "ACTIVO";
+                        usuarioFac.registrarUsuario(usuario);
+                        return RedirectToAction("Index" , "Home" );
+                    }
+                    else
+                    {
+                        log.Warn("El nombre de usuario:\"" + usuarioVMC.user_account + "\" ya ha sido creado");
+                        ModelState.AddModelError("", "El nombre del Usuario ya ha sido asignado");
+                        return View(usuarioVMC);
+                    }
+                }
+                return View(usuarioVMC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Create - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
+            }
+        }
+
     }
 }

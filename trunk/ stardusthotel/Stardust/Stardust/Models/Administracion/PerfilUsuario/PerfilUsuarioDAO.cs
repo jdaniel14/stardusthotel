@@ -116,6 +116,52 @@ namespace Stardust.Models
             }
         }
 
+        public List<PerfilUsuarioBean> listarPerfilCliente()
+        {
+            SqlConnection sql = null;
+
+            try
+            {
+                sql = new SqlConnection(cadenaDB);
+
+                sql.Open();
+
+                String command = "Select * from PerfilUsuario WHERE nombre = @nombre";
+
+                SqlCommand query = new SqlCommand(command, sql);
+
+                Utils.agregarParametro(query, "nombre", "Cliente");
+
+                SqlDataReader data = query.ExecuteReader();
+
+                List<PerfilUsuarioBean> lista = new List<PerfilUsuarioBean>();
+
+                while (data.Read())
+                {
+                    PerfilUsuarioBean perfil = new PerfilUsuarioBean();
+
+                    perfil.ID = Convert.ToInt32(data["idPerfilUsuario"]);
+                    perfil.nombre = Convert.ToString(data["nombre"]);
+                    perfil.descripcion = Convert.ToString(data["descripcion"]);
+
+                    lista.Add(perfil);
+                }
+
+                sql.Close();
+
+                return lista;
+            }
+            catch (Exception e)
+            {
+                log.Error("listarPerfiles(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally
+            {
+                if (sql != null) sql.Close();
+            }
+        }
+
         public void actualizarPerfil(PerfilUsuarioBean perfil) {
             SqlConnection sql = null;
 

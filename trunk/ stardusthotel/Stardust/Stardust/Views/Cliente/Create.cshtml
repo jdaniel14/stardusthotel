@@ -1,10 +1,10 @@
-﻿@model Stardust.Models.UsuarioBean
+﻿@model Stardust.Models.UsuarioViewModelCreate
 
 @{
-    ViewBag.Title = "Modificar usuario";
+    ViewBag.Title = "Registrar Cliente";
 }
 
-<h2>Modificar usuario</h2>
+<h2>@ViewBag.Title</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -15,38 +15,64 @@
         cmbDepartamento.val('');
     });
 </script>
+<br />
 
-@if (!String.IsNullOrEmpty(ViewBag.results)) { 
-    <div class="nNote nWarning hideit">
-        <p><strong>AVISO: </strong>@ViewBag.results</p>
-    </div>
+@if (Html.ValidationSummary() != null)
+{
+<div class="nNote nWarning hideit">
+    <p>@Html.ValidationSummary()</p>
+</div>
 }
 
-@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" } ))
+@using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { @class = "form" } ))
 {
-    @Html.ValidationSummary(true)
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6> Modificar usuario </h6></div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idPerfilUsuario )
+            <div class = "title" >
+                <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">
+                <h6>@ViewBag.Title</h6>
+            </div>
+            
+            <div class = "formRow" style = "display:none;"  >
                 <div class = "formRight" >
-                    @Html.DropDownListFor( model => model.idPerfilUsuario , new SelectList( ViewBag.perfiles , "ID" , "nombre" , Model.idPerfilUsuario ) , "Elije un perfil..." )
-                    @Html.ValidationMessageFor( model => model.idPerfilUsuario )
+                    <input name = "fechaRegistro" id = "fechaRegistro" value = @DateTime.Now/>
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
+                @Html.LabelFor( model => model.idPerfilUsuario )
+                <div class = "formRight" >
+                    @Html.DropDownListFor( model => model.idPerfilUsuario , new SelectList( Model.PerfilesUsuario, "ID" , "nombre" ) , "Elije un perfil..." )
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idPerfilUsuario)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div>
+                @for (int i = 0; i < Model.PerfilesUsuario.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.PerfilesUsuario[i].ID)
+                    @Html.HiddenFor(m => m.PerfilesUsuario[i].nombre)
+                }
+            </div>
+
+            <div class = "formRow" >
                 @Html.LabelFor( model => model.user_account )
-                <div class = "formRight" > @Html.DisplayFor( model => model.user_account ) </div>
+                <div class = "formRight" >
+                    @Html.TextBoxFor( model => model.user_account )
+                    @Html.ValidationMessageFor(model => model.user_account)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
                 @Html.LabelFor( model => model.pass )
-                <div class = "formRight" > @Html.DisplayFor( model => model.pass ) </div>
+                <div class = "formRight" >
+                    @Html.PasswordFor( model => model.pass )
+                    @Html.ValidationMessageFor( model => model.pass )
+                </div>
                 <div class = "clear" ></div>
             </div>
 
@@ -98,10 +124,18 @@
             <div class = "formRow" >
                 @Html.LabelFor( model => model.tipoDocumento )
                 <div class = "formRight" >
-                    @Html.DropDownListFor( model => model.tipoDocumento , new SelectList( ViewBag.documentos , "nombre" , "nombre" , Model.tipoDocumento ) , "Elije un tipo de documento..." )
+                    @Html.DropDownListFor( model => model.tipoDocumento , new SelectList( Model.Documentos, "nombre" , "nombre") , "Elije un tipo de documento..." )
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     @Html.ValidationMessageFor( model => model.tipoDocumento )
                 </div>
                 <div class = "clear" ></div>
+            </div>
+
+            <div>
+                @for (int i = 0; i < Model.Documentos.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Documentos[i].nombre)
+                }
             </div>
 
             <div class = "formRow" >
@@ -122,37 +156,37 @@
                 <div class = "clear" ></div>
             </div>
 
-            @*<div class = "formRow" >
-                @Html.LabelFor( model => model.idDepartamento )
-                <div class = "formRight" > @Html.DisplayFor( model => model.nombreDepartamento ) </div>
+            <div class = "formRow" >
+                @Html.LabelFor( model => model.direccion )
+                <div class = "formRight" >
+                    @Html.TextBoxFor( model => model.direccion )
+                    @Html.ValidationMessageFor( model => model.direccion )
+                </div>
                 <div class = "clear" ></div>
             </div>
 
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idProvincia )
-                <div class = "formRight" > @Html.DisplayFor( model => model.nombreProvincia ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idDistrito )
-                <div class = "formRight" > @Html.DisplayFor( model => model.nombreDistrito ) </div>
-                <div class = "clear" ></div>
-            </div>*@
             <div class = "formRow" >
                 @Html.LabelFor( model => model.idDepartamento )
                 <div class = "formRight" >
-                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(ViewBag.departamentos, "ID", "nombre" , Model.idDepartamento ), "Elije un departamento...")
+                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(Model.Departamentos, "ID", "nombre"), "Elije un departamento...")
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     @Html.ValidationMessageFor( model => model.idDepartamento )
                 </div>
                 <div class = "clear" ></div>
             </div>
 
+            <div>
+                @for (int i = 0; i < Model.Departamentos.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Departamentos[i].ID)
+                    @Html.HiddenFor(m => m.Departamentos[i].nombre)
+                }
+            </div>
+
             <div class = "formRow" >
                 @Html.LabelFor( model => model.idProvincia )
                 <div class = "formRight" >
-                    @Html.DropDownListFor(model => model.idProvincia, new SelectList(ViewBag.provincias, "ID", "nombre" , Model.idProvincia ), "Elije una provincia...")
+                    @Html.DropDownListFor(model => model.idProvincia, Enumerable.Empty<SelectListItem>(), "Elije un departamento primero...") 
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     @Html.ValidationMessageFor( model => model.idProvincia )
                 </div>
@@ -162,26 +196,17 @@
             <div class = "formRow" >
                 @Html.LabelFor( model => model.idDistrito )
                 <div class = "formRight" >
-                    @Html.DropDownListFor(model => model.idDistrito, new SelectList(ViewBag.distritos, "ID", "nombre" , Model.idDistrito ), "Elije un distrito...")
+                    @Html.DropDownListFor(model => model.idDistrito, Enumerable.Empty<SelectListItem>(), "Elije una provincia primero...") 
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     @Html.ValidationMessageFor( model => model.idDistrito )
                 </div>
                 <div class = "clear" ></div>
             </div>
 
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.direccion )
-                <div class = "formRight" >
-                    @Html.DisplayFor( model => model.direccion )
-                    @*@Html.ValidationMessageFor( model => model.direccion )*@
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
         </div>
         <p>
-            <input class = "redB" type="submit" value="Guardar" />
-            @*@Html.ActionLink("Regresar", "Index")*@
+            <input class = "redB" type="submit" value="Crear" /> |
+            @Html.ActionLink("Regresar", "Index")
         </p>
     </fieldset>
 }
