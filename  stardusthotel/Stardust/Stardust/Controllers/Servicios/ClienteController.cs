@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Stardust.Models.Servicios;
 using log4net;
+using AutoMapper;
 
 
 namespace Stardust.Controllers.Servicios
@@ -15,11 +16,68 @@ namespace Stardust.Controllers.Servicios
     public class ClienteController: Controller
     {
         private static ILog log = LogManager.GetLogger(typeof(ClienteController));
+        UsuarioFacade usuarioFac = new UsuarioFacade();
+
         public ViewResult Index()
         {
             ClienteFacade clienteFacade = new ClienteFacade();
             List<ClienteBean> listaClientes = clienteFacade.ListarClientesNatural("");
             return View(listaClientes);
+        }
+
+        // GET: /Usuario/Create
+        public ActionResult Create()
+        {
+            var usuarioVMC = new UsuarioViewModelCreate();
+            try
+            {
+                usuarioVMC.Departamentos = Utils.listarDepartamentos();
+                usuarioVMC.Documentos = new List<TipoDocumento>();
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "DNI" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "RUC" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "PASAPORTE" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "CARNET DE EXTRANJERIA" });
+                usuarioVMC.PerfilesUsuario = new PerfilUsuarioFacade().listarPerfilCliente();
+                return View(usuarioVMC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Create - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
+            }
+        }
+
+        // POST: /Usuario/Create
+        [HttpPost]
+        public ActionResult Create(UsuarioViewModelCreate usuarioVMC , string fechaRegistro)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (!usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
+                    {
+                        var usuario = Mapper.Map<UsuarioViewModelCreate, Stardust.Models.UsuarioBean>(usuarioVMC);
+                        usuario.estado = "ACTIVO";
+                        usuarioFac.registrarUsuario(usuario);
+                        return RedirectToAction("List");
+                    }
+                    else
+                    {
+                        log.Warn("El nombre de usuario:\"" + usuarioVMC.user_account + "\" ya ha sido creado");
+                        ModelState.AddModelError("", "El nombre del Usuario ya ha sido asignado");
+                        return View(usuarioVMC);
+                    }
+                }
+                return View(usuarioVMC);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Create - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
+            }
         }
 
         public ViewResult IndexJuridicas()

@@ -165,8 +165,9 @@
 
             <li class="ui" id = "menu11"><a href="#" title="" class="exp"><span>Clientes</span><strong>4</strong></a>
                 <ul class="sub">
-                    <li>@Html.ActionLink("Registrar Clientes Naturales", "RegistrarPersonaNatural", "Cliente")</li>
-                    <li>@Html.ActionLink("Registrar Clientes Juridicos", "RegistrarPersonaJuridica", "Cliente")</li>
+                    @*<li>@Html.ActionLink("Registrar Clientes Naturales", "RegistrarPersonaNatural", "Cliente")</li>
+                    <li>@Html.ActionLink("Registrar Clientes Juridicos", "RegistrarPersonaJuridica", "Cliente")</li>*@
+                    <li>@Html.ActionLink("Registrar Cliente", "Create", "Cliente")</li>
                     <li>@Html.ActionLink("Buscar Ciente Natural", "BuscarClienteNatural", "Cliente")</li>
                     <li class = "last" >@Html.ActionLink("Buscar Ciente Juridico", "BuscarClienteJuridico", "Cliente")</li>
                 </ul>

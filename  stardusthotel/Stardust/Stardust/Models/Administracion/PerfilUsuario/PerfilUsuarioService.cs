@@ -17,6 +17,11 @@ namespace Stardust.Models
             return perfilDAO.listarPerfiles();
         }
 
+        public List<PerfilUsuarioBean> listarPerfilCliente()
+        {
+            return perfilDAO.listarPerfilCliente();
+        }
+
         public void actualizarPerfil(PerfilUsuarioBean perfil) {
             perfilDAO.actualizarPerfil( perfil );
         }

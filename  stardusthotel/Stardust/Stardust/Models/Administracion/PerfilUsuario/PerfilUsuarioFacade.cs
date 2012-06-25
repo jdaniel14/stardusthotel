@@ -13,6 +13,10 @@ namespace Stardust.Models
             perfilServ.registrarPerfil(perfil);
         }
 
+        public List<PerfilUsuarioBean> listarPerfilCliente() {
+            return perfilServ.listarPerfilCliente();
+        }
+
         public List<PerfilUsuarioBean> listarPerfiles() {
             return perfilServ.listarPerfiles();
         }

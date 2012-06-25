@@ -12,9 +12,11 @@ namespace Stardust.Models
         public int idTipoHabitacion { get; set; }
         
         [Display(Name = "Tipo de Habitación")]
+        [Required(ErrorMessage = "Ingrese un nombre para el tipo de habitación")]
         public string nombre { get; set; }
 
         [Display( Name = "Descripcion" ) ]
+        [Required(ErrorMessage = "Ingrese una descripción para el tipo de habitación")]
         public string descripcion { get; set; }
 
     }
