@@ -74,7 +74,7 @@ namespace Stardust.Models
                         }
                     }
 
-                    string commandString = "INSERT INTO OrdenCompra (fechaPedido, estado, precioTotal, idProveedor, idhotel) VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id +","+producto.idhotel+ " )";//idproveedor
+                    string commandString = "INSERT INTO OrdenCompra (fechaPedido, estado, precioTotal, idProveedor, idHotel) VALUES (GETDATE(), 'Tramite' , " + total + " , " + producto.id +","+producto.idhotel+ " )";//idproveedor
 
                     SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                     sqlCmd.ExecuteNonQuery();
@@ -174,7 +174,7 @@ namespace Stardust.Models
                 ord.idproveedor = (int)dataReader2["idProveedor"];
                 ord.estado = (string)dataReader2["estado"];
                 ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
-                ord.idhotel = (int)dataReader2["idhotel"];
+                ord.idhotel = (int)dataReader2["idHotel"];
                 date = Convert.ToDateTime(dataReader2["fechaPedido"]);
                 ord.fecha = String.Format("{0:d/M/yyyy}",date);
                 ord.preciototal = (decimal)dataReader2["preciototal"];
@@ -212,7 +212,7 @@ namespace Stardust.Models
                 orden.fecha = String.Format("{0:d/M/yyyy}",date);
                 orden.preciototal = (decimal)dataReader["preciototal"];
                 orden.idproveedor=(int)dataReader["idProveedor"];
-                orden.idhotel = (int)dataReader["idhotel"];
+                orden.idhotel = (int)dataReader["idHotel"];
             }
             sqlCon.Close();
 
@@ -401,7 +401,7 @@ namespace Stardust.Models
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
             while (dataReader.Read())
             {
-                idhotel= (int)dataReader["idhotel"];
+                idhotel= (int)dataReader["idHotel"];
             }
 
             sqlCon.Close();
