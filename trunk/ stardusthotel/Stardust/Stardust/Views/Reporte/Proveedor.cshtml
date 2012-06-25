@@ -3,16 +3,18 @@
     ViewBag.Title = "Generar Reporte";
 }
 
+<h2>Generar Reporte de Órdenes de Compra</h2>
+
 @using (Html.BeginForm("Proveedor", "Reporte", FormMethod.Post, new { @class = "form", id="validate"}))
 {
   
     <fieldset>
         <div class="widget">
             <div class="title">
-                <h6>Generar Reporte</h6>
+                <h6>Seleccionar Proveedor</h6>
             </div>
             <div class="formRow">
-                <label>Seleccione un proveedor</label>
+                <label>Proveedor</label>
                 <div class = "formRight" >@Html.DropDownListFor(model => model.id,new SelectList(Model.list,"id","name"))</div>
                 <div class = "clear" ></div>
             </div>                   
@@ -20,8 +22,7 @@
     </fieldset>
     
     <p>
-        <input type="submit" value="Buscar" class = "redB" />        
-        @Html.ActionLink("Regresar", "../Home/Index")
+        <input type="submit" value="Buscar" class = "redB" />                
     </p>
 }
 
