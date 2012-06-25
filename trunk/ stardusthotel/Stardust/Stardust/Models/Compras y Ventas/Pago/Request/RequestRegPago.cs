@@ -12,5 +12,6 @@ namespace Stardust.Models
         public decimal monto { get; set; }
         public decimal montoTotal { get; set; }
         public decimal pagoInicial { get; set; }
+        public string doc { get; set; }
     }
 }
