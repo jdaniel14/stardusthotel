@@ -6,12 +6,15 @@ using Stardust.Models;
 using Stardust.Models.Servicios;
 using System.Web.Mvc;
 using ReportManagement;
+using log4net;
 
 namespace Stardust.Controllers.Servicios
 {
     public class PagoClientesController : PdfViewController
     {
         PagoFacade pagoFacade = new PagoFacade();
+        private static ILog log = LogManager.GetLogger(typeof(PagoClientesController));
+
 
         public ActionResult Index()
         {
