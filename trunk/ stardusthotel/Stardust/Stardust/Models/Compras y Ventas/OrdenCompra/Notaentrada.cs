@@ -12,7 +12,9 @@ namespace Stardust.Models
         public int cantidadsolicitada { get; set; }
         public int cantidadfaltante { get; set; }
         
-        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado es incorrecto")]
+        //[Range(0, 999, ErrorMessage = "El número mínimo de días es 1")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Sólo números")]
+        [Required(ErrorMessage = "Es necesario ingresar la cantidad entrante")]
         public int cantidadentrante { get; set; }
 
         public Boolean estado { get; set; }
