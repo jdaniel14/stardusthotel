@@ -83,10 +83,10 @@ namespace Stardust.Models
             return response;
         }
 
-        public List<EventoBean> ListarEvento(int estadoPago)
+        public List<EventoBean> ListarEvento(int idHotel, int estadoPago)
         {
 
-            return AmbienteDAO.ListarEvento(estadoPago);
+            return AmbienteDAO.ListarEvento(idHotel,estadoPago);
         }
         public MensajeBean RegistrarEventoYAmbientes(RegAmbienteEventoBean registro)
         {
