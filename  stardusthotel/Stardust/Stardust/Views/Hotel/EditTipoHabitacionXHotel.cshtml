@@ -4,6 +4,9 @@
     ViewBag.Title = "Modificar tipo de habitacion";
 }
 
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
 <h2>@ViewBag.Title</h2>
 
 @Html.ValidationSummary(true)
@@ -12,12 +15,16 @@
 { 
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6>@ViewBag.Title</h6></div>
+            <div class = "title" >
+                <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">
+                <h6>@ViewBag.Title</h6>
+            </div>
 
             <div class = "formRow" style="display:none;">
                 @Html.LabelFor(model => model.idHotel)
                 <div class = "formRight" > 
                     @Html.DropDownListFor(model => model.idHotel, new SelectList(Model.Hoteles, "ID", "nombre", Model.idHotel), "Elija un hotel...")
+                    @Html.ValidationMessageFor(model => model.idHotel)
                 </div>
 
                 <div class = "clear" ></div>
@@ -25,19 +32,28 @@
 
             <div class = "formRow" style="display:none;">
                 @Html.LabelFor(model => model.idTipoHabitacion)
-                <div class = "formRight" >@Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(Model.TipoHabitaciones, "idTipoHabitacion", "nombre", Model.idTipoHabitacion), "Elija un tipo de habitación...")</div>
+                <div class = "formRight" >
+                    @Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(Model.TipoHabitaciones, "idTipoHabitacion", "nombre", Model.idTipoHabitacion), "Elija un tipo de habitación...")
+                    @Html.ValidationMessageFor(model => model.idTipoHabitacion)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
                 @Html.LabelFor(model => model.precio)
-                <div class = "formRight" > @Html.TextBoxFor(model => model.precio)</div>
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.precio)
+                    @Html.ValidationMessageFor(model => model.precio)
+                </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
                 @Html.LabelFor(model => model.nroPersonas)
-                <div class = "formRight" > @Html.TextBoxFor(model => model.nroPersonas)</div>
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nroPersonas)
+                    @Html.ValidationMessageFor(model => model.nroPersonas)
+                </div>
                 <div class = "clear" ></div>
             </div>
         </div>

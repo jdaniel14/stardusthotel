@@ -18,126 +18,128 @@
 {
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>@ViewBag.Title</h6></div>
+            <div class = "title">
+                <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">            
+                <h6>@ViewBag.Title</h6>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.nombre)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.nombre, new { placeholder = "Maximo 30 caracteres aqui, evite usar caracteres extraños" })
-                        @Html.ValidationMessageFor(model => model.nombre)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.nombre)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nombre, new { placeholder = "Maximo 30 caracteres aqui, evite usar caracteres extraños" })
+                    @Html.ValidationMessageFor(model => model.nombre)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.razonSocial)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.razonSocial, new { placeholder = "Evite usar caracteres extraños" })
-                        @Html.ValidationMessageFor(model => model.razonSocial)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.razonSocial)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.razonSocial, new { placeholder = "Evite usar caracteres extraños" })
+                    @Html.ValidationMessageFor(model => model.razonSocial)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.direccion)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.direccion)
-                        @Html.ValidationMessageFor(model => model.direccion)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.direccion)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.direccion)
+                    @Html.ValidationMessageFor(model => model.direccion)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.tlf1)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.tlf1, new { placeholder = "Ejm: 015055050" })
-                        @Html.ValidationMessageFor(model => model.tlf1)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.tlf1)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.tlf1, new { placeholder = "Ejm: 015055050" })
+                    @Html.ValidationMessageFor(model => model.tlf1)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.tlf2)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.tlf2, new { placeholder = "Ejm: 015055050" })
-                        @Html.ValidationMessageFor(model => model.tlf2)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.tlf2)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.tlf2, new { placeholder = "Ejm: 015055050" })
+                    @Html.ValidationMessageFor(model => model.tlf2)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.email)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.email, new { placeholder = "Ejm: stardust@stardust.pe" })
-                        @Html.ValidationMessageFor(model => model.email)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.email)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.email, new { placeholder = "Ejm: stardust@stardust.pe" })
+                    @Html.ValidationMessageFor(model => model.email)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class="formRow">
-                    @Html.LabelFor(model => model.nroPisos)
-                    <div class = "formRight" >
-                        @Html.TextBoxFor(model => model.nroPisos, new { placeholder = "No más de 3 dígitos aquí" })
-                        @Html.ValidationMessageFor(model => model.nroPisos)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class="formRow">
+                @Html.LabelFor(model => model.nroPisos)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nroPisos, new { placeholder = "No más de 3 dígitos aquí" })
+                    @Html.ValidationMessageFor(model => model.nroPisos)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class = "formRow" >
-                    @Html.LabelFor(model => model.idDepartamento)
-                    <div class = "formRight" > 
-                        @Html.DropDownListFor(model => model.idDepartamento, new SelectList(Model.Departamentos, "ID", "nombre", Model.idDepartamento)) 
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        @Html.ValidationMessageFor(model => model.idDepartamento)
-                    </div>
-                    <div class = "clear" ></div>
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDepartamento)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(Model.Departamentos, "ID", "nombre", Model.idDepartamento)) 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDepartamento)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div>
-                    @for (int i = 0; i < Model.Departamentos.Count; i++)
-                    {
-                        @Html.HiddenFor(m => m.Departamentos[i].ID)
-                        @Html.HiddenFor(m => m.Departamentos[i].nombre)
-                    }
+            <div>
+                @for (int i = 0; i < Model.Departamentos.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Departamentos[i].ID)
+                    @Html.HiddenFor(m => m.Departamentos[i].nombre)
+                }
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idProvincia)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idProvincia, new SelectList(Model.Provincias, "ID", "nombre", Model.Provincias)) 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idProvincia)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div class = "formRow" >
-                    @Html.LabelFor(model => model.idProvincia)
-                    <div class = "formRight" > 
-                        @Html.DropDownListFor(model => model.idProvincia, new SelectList(Model.Provincias, "ID", "nombre", Model.Provincias)) 
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        @Html.ValidationMessageFor(model => model.idProvincia)
-                    </div>
-                    <div class = "clear" ></div>
+            <div>
+                @for (int i = 0; i < Model.Provincias.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Provincias[i].ID)
+                    @Html.HiddenFor(m => m.Provincias[i].nombre)
+                }
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDistrito)
+                <div class = "formRight" > 
+                    @Html.DropDownListFor(model => model.idDistrito, new SelectList(Model.Distritos, "ID", "nombre", Model.Distritos)) 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDistrito)
                 </div>
+                <div class = "clear" ></div>
+            </div>
 
-                <div>
-                    @for (int i = 0; i < Model.Provincias.Count; i++)
-                    {
-                        @Html.HiddenFor(m => m.Provincias[i].ID)
-                        @Html.HiddenFor(m => m.Provincias[i].nombre)
-                    }
-                </div>
+            <div>
+                @for (int i = 0; i < Model.Distritos.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Distritos[i].ID)
+                    @Html.HiddenFor(m => m.Distritos[i].nombre)
+                }
+            </div>
 
-                <div class = "formRow" >
-                    @Html.LabelFor(model => model.idDistrito)
-                    <div class = "formRight" > 
-                        @Html.DropDownListFor(model => model.idDistrito, new SelectList(Model.Distritos, "ID", "nombre", Model.Distritos)) 
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        @Html.ValidationMessageFor(model => model.idDistrito)
-                    </div>
-                    <div class = "clear" ></div>
-                </div>
-
-                <div>
-                    @for (int i = 0; i < Model.Distritos.Count; i++)
-                    {
-                        @Html.HiddenFor(m => m.Distritos[i].ID)
-                        @Html.HiddenFor(m => m.Distritos[i].nombre)
-                    }
-                </div>
-
-            
         </div>
     </fieldset>
     
