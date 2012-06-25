@@ -1086,6 +1086,10 @@ namespace Stardust.Models
             }
         }
 
+
+
+
+
         public List<TipoHabitacionXHotelXTemporadaViewModelList> getTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
         {
             SqlConnection objDB = null;
@@ -1244,6 +1248,161 @@ namespace Stardust.Models
                 {
                     objDB.Close();
 
+                }
+            }
+        }
+
+        public TipoHabitacionXHotelXTemporadaViewModelEdit getTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion, int idTemporada)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                TipoHabitacionXHotelXTemporadaViewModelEdit objReturn = null;
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM TipoHabitacionXHotelXTemporada A, Temporada B " +
+                                "WHERE A.idTemporada = B.idTemporada AND " +
+                                "A.idHotel = @idHotel AND A.idTipoHabitacion = @idTipoHabitacion AND A.idTemporada = @idTemporada";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@idTemporada", idTemporada);
+
+                SqlDataReader objReader = objQuery.ExecuteReader();
+                if (objReader.HasRows)
+                {
+                    objReturn = new TipoHabitacionXHotelXTemporadaViewModelEdit();
+                    objReader.Read();
+
+                    objReturn.idTipoHabitacion = idTipoHabitacion;
+                    objReturn.idHotel = idHotel;
+                    objReturn.idTemporada = idTemporada;
+                    objReturn.porcDescuento = Convert.ToInt32(objReader["porcDescuento"]);
+                }
+
+                return objReturn;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTipoHabitacionXHotelXTemporada(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public void actualizarTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                objDB.Open();
+
+                String strQuery = "UPDATE TipoHabitacionXHotelXTemporada SET porcDescuento = @porcDescuento " +
+                                    "WHERE idHotel = @idHotel AND idTipoHabitacion = @idTipoHabitacion AND idTemporada = @idTemporada";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", thXhXtemporada.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", thXhXtemporada.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@idTemporada", thXhXtemporada.idTemporada);
+                Utils.agregarParametro(objQuery, "@porcDescuento", thXhXtemporada.porcDescuento);
+
+                objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("actualizarTipoHabitacionXHotelXTemporada(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+        public void eliminarTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "DELETE FROM TipoHabitacionXHotelXTemporada " +
+                                    "WHERE idTipoHabitacion = @idTipoHabitacion AND idHotel = @idHotel AND idTemporada = @idTemporada";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", thXhXtemporada.idHotel);
+                Utils.agregarParametro(objQuery, "@idTipoHabitacion", thXhXtemporada.idTipoHabitacion);
+                Utils.agregarParametro(objQuery, "@idTemporada", thXhXtemporada.idTemporada);
+
+                objQuery.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                log.Error("eliminarTipoHabitacionXHotelXTemporada(EXCEPTION): ", ex);
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
+                }
+            }
+        }
+
+
+
+
+
+        public TemporadaBean getTemporada(int idTemporada)
+        {
+            SqlConnection objDB = null;
+
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+                TemporadaBean temporada = null;
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM Temporada WHERE idTemporada = @idTemporada";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "idTemporada", idTemporada);
+
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
+
+                if (objDataReader.HasRows)
+                {
+                    objDataReader.Read();
+                    temporada = new TemporadaBean();
+
+                    temporada.idTemporada = Convert.ToInt32(objDataReader["idTemporada"]);
+                    temporada.nombre = Convert.ToString(objDataReader["nombre"]);
+                    temporada.descripcion = Convert.ToString(objDataReader["descripcion"]);
+                    temporada.fechaIni = Convert.ToDateTime(objDataReader["fechaIni"]);
+                    temporada.fechaFin = Convert.ToDateTime(objDataReader["fechaFin"]);
+                }
+
+                return temporada;
+            }
+            catch (Exception ex)
+            {
+                log.Error("getTemporada(EXCEPTION): ", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (objDB != null)
+                {
+                    objDB.Close();
                 }
             }
         }
