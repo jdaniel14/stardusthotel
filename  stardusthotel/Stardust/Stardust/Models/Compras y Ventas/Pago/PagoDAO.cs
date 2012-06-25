@@ -766,6 +766,8 @@ namespace Stardust.Models
                         idPago = (int)dataReader["idDocPago"];
                     }
 
+                    dataReader.Close();
+
                     int dif = Convert.ToInt32((request.monto / request.montoTotal) * 100);
 
                     commandString = "SELECT * FROM Promocion WHERE razon <= " + dif + " AND tipo = 2 ORDER BY porcDescontar DESC";
@@ -776,17 +778,23 @@ namespace Stardust.Models
                     int porc = 0;
 
                     if (dataReader2.Read())
-                        porc = 100 - (int)dataReader["porcDescontar"];
+                    {
+                        int a = (int)dataReader2["porcDescontar"];
+                        porc = 100 - a;
+                    }
+
+                    dataReader2.Close();
 
                     decimal igv = 0;
                     decimal sTotal = 0;
 
                     if (porc > 0)
                     {
+                        decimal t = total;
                         total = total * porc / 100;
                         igv = total * 18 / 100;
                         sTotal = total + igv;
-                        if ((monto - total) < 0)
+                        if ((monto - t) < 0)
                             mensaje.me = "Usted obtuvo un descuento de " + porc + "% y tuvo un cambio de " + (monto - total);
                     }
 
