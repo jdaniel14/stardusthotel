@@ -659,6 +659,7 @@ namespace Stardust.Models.Servicios
             sqlCon.Open();
             for (int i = 0; i < listTip.Count; i++) {
                 String query = "";
+                //DJ aca valido
                 if (listTip[i].cant > 0)
                 {
                     query = "INSERT INTO ReservaXTipoHabitacionXHotel Values(" + idReserva + ", " + idHotel + ", " + listTip[i].tipo + ", " + listTip[i].cant + ")";
