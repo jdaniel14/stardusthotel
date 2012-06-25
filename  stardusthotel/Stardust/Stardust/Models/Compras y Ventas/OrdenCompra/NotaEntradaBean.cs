@@ -15,6 +15,8 @@ namespace Stardust.Models
         
         [Display(Name = "Proveedor")]
         public string nombreproveedor { get; set; }
+        [Display(Name = "hotel")]
+        public string nombrehotel { get; set; }
        
         [Display(Name = "Estado")]
         public string estado { get; set; }
