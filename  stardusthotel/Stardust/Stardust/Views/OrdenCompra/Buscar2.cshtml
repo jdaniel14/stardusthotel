@@ -27,6 +27,12 @@
                 <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                 </div>
              </th>
+             <th class="ui-state-default" rowspan="1" colspan="1" style="width:100px;" >
+                <div class="DataTables_sort_wrapper">
+                Hotel
+                <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
+                </div>
+             </th>
             <th class="ui-state-default" rowspan="1" colspan="1" style="width:100px;" >
                 <div class="DataTables_sort_wrapper">
                 Total
@@ -51,6 +57,7 @@
         
         <tr class="gradeA odd">
             <td>@Html.DisplayFor(modelItem => item.fecha)</td>
+            <td>@Html.DisplayFor(modelItem => item.nombrehotel)</td>
             <td>@Html.DisplayFor(modelItem => item.preciototal)</td>
             <td>@Html.DisplayFor(modelItem => item.estado)</td>
             <td>
