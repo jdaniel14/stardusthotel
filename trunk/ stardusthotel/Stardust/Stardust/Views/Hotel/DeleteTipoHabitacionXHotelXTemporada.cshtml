@@ -59,11 +59,8 @@
 
         </div>
         <p>
-            <input class = "redB" type="submit" value="Borrar" />
+            <input class = "redB" type="submit" value="Borrar" /> |
+            @Html.ActionLink("Regresar", "ListTipoHabitacionXHotelXTemporada", new { idHotel = Model.idHotel, idTipoHabitacion = Model.idTipoHabitacion })
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Regresar", "ListTipoHabitacionXHotelXTemporada", new { idHotel = Model.idHotel, idTipoHabitacion = Model.idTipoHabitacion })
-</div>
