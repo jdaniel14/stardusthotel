@@ -37,7 +37,7 @@
                 //console.log(parseFloat($(idStockMaximoIrvin).get(0).value));
 
                 if ((parseFloat($(elemento).get(0).value) > parseFloat($(idStockActualIrvin).get(0).value)) ) {
-                        alert('la cantidad debe ser menor a la solicitante');
+                        alert('La cantidad debe ser menor a la faltante');
                         $(elemento).attr("value", "");
                 }
 
