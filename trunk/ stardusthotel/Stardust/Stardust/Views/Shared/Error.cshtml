@@ -45,15 +45,15 @@
         <!-- Main content wrapper -->
         <div class="errorWrapper">
             <span class="sadEmo"></span>
-            <span class="errorTitle">Ohh, algo salio mal aquí :(</span>
+            <span class="errorTitle">Error al procesar los Datos </span>
             @*<span class="errorNum">403</span>*@
-            <span class="errorDesc">Oops! Un error grave ocurrio aquí</span>
-            <a href="@Url.Action("Index","Home")" title="" class="button dredB"><span>Back to dashboard</span></a>
+            <span class="errorDesc">Por favor Intentalo Mas Tarde</span>
+            <a href="@Url.Action("Index","Home")" title="" class="button dredB"><span>Regresar</span></a>
             <p>
-                <span class = "errorDesc" >Controlador</span>
+@*                <span class = "errorDesc" >Controlador</span>
                 @Model.ControllerName
                 <span class = "errorDesc" >Acción</span>
-                @Model.ActionName
+                @Model.ActionName*@
             </p>
         </div> 
     
