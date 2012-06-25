@@ -26,32 +26,42 @@ namespace Stardust.Controllers
 
         #region Details
         // GET: /Hotel/Details/5
-        public ViewResult Details(int id)
+        public ActionResult Details(int id)
         {
-            HotelBean hotel = hotelFac.getHotel(id);
-            var hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
-            hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
-            hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
-            hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
-            return View(hotelVMD);
+            var hotelVMD = new HotelViewModelDetails();
+            try
+            {
+                HotelBean hotel = hotelFac.getHotel(id);
+                hotelVMD = Mapper.Map<HotelBean, HotelViewModelDetails>(hotel);
+                hotelVMD.nombreDepartamento = Utils.getNombreDepartamento(hotelVMD.idDepartamento);
+                hotelVMD.nombreProvincia = Utils.getNombreProvincia(hotelVMD.idDepartamento, hotelVMD.idProvincia);
+                hotelVMD.nombreDistrito = Utils.getNombreDistrito(hotelVMD.idDepartamento, hotelVMD.idProvincia, hotelVMD.idDistrito);
+                return View(hotelVMD);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Details - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(hotelVMD);
+            }
         }
         #endregion
 
         #region Create
-
         // GET: /Hotel/Create
         public ActionResult Create()
         {
+            var hotelVWC = new HotelViewModelCreate();
             try
             {
-                var hotelVWC = new HotelViewModelCreate();
                 hotelVWC.Departamentos = Utils.listarDepartamentos();
                 return View(hotelVWC);
             }
             catch (Exception ex)
             {
                 log.Error("Create - GET(EXCEPTION):", ex);
-                throw ex;
+                ModelState.AddModelError("", ex.Message);
+                return View(hotelVWC);
             }
         }
 
@@ -98,12 +108,22 @@ namespace Stardust.Controllers
         // GET: /Hotel/Edit/5
         public ActionResult Edit(int id)
         {
-            HotelBean hotel = hotelFac.getHotel(id);
-            var hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
-            hotelVWE.Departamentos = Utils.listarDepartamentos();
-            hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
-            hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
-            return View(hotelVWE);
+            var hotelVWE = new HotelViewModelEdit();
+            try
+            {
+                HotelBean hotel = hotelFac.getHotel(id);
+                hotelVWE = Mapper.Map<HotelBean, HotelViewModelEdit>(hotel);
+                hotelVWE.Departamentos = Utils.listarDepartamentos();
+                hotelVWE.Provincias = Utils.listarProvincias(hotelVWE.idDepartamento);
+                hotelVWE.Distritos = Utils.listarDistritos(hotelVWE.idDepartamento, hotelVWE.idProvincia);
+                return View(hotelVWE);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Edit - GET(EXCEPTION):", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(hotelVWE);
+            }
         }
 
         [HttpPost]
@@ -121,6 +141,7 @@ namespace Stardust.Controllers
             }
             catch (Exception ex)
             {
+                log.Error("Edit - POST(EXCEPTION):", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(hotelVWE);
             }
@@ -131,20 +152,30 @@ namespace Stardust.Controllers
         // GET: /Hotel/Delete/5
         public ActionResult Delete(int id)
         {
-            HotelBean hotel = hotelFac.getHotel(id);
-            var hotelVMDe = Mapper.Map<HotelBean, HotelViewModelDelete>(hotel);
-            hotelVMDe.nombreDepartamento = Utils.getNombreDepartamento(hotelVMDe.idDepartamento);
-            hotelVMDe.nombreProvincia = Utils.getNombreProvincia(hotelVMDe.idDepartamento, hotelVMDe.idProvincia);
-            hotelVMDe.nombreDistrito = Utils.getNombreDistrito(hotelVMDe.idDepartamento, hotelVMDe.idProvincia, hotelVMDe.idDistrito);
+            var hotelVMDe = new HotelViewModelDelete();
+            try
+            {
+                HotelBean hotel = hotelFac.getHotel(id);
+                hotelVMDe = Mapper.Map<HotelBean, HotelViewModelDelete>(hotel);
+                hotelVMDe.nombreDepartamento = Utils.getNombreDepartamento(hotelVMDe.idDepartamento);
+                hotelVMDe.nombreProvincia = Utils.getNombreProvincia(hotelVMDe.idDepartamento, hotelVMDe.idProvincia);
+                hotelVMDe.nombreDistrito = Utils.getNombreDistrito(hotelVMDe.idDepartamento, hotelVMDe.idProvincia, hotelVMDe.idDistrito);
 
-            hotelVMDe.nTipoHabitacion = hotelFac.getNTipoHabitacionesXHotel(hotelVMDe.ID);
-            hotelVMDe.nHabitacion = hotelFac.getNHabitacionesXHotel(hotelVMDe.ID);
-            hotelVMDe.nAmbientes = hotelFac.getNAmbientesXHotel(hotelVMDe.ID);
-            hotelVMDe.nServicios = hotelFac.getNServiciosXHotel(hotelVMDe.ID);
-            hotelVMDe.nPromociones = hotelFac.getNPromocionesXHotel(hotelVMDe.ID);
-            hotelVMDe.nAlmacenes = hotelFac.getNAlmacenesXHotel(hotelVMDe.ID);
+                hotelVMDe.nTipoHabitacion = hotelFac.getNTipoHabitacionesXHotel(hotelVMDe.ID);
+                hotelVMDe.nHabitacion = hotelFac.getNHabitacionesXHotel(hotelVMDe.ID);
+                hotelVMDe.nAmbientes = hotelFac.getNAmbientesXHotel(hotelVMDe.ID);
+                hotelVMDe.nServicios = hotelFac.getNServiciosXHotel(hotelVMDe.ID);
+                hotelVMDe.nPromociones = hotelFac.getNPromocionesXHotel(hotelVMDe.ID);
+                hotelVMDe.nAlmacenes = hotelFac.getNAlmacenesXHotel(hotelVMDe.ID);
 
-            return View(hotelVMDe);
+                return View(hotelVMDe);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Delete - GET(EXCEPTION):", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(hotelVMDe);
+            }
         }
 
         [HttpPost, ActionName("Delete")]
@@ -167,6 +198,7 @@ namespace Stardust.Controllers
             }
             catch (Exception ex)
             {
+                log.Error("Delete - POST(EXCEPTION):", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(hotelVMD);
             }
@@ -176,7 +208,7 @@ namespace Stardust.Controllers
         #region List
         public ActionResult List() 
         {
-            List<HotelViewModelList> hotelVML = new List<HotelViewModelList>();
+            var hotelVML = new List<HotelViewModelList>();
             try
             {
                 List<HotelBean> lstHotel = hotelFac.getHotelesActivos();
@@ -193,6 +225,7 @@ namespace Stardust.Controllers
             }
             catch (Exception ex)
             {
+                log.Error("List - GET(EXCEPTION):", ex);
                 ModelState.AddModelError("", ex.Message);
                 return View(hotelVML);
             }
@@ -251,7 +284,6 @@ namespace Stardust.Controllers
 
         #region ListTipoHabitacionXHotel
         //Muestra todos los tipos de habitacion que ya han sido asignado a un determinado hotel
-        //public ActionResult VerTiposHabitacion(int id)
         public ActionResult ListTiposHabitacionXHotel(int id)
         {
             var lstTipoHabitacionXHotelVML = new List<TipoHabitacionXHotelViewModelList>();
@@ -273,8 +305,6 @@ namespace Stardust.Controllers
         #endregion
 
         #region EditTipoHabitacionXHotel
-        //Falta edit post y delete get y post
-        //para esto falta el TipoHabitacionXHotelViewEdit y TipoHabitacionXHotelViewDelete
         public ActionResult EditTipoHabitacionXHotel(int idTipoHabitacion, int idHotel)//
         {
             var tipoHabitacionXhotelVME = new TipoHabitacionXHotelViewModelEdit();
@@ -327,7 +357,6 @@ namespace Stardust.Controllers
             {
                 var tipoHabitacionXhotelVME = hotelFac.getTipoHabitacionXHotel(idHotel, idTipoHabitacion);
                 tipoHabitacionXhotelVMD = Mapper.Map<TipoHabitacionXHotelViewModelEdit, TipoHabitacionXHotelViewModelDelete>(tipoHabitacionXhotelVME);
-                //corregir el metodo ya que bota resultado peropara edit
                 tipoHabitacionXhotelVMD.nombreHotel = hotelFac.getHotel(idHotel).nombre;
                 tipoHabitacionXhotelVMD.nombreTipoHabitacion = tipoHabitacionFac.getTipoHabitacion(idTipoHabitacion).nombre;
                 tipoHabitacionXhotelVMD.nroTemporadasAsignadas = hotelFac.getNroTemporadasAsignadas(idHotel, idTipoHabitacion);
@@ -392,8 +421,8 @@ namespace Stardust.Controllers
         }
 
         #endregion
+
         #region CreateTipoHabitacionXHotelXTemporada
-        
         public ActionResult CreateTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
         {
             var tipoHabitacionXhotelVMC = new TipoHabitacionXHotelXTemporadaViewModelCreate();
@@ -493,6 +522,7 @@ namespace Stardust.Controllers
         }
         #endregion
 
+        #region DeleteTipoHabitacionXHotelXTemporada
         public ActionResult DeleteTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion, int idTemporada)
         {
             var thXhXtemporadaVMD = new TipoHabitacionXHotelXTemporadaViewModelDelete();
@@ -500,7 +530,6 @@ namespace Stardust.Controllers
             {
                 var thXhXtemporadaVME = hotelFac.getTipoHabitacionXHotelXTemporada(idHotel, idTipoHabitacion, idTemporada);
                 thXhXtemporadaVMD = Mapper.Map<TipoHabitacionXHotelXTemporadaViewModelEdit, TipoHabitacionXHotelXTemporadaViewModelDelete>(thXhXtemporadaVME);
-                //corregir el metodo ya que bota resultado peropara edit
                 thXhXtemporadaVMD.nombreHotel = hotelFac.getHotel(idHotel).nombre;
                 thXhXtemporadaVMD.nombreTipoHabitacion = tipoHabitacionFac.getTipoHabitacion(idTipoHabitacion).nombre;
                 thXhXtemporadaVMD.nombreTemporada = hotelFac.getTemporada(idTemporada).nombre;//esto esta mal pero no queda de otra xD!
@@ -530,9 +559,9 @@ namespace Stardust.Controllers
                 return View(thXhXtemporadaVMD);
             }
         }
+        #endregion
 
-        
-		public ActionResult ValidaEmail(string email)
+        public ActionResult ValidaEmail(string email)
         {
             if (String.IsNullOrEmpty(email) ||
                 Regex.IsMatch(email, @"[a-z0-9!#$%&'*+/=?^_`B|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum|pe)\b"))
