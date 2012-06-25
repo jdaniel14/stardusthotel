@@ -27,6 +27,31 @@
 ==================================================*/
 
 
+.field-validation-error {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    font-size: 26px;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
 /* #Basic Styles
 ================================================== */
 
