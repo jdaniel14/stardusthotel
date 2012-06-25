@@ -44,8 +44,9 @@
 
 .validation-summary-errors {
     font-weight: bold;
-    font-size: 26px;
+    font-size: 15px;
     color: #ff0000;
+    margin-left: 5%;
 }
 
 .validation-summary-valid {
