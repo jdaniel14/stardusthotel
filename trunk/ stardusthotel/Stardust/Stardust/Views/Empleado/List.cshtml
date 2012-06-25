@@ -10,41 +10,48 @@
     <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir empleado</a>
 </p>
 
-<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
-    <thead>
-        <tr>
-            <td>Nombre</td>
-            <td>Fecha de Ingreso</td>
-            <td>Estado</td>
-            <td></td>
-        </tr>
-    </thead>
+<div class="wrapper">
+    <div class="widget">
+        <div class="title"><h6>Empleados</h6></div>
+        <div class="dataTables_wrapper">
+            <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Fecha de Ingreso</td>
+                        <td>Estado</td>
+                        <td></td>
+                    </tr>
+                </thead>
 
-    <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
-            <td>@Html.DisplayFor(modelItem => item.fechaIngreso )</td>
-            @*<td>@Html.DisplayFor(modelItem => item.fechaSalida )</td>*@
-            <td>@Html.DisplayFor(modelItem => item.estado )</td>
-            <td>
-                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
-                <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> | 
-                <a href="@Url.Action("ListHorario", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Delete" />Horarios</a>
+                <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
+                        <td>@Html.DisplayFor(modelItem => item.fechaIngreso )</td>
+                        @*<td>@Html.DisplayFor(modelItem => item.fechaSalida )</td>*@
+                        <td>@Html.DisplayFor(modelItem => item.estado )</td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                            <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                            <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> | 
+                            <a href="@Url.Action("ListHorario", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Delete" />Horarios</a>
             
-                @*<a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> |*@
+                            @*<a  id = @item.ID class = "eliminar" href=""><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a> |*@
             
-            </td>
-        </tr>
+                        </td>
+                    </tr>
         
-    }
-    <div id="dialogEliminar" title="Desea Eliminar el ?">
-	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-    El empleado que UD. Elimine ya no podra ser recuperado nunca mas en la vidaaa</p>
+                }
+                <div id="dialogEliminar" title="Desea Eliminar el ?">
+	            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+                El empleado que UD. Elimine ya no podra ser recuperado nunca mas en la vidaaa</p>
+                </div>
+                </tbody>
+            </table>
+        </div>
     </div>
-    </tbody>
-</table>
+</div>
 
 
 

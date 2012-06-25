@@ -12,34 +12,41 @@
     </div>
 }
 <a href="@Url.Action("CrearHorario", new { id =ViewBag.idempleado })"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Crear Nuevo Horario</a></td>
-<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
-    <thead>
-        <tr>
-            <td>Nombre Empleado</td>
-            <td>Fecha Inicio</td>
-            <td>Fecha Fin</td>
-            <td>Opciones</td>           
-            <td> Detalles Asignados</td>
-        </tr>
-    </thead>
 
-    <tbody>
-    @foreach (var item in Model) {
-        <tr> 
-            <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
-            <td>@Html.DisplayFor(modelItem => item.fechaInicioHorario)</td>
-            <td>@Html.DisplayFor(modelItem => item.fechaFinHorario)</td>
+<div class="wrapper">
+    <div class="widget">
+        <div class="title"><h6>Horario</h6></div>
+        <div class="dataTables_wrapper">
+            <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
+                <thead>
+                    <tr>
+                        <td>Nombre Empleado</td>
+                        <td>Fecha Inicio</td>
+                        <td>Fecha Fin</td>
+                        <td>Opciones</td>           
+                        <td> Detalles Asignados</td>
+                    </tr>
+                </thead>
 
-            <td> <a href="@Url.Action("EditarHorario", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
-            @*<td><a href="@Url.Action("IndiceDetalle", new { id = item.ID })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a></td>*@
+                <tbody>
+                @foreach (var item in Model) {
+                    <tr> 
+                        <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td>
+                        <td>@Html.DisplayFor(modelItem => item.fechaInicioHorario)</td>
+                        <td>@Html.DisplayFor(modelItem => item.fechaFinHorario)</td>
+
+                        <td> <a href="@Url.Action("EditarHorario", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a></td>
+                        @*<td><a href="@Url.Action("IndiceDetalle", new { id = item.ID })"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Horario Detalle</a></td>*@
            
-            <td><a href="@Url.Action("ListDetalle", new { idhorario = item.ID})"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Listar Detalles </a></td>
+                        <td><a href="@Url.Action("ListDetalle", new { idhorario = item.ID})"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Listar Detalles </a></td>
        
-        </tr>
-    }
-    </tbody>
-</table>
-
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <div>
    
     @Html.ActionLink("Regresar","List","Empleado")

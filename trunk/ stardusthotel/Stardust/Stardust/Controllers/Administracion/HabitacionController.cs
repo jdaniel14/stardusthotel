@@ -150,22 +150,22 @@ namespace Stardust.Controllers
         }
 
        
-        public ViewResult Buscar( string idTipoHabitacion , string nroCamas , string piso )
-        {
-            int A , B , C ;
-            if (!String.IsNullOrEmpty( idTipoHabitacion ) ) A = Convert.ToInt32(idTipoHabitacion);
-            else A = 0;
+        //public ViewResult Buscar( string idTipoHabitacion , string nroCamas , string piso )
+        //{
+        //    int A , B , C ;
+        //    if (!String.IsNullOrEmpty( idTipoHabitacion ) ) A = Convert.ToInt32(idTipoHabitacion);
+        //    else A = 0;
 
-            if (!String.IsNullOrEmpty(nroCamas)) B = Convert.ToInt32(nroCamas);
-            else B = 0;
+        //    if (!String.IsNullOrEmpty(nroCamas)) B = Convert.ToInt32(nroCamas);
+        //    else B = 0;
 
-            if (!String.IsNullOrEmpty( piso ) ) C = Convert.ToInt32(piso);
-            else C = 0;
+        //    if (!String.IsNullOrEmpty( piso ) ) C = Convert.ToInt32(piso);
+        //    else C = 0;
 
-            var model = habitacionFac.buscarHabitacion(A,B,C);
-            ViewBag.listaTipoHabitacion = new TipoHabitacionFacade().listarTipoHabitacion();
-            return View( model );
-        }
+        //    var model = habitacionFac.buscarHabitacion(A,B,C);
+        //    ViewBag.listaTipoHabitacion = new TipoHabitacionFacade().listarTipoHabitacion();
+        //    return View( model );
+        //}
 
         public ActionResult Buscar()
         {
