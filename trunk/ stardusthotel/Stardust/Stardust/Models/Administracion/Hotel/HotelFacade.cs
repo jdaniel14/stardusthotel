@@ -178,5 +178,27 @@ namespace Stardust.Models
         {
             hotelServ.registrarTipoHabitacion_Hotel_Temporada(thXhXtemporada);
         }
+
+        public TipoHabitacionXHotelXTemporadaViewModelEdit getTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion, int idTemporada)
+        {
+            return hotelServ.getTipoHabitacionXHotelXTemporada(idHotel, idTipoHabitacion, idTemporada);
+        }
+
+        public void actualizarTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            hotelServ.actualizarTipoHabitacionXHotelXTemporada(thXhXtemporada);
+        }
+
+        public void eliminarTipoHabitacionXHotelXTemporada(TipoHabitacionXHotelXTemporada thXhXtemporada)
+        {
+            hotelServ.eliminarTipoHabitacionXHotelXTemporada(thXhXtemporada);
+        }
+
+
+
+        public TemporadaBean getTemporada(int idTemporada)
+        {
+            return hotelServ.getTemporada(idTemporada);
+        }
     }
 }

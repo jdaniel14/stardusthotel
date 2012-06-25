@@ -84,4 +84,20 @@ namespace Stardust.Models
         public List<TipoHabitacion> TipoHabitaciones { get; set; }
         public List<TemporadaBean> Temporadas { get; set; }
     }
+
+    public class TipoHabitacionXHotelXTemporadaViewModelDelete
+    {
+        public int idHotel { get; set; }
+        public int idTipoHabitacion { get; set; }
+        public int idTemporada { get; set; }
+
+        [Display(Name = "Hotel")]
+        public string nombreHotel { get; set; }
+        [Display(Name = "Tipo de Habitación")]
+        public string nombreTipoHabitacion { get; set; }
+        [Display(Name = "Temporada")]
+        public string nombreTemporada { get; set; }
+        [Display(Name = "Porcentaje de la temporada (%)")]
+        public int porcDescuento { get; set; }
+    }
 }
