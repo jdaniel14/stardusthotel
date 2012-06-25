@@ -36,25 +36,7 @@ namespace Stardust.Controllers.Servicios
             System.Diagnostics.Debug.WriteLine("ESTAMOS EN CERRAR RESERVA");
             MensajeBean rpta = facadeReservas.registrarReserva(reserva);
             
-            /*System.Diagnostics.Debug.WriteLine(reserva.client.apell);
-            message = "Estimado " + reserva.client.nomb + ", gracias por su reservacion, esperaremos que cancele para asignarle sus habitaciones";
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-
-            System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
-
-            mail.To.Add(reserva.client.email);
-            mail.Subject = "Stardust Reservacion";
-
-            mail.From = new System.Net.Mail.MailAddress("jkliose14@gmail.com");
-            mail.IsBodyHtml = true;
-            mail.Body = message;
-
-            System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
-            smtp.UseDefaultCredentials = false;
-            smtp.EnableSsl = true;
-            smtp.Credentials = cred;
-            smtp.Port = 587;
-            smtp.Send(mail);*/
+            
             return Json(rpta);
         }
         [HttpPost]
@@ -94,7 +76,14 @@ namespace Stardust.Controllers.Servicios
             //System.Diagnostics.Debug.Write("Fin : " + String.Format("{0:MM/dd/yyyy}", FechaFin));
             System.Diagnostics.Debug.Write(request.fechaIni);
             System.Diagnostics.Debug.Write(request.fechaFin);
-            ResponseResHabXTipo res = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
+            ResponseResHabXTipo res = new ResponseResHabXTipo();
+            DateTime ffin = DateTime.ParseExact(request.fechaFin, "dd-MM-yyyy", null);
+            DateTime fini = DateTime.ParseExact(request.fechaIni, "dd-MM-yyyy", null);
+            TimeSpan ts = ffin - fini;
+            int diff = ts.Days;
+            if (diff > 0)
+                res = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
+            else res.cantDias = diff;
             //return "Here we go!!!!";
             //var rpta = facadeReservas.consultarHabitacionDisponibles(request.idHotel, request.fechaIni, request.fechaFin);
             return Json(res);
