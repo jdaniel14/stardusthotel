@@ -260,9 +260,8 @@ function finRes(data) {
         console.log("se hizo");
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
-    else {
-        mostrarError(data.me);       
-        mostrarConfirmacionFinal('Gracias');
+    else {        
+        mostrarConfirmacionFinal(data.me);
         
     }
     
