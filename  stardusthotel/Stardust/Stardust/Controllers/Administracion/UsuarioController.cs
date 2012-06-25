@@ -288,6 +288,7 @@ namespace Stardust.Controllers
                     {
                         var usuario = Mapper.Map<UsuarioViewModelCreate, UsuarioBean>(usuarioVMC);
                         usuario.estado = "ACTIVO";
+                        //usuario.idPerfilUsuario = new PerfilUsuarioFacade();
                         usuarioFac.registrarUsuario(usuario);
                         return RedirectToAction("Index" , "Home" );
                     }
