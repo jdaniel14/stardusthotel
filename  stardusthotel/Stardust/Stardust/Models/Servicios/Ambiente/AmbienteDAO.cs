@@ -426,7 +426,7 @@ namespace Stardust.Models
             return reserva;
         }
 
-        public List<EventoBean> ListarEvento(int idHotel, int estadoPago )
+        public List<EventoBean> ListarEvento( int estadoPago )
         {
 
             List<EventoBean> listaEvento = new List<EventoBean>();
@@ -441,10 +441,10 @@ namespace Stardust.Models
             //bool result2 = String.IsNullOrEmpty(fechaini);
             //bool result3 = String.IsNullOrEmpty(fechafin);
             bool result4 =(estadoPago<0);
-            if (idHotel != 0)
-            {
-                commandString += " Where idHotel = @idHotel ";
-            }                    
+            //if (idHotel != 0)
+            //{
+            //    commandString += " Where idHotel = @idHotel ";
+            //}                    
 
             //if (!result2 && !result3)
             //    commandString = commandString + " AND CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime,' " + fechaini + " ',103) AND CONVERT(datetime,' " + fechafin + " ',103) ";
@@ -453,10 +453,14 @@ namespace Stardust.Models
                 commandString=commandString +" where estadoPago= " + estadoPago ;
 
             SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+
+            //if (idHotel != 0)
+            //{
+            //    Utils.agregarParametro(sqlCmd, "idHotel", idHotel);
+            //}
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            if (!result4)
-            {
+            
                 while (dataReader.Read())
                 {
                     EventoBean evento = new EventoBean();
@@ -470,7 +474,7 @@ namespace Stardust.Models
                     evento.idCliente = (int)dataReader["idCliente"];
                     //evento.estadoPago = (int)dataReader["estadoPago"];
                     evento.montoTotal = Convert.ToDecimal(dataReader["montoTotal"]);
-                    //evento.pagoInicial = Convert.ToDecimal(dataReader["pagoInicial"]);
+                    evento.pagoInicial = Convert.ToDecimal(dataReader["pagoInicial"]);
                     evento.idHotel = (int)dataReader["idHotel"];
                    // evento.fechaRegistro = DateTime.Parse(dataReader["fechaRegistro"].ToString());
                     evento.nombreHotel = this.getNombreHotel(evento.idHotel);
@@ -480,7 +484,7 @@ namespace Stardust.Models
                 }
                 dataReader.Close();
                 sqlCon.Close();
-            }
+            
 
             return listaEvento;
         }
