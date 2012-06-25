@@ -174,7 +174,7 @@ namespace Stardust.Models
                 ord.idproveedor = (int)dataReader2["idProveedor"];
                 ord.estado = (string)dataReader2["estado"];
                 ord.idOrdenCompra = (int)dataReader2["idOrdenCompra"];
-
+                ord.idhotel = (int)dataReader2["idhotel"];
                 date = Convert.ToDateTime(dataReader2["fechaPedido"]);
                 ord.fecha = String.Format("{0:d/M/yyyy}",date);
                 ord.preciototal = (decimal)dataReader2["preciototal"];
