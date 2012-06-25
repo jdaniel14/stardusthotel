@@ -64,17 +64,27 @@ namespace Stardust.Models.Servicios
                 dictTipoHab[numTip] = i;
 
             }
-            for (int i = 0; i < tam_tot; i++) {
-                if (disp[i]) {
-                    System.Diagnostics.Debug.WriteLine(listaTodas[i].idTipoHabitacion);
-                    int tipo = dictTipoHab[ listaTodas[i].idTipoHabitacion ];
-                    ReservaHabitacionBean habRes = new ReservaHabitacionBean();
-                    habRes.idHab = listaTodas[i].idHab;
-                    //System.Diagnostics.Debug.WriteLine("Habitacion ==> " + listaTodas[i].idHabitacion);
-                    habRes.numero = listaTodas[i].numero;
-                    habRes.piso = listaTodas[i].piso;
-                    listaRespuesta[tipo].listaDisp.Add(habRes);
+            try
+            {
+                for (int i = 0; i < tam_tot; i++)
+                {
+                    if (disp[i])
+                    {
+                        System.Diagnostics.Debug.WriteLine(listaTodas[i].idTipoHabitacion);
+                        int tipo = dictTipoHab[listaTodas[i].idTipoHabitacion];
+                        ReservaHabitacionBean habRes = new ReservaHabitacionBean();
+                        habRes.idHab = listaTodas[i].idHab;
+                        //System.Diagnostics.Debug.WriteLine("Habitacion ==> " + listaTodas[i].idHabitacion);
+                        habRes.numero = listaTodas[i].numero;
+                        habRes.piso = listaTodas[i].piso;
+                        listaRespuesta[tipo].listaDisp.Add(habRes);
+                    }
                 }
+            }
+            catch (Exception e) {
+                response.listaXTipo = new List<TipoHabDisp>();
+                response.me = "Error en consistencia de Datos";
+                return response;
             }
             for (int i = 0; i < totTipHab; i++)
             {
