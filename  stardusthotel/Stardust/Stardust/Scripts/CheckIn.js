@@ -276,10 +276,7 @@ function Confirma(data) {
         $(location).attr('href', '../');
     }
     else {
-        mostrarError(data.me);
-        if (data.me == "No se pudo enviar el email") {
-            $(location).attr('href', '../');
-        }
+        mostrarConfirmacionFinal(data.me);
     }
 }
 
