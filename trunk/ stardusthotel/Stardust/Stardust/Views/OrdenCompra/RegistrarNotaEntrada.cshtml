@@ -72,8 +72,7 @@
                                 <td> @Html.DisplayFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.HiddenFor(model => model.detallenotaentrada[i].cantidadentrante)</td>
                             }
                             else
-                            { 
-                            
+                            {                             
                                <td> @Html.TextBoxFor(model => model.detallenotaentrada[i].cantidadentrante) @Html.ValidationMessageFor(model => model.detallenotaentrada[i].cantidadentrante)</td>
                             }
                       
@@ -88,7 +87,9 @@
 
     
     <p>
+
         <input type="submit" value="Guardar" class = "redB" />
+    
     </p>
     
     <p>
