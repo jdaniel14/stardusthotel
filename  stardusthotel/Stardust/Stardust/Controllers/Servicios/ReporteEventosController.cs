@@ -8,12 +8,14 @@ using Stardust.Models;
 using Stardust.Models;
 using System.Data.SqlClient;
 using System.Configuration;
+using log4net;
 
 namespace Stardust.Controllers.Servicios
 {
     public class ReporteEventosController :PdfViewController
     {
         AmbienteFacade eventoFacade = new AmbienteFacade();
+        private static ILog log = LogManager.GetLogger(typeof(ReporteEventosController));
 
         public ActionResult Evento()
         {
