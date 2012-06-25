@@ -7,7 +7,7 @@ using Stardust.Models;
 using Stardust.Models.Servicios;
 using System.Net.Mail;
 using System.Json;
-
+using log4net;
 namespace Stardust.Controllers.Servicios
 {
     public class ReservarHabitacionController : Controller
@@ -15,6 +15,7 @@ namespace Stardust.Controllers.Servicios
         //
         // GET: /ReservarHabitacion/
         FacadeReservas facadeReservas = new FacadeReservas();
+        private static ILog log = LogManager.GetLogger(typeof(ReservarHabitacionController));
         public ActionResult Index()
         {
             return View();
