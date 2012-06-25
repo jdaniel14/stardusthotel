@@ -5,19 +5,27 @@ using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
 using System.IO ;
+using log4net;
 
 namespace Stardust.Controllers
 {
     public class VariablesController : Controller
     {
         VariablesFacade variablesFac = new VariablesFacade();
-        
+        private static ILog log = LogManager.GetLogger(typeof(VariablesController));
         //
         // GET: /Variables/
 
         public ActionResult Index()
         {
-            return View( variablesFac.getVariables() );
+            try
+            {
+                return View(variablesFac.getVariables());
+            }
+            catch (Exception e) {
+                log.Error("Index(EXCEPTION): ", e);
+                return View( new VariablesBean() );
+            }
         }
 
         //
@@ -25,7 +33,14 @@ namespace Stardust.Controllers
  
         public ActionResult Edit()
         {
-            return View( variablesFac.getVariables() ) ;
+            try
+            {
+                return View(variablesFac.getVariables());
+            }
+            catch (Exception e) {
+                log.Error("Edit(EXCEPTION): ", e);
+                return View(new VariablesBean());
+            }
         }
 
         //
@@ -34,14 +49,28 @@ namespace Stardust.Controllers
         [HttpPost]
         public ActionResult Edit( VariablesBean variables )
         {
-            variablesFac.actualizarVariables( variables );
-            return RedirectToAction("Index");
+            try
+            {
+                variablesFac.actualizarVariables(variables);
+                return RedirectToAction("Index");
+            }
+            catch (Exception e) {
+                log.Error("Edit(EXCEPTION): ", e);
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult UploadLogo(HttpPostedFileBase img )
         {
-            img.SaveAs(Server.MapPath(@"~/Content/images/Logo.png"));
-            return RedirectToAction("Index");
+            try
+            {
+                img.SaveAs(Server.MapPath(@"~/Content/images/Logo.png"));
+                return RedirectToAction("Index");
+            }
+            catch( Exception e ) {
+                log.Error("UploadLogo(EXCEPTION): ", e);
+                return RedirectToAction("Index");
+            }
         }
     }
 }
