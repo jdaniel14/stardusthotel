@@ -714,6 +714,9 @@ namespace Stardust.Models.Servicios
                                 " WHERE rXh.idReserva = " + idReserva + " AND rXh.idHabitacion = h.idHabitacion " +
                                 " ORDER BY idTipoHabitacion";
 
+            System.Diagnostics.Debug.WriteLine("--------------------------------------------------------");
+            System.Diagnostics.Debug.WriteLine("queryHab : " + queryHab);
+
             SqlCommand sqlCmdHab = new SqlCommand(queryHab, sqlCon);
             SqlDataReader dataReaderHab = sqlCmdHab.ExecuteReader();
 
