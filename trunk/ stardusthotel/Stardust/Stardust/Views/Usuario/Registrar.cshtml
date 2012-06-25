@@ -24,7 +24,7 @@
 </div>
 }
 
-@using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { @class = "form" } ))
+@using (Html.BeginForm("Registrar", "Usuario", FormMethod.Post, new { @class = "form" } ))
 {
     <fieldset>
         <div class = "widget" >
@@ -33,7 +33,7 @@
                 <h6>@ViewBag.Title</h6>
             </div>
             
-            <div class = "formRow" style="display:none">
+            <div class = "formRow" style = "display:none" >
                 @Html.LabelFor( model => model.idPerfilUsuario )
                 <div class = "formRight" >
                     @Html.DropDownListFor( model => model.idPerfilUsuario , new SelectList( Model.PerfilesUsuario, "ID" , "nombre" ) , "Elije un perfil..." )
@@ -199,7 +199,7 @@
         </div>
         <p>
             <input class = "redB" type="submit" value="Crear" /> |
-            @Html.ActionLink("Regresar", "Index")
+            @Html.ActionLink("Regresar", "Index", "Home")
         </p>
     </fieldset>
 }
