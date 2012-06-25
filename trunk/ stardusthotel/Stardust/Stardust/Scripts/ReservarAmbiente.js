@@ -77,32 +77,39 @@ function mostrarAmbientesDisponibles() {
     var fechaInicio = $("#FechaInicio").attr("value");
     var fechaFinal = $("#FechaFin").attr("value");
     SendHotel = $("#ComboHoteles").val();
-    
 
-    var Hotel = {
-        idHotel: SendHotel,
-        fechaIni: fechaInicio,
-        fechaFin: fechaFinal
+    if ((fechaInicio != "") &&
+        (fechaFinal != "") &&
+        (SendHotel != "NN")) {
+
+        var Hotel = {
+            idHotel: SendHotel,
+            fechaIni: fechaInicio,
+            fechaFin: fechaFinal
+        }
+        var jsonData = JSON.stringify(Hotel);
+
+        console.log(jsonData);
+
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            statusCode: {
+                500: function () {
+                    $("#espera").dialog("destroy");
+                    mostrarError("Error inesperado... intentelo mas tarde :)");
+                }
+            },
+            contentType: "application/json; charset=utf-8",
+            url: "consultarAmbientesDisponibles",
+            beforeSend: esperaAmbientes(),
+            success: llegadaAmbientes
+        });
     }
-    var jsonData = JSON.stringify(Hotel);
-
-    console.log(jsonData);
-
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        statusCode: {
-            500: function () {
-                $("#espera").dialog("destroy");
-                mostrarError("Error inesperado... intentelo mas tarde :)");
-            }
-        },
-        contentType: "application/json; charset=utf-8",
-        url: "consultarAmbientesDisponibles",
-        beforeSend: esperaAmbientes(),
-        success: llegadaAmbientes
-    });
+    else {
+        mostrarError("Faltan llenar Datos");
+    }
 }
 
 function esperaAmbientes() {
