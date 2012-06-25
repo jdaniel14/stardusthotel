@@ -116,7 +116,7 @@ namespace Stardust.Models.Servicios
         public DatosReservaBean consultarReserva(int idHotel, int idReserva, String documento)
         {
             DatosReservaBean consulta = new DatosReservaBean();
-
+            //idHotel = 5;
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -126,6 +126,7 @@ namespace Stardust.Models.Servicios
                            " FROM Reserva r, Usuario u " +
                            " WHERE r.idHotel = " + idHotel + " and r.idReserva = " + idReserva + " and r.idUsuario = u.idUsuario and u.nroDocumento = '" + documento + "'";
 
+            System.Diagnostics.Debug.WriteLine("query de Consulta : " + query );
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
@@ -691,10 +692,11 @@ namespace Stardust.Models.Servicios
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
             sqlCon.Open();
 
-            String query = " SELECT t.nombre , tXh.nroPersonas, r.idTipoHabitacion " +
+            String query = " SELECT t.nombre , tXh.nroPersonas, r.idTipoHabitacion, r.cantidad " +
                             " FROM ReservaXTipoHabitacionXHotel r, TipoHabitacion t , TipoHabitacionXHotel tXh " +
                             " WHERE idReserva = " + idReserva + " and r.idHotel = tXh.idHotel and  r.idTipoHabitacion = t.idTipoHabitacion and tXh.idTipoHabitacion = t.idTipoHabitacion";
 
+            System.Diagnostics.Debug.WriteLine("Query Tipos : " + query);
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
@@ -703,7 +705,7 @@ namespace Stardust.Models.Servicios
                 TipHabCheckInBean tipo = new TipHabCheckInBean();
                 tipo.idTipHab = (int)dataReader["idTipoHabitacion"];
                 tipo.nombTipHab = (String)dataReader["nombre"];
-                tipo.nroPers = (int)dataReader["nroPersonas"];                
+                tipo.nroPers = (int)dataReader["cantidad"];                    
                 lista.Add(tipo);
             }
 
@@ -711,7 +713,7 @@ namespace Stardust.Models.Servicios
 
             String queryHab =   " SELECT rXh.idHabitacion, h.idTipoHabitacion, h.numero " +
                                 " FROM ReservaXHabitacion rXh, Habitacion h " +
-                                " WHERE rXh.idReserva = " + idReserva + " AND rXh.idHabitacion = h.idHabitacion " +
+                                " WHERE rXh.idReserva = " + idReserva + " AND rXh.idHabitacion = h.idHabitacion AND  rXh.idHotel = h.idHotel " +
                                 " ORDER BY idTipoHabitacion";
 
             System.Diagnostics.Debug.WriteLine("--------------------------------------------------------");
