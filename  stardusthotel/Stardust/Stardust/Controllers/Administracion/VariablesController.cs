@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using System.IO ;
 
 namespace Stardust.Controllers
 {
@@ -34,6 +35,12 @@ namespace Stardust.Controllers
         public ActionResult Edit( VariablesBean variables )
         {
             variablesFac.actualizarVariables( variables );
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult UploadLogo(HttpPostedFileBase img )
+        {
+            img.SaveAs(Server.MapPath(@"~/Content/images/Logo.png"));
             return RedirectToAction("Index");
         }
     }

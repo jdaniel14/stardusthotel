@@ -9,7 +9,6 @@ $(document).ready(function () {
     var nombre = localStorage.getItem("nombre");
     $("#nombreUsuario").html("Bienvenido " + nombre + "!");
 
-
     var idUsuario = localStorage.getItem("idUsuario");
     if (idUsuario != null) {
         // Crear link para redirigir a tu detalle de usuario
