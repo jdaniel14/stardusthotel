@@ -34,7 +34,15 @@ namespace Stardust.Controllers.Servicios
         {
             List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
             listaHab = pagoFacade.listaHabitacion(idHotel, fechaIni, fechaFin);
-            return Json(listaHab);
+
+            for (int i = 0; i < listaHab.Count; i++)
+            {
+                List<ListaHabitacionEstado> listaDetalle = listaHab.ElementAt(i).listaFechas;
+                for (int j = 0; j < listaDetalle.Count; j++)
+                    System.Diagnostics.Debug.WriteLine(listaDetalle.ElementAt(j).estado);
+
+            }
+                return Json(listaHab);
         }
     }
 }
