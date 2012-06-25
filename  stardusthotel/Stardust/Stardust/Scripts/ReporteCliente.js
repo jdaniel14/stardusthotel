@@ -13,7 +13,7 @@ function despierta() {
 
     var nombrecito = $("#nombre").get(0).value;
 
-    var idHot = "1";
+    var idHot = $("#ComboHoteles").get(0).value;
 
     var enviar = {
         idHotel : idHot,
