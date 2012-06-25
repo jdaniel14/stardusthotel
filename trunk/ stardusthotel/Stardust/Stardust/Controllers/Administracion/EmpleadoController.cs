@@ -85,8 +85,8 @@ namespace Stardust.Controllers
             try
             {
                 List<TipoDocumento> estados = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("ACTIVO");
-                TipoDocumento d2 = new TipoDocumento("INACTIVO");
+                TipoDocumento d1 = new TipoDocumento() { nombre = "ACTIVO" };
+                TipoDocumento d2 = new TipoDocumento() { nombre = "INACTIVO"};
                 estados.Add(d1); estados.Add(d2);
                 ViewBag.estados = estados;
                 return View(empleadoFac.getEmpleado(id));
@@ -94,8 +94,8 @@ namespace Stardust.Controllers
             catch {
                 ViewBag.results = "Ocurrió un error al intentar cargar el empleado";
                 List<TipoDocumento> estados = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento("ACTIVO");
-                TipoDocumento d2 = new TipoDocumento("INACTIVO");
+                TipoDocumento d1 = new TipoDocumento() { nombre = "ACTIVO" };
+                TipoDocumento d2 = new TipoDocumento() { nombre = "INACTIVO" };
                 estados.Add(d1); estados.Add(d2);
                 ViewBag.estados = estados;
                 return View(new EmpleadoBean());
