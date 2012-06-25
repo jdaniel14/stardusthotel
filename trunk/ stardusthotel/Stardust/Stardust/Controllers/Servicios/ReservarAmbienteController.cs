@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
 using Stardust.Models.Servicios;
+using log4net;
 
 namespace Stardust.Controllers.Servicios
 {
@@ -13,6 +14,7 @@ namespace Stardust.Controllers.Servicios
         //
         // GET: /ReservarAmbiente/
         AmbienteFacade ambienteFacade = new AmbienteFacade();
+        private static ILog log = LogManager.GetLogger(typeof(ReservarAmbienteController));
         
         public ActionResult Index()
         {
