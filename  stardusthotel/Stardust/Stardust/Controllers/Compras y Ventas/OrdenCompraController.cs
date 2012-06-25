@@ -119,7 +119,7 @@ namespace Stardust.Controllers
             prod.nombrehotel = hotel.nombre;
 
             //Boolean est = prod.listaProducto[0].estado;
-            if (cantidad > 0) prod.estado2 = true; else prod.estado2 = false;
+//            if (cantidad > 0) prod.estado2 = true; else prod.estado2 = false;
             return View(prod);
         }
 

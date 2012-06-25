@@ -390,9 +390,10 @@ namespace Stardust.Controllers
                 return View(lstTipoHabitacionXHotelXTemporadaVML);
             }
         }
-        #endregion
 
+        #endregion
         #region CreateTipoHabitacionXHotelXTemporada
+        
         public ActionResult CreateTipoHabitacionXHotelXTemporada(int idHotel, int idTipoHabitacion)
         {
             var tipoHabitacionXhotelVMC = new TipoHabitacionXHotelXTemporadaViewModelCreate();
@@ -446,10 +447,7 @@ namespace Stardust.Controllers
         #endregion
 
         
-        //public ActionResult 
-
-
-        public ActionResult ValidaEmail(string email)
+                public ActionResult ValidaEmail(string email)
         {
             if (String.IsNullOrEmpty(email) ||
                 Regex.IsMatch(email, @"[a-z0-9!#$%&'*+/=?^_`B|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum|pe)\b"))

@@ -54,7 +54,7 @@ namespace Stardust.Models
 
                 UsuarioFacade usuario = new UsuarioFacade();
                 UsuarioBean usuar = usuario.getUsuario(id);
-                empleado.nombreEmpleado = usuar.nombres + " " + usuar.apMat + " " + usuar.apPat;
+                empleado.nombreEmpleado = usuar.nombres + " " + usuar.apPat + " " + usuar.apMat;
                 empleado.ID = (int)data.GetValue(0);
                 empleado.fechaIngreso = (DateTime)data.GetValue(1);
                 string estado = Convert.ToString(data.GetValue(2));
@@ -725,7 +725,7 @@ namespace Stardust.Models
 
             DateTime dtsistema = DateTime.Now;
 
-            if (empleado.fechaSalida == null)
+            if (empleado.fechaSalida.Year < 1900 )
             {
                 if ((empleado.fechaIngreso <= dtsistema))
                 {
@@ -828,13 +828,12 @@ namespace Stardust.Models
 
 
             String command = "Insert into Asistencia ( horaMarcada , tipoES , estado, idHorarioDetalle) values ( '"
-                               + asistencia.horaasistencia + "', '"
+                               + String.Format( "{0:dd/MM/yyyy HH:mm:ss}" , asistencia.horaasistencia )+ "', '"
                                + asistencia.TipoES + "',  '"
                                 + asistencia.estado + "', "
                                  + asistencia.idHorarioDetalle + ")";
 
-
-
+            
 
             SqlCommand query = new SqlCommand(command, sql);
 
