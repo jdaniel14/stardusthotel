@@ -255,7 +255,7 @@ namespace Stardust.Models.Servicios
             int resEmail = envioEmail(reservaRes.idReserva, reservaRequest.client.nomb, reservaRequest.client.email);
             System.Diagnostics.Debug.WriteLine("estado de email " + resEmail);
             if (resEmail != 0) {
-                mensaje.me = "No se pudo enviar el email";
+                mensaje.me = "No se pudo enviar el email - La reserva es : " + reservaRes.idReserva;
                 return mensaje;
             }
 
