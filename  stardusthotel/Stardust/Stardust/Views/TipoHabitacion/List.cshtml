@@ -15,85 +15,36 @@
 <p>
     <a href="@Url.Action("Create")"><img src="../../Content/images/icons/color/plus.png", alt="Create" />Añadir tipo de habitación</a>
 </p>
-<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
-    <thead>
-        <tr>
-            <td>Nombre</td>
-            <td>Descripción</td>
-            <td></td>
-        </tr>
-    </thead>
 
-    <tbody>
-    @foreach (var item in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => item.nombre )</td>
-            <td>@Html.DisplayFor(modelItem => item.descripcion )</td>
-            <td>
-                <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
-                <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                <a id = @item.ID class = "eliminar" href = "" ><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
-            </td>
-        </tr>
+<div class="wrapper">
+    <div class="widget">
+        <div class="title"><h6>Tipos de habitación</h6></div>
+        <div class="dataTables_wrapper">
+            <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Descripción</td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.nombre )</td>
+                        <td>@Html.DisplayFor(modelItem => item.descripcion )</td>
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
+                            <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
+                            <a id = @item.ID class = "eliminar" href = "" ><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+                        </td>
+                    </tr>
         
-    }
+                }
 
-  @*  <div id = "mensajeEliminar" style = "display:none;" placeholder = "Seguro de querer eliminar el tipo de habitación?" ></div>
-    <div id = "tituloEliminar" style = "display:none;" placeholder = "Confirmar eliminación de tipo de habitación" ></div>
-
-    <div id="dialogEliminar">
-	    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-    </div>*@
-
-    </tbody>
-</table>
-
-@*<script type = "text/javascript">
-    var idEliminar = 0;
-
-    var mensaje = $("#mensajeEliminar").attr( "placeholder" ) ;
-    var titulo = $("#tituloEliminar").attr("placeholder");
-
-    $(".eliminar").click(function () {
-        $('#dialogEliminar').dialog('open');
-        $("#dialogEliminar").html(mensaje);
-        idEliminar = $(this).attr("id");
-        return false;
-    });
-
-//    if( mensaje ) alert(titulo);
-//    if( titulo ) alert(mensaje);
-
-    $('#dialogEliminar').dialog({
-        autoOpen: false,
-        resizable: false,
-        draggable: false,
-        width: 300,
-        modal: true,
-        title: titulo,
-        position: "center",
-        buttons: {
-            "Aceptar": function () {
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    url: "Delete/" + idEliminar,
-                    success: function (data) {
-                        oTable.fnDraw(false);
-                        if (data.me == "") {
-                            $(this).dialog("close");
-                            location.reload();
-                        }
-                    }
-                });
-
-            },
-            "Cancelar": function () {
-                $(this).dialog("close");
-                return false;
-            }
-        }
-    });
-
-</script>*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

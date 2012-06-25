@@ -14,40 +14,47 @@
 }
  <a href="@Url.Action("Creardetalle", new { id = ViewBag.horario })"><img src="../../Content/images/icons/color/plus.png", alt="Edit" />Nuevo Detalle </a>
 
-<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable">
+<div class="wrapper">
+    <div class="widget">
+        <div class="title"><h6>Detalle Horario</h6></div>
+        <div class="dataTables_wrapper">
+            <table cellpadding = "0" cellspacing = "0" width = "100%" class = "display dTable">
      
-    <thead>
-        <tr>
+                <thead>
+                    <tr>
             
-            <td>Día de Semana </td>
-            <td>Hora de entrada</td>
-            <td>Hora de Salida</td>
-            <td>Opciones</td>
-        </tr>
-    </thead>
+                        <td>Día de Semana </td>
+                        <td>Hora de entrada</td>
+                        <td>Hora de Salida</td>
+                        <td>Opciones</td>
+                    </tr>
+                </thead>
 
-    <tbody>
-    @foreach (var item in Model) {
-        <tr> 
-        @*
-            <td>
-               <a href="@Url.Action("CreateHorario", new { id = item.idempleado })"><img src="../../Content/images/icons/color/application-plus-black.png", alt="Create" /></a>
-            </td>
-        *@
-            @* <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td> *@
+                <tbody>
+                @foreach (var item in Model) {
+                    <tr> 
+                    @*
+                        <td>
+                           <a href="@Url.Action("CreateHorario", new { id = item.idempleado })"><img src="../../Content/images/icons/color/application-plus-black.png", alt="Create" /></a>
+                        </td>
+                    *@
+                        @* <td>@Html.DisplayFor( modelItem => item.nombreEmpleado )</td> *@
             
            
-            <td>@Html.DisplayFor(modelItem => item.diaSemana)</td>
-			<td>@Html.DisplayFor(modelItem => item.horaEntrada)</td>
-			<td>@Html.DisplayFor(modelItem => item.horaSalida)</td>
+                        <td>@Html.DisplayFor(modelItem => item.diaSemana)</td>
+			            <td>@Html.DisplayFor(modelItem => item.horaEntrada)</td>
+			            <td>@Html.DisplayFor(modelItem => item.horaSalida)</td>
 			
-            <td>
-				<a href="@Url.Action("EditarDetalle", new { id = item.idHorarioDetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a
-			</td>
-        </tr>
+                        <td>
+				            <a href="@Url.Action("EditarDetalle", new { id = item.idHorarioDetalle })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a
+			            </td>
+                    </tr>
         
-    }
-    </tbody>
-</table>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 <a href="@Url.Action("ListHorario", new { id = ViewBag.idempleado })"><img src="../../Content/images/icons/dark/pin.png", alt="Edit" />Regresar </a>
