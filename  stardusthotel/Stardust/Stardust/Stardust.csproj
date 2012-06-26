@@ -1601,6 +1601,7 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\navegacion.js" />
     <Content Include="Scripts\PagarInicial.js" />
+    <Content Include="Scripts\PagarInicial.js" />
     <Content Include="Scripts\ReporteCliente.js" />
     <Content Include="Scripts\ReporteHabitaciones.js" />
     <Content Include="Scripts\ReservaCliente.js" />
@@ -1608,6 +1609,7 @@
     <Content Include="Scripts\ReservarAmbiente.js" />
     <Content Include="Scripts\ReservarHabitacion.js" />
     <Content Include="Scripts\Ubigeo.js" />
+    <Content Include="Scripts\Validaciones.js" />
     <Content Include="Scripts\Validaciones.js" />
     <Content Include="Scripts\validacionnotaentrada.js" />
     <Content Include="Scripts\ValidacionOrdenDeCompra.js" />
@@ -4557,8 +4559,8 @@
     <Content Include="Views\Servicios\Details.cshtml" />
     <Content Include="Views\ServiciosReportes\ReporteCliente.cshtml" />
     <Content Include="Views\ServiciosReportes\ReporteHabitaciones.cshtml" />
-    <Content Include="Views\PagoClientes\Documento.cshtml" />
     <Content Include="Views\Hotel\EditTipoHabitacionXHotel.cshtml" />
+    <Content Include="Views\PagoClientes\Documento.cshtml" />
     <Content Include="Views\Hotel\DeleteTipoHabitacionXHotel.cshtml" />
     <Content Include="Views\Hotel\ListTipoHabitacionXHotelXTemporada.cshtml" />
     <Content Include="Views\Hotel\CreateTipoHabitacionXHotelXTemporada.cshtml" />
