@@ -13,10 +13,6 @@ function inicializarEventos() {
         beforeSend: esperarHoteles(),
         success: llegadaHoteles
     });
-
-
-    
-
 }
 
 
@@ -50,10 +46,12 @@ function llegadaHoteles(data) {
 
 function pedirServicio() {
     SendHotel = $("#ComboHoteles").val();
+    SendTipoRes = $("#ComboRes").val();
     if (SendHotel != "NN") {
 
         var enviar = {
-            idHotel: SendHotel
+            idHotel: SendHotel,
+            idTipo: SendTipoRes 
         }
 
         jsonData = JSON.stringify(enviar);
@@ -82,15 +80,18 @@ function llegadaDatos(data){
     var lista = data.lista;
 
     var result = "";
-      
-    result += '<option value= "' + 'NN' + '">'  + '</option>';
+
+    result +=  '<option value = "NN" >Escoja un Servicio</option>';
  
 
     $.each(lista, function (i, item) {
         result += '<option value= "' + item.id + '">' + item.nombre + '</option>';
     });
 
+    var miValue2 = "NN";
     $("#ComboServicio").html(result);
+
+    $("#ComboServicio option[value=" + miValue2 + "]").attr("selected", true);
 
     $("#registra").click(enviar);
 }
