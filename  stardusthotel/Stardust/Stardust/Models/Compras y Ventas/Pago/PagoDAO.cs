@@ -149,10 +149,13 @@ namespace Stardust.Models
 
                 int idDoc = 0;
 
+                decimal tot = 0;
+
                 if (dataReader2.Read())
                 {
                     reserva.faltante = (decimal)dataReader2["montoFaltante"];
                     reserva.idDocPago = (int)dataReader2["idDocPago"];
+                    tot = (decimal)dataReader2["montoTotal"];
                     idDoc = (int)dataReader2["idDocPago"];
                 }
 
@@ -162,9 +165,12 @@ namespace Stardust.Models
                     reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
 
                 reserva.IGV = reserva.subTotal * 18 / 100;
-                reserva.total = reserva.IGV + reserva.subTotal;
+                reserva.total = reserva.IGV + reserva.subTotal;               
 
-                reserva.montPagado = reserva.total - reserva.faltante;
+                decimal pagado = tot - reserva.faltante;
+                reserva.faltante = reserva.total - pagado;
+
+                reserva.montPagado = pagado;
 
                 sqlCon.Close();
             }
@@ -794,7 +800,7 @@ namespace Stardust.Models
                         total = total * porc / 100;
                         igv = total * 18 / 100;
                         sTotal = total + igv;
-                        if ((monto - t) < 0)
+                        if ((monto - t) <= 0)
                             mensaje.me = "Usted obtuvo un descuento de " + porc + "% y tuvo un cambio de " + (monto - total);
                     }
 
@@ -823,11 +829,13 @@ namespace Stardust.Models
 
                     SqlCommand sqlCmd6 = new SqlCommand(commandString, sqlCon);
                     sqlCmd6.ExecuteNonQuery();
+
+                    return mensaje;
                 }
 
                 else
                 {
-                    commandString = "SELECT u.tipoDocumento as tipoDocumento , p.idDocPago as idDocPago FROM Usuario u , Evento e , DocumentoPago p WHERE u.nroDocumento = "+request.doc+" AND e.idCliente = r.idUsuario AND e.idEvento = "+request.id+" AND r.idEvento = p.idEvento";
+                    commandString = "SELECT u.tipoDocumento as tipoDocumento , p.idDocPago as idDocPago FROM Usuario u , Evento e , DocumentoPago p WHERE u.nroDocumento = "+request.doc+" AND e.idCliente = u.idUsuario AND e.idEvento = "+request.id+" AND p.idEvento = e.idEvento";
 
                     SqlCommand sqlCmd5 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader = sqlCmd5.ExecuteReader();
@@ -840,6 +848,8 @@ namespace Stardust.Models
                         tipo = (string)dataReader["tipoDocumento"];
                         idPago = (int)dataReader["idDocPago"];
                     }
+
+                    dataReader.Close();
 
                     commandString = "UPDATE DocumentoPago SET montoFaltante = " + diff + " , estado = " + estado + " WHERE idEvento = " + request.id;
 
@@ -858,11 +868,11 @@ namespace Stardust.Models
 
                     SqlCommand sqlCmd6 = new SqlCommand(commandString, sqlCon);
                     sqlCmd6.ExecuteNonQuery();
-                }
 
-                mensaje.me = "";
+                    mensaje.me = "";
 
-                return mensaje;
+                    return mensaje;
+                }                
             }
             catch (Exception e)
             {
