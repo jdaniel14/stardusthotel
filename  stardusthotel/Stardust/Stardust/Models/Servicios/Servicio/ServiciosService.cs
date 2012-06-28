@@ -33,9 +33,9 @@ namespace Stardust.Models
             return serviciosDAO.DeleteServicio(id);
         }
 
-        public ListaServiciosResponseBean listarServicios(int idHotel, String dni, int nroRes)
+        public ListaServiciosResponseBean listarServicios(int idHotel, int idTipo)
         {
-            return serviciosDAO.listarServicios(idHotel, dni, nroRes);
+            return serviciosDAO.listarServicios(idHotel, idTipo);
         }
         public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo, int idHotel)
         {

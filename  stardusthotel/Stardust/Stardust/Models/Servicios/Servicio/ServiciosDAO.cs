@@ -158,7 +158,7 @@ namespace Stardust.Models
             return me;
         }
 
-        public ListaServiciosResponseBean listarServicios(int idHotel, String dni, int nroRes) {
+        public ListaServiciosResponseBean listarServicios(int idHotel, int idTipo) {
             ListaServiciosResponseBean response = new ListaServiciosResponseBean();
             response.me = "";
             
@@ -169,7 +169,9 @@ namespace Stardust.Models
                 sqlCon.Open();
 
                 List<ServiciosBean> lista = new List<ServiciosBean>();
-                String query = "SELECT idServicio, nombre FROM Servicio WHERE idHotel = " + idHotel;
+                String query = "SELECT s.idServicio, s.nombre FROM ServicioXHotel sh, Servicio s WHERE idHotel="+ idHotel + " and s.flag_res_eve = " + idTipo + " and s.idServicio = sh.idServicio";
+                System.Diagnostics.Debug.WriteLine("QUERY SERVICE : " + query);
+
                 SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon);
                 SqlDataReader dataReader = sqlCmd1.ExecuteReader();
                 while (dataReader.Read())

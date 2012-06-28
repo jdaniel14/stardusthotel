@@ -180,6 +180,7 @@ namespace Stardust.Models.Servicios
                 String detalle = "Recojo Aeropuerto";
                 RecAero aerop = reservaRequest.datRec;
                 ServBean serv = reservaHabitacionDAO.buscaServicio(detalle, reservaRequest.idHotel);
+                System.Diagnostics.Debug.WriteLine("Costo : " + serv.precioBase);
                 result = serv.me.Equals("");
                 if (!result)
                 {

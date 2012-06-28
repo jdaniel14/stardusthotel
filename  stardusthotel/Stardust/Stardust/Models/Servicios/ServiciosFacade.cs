@@ -38,8 +38,8 @@ namespace Stardust.Models
             return serviciosService.EliminarServicio(id);
         }
 
-        public ListaServiciosResponseBean listarServicios(int idHotel, String dni, int nroRes){
-            return serviciosService.listarServicios(idHotel, dni, nroRes);
+        public ListaServiciosResponseBean listarServicios(int idHotel, int idTipo){
+            return serviciosService.listarServicios(idHotel, idTipo);
         }
         
         public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo, int idHotel){
