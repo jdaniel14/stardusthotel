@@ -932,6 +932,7 @@ namespace Stardust.Models.Servicios
                             " FROM Servicio s, ServicioXHotel h " +
                             " WHERE s.nombre='" + detalle + "' and s.idServicio = h.idServicio and idHotel = " + idHotel;
 
+            System.Diagnostics.Debug.WriteLine(" query servicio de RECOJO : "+ query );
             SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
             SqlDataReader dataReader;
 
