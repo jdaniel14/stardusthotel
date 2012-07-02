@@ -318,7 +318,7 @@ namespace Stardust.Controllers
         [HttpPost]
         public JsonResult ConsultarServicio(ServicioRequest request) {
             ServiciosFacade servicioFacade = new ServiciosFacade();
-            ListaServiciosResponseBean response = servicioFacade.listarServicios(request.idHotel, request.dni, request.nroRes);
+            ListaServiciosResponseBean response = servicioFacade.listarServicios(request.idHotel, request.idTipo);
             return Json(response);
         }
 
