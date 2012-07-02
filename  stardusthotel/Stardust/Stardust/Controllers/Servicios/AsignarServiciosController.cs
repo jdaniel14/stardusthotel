@@ -70,7 +70,6 @@ namespace Stardust.Controllers
             ServicioXHotelBean serv;
             HotelBean hotel = hotelFac.getHotel(ID);
             
-
             List<ServiciosBean> servicios = servFac.ListarServicios("");
 
             serv = hotelFac.obtenerlista(ID);//lista de los productos en la tabla productoxproveedor
