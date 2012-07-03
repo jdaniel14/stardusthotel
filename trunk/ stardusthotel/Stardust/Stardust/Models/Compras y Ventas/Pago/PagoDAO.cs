@@ -89,7 +89,7 @@ namespace Stardust.Models
                     idDoc = (int)dataReader2["idDocPago"];
                 }
 
-                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days);
+                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days+1);
 
                 for (int i = 0; i < reserva.listaDetalles.Count; i++)
                     reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
