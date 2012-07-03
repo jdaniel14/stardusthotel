@@ -55,11 +55,15 @@ function llegadaHoteles(data) {
     console.log(data);
     if (data.me == "") {
 
+        escritor += '<option value = "NN" selected = "selected">Escoja un hotel</option>';
         $.each(data.lista, function (i, item) {
             escritor += '<option value = "' + item.ID + '">' + item.nombre + '</option>';
         });
 
         $("#ComboHoteles").html(escritor);
+        var miValue2 = "NN";
+        $("#ComboHoteles option[value=" + miValue2 + "]").attr("selected", true);
+        $("#ComboHoteles").trigger('change');
     }
     else {
         mostrarError(data.me);
