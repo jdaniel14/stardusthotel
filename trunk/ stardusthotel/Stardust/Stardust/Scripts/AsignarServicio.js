@@ -13,8 +13,21 @@ function inicializarEventos() {
         beforeSend: esperarHoteles(),
         success: llegadaHoteles
     });
+
+    $("#ComboRes").change(ActualizaCombo);
 }
 
+function ActualizaCombo() {
+    var result = "";
+
+    result += '<option value = "NN" selected = "selected">Escoja un servicio</option>';
+    var miValue2 = "NN";
+    $("#ComboServicio").html(result);
+
+    $("#ComboServicio option[value=" + miValue2 + "]").attr("selected", true);
+    $("#ComboServicio").trigger('change');
+
+}
 
 function esperarHoteles() {
 }
@@ -51,7 +64,7 @@ function pedirServicio() {
 
         var enviar = {
             idHotel: SendHotel,
-            idTipo: SendTipoRes 
+            idTipo: SendTipoRes
         }
 
         jsonData = JSON.stringify(enviar);
@@ -67,7 +80,16 @@ function pedirServicio() {
             success: llegadaDatos
         });
     }
+    else {
+        var result = "";
 
+        result += '<option value = "NN" selected = "selected">Escoja un servicio</option>';
+        var miValue2 = "NN";
+        $("#ComboServicio").html(result);
+
+        $("#ComboServicio option[value=" + miValue2 + "]").attr("selected", true);
+        $("#ComboServicio").trigger('change');
+    }
 
 }
 
@@ -81,7 +103,7 @@ function llegadaDatos(data){
 
     var result = "";
 
-    result +=  '<option value = "NN" >Escoja un Servicio</option>';
+    result += '<option value = "NN" selected = "selected">Escoja un servicio</option>';
  
 
     $.each(lista, function (i, item) {
@@ -92,6 +114,7 @@ function llegadaDatos(data){
     $("#ComboServicio").html(result);
 
     $("#ComboServicio option[value=" + miValue2 + "]").attr("selected", true);
+    $("#ComboServicio").trigger('change');
 
     $("#registra").click(enviar);
 }
