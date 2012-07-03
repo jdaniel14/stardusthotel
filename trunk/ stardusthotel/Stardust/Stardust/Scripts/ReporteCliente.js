@@ -15,23 +15,29 @@ function despierta() {
 
     var idHot = $("#ComboHoteles").get(0).value;
 
-    var enviar = {
-        idHotel : idHot,
-        nomb : nombrecito
+    
+    if (idHot == 'NN') {
+        mostrarError('Faltan Llenar Datos');
     }
+    else {
+        var enviar = {
+            idHotel: idHot,
+            nomb: nombrecito
+        }
 
-    jsonData = JSON.stringify(enviar);
-    console.log(jsonData);
+        jsonData = JSON.stringify(enviar);
+        console.log(jsonData);
 
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "../ReservarHabitacion/consultarUbicacionPersona",
-        beforeSend: esperaDatos(),
-        success: llegadaDatos
-    });
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "../ReservarHabitacion/consultarUbicacionPersona",
+            beforeSend: esperaDatos(),
+            success: llegadaDatos
+        });
+    }
 }
 
 function esperaDatos() {
