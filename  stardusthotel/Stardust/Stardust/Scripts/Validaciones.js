@@ -263,7 +263,7 @@ function mostrarFaltanDatos() {
     // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
     $("#faltanDatos:ui-dialog").dialog("destroy");
 
-    $("#daltanDatos").dialog({
+    $("#faltanDatos").dialog({
         height: 140,
         modal: true,
 
