@@ -16,7 +16,7 @@ function despierta() {
     var idHot = $("#ComboHoteles").get(0).value;
 
     
-    if (idHot == 'NN') {
+    if ((idHot == 'NN') | (nombrecito == "" )){
         mostrarError('Faltan Llenar Datos');
     }
     else {
@@ -48,7 +48,8 @@ function llegadaDatos(data) {
     $("#espera").dialog("destroy");
     console.log(data);
 
-    if (data.me == "") {
+
+    if ((data.me == "") && (data.lista.length != '0')) {
 
         var lista = data.lista;
 
@@ -82,7 +83,12 @@ function llegadaDatos(data) {
 
     }
     else {
-        alert(data.me);
+        if (data.lista.length == '0') {
+            mostrarError("No se encontro a la persona");
+        }
+        else {
+            mostrarError(data.me);
+        }
     }
 
 }
