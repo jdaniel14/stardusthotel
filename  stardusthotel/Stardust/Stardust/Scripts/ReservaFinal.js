@@ -261,7 +261,7 @@ function finRes(data) {
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
     else {        
-        mostrarConfirmacionFinal(data.me);
+        mostrarError(data.me);
         
     }
     
