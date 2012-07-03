@@ -141,7 +141,13 @@ function iniciarValidaciones() {
         input = document.getElementById("idEvento");
         input.placeholder = "Sólo números";
     }
-    
+
+
+    //Validacion Fechas
+    $("#FechaInicio").datepicker("option", "minDate", new Date(year, (month - 1), daym));
+    $("#FechaFin").datepicker("option", "minDate", new Date(year, (month - 1), daym));
+    $("#FechaLlegada").datepicker("option", "minDate", new Date(year, (month - 1), daym));
+    $("#FechaSalida").datepicker("option", "minDate", new Date(year, (month - 1), daym));
 
 }
 
