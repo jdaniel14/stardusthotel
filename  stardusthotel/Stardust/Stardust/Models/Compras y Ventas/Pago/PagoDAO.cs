@@ -281,7 +281,7 @@ namespace Stardust.Models
                     idDoc = (int)dataReader2["idDocPago"];
                 }
 
-                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days);
+                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days+1);
 
                 for (int i = 0; i < reserva.listaDetalles.Count; i++)
                     reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
@@ -649,7 +649,7 @@ namespace Stardust.Models
                 fechaI = DateTime.ParseExact(fechaIni,"dd-MM-yyyy",null);
                 fechaF = DateTime.ParseExact(fechaFin, "dd-MM-yyyy", null);
                 TimeSpan dif =  fechaF - fechaI;
-                int dias = dif.Days;
+                int dias = dif.Days + 1;
                 string commandString = "SELECT * FROM Habitacion WHERE idHotel = " + idHotel + " ORDER BY idHabitacion";
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 SqlDataReader dataReader = sqlCmd.ExecuteReader();
@@ -696,7 +696,9 @@ namespace Stardust.Models
                             int a = Math.Abs(dife.Days);
                             dife =  fechaFinal - fechaInicio;
                             int b = dife.Days;
-                            for (int j = a; j <= b; j++)
+                            if (b > listaHab.First().listaFechas.Count)
+                                b = listaHab.First().listaFechas.Count;
+                            for (int j = a; j < b; j++)
                             {
                                 listaHab[k].listaFechas[j].idReserva = (int)dataReader2["idReserva"];
                                 int est = (int)dataReader2["estado"];
