@@ -159,7 +159,7 @@ namespace Stardust.Models
                     idDoc = (int)dataReader2["idDocPago"];
                 }
 
-                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days);
+                reserva.listaDetalles = ListaDetalle(idDoc, dias.Days+1);
 
                 for (int i = 0; i < reserva.listaDetalles.Count; i++)
                     reserva.subTotal += reserva.listaDetalles.ElementAt(i).totalDet;
@@ -684,7 +684,8 @@ namespace Stardust.Models
                                         " AND (CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103)" +
                                         " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103) )" +
                                         " AND estado < 4 ORDER BY fechaIni";
-                        
+
+                        System.Diagnostics.Debug.WriteLine("QUERY DEL REPORTE : " + commandString2);
                         SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
                         SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
@@ -695,10 +696,10 @@ namespace Stardust.Models
                             TimeSpan dife = fechaI - fechaInicio;
                             int a = Math.Abs(dife.Days);
                             dife =  fechaFinal - fechaInicio;
-                            int b = dife.Days;
+                            int b = dife.Days + a;
                             if (b > listaHab.First().listaFechas.Count)
                                 b = listaHab.First().listaFechas.Count;
-                            for (int j = a; j <= b; j++)
+                            for (int j = a; j < b; j++)
                             {
                                 listaHab[k].listaFechas[j].idReserva = (int)dataReader2["idReserva"];
                                 int est = (int)dataReader2["estado"];
