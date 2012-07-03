@@ -20,25 +20,30 @@ function tonooo() {
     var idReserva = $("#nReserva").get(0).value;
     var tipo = $("#ComboRes").val();
 
-    var enviar = {
-        flag: tipo,
-        id: idReserva,
-        doc: documento
+    if ((documento != "") && (nReserva != "")) {
+
+        var enviar = {
+            flag: tipo,
+            id: idReserva,
+            doc: documento
+        }
+
+        jsonData = JSON.stringify(enviar);
+        console.log(jsonData);
+
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "PagoAdelantado",
+            beforeSend: esperaDatos(),
+            success: llegadaDatos
+        });
     }
-
-    jsonData = JSON.stringify(enviar);
-    console.log(jsonData);
-
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "PagoAdelantado",
-        beforeSend: esperaDatos(),
-        success: llegadaDatos
-    });
-
+    else {
+        mostrarError("Faltan Datos");
+    }
 }
 
 function esperaDatos() {
@@ -73,7 +78,7 @@ function llegadaDatos(data) {
         $("#pagar").click(alcohol);
     }
     else {
-        alert(data.mensaje);
+        mostrarError(data.me);
     }
 }
 
@@ -123,18 +128,18 @@ function casiConfirma() {
 }
 
 function Comunion(data) {
-    //alert("se envio");
+    $("#espera").dialog("destroy");
     console.log(data.me);
 
     if (data.me == "") {
-        alert('OK');
+
         console.log("se hizo");
+        mostrarConfirmacionFinal('Reservar realizada ^_^!');
         $(location).attr('href', '../');
     }
     else {
-        alert(data.me);
+        mostrarConfirmacionFinal(data.me);
     }
-
 }
 
 

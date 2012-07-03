@@ -8,6 +8,23 @@ function inicializarEventos() {
     $("#FechaSalida").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#buscame").click(iniciarFlujo);
     $("#resultados").hide();
+
+    $("#FechaLlegada").change(filtrarOtraFecha)
+}
+
+function filtrarOtraFecha() {
+
+    $("#FechaSalida").attr("value", "");
+    var fecha = new Date();
+    fecha = $("#FechaLlegada").datepicker("getDate");
+
+    var ddd = fecha.getDate();
+    ddd += 14;
+    if (ddd < 10)
+        ddd = "0" + ddd;
+    
+    $("#FechaSalida").datepicker("option", "maxDate", new Date(year, (month - 1), ddd));
+
 }
 
 
