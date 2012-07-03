@@ -28,7 +28,7 @@ function inicializarEventos() {
     $("#FechaInicio").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaFin").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaInicio").datepicker("option", "minDate", new Date(year, (month - 1), daym));
-    $("#FechaFin").datepicker("option", "minDate", new Date(year, (month - 1), daym + 1));
+    $("#FechaFin").datepicker("option", "minDate", new Date(year, (month - 1), daym ));
    
 //    x = $("#FechaInicio");
 //    x.focus(clickFechain);
