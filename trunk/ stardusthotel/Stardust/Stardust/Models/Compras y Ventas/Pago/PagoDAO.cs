@@ -803,7 +803,7 @@ namespace Stardust.Models
                         igv = total * 18 / 100;
                         sTotal = total + igv;
                         if ((monto - t) <= 0)
-                            mensaje.me = "Usted obtuvo un descuento de " + porc + "% y tuvo un cambio de " + (monto - total);
+                            mensaje.me = "Usted obtuvo un descuento de " + porc + "% y tuvo un cambio de " + (total - monto);
                     }
 
                     if (igv > 0)
