@@ -258,6 +258,7 @@ function finRes(data) {
     if (data.me == "") {
         
         console.log("se hizo");
+        
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
     }
     else {        
