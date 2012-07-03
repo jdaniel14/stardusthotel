@@ -176,7 +176,7 @@ namespace Stardust.Models
             }
             catch( Exception e ){
                 log.Error("getUsuario(EXCEPTION): " + e);
-                throw (e);
+                throw e;
             }
             finally {
                 if (sql != null) sql.Close();
@@ -210,7 +210,7 @@ namespace Stardust.Models
             }
             catch(Exception e ){
                 log.Error("getDistrito(EXCEPTION): " + e);
-                throw (e);
+                throw e ;
             }
             finally
             {
@@ -247,7 +247,7 @@ namespace Stardust.Models
             }catch( Exception e )
             {
                 log.Error("getProvincia(EXCEPTION): " + e);
-                throw (e);
+                throw e ;
             }
             finally
             {
@@ -282,7 +282,7 @@ namespace Stardust.Models
             }
             catch (Exception e) {
                 log.Error("getDepartamento(EXCEPTION): " + e);
-                throw (e);
+                throw e ;
             }
             finally
             {
@@ -302,7 +302,7 @@ namespace Stardust.Models
             }
             catch(Exception e ) {
                 log.Error("getNombrePerfil(EXCEPTION): " + e);
-                throw (e);
+                throw e ;
             }
         }
 
@@ -480,7 +480,7 @@ namespace Stardust.Models
             }
             catch (Exception e) {
                 log.Error("listarUsuarios(EXCEPTION): " + e);
-                throw (e);
+                throw e ;
             }
             finally {
                 if (sql != null) sql.Close();
@@ -575,7 +575,7 @@ namespace Stardust.Models
             }
             catch (Exception e) {
                 log.Error("buscarUsuario(EXCEPTION): " + e);
-                throw (e);
+                throw e ;
             }
             finally {
                 if (sql != null) sql.Close();
