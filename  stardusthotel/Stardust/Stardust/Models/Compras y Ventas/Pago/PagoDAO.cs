@@ -638,7 +638,6 @@ namespace Stardust.Models
         public List<ListaHabitacion> listaHabitacion(int idHotel,string fechaIni, string fechaFin)
         {
             List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
-            idHotel = 2;
             DateTime fechaI = new DateTime();
             DateTime fechaF = new DateTime();
             int k = 0;
@@ -668,7 +667,7 @@ namespace Stardust.Models
                     ListaHabitacion hab = new ListaHabitacion();
                     hab.idHabit = (int)dataReader["idHabitacion"];
                     int idTipo = (int)dataReader["idTipoHabitacion"];
-                    hab.nHabit = this.retornarnumhabitacion(idTipo);
+                    hab.nHabit = Convert.ToString(hab.idHabit);
                     hab.listaFechas = listaDetalle;
                     listaHab.Add(hab);
                 }
@@ -695,7 +694,7 @@ namespace Stardust.Models
                             DateTime fechaFinal = (DateTime)dataReader2["fechaFin"];
                             TimeSpan dife = fechaI - fechaInicio;
                             int a = Math.Abs(dife.Days);
-                            dife =  fechaFinal - fechaI;
+                            dife =  fechaFinal - fechaInicio;
                             int b = dife.Days;
                             for (int j = a; j <= b; j++)
                             {
