@@ -653,21 +653,21 @@ namespace Stardust.Models
                 string commandString = "SELECT * FROM Habitacion WHERE idHotel = " + idHotel + " ORDER BY idHabitacion";
                 SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
                 SqlDataReader dataReader = sqlCmd.ExecuteReader();
-                List<ListaHabitacionEstado> listaDetalle = new List<ListaHabitacionEstado>();
-
-                for (int i = 0; i < dias; i++)
-                {
-                    ListaHabitacionEstado estado = new ListaHabitacionEstado();
-                    estado.idReserva = 0;
-                    estado.estado = "Libre";
-                    listaDetalle.Add(estado);
-                }
+                
                 while (dataReader.Read())
                 {
                     ListaHabitacion hab = new ListaHabitacion();
                     hab.idHabit = (int)dataReader["idHabitacion"];
                     int idTipo = (int)dataReader["idTipoHabitacion"];
                     hab.nHabit = Convert.ToString(hab.idHabit);
+                    List<ListaHabitacionEstado> listaDetalle = new List<ListaHabitacionEstado>();
+                    for (int i = 0; i < dias; i++)
+                    {
+                        ListaHabitacionEstado estado = new ListaHabitacionEstado();
+                        estado.idReserva = 0;
+                        estado.estado = "Libre";
+                        listaDetalle.Add(estado);
+                    }
                     hab.listaFechas = listaDetalle;
                     listaHab.Add(hab);
                 }
@@ -683,7 +683,7 @@ namespace Stardust.Models
                         string commandString2 = "SELECT * FROM ReservaXHabitacion WHERE idHabitacion = " + listaHab[k].idHabit +
                                         " AND (CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103)" +
                                         " OR  CONVERT(datetime,fechaIni,103) BETWEEN CONVERT(datetime, '" + fechaIni + "',103) AND CONVERT(datetime, '" + fechaFin + "',103) )" +
-                                        " ORDER BY fechaIni";
+                                        " AND estado < 4 ORDER BY fechaIni";
                         
                         SqlCommand sqlCmd2 = new SqlCommand(commandString2, sqlCon2);
                         SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
@@ -698,7 +698,7 @@ namespace Stardust.Models
                             int b = dife.Days;
                             if (b > listaHab.First().listaFechas.Count)
                                 b = listaHab.First().listaFechas.Count;
-                            for (int j = a; j < b; j++)
+                            for (int j = a; j <= b; j++)
                             {
                                 listaHab[k].listaFechas[j].idReserva = (int)dataReader2["idReserva"];
                                 int est = (int)dataReader2["estado"];
