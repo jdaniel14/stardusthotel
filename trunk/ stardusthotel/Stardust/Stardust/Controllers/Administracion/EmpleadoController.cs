@@ -6,12 +6,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Stardust.Models;
+using log4net;
+using AutoMapper;
 
 namespace Stardust.Controllers
 {
     public class EmpleadoController : Controller
     {
+        private static ILog log = LogManager.GetLogger(typeof(EmpleadoController));
         EmpleadoFacade empleadoFac = new EmpleadoFacade();
+        UsuarioFacade usuarioFac = new UsuarioFacade();
 
         /* ======== EMPLEADO ======== */
         #region Empleado
@@ -41,41 +45,105 @@ namespace Stardust.Controllers
         //
         // GET: /Empleado/Create
 
+        //public ActionResult Create()
+        //{
+        //    try
+        //    {
+        //        UsuarioFacade usuarioFac = new UsuarioFacade();
+        //        ViewBag.empleados = usuarioFac.listarUsuarios();
+
+        //        return View();
+        //    }
+        //    catch {
+        //        UsuarioFacade usuarioFac = new UsuarioFacade();
+        //        ViewBag.empleados = usuarioFac.listarUsuarios();
+        //        ViewBag.results = "Ocurrió un error al intentar cargar la data";
+        //        return View();
+        //    }
+        //}
+
+        ////
+        //// POST: /Empleado/Create
+
+        //[HttpPost]
+        //public ActionResult Create(EmpleadoBean empleadobean)
+        //{
+        //    try
+        //    {
+        //        empleadoFac.registrarEmpleado(empleadobean);
+        //        return RedirectToAction("List");
+        //    }
+        //    catch {
+        //        UsuarioFacade usuarioFac = new UsuarioFacade();
+        //        ViewBag.empleados = usuarioFac.listarUsuarios();
+        //        ViewBag.results = "Ocurrió un error al intentar crear el empleado";
+        //        return View(new EmpleadoBean());
+        //    }
+        //}
+        // GET: /Usuario/Create
         public ActionResult Create()
         {
+            var usuarioVMC = new UsuarioViewModelCreate();
             try
             {
-                UsuarioFacade usuarioFac = new UsuarioFacade();
-                ViewBag.empleados = usuarioFac.listarUsuarios();
-
-                return View();
+                usuarioVMC.Departamentos = Utils.listarDepartamentos();
+                usuarioVMC.Documentos = new List<TipoDocumento>();
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "DNI" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "PASAPORTE" });
+                usuarioVMC.Documentos.Add(new TipoDocumento() { nombre = "CARNET DE EXTRANJERIA" });
+                usuarioVMC.PerfilesUsuario = new PerfilUsuarioFacade().listarPerfiles();
+                return View(usuarioVMC);
             }
-            catch {
-                UsuarioFacade usuarioFac = new UsuarioFacade();
-                ViewBag.empleados = usuarioFac.listarUsuarios();
-                ViewBag.results = "Ocurrió un error al intentar cargar la data";
-                return View();
+            catch (Exception ex)
+            {
+                log.Error("Create - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
             }
         }
 
-        //
-        // POST: /Empleado/Create
-
+        // POST: /Usuario/Create
         [HttpPost]
-        public ActionResult Create(EmpleadoBean empleadobean)
+        public ActionResult Create(UsuarioViewModelCreate usuarioVMC , string fechaIni , string fechaFin )
         {
             try
             {
-                empleadoFac.registrarEmpleado(empleadobean);
-                return RedirectToAction("List");
+                if (ModelState.IsValid)
+                {
+                    if (!usuarioFac.yaExisteUsuario(usuarioVMC.user_account))
+                    {
+                        var usuario = Mapper.Map<UsuarioViewModelCreate, UsuarioBean>(usuarioVMC);
+                        usuario.idPerfilUsuario = new PerfilUsuarioDAO().getPerfilID("Empleado");
+                        usuario.estado = "ACTIVO";
+                        //usuario.idPerfilUsuario = new PerfilUsuarioFacade();
+                        usuarioFac.registrarUsuario(usuario);
+                        
+                        EmpleadoBean empleado = new EmpleadoBean();
+                        empleado.ID = usuarioFac.getLogin(usuario.user_account, usuario.pass).ID ;
+                        empleado.fechaIngreso = Convert.ToDateTime( fechaIni ) ;
+                        empleado.fechaSalida = Convert.ToDateTime( fechaFin ) ;
+
+                        empleadoFac.registrarEmpleado(empleado);
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        log.Warn("El nombre de usuario:\"" + usuarioVMC.user_account + "\" ya ha sido creado");
+                        ModelState.AddModelError("", "El nombre del Usuario ya ha sido asignado");
+                        return View(usuarioVMC);
+                    }
+                }
+                return View(usuarioVMC);
             }
-            catch {
-                UsuarioFacade usuarioFac = new UsuarioFacade();
-                ViewBag.empleados = usuarioFac.listarUsuarios();
-                ViewBag.results = "Ocurrió un error al intentar crear el empleado";
-                return View(new EmpleadoBean());
+            catch (Exception ex)
+            {
+                log.Error("Create - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVMC);
             }
         }
+
 
         //
         // GET: /Empleado/Edit/5

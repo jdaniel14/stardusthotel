@@ -64,7 +64,7 @@ namespace Stardust.Controllers
         {
             try
             {
-                img.SaveAs(Server.MapPath(@"~/Content/images/Logo.png"));
+                img.SaveAs(Server.MapPath(@"~/Content/images/logo.png"));
                 return RedirectToAction("Index");
             }
             catch( Exception e ) {

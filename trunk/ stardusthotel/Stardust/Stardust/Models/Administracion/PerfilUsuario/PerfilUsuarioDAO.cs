@@ -219,11 +219,13 @@ namespace Stardust.Models
             try{
                 sql = new SqlConnection( cadenaDB ) ;
 
+                sql.Open();
+
                 String command = "Select * from PerfilUsuario WHERE nombre = @nombre" ;
 
                 SqlCommand query = new SqlCommand( command , sql ) ;
 
-                Utils.agregarParametro( query , "nombre" , nombre ) ;
+                Utils.agregarParametro( query , "@nombre" , nombre ) ;
 
                 SqlDataReader data =  query.ExecuteReader() ;
 
