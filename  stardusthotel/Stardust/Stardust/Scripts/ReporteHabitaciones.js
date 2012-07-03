@@ -13,9 +13,10 @@ function inicializarEventos() {
 function iniciarFlujo() {
     var fechaInicio = $("#FechaLlegada").attr("value");
     var fechaFinal = $("#FechaSalida").attr("value");
+    var telo = $("#ComboHoteles").get(0).value;
         
     var Hotel = {
-        idHotel: "1",
+        idHotel: telo,
         fechaIni: fechaInicio,
         fechaFin: fechaFinal
     }
@@ -42,18 +43,20 @@ function llegadaDatos(data) {
 
     console.log(data);
 
-    if (data.me == "") {
+    //if (data.me == "") {
     
         var result = ""; //el poderoso result :)
 
-        var listaHab = data.listaHab;
+        //var listaHab = data.listaHab;
 
         var cantDias = 0;
         var j = 0;
 
-        var el = listaHab[0];
+        //var el = listaHab[0];
 
-        $.each(el.listaFechas, function (i, item) {
+        
+
+        $.each(data[0].listaFechas, function (i, item) {
             cantDias++;
         });
 
@@ -66,7 +69,7 @@ function llegadaDatos(data) {
 
         result += '<td>N° Habitacion</td>';
 
-        for (j = 0; j < cant; j++){
+        for (j = 0; j < cantDias; j++){
             result += '<td>Dia ' + j + '</td>';
         }
 
@@ -74,28 +77,30 @@ function llegadaDatos(data) {
 
         result += '<tbody>';
 
-        $.each(listaHab, function (i, item) {
+        $.each(data, function (i, item) {
 
             result += '<tr>';
 
-            result += '<td>' + elemento.nHabit + '</td>';
+            result += '<td>' + item.nHabit + '</td>';
 
             var fechas = item.listaFechas;
 
             $.each(fechas, function (i, led) {
 
-                result += '<td>';
 
-                if (led.ss == 0){
-                    
-                   result += ':(';
+
+                if (led.ss == 0) {
+                    result += '<td><span><font color="#FF0000">';
+                    result += ':(';
+                    result += '</font></span></td>';
                 }
-                else{
-
+                else {
+                    result += '<td><span><font color="#008000">';
                     result += ':)';
+                    result += '</font></span></td>';
                 }
 
-                result += '</td>';
+
 
             });
 
@@ -116,9 +121,9 @@ function llegadaDatos(data) {
 
 
 
-    }
-    else {
-        alert(data.me);
-    }
+    //}
+    //else {
+    //    alert(data.me);
+    //}
 
 }
