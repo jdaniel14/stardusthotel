@@ -14,15 +14,15 @@ function inicializarEventos() {
         success: llegadaHoteles
     });
 
-    $("#ComboRes").change(ActualizaCombo);
+    $("#ComboRes").change(pedirServicio);
 }
 
 function ActualizaCombo() {
     var result = "";
 
-    result += '<option value = "NN" selected = "selected">Escoja un servicio</option>';
+    
     var miValue2 = "NN";
-    $("#ComboServicio").html(result);
+    
 
     $("#ComboServicio option[value=" + miValue2 + "]").attr("selected", true);
     $("#ComboServicio").trigger('change');
@@ -177,12 +177,12 @@ function enviar() {
         });
     }
     else {
-        alert('Falta ingresar datos');
+        mostrarError('Falta ingresar datos');
     }
 }
 
 function esperaConfirma() {
-
+    mostrarEspera();
 
 }
 
@@ -193,13 +193,11 @@ function confirma(data) {
     if (data.me == "") {
 
         console.log("se hizo");
-        mostrarConfirmacionFinal('Reservar realizada ^_^!');
+        mostrarConfirmacionFinal('Asignacion realizada ^_^!');
     }
     else {
-        mostrarError(data.me);
-        if (data.me == "No se pudo enviar el email") {
-            $(location).attr('href', '../');
-        }
+        mostrarConfirmacionFinal(data.me);
+
     }
 
 }
