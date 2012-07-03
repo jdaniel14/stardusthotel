@@ -7,6 +7,7 @@ function inicializarEventos() {
     $("#FechaLlegada").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#FechaSalida").datepicker({ dateFormat: 'dd-mm-yy' });
     $("#buscame").click(iniciarFlujo);
+    $("#resultados").hide();
 }
 
 
@@ -14,24 +15,31 @@ function iniciarFlujo() {
     var fechaInicio = $("#FechaLlegada").attr("value");
     var fechaFinal = $("#FechaSalida").attr("value");
     var telo = $("#ComboHoteles").get(0).value;
-        
-    var Hotel = {
-        idHotel: telo,
-        fechaIni: fechaInicio,
-        fechaFin: fechaFinal
+
+    if ((fechaInicio != "") && (fechaFinal != "") && (telo != "")) {
+
+        var Hotel = {
+            idHotel: telo,
+            fechaIni: fechaInicio,
+            fechaFin: fechaFinal
+        }
+        var jsonData = JSON.stringify(Hotel);
+        console.log(jsonData);
+
+        $.ajax({
+            type: "POST",
+            data: jsonData,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            url: "ListaHabitacion",
+            beforeSend: esperaDatos(),
+            success: llegadaDatos
+        });
     }
-    var jsonData = JSON.stringify(Hotel);
-    console.log(jsonData);
-    
-    $.ajax({
-        type: "POST",
-        data: jsonData,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        url: "ListaHabitacion",
-        beforeSend: esperaDatos(),
-        success: llegadaDatos
-    });
+    else {
+        mostrarError("Faltan Datos");
+        $("#resultados").hide("slow");
+    }
 }
 
 
@@ -42,7 +50,7 @@ function esperaDatos() {
 function llegadaDatos(data) {
 
     console.log(data);
-
+    $("#resultados").hide("slow");
     //if (data.me == "") {
     
         var result = ""; //el poderoso result :)
@@ -65,12 +73,12 @@ function llegadaDatos(data) {
 
         result += '<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >';
 
-        result += '<thead><tr>';
+        result += '<thead><tr align = "center">';
 
-        result += '<td>N° Habitacion</td>';
+        result += '<td align = "center">N° Habitacion</td>';
 
         for (j = 0; j < cantDias; j++){
-            result += '<td>Dia ' + j + '</td>';
+            result += '<td align = "center">Dia ' + j + '</td>';
         }
 
         result += '</tr></thead>';        
@@ -81,26 +89,26 @@ function llegadaDatos(data) {
 
             result += '<tr>';
 
-            result += '<td>' + item.nHabit + '</td>';
+            result += '<td align = "center">' + item.nHabit + '</td>';
 
             var fechas = item.listaFechas;
 
             $.each(fechas, function (i, led) {
 
-                result += '<td><span>';
-                result += led.estado;
-                result += '</span></td>';
+//                result += '<td><span>';
+//                result += led.estado;
+//                result += '</span></td>';
 
-//                if (led.estado != "Libre") {
-//                    result += '<td><span><font color="#FF0000">';
-//                    result += ':(';
-//                    result += '</font></span></td>';
-//                }
-//                else {
-//                    result += '<td><span><font color="#008000">';
-//                    result += ':)';
-//                    result += '</font></span></td>';
-//                }
+                if (led.estado != "Libre") {
+                    result += '<td align = "center"><span><font color="#FF0000">';
+                    result += ':(';
+                    result += '</font></span></td>';
+                }
+                else {
+                    result += '<td align = "center"><span><font color="#008000">';
+                    result += ':)';
+                    result += '</font></span></td>';
+                }
 
 
 
@@ -119,7 +127,7 @@ function llegadaDatos(data) {
         result += '</div>';
 
         $("#resultados").html(result);
-
+        $("#resultados").show("slow");
 
 
 
