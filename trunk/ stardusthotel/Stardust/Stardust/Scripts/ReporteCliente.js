@@ -18,6 +18,9 @@ function despierta() {
     
     if ((idHot == 'NN') | (nombrecito == "" )){
         mostrarError('Faltan Llenar Datos');
+        alert('Enrta');
+        mostrarError('Faltan Llenar Datos');
+        mostrarEspera();    
     }
     else {
         var enviar = {
