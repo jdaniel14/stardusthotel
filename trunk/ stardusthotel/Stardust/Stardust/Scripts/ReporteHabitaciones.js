@@ -95,20 +95,32 @@ function llegadaDatos(data) {
 
             $.each(fechas, function (i, led) {
 
-//                result += '<td><span>';
-//                result += led.estado;
-//                result += '</span></td>';
+                if (led.estado == "Libre") {
+                    result += '<td align = "center" style="background-color:green" >';
+                }
+                else if (led.estado == "Por Confirmar") {
+                    result += '<td align = "center" style="background-color:orange" >';
+                }
+                else if (led.estado == "Confirmado") {
+                    result += '<td align = "center" style="background-color:red" >';
+                }
+                else if (led.estado == "En Curso") {
+                    result += '<td align = "center" style="background-color:blue" >';
+                }
+                //result += '<td><span>';                
+                //result += '</span></td>';
+                result += '</td>';
 
-                if (led.estado != "Libre") {
-                    result += '<td align = "center"><span><font color="#FF0000">';
-                    result += ':(';
-                    result += '</font></span></td>';
-                }
-                else {
-                    result += '<td align = "center"><span><font color="#008000">';
-                    result += ':)';
-                    result += '</font></span></td>';
-                }
+                //                if (led.estado != "Libre") {
+                //                    result += '<td align = "center"><span><font color="#FF0000">';
+                //                    result += ':(';
+                //                    result += '</font></span></td>';
+                //                }
+                //                else {
+                //                    result += '<td align = "center"><span><font color="#008000">';
+                //                    result += ':)';
+                //                    result += '</font></span></td>';
+                //                }
 
 
 
