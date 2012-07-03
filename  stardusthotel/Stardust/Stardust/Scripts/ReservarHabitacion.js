@@ -53,14 +53,14 @@ function inicializarEventos() {
     var minDate = $("#FechaLlegada").datepicker("option", "minDate");
     //setter
     $("#FechaLlegada").datepicker("option", "minDate", new Date(year, (month - 1), daym ));
-    $("#FechaSalida").datepicker("option", "minDate", new Date(year, (month - 1), daym + 1  ) );
+    $("#FechaSalida").datepicker("option", "minDate", new Date(year, (month - 1), daym ) );
     $("#fieldAeropuerto").hide();
     $("#registrarAeropuerto").click(mostrarFieldAeropuerto);
     $("#EventoCorrecto").hide();
     $("#EventoIncorrecto").hide();
     $("#ValidarEvento").click(IniciarValidacionEvento);
     
-    $('#HoraLlegada').timepicker({});
+    //$('#HoraLlegada').timepicker({});
 
     $("#checkAerop").click(function (event) {
         
