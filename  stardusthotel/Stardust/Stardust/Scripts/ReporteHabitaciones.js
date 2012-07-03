@@ -87,18 +87,20 @@ function llegadaDatos(data) {
 
             $.each(fechas, function (i, led) {
 
+                result += '<td><span>';
+                result += led.estado;
+                result += '</span></td>';
 
-
-                if (led.ss == 0) {
-                    result += '<td><span><font color="#FF0000">';
-                    result += ':(';
-                    result += '</font></span></td>';
-                }
-                else {
-                    result += '<td><span><font color="#008000">';
-                    result += ':)';
-                    result += '</font></span></td>';
-                }
+//                if (led.estado != "Libre") {
+//                    result += '<td><span><font color="#FF0000">';
+//                    result += ':(';
+//                    result += '</font></span></td>';
+//                }
+//                else {
+//                    result += '<td><span><font color="#008000">';
+//                    result += ':)';
+//                    result += '</font></span></td>';
+//                }
 
 
 
