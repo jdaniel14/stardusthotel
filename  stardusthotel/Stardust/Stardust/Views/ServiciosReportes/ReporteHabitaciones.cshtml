@@ -5,6 +5,8 @@
 <h2>Reporte de Habitaciones</h2>
 
 <script type="text/javascript" src="/Scripts/ReporteHabitaciones.js"></script>
+<script type="text/javascript" src="/Scripts/Validaciones.js"></script>
+<script type="text/javascript" src="/Scripts/CheckIn.js"></script>
 
 <html lang="es">
 
@@ -22,6 +24,15 @@
 			<div class="title">
 				<h6>Buscar Habitaciones</h6>
 			</div>
+
+            <div class = "formRow"><span>Hotel</span>
+                <div class = "formRight" > 
+                    <select id = "ComboHoteles">
+                        
+                        
+                    </select>
+                 </div>            
+            </div>
 
 			<div class="formRow"><span>Fecha Inicio</span>                
 				<div class = "formRight" >                                         
@@ -53,6 +64,15 @@
         
         </div>
 
+            <div id="dialog-modal" title="Datos incorrectos">
+	<p>Por favor, ingrese datos correctos</p>
+</div>
+<div id="espera" title="Espere... ingresando datos">
+	<p>...zzZZzz...</p>
+</div>
+<div id="error" title="">
+	<p id = "msjError">...Ooops!</p>
+</div>
 
 
     </body>
