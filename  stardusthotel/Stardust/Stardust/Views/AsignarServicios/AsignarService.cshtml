@@ -28,6 +28,15 @@
 				<h6>Asignar Servicio</h6>
 			</div>
 
+
+            <div class = "formRow"><span>Hotel</span>
+                <div class = "formRight" > 
+                    <select id = "ComboHoteles">
+                        
+                    </select>
+                 </div>            
+            </div>
+
             <div class="formRow"><span>Tipo de Reserva</span>                
                <div class = "formRight" > 
                     <select id="ComboRes">                        
@@ -38,13 +47,7 @@
                <div class="clear"></div>
             </div>
 
-            <div class = "formRow"><span>Hotel</span>
-                <div class = "formRight" > 
-                    <select id = "ComboHoteles">
-                        
-                    </select>
-                 </div>            
-            </div>
+            
 
             <div class="formRow"><span>Servicio</span>                
                <div class = "formRight" > 
@@ -95,6 +98,21 @@
         <input id = "registra" type="submit" value="Registrar" class = "redB" />          
     
     </div>
+
+    <div id="dialog-modal" title="Datos incorrectos">
+	<p>Por favor, ingrese datos correctos</p>
+</div>
+<div id="espera" title="...zzZZzz...">
+	<p>...wait pls...</p>
+</div>
+<div id="faltanDatos" title="Faltan Datos">
+	<p>Verifique que estén llenos todos los campos solicitados</p>
+</div>
+<div id="error" title="">
+	<p id = "msjError">...Ooops!</p>
+</div>
+
+
 
     </body>
 
