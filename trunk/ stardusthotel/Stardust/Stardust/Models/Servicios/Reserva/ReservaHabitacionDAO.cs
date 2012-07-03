@@ -312,7 +312,7 @@ namespace Stardust.Models.Servicios
                 if (count == 0)
                 {
                     int perfil = getPerfil("cliente");
-                    string commandString3 = "INSERT INTO Usuario VALUES ("+ perfil +" ," +
+                    string commandString3 = "INSERT INTO Usuario(idPerfilUsuario, user_account, pass, nombres, apPat, apMat, email, celular, tipoDocumento, nroDocumento, razonSocial, estado, idDistrito, direccion, idProvincia, idDepartamento) VALUES ("+ perfil +" ," +
                      "'" + client.email + "', " +
                      "'" + pass + "', " +
                      "'" + client.nomb + "'" + ", " +
