@@ -6,11 +6,15 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using log4net;
+using Stardust.Controllers;
 
 namespace Stardust.Models
 {
     public class ProductoDAO
     {
+        private static ILog log = LogManager.GetLogger(typeof(HotelController));
+
         public List<ProductoBean> ListarProducto(string nombre)
         {
             List<ProductoBean> listaProducto = new List<ProductoBean>();
@@ -48,9 +52,10 @@ namespace Stardust.Models
                 }
                 sqlCon.Close();
             }
-            catch
+            catch (Exception ex)
             {
-                
+                log.Error("listarproducto(EXCEPTION): ", ex);
+                throw ex;
             }
             
             return listaProducto;
@@ -75,8 +80,10 @@ namespace Stardust.Models
                 sqlCon.Close();
                 producto.conexion = "Bien";
             }
-            catch
+            catch(Exception ex)
             {
+                log.Error("registrarproducto(EXCEPTION): ", ex);
+
                 producto.conexion = "Falla en Conexión";
             }
 
@@ -106,20 +113,16 @@ namespace Stardust.Models
                 sqlCon.Close();
                 producto.conexion = "Bien";
             }
-            catch
+            catch(Exception ex)
             {
+                log.Error("getproducto(EXCEPTION): ", ex);
+
                 producto.conexion = "no hay conexion";
             }
             
             return producto;
         }
-        //public  void buscarProducto(string nombre)
-        //{
 
-        //}
-        //public void SeleccionarProducto(int ID)
-        //{
-        //}
         public string ActualizarProducto(ProductoBean producto)
         {
             try
@@ -139,8 +142,11 @@ namespace Stardust.Models
                 sqlCon.Close();
                 producto.conexion = "Bien";
             }
-            catch
+            catch(Exception ex)
             {
+
+                log.Error("actualizarproducto(EXCEPTION): ", ex);
+
                 producto.conexion = "no hay conexion";
             }
 
@@ -165,8 +171,10 @@ namespace Stardust.Models
                 sqlCon.Close();
                 conexion = "Bien";
             }
-            catch
+            catch(Exception ex)
             {
+
+                log.Error("deleteproducto(EXCEPTION): ", ex);
                 conexion = "no hay conexion";
             }
 
@@ -195,8 +203,10 @@ namespace Stardust.Models
                 dataReader.Close();
                 sqlCon.Close();
             }
-            catch
+            catch(Exception ex)
             {
+                log.Error("getalmacen(EXCEPTION): ", ex);
+
                 idalmacen = -1; // no hay conexion
             }
             return idalmacen;
@@ -228,8 +238,10 @@ namespace Stardust.Models
                 sqlCon.Close();
                 conexion = "Bien";
             }
-            catch
+            catch(Exception ex)
             {
+
+                log.Error("insertaralmacenproducto(EXCEPTION): ", ex);
 
                 conexion = "no hay conexion";
             }
@@ -271,8 +283,10 @@ namespace Stardust.Models
                 sqlCon.Close();
                 prod.conexion = "Bien";
             }
-            catch 
+            catch (Exception ex)
             {
+                log.Error("obtenerlistaproducto(EXCEPTION): ", ex);
+
                 prod.conexion = "Error";
             }
             return prod;
@@ -305,8 +319,10 @@ namespace Stardust.Models
 
                 conexion = "Bien";
             }
-            catch 
+            catch (Exception ex)
             {
+
+                log.Error("actualizar(EXCEPTION): ", ex);
                 conexion = "Error";
             }
 
@@ -339,8 +355,13 @@ namespace Stardust.Models
                 sqlCon.Close();
                 conexion = "Bien";
             }
-            catch
+            catch(Exception ex)
             {
+
+
+                log.Error("actualizarstock(EXCEPTION): ", ex);
+
+
                 conexion = "Error";
             }
 
