@@ -20,19 +20,22 @@ namespace Stardust.Controllers.Administracion
         }
 
         [HttpPost]
-        public ActionResult indice(EmpleadoBean emp)
+        public ActionResult indice(EmpleadoBean emp,string fechaIni,string fechaFin)
         {
 
             try
            {
                 ViewBag.empleados = empleadoFac.listarEmpleados();
+                EmpleadoBean rango = new EmpleadoBean();
+                rango.fechaIngreso = Convert.ToDateTime(fechaIni);
+                rango.fechaSalida = Convert.ToDateTime(fechaFin);
                 //if (emp.Value == true)
                 if( emp.ID == 0 )
                 {
                     System.Diagnostics.Debug.WriteLine("NOOOOOOOOOOOOOOOOOOOOOOOOOO u.u");
                     ReporteAllEmpleados reporte = new ReporteAllEmpleados();
 
-                    reporte.allempleados = empleadoFac.listartodoempleado();
+                    reporte.allempleados = empleadoFac.listartodoempleado(rango);
                     var model = reporte;
                     return this.ViewPdf("", "ReporteAsistencia", model);
 
@@ -45,7 +48,7 @@ namespace Stardust.Controllers.Administracion
                     ReporteEmpleado RE = new ReporteEmpleado();
                     RE.empleado = empleado;
 
-                    RE.horarios = empleadoFac.listarReporte(codigoempleado);
+                    RE.horarios = empleadoFac.listarReporte(codigoempleado,rango);
                     // var model = empleadoFac.guardartodo(codigoempleado);
 
 

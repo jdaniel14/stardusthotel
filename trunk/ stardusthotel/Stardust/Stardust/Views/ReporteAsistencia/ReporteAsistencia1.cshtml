@@ -23,11 +23,17 @@
 </h1></div>
 <div>    </div>
 <div>    </div>
+<div align="center">Cod: SUP-023 </div>
+<div align="center">Cargo: Supervisor de Empleados </div>
+<div align="center">Estado: "ACTIVO"  </div>
+<div>    </div>
+<div>    </div>
+<div>    </div>
+<div>    </div>
+<div align ="left"> Codigo: EMP-@Model.empleado.ID Nombre: @Model.empleado.nombreEmpleado</div>
+<div align="left">Fecha de Ingreso: @Model.empleado.fechaIngreso.ToShortDateString()  Estado: @Model.empleado.estado  </div>
 
-<div align="center">Codigo: EMP-@Model.empleado.ID  </div>
-<div align="center">Nombre del empleado: @Model.empleado.nombreEmpleado   </div>
-<div align="center">Fecha de Ingreso: @Model.empleado.fechaIngreso.ToShortDateString()   </div>
-<div align="center">Estado: @Model.empleado.estado  </div>
+<div>    </div>
 <div>    </div>
 <div>    </div>
 <div>    </div>
@@ -63,7 +69,8 @@
              
         </tr >
         <tr><td></td></tr>
-        
+        if (horar.horariodetalles.Count == 0)
+        { <tr><td align="center"><i> No tiene Detalles Asignados</i></td></tr> }
         for (int i = 0; i < horar.horariodetalles.Count; i++)
         {
             HorarioDetalle detalleaux = horar.horariodetalles.ElementAt(i);
@@ -78,11 +85,12 @@
                <tr><td align="left"> <b>Asistencia :</b> </td>
                
                </tr>
-        
-            for (int j = 0; j < detalleaux.asistencias.Count; j++)
-            {
+             if (detalleaux.asistencias.Count == 0)
+             { <tr><td align="center"><i> No tiene Asistencia para ese Rango </i></td></tr> }
+             for (int j = 0; j < detalleaux.asistencias.Count; j++)
+             {
 
-                Asistencia asistencia = detalleaux.asistencias.ElementAt(j);
+                 Asistencia asistencia = detalleaux.asistencias.ElementAt(j);
                  
                  <tr>
                  
@@ -91,7 +99,7 @@
                 
                 </tr>
              
-            }
+             }
            <tr><td></td></tr>
         <tr><td></td></tr>
         }
