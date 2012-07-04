@@ -19,5 +19,7 @@ namespace Stardust.Models
         public DateTime fechaRegistro { get; set; }
         public int estadoPago { get; set; }
         public String me { get; set; }
+        public string hotel { get; set; }
+        public string usuario { get; set; }
     }
 }
