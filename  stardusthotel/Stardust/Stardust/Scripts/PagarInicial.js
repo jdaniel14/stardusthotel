@@ -72,7 +72,7 @@ function llegadaDatos(data) {
             $("#estado").text("Cancelado");
         }
 
-        $("#vuelto").text(0);
+//        $("#vuelto").text(0);
         $("#cantPagando").attr("value", "0");
         $("#cantPagando").change(asignarVuelto);
 
@@ -86,10 +86,17 @@ function llegadaDatos(data) {
 
 function alcohol() {
 
-    if (parseFloat($("#vuelto").text()) < 0) {
-        mostrarError("Cantidad insuficiente");
-    }
-    else {
+//    if (parseFloat($("#vuelto").text()) < 0) {
+//        mostrarError("Cantidad insuficiente");
+//    }
+    //    else {
+
+
+    var mmm = parseFloat($("#cantPagando").get(0).value);
+    var fff = parseFloat($("#monto").text());
+
+
+    if (mmm > fff) {
 
         var documento = $("#nDoc").get(0).value;
         var idReserva = $("#nReserva").get(0).value;
@@ -105,7 +112,7 @@ function alcohol() {
             monto: lili,
             montoTotal: total,
             pagoInicial: inicial,
-            doc : documento
+            doc: documento
         }
 
         jsonData = JSON.stringify(enviar);
@@ -120,8 +127,11 @@ function alcohol() {
             beforeSend: casiConfirma(),
             success: Comunion
         });
-
     }
+    else {
+        mostrarError("Monto Insuficiente");
+    }
+//    }
 
 }
 
@@ -152,10 +162,10 @@ function asignarVuelto() {
 
        
 
-    $("#vuelto").text(
-        parseFloat($("#cantPagando").get(0).value)-
-        parseFloat($("#montoTotal").text())
-    );
+//    $("#vuelto").text(
+//        parseFloat($("#cantPagando").get(0).value)-
+//        parseFloat($("#montoTotal").text())
+//    );
 
     
 
