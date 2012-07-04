@@ -40,12 +40,6 @@
                         </th>
                         <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
                             <div class="DataTables_sort_wrapper">
-                            Precio
-                            <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
-                            </div>
-                        </th>
-                        <th class="ui-state-default" rowspan="1" colspan="1" style="width:209px;" >
-                            <div class="DataTables_sort_wrapper">
                             Número de Personas
                             <span class="DataTables_sort_icon css_right ui-icon ui-icon-triangle-1-s"></span>
                             </div>
@@ -66,7 +60,6 @@
                         <td>@Html.DisplayFor(modelItem => item.nombre)</td>
                         <td>@Html.DisplayFor(modelItem => item.precio)</td>
                         <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.precio)</td>
                         <td>@Html.DisplayFor(modelItem => item.nroPersonas)</td>
                         <td>
                             <a href="@Url.Action("EditTipoHabitacionXHotel", new { idTipoHabitacion = item.idTipoHabitacion, idHotel = ViewBag.idHotel })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 

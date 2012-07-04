@@ -5,12 +5,13 @@ using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
 using log4net;
+using System.Web.Configuration;
 
 namespace Stardust.Models
 {
     public class TipoHabitacionDAO
     {
-        String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         private static ILog log = LogManager.GetLogger(typeof(TipoHabitacionDAO));
 
         public TipoHabitacionBean getTipoHabitacion(int id) {
