@@ -274,7 +274,7 @@ function Confirma(data) {
 
         console.log("se hizo");
 
-        mostrarConfirmacionFinal('Reservar realizada ^_^!');
+        mostrarConfirmacionFinal('OK');
     }
     else {
         mostrarError(data.me);

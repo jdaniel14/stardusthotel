@@ -86,7 +86,7 @@ function llegadaDatos(data) {
 function alcohol() {
 
     if (parseFloat($("#vuelto").text()) < 0) {
-        alert("Cantidad insuficiente");
+        mostrarError("Cantidad insuficiente");
     }
     else {
 

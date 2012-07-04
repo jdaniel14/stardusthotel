@@ -2,7 +2,8 @@
 var enviarReservita;
 
 function inicializarMostreo() {
-
+   
+    
     //inicio validacion
     var continuarIngreso;
 
@@ -27,6 +28,10 @@ function inicializarMostreo() {
     }
 
     if (continuarIngreso == 1) {
+        
+        $('html,body').animate({
+            scrollTop: $("#pestana3").offset().top
+        }, 700);
 
         $("#retornar").click(regresar);
         $("#pestana1").hide();
