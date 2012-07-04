@@ -38,5 +38,15 @@ namespace Stardust.Controllers.Servicios
             MensajeBean mensaje = ambienteFacade.RegistrarEventoYAmbientes(registro);
             return Json(mensaje);
         }
+
+        public ActionResult CheckInAmbiente()
+        {
+            return View();
+        }
+
+        public ActionResult CheckOutAmbiente()
+        {
+            return View();
+        }
     }
 }
