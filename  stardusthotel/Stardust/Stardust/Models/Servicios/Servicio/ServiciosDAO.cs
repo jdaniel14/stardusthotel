@@ -203,7 +203,7 @@ namespace Stardust.Models
                 return mensaje;
             }
                         
-            query = "INSERT INTO DocumentoPago_Detalle(idDocPago, detalle, cantidad, precioUnitario, total, es_habitacion) VALUES ( " + documento.idDocPago + " , '" + nombServ + "' , 1 , " + monto + " , " + monto + " , 1  )";
+            query = "INSERT INTO DocumentoPago_Detalle(idDocPago, detalle, cantidad, precioUnitario, total, es_habitacion) VALUES ( " + documento.idDocPago + " , '" + nombServ + "' , 1 , " + monto + " , " + monto + " , 0  )";
             
             System.Diagnostics.Debug.WriteLine("QUERY DE ASIGNAR : " + query);
 
@@ -230,6 +230,7 @@ namespace Stardust.Models
         public DocumentoPagoBean buscarDocumentoPago(int  nroRes, int idHotel)
         {
             DocumentoPagoBean response = new DocumentoPagoBean();
+            response.me = "";
             
             String query = " SELECT d.idDocPago " +
                             " FROM DocumentoPago d, Reserva r " +
