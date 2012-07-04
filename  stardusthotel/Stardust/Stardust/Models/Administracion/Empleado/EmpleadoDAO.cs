@@ -942,7 +942,9 @@ namespace Stardust.Models
 
         /* ======== Reporte ======== */
         #region Reporte
-        public List<Horario> listarReporte(int codigoempleado)
+
+
+        public List<Horario> listarReporte(int codigoempleado,EmpleadoBean rang)
         {
 
             List<Horario> reportehorarios = this.listarHorario(codigoempleado);
@@ -950,7 +952,7 @@ namespace Stardust.Models
             for (int i = 0; i < reportehorarios.Count; i++)
             {
                 Horario horarioaux = reportehorarios.ElementAt(i);
-                horarioaux.horariodetalles = listarReporteDetalle(horarioaux.ID);
+                horarioaux.horariodetalles = listarReporteDetalle(horarioaux.ID, rang);
 
 
             }
@@ -958,7 +960,7 @@ namespace Stardust.Models
         }
 
 
-        public List<HorarioDetalle> listarReporteDetalle(int idhorario)
+        public List<HorarioDetalle> listarReporteDetalle(int idhorario, EmpleadoBean rang)
         {
 
             List<HorarioDetalle> reportehorariosdetalle = this.listarDetalle(idhorario);
@@ -966,13 +968,13 @@ namespace Stardust.Models
             for (int i = 0; i < reportehorariosdetalle.Count; i++)
             {
                 HorarioDetalle detalleaux = reportehorariosdetalle.ElementAt(i);
-                detalleaux.asistencias = this.listarReporteAsistencia(detalleaux.idHorarioDetalle);
+                detalleaux.asistencias = this.listarReporteAsistencia(detalleaux.idHorarioDetalle,rang);
 
             }
             return reportehorariosdetalle;
         }
 
-        public List<Asistencia> listarReporteAsistencia(int iddetalle)
+        public List<Asistencia> listarReporteAsistencia(int iddetalle, EmpleadoBean rang)
         {
 
             List<Asistencia> reporteasistencia = this.ListarAsistenciasdeunidDetalle(iddetalle);
@@ -985,10 +987,18 @@ namespace Stardust.Models
 
            }
              * */
+            for (int i = 0; i < reporteasistencia.Count; i++)
+            {
+
+               Asistencia asis= reporteasistencia.ElementAt(i);
+               if (!((rang.fechaIngreso <= asis.horaasistencia) && (asis.horaasistencia <= rang.fechaSalida))) {
+                   reporteasistencia.RemoveAt(i);
+               }
+            }
             return reporteasistencia;
         }
 
-        public List<EmpleadoBean> listartodoempleado()
+        public List<EmpleadoBean> listartodoempleado(EmpleadoBean rang)
         {
 
             List<EmpleadoBean> reporteempleados = this.listarEmpleados();
@@ -996,7 +1006,7 @@ namespace Stardust.Models
             for (int i = 0; i < reporteempleados.Count; i++) { 
             
                   EmpleadoBean empleados = reporteempleados.ElementAt(i);
-                   empleados.horarios=this.listarReporte(empleados.ID);
+                   empleados.horarios=this.listarReporte(empleados.ID,rang);
             }
 
             return reporteempleados;

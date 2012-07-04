@@ -83,12 +83,12 @@ namespace Stardust.Models
 
         }
 
-        public List<Horario> listarReporte(int codigoempleado)
+        public List<Horario> listarReporte(int codigoempleado,EmpleadoBean rango)
         {
-            return empleadoServ.listarReporte(codigoempleado);
+            return empleadoServ.listarReporte(codigoempleado,rango);
         }
-        public List<EmpleadoBean> listartodoempleado() {
-            return empleadoServ.listartodoempleado();
+        public List<EmpleadoBean> listartodoempleado(EmpleadoBean rango) {
+            return empleadoServ.listartodoempleado(rango);
         } 
     }
 }
