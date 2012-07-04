@@ -187,6 +187,9 @@ function llegadaHoteles(data) {
 
 function nextDatos() {
     $("#tabs").tabs("select", "#tabs-2");
+    $('html,body').animate({
+        scrollTop: $("#pestana1").offset().top
+    }, 700);
 }
 
 function mostrarBuscame() {
