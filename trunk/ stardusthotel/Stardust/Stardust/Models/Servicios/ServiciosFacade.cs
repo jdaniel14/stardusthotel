@@ -42,8 +42,8 @@ namespace Stardust.Models
             return serviciosService.listarServicios(idHotel, idTipo);
         }
         
-        public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo, int idHotel){
-            return serviciosService.asignarServicios(idSer, nroRes, dni, nRecib, monto, flagTipo, idHotel);
+        public MensajeBean asignarServicios(int idSer, int nroRes, Decimal monto, int flagTipo, int idHotel, String nombServ){
+            return serviciosService.asignarServicios(idSer, nroRes, monto, flagTipo, idHotel, nombServ);
         }
     }
 }
