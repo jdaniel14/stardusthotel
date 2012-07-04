@@ -832,6 +832,7 @@ namespace Stardust.Models
                     SqlCommand sqlCmd6 = new SqlCommand(commandString, sqlCon);
                     sqlCmd6.ExecuteNonQuery();
 
+                    mensaje.me = "";
                     return mensaje;
                 }
 
@@ -873,14 +874,20 @@ namespace Stardust.Models
 
                     mensaje.me = "";
 
+                    System.Diagnostics.Debug.WriteLine("mensaje 2: " + mensaje.me);
                     return mensaje;
                 }                
             }
             catch (Exception e)
             {
                 mensaje.me = e.ToString();
+                System.Diagnostics.Debug.WriteLine("mensaje 1: " + mensaje.me);
                 return mensaje;
             }
+            System.Diagnostics.Debug.WriteLine("mensaje : " + mensaje.me);
+
+            return mensaje;
+            
         }
 
         public string retornarnumhabitacion(int idtipo)
