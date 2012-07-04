@@ -715,5 +715,86 @@ namespace Stardust.Models
 
             return mensaje;
         }
+
+        public Evento GetEvento(int id)
+        {
+            Evento evento = new Evento();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            sqlCon.Open();
+
+            string commandString = "SELECT e.idEvento as idEvento , e.fechaIni as fechaIni , e.fechaFin as fechaFin , u.tipoDocumento as tipoDocumento , u.nroDocumento as nroDocumento "+
+                ", e.nombre as nombre , e.descripcion as descripcion , p.montoTotal as montoTotal , p.montoFaltante as montoFaltante"
+            +" , u.nombres as usuario , h.nombre as hotel , p.idDocPago as idDocPago  FROM Evento e , DocumentoPago p , Hotel h , Usuario u"+
+            " WHERE e.estado = 3 AND e.idEvento = " + id + " AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel AND e.idEvento = p.idEvento ";
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+            DateTime fechaIni = new DateTime();
+            DateTime fechaHoy = DateTime.Now;
+
+            if (dataReader.Read())
+            {
+                evento.id = (int)dataReader["idEvento"];
+                fechaIni = (DateTime)dataReader["fechaIni"];
+                evento.fechaIni = fechaIni.ToString("dd-MM-yyyy");
+                evento.fechaFin = ((DateTime)dataReader["fechaFin"]).ToString("dd-MM-yyyy");                
+                evento.usuario = (string)dataReader["usuario"];
+                evento.tipoDoc = (string)dataReader["tipoDocumento"];
+                evento.dni = (string)dataReader["nroDocumento"];
+                evento.nombre = (string)dataReader["nombre"];
+                evento.descripcion = (string)dataReader["descripcion"];
+                evento.montoTotal = (decimal)dataReader["montoTotal"];
+                evento.montoFaltante = (decimal)dataReader["montoFaltante"];
+                evento.idDocPago = (int)dataReader["idDocPago"];
+            }
+
+            dataReader.Close();
+
+            evento.listaDetalle = ListaDetalle(evento.idDocPago);
+
+            for (int i = 0; i < evento.listaDetalle.Count; i++)
+                evento.subTotal += evento.listaDetalle.ElementAt(i).total;
+
+            evento.igv = evento.subTotal * 18 / 100;
+            evento.montoTotal = evento.igv + evento.subTotal;
+
+            evento.montoPagado = evento.montoTotal - evento.montoFaltante;
+
+            sqlCon.Close();
+
+            return evento;
+        }
+
+        public List<EventoDetalle> ListaDetalle(int idDoc)
+        {
+            List<EventoDetalle> listaDetalle = new List<EventoDetalle>();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            sqlCon.Open();
+
+            string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = "+idDoc;
+
+            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+            SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                EventoDetalle detalle = new EventoDetalle();
+                detalle.detalle = (string)dataReader["detalle"];
+                detalle.cantidad = (int)dataReader["cantidad"];
+                detalle.precioUnit = (decimal)dataReader["precioUnitario"];
+                detalle.total = (decimal)dataReader["total"];
+                listaDetalle.Add(detalle);
+            }
+
+            return listaDetalle;
+        }
     }
 }
