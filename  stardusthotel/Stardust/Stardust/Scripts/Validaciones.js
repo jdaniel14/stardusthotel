@@ -61,6 +61,8 @@ function iniciarValidaciones() {
 
     $("#monto").change(validarSoloNumeros14);
 
+    $("#cantPagando").change(validarSoloNumeros14);
+
 
     //**********************+Asignar PlaceHolder's*********************
 

@@ -29,9 +29,7 @@ function inicializarMostreo() {
 
     if (continuarIngreso == 1) {
         
-        $('html,body').animate({
-            scrollTop: $("#pestana3").offset().top
-        }, 700);
+        
 
         $("#retornar").click(regresar);
         $("#pestana1").hide();
@@ -44,6 +42,7 @@ function inicializarMostreo() {
         result = $("#FechaLlegada").get(0).value;
         $('#mostrarFechaReserva').html(result);
 
+        
 
         result = "";
         result = $("#FechaSalida").get(0).value;
@@ -76,6 +75,11 @@ function inicializarMostreo() {
         }
         $('#mostrarNombre').html(nombre);
         $('#mostrarEmail').html(email);
+
+
+        $('html,body').animate({
+            scrollTop: $("#pestana3").offset().top
+        }, 700);
     }
     else {
         mostrarError('Faltan llenar Datos');
