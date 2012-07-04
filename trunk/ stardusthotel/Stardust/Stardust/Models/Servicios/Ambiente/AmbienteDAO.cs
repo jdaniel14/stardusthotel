@@ -796,5 +796,53 @@ namespace Stardust.Models
 
             return listaDetalle;
         }
+
+        public MensajeBean CheckOut(int id)
+        {
+            MensajeBean mensaje = new MensajeBean();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error en conexion a base de datos";
+                return mensaje;
+            }
+
+            String queryIns = "UPDATE Evento SET estado = 4 , estadoPago = 4 WHERE idEvento = " + id;
+
+            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+
+            try
+            {
+                sqlCmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error al actualizar el evento: " + e.Message;
+                return mensaje;
+            }
+
+            queryIns = "UPDATE DocumentoPago SET estado = 4 , montoFaltante = 0 WHERE idEvento = " + id;
+
+            SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);
+
+            try
+            {
+                sqlCmd2.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
+                return mensaje;
+            }
+
+            return mensaje;
+        }
     }
 }
