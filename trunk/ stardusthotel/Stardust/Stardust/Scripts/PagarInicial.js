@@ -54,7 +54,8 @@ function llegadaDatos(data) {
     console.log(data);
     if (data.mensaje == "") {
 
-        $("#nombReserva").text(data.dato);
+        
+        $("#nombReserva").text($("#nReserva").get(0).value);
         $("#nDocu").text(data.doc);
         $("#nombre").text(data.nom);
         $("#monto").text(data.montoInicial);
@@ -72,7 +73,7 @@ function llegadaDatos(data) {
         }
 
         $("#vuelto").text(0);
-
+        $("#cantPagando").attr("value", "0");
         $("#cantPagando").change(asignarVuelto);
 
         $("#pagar").click(alcohol);
@@ -144,11 +145,18 @@ function Comunion(data) {
 
 
 function asignarVuelto() {
+    
+    if ($("#cantPagando").get(0).value == "") {
+        $("#cantPagando").attr("value","0");
+    }
+
+       
 
     $("#vuelto").text(
-        parseFloat($("#cantPagando").get(0).value) -
-        parseFloat($("#faltante").text())
-
+        parseFloat($("#cantPagando").get(0).value)-
+        parseFloat($("#montoTotal").text())
     );
+
+    
 
 }
