@@ -189,18 +189,22 @@ namespace Stardust.Models
             }
             return response;
         }
-        public MensajeBean asignarServicios(int idSer, int nroRes, String dni, int nRecib, Decimal monto, int flagTipo, int idHotel)
+        public MensajeBean asignarServicios(int idSer, int nroRes, Decimal monto, int flagTipo, int idHotel, String nombServ)
         {
             MensajeBean mensaje = new MensajeBean ();
             mensaje.me = "";
             String query = "";
-            if (flagTipo != 0)
-            { //Evento
-                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + idSer + " , " + idHotel + " , " + nroRes + " , " + dni + " , " + monto + " , " + nRecib + " , GETDATE() , 1 )";
+
+            DocumentoPagoBean documento = buscarDocumentoPago(nroRes, idHotel);
+
+            bool result = documento.me.Equals("");
+            if (!result) {
+                mensaje.me = documento.me;
+                return mensaje;
             }
-            else { //reserva
-                query = "INSERT INTO ServicioTercerizadoXReserva VALUES ( " + nroRes + " , " +idSer + " , "+idHotel + ", " + nRecib + " , " + monto + " , GETDATE() )";
-            }
+                        
+            query = "INSERT INTO DocumentoPago_Detalle(idDocPago, detalle, cantidad, precioUnitario, total, es_habitacion) VALUES ( " + documento.idDocPago + " , '" + nombServ + "' , 1 , " + monto + " , " + monto + " , 1  )";
+            
             System.Diagnostics.Debug.WriteLine("QUERY DE ASIGNAR : " + query);
 
             try
@@ -221,6 +225,48 @@ namespace Stardust.Models
             }
 
             return mensaje;
+        }
+
+        public DocumentoPagoBean buscarDocumentoPago(int  nroRes, int idHotel)
+        {
+            DocumentoPagoBean response = new DocumentoPagoBean();
+            
+            String query = " SELECT d.idDocPago " +
+                            " FROM DocumentoPago d, Reserva r " +
+                            " WHERE r.estado = 3 and r.idReserva = "+ nroRes + " AND d.idReserva = R.idReserva AND r.idHotel = " + idHotel;
+            System.Diagnostics.Debug.WriteLine("QUERY SERVICE PAGO: " + query);
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e) {
+                response.me = "Error en conexion a BD";
+                return response;
+            }
+
+            try
+            {   
+                SqlCommand sqlCmd1 = new SqlCommand(query, sqlCon);
+                SqlDataReader dataReader = sqlCmd1.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    response.idDocPago = (int)dataReader["idDocPago"];
+                }
+                else {
+                    response.me = "No se llegó a encontrar a la reserva";
+                    return response;                
+                }
+            }
+            catch (Exception e)
+            {
+                response.me = "Error en BD";
+                return response;
+            }
+            return response;
         }
     }
 }

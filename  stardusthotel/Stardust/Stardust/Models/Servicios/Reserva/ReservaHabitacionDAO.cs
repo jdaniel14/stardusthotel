@@ -846,14 +846,13 @@ namespace Stardust.Models.Servicios
 
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     sqlCmd2.ExecuteNonQuery();
-                }
-
-                return "Ok";
+                }                
             }
             catch (Exception e)
             {
-                return e.ToString();
+                return "Error en Base de Datos : " + e.ToString();
             }
+            return "";
         }
 
         #endregion
