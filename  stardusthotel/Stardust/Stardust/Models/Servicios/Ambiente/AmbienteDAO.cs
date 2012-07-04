@@ -624,5 +624,96 @@ namespace Stardust.Models
             }
             return me;
         }
+
+        public ReservaAmbBean CheckIn(int id)
+        {
+            ReservaAmbBean ambiente = new ReservaAmbBean();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                ambiente.me = "Error en conexion a base de datos";
+                return ambiente;
+            }
+
+            String queryIns = "SELECT e.estado as estado , e.nombre as nombre , e.descripcion as descripcion , u.nombres as usuario , h.nombre as hotel FROM Evento e , Usuario u , Hotel h WHERE e.estado < 3 AND e.idEvento = "+id+" AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel";
+                               
+            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+            SqlDataReader dataReader;
+
+            try
+            {
+                dataReader = sqlCmd.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                ambiente.me = "Error al encontrar el evento";
+                return ambiente;
+            }
+
+            if (!dataReader.HasRows)
+            {
+                ambiente.me = "No se encuentra el evento";
+                return ambiente;
+            }
+            else
+            {
+                dataReader.Read();
+                ambiente.estado = (int)dataReader["estado"];
+                ambiente.me = "";
+                if (ambiente.estado == 1)
+                {
+                    ambiente.me = "Se debe de realizar el pago inicial";
+                    return ambiente;
+                }
+                ambiente.descripcion = (string)dataReader["descripcion"];
+                ambiente.nombre = (string)dataReader["nombre"];
+                ambiente.usuario = (string)dataReader["usuario"];
+                ambiente.hotel = (string)dataReader["hotel"];
+                
+            }
+
+            return ambiente;
+        }
+
+        public MensajeBean RegistrarCheckIn(int id)
+        {
+            MensajeBean mensaje = new MensajeBean();
+
+            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error en conexion a base de datos";
+                return mensaje;
+            }
+
+            String queryIns = "UPDATE Evento SET estado = 3 WHERE idEvento = "+id;
+
+            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+
+            try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error al actualizar el evento: " + e.Message;
+                    return mensaje;
+                }
+
+            return mensaje;
+        }
     }
 }
