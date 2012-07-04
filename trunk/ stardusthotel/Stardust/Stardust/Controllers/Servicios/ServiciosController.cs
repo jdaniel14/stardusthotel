@@ -327,7 +327,7 @@ namespace Stardust.Controllers
         {
             System.Diagnostics.Debug.WriteLine("ASIGNAR : " + request.nroRes);
             ServiciosFacade servicioFacade = new ServiciosFacade();
-            MensajeBean mensaje = servicioFacade.asignarServicios(request.idSer, request.nroRes, request.dni, request.nRecib, request.monto, request.flagTipo, request.idHotel);
+            MensajeBean mensaje = servicioFacade.asignarServicios(request.idSer, request.nroRes,  request.monto, request.flagTipo, request.idHotel, request.nombServ);
             return Json(mensaje);
         }
     }

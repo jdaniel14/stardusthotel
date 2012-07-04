@@ -34,6 +34,7 @@ namespace Stardust.Controllers.Servicios
         [HttpPost]
         public JsonResult ListaHabitacion(int idHotel,string fechaIni,string fechaFin)
         {
+            System.Diagnostics.Debug.WriteLine("Hotel : " + idHotel);
             List<ListaHabitacion> listaHab = new List<ListaHabitacion>();
             listaHab = pagoFacade.listaHabitacion(idHotel, fechaIni, fechaFin);
 
