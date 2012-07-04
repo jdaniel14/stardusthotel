@@ -29,6 +29,14 @@
                 <div class = "clear" ></div>
             </div>
 
+            <div style="display:none">
+                @for (int i = 0; i < Model.Hoteles.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.Hoteles[i].ID)
+                    @Html.HiddenFor(m => m.Hoteles[i].nombre)
+                }
+            </div>
+
             <div class = "formRow" >
                 @Html.LabelFor(model => model.idTipoHabitacion)
                 <div class = "formRight" >
@@ -36,6 +44,14 @@
                     @Html.ValidationMessageFor(model => model.idTipoHabitacion)
                 </div>
                 <div class = "clear" ></div>
+            </div>
+
+            <div style="display:none">
+                @for (int i = 0; i < Model.TipoHabitaciones.Count; i++)
+                {
+                    @Html.HiddenFor(m => m.TipoHabitaciones[i].idTipoHabitacion)
+                    @Html.HiddenFor(m => m.TipoHabitaciones[i].nombre)
+                }
             </div>
 
             <div class = "formRow" >

@@ -77,7 +77,7 @@ namespace Stardust.Controllers
                     hotel.estado = true;
                     hotelFac.registrarHotel(hotel);
                     int idHotelAux = hotelFac.buscarHotel(hotel);
-                    hotelFac.registrarAlmacen(idHotelAux, hotel.Almacen);
+                    hotelFac.registrarAlmacen(idHotelAux, hotelVWC.Almacen);
                     return RedirectToAction("List"); //despues de crear a donde quieres que vaya???
                 }
                 return View(hotelVWC);

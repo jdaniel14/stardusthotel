@@ -55,6 +55,7 @@ namespace Stardust.Models
 
         [Display(Name = "Porcentaje de la temporada (%)")]
         [Required(ErrorMessage = "Ingrese un porcentaje")]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage="El valor ingresado debe ser un número")]
         public int? porcDescuento { get; set; }
 
         public List<HotelBean> Hoteles { get; set; }
