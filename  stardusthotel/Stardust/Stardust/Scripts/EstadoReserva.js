@@ -197,7 +197,7 @@ function llegadaReservas(data) {
 
     }
     else {
-        alert(data.me);
+        mostrarError(data.me);
     }
 }
 
@@ -240,12 +240,10 @@ function eliminadoReserva(data) {
 
         console.log("se hizo");
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
+        $(location).attr('href', '../');
     }
     else {
-        mostrarError(data.me);
-        if (data.me == "No se pudo enviar el email") {
-            $(location).attr('href', '../');
-        }
+        mostrarConfirmacionFinal(data.me);
     }
     
 }
