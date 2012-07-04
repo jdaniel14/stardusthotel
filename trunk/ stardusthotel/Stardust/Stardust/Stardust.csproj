@@ -209,6 +209,7 @@
     <Compile Include="Models\Servicios\Ambiente\AmbienteDAO.cs" />
     <Compile Include="Models\Servicios\Ambiente\AmbienteService.cs" />
     <Compile Include="Models\Servicios\Ambiente\Bean\AmbienteBean.cs" />
+    <Compile Include="Models\Servicios\Ambiente\Bean\Evento.cs" />
     <Compile Include="Models\Servicios\Ambiente\Bean\EventoResBean.cs" />
     <Compile Include="Models\Servicios\Ambiente\Bean\Request\RegAmbienteEventoBean.cs" />
     <Compile Include="Models\Servicios\Ambiente\Bean\Request\ResAmbRequest.cs" />
