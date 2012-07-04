@@ -262,7 +262,8 @@ function enviarDatos() {
 
 }
 
-function esperaConfirmacion(){
+function esperaConfirmacion() {
+    mostrarEspera();
 }
 
 function Confirma(data) {
@@ -272,11 +273,12 @@ function Confirma(data) {
     if (data.me == "") {
 
         console.log("se hizo");
+
         mostrarConfirmacionFinal('Reservar realizada ^_^!');
-        $(location).attr('href', '../');
     }
     else {
-        mostrarConfirmacionFinal(data.me);
+        mostrarError(data.me);
+
     }
 }
 
