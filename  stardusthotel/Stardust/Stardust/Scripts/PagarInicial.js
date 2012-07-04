@@ -135,7 +135,7 @@ function Comunion(data) {
     if (data.me == "") {
 
         console.log("se hizo");
-        mostrarConfirmacionFinal('Reservar realizada ^_^!');
+        mostrarConfirmacionFinal('Pago Realizado ^_^!');
         $(location).attr('href', '../');
     }
     else {
