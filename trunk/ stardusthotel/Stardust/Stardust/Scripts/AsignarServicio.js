@@ -2,6 +2,7 @@
 var x;
 x = $(document);
 x.ready(inicializarEventos);
+var LG;
 
 function inicializarEventos() {
 
@@ -107,7 +108,7 @@ function llegadaDatos(data){
  
 
     $.each(lista, function (i, item) {
-        result += '<option value= "' + item.id + '">' + item.nombre + '</option>';
+        result += '<option value= "' + item.id + '" id = "S' + item.id + '">' + item.nombre + '</option>';
     });
 
     var miValue2 = "NN";
@@ -121,12 +122,14 @@ function llegadaDatos(data){
 
 function enviar() {
 
+    
+
     var puedeEnviar;
 
     if (    ($("#ComboServicio").val() != "NN") &&
-            ($("#nDoc").get(0).value != "") &&
+//            ($("#nDoc").get(0).value != "") &&
             ($("#nReserva").get(0).value != "") &&
-            ($("#nRecibo").get(0).value != "") &&
+//            ($("#nRecibo").get(0).value != "") &&
             ($("#monto").get(0).value != "")
         ) {
         puedeEnviar = 1;
@@ -138,16 +141,19 @@ function enviar() {
 
     if (puedeEnviar == 1) {
 
-
+        
+        
 
         var telo = "1";
         var idService = $("#ComboServicio").val();
-
-        var numeroDocu = $("#nDoc").get(0).value;
+        var ID = "#S" + idService;
+        var nombreS = $(ID).text();
+        
+//        var numeroDocu = $("#nDoc").get(0).value;
 
         var numReser = $("#nReserva").get(0).value;
 
-        var numRecibito = $("#nRecibo").get(0).value;
+//        var numRecibito = $("#nRecibo").get(0).value;
 
         var canti = $("#monto").get(0).value;
 
@@ -157,10 +163,11 @@ function enviar() {
             idHotel: SendHotel,
             idSer: idService,
             nroRes: numReser,
-            dni: numeroDocu,
-            nRecib: numRecibito,
+//            dni: numeroDocu,
+//            nRecib: numRecibito,
             monto: canti,
-            flagTipo: tipoS
+            flagTipo: tipoS,
+            nombServ:nombreS
         }
 
         jsonData = JSON.stringify(enviar);

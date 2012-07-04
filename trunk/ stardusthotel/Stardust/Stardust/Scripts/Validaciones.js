@@ -58,7 +58,8 @@ function iniciarValidaciones() {
     $("#nReserva").change(validarSoloNumeros14);
 
     $("#idEvento").change(validarSoloNumeros14);
-    
+
+    $("#monto").change(validarSoloNumeros14);
 
 
     //**********************+Asignar PlaceHolder's*********************
@@ -139,6 +140,11 @@ function iniciarValidaciones() {
 
     if ($("#idEvento").length > 0) {
         input = document.getElementById("idEvento");
+        input.placeholder = "Sólo números";
+    }
+
+    if ($("#monto").length > 0) {
+        input = document.getElementById("monto");
         input.placeholder = "Sólo números";
     }
 
