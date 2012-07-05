@@ -67,12 +67,17 @@ function inicializarMostreo() {
 
         if (result == "RUC") {
             nombre = $("#razonDReserva").get(0).value;
-            email = $("#mail").get(0).value;
+            email = $("#mailNatural").get(0).value;
         }
         else {
             nombre = $("#nombreDReserva").get(0).value
             email = $("#mailNatural").get(0).value;
         }
+
+        if (correito != ""){
+            email = correito;
+        }
+
         $('#mostrarNombre').html(nombre);
         $('#mostrarEmail').html(email);
 
@@ -156,7 +161,9 @@ function enviarDatos() {
     var total1 = $('#Total').text();
     var listaTipos = new Array();
     var i = 0;
-
+    if (correito != ""){
+        email2 = correito;
+    }
 
     arreglosId.forEach(function (elemento) {
         var cmd = ""

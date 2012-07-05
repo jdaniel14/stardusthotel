@@ -68,6 +68,11 @@ function sgteConfirma() {
             nombre = $("#nombreDReserva").get(0).value
             email = correito;
         }
+
+        if (correito != "") {
+            email = correito;
+        }
+
         $('#mostrarNombre').html(nombre);
         $('#mostrarEmail').html(email);
 
@@ -113,6 +118,10 @@ function finDelChongo() {
             //comentario = $("#comment").get(0).value;
         }
 
+        if (correito != "") {
+            email2 = correito;
+        }
+
         var nDoc = $("#nDoc").get(0).value;
         var total1 = $('#Total').text();
         var passw = $("#password").get(0).value;
@@ -123,7 +132,7 @@ function finDelChongo() {
             nroDoc: nDoc,
             nomb: nombreEnvio,
             //apell: apellido,
-            email: correito,
+            email: email2,
             telf: telefono,
             tipoTarj: tipoDeTarjeta,
             nroTarj: numTarjeta
