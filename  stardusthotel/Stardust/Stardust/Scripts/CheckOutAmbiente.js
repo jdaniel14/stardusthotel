@@ -180,6 +180,8 @@ function FinEnvio(data) {
 
         console.log("se hizo");
 
+        window.open('../PagoClientes/AmbienteDocumento/' + data.id);
+
         mostrarConfirmacionFinal('Realizada ^^');
     }
     else {
