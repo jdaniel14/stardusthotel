@@ -26,6 +26,16 @@ namespace Stardust.Controllers.Servicios
             return View();
         }
 
+        public ActionResult CheckInAmbiente()
+        {
+            return View();
+        }
+
+        public ActionResult CheckOutAmbiente()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult ConsultarAmbientesDisponibles(RequestResHab request)
         {
