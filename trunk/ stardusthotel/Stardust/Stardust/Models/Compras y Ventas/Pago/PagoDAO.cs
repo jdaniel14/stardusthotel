@@ -681,7 +681,7 @@ namespace Stardust.Models
                 {
                     commandString = " SELECT u.nombres as nombre , u.idUsuario as id , p.montoFaltante as montoFaltante , p.montoTotal as montoTotal , e.pagoInicial as pagoInicial  " +
                                     " FROM Usuario u , Evento e , DocumentoPago p " +
-                                    " WHERE u.nroDocumento = " + request.doc + " AND e.estado = 1 AND e.idEvento = " + request.id + " AND u.idUsuario = p.idUsuario AND e.idEvento = p.idEvento";
+                                    " WHERE u.nroDocumento = '" + request.doc + "' AND e.estado = 1 AND e.idEvento = " + request.id + " AND u.idUsuario = p.idUsuario AND e.idEvento = p.idEvento";
                     SqlCommand sqlCmd2 = new SqlCommand(commandString, sqlCon);
                     SqlDataReader dataReader2 = sqlCmd2.ExecuteReader();
 
