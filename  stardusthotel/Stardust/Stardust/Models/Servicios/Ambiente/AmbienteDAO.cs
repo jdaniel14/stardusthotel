@@ -689,7 +689,15 @@ namespace Stardust.Models
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
-            sqlCon.Open();
+            try
+            {
+                sqlCon.Open();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error en conexion a base de datos";
+                return mensaje;
+            }
 
             String queryIns = "SELECT * FROM Evento WHERE idEvento = " + id;
 
@@ -722,7 +730,9 @@ namespace Stardust.Models
                     return mensaje;
                 }
 
-                DateTime fecha = DateTime.ParseExact(hoy, "dd-MM-yyyy", null);
+                DateTime fecha = new DateTime();
+
+                fecha = DateTime.ParseExact(hoy, "yyyy-MM-dd", null);
 
                 if (fecha > DateTime.Now)
                 {
@@ -731,15 +741,7 @@ namespace Stardust.Models
                 }
             }
 
-            try
-            {
-                sqlCon.Open();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error en conexion a base de datos";
-                return mensaje;
-            }
+            dataReader.Close();
 
             queryIns = "UPDATE Evento SET estado = 3 WHERE idEvento = "+id;
 
