@@ -71,7 +71,7 @@ function sgteConfirma() {
         $('#mostrarNombre').html(nombre);
         $('#mostrarEmail').html(email);
 
-        finDelChongo();
+        $("#registrar").click(finDelChongo);
     }
     else {
         mostrarError('Faltan Datos');        
@@ -205,11 +205,11 @@ function graciasTotales(data) {
     $("#espera").dialog("destroy");
     console.log(data.me);
     if (data.me == "") {
-        mostrarError('OK');
+        mostrarConfirmacionFinal('OK');
         $(location).attr('href', '../../');
     }
     else {
-        mostrarError(data.me);
+        mostrarConfirmacionFinal(data.me);
     }
 }
 

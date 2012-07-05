@@ -50,6 +50,7 @@ function iniciarValidaciones() {
     //Estado Reserva
     $("#nroReserva").change(validarSoloNumeros14);
     $("#nroDocumento").change(validarSoloNumeros14);
+    $("#idReserva").change(validarSoloNumeros14);
 
     //Ubicacion del cliente
 //    $("#nombre").change(validarSoloTexto45);
@@ -125,6 +126,11 @@ function iniciarValidaciones() {
 //    }
     if ($("#nParticipantes").length > 0) {
         input = document.getElementById("nParticipantes");
+        input.placeholder = "Sólo números";
+    }
+
+    if ($("#idReserva").length > 0) {
+        input = document.getElementById("idReserva");
         input.placeholder = "Sólo números";
     }
 
