@@ -1586,7 +1586,9 @@
     <Content Include="Scripts\AmbientesFinal.js" />
     <Content Include="Scripts\AsignarServicio.js" />
     <Content Include="Scripts\CheckIn.js" />
+    <Content Include="Scripts\CheckInAmbiente.js" />
     <Content Include="Scripts\checkOut.js" />
+    <Content Include="Scripts\CheckOutAmbiente.js" />
     <Content Include="Scripts\DatosEvento.js" />
     <Content Include="Scripts\EstadoReserva.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
@@ -4577,6 +4579,7 @@
     <Content Include="Views\AsignarServicios\ListarServicios.cshtml" />
     <Content Include="Views\AsignarServicios\ModificarServicios.cshtml" />
     <Content Include="Views\Producto\Index.cshtml" />
+    <Content Include="Views\PagoClientes\Ambiente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
