@@ -123,7 +123,7 @@ function finDelChongo() {
             nroDoc: nDoc,
             nomb: nombreEnvio,
             //apell: apellido,
-            email: email2,
+            email: correito,
             telf: telefono,
             tipoTarj: tipoDeTarjeta,
             nroTarj: numTarjeta
