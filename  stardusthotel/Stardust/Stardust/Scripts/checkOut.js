@@ -83,15 +83,7 @@ function llegadaCheckOut(data) {
     result += '<table cellpadding = "0" cellspacing = "0" width = "100%" class = "sTable" >';
 
     result += '<thead><tr><td>Detalle</td><td>Cantidad</td><td>Precio Unitario</td><td>Total</td></tr></thead>';
-
-//    result += '<tfoot>';
-
-//    result += '<tr><th></th><th></th><th>SubTotal</th><th id="subTotal">' + data.subTotal + '</th></tr>';
-//    result += '<tr><th></th><th></th><th>IGV</th><th id="IGV">' + data.IGV + '</th></tr>';
-//    result += '<tr><th></th><th></th><th>Total</th><th id="total">' + data.total + '</th></tr>';    
-
-//    result += '</tfoot>';
-
+    
     result += '<tbody>';
 
     $.each(lista, function (i, item) {

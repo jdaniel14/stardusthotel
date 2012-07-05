@@ -24,13 +24,27 @@ function enviar() {
             data: jsonData,
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            url: "CheckIn",
-            beforeSend: inicioEnvio(),
-            success: FinEnvio
+            url: "CheckOut",
+            beforeSend: inicioMostrar(),
+            success: FinMostrar
         });
     }
     else {
         mostrarError("Ingrese la reserva");
+    }
+}
+
+function inicioMostrar() {
+}
+
+function FinMostrar(data) {
+    console.log(data);
+
+    if (data.me = "") {
+
+    }
+    else {
+        mostrarError(data.me);
     }
 }
 
