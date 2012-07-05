@@ -173,7 +173,7 @@ function inicioEnvio() {
     mostrarEspera();
 }
 
-function FinEnvio() {
+function FinEnvio(data) {
     $("#espera").dialog("destroy");
     console.log(data.me);
 
