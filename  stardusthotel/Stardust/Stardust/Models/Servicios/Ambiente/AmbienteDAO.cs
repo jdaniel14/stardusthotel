@@ -689,6 +689,48 @@ namespace Stardust.Models
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
+            sqlCon.Open();
+
+            String queryIns = "SELECT * FROM Evento WHERE idEvento = " + id;
+
+            SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);
+            SqlDataReader dataReader;
+
+            try
+            {
+                dataReader = sqlCmd2.ExecuteReader();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error al encontrar el evento";
+                return mensaje;
+            }
+
+            if (!dataReader.HasRows)
+            {
+                mensaje.me = "No se encuentra el evento";
+                return mensaje;
+            }
+            else
+            {
+                dataReader.Read();
+                string hoy = (string)dataReader["fechaIni"];
+                int estado = (int)dataReader["estado"];
+                if (estado == 1)
+                {
+                    mensaje.me = "Aun debe realizar el pago inicial";
+                    return mensaje;
+                }
+
+                DateTime fecha = DateTime.ParseExact(hoy, "dd-MM-yyyy", null);
+
+                if (fecha > DateTime.Now)
+                {
+                    mensaje.me = "Aun no se puede realizar el check in hasta el :" + hoy;
+                    return mensaje;
+                }
+            }
+
             try
             {
                 sqlCon.Open();
@@ -699,7 +741,7 @@ namespace Stardust.Models
                 return mensaje;
             }
 
-            String queryIns = "UPDATE Evento SET estado = 3 WHERE idEvento = "+id;
+            queryIns = "UPDATE Evento SET estado = 3 WHERE idEvento = "+id;
 
             SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
 
