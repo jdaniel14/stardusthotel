@@ -1,4 +1,5 @@
-﻿var x = $(document);
+﻿var res;
+var x = $(document);
 x.ready(inicio);
 
 function inicio() {
@@ -40,7 +41,9 @@ function inicioMostrar() {
 function FinMostrar(data) {
     console.log(data);
 
-    if (data.me = "") {
+    if (data.me == "") {
+
+        res = data.id;
         var result = "";
 
         result += '<div class="widget"><div class="title"><h6>Datos del Cliente</h6></div>';
@@ -65,19 +68,14 @@ function FinMostrar(data) {
         result += '<div class = "formRight" >';
         result += '<span id = fechaFin>' + data.fechaFin + '</span>';
         result += '</div><div class="clear"></div></div>';
-
-        result += '<div class="formRow"><span>Fecha Actual</span>';
-        result += '<div class = "formRight" >';
-        result += '<span id = fechaHoy>' + data.fechaHoy + '</span>';
-        result += '</div><div class="clear"></div></div>';
-
+                
         result += '</div>';
 
         $("#datosCliente").html(result);
 
         result = "";
 
-        var lista = data.listaDetalles;
+        var lista = data.listaDetalle;
 
         result += '<div class="widget"><div class = "title"><h6>Detalle de cuenta</h6></div>'
 
@@ -100,11 +98,11 @@ function FinMostrar(data) {
             result += '</td>';
 
             result += '<td align = "center">';
-            result += '<span>' + item.pUnit + '</span>';
+            result += '<span>' + item.precioUnit + '</span>';
             result += '</td>';
 
             result += '<td align = "center">';
-            result += '<span>' + item.totalDet + '</span>';
+            result += '<span>' + item.total + '</span>';
             result += '</td>';
 
             result += '</tr>';
@@ -112,7 +110,7 @@ function FinMostrar(data) {
         });
 
         result += '<tr><td></td><td></td><td><h6>SubTotal</h6></td><td id="subTotal">' + data.subTotal + '</td></tr>';
-        result += '<tr><td></td><td></td><td><h6>IGV</h6></td><td id="IGV">' + data.IGV + '</td></tr>';
+        result += '<tr><td></td><td></td><td><h6>IGV</h6></td><td id="IGV">' + data.igv + '</td></tr>';
         result += '<tr><td></td><td></td><td><h6>Total</h6></td><td id="total">' + data.total + '</td></tr>';
 
         result += '</tbody></table>';
@@ -152,6 +150,7 @@ function FinMostrar(data) {
 }
 
 function enviarviar() {
+    
     var enviar = {
         idEvento: res
     }
@@ -163,7 +162,7 @@ function enviarviar() {
         data: jsonData,
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        url: "RegitrarCheckOut",
+        url: "RegistrarCheckOut",
         beforeSend: inicioEnvio(),
         success: FinEnvio
     });
