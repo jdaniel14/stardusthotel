@@ -24,7 +24,7 @@ namespace Stardust.Models
                 objDB.Open();
                 String strQuery = "SELECT * FROM Habitacion WHERE idHabitacion = @idHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
-                DAO.agregarParametro(objQuery, "idHabitacion", id);
+                DAO.agregarParametro(objQuery, "@idHabitacion", id);
 
                 SqlDataReader data = objQuery.ExecuteReader();
                 if (data.HasRows)
@@ -32,15 +32,15 @@ namespace Stardust.Models
                     data.Read();
                     habitacion = new HabitacionBean();
 
-                    habitacion.ID = (int)data.GetValue(0);
-                    habitacion.piso = (int)data.GetValue(1);
-                    habitacion.estado = (string)data.GetValue(2);
-                    habitacion.nroBanos = (int)data.GetValue(3);
-                    habitacion.aptoFumador = (bool)data.GetValue(4);
-                    habitacion.nroCamas = (int)data.GetValue(5);
-                    habitacion.idHotel = (int)data.GetValue(6);
-                    habitacion.idTipoHabitacion = (int)data.GetValue(7);
-                    habitacion.numero = (string)data.GetValue(8);
+                    habitacion.ID = Convert.ToInt32(data["idHabitacion"]);
+                    habitacion.piso = Convert.ToInt32(data["piso"]);
+                    habitacion.estado = Convert.ToString(data["estado"]);
+                    habitacion.nroBanos = Convert.ToInt32(data["nroBanos"]);
+                    habitacion.aptoFumador = Convert.ToBoolean(data["aptoFumador"]);
+                    habitacion.nroCamas = Convert.ToInt32(data["nroCamas"]);
+                    habitacion.numero = Convert.ToString(data["numero"]);
+                    habitacion.idHotel = Convert.ToInt32(data["idHotel"]);
+                    habitacion.idTipoHabitacion = Convert.ToInt32(data["idTipoHabitacion"]);
                 }
                 return habitacion;
             }
@@ -106,26 +106,27 @@ namespace Stardust.Models
                                     "nroBanos = @nroBanos," +
                                     "nroCamas = @nroCamas," +
                                     "aptoFumador = @aptoFumador," +
+                                    "numero = @numero, " +
                                     "idHotel = @idHotel," +
                                     "idTipoHabitacion = @idTipoHabitacion " +
-                                    "numero = @numero " +
                                     "WHERE idHabitacion = @idHabitacion";
                 SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                DAO.agregarParametro(objQuery, "idHabitacion", habitacion.ID);
                 DAO.agregarParametro(objQuery, "piso", habitacion.piso);
                 DAO.agregarParametro(objQuery, "estado", habitacion.estado);
                 DAO.agregarParametro(objQuery, "nroBanos", habitacion.nroBanos);
                 DAO.agregarParametro(objQuery, "nroCamas", habitacion.nroCamas);
                 DAO.agregarParametro(objQuery, "aptoFumador", (habitacion.aptoFumador ? 1 : 0));
+                DAO.agregarParametro(objQuery, "numero", habitacion.numero);
                 DAO.agregarParametro(objQuery, "idHotel", habitacion.idHotel);
                 DAO.agregarParametro(objQuery, "idTipoHabitacion", habitacion.idTipoHabitacion);
-                DAO.agregarParametro(objQuery, "numero", habitacion.numero);
-                DAO.agregarParametro(objQuery, "idHabitacion", habitacion.ID);
 
 
                 objQuery.ExecuteNonQuery();
             }
             catch (Exception e) {
                 log.Error("actualizarHabitacion(EXCEPTION): ", e);
+                throw (e);
             }
             finally
             {
@@ -167,7 +168,7 @@ namespace Stardust.Models
             try
             {
                 objDB = new SqlConnection(cadenaDB);
-                List<HabitacionBean> lstHabitaciones = null;
+                List<HabitacionBean> lstHabitaciones = new List<HabitacionBean>();
 
                 objDB.Open();
                 String strQuery = "SELECT A.*, B.nombre, C.nombre " +
@@ -179,21 +180,21 @@ namespace Stardust.Models
 
                 if (objDataReader.HasRows)
                 {
-                    lstHabitaciones = new List<HabitacionBean>();
+                    //lstHabitaciones = new List<HabitacionBean>();
 
                     while (objDataReader.Read())
                     {
                         HabitacionBean habitacion = new HabitacionBean();
 
-                        habitacion.ID = (int)objDataReader.GetValue(0);
-                        habitacion.piso = (int)objDataReader.GetValue(1);
-                        habitacion.estado = (string)objDataReader.GetValue(2);
-                        habitacion.nroBanos = (int)objDataReader.GetValue(3);
-                        habitacion.aptoFumador = (bool)objDataReader.GetValue(4);
-                        habitacion.nroCamas = (int)objDataReader.GetValue(5);
-                        habitacion.idHotel = (int)objDataReader.GetValue(6);
-                        habitacion.idTipoHabitacion = (int)objDataReader.GetValue(7);
-                        habitacion.numero = (string)objDataReader.GetValue(8);
+                        habitacion.ID = Convert.ToInt32(objDataReader["idHabitacion"]);
+                        habitacion.piso = Convert.ToInt32(objDataReader["piso"]);
+                        habitacion.estado = Convert.ToString(objDataReader["estado"]);
+                        habitacion.nroBanos = Convert.ToInt32(objDataReader["nroBanos"]);
+                        habitacion.aptoFumador = Convert.ToBoolean(objDataReader["aptoFumador"]);
+                        habitacion.nroCamas = Convert.ToInt32(objDataReader["nroCamas"]);
+                        habitacion.numero = Convert.ToString(objDataReader["numero"]);
+                        habitacion.idHotel = Convert.ToInt32(objDataReader["idHotel"]);
+                        habitacion.idTipoHabitacion = Convert.ToInt32(objDataReader["idTipoHabitacion"]);
                         habitacion.nombreHotel = this.getNombreHotel(habitacion.idHotel);
                         habitacion.nombreTipoHabitacion = this.getTipoHabitacion(habitacion.idTipoHabitacion);
 
@@ -344,6 +345,34 @@ namespace Stardust.Models
             }
             finally {
                 if (sql != null) sql.Close();
+            }
+        }
+
+        public bool existeNumeroHabitacionYA(int idHotel, string numeroHabitacion)
+        {
+            SqlConnection objDB = null;
+            try
+            {
+                objDB = new SqlConnection(cadenaDB);
+
+                objDB.Open();
+                String strQuery = "SELECT * FROM Habitacion WHERE idHotel = @idHotel AND numero = @numeroHabitacion";
+                SqlCommand objQuery = new SqlCommand(strQuery, objDB);
+                Utils.agregarParametro(objQuery, "@idHotel", idHotel);
+                Utils.agregarParametro(objQuery, "@numeroHabitacion", numeroHabitacion);
+
+                SqlDataReader objDataReader = objQuery.ExecuteReader();
+
+                return objDataReader.HasRows;
+            }
+            catch (Exception e)
+            {
+                log.Error("existeNumeroHabitacionYA(EXCEPTION): ", e);
+                throw (e);
+            }
+            finally
+            {
+                if (objDB != null) objDB.Close();
             }
         }
     }

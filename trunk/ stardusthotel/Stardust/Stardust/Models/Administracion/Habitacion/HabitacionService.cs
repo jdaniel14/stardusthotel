@@ -33,5 +33,10 @@ namespace Stardust.Models
         {
             return habitacionDAO.buscarHabitacion(idTipoHabitacion, nroCamas,piso);
         }
+
+        public bool existeNumeroHabitacionYA(int idHotel, string numeroHabitacion)
+        {
+            return habitacionDAO.existeNumeroHabitacionYA(idHotel, numeroHabitacion);
+        }
     }
 }

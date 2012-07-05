@@ -1,19 +1,22 @@
 ﻿@model IEnumerable<Stardust.Models.HabitacionBean>
 
 @{
-    ViewBag.Title = "Habitaciones";
+    ViewBag.Title = "Buscar Habitaciones";
 }
 
-<h2>Habitaciones</h2>
+<h2>@ViewBag.Title</h2>
 
 @using( Html.BeginForm( "Buscar" , "Habitacion" , FormMethod.Post , new { @class = "form" } ) ){
     <fieldset>
         <div class = "widget" >
-            <div class = "title"><h6>Buscar Habitación</h6></div>
+            <div class = "title">
+                <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">                        
+                <h6>@ViewBag.Title</h6>
+            </div>
 
             <div class = "formRow" >
                 <label>Tipo de habitación</label>
-                <div class = "formRight" > @Html.DropDownList( "idTipoHabitacion" , new SelectList( ViewBag.listaTipoHabitacion , "ID" , "nombre" ) , "Elije un tipo de habitación..." ) </div>
+                <div class = "formRight" > @Html.DropDownList("idTipoHabitacion", new SelectList(ViewBag.listaTipoHabitacion, "ID", "nombre"), "Elije un tipo de habitación...") </div>
                 <div class = "clear" ></div>
             </div>
 
@@ -37,7 +40,8 @@
 
 <p></p><p></p>
 
-@if (!String.IsNullOrEmpty(ViewBag.results + "" )) { 
+@if (!String.IsNullOrEmpty(ViewBag.results + ""))
+{ 
     <div class="nNote nInformation hideit">
         <p><strong>Encontrados: </strong>@ViewBag.results empleado(s)</p>
     </div>
@@ -68,9 +72,9 @@
                         <td>@Html.DisplayFor(modelItem => item.piso)</td>
                         <td>@Html.DisplayFor(modelItem => item.estado)</td>
                         <td>
-                            <a href="@Url.Action("Edit", new { id = item.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar </a> | 
-                            <a href="@Url.Action("Details", new { id = item.ID })"><img src="../../Content/images/icons/color/edit-column.png", alt="Details" />Detalles</a> | 
-                            <a href="@Url.Action("Delete", new { id = item.ID })"><img src="../../Content/images/icons/color/cross.png", alt="Delete" />Borrar</a>
+                            <a href="@Url.Action("Edit", new { id = item.ID })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar </a> | 
+                            <a href="@Url.Action("Details", new { id = item.ID })"><img src="@Url.Content("~/Content/images/icons/color/edit-column.png")" alt="Details" />Detalles</a> | 
+                            <a href="@Url.Action("Delete", new { id = item.ID })"><img src="@Url.Content("~/Content/images/icons/color/cross.png")" alt="Delete" />Borrar</a>
                         </td>
                     </tr>
         

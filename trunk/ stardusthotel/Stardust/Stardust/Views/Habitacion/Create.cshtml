@@ -1,7 +1,7 @@
 ﻿@model Stardust.Models.HabitacionBean
 
 @{
-    ViewBag.Title = "Crear habitación";
+    ViewBag.Title = "Registrar habitación";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,7 +10,9 @@
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
 
 
-@using (Html.BeginForm("Create", "Habitacion", FormMethod.Post, new { @class = "form", id = "validate" }))
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm("Create", "Habitacion", FormMethod.Post, new { @class = "form"}))
 {
     <fieldset>
         <div class = "widget" >
@@ -19,7 +21,7 @@
             <div class = "formRow" >
                 @Html.LabelFor(model => model.idHotel)
                 <div class = "formRight" > 
-                    @Html.DropDownListFor(model => model.idHotel, new SelectList(ViewBag.listaHoteles, "ID", "nombre"), "..Elija un Hotel", new { onchange = "this.form.submit();" })
+                    @Html.DropDownListFor(model => model.idHotel, new SelectList(ViewBag.listaHoteles, "ID", "nombre"), "Elija un Hotel", new { onchange = "this.form.submit();" })
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     @Html.ValidationMessageFor(model => model.idHotel)
                 </div>
@@ -29,7 +31,7 @@
             <div class = "formRow" >
                 @Html.LabelFor(model => model.idTipoHabitacion)
                 <div class = "formRight" > 
-                    @Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(ViewBag.listaTipoHabitacion, "ID", "nombre"), "..Elija un Tipo de Habitación")
+                    @Html.DropDownListFor(model => model.idTipoHabitacion, new SelectList(ViewBag.listaTipoHabitacion, "ID", "nombre"), "Elija un Tipo de Habitación")
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     @Html.ValidationMessageFor(model => model.idTipoHabitacion)
                 </div>
