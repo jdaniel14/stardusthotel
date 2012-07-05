@@ -50,7 +50,7 @@ namespace Stardust.Controllers
         }
         #endregion
 
-
+        #region Create
         // GET: /Usuario/Create
         public ActionResult Create()
         {
@@ -103,58 +103,113 @@ namespace Stardust.Controllers
                 return View(usuarioVMC);
             }
         }
-        
+        #endregion
+
+        #region Edit
         // GET: /Usuario/Edit/5
         public ActionResult Edit(int id)
         {
+            var usuarioVME = new UsuarioViewModelEdit();
             try
             {
-                var model = usuarioFac.getUsuario(id);
-                //System.Diagnostics.Debug.WriteLine("Perfil del usuario = " + model.idPerfilUsuario);
+                UsuarioBean usuario = usuarioFac.getUsuario(id);
+                usuarioVME = Mapper.Map<UsuarioBean, UsuarioViewModelEdit>(usuario);
 
-                PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
-                ViewBag.perfiles = perfilFac.listarPerfiles();
+                usuarioVME.Departamentos = Utils.listarDepartamentos();
+                usuarioVME.Provincias = Utils.listarProvincias(usuario.idDepartamento); 
+                usuarioVME.Distritos = Utils.listarDistritos(usuario.idDepartamento, usuario.idProvincia);
+                
+                usuarioVME.Documentos = new List<TipoDocumento>();
+                usuarioVME.Documentos.Add(new TipoDocumento() { nombre = "DNI" });
+                usuarioVME.Documentos.Add(new TipoDocumento() { nombre = "RUC" });
+                usuarioVME.Documentos.Add(new TipoDocumento() { nombre = "PASAPORTE" });
+                usuarioVME.Documentos.Add(new TipoDocumento() { nombre = "CARNET DE EXTRANJERIA" });
 
-                List<TipoDocumento> docs = new List<TipoDocumento>();
-                TipoDocumento d1 = new TipoDocumento() { nombre = "DNI" };
-                TipoDocumento d2 = new TipoDocumento() { nombre = "RUC" };
-                TipoDocumento d3 = new TipoDocumento() { nombre = "PASAPORTE" };
-                TipoDocumento d4 = new TipoDocumento() { nombre = "CARNE DE EXTRANJERIA" };
-                docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
-                ViewBag.documentos = docs;
-
-                ViewBag.departamentos = Utils.listarDepartamentos();
-                ViewBag.provincias = Utils.listarProvincias(model.idDepartamento);
-                ViewBag.distritos = Utils.listarDistritos(model.idDepartamento, model.idProvincia);
-
-                return View(model);
-            }catch( Exception e ) {
-                log.Error("Edit - GET(EXCEPTION): ", e);
-                ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
-                return View(new UsuarioBean());
+                usuarioVME.PerfilesUsuario = new PerfilUsuarioFacade().listarPerfiles();
+                return View(usuarioVME);
+            }
+            catch (Exception ex)
+            {
+                log.Error("Edit - GET(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVME);
             }
         }
 
         // POST: /Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit(UsuarioBean usuariobean)
+        public ActionResult Edit(UsuarioViewModelEdit usuarioVME)
         {
             try
             {
-                //System.Diagnostics.Debug.WriteLine("Perfil de Usuario = " + usuariobean.idPerfilUsuario);
-                //if (ModelState.IsValid)
-                //{
-                usuarioFac.actualizarUsuario(usuariobean);
-                return RedirectToAction("Details", new { id = usuariobean.ID } );
+                if (ModelState.IsValid)
+                {
+                    var usuario = Mapper.Map<UsuarioViewModelEdit, UsuarioBean>(usuarioVME);
+                    usuarioFac.actualizarUsuario(usuario);
+                    return RedirectToAction("List");
+                }
+                return View(usuarioVME);
             }
-            catch(Exception e ) {
-                log.Error("Edit - POST(EXCEPTION): ", e);
-                ViewBag.results = "Ocurrió un error al intentar modificar el usuario";
-                return View(usuariobean);
+            catch (Exception ex)
+            {
+                log.Error("Edit - POST(EXCEPTION): ", ex);
+                ModelState.AddModelError("", ex.Message);
+                return View(usuarioVME);
             }
-            //}
-            //return View();
         }
+        #endregion
+
+        //// GET: /Usuario/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+        //    try
+        //    {
+        //        var model = usuarioFac.getUsuario(id);
+        //        //System.Diagnostics.Debug.WriteLine("Perfil del usuario = " + model.idPerfilUsuario);
+
+        //        PerfilUsuarioFacade perfilFac = new PerfilUsuarioFacade();
+        //        ViewBag.perfiles = perfilFac.listarPerfiles();
+
+        //        List<TipoDocumento> docs = new List<TipoDocumento>();
+        //        TipoDocumento d1 = new TipoDocumento() { nombre = "DNI" };
+        //        TipoDocumento d2 = new TipoDocumento() { nombre = "RUC" };
+        //        TipoDocumento d3 = new TipoDocumento() { nombre = "PASAPORTE" };
+        //        TipoDocumento d4 = new TipoDocumento() { nombre = "CARNE DE EXTRANJERIA" };
+        //        docs.Add(d1); docs.Add(d2); docs.Add(d3); docs.Add(d4);
+        //        ViewBag.documentos = docs;
+
+        //        ViewBag.departamentos = Utils.listarDepartamentos();
+        //        ViewBag.provincias = Utils.listarProvincias(model.idDepartamento);
+        //        ViewBag.distritos = Utils.listarDistritos(model.idDepartamento, model.idProvincia);
+
+        //        return View(model);
+        //    }catch( Exception e ) {
+        //        log.Error("Edit - GET(EXCEPTION): ", e);
+        //        ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
+        //        return View(new UsuarioBean());
+        //    }
+        //}
+
+        //// POST: /Usuario/Edit/5
+        //[HttpPost]
+        //public ActionResult Edit(UsuarioBean usuariobean)
+        //{
+        //    try
+        //    {
+        //        //System.Diagnostics.Debug.WriteLine("Perfil de Usuario = " + usuariobean.idPerfilUsuario);
+        //        //if (ModelState.IsValid)
+        //        //{
+        //        usuarioFac.actualizarUsuario(usuariobean);
+        //        return RedirectToAction("Details", new { id = usuariobean.ID } );
+        //    }
+        //    catch(Exception e ) {
+        //        log.Error("Edit - POST(EXCEPTION): ", e);
+        //        ViewBag.results = "Ocurrió un error al intentar modificar el usuario";
+        //        return View(usuariobean);
+        //    }
+        //    //}
+        //    //return View();
+        //}
 
         // GET: /Usuario/Delete/5
         public ActionResult Delete(int id)

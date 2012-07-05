@@ -132,6 +132,9 @@
 </fieldset>
 
 <p>
-    <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar</a>
-    @*@Html.ActionLink("Regresar", "List")*@
+    <a href="@Url.Action("Edit", new { id = Model.ID })">
+        <img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />
+        Editar |
+    </a>
+    @Html.ActionLink("Regresar", "List")
 </p>

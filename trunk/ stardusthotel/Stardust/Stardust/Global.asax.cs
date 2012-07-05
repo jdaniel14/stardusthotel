@@ -65,6 +65,8 @@ namespace Stardust
             Mapper.CreateMap<UsuarioBean, UsuarioViewModelList>();
             Mapper.CreateMap<UsuarioBean, UsuarioViewModelDetails>();
             Mapper.CreateMap<UsuarioViewModelCreate, UsuarioBean>();
+            Mapper.CreateMap<UsuarioBean, UsuarioViewModelEdit>();
+            Mapper.CreateMap<UsuarioViewModelEdit, UsuarioBean>();
             log.Debug("Termino de cargar los mapeos del sistema");
                 //.ForMember(dest => dest.nombre, opt => opt.MapFrom(src => src.nombre))
                 //.ForMember(dest => dest.razonSocial, opt => opt.MapFrom(src => src.razonSocial))

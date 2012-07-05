@@ -1,10 +1,11 @@
-﻿@model Stardust.Models.UsuarioBean
+﻿@*@model Stardust.Models.UsuarioBean*@
+@model Stardust.Models.UsuarioViewModelEdit
 
 @{
     ViewBag.Title = "Modificar usuario";
 }
 
-<h2>Modificar usuario</h2>
+<h2>@ViewBag.Title</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
@@ -16,172 +17,186 @@
     });
 </script>
 
-@if (!String.IsNullOrEmpty(ViewBag.results)) { 
+@*@if (!String.IsNullOrEmpty(ViewBag.results)) { 
     <div class="nNote nWarning hideit">
         <p><strong>AVISO: </strong>@ViewBag.results</p>
     </div>
-}
+}*@
 
-@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" } ))
+@Html.ValidationSummary(true)
+
+
+@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post, new { @class = "form" }))
 {
-    @Html.ValidationSummary(true)
     <fieldset>
         <div class = "widget" >
-            <div class = "title" ><h6> Modificar usuario </h6></div>
+            <div class = "title" >
+                <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">            
+                <h6>@ViewBag.Title</h6>
+            </div>
 
             <div class = "formRow" >
-                @Html.LabelFor( model => model.idPerfilUsuario )
+                @Html.LabelFor(model => model.idPerfilUsuario)
                 <div class = "formRight" >
-                    @Html.DropDownListFor( model => model.idPerfilUsuario , new SelectList( ViewBag.perfiles , "ID" , "nombre" , Model.idPerfilUsuario ) , "Elije un perfil..." )
-                    @Html.ValidationMessageFor( model => model.idPerfilUsuario )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.user_account )
-                <div class = "formRight" > @Html.DisplayFor( model => model.user_account ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.pass )
-                <div class = "formRight" > @Html.DisplayFor( model => model.pass ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.nombres )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.nombres )
-                    @Html.ValidationMessageFor( model => model.nombres )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.apPat )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.apPat )
-                    @Html.ValidationMessageFor( model => model.apPat )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.apMat )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.apMat )
-                    @Html.ValidationMessageFor( model => model.apMat )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.email )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.email )
-                    @Html.ValidationMessageFor( model => model.email )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.celular )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.celular )
-                    @Html.ValidationMessageFor( model => model.celular )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.tipoDocumento )
-                <div class = "formRight" >
-                    @Html.DropDownListFor( model => model.tipoDocumento , new SelectList( ViewBag.documentos , "nombre" , "nombre" , Model.tipoDocumento ) , "Elije un tipo de documento..." )
-                    @Html.ValidationMessageFor( model => model.tipoDocumento )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.nroDocumento )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.nroDocumento )
-                    @Html.ValidationMessageFor( model => model.nroDocumento )
-                </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.razonSocial )
-                <div class = "formRight" >
-                    @Html.TextBoxFor( model => model.razonSocial )
-                    @Html.ValidationMessageFor( model => model.razonSocial )
+                    @Html.DropDownListFor(model => model.idPerfilUsuario, new SelectList(Model.PerfilesUsuario, "ID", "nombre", Model.idPerfilUsuario), "Elije un perfil...")
+                    @Html.ValidationMessageFor(model => model.idPerfilUsuario)
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             @*<div class = "formRow" >
-                @Html.LabelFor( model => model.idDepartamento )
-                <div class = "formRight" > @Html.DisplayFor( model => model.nombreDepartamento ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idProvincia )
-                <div class = "formRight" > @Html.DisplayFor( model => model.nombreProvincia ) </div>
-                <div class = "clear" ></div>
-            </div>
-
-            <div class = "formRow" >
-                @Html.LabelFor( model => model.idDistrito )
-                <div class = "formRight" > @Html.DisplayFor( model => model.nombreDistrito ) </div>
+                @Html.LabelFor(model => model.user_account)
+                <div class = "formRight" > @Html.DisplayFor(model => model.user_account) </div>
                 <div class = "clear" ></div>
             </div>*@
+
+            @*<div class = "formRow" >
+                @Html.LabelFor(model => model.pass)
+                <div class = "formRight" > @Html.DisplayFor(model => model.pass) </div>
+                <div class = "clear" ></div>
+            </div>*@
+
             <div class = "formRow" >
-                @Html.LabelFor( model => model.idDepartamento )
+                @Html.LabelFor(model => model.nombres)
                 <div class = "formRight" >
-                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(ViewBag.departamentos, "ID", "nombre" , Model.idDepartamento ), "Elije un departamento...")
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    @Html.ValidationMessageFor( model => model.idDepartamento )
+                    @Html.TextBoxFor(model => model.nombres)
+                    @Html.ValidationMessageFor(model => model.nombres)
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor( model => model.idProvincia )
+                @Html.LabelFor(model => model.apPat)
                 <div class = "formRight" >
-                    @Html.DropDownListFor(model => model.idProvincia, new SelectList(ViewBag.provincias, "ID", "nombre" , Model.idProvincia ), "Elije una provincia...")
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    @Html.ValidationMessageFor( model => model.idProvincia )
+                    @Html.TextBoxFor(model => model.apPat)
+                    @Html.ValidationMessageFor(model => model.apPat)
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor( model => model.idDistrito )
+                @Html.LabelFor(model => model.apMat)
                 <div class = "formRight" >
-                    @Html.DropDownListFor(model => model.idDistrito, new SelectList(ViewBag.distritos, "ID", "nombre" , Model.idDistrito ), "Elije un distrito...")
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    @Html.ValidationMessageFor( model => model.idDistrito )
+                    @Html.TextBoxFor(model => model.apMat)
+                    @Html.ValidationMessageFor(model => model.apMat)
                 </div>
                 <div class = "clear" ></div>
             </div>
 
             <div class = "formRow" >
-                @Html.LabelFor( model => model.direccion )
+                @Html.LabelFor(model => model.email)
                 <div class = "formRight" >
-                    @Html.DisplayFor( model => model.direccion )
-                    @*@Html.ValidationMessageFor( model => model.direccion )*@
+                    @Html.TextBoxFor(model => model.email)
+                    @Html.ValidationMessageFor(model => model.email)
                 </div>
                 <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.celular)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.celular)
+                    @Html.ValidationMessageFor(model => model.celular)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.tipoDocumento)
+                <div class = "formRight" >
+                    @Html.DropDownListFor(model => model.tipoDocumento, new SelectList(Model.Documentos, "nombre", "nombre", Model.tipoDocumento), "Elije un tipo de documento...")
+                    @Html.ValidationMessageFor(model => model.tipoDocumento)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.nroDocumento)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.nroDocumento)
+                    @Html.ValidationMessageFor(model => model.nroDocumento)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.razonSocial)
+                <div class = "formRight" >
+                    @Html.TextBoxFor(model => model.razonSocial)
+                    @Html.ValidationMessageFor(model => model.razonSocial)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.direccion)
+                <div class = "formRight" >
+                    @Html.DisplayFor(model => model.direccion)
+                    @Html.ValidationMessageFor( model => model.direccion )
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDepartamento)
+                <div class = "formRight" >
+                    @Html.DropDownListFor(model => model.idDepartamento, new SelectList(Model.Departamentos, "ID", "nombre", Model.idDepartamento), "Elije un departamento...")
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDepartamento)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div>
+                @for (int i = 0; i < Model.Departamentos.Count; i++)
+                {
+                    @Html.HiddenFor(model => model.Departamentos[i].ID)
+                    @Html.HiddenFor(model => model.Departamentos[i].nombre)
+                }
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idProvincia)
+                <div class = "formRight" >
+                    @Html.DropDownListFor(model => model.idProvincia, new SelectList(Model.Provincias, "ID", "nombre", Model.idProvincia), "Elije una provincia...")
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idProvincia)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div>
+                @for (int i = 0; i < Model.Provincias.Count; i++)
+                {
+                    @Html.HiddenFor(model => model.Provincias[i].ID)
+                    @Html.HiddenFor(model => model.Provincias[i].nombre)
+                }
+            </div>
+
+            <div class = "formRow" >
+                @Html.LabelFor(model => model.idDistrito)
+                <div class = "formRight" >
+                    @Html.DropDownListFor(model => model.idDistrito, new SelectList(Model.Distritos, "ID", "nombre", Model.idDistrito), "Elije un distrito...")
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    @Html.ValidationMessageFor(model => model.idDistrito)
+                </div>
+                <div class = "clear" ></div>
+            </div>
+
+            <div>
+                @for (int i = 0; i < Model.Distritos.Count; i++)
+                {
+                    @Html.HiddenFor(model => model.Distritos[i].ID)
+                    @Html.HiddenFor(model => model.Distritos[i].nombre)
+                }
             </div>
 
         </div>
         <p>
             <input class = "redB" type="submit" value="Guardar" />
-            @*@Html.ActionLink("Regresar", "Index")*@
         </p>
     </fieldset>
 }
+<div>
+        @Html.ActionLink("Regresar", "List")    
+</div>
