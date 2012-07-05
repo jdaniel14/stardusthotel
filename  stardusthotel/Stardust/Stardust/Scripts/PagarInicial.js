@@ -146,7 +146,7 @@ function Comunion(data) {
 
         console.log("se hizo");
         mostrarConfirmacionFinal('Pago Realizado ^_^!');
-        $(location).attr('href', '../');
+       
     }
     else {
         mostrarConfirmacionFinal(data.me);
