@@ -851,6 +851,8 @@ namespace Stardust.Models
         {
             MensajeBean mensaje = new MensajeBean();
 
+            Evento evento = GetEvento(id);
+
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
@@ -890,9 +892,7 @@ namespace Stardust.Models
             {
                 mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
                 return mensaje;
-            }
-
-            Evento evento = GetEvento(id);    
+            }                
 
             if(evento.tipoDoc.Equals("DNI"))
                 queryIns = "INSERT Pagos VALUES ( "+evento.faltante+" , NULL , GETDATE() , "+evento.idDocPago+" , 'BOLETA' )";
