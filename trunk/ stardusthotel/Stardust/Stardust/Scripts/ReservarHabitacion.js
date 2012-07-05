@@ -60,7 +60,7 @@ function inicializarEventos() {
     $("#EventoIncorrecto").hide();
     $("#ValidarEvento").click(IniciarValidacionEvento);
     
-    //$('#HoraLlegada').timepicker({});
+    $('#HoraLlegada').timepicker({});
 
     $("#checkAerop").click(function (event) {
         
