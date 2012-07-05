@@ -141,6 +141,7 @@ function casiConfirma() {
 function Comunion(data) {
     $("#espera").dialog("destroy");
     console.log(data.me);
+    //alert(data.me);
 
     if (data.me == "") {
 
