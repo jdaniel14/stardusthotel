@@ -15,6 +15,8 @@ namespace Stardust.Controllers
 
         private static ILog log = LogManager.GetLogger(typeof(ServiciosController));
 
+        ServiciosFacade servicioFacade = new ServiciosFacade();
+
         //*************SERVICIOS!!!!*************************
 
         //
@@ -316,17 +318,15 @@ namespace Stardust.Controllers
 
         ///////////////////////ASIGNACION DE SERVICIOS
         [HttpPost]
-        public JsonResult ConsultarServicio(ServicioRequest request) {
-            ServiciosFacade servicioFacade = new ServiciosFacade();
+        public JsonResult ConsultarServicio(ServicioRequest request) 
+        {
             ListaServiciosResponseBean response = servicioFacade.listarServicios(request.idHotel, request.idTipo);
             return Json(response);
         }
 
         [HttpPost]
         public JsonResult AsignarServicioReserva(ServicioAsignBean request)
-        {
-            System.Diagnostics.Debug.WriteLine("ASIGNAR : " + request.nroRes);
-            ServiciosFacade servicioFacade = new ServiciosFacade();
+        {            
             MensajeBean mensaje = servicioFacade.asignarServicios(request.idSer, request.nroRes,  request.monto, request.flagTipo, request.idHotel, request.nombServ);
             return Json(mensaje);
         }
