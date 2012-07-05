@@ -13,6 +13,7 @@ namespace Stardust.Controllers.Servicios
     public class PagoClientesController : PdfViewController
     {
         PagoFacade pagoFacade = new PagoFacade();
+        AmbienteFacade ambienteFacade = new AmbienteFacade();
         private static ILog log = LogManager.GetLogger(typeof(PagoClientesController));
 
 
@@ -69,6 +70,15 @@ namespace Stardust.Controllers.Servicios
                 return this.ViewPdf("Boleta", "Documento", reserva);
             else
                 return this.ViewPdf("Factura", "Documento", reserva);
+        }
+
+        public ActionResult AmbienteDocumento(int id)
+        {
+            Evento evento = ambienteFacade.GetEvento2(id);
+            if (evento.tipoDoc.Equals("DNI"))
+                return this.ViewPdf("Boleta", "Ambiente", evento);
+            else
+                return this.ViewPdf("Factura", "Ambiente", evento);
         }
     }
 }
