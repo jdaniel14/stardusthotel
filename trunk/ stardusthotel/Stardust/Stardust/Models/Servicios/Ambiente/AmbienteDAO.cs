@@ -713,6 +713,8 @@ namespace Stardust.Models
                     return mensaje;
                 }
 
+            mensaje.me = "";
+
             return mensaje;
         }
 
@@ -747,8 +749,8 @@ namespace Stardust.Models
                 evento.dni = (string)dataReader["nroDocumento"];
                 evento.nombre = (string)dataReader["nombre"];
                 evento.descripcion = (string)dataReader["descripcion"];
-                evento.montoTotal = (decimal)dataReader["montoTotal"];
-                evento.montoFaltante = (decimal)dataReader["montoFaltante"];
+                evento.total = (decimal)dataReader["montoTotal"];
+                evento.faltante = (decimal)dataReader["montoFaltante"];
                 evento.idDocPago = (int)dataReader["idDocPago"];
             }
 
@@ -760,9 +762,9 @@ namespace Stardust.Models
                 evento.subTotal += evento.listaDetalle.ElementAt(i).total;
 
             evento.igv = evento.subTotal * 18 / 100;
-            evento.montoTotal = evento.igv + evento.subTotal;
+            evento.total = evento.igv + evento.subTotal;
 
-            evento.montoPagado = evento.montoTotal - evento.montoFaltante;
+            evento.montPagado = evento.total - evento.faltante;
 
             sqlCon.Close();
 
@@ -797,7 +799,7 @@ namespace Stardust.Models
             return listaDetalle;
         }
 
-        public MensajeBean CheckOut(int id)
+        public MensajeBean CheckOut(int id, decimal monto)
         {
             MensajeBean mensaje = new MensajeBean();
 
@@ -830,7 +832,7 @@ namespace Stardust.Models
 
             queryIns = "UPDATE DocumentoPago SET estado = 4 , montoFaltante = 0 WHERE idEvento = " + id;
 
-            SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);
+            SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);            
 
             try
             {
@@ -841,6 +843,30 @@ namespace Stardust.Models
                 mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
                 return mensaje;
             }
+
+            Evento evento = GetEvento(id);
+
+            if (evento.total < monto)
+                monto = evento.total;    
+
+            if(evento.tipoDoc.Equals("DNI"))
+                queryIns = "INSERT Pagos VALUES ( "+evento.total+" , NULL , GETDATE() , "+evento.idDocPago+" , 'BOLETA' )";
+            else
+                queryIns = "INSERT Pagos VALUES ( " + evento.total + " , NULL , GETDATE() , " + evento.idDocPago + " , 'FACTURA' )";
+
+            SqlCommand sqlCmd3 = new SqlCommand(queryIns, sqlCon);
+
+            try
+            {
+                sqlCmd3.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
+                return mensaje;
+            }
+
+            mensaje.me = "";
 
             return mensaje;
         }
