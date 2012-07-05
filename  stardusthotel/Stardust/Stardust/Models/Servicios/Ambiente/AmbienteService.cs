@@ -179,11 +179,12 @@ namespace Stardust.Models
         {
             try
             {
-                String message = "Estimado " + nombres + ", gracias por su reservacion de Ambientes, esperaremos que cancele para Confirmar sus Ambientes. Agradecemos su preferencia";
+                String message = "Estimado " + nombres + ", gracias por su reservacion de Ambientes, esperaremos que cancele para Confirmar sus Ambientes. Agradecemos su preferencia. El número de su Evento es : " + idEvento;
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
 
                 System.Net.NetworkCredential cred = new System.Net.NetworkCredential("stardusthotelperu@gmail.com", "stardust123456");
 
+                System.Diagnostics.Debug.WriteLine("EMAIL : " + email);
                 mail.To.Add(email);
                 mail.Subject = "Stardust Reservacion";
 
@@ -200,7 +201,7 @@ namespace Stardust.Models
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
+                System.Diagnostics.Debug.WriteLine("Error en envio de mensajes : " + ex.Message);
                 return 1;
             }
             return 0;
