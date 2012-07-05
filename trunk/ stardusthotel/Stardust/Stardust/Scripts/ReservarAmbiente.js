@@ -1,7 +1,6 @@
 ﻿var arregloChecks = new Array();
 var x;
 var SendHotel;
-
 x = $(document);
 x.ready(inicializarEventos);
 

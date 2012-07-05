@@ -21,12 +21,12 @@ function sgteConfirma() {
             ($("#mailNatural").get(0).value != "") &&
             ($("#password").get(0).value != "") &&
             (($("#razonDReserva").get(0).value != "") | ($("#nombreDReserva").get(0).value != "") ) &&
-            (($("#telef").get(0).value != "") | ($("#telefNatural").get(0).value != "")) &&
+            //(($("#telef").get(0).value != "") | ($("#telefNatural").get(0).value != "")) &&
     //( ($("#nTarjeta").get(0).value != "") | ($("#nTarjetaNatural").get(0).value != "") )
             ($("#nombreEvento").get(0).value != "") &&
             ($("#nParticipantes").get(0).value != "") &&
-            ($("#descEvento").get(0).value != "")
-
+            //($("#descEvento").get(0).value != "")
+            (parseFloat($("#Total").text()) > 0)
         ) {
 
         continuarIngreso = 1;
@@ -166,6 +166,7 @@ function finDelChongo() {
 
 
             var TeLoPaso = {
+                idUsuario:idUser,
                 idHotel: SendHotel,
                 client: clientexD,
                 evento: enviarEvento,
@@ -175,8 +176,7 @@ function finDelChongo() {
                 coment: comentario,
                 total: total1,
                 pass: passw,
-                tipoRegistro: registrar
-                //idUsuario:idUser
+                tipoRegistro: registrar                
             }
 
             var jsonData = JSON.stringify(TeLoPaso);
