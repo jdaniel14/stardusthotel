@@ -100,7 +100,7 @@ function finDelChongo() {
             telefono = $("#telef").get(0).value;
             tipoDeTarjeta = $("#tipoTarjetaJ").val();
             numTarjeta = $("#nTarjeta").get(0).value;
-            comentario = $("#comment").get(0).value;
+            //comentario = $("#comment").get(0).value;
         }
         else {
             tipoDocu = "DNI";
@@ -110,7 +110,7 @@ function finDelChongo() {
             telefono = $("#telefNatural").get(0).value;
             tipoDeTarjeta = $("#tipoTarjeta").val();
             numTarjeta = $("#nTarjetaNatural").get(0).value;
-            comentario = $("#comment").get(0).value;
+            //comentario = $("#comment").get(0).value;
         }
 
         var nDoc = $("#nDoc").get(0).value;
@@ -173,7 +173,7 @@ function finDelChongo() {
                 listAmbi: listaAmbientes,
                 fechaIni: fechaLlegada,
                 fechaFin: fechaSalida,
-                coment: comentario,
+                //coment: comentario,
                 total: total1,
                 pass: passw,
                 tipoRegistro: registrar                

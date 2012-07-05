@@ -77,6 +77,20 @@ function recibeMails(data) {
     console.log(data);
     registrar = data.me;
 
+    var defecto = 0;
+    $("#ComboCliente option[value=" + defecto + "]").attr("selected", true);
+    $("#ComboCliente").trigger('change');
+
+    $("#nDoc").attr("value", "");
+    $("#nombreDReserva").attr("value", "");
+    $("#razonDReserva").attr("value", "");
+    //$("#ApellidoDReserva").attr("value", "");
+    $("#telefNatural").attr("value", "");
+    $("#telef").attr("value", "");
+    $("#nTarjetaNatural").attr("value", "");
+    $("#nTarjeta").attr("value", "");
+    $("#password").attr("value", "");
+
     $("#pasear1").show("slow");
     $("#pasear2").show("slow");
 
