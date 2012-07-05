@@ -1,5 +1,6 @@
 ﻿var registrar;
 var idUser;
+var correito;
 var doc = $(document);
 doc.ready(asignarListeners);
 
@@ -89,7 +90,7 @@ function recibeMails(data) {
     $("#telef").attr("value", "");
     $("#nTarjetaNatural").attr("value", "");
     $("#nTarjeta").attr("value", "");
-    $("#password").attr("value", "");
+    //$("#password").attr("value", "");
 
     $("#pasear1").show("slow");
     $("#pasear2").show("slow");
@@ -105,6 +106,7 @@ function recibeMails(data) {
 
         $("#opcionT").show("slow");
         $("#opcionR").hide();
+        correito = data.email;
         if (data.tipoDoc == "RUC") {
             var miValue = data.tipoDocumento
             $("#ComboCliente option[value=" + miValue + "]").attr("selected", true);
