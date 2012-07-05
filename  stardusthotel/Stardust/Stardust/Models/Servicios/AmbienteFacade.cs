@@ -9,6 +9,7 @@ namespace Stardust.Models
     public class AmbienteFacade
     {
         AmbienteService AmbienteService = new AmbienteService();
+        AmbienteDAO ambienteDAO = new AmbienteDAO();
 
         public List<EventoBean> ListarEvento(int estadoPago)        {
             
@@ -49,6 +50,26 @@ namespace Stardust.Models
         public MensajeBean RegistrarEventoYAmbientes(RegAmbienteEventoBean registro)
         {
             return AmbienteService.RegistrarEventoYAmbientes(registro);
+        }
+
+        public ReservaAmbBean CheckIn(int id)
+        {
+            return ambienteDAO.CheckIn(id);
+        }
+
+        public MensajeBean RegistrarCheckIn(int id)
+        {
+            return ambienteDAO.RegistrarCheckIn(id);
+        }
+
+        public Evento GetEvento(int id)
+        {
+            return ambienteDAO.GetEvento(id);
+        }
+
+        public MensajeBean CheckOut(int id)
+        {
+            return ambienteDAO.CheckOut(id);
         }
     }
 }
