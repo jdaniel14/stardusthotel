@@ -192,6 +192,7 @@ namespace Stardust.Models
         }
         public MensajeBean asignarServicios(int idSer, int nroRes, Decimal monto, int flagTipo, int idHotel, String nombServ)
         {
+            System.Diagnostics.Debug.WriteLine("CUARTA VEZ");
             MensajeBean mensaje = new MensajeBean ();
             mensaje.me = "";
             String query = "";
