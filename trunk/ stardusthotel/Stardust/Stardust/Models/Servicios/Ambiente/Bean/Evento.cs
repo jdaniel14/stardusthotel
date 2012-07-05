@@ -13,6 +13,7 @@ namespace Stardust.Models
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public string usuario { get; set; }
+        public string me { get; set; }
         public string hotel { get; set; }
         public string dni { get; set; }
         public string tipoDoc { get; set; }
