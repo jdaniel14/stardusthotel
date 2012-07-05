@@ -629,54 +629,64 @@ namespace Stardust.Models
         {
             ReservaAmbBean ambiente = new ReservaAmbBean();
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-
             try
             {
-                sqlCon.Open();
-            }
-            catch (Exception e)
-            {
-                ambiente.me = "Error en conexion a base de datos";
-                return ambiente;
-            }
 
-            String queryIns = "SELECT e.estado as estado , e.nombre as nombre , e.descripcion as descripcion , u.nombres as usuario , h.nombre as hotel FROM Evento e , Usuario u , Hotel h WHERE e.estado < 3 AND e.idEvento = "+id+" AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel";
-                               
-            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
-            SqlDataReader dataReader;
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
-            try
-            {
-                dataReader = sqlCmd.ExecuteReader();
-            }
-            catch (Exception e)
-            {
-                ambiente.me = "Error al encontrar el evento";
-                return ambiente;
-            }
-
-            if (!dataReader.HasRows)
-            {
-                ambiente.me = "No se encuentra el evento";
-                return ambiente;
-            }
-            else
-            {
-                dataReader.Read();
-                ambiente.estado = (int)dataReader["estado"];
-                ambiente.me = "";
-                if (ambiente.estado == 1)
+                try
                 {
-                    ambiente.me = "Se debe de realizar el pago inicial";
+                    sqlCon.Open();
+                }
+                catch (Exception e)
+                {
+                    ambiente.me = "Error en conexion a base de datos";
                     return ambiente;
                 }
-                ambiente.descripcion = (string)dataReader["descripcion"];
-                ambiente.nombre = (string)dataReader["nombre"];
-                ambiente.usuario = (string)dataReader["usuario"];
-                ambiente.hotel = (string)dataReader["hotel"];
-                
+
+                String queryIns = "SELECT e.estado as estado , e.nombre as nombre , e.descripcion as descripcion , u.nombres as usuario , h.nombre as hotel FROM Evento e , Usuario u , Hotel h WHERE e.estado < 3 AND e.idEvento = " + id + " AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel";
+
+                SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+                SqlDataReader dataReader;
+
+                try
+                {
+                    dataReader = sqlCmd.ExecuteReader();
+                }
+                catch (Exception e)
+                {
+                    ambiente.me = "Error al encontrar el evento";
+                    return ambiente;
+                }
+
+                if (!dataReader.HasRows)
+                {
+                    ambiente.me = "No se encuentra el evento";
+                    return ambiente;
+                }
+                else
+                {
+                    dataReader.Read();
+                    ambiente.estado = (int)dataReader["estado"];
+                    ambiente.me = "";
+                    if (ambiente.estado == 1)
+                    {
+                        ambiente.me = "Se debe de realizar el pago inicial";
+                        return ambiente;
+                    }
+                    ambiente.descripcion = (string)dataReader["descripcion"];
+                    ambiente.nombre = (string)dataReader["nombre"];
+                    ambiente.usuario = (string)dataReader["usuario"];
+                    ambiente.hotel = (string)dataReader["hotel"];
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                ambiente.me = "Error :" + e.ToString();
+                return ambiente;
             }
 
             return ambiente;
@@ -686,68 +696,71 @@ namespace Stardust.Models
         {
             MensajeBean mensaje = new MensajeBean();
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-
             try
             {
-                sqlCon.Open();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error en conexion a base de datos";
-                return mensaje;
-            }
 
-            String queryIns = "SELECT * FROM Evento WHERE idEvento = " + id;
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
-            SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);
-            SqlDataReader dataReader;
-
-            try
-            {
-                dataReader = sqlCmd2.ExecuteReader();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error al encontrar el evento";
-                return mensaje;
-            }
-
-            if (!dataReader.HasRows)
-            {
-                mensaje.me = "No se encuentra el evento";
-                return mensaje;
-            }
-            else
-            {
-                dataReader.Read();
-                string hoy = (string)dataReader["fechaIni"];
-                int estado = (int)dataReader["estado"];
-                if (estado == 1)
+                try
                 {
-                    mensaje.me = "Aun debe realizar el pago inicial";
+                    sqlCon.Open();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error en conexion a base de datos";
                     return mensaje;
                 }
 
-                DateTime fecha = new DateTime();
+                String queryIns = "SELECT * FROM Evento WHERE idEvento = " + id;
 
-                fecha = DateTime.ParseExact(hoy, "yyyy-MM-dd", null);
+                SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);
+                SqlDataReader dataReader;
 
-                if (fecha > DateTime.Now)
+                try
                 {
-                    mensaje.me = "Aun no se puede realizar el check in hasta el :" + hoy;
+                    dataReader = sqlCmd2.ExecuteReader();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error al encontrar el evento";
                     return mensaje;
                 }
-            }
 
-            dataReader.Close();
+                if (!dataReader.HasRows)
+                {
+                    mensaje.me = "No se encuentra el evento";
+                    return mensaje;
+                }
+                else
+                {
+                    dataReader.Read();
+                    string hoy = (string)dataReader["fechaIni"];
+                    int estado = (int)dataReader["estado"];
+                    if (estado == 1)
+                    {
+                        mensaje.me = "Aun debe realizar el pago inicial";
+                        return mensaje;
+                    }
 
-            queryIns = "UPDATE Evento SET estado = 3 WHERE idEvento = "+id;
+                    DateTime fecha = new DateTime();
 
-            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+                    fecha = DateTime.ParseExact(hoy, "yyyy-MM-dd", null);
 
-            try
+                    if (fecha > DateTime.Now)
+                    {
+                        mensaje.me = "Aun no se puede realizar el check in hasta el :" + hoy;
+                        return mensaje;
+                    }
+                }
+
+                dataReader.Close();
+
+                queryIns = "UPDATE Evento SET estado = 3 WHERE idEvento = " + id;
+
+                SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+
+                try
                 {
                     sqlCmd.ExecuteNonQuery();
                 }
@@ -756,6 +769,13 @@ namespace Stardust.Models
                     mensaje.me = "Error al actualizar el evento: " + e.Message;
                     return mensaje;
                 }
+
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error :" + e.ToString();
+                return mensaje;
+            }
 
             mensaje.me = "";
 
@@ -884,25 +904,34 @@ namespace Stardust.Models
         {
             List<EventoDetalle> listaDetalle = new List<EventoDetalle>();
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-
-            sqlCon.Open();
-
-            string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = "+idDoc;
-
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-
-            while (dataReader.Read())
+            try
             {
-                EventoDetalle detalle = new EventoDetalle();
-                detalle.detalle = (string)dataReader["detalle"];
-                detalle.cantidad = (int)dataReader["cantidad"];
-                detalle.precioUnit = (decimal)dataReader["precioUnitario"];
-                detalle.total = (decimal)dataReader["total"];
-                listaDetalle.Add(detalle);
+
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+                sqlCon.Open();
+
+                string commandString = "SELECT * FROM DocumentoPago_Detalle WHERE idDocPago = " + idDoc;
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    EventoDetalle detalle = new EventoDetalle();
+                    detalle.detalle = (string)dataReader["detalle"];
+                    detalle.cantidad = (int)dataReader["cantidad"];
+                    detalle.precioUnit = (decimal)dataReader["precioUnitario"];
+                    detalle.total = (decimal)dataReader["total"];
+                    listaDetalle.Add(detalle);
+                }
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return listaDetalle;
             }
 
             return listaDetalle;
@@ -916,76 +945,86 @@ namespace Stardust.Models
 
             mensaje.id = evento.id;
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
-
             try
             {
-                sqlCon.Open();
+
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+                try
+                {
+                    sqlCon.Open();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error en conexion a base de datos";
+                    return mensaje;
+                }
+
+                String queryIns = "UPDATE Evento SET estado = 4 , estadoPago = 4 WHERE idEvento = " + id;
+
+                SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
+
+                try
+                {
+                    sqlCmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error al actualizar el evento: " + e.Message;
+                    return mensaje;
+                }
+
+                queryIns = "UPDATE DocumentoPago SET estado = 4 , montoFaltante = 0 WHERE idEvento = " + id;
+
+                SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);
+
+                try
+                {
+                    sqlCmd2.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
+                    return mensaje;
+                }
+
+                if (evento.tipoDoc.Equals("DNI"))
+                    queryIns = "INSERT Pagos VALUES ( " + evento.faltante + " , NULL , GETDATE() , " + evento.idDocPago + " , 'BOLETA' )";
+                else
+                    queryIns = "INSERT Pagos VALUES ( " + evento.faltante + " , NULL , GETDATE() , " + evento.idDocPago + " , 'FACTURA' )";
+
+                SqlCommand sqlCmd3 = new SqlCommand(queryIns, sqlCon);
+
+                try
+                {
+                    sqlCmd3.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
+                    return mensaje;
+                }
+
+                queryIns = "UPDATE AmbienteXEvento SET estado = 4 WHERE idEvento = " + id;
+
+                SqlCommand sqlCmd4 = new SqlCommand(queryIns, sqlCon);
+
+                try
+                {
+                    sqlCmd4.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    mensaje.me = "Error al actualizar el ambiente: " + e.Message;
+                    return mensaje;
+                }
+
             }
+
             catch (Exception e)
             {
-                mensaje.me = "Error en conexion a base de datos";
-                return mensaje;
-            }
-
-            String queryIns = "UPDATE Evento SET estado = 4 , estadoPago = 4 WHERE idEvento = " + id;
-
-            SqlCommand sqlCmd = new SqlCommand(queryIns, sqlCon);
-
-            try
-            {
-                sqlCmd.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error al actualizar el evento: " + e.Message;
-                return mensaje;
-            }
-
-            queryIns = "UPDATE DocumentoPago SET estado = 4 , montoFaltante = 0 WHERE idEvento = " + id;
-
-            SqlCommand sqlCmd2 = new SqlCommand(queryIns, sqlCon);            
-
-            try
-            {
-                sqlCmd2.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
-                return mensaje;
-            }                
-
-            if(evento.tipoDoc.Equals("DNI"))
-                queryIns = "INSERT Pagos VALUES ( "+evento.faltante+" , NULL , GETDATE() , "+evento.idDocPago+" , 'BOLETA' )";
-            else
-                queryIns = "INSERT Pagos VALUES ( " + evento.faltante + " , NULL , GETDATE() , " + evento.idDocPago + " , 'FACTURA' )";
-
-            SqlCommand sqlCmd3 = new SqlCommand(queryIns, sqlCon);
-
-            try
-            {
-                sqlCmd3.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
-                return mensaje;
-            }
-
-            queryIns = "UPDATE AmbienteXEvento SET estado = 4 WHERE idEvento = " + id;
-
-            SqlCommand sqlCmd4 = new SqlCommand(queryIns, sqlCon);
-
-            try
-            {
-                sqlCmd4.ExecuteNonQuery();
-            }
-            catch (Exception e)
-            {
-                mensaje.me = "Error al actualizar el ambiente: " + e.Message;
-                return mensaje;
+                mensaje.me = "Error : "+e.ToString();
             }
 
             mensaje.me = "";
