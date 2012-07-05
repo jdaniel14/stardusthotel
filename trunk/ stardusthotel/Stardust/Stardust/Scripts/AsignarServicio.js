@@ -122,9 +122,11 @@ function llegadaDatos(data){
 
 function enviar() {
 
-    
+
 
     var puedeEnviar;
+
+    puedeEnviar = 0;
 
     if (    ($("#ComboServicio").val() != "NN") &&
 //            ($("#nDoc").get(0).value != "") &&
