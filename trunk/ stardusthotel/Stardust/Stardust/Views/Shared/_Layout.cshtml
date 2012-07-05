@@ -186,7 +186,7 @@
             <li class="forms" id = "menu13"><a href="#" title="" class="exp"><span>Reserva</span><strong>4</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Reservar Habitacion", "Index", "ReservarHabitacion")</li>                    
-                    <li>@Html.ActionLink("Ver Estado de Reserva de Habitación", "EstadoReserva", "ReservarHabitacion")</li>                    
+                    <li>@Html.ActionLink("Anular Reserva", "EstadoReserva", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Reserva Ambiente", "Reservar", "ReservarAmbiente")</li>                    
                     <li class = "last" >@Html.ActionLink("Realizar Pago Inicial", "PagarInicial", "PagoClientes")</li>                    
                 </ul>
@@ -196,18 +196,21 @@
             <li class="forms" id = "menu14"><a href="#" title="" class="exp"><span>Reserva</span><strong>6</strong></a>
                 <ul class="sub">
                     <li>@Html.ActionLink("Reservar Habitacion", "Index", "ReservarHabitacion")</li>                    
-                    <li>@Html.ActionLink("Ver Estado de Reserva de Habitación", "EstadoReserva", "ReservarHabitacion")</li>                    
+                    <li>@Html.ActionLink("AularReserva", "EstadoReserva", "ReservarHabitacion")</li>                    
                     <li>@Html.ActionLink("Reserva Ambiente", "Reservar", "ReservarAmbiente")</li>                    
                     <li>@Html.ActionLink("Realizar Pago Inicial", "PagarInicial", "PagoClientes")</li>                    
                     <li>@Html.ActionLink("Reporte Habitaciones Disponibles", "ReporteHabitaciones", "ServiciosReportes")</li> 
-                    <li class = "last" >@Html.ActionLink("Reporte Ubicación del Cliente", "ReporteCliente", "ServiciosReportes")</li> 
+                    <li class = "last" >@Html.ActionLink("Ubicación del Cliente", "ReporteCliente", "ServiciosReportes")</li> 
                 </ul>
             </li>
 
             <li class="forms" id = "menu15"><a href="#" title="" class="exp"><span>Check</span><strong>2</strong></a>
                 <ul class="sub">
-                    <li>@Html.ActionLink("Check In", "CheckIn", "ReservarHabitacion")</li>                    
-                    <li>@Html.ActionLink("Check Out", "checkOut", "PagoClientes")</li>                    
+                    <li>@Html.ActionLink("Check In Habitación", "CheckIn", "ReservarHabitacion")</li>                    
+                    <li>@Html.ActionLink("Check Out Habitación", "checkOut", "PagoClientes")</li>   
+                    
+                    <li>@Html.ActionLink("Check In Ambiente", "CheckInAmbiente", "ReservarAmbiente")</li>
+                     <li>@Html.ActionLink("Check Out Ambiente", "CheckOutAmbiente", "ReservarAmbiente")</li>                 
                 </ul>
             </li>
 
@@ -216,8 +219,7 @@
                     <li>@Html.ActionLink("Registrar Ambientes", "RegistrarAmbiente", "Servicios")</li>
                     <li class = "last" >@Html.ActionLink("Buscar Ambiente", "BuscarAmbiente", "Servicios")</li>
                      <li>@Html.ActionLink("Reporte de Eventos", "Evento", "ReporteEventos")</li>                                    
-                     <li>@Html.ActionLink("Check In Ambiente", "CheckInAmbiente", "ReservarAmbiente")</li>
-                     <li>@Html.ActionLink("Check Out Ambiente", "CheckOutAmbiente", "ReservarAmbiente")</li>
+
                 </ul>
             </li>
 
