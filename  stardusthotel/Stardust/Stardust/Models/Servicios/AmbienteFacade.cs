@@ -67,9 +67,9 @@ namespace Stardust.Models
             return ambienteDAO.GetEvento(id);
         }
 
-        public MensajeBean CheckOut(int id,decimal monto)
+        public MensajeBean CheckOut(int id)
         {
-            return ambienteDAO.CheckOut(id,monto);
+            return ambienteDAO.CheckOut(id);
         }
     }
 }
