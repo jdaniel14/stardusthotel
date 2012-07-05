@@ -11,6 +11,7 @@ namespace Stardust.Models
     {
         [Display(Name="Nombre")]
         [Required(ErrorMessage = "Debe ingresar el nombre del Hotel")]
+        [MaxLength(30, ErrorMessage = "Ha excedido el tamaño máximo del nombre de un Hotel")]
         public string nombre { get; set; }
 
         [Display(Name = "Razón Social")]

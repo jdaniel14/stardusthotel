@@ -23,6 +23,7 @@ namespace Stardust.Models
 
         [Display( Name = "Piso" ) ]
         [Range( 0 , 20, ErrorMessage="El piso máximo de una habitación es 20" )]
+        [Required(ErrorMessage="Ingrese el número del piso")]
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número positivo")]
         public int piso { get; set; }
 
@@ -31,6 +32,7 @@ namespace Stardust.Models
 
         [Display( Name = "Número de baños" ) ]
         [Range(0, 9, ErrorMessage = "El número máximo de Baños es 9")]
+        [Required(ErrorMessage = "Ingrese el número del baños")]
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número positivo")]
         public int nroBanos { get; set; }
 
@@ -39,6 +41,7 @@ namespace Stardust.Models
 
         [Display( Name = "Número de camas" ) ]
         [Range(0, 9, ErrorMessage = "El Número máximo de camas es 9")]
+        [Required(ErrorMessage = "Ingrese el número del camas")]
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe ser un número positivo")]
         public int nroCamas { get; set; }
 

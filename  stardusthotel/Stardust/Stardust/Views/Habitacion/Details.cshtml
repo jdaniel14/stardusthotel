@@ -8,7 +8,10 @@
 
 <fieldset>
     <div class = "widget" >
-        <div class = "title" ><h6>@ViewBag.Title</h6></div>
+        <div class = "title" >
+            <img src="@Url.Content("~/Content/images/icons/dark/list.png")" alt class="titleIcon">                        
+            <h6>@ViewBag.Title</h6>
+        </div>
 
         <div class = "formRow" >
             @Html.LabelFor(model => model.idHotel )
@@ -62,6 +65,6 @@
 </fieldset>
 
 <p>
-    <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="../../Content/images/icons/color/pencil.png", alt="Edit" />Editar</a> | 
+    <a href="@Url.Action("Edit", new { id = Model.ID })"><img src="@Url.Content("~/Content/images/icons/color/pencil.png")" alt="Edit" />Editar</a> | 
     @Html.ActionLink("Regresar", "List")
 </p>

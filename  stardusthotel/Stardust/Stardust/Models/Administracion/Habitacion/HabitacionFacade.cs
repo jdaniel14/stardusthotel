@@ -34,5 +34,10 @@ namespace Stardust.Models
             if (idTipoHabitacion == nroCamas && nroCamas == piso && piso == 0) return new List<HabitacionBean>();
             return habitacionServ.buscarHabitacion(idTipoHabitacion, nroCamas , piso);
         }
+
+        public bool existeNumeroHabitacionYA(int idHotel, string numeroHabitacion)
+        {
+            return habitacionServ.existeNumeroHabitacionYA(idHotel, numeroHabitacion);
+        }
     }
 }
