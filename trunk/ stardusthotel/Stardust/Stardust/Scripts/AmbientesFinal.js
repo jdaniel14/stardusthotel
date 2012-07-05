@@ -62,11 +62,11 @@ function sgteConfirma() {
 
         if (result == "RUC") {
             nombre = $("#razonDReserva").get(0).value;
-            email = correito ;
+            email = $("#mailNatural").get(0).value;
         }
         else {
             nombre = $("#nombreDReserva").get(0).value
-            email = correito;
+            email = $("#mailNatural").get(0).value;
         }
 
         if (correito != "") {
@@ -215,7 +215,7 @@ function graciasTotales(data) {
     console.log(data.me);
     if (data.me == "") {
         mostrarConfirmacionFinal('OK');
-        $(location).attr('href', '../../');
+        
     }
     else {
         mostrarConfirmacionFinal(data.me);
