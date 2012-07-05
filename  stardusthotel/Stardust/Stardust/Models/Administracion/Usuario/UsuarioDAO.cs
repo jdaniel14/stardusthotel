@@ -366,7 +366,10 @@ namespace Stardust.Models
                                     "celular = @celular , " +
                                     "tipoDocumento = @tipoDocumento , " +
                                     "nroDocumento = @nroDocumento , " +
-                                    "razonSocial = @razonSocial " +
+                                    "razonSocial = @razonSocial , " +
+                                    "idDistrito = @idDistrito , " +
+                                    "idProvincia = @idProvincia , " +
+                                    "idDepartamento = @idDepartamento " +
                                     "WHERE idUsuario = @idUsuario";
                 SqlCommand query = new SqlCommand(command, sql);
 
@@ -380,6 +383,9 @@ namespace Stardust.Models
                 Utils.agregarParametro(query, "nroDocumento", usuario.nroDocumento);
                 Utils.agregarParametro(query, "razonSocial", usuario.razonSocial);
                 Utils.agregarParametro(query, "idUsuario", usuario.ID);
+                Utils.agregarParametro(query, "idDistrito", usuario.idDistrito);
+                Utils.agregarParametro(query, "idProvincia", usuario.idProvincia);
+                Utils.agregarParametro(query, "idDepartamento", usuario.idDepartamento);
 
                 query.ExecuteNonQuery();
 

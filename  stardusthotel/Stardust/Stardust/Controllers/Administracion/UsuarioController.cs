@@ -128,7 +128,8 @@ namespace Stardust.Controllers
                 ViewBag.distritos = Utils.listarDistritos(model.idDepartamento, model.idProvincia);
 
                 return View(model);
-            }catch {
+            }catch( Exception e ) {
+                log.Error("Edit - GET(EXCEPTION): ", e);
                 ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
                 return View(new UsuarioBean());
             }
@@ -147,7 +148,7 @@ namespace Stardust.Controllers
                 return RedirectToAction("Details", new { id = usuariobean.ID } );
             }
             catch(Exception e ) {
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                log.Error("Edit - POST(EXCEPTION): ", e);
                 ViewBag.results = "Ocurrió un error al intentar modificar el usuario";
                 return View(usuariobean);
             }
@@ -163,7 +164,8 @@ namespace Stardust.Controllers
                 var model = usuarioFac.getUsuario(id);
                 return View(model);
             }
-            catch {
+            catch( Exception e ){
+                log.Error("Delete - GET(EXCEPTION): ", e);
                 ViewBag.results = "Ocurrió un error al intentar cargar el usuario";
                 return View( new UsuarioBean() );
             }
@@ -178,19 +180,12 @@ namespace Stardust.Controllers
                 usuarioFac.eliminarUsuario(id);
                 return RedirectToAction("List");
             }
-            catch {
+            catch( Exception e ) {
+                log.Error("Edit - POST(EXCEPTION): ", e);
                 ViewBag.results = "Ocurrió un error al intentar eliminar el usuario";
                 return View();
             }
         }
-
-        //[HttpPost, ActionName("Delete")]
-        //public JsonResult DeleteConfirmed(int ID)
-        //{
-        //    usuarioFac.eliminarUsuario(ID);
-        //    //return RedirectToAction("../Home/Index");
-        //    return Json(new { me = "" });
-        //}
 
         #region List
         public ActionResult List()
@@ -229,7 +224,8 @@ namespace Stardust.Controllers
                 ViewBag.documentos = docs;
                 return View(model);
             }
-            catch {
+            catch( Exception e ) {
+                log.Error("Buscar - POST(EXCEPTION): ", e);
                 ViewBag.results = "Ocurrió un error al intentar buscar usuarios";
                 return View( new List<UsuarioBean>() );
             }

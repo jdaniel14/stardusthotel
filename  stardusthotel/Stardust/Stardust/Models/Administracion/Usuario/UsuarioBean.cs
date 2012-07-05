@@ -117,7 +117,7 @@ namespace Stardust.Models
         public string email { get; set; }
 
         [Display(Name = "Teléfono")]
-        [StringLength(9, ErrorMessage = "Debe ingresar un teléfono de 9 dígitos")]
+        [StringLength(7, ErrorMessage = "Debe ingresar un teléfono de 7 dígitos")]
         [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
         public string celular { get; set; }
 
@@ -203,13 +203,10 @@ namespace Stardust.Models
         public string tipoDocumento { get; set; }
 
         [Display(Name = "Nro. de Documento")]
-        //[Required(ErrorMessage = "Debe ingresar un número de documento")]
-        [StringLength(12, MinimumLength = 8, ErrorMessage = "Debe ingresar mínimo 8 dígitos")]
-        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un documento")]
+        [StringLength(12, ErrorMessage = "El nro de documento no debe sobrepasar 12 digitos")]
         public string nroDocumento { get; set; }
 
         [Display(Name = "Razón Social")]
-        //[Required(ErrorMessage = "Debe ingresar una razón social")]
         [MaxLength(50, ErrorMessage = "La razón social no debe sobrepasar los 50 caracteres")]
         public string razonSocial { get; set; }
 
