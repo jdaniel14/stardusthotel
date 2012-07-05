@@ -102,7 +102,7 @@ function recibeMails(data) {
     $("#telef").attr("value", "");
     $("#nTarjetaNatural").attr("value", "");
     $("#nTarjeta").attr("value", "");
-    
+    $("#password").attr("value", "");
 
     $("#pasear1").show("slow");
     $("#pasear2").show("slow");
