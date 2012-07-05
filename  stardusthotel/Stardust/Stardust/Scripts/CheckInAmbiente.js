@@ -49,7 +49,7 @@ function FinEnvio() {
         mostrarConfirmacionFinal('Realizada ^^');
     }
     else {
-        mostrarError(data.me);
+        mostrarConfirmacionFinal(data.me);
 
     }
 }
