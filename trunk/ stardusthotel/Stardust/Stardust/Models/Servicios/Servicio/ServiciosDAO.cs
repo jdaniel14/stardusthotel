@@ -169,6 +169,7 @@ namespace Stardust.Models
                 sqlCon.Open();
 
                 List<ServiciosBean> lista = new List<ServiciosBean>();
+
                 String query = "SELECT s.idServicio, s.nombre FROM ServicioXHotel sh, Servicio s WHERE idHotel="+ idHotel + " and s.flag_res_eve = " + idTipo + " and s.idServicio = sh.idServicio";
                 System.Diagnostics.Debug.WriteLine("QUERY SERVICE : " + query);
 
@@ -195,7 +196,7 @@ namespace Stardust.Models
             mensaje.me = "";
             String query = "";
 
-            DocumentoPagoBean documento = buscarDocumentoPago(nroRes, idHotel);
+            DocumentoPagoBean documento = buscarDocumentoPago(nroRes, idHotel , flagTipo);
 
             bool result = documento.me.Equals("");
             if (!result) {
@@ -227,14 +228,25 @@ namespace Stardust.Models
             return mensaje;
         }
 
-        public DocumentoPagoBean buscarDocumentoPago(int  nroRes, int idHotel)
+        public DocumentoPagoBean buscarDocumentoPago(int  nroRes, int idHotel , int flagTipo)
         {
             DocumentoPagoBean response = new DocumentoPagoBean();
             response.me = "";
-            
-            String query = " SELECT d.idDocPago " +
-                            " FROM DocumentoPago d, Reserva r " +
-                            " WHERE r.estado = 3 and r.idReserva = "+ nroRes + " AND d.idReserva = R.idReserva AND r.idHotel = " + idHotel;
+
+            String query;
+
+            if (flagTipo == 2)
+            {
+                query = " SELECT d.idDocPago " +
+                                " FROM DocumentoPago d, Reserva r " +
+                                " WHERE r.estado = 3 and r.idReserva = " + nroRes + " AND d.idReserva = R.idReserva AND r.idHotel = " + idHotel;
+            }
+            else
+            {
+                query = " SELECT d.idDocPago " +
+                                " FROM DocumentoPago d, Evento e " +
+                                " WHERE e.estado = 3 and e.idEvento = " + nroRes + " AND d.idEvento = e.idEvento AND e.idHotel = " + idHotel;
+            }
             System.Diagnostics.Debug.WriteLine("QUERY SERVICE PAGO: " + query);
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
