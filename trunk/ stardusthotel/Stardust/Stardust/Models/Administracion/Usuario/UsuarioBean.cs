@@ -109,12 +109,16 @@ namespace Stardust.Models
         public string apPat { get; set; }
 
         [Display(Name = "Apellido Materno")]
+        [MaxLength(50, ErrorMessage = "El apellido materno no debe sobrepasar los 50 caracteres")]
         public string apMat { get; set; }
 
         [Display(Name = "E-mail")]
+        [Remote("ValidaEmail", "Validation")]
         public string email { get; set; }
 
         [Display(Name = "Teléfono")]
+        [StringLength(9, ErrorMessage = "Debe ingresar un teléfono de 9 dígitos")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
         public string celular { get; set; }
 
         [Display(Name = "Tipo de documento")]
@@ -122,12 +126,15 @@ namespace Stardust.Models
         public string tipoDocumento { get; set; }
 
         [Display(Name = "Nro. de Documento")]
+        [StringLength(12, ErrorMessage = "El nro de documento no debe sobrepasar 12 digitos")]
         public string nroDocumento { get; set; }
 
         [Display(Name = "Razón Social")]
+        [StringLength(50, ErrorMessage = "La razón social no debe sobrepasar los 50 caracteres")]
         public string razonSocial { get; set; }
 
         [Display(Name = "Dirección")]
+        [StringLength(100, ErrorMessage = "La razón social no debe sobrepasar los 100 caracteres")]
         public string direccion { get; set; }
 
         [Display(Name = "Departamento")]
