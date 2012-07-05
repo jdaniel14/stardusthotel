@@ -764,51 +764,57 @@ namespace Stardust.Models
         {
             Evento evento = new Evento();
 
-            String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+            try
+            {              
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
 
-            SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
 
-            sqlCon.Open();
+                sqlCon.Open();
 
-            string commandString = "SELECT e.idEvento as idEvento , e.fechaIni as fechaIni , e.fechaFin as fechaFin , u.tipoDocumento as tipoDocumento , u.nroDocumento as nroDocumento "+
-                ", e.nombre as nombre , e.descripcion as descripcion , p.montoTotal as montoTotal , p.montoFaltante as montoFaltante"
-            +" , u.nombres as usuario , h.nombre as hotel , p.idDocPago as idDocPago  FROM Evento e , DocumentoPago p , Hotel h , Usuario u"+
-            " WHERE e.estado = 3 AND e.idEvento = " + id + " AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel AND e.idEvento = p.idEvento ";
+                string commandString = "SELECT e.idEvento as idEvento , e.fechaIni as fechaIni , e.fechaFin as fechaFin , u.tipoDocumento as tipoDocumento , u.nroDocumento as nroDocumento " +
+                    ", e.nombre as nombre , e.descripcion as descripcion , p.montoTotal as montoTotal , p.montoFaltante as montoFaltante"
+                + " , u.nombres as usuario , h.nombre as hotel , p.idDocPago as idDocPago  FROM Evento e , DocumentoPago p , Hotel h , Usuario u" +
+                " WHERE e.estado = 3 AND e.idEvento = " + id + " AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel AND e.idEvento = p.idEvento ";
 
-            SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
-            SqlDataReader dataReader = sqlCmd.ExecuteReader();
-            DateTime fechaIni = new DateTime();
-            DateTime fechaHoy = DateTime.Now;
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
 
-            if (dataReader.Read())
-            {
-                evento.id = (int)dataReader["idEvento"];
-                fechaIni = (DateTime)dataReader["fechaIni"];
-                evento.fechaIni = fechaIni.ToString("dd-MM-yyyy");
-                evento.fechaFin = ((DateTime)dataReader["fechaFin"]).ToString("dd-MM-yyyy");                
-                evento.usuario = (string)dataReader["usuario"];
-                evento.tipoDoc = (string)dataReader["tipoDocumento"];
-                evento.dni = (string)dataReader["nroDocumento"];
-                evento.nombre = (string)dataReader["nombre"];
-                evento.descripcion = (string)dataReader["descripcion"];
-                evento.total = (decimal)dataReader["montoTotal"];
-                evento.faltante = (decimal)dataReader["montoFaltante"];
-                evento.idDocPago = (int)dataReader["idDocPago"];
+                if (dataReader.Read())
+                {
+                    evento.id = (int)dataReader["idEvento"];
+                    evento.fechaIni = (string)dataReader["fechaIni"];
+                    evento.fechaFin = (string)dataReader["fechaFin"];
+                    evento.usuario = (string)dataReader["usuario"];
+                    evento.tipoDoc = (string)dataReader["tipoDocumento"];
+                    evento.dni = (string)dataReader["nroDocumento"];
+                    evento.nombre = (string)dataReader["nombre"];
+                    evento.descripcion = (string)dataReader["descripcion"];
+                    evento.total = (decimal)dataReader["montoTotal"];
+                    evento.faltante = (decimal)dataReader["montoFaltante"];
+                    evento.idDocPago = (int)dataReader["idDocPago"];
+                }
+
+                dataReader.Close();
+
+                evento.listaDetalle = ListaDetalle(evento.idDocPago);
+
+                for (int i = 0; i < evento.listaDetalle.Count; i++)
+                    evento.subTotal += evento.listaDetalle.ElementAt(i).total;
+
+                evento.igv = evento.subTotal * 18 / 100;
+                evento.total = evento.igv + evento.subTotal;
+
+                evento.montPagado = evento.total - evento.faltante;
+
+                sqlCon.Close();
+
+                evento.me = "";
             }
-
-            dataReader.Close();
-
-            evento.listaDetalle = ListaDetalle(evento.idDocPago);
-
-            for (int i = 0; i < evento.listaDetalle.Count; i++)
-                evento.subTotal += evento.listaDetalle.ElementAt(i).total;
-
-            evento.igv = evento.subTotal * 18 / 100;
-            evento.total = evento.igv + evento.subTotal;
-
-            evento.montPagado = evento.total - evento.faltante;
-
-            sqlCon.Close();
+            catch (Exception e)
+            {
+                evento.me = "Error al leer datos : " + e.ToString();
+            }
 
             return evento;
         }
