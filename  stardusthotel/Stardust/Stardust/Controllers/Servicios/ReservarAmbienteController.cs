@@ -39,14 +39,29 @@ namespace Stardust.Controllers.Servicios
             return Json(mensaje);
         }
 
-        public ActionResult CheckInAmbiente()
+        [HttpPost]
+        public JsonResult CheckIn(int idEvento)
         {
-            return View();
+            return Json(ambienteFacade.CheckIn(idEvento));
         }
 
-        public ActionResult CheckOutAmbiente()
+        [HttpPost]
+        public JsonResult RegistrarCheckin(int idEvento)
         {
-            return View();
+            MensajeBean mensaje = ambienteFacade.RegistrarCheckIn(idEvento);
+            return Json(mensaje);
+        }
+
+        [HttpPost]
+        public JsonResult CheckOut(int idEvento)
+        {
+            return Json(ambienteFacade.GetEvento(idEvento));
+        }
+
+        [HttpPost]
+        public JsonResult RegistrarCheckOut(int idEvento)
+        {
+            return Json(ambienteFacade.CheckOut(idEvento));
         }
     }
 }
