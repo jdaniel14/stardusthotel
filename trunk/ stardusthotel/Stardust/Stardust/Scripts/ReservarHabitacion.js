@@ -1,5 +1,5 @@
 ﻿var siloEs;
-
+var correito = "";
 var arreglosId = new Array();
 var arreglosHabit = new Array();
 var SendHotel;

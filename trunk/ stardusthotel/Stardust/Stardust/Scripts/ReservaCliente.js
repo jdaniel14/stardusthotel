@@ -111,11 +111,11 @@ function recibeMails(data) {
         $("#opcionR").show("slow");
 
         $("#opcionT").hide();
-
+        correito = "";
         idUser = "";
     }
     else {
-
+        correito = data.email;
         idUser = data.idUsuario;
 
         $("#opcionT").show("slow");

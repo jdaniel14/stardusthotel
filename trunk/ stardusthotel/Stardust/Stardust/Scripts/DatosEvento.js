@@ -1,6 +1,6 @@
 ﻿var registrar;
 var idUser;
-var correito;
+var correito = "";
 var doc = $(document);
 doc.ready(asignarListeners);
 
@@ -99,6 +99,7 @@ function recibeMails(data) {
         $("#opcionR").show("slow");
         idUser = "";
         $("#opcionT").hide();
+        correito = "";
     }
     else {
 
