@@ -15,6 +15,8 @@ namespace Stardust.Models.Servicios
         public ClienteReservaBean client { get; set; }
         public List<AmbienteBean> listAmbi { get; set; }
         public EventoResBean evento { get; set; }
-        public String pass { get; set; }
+        public String pass { get; set; }               
+        public int idUsuario { get; set; }
+        public int tipoRegistro { get; set; }
     }
 }

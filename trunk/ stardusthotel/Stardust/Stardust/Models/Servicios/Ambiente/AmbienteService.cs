@@ -96,13 +96,33 @@ namespace Stardust.Models
             bool result;
             ReservaHabitacionDAO reservaHabitacionDAO = new ReservaHabitacionDAO();
 
-            UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(registro.client, registro.pass); // 0=> hubo error ; 1 => natural; 2 => juridico
-            result = usuarioRes.me.Equals("");
-            if (!result)
+            //UsuarioResBean usuarioRes = reservaHabitacionDAO.registraCliente(registro.client, registro.pass); // 0=> hubo error ; 1 => natural; 2 => juridico
+
+
+            UsuarioResBean usuarioRes = new UsuarioResBean();
+            System.Diagnostics.Debug.WriteLine("FLAG : " + registro.tipoRegistro);
+            if (registro.tipoRegistro == 0)
             {
-                mensaje.me = usuarioRes.me;
-                return mensaje;
+                usuarioRes = reservaHabitacionDAO.registraCliente(registro.client, registro.pass); // 0=> hubo error ; 1 => natural; 2 => juridico    
+                result = usuarioRes.me.Equals("");
+                if (!result)
+                {
+                    mensaje.me = usuarioRes.me;
+                    return mensaje;
+                }
             }
+            else
+            {
+                usuarioRes.idUsuario = registro.idUsuario;
+                usuarioRes.tipoDocumento = registro.client.tipoDoc;
+            }
+
+            //result = usuarioRes.me.Equals("");
+            //if (!result)
+            //{
+            //    mensaje.me = usuarioRes.me;
+            //    return mensaje;
+            //}
             
             //registrar Evento
 
