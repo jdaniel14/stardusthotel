@@ -17,12 +17,12 @@
 </script>
 <br />
 
-@if (Html.ValidationSummary() != null)
+@*@if (Html.ValidationSummary() != null)
 {
 <div class="nNote nWarning hideit">
     <p>@Html.ValidationSummary()</p>
 </div>
-}
+}*@
 
 @using (Html.BeginForm("Create", "Usuario", FormMethod.Post, new { @class = "form" } ))
 {
