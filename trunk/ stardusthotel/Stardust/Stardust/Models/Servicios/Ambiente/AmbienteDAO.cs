@@ -799,7 +799,7 @@ namespace Stardust.Models
             return listaDetalle;
         }
 
-        public MensajeBean CheckOut(int id, decimal monto)
+        public MensajeBean CheckOut(int id)
         {
             MensajeBean mensaje = new MensajeBean();
 
@@ -844,15 +844,12 @@ namespace Stardust.Models
                 return mensaje;
             }
 
-            Evento evento = GetEvento(id);
-
-            if (evento.total < monto)
-                monto = evento.total;    
+            Evento evento = GetEvento(id);    
 
             if(evento.tipoDoc.Equals("DNI"))
-                queryIns = "INSERT Pagos VALUES ( "+evento.total+" , NULL , GETDATE() , "+evento.idDocPago+" , 'BOLETA' )";
+                queryIns = "INSERT Pagos VALUES ( "+evento.faltante+" , NULL , GETDATE() , "+evento.idDocPago+" , 'BOLETA' )";
             else
-                queryIns = "INSERT Pagos VALUES ( " + evento.total + " , NULL , GETDATE() , " + evento.idDocPago + " , 'FACTURA' )";
+                queryIns = "INSERT Pagos VALUES ( " + evento.faltante + " , NULL , GETDATE() , " + evento.idDocPago + " , 'FACTURA' )";
 
             SqlCommand sqlCmd3 = new SqlCommand(queryIns, sqlCon);
 
