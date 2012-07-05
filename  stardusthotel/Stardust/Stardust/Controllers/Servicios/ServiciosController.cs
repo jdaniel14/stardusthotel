@@ -326,7 +326,8 @@ namespace Stardust.Controllers
 
         [HttpPost]
         public JsonResult AsignarServicioReserva(ServicioAsignBean request)
-        {            
+        {
+            System.Diagnostics.Debug.WriteLine("PRIMERA VEZ");
             MensajeBean mensaje = servicioFacade.asignarServicios(request.idSer, request.nroRes,  request.monto, request.flagTipo, request.idHotel, request.nombServ);
             return Json(mensaje);
         }
