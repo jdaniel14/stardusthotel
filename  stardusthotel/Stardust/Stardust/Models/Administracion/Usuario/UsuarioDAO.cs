@@ -5,12 +5,13 @@ using System.Web;
 using System.Configuration;
 using System.Data.SqlClient;
 using log4net;
+using System.Web.Configuration;
 
 namespace Stardust.Models
 {
     public class UsuarioDAO
     {
-        String cadenaDB = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+        String cadenaDB = WebConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
         private static ILog log = LogManager.GetLogger(typeof(UsuarioDAO));
 
         public UsuarioBean getLogin(string user, string pass) {
@@ -373,19 +374,19 @@ namespace Stardust.Models
                                     "WHERE idUsuario = @idUsuario";
                 SqlCommand query = new SqlCommand(command, sql);
 
-                Utils.agregarParametro(query, "idPerfilUsuario", usuario.idPerfilUsuario);
-                Utils.agregarParametro(query, "nombres", usuario.nombres);
-                Utils.agregarParametro(query, "apPat", usuario.apPat);
-                Utils.agregarParametro(query, "apMat", usuario.apMat);
-                Utils.agregarParametro(query, "email", usuario.email);
-                Utils.agregarParametro(query, "celular", usuario.celular);
-                Utils.agregarParametro(query, "tipoDocumento", usuario.tipoDocumento);
-                Utils.agregarParametro(query, "nroDocumento", usuario.nroDocumento);
-                Utils.agregarParametro(query, "razonSocial", usuario.razonSocial);
-                Utils.agregarParametro(query, "idUsuario", usuario.ID);
-                Utils.agregarParametro(query, "idDistrito", usuario.idDistrito);
-                Utils.agregarParametro(query, "idProvincia", usuario.idProvincia);
-                Utils.agregarParametro(query, "idDepartamento", usuario.idDepartamento);
+                Utils.agregarParametro(query, "@idPerfilUsuario", usuario.idPerfilUsuario);
+                Utils.agregarParametro(query, "@nombres", usuario.nombres);
+                Utils.agregarParametro(query, "@apPat", usuario.apPat);
+                Utils.agregarParametro(query, "@apMat", usuario.apMat);
+                Utils.agregarParametro(query, "@email", usuario.email);
+                Utils.agregarParametro(query, "@celular", usuario.celular);
+                Utils.agregarParametro(query, "@tipoDocumento", usuario.tipoDocumento);
+                Utils.agregarParametro(query, "@nroDocumento", usuario.nroDocumento);
+                Utils.agregarParametro(query, "@razonSocial", usuario.razonSocial);
+                Utils.agregarParametro(query, "@idUsuario", usuario.ID);
+                Utils.agregarParametro(query, "@idDistrito", usuario.idDistrito);
+                Utils.agregarParametro(query, "@idProvincia", usuario.idProvincia);
+                Utils.agregarParametro(query, "@idDepartamento", usuario.idDepartamento);
 
                 query.ExecuteNonQuery();
 
@@ -393,6 +394,7 @@ namespace Stardust.Models
             }
             catch (Exception e) {
                 log.Error("actualizarUsuario(EXCEPTION): " + e);
+                throw e;
             }
             finally {
                 if (sql != null) sql.Close();

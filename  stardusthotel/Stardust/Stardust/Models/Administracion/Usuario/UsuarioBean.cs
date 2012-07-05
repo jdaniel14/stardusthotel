@@ -13,7 +13,6 @@ namespace Stardust.Models
 
     public class UsuarioViewModelList
     {
-        [Key]
         public int ID { get; set; }
         public string user_account { get; set; }
         public string email { get; set; }
@@ -154,6 +153,70 @@ namespace Stardust.Models
         public List<TipoDocumento> Documentos { get; set; }
     }
 
+    public class UsuarioViewModelEdit
+    {
+        public int ID { get; set; }
+
+        [Display(Name = "Perfil Usuario")]
+        [Required(ErrorMessage = "Debe ingresar un perfil al usuario")]
+        public int idPerfilUsuario { get; set; }
+
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Debe ingresar su nombre")]
+        [MaxLength(50, ErrorMessage = "El nombre no debe sobrepasar los 50 caracteres")]
+        public string nombres { get; set; }
+
+        [Display(Name = "Apellido Paterno")]
+        [Required(ErrorMessage = "Debe ingresar su apellido paterno")]
+        [MaxLength(50, ErrorMessage = "El apellido paterno no debe sobrepasar los 50 caracteres")]
+        public string apPat { get; set; }
+
+        [Display(Name = "Apellido Materno")]
+        [MaxLength(50, ErrorMessage = "El apellido materno no debe sobrepasar los 50 caracteres")]
+        public string apMat { get; set; }
+
+        [Display(Name = "E-mail")]
+        [Remote("ValidaEmail", "Validation")]
+        public string email { get; set; }
+
+        [Display(Name = "Teléfono")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "El valor ingresado debe tener la sintaxis de un telefóno")]
+        public string celular { get; set; }
+
+        [Display(Name = "Tipo de documento")]
+        public string tipoDocumento { get; set; }
+
+        [Display(Name = "Nro. de Documento")]
+        [StringLength(12, ErrorMessage = "El nro de documento no debe sobrepasar 12 digitos")]
+        public string nroDocumento { get; set; }
+
+        [Display(Name = "Razón Social")]
+        [StringLength(50, ErrorMessage = "La razón social no debe sobrepasar los 50 caracteres")]
+        public string razonSocial { get; set; }
+
+        [Display(Name = "Dirección")]
+        [StringLength(100, ErrorMessage = "La razón social no debe sobrepasar los 100 caracteres")]
+        public string direccion { get; set; }
+
+        [Display(Name = "Departamento")]
+        [Required(ErrorMessage = "Debe elegir un departamento")]
+        public int idDepartamento { get; set; }
+
+        [Display(Name = "Provincia")]
+        [Required(ErrorMessage = "Debe elegir un provincia")]
+        public int idProvincia { get; set; }
+
+        [Display(Name = "Distrito")]
+        [Required(ErrorMessage = "Debe elegir un distrito")]
+        public int idDistrito { get; set; }
+
+        public List<PerfilUsuarioBean> PerfilesUsuario { get; set; }
+        public List<Departamento> Departamentos { get; set; }
+        public List<Provincia> Provincias { get; set; }
+        public List<Distrito> Distritos { get; set; }
+        public List<TipoDocumento> Documentos { get; set; }
+    }
+
     public class UsuarioBean
     {
         [Key]
@@ -215,17 +278,17 @@ namespace Stardust.Models
         [Required(ErrorMessage = "Debe ingresar dirección")]
         public string direccion { get; set; }
 
-        [Display(Name = "Distrito")]
-        [Required(ErrorMessage = "Debe elegir un distrito")]
-        public int idDistrito { get; set; }
-
+        [Display(Name = "Departamento")]
+        [Required(ErrorMessage = "Debe elegir un departamento")]
+        public int idDepartamento { get; set; }
+        
         [Display(Name = "Provincia")]
         [Required(ErrorMessage = "Debe elegir una provincia")]
         public int idProvincia { get; set; }
 
-        [Display(Name = "Departamento")]
-        [Required(ErrorMessage = "Debe elegir un departamento")]
-        public int idDepartamento { get; set; }
+        [Display(Name = "Distrito")]
+        [Required(ErrorMessage = "Debe elegir un distrito")]
+        public int idDistrito { get; set; }
 
         public string estado { get; set; }
 
