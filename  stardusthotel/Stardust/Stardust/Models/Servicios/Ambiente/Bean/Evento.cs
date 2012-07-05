@@ -16,9 +16,9 @@ namespace Stardust.Models
         public string hotel { get; set; }
         public string dni { get; set; }
         public string tipoDoc { get; set; }
-        public decimal montoFaltante { get; set; }
-        public decimal montoPagado { get; set; }
-        public decimal montoTotal { get; set; }
+        public decimal faltante { get; set; }
+        public decimal montPagado { get; set; }
+        public decimal total { get; set; }
         public decimal igv { get; set; }
         public decimal subTotal { get; set; } 
         public int idDocPago { get; set; }
