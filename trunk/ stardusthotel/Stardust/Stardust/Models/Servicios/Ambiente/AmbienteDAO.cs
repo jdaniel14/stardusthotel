@@ -576,7 +576,7 @@ namespace Stardust.Models
             {
                 int amb = lista[i].id;
                 String query = "INSERT INTO AmbienteXEvento VALUES (" + idEvento + "," + amb + ",convert(date,'" + fechaIni + "',103),convert(date,'" + fechaFin + "', 103),1, "+ idHotel+")";
-                System.Diagnostics.Debug.WriteLine("query--> " + query);
+                System.Diagnostics.Debug.WriteLine("query FRANCISCO BUG CREO--> " + query);
                 SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
                 try
                 {
