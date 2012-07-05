@@ -819,6 +819,65 @@ namespace Stardust.Models
             return evento;
         }
 
+        public Evento GetEvento2(int id)
+        {
+            Evento evento = new Evento();
+
+            try
+            {
+                String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
+
+                SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
+
+                sqlCon.Open();
+
+                string commandString = "SELECT e.idEvento as idEvento , e.fechaIni as fechaIni , e.fechaFin as fechaFin , u.tipoDocumento as tipoDocumento , u.nroDocumento as nroDocumento " +
+                    ", e.nombre as nombre , e.descripcion as descripcion , p.montoTotal as montoTotal , p.montoFaltante as montoFaltante"
+                + " , u.nombres as usuario , h.nombre as hotel , p.idDocPago as idDocPago  FROM Evento e , DocumentoPago p , Hotel h , Usuario u" +
+                " WHERE e.estado = 4 AND e.idEvento = " + id + " AND e.idCliente = u.idUsuario AND e.idHotel = h.idHotel AND e.idEvento = p.idEvento ";
+
+                SqlCommand sqlCmd = new SqlCommand(commandString, sqlCon);
+                SqlDataReader dataReader = sqlCmd.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    evento.id = (int)dataReader["idEvento"];
+                    evento.fechaIni = (string)dataReader["fechaIni"];
+                    evento.fechaFin = (string)dataReader["fechaFin"];
+                    evento.usuario = (string)dataReader["usuario"];
+                    evento.tipoDoc = (string)dataReader["tipoDocumento"];
+                    evento.dni = (string)dataReader["nroDocumento"];
+                    evento.nombre = (string)dataReader["nombre"];
+                    evento.descripcion = (string)dataReader["descripcion"];
+                    evento.total = (decimal)dataReader["montoTotal"];
+                    evento.faltante = (decimal)dataReader["montoFaltante"];
+                    evento.idDocPago = (int)dataReader["idDocPago"];
+                }
+
+                dataReader.Close();
+
+                evento.listaDetalle = ListaDetalle(evento.idDocPago);
+
+                for (int i = 0; i < evento.listaDetalle.Count; i++)
+                    evento.subTotal += evento.listaDetalle.ElementAt(i).total;
+
+                evento.igv = evento.subTotal * 18 / 100;
+                evento.total = evento.igv + evento.subTotal;
+
+                evento.montPagado = evento.total - evento.faltante;
+
+                sqlCon.Close();
+
+                evento.me = "";
+            }
+            catch (Exception e)
+            {
+                evento.me = "Error al leer datos : " + e.ToString();
+            }
+
+            return evento;
+        }
+
         public List<EventoDetalle> ListaDetalle(int idDoc)
         {
             List<EventoDetalle> listaDetalle = new List<EventoDetalle>();
@@ -852,6 +911,8 @@ namespace Stardust.Models
             MensajeBean mensaje = new MensajeBean();
 
             Evento evento = GetEvento(id);
+
+            mensaje.id = evento.id;
 
             String cadenaConfiguracion = ConfigurationManager.ConnectionStrings["CadenaHotelDB"].ConnectionString;
             SqlConnection sqlCon = new SqlConnection(cadenaConfiguracion);
@@ -908,6 +969,20 @@ namespace Stardust.Models
             catch (Exception e)
             {
                 mensaje.me = "Error al actualizar el Documento de Pago: " + e.Message;
+                return mensaje;
+            }
+
+            queryIns = "UPDATE AmbienteXEvento SET estado = 4 WHERE idEvento = " + id;
+
+            SqlCommand sqlCmd4 = new SqlCommand(queryIns, sqlCon);
+
+            try
+            {
+                sqlCmd4.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                mensaje.me = "Error al actualizar el ambiente: " + e.Message;
                 return mensaje;
             }
 
