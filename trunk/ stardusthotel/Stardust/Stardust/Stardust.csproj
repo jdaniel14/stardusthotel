@@ -1611,6 +1611,7 @@
     <Content Include="Scripts\ReservaFinal.js" />
     <Content Include="Scripts\ReservarAmbiente.js" />
     <Content Include="Scripts\ReservarHabitacion.js" />
+    <Content Include="Scripts\TimePicker.js" />
     <Content Include="Scripts\Ubigeo.js" />
     <Content Include="Scripts\Validaciones.js" />
     <Content Include="Scripts\Validaciones.js" />
@@ -4580,6 +4581,10 @@
     <Content Include="Views\AsignarServicios\ModificarServicios.cshtml" />
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\PagoClientes\Ambiente.cshtml" />
+    <Content Include="Views\ReservarAmbiente\CheckInAmbiente.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\ReservarAmbiente\CheckOutAmbiente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PdfReportGenerator\PdfReportGenerator.csproj">
