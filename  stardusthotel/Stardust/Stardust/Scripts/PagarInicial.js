@@ -96,7 +96,7 @@ function alcohol() {
     var fff = parseFloat($("#monto").text());
 
 
-    if (mmm > fff) {
+    if (mmm >= fff) {
 
         var documento = $("#nDoc").get(0).value;
         var idReserva = $("#nReserva").get(0).value;

@@ -209,9 +209,9 @@ function cancelarReserva() {
         var res = $("#nroReserva").get(0).value;
 
         var ReservaEliminar = {
-           idReserva: res,
-           idHotel:SendHotel
-       }
+            idReserva: res,
+            idHotel: SendHotel
+        }
 
         var jsonData = JSON.stringify(ReservaEliminar);
         console.log(jsonData);
@@ -226,7 +226,8 @@ function cancelarReserva() {
         });
 
 
-    }    
+    }
+    
 }
 
 function waitEliminar() {
@@ -234,16 +235,9 @@ function waitEliminar() {
 
 function eliminadoReserva(data) {
     $("#espera").dialog("destroy");
+    //alert("fin");
     console.log(data.me);
 
-    if (data.me == "") {
-
-        console.log("se hizo");
-        mostrarConfirmacionFinal('Reservar realizada ^_^!');
-        $(location).attr('href', '../');
-    }
-    else {
-        mostrarConfirmacionFinal(data.me);
-    }
+    mostrarConfirmacionFinal(data.me);
     
 }
