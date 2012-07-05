@@ -38,9 +38,10 @@ function inicioEnvio() {
     mostrarEspera();
 }
 
-function FinEnvio() {
+function FinEnvio(data) {
     $("#espera").dialog("destroy");
     console.log(data.me);
+    //alert();
 
     if (data.me == "") {
 
@@ -49,7 +50,7 @@ function FinEnvio() {
         mostrarConfirmacionFinal('Realizada ^^');
     }
     else {
-        mostrarConfirmacionFinal(data.me);
+        mostrarError(data.me);
 
     }
 }
